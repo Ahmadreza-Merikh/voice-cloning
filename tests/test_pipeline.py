@@ -138,13 +138,36 @@ class TestTextPipeline:
 
 
 class TestG2PBridge:
+    """The GE2PE symbol table, pinned against real model output.
+
+    Each expectation below was produced by running the actual G2P model; the
+    counter-intuitive ones (`j`, `c`, `$`, `;`) are exactly the mappings that
+    are easy to get wrong and silently mispronounce.
+    """
+
     def test_compact_to_ipa_vowels(self) -> None:
         # GE2PE writes the long back vowel as `a` and the short one as `/`.
-        assert compact_word_to_ipa("ab") == "ɒ b"
+        assert compact_word_to_ipa("ab") == "ɒ b"      # آب
         assert compact_word_to_ipa("/b") == "æ b"
 
-    def test_digraphs(self) -> None:
-        assert compact_word_to_ipa("sham") == "ʃ æ m".replace("æ", "ɒ") or True
+    @pytest.mark.parametrize(
+        ("compact", "expected", "word"),
+        [
+            ("$ekoft", "ʃ e k o f t", "شکفت"),
+            (";ale", "ʒ ɒ l e", "ژاله"),
+            ("jan", "dʒ ɒ n", "جان"),      # `j` is ج, not the glide
+            ("yar", "j ɒ r", "یار"),        # the glide is `y`
+            ("cay", "tʃ ɒ j", "چای"),       # `c` is چ, not /k/
+            ("q/nd", "q æ n d", "قند"),
+            ("@absb", "ɒ b s b", "alef onset is dropped"),
+            ("ketabe", "k e t ɒ b e", "کتابِ (ezafe already in GE2PE output)"),
+        ],
+    )
+    def test_verified_symbol_table(self, compact: str, expected: str, word: str) -> None:
+        assert compact_word_to_ipa(compact) == expected, word
+
+    def test_latin_digraphs_still_work(self) -> None:
+        # For hand-written romanisation fed in directly.
         assert "ʃ" in compact_word_to_ipa("sh")
         assert "tʃ" in compact_word_to_ipa("ch")
         assert "x" in compact_word_to_ipa("kh")

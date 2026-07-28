@@ -109,9 +109,13 @@ def _preprocess_overrides(args: argparse.Namespace) -> dict[str, object]:
     return overrides
 
 
-def _apply_phoneme_flag(studio: object, args: argparse.Namespace, engine: str) -> None:
-    pipeline = studio.text_pipeline  # type: ignore[attr-defined]
-    pipeline.config.g2p.apply_to_engines = [] if getattr(args, "no_phonemes", False) else [engine]
+def _phoneme_preference(args: argparse.Namespace) -> bool | None:
+    """``False`` when --no-phonemes was passed, otherwise the config default.
+
+    Never forces phonemes *on*: whether an engine can accept IPA is a property
+    of the engine, resolved inside the Studio.
+    """
+    return False if getattr(args, "no_phonemes", False) else None
 
 
 # --------------------------------------------------------------------------
@@ -123,7 +127,6 @@ def command_tts(args: argparse.Namespace) -> int:
     config = _build_config(args)
     studio = Studio(config)
     engine = (args.engine or config.engines.tts).lower()
-    _apply_phoneme_flag(studio, args, engine)
 
     result = studio.synthesize(
         _read_text_argument(args.text),
@@ -134,6 +137,7 @@ def command_tts(args: argparse.Namespace) -> int:
         seed=args.seed or None,
         output_path=args.output,
         preprocess_overrides=_preprocess_overrides(args),
+        use_phonemes=_phoneme_preference(args),
     )
 
     if args.json:
@@ -150,7 +154,6 @@ def command_s2s(args: argparse.Namespace) -> int:
     config = _build_config(args)
     studio = Studio(config)
     engine = (args.engine or config.engines.tts).lower()
-    _apply_phoneme_flag(studio, args, engine)
 
     result = studio.convert(
         args.source,
@@ -162,6 +165,7 @@ def command_s2s(args: argparse.Namespace) -> int:
         source_text=args.source_text,
         output_path=args.output,
         preprocess_overrides=_preprocess_overrides(args),
+        use_phonemes=_phoneme_preference(args),
     )
 
     if args.json:

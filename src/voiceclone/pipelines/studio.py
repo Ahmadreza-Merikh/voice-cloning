@@ -161,12 +161,17 @@ class Studio:
         progress: Callable[[float, str], None] | None = None,
         preprocess_overrides: dict[str, Any] | None = None,
         engine_options: dict[str, Any] | None = None,
+        use_phonemes: bool | None = None,
     ) -> CloneResult:
         """Clone ``reference`` and make it say ``text``.
 
         ``engine_options`` is forwarded verbatim to the engine (``nfe_step``,
         ``cfg_strength``, ...), which lets the UI apply quality presets
         without mutating shared configuration.
+
+        ``use_phonemes`` requests IPA input; it is always intersected with the
+        engine's declared capability, because handing IPA to a grapheme
+        tokenizer produces confident nonsense rather than an error.
         """
         report = progress if isinstance(progress, ProgressReporter) else ProgressReporter(progress)
         timings: dict[str, float] = {}
@@ -202,8 +207,22 @@ class Studio:
 
         # -- text ----------------------------------------------------------
         report(0.12, "Preparing text")
+        wants_phonemes = (
+            self.text_pipeline.should_use_phonemes(engine_name)
+            if use_phonemes is None
+            else bool(use_phonemes)
+        )
+        if wants_phonemes and not tts.capabilities.accepts_phonemes:
+            log.info(
+                "%s reads graphemes, not phonemes; sending Persian script instead.",
+                tts.display_name,
+            )
+            wants_phonemes = False
+
         with _stopwatch(timings, "text"):
-            prepared = self.text_pipeline.prepare(text, engine_name=engine_name)
+            prepared = self.text_pipeline.prepare(
+                text, engine_name=engine_name, use_phonemes=wants_phonemes
+            )
 
         if not prepared.chunks:
             raise SynthesisError("There is nothing to synthesise after normalisation.")
@@ -290,6 +309,7 @@ class Studio:
         progress: Callable[[float, str], None] | None = None,
         preprocess_overrides: dict[str, Any] | None = None,
         engine_options: dict[str, Any] | None = None,
+        use_phonemes: bool | None = None,
     ) -> CloneResult:
         """Re-voice ``source`` audio with the timbre of ``reference``.
 
@@ -316,6 +336,7 @@ class Studio:
                 progress=report,
                 preprocess_overrides=preprocess_overrides,
                 engine_options=engine_options,
+                use_phonemes=use_phonemes,
             )
         return self._convert_direct(
             source,
@@ -341,6 +362,7 @@ class Studio:
         progress: ProgressReporter,
         preprocess_overrides: dict[str, Any] | None,
         engine_options: dict[str, Any] | None = None,
+        use_phonemes: bool | None = None,
     ) -> CloneResult:
         timings: dict[str, float] = {}
 
@@ -369,6 +391,7 @@ class Studio:
             progress=progress,
             preprocess_overrides=preprocess_overrides,
             engine_options=engine_options,
+            use_phonemes=use_phonemes,
         )
         clone.mode = "s2s-cascade"
         clone.source_transcript = transcript

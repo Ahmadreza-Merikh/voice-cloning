@@ -31,17 +31,32 @@ from .normalize_fa import normalize_for_g2p
 
 log = get_logger("text.g2p")
 
-#: Marker the G2P emits for the Kasra-e-Ezafe (a short /e/ binding two words).
+#: Marker the flat G2P API emits for the Kasra-e-Ezafe (a short /e/).
 EZAFE_TOKEN = "ezafe"
 
 # --------------------------------------------------------------------------
 # GE2PE compact romanisation -> IPA
 # --------------------------------------------------------------------------
-#  GE2PE writes a compact ASCII romanisation. Multi-character sequences must
-#  be matched before single characters.
+#  GE2PE emits a compact ASCII romanisation with several non-obvious symbol
+#  choices. This table was verified empirically against the model rather than
+#  assumed, because three of the mappings are counter-intuitive:
+#
+#      شکفت -> $ekoft      $ is ش  /ʃ/      (not a literal dollar sign)
+#      ژاله -> ;ale        ; is ژ  /ʒ/
+#      جان  -> jan         j is ج  /dʒ/     (NOT the palatal glide)
+#      یار  -> yar         y is ی  /j/      (the glide is `y`)
+#      چای  -> cay         c is چ  /tʃ/     (not /k/)
+#      آب   -> @ab         @ marks an alef onset; not a phoneme
+#      اسب  -> @/sb        / is the short vowel æ
+#      قند  -> q/nd        ق and غ both collapse to q
+#
+#  Getting `j` or `c` wrong turns جان into "yân" and چای into "kâi", so these
+#  are load-bearing.
 COMPACT_DIGRAPHS: tuple[tuple[str, str], ...] = (
     ("tʃ", "tʃ"),
     ("dʒ", "dʒ"),
+    # Latin digraphs, for hand-written romanisation fed in directly. GE2PE
+    # itself uses the single-character forms above.
     ("ch", "tʃ"),
     ("zh", "ʒ"),
     ("sh", "ʃ"),
@@ -55,12 +70,16 @@ COMPACT_TO_IPA: dict[str, str] = {
     "b": "b", "p": "p", "t": "t", "d": "d", "k": "k", "g": "g",
     "q": "q", "f": "f", "v": "v", "w": "v", "s": "s", "z": "z",
     "x": "x", "h": "h", "m": "m", "n": "n", "l": "l", "r": "r",
-    "j": "j", "y": "j", "c": "k",
+    "$": "ʃ",    # ش
+    ";": "ʒ",    # ژ
+    "j": "dʒ",   # ج
+    "c": "tʃ",   # چ
+    "y": "j",    # ی (the glide)
     "'": "ʔ", "ʔ": "ʔ",
     "ʃ": "ʃ", "ʒ": "ʒ", "ɣ": "ɣ",
     # -- vowels ------------------------------------------------------------
-    # GE2PE uses `a` for the long back vowel (آب) and `/` for the short one
-    # (اَسب). Rendering them as ɒ / æ is what makes the IPA correct Persian
+    # GE2PE writes the long back vowel (آب) as `a` and the short one (اَسب)
+    # as `/`. Rendering them as ɒ / æ is what makes the IPA correct Persian
     # rather than English-flavoured.
     "a": "ɒ",
     "/": "æ",
@@ -71,7 +90,8 @@ COMPACT_TO_IPA: dict[str, str] = {
     "u": "u",
 }
 
-#: Characters GE2PE emits as bookkeeping, not phonemes.
+#: Bookkeeping symbols, not phonemes. `@` marks an alef onset and `1` is a
+#: stress marker; neither is pronounced.
 _COMPACT_NOISE = frozenset("@1. ")
 
 #: Where to look for the Persian G2P research project.
@@ -176,7 +196,6 @@ class PersianG2P:
         self.use_gpu = use_gpu
         self._engine: object | None = None
         self._flat_fn: object | None = None
-        self._ezafe_fn: object | None = None
         self.backend = "unavailable"
         self._load_error: str | None = None
         self._loaded = False
@@ -218,6 +237,8 @@ class PersianG2P:
         try:
             import homo_ge2pe_backend as backend  # type: ignore
 
+            # `use_rules=True` makes GE2PE apply its ezafe rules itself, which
+            # is what the word-aligned path relies on.
             phonemize = backend.build_backend(
                 gpu=self.use_gpu,
                 use_rules=True,
@@ -225,7 +246,6 @@ class PersianG2P:
             )
             self._engine = getattr(phonemize, "engine", None)
             self._flat_fn = phonemize
-            self._ezafe_fn = getattr(backend, "should_insert_ezafe", None)
             self.backend = "homo-ge2pe" if self._engine is not None else "homo-ge2pe (flat)"
             log.info("Persian G2P ready: %s (%s)", self.backend, self.repo_path)
             return True
@@ -288,22 +308,15 @@ class PersianG2P:
         compact_words = raw.split()
         source_words = prepared.split()
 
+        # GE2PE's own rule engine already writes the ezafe vowel into its
+        # output (کتاب من -> "ketabe m/n"), so no second injection pass here:
+        # adding one turns گلِ into "golee".
         words: list[tuple[str, str]] = []
         for index, compact in enumerate(compact_words):
             ipa = compact_word_to_ipa(compact)
             if not ipa:
                 continue
             orth = source_words[index] if index < len(source_words) else ""
-
-            # Ezafe is a short /e/ that attaches to the end of the *previous*
-            # word, so append rather than emit a standalone token.
-            if self.inject_ezafe and self._ezafe_fn is not None and index + 1 < len(source_words):
-                try:
-                    if self._ezafe_fn(source_words[index], source_words[index + 1]):
-                        ipa = f"{ipa} e"
-                except Exception:
-                    log.debug("ezafe heuristic failed for %r", orth, exc_info=True)
-
             words.append((orth, ipa))
 
         phonemes = " ".join(ipa for _, ipa in words)

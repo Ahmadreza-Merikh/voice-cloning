@@ -186,12 +186,7 @@ class VoiceCloneUI:
             raise gr.Error(self.strings["no_text"])
 
         reference = self._resolve_reference(mode, uploaded, saved_slug)
-
-        # The phoneme toggle is a per-request override of the config default.
         studio = self.studio
-        studio.text_pipeline.config.g2p.apply_to_engines = (
-            [engine] if use_phonemes else []
-        )
 
         try:
             result = studio.synthesize(
@@ -206,6 +201,9 @@ class VoiceCloneUI:
                     denoise, separate_vocals, trim_silence, auto_window
                 ),
                 engine_options=self._engine_options(preset, engine),
+                # Requesting phonemes is a preference; the Studio still checks
+                # whether this engine can actually read them.
+                use_phonemes=bool(use_phonemes),
             )
         except VoiceCloneError as exc:
             raise gr.Error(str(exc)) from exc
@@ -240,10 +238,7 @@ class VoiceCloneUI:
             raise gr.Error(self.strings["no_source"])
 
         reference = self._resolve_reference(mode, uploaded, saved_slug)
-
         studio = self.studio
-        studio.text_pipeline.config.g2p.apply_to_engines = [engine] if use_phonemes else []
-
         target_engine = engine if conversion_mode == "cascade" else conversion_mode
 
         try:
@@ -260,6 +255,7 @@ class VoiceCloneUI:
                     denoise, separate_vocals, trim_silence, auto_window
                 ),
                 engine_options=self._engine_options(preset, target_engine),
+                use_phonemes=bool(use_phonemes),
             )
         except VoiceCloneError as exc:
             raise gr.Error(str(exc)) from exc

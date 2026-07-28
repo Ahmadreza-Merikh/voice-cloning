@@ -180,9 +180,40 @@ def speaker_similarity(reference: Audio, generated: Audio) -> SimilarityResult |
         return None
 
 
+#: Punctuation to discard before scoring, Persian and Latin.
+_WER_PUNCTUATION = "،؛؟!.:«»\"'()[]{}-–—…,;?"
+
+
+def normalize_for_wer(text: str) -> str:
+    """Strip everything ASR cannot be expected to reproduce.
+
+    Whisper returns unpunctuated text and does not emit ZWNJ, so comparing
+    raw strings scores a *perfect* render at ~35% WER. Levelling both sides
+    first is what makes the number mean "did it say the right words".
+    """
+    import re
+    import unicodedata
+
+    cleaned = unicodedata.normalize("NFC", text or "")
+    # ZWNJ joins parts of one word; ASR writes them as separate words, so
+    # treat it as a space on both sides rather than guessing.
+    cleaned = cleaned.replace("‌", " ")
+    cleaned = "".join(" " if char in _WER_PUNCTUATION else char for char in cleaned)
+    return re.sub(r"\s+", " ", cleaned).strip()
+
+
 def word_error_rate(reference_text: str, hypothesis: str) -> float | None:
-    """WER between the requested text and what ASR heard back."""
+    """WER between the requested text and what ASR heard back.
+
+    Both sides are punctuation- and ZWNJ-normalised first, so the score
+    reflects pronunciation and intelligibility rather than typography.
+    """
     if not reference_text or not hypothesis:
+        return None
+
+    reference_text = normalize_for_wer(reference_text)
+    hypothesis = normalize_for_wer(hypothesis)
+    if not reference_text:
         return None
 
     try:
@@ -213,6 +244,7 @@ __all__ = [
     "SimilarityResult",
     "available_backends",
     "cosine_similarity",
+    "normalize_for_wer",
     "speaker_similarity",
     "word_error_rate",
 ]

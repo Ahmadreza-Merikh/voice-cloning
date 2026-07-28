@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "persian-voice-cloning"
+version = "1.0.0"
+description = "High-fidelity zero-shot voice cloning with first-class Persian pronunciation (TTS + speech-to-speech)"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = { text = "MIT" }
+authors = [{ name = "Ahmadreza" }]
+keywords = ["tts", "voice-cloning", "persian", "farsi", "speech-synthesis", "voice-conversion"]
+
+# Runtime dependencies are tracked in requirements.txt so that the pip
+# workflow stays obvious for non-packaging users. Keep the two in sync.
+dependencies = [
+    "torch>=2.2.0",
+    "torchaudio>=2.2.0",
+    "numpy>=1.26.0,<3.0",
+    "scipy>=1.11.0",
+    "soundfile>=0.12.1",
+    "librosa>=0.10.1",
+    "pyloudnorm>=0.1.1",
+    "noisereduce>=3.0.0",
+    "num2words>=0.5.13",
+    "regex>=2023.10.3",
+    "huggingface-hub>=0.24.0",
+    "safetensors>=0.4.3",
+    "gradio>=5.0.0",
+    "PyYAML>=6.0.1",
+    "tqdm>=4.66.0",
+    "rich>=13.7.0",
+]
+
+[project.optional-dependencies]
+f5 = ["f5-tts>=1.1.0"]
+moss = ["transformers>=5.0.0", "accelerate>=0.33.0"]
+asr = ["faster-whisper>=1.0.3"]
+vad = ["silero-vad>=5.1", "onnxruntime>=1.17.0"]
+denoise = ["deepfilternet>=0.5.6", "demucs>=4.0.1"]
+eval = ["speechbrain>=1.0.0", "resemblyzer>=0.1.1", "jiwer>=3.0.3"]
+dev = ["pytest>=8.0.0", "ruff>=0.5.0"]
+
+[project.scripts]
+voiceclone = "voiceclone.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = [
+    "E501",   # line length is handled by the formatter
+    "B008",   # function calls in argument defaults (Gradio idiom)
+    "SIM108", # ternaries are not always more readable
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: requires model weights or network access",
+    "engine: exercises a real synthesis engine",
+]

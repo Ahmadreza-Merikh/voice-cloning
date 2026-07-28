@@ -1,0 +1,187 @@
+# ============================================================================
+#  Persian Voice Cloning Studio - default configuration
+# ----------------------------------------------------------------------------
+#  Every value here can be overridden by:
+#    1. a custom YAML passed with --config / VOICECLONE_CONFIG
+#    2. environment variables of the form VOICECLONE__SECTION__KEY
+#       e.g. VOICECLONE__RUNTIME__DEVICE=cpu
+#    3. explicit arguments in the UI / CLI
+#
+#  Defaults are tuned for QUALITY over speed, as the project brief requires.
+# ============================================================================
+
+paths:
+  # Model weights, vocoders and derived caches. Keeps the repo clean.
+  cache_dir: ~/.cache/persian-voice-cloning
+  output_dir: outputs
+  voices_dir: voices
+
+runtime:
+  device: auto              # auto | cuda | mps | cpu
+  dtype: auto               # auto | float32 | float16 | bfloat16
+  seed: 0                   # 0 => a fresh random seed on every run
+  # Cap intra-op threads on CPU. 0 leaves PyTorch's own heuristic alone.
+  num_threads: 0
+  # Apple Silicon: allow ops without an MPS kernel to fall back to CPU
+  # instead of raising. Costs a little speed, avoids hard crashes.
+  mps_fallback: true
+
+audio:
+  # Working sample rate of the synthesis graph. F5-TTS/Vocos operate at 24 kHz;
+  # everything is resampled to this rate internally and back out on save.
+  sample_rate: 24000
+
+  reference:
+    # Zero-shot cloners condition on a short prompt. Too short => unstable
+    # timbre; too long => the model starts copying the prompt's prosody and
+    # (for F5) risks truncation. 8-12 s of clean, continuous speech is ideal.
+    target_seconds: 10.0
+    min_seconds: 3.0
+    max_seconds: 20.0
+    # Automatically pick the highest-quality window of a long recording
+    # instead of blindly taking the first N seconds.
+    auto_select_window: true
+    # Reject a reference outright if measured quality falls below this
+    # 0-100 score, rather than producing a bad clone silently.
+    min_quality_score: 25.0
+
+  preprocess:
+    to_mono: true
+    remove_dc: true
+    highpass_hz: 55.0        # kill rumble/handling noise below speech F0
+    lowpass_hz: null         # null => disabled
+    # Separate the voice from music/background with Demucs before cloning.
+    # Expensive; enable only for references taken from songs or noisy video.
+    separate_vocals: false
+    denoise: auto            # auto | deepfilternet | noisereduce | none
+    denoise_strength: 0.8    # 0..1, applies to the noisereduce backend
+    dereverb: false          # requires the DeepFilterNet backend
+    trim_silence: true
+    vad_backend: auto        # auto | silero | energy | none
+    vad_threshold: 0.5
+    # Collapse pauses longer than this (seconds) inside the reference clip.
+    max_internal_silence: 0.35
+    # Leave a little air around retained speech so words are not clipped.
+    vad_pad_ms: 120
+    loudness_lufs: -23.0     # EBU R128 target for the *reference* prompt
+    peak_dbfs: -1.5
+
+  output:
+    loudness_lufs: -18.0     # slightly hotter for delivery
+    peak_dbfs: -1.0
+    fade_ms: 12              # de-click fades on the final render
+    # Chunked long-form synthesis is stitched with an equal-power crossfade.
+    join_crossfade_ms: 40
+    # Silence inserted between sentences/chunks for natural phrasing.
+    sentence_gap_ms: 180
+    paragraph_gap_ms: 380
+    format: wav              # wav | flac | mp3
+    bit_depth: 24            # for wav/flac
+
+text:
+  language: auto             # auto | fa | en
+  normalize: true
+  expand_numbers: true
+  # Strip bracketed director's notes such as [laughter] before synthesis.
+  strip_bracketed_tags: true
+
+  g2p:
+    # Persian orthography omits short vowels, marks ezafe invisibly and is
+    # full of homographs. Feeding PHONEMES instead of raw script is the single
+    # biggest win for Persian pronunciation accuracy.
+    enabled: auto            # auto (use if available) | true (require) | false
+    # Path to the Homo-GE2PE based Persian G2P project. `auto` searches a few
+    # well-known locations; set explicitly to be safe.
+    repo_path: auto
+    inject_ezafe: true
+    # `ipa`    -> emit IPA, consumed by engines with phoneme input (MOSS-TTS)
+    # `native` -> keep the G2P's own romanisation
+    # `off`    -> pass graphemes straight through
+    output: ipa
+    # Engines whose tokenizer is grapheme-only still benefit from
+    # normalisation but must not receive phonemes.
+    apply_to_engines: [moss]
+
+  chunk:
+    # Long text is split on sentence boundaries and synthesised in pieces so
+    # quality never degrades over a long take.
+    max_chars: 220
+    max_seconds: 22.0
+    # Never split below this, to avoid one-word fragments with odd prosody.
+    min_chars: 24
+
+engines:
+  tts: f5                    # f5 | moss
+  vc: cascade                # cascade | seedvc
+
+  f5:
+    # Persian-finetuned F5-TTS. Grapheme (character) tokenizer covering the
+    # Persian alphabet; fast and light (~330 M params).
+    model_arch: F5TTS_v1_Base
+    checkpoint: hf://Lumos675/F5_TTS_Persian/model_last.pt
+    vocab: hf://Lumos675/F5_TTS_Persian/vocab.txt
+    # Fall back to the multilingual base model if the Persian one is absent.
+    fallback_checkpoint: hf://SWivid/F5-TTS/F5TTS_v1_Base/model_1250000.safetensors
+    vocoder: vocos           # vocos | bigvgan
+    # Quality knobs. nfe_step is the flow-matching ODE budget: higher = better
+    # and slower. 32 is the upstream default; we prefer 48 for fidelity.
+    nfe_step: 48
+    cfg_strength: 2.0
+    sway_sampling_coef: -1.0
+    speed: 1.0
+    # Remove the leading reference audio the model echoes back.
+    cross_fade_duration: 0.15
+
+  moss:
+    # Highest-quality option: official Persian support, zero-shot cloning and
+    # direct IPA phoneme input. 1.7B "Local" fits in ~3.5 GB at bf16.
+    model_id: OpenMOSS-Team/MOSS-TTS-Local-Transformer
+    # Swap for the 8B flagship on a >=24 GB GPU:
+    #   model_id: OpenMOSS-Team/MOSS-TTS
+    temperature: 1.0
+    top_p: 0.95
+    top_k: 50
+    repetition_penalty: 1.1
+    max_new_tokens: 4096
+
+  asr:
+    # Used to auto-transcribe the reference clip (F5-TTS needs the reference
+    # transcript) and to drive the speech-to-speech cascade.
+    backend: faster-whisper  # faster-whisper | transformers
+    model: large-v3-turbo
+    compute_type: auto       # auto | int8 | float16 | float32
+    language: fa
+    beam_size: 5
+    # Whisper hallucinates on silence; VAD-gated decoding suppresses it.
+    vad_filter: true
+
+  seedvc:
+    # True acoustic voice conversion: keeps the source prosody/emotion and
+    # timing, swaps only the timbre. Language-agnostic, so it handles Persian.
+    # Seed-VC pins older transformers/numpy, so it is driven out-of-process
+    # in its own interpreter. Point `python` at that env's binary.
+    repo_path: auto          # auto => look for ~/seed-vc
+    python: auto             # auto => <repo>/.venv/bin/python, else sys.executable
+    diffusion_steps: 50      # quality-first (upstream default is 30)
+    length_adjust: 1.0
+    inference_cfg_rate: 0.7
+    f0_condition: false      # enable for singing / strongly pitched material
+    auto_f0_adjust: false
+    semi_tone_shift: 0
+    timeout_seconds: 900
+
+evaluation:
+  # Objective feedback shown next to every render so quality is measurable,
+  # not guessed. All of it is optional and degrades gracefully.
+  enabled: true
+  speaker_similarity: true   # ECAPA-TDNN / Resemblyzer cosine vs. reference
+  transcribe_check: false    # re-run ASR on the output and report WER/CER
+
+ui:
+  server_name: 127.0.0.1
+  server_port: 7860
+  share: false
+  language: fa               # fa | en - UI chrome language (content is either)
+  theme: soft
+  max_upload_mb: 200
+  show_diagnostics: true

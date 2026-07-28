@@ -1,0 +1,58 @@
+# ============================================================================
+#  Persian Voice Cloning Studio - core runtime requirements
+# ============================================================================
+#  Target: Python 3.11 (3.10-3.12 supported).
+#
+#  Install:
+#      python3.11 -m venv .venv
+#      source .venv/bin/activate
+#      pip install --upgrade pip wheel
+#      pip install -r requirements.txt
+#
+#  This file installs everything needed for the DEFAULT working path:
+#  audio preprocessing + Persian text pipeline + F5-TTS engine + Gradio UI.
+#
+#  Heavier / optional engines (MOSS-TTS, DeepFilterNet, Seed-VC, evaluation
+#  metrics) live in requirements-optional.txt so a first install stays lean.
+# ============================================================================
+
+# ---- Numerics & deep learning -------------------------------------------
+# On Linux/Windows with an NVIDIA GPU install the CUDA build first, e.g.:
+#   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu124
+# On Apple Silicon the default wheel already ships the MPS backend.
+torch>=2.2.0
+torchaudio>=2.2.0
+numpy>=1.26.0,<3.0
+scipy>=1.11.0
+
+# ---- Audio I/O, DSP & analysis ------------------------------------------
+soundfile>=0.12.1          # libsndfile bindings: wav/flac/ogg read+write
+librosa>=0.10.1            # resampling, F0, spectral analysis
+pyloudnorm>=0.1.1          # EBU R128 / ITU-R BS.1770 loudness normalisation
+noisereduce>=3.0.0         # spectral-gating denoiser (portable fallback)
+pydub>=0.25.1              # container handling (mp3/m4a) via ffmpeg
+av>=11.0.0                 # ffmpeg bindings; robust decoding without CLI
+
+# ---- Persian / multilingual text ----------------------------------------
+num2words>=0.5.13          # cardinal & ordinal number verbalisation (fa)
+regex>=2023.10.3           # Unicode-property aware regex for Arabic script
+python-bidi>=0.4.2         # bidirectional text handling for logs/UI previews
+
+# ---- TTS engine: F5-TTS (default, fast path) ----------------------------
+# Pulls in vocos, x-transformers, torchdiffeq, transformers, cached-path.
+f5-tts>=1.1.0
+
+# ---- Speech recognition (speech-to-speech cascade, ref auto-transcribe) --
+faster-whisper>=1.0.3
+
+# ---- Model hub & serialisation ------------------------------------------
+huggingface-hub>=0.24.0
+safetensors>=0.4.3
+
+# ---- Interface -----------------------------------------------------------
+gradio>=5.0.0
+
+# ---- Config, CLI & utilities --------------------------------------------
+PyYAML>=6.0.1
+tqdm>=4.66.0
+rich>=13.7.0

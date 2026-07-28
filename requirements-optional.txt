@@ -1,0 +1,42 @@
+# ============================================================================
+#  Optional extras - install only the blocks you actually want.
+#  Every one of these is lazily imported; the app runs fine without them and
+#  reports each missing capability in the Diagnostics tab.
+#
+#      pip install -r requirements-optional.txt        # all of it
+#  or cherry-pick individual lines.
+# ============================================================================
+
+# ---- MOSS-TTS engine (highest quality Persian + IPA phoneme control) -----
+# 1.7B "Local" variant needs ~3.5 GB in bf16, ~7 GB in fp32.
+# NOTE: MOSS-TTS ships custom modelling code and requires Transformers 5.x.
+#       It conflicts with the transformers pin that f5-tts installs, so give
+#       it its own virtualenv (scripts/setup_env.sh --moss) if you hit a clash.
+transformers>=5.0.0
+accelerate>=0.33.0
+
+# ---- Voice activity detection -------------------------------------------
+# Preferred VAD. Falls back to an energy+ZCR detector when absent.
+silero-vad>=5.1
+onnxruntime>=1.17.0        # silero-vad ONNX backend (much faster than torch)
+
+# ---- Premium denoise / dereverb / source separation ----------------------
+# DeepFilterNet3: best-in-class real-time speech denoiser. Needs a Rust
+# toolchain on some platforms; noisereduce is used automatically if missing.
+deepfilternet>=0.5.6
+# Demucs: isolate a voice from music/background before cloning.
+demucs>=4.0.1
+
+# ---- Objective quality & similarity evaluation ---------------------------
+# Speaker-similarity scoring (ECAPA-TDNN cosine) + intelligibility (WER).
+speechbrain>=1.0.0
+resemblyzer>=0.1.1
+jiwer>=3.0.3
+
+# ---- Persian NLP (better sentence splitting & normalisation) -------------
+# Optional: the built-in normaliser covers the same ground without a hard dep.
+hazm>=0.10.0
+
+# ---- Development ---------------------------------------------------------
+pytest>=8.0.0
+ruff>=0.5.0

@@ -1,0 +1,532 @@
+"""The Studio - one object that owns models and runs both pipelines.
+
+Loading a TTS model takes seconds and gigabytes, so nothing is constructed per
+request: the Studio caches engines, the ASR model and preprocessed references
+for the lifetime of the process. The UI and the CLI both drive this class,
+which keeps behaviour identical between them.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import time
+from collections.abc import Callable
+from contextlib import contextmanager
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+
+from ..audio.io import Audio, load_audio, save_audio
+from ..audio.postprocess import join_chunks, master, strip_reference_leakage
+from ..audio.preprocess import PreprocessResult, preprocess_reference, preprocess_source_audio
+from ..config import AppConfig
+from ..device import DeviceSpec, configure_threads, empty_cache, get_device_spec
+from ..engines import ASREngine, TTSEngine, VCEngine, get_tts_engine, get_vc_engine
+from ..errors import SynthesisError
+from ..logging_utils import ProgressReporter, get_logger
+from ..text.pipeline import TextPipeline
+from .results import CloneResult, QualityScores
+
+log = get_logger("studio")
+
+ReferenceInput = str | Path | Audio | tuple[int, np.ndarray]
+
+
+@contextmanager
+def _stopwatch(timings: dict[str, float], label: str):
+    start = time.perf_counter()
+    try:
+        yield
+    finally:
+        timings[label] = timings.get(label, 0.0) + (time.perf_counter() - start)
+
+
+class Studio:
+    """Model registry, caches and the two synthesis pipelines."""
+
+    def __init__(self, config: AppConfig | None = None, device: DeviceSpec | None = None) -> None:
+        self.config = config or AppConfig.load()
+        self.device = device or get_device_spec(
+            self.config.runtime.device,
+            self.config.runtime.dtype,
+            mps_fallback=self.config.runtime.mps_fallback,
+        )
+        configure_threads(self.config.runtime.num_threads)
+
+        self.text_pipeline = TextPipeline(self.config.text)
+        self._tts_engines: dict[str, TTSEngine] = {}
+        self._vc_engines: dict[str, VCEngine] = {}
+        self._asr: ASREngine | None = None
+        self._reference_cache: dict[str, PreprocessResult] = {}
+        self._transcript_cache: dict[str, str] = {}
+
+        log.info("Studio ready on %s", self.device)
+
+    # ------------------------------------------------------------------
+    # Model access
+    # ------------------------------------------------------------------
+    def tts_engine(self, name: str | None = None) -> TTSEngine:
+        key = (name or self.config.engines.tts).lower()
+        if key not in self._tts_engines:
+            self._tts_engines[key] = get_tts_engine(key, self.config, self.device)
+        return self._tts_engines[key]
+
+    def vc_engine(self, name: str | None = None) -> VCEngine:
+        key = (name or self.config.engines.vc).lower()
+        if key not in self._vc_engines:
+            self._vc_engines[key] = get_vc_engine(key, self.config, self.device)
+        return self._vc_engines[key]
+
+    @property
+    def asr(self) -> ASREngine:
+        if self._asr is None:
+            self._asr = ASREngine(self.config, self.device)
+        return self._asr
+
+    def release(self, keep: str | None = None) -> None:
+        """Unload engines to free memory, optionally keeping one loaded."""
+        for key, engine in list(self._tts_engines.items()):
+            if key != keep:
+                engine.unload()
+                self._tts_engines.pop(key, None)
+        for key, engine in list(self._vc_engines.items()):
+            if key != keep:
+                engine.unload()
+                self._vc_engines.pop(key, None)
+        empty_cache(self.device)
+
+    # ------------------------------------------------------------------
+    # Reference handling
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _cache_key(source: ReferenceInput, extra: str = "") -> str:
+        if isinstance(source, Audio):
+            payload = source.samples.tobytes()
+        elif isinstance(source, tuple):
+            payload = np.asarray(source[1]).tobytes()
+        else:
+            path = Path(str(source))
+            try:
+                stat = path.stat()
+                payload = f"{path}:{stat.st_size}:{stat.st_mtime_ns}".encode()
+            except OSError:
+                payload = str(path).encode()
+        return hashlib.blake2b(payload + extra.encode(), digest_size=16).hexdigest()
+
+    def prepare_reference(
+        self,
+        source: ReferenceInput,
+        *,
+        overrides: dict[str, Any] | None = None,
+        use_cache: bool = True,
+    ) -> PreprocessResult:
+        """Preprocess (and cache) a reference recording."""
+        key = self._cache_key(source, repr(sorted((overrides or {}).items())))
+        if use_cache and key in self._reference_cache:
+            log.debug("Reference cache hit")
+            return self._reference_cache[key]
+
+        result = preprocess_reference(source, self.config.audio, override=overrides)
+        if use_cache:
+            self._reference_cache[key] = result
+        return result
+
+    def transcribe_reference(self, reference: Audio, *, language: str | None = None) -> str:
+        """Transcribe the reference clip, caching per audio content."""
+        key = self._cache_key(reference, f"asr:{language}")
+        if key in self._transcript_cache:
+            return self._transcript_cache[key]
+
+        transcript = self.asr.transcribe(reference, language=language)
+        text = transcript.text.strip()
+        if not transcript.is_confident:
+            log.warning("Reference transcription confidence is low; check it before synthesising.")
+        self._transcript_cache[key] = text
+        return text
+
+    # ------------------------------------------------------------------
+    # Text to speech
+    # ------------------------------------------------------------------
+    def synthesize(
+        self,
+        text: str,
+        reference: ReferenceInput,
+        *,
+        engine: str | None = None,
+        reference_text: str | None = None,
+        speed: float = 1.0,
+        seed: int | None = None,
+        output_path: str | Path | None = None,
+        progress: Callable[[float, str], None] | None = None,
+        preprocess_overrides: dict[str, Any] | None = None,
+        engine_options: dict[str, Any] | None = None,
+    ) -> CloneResult:
+        """Clone ``reference`` and make it say ``text``.
+
+        ``engine_options`` is forwarded verbatim to the engine (``nfe_step``,
+        ``cfg_strength``, ...), which lets the UI apply quality presets
+        without mutating shared configuration.
+        """
+        report = progress if isinstance(progress, ProgressReporter) else ProgressReporter(progress)
+        timings: dict[str, float] = {}
+        warnings: list[str] = []
+
+        engine_name = (engine or self.config.engines.tts).lower()
+        tts = self.tts_engine(engine_name)
+
+        # -- reference -----------------------------------------------------
+        report(0.02, "Analysing reference audio")
+        with _stopwatch(timings, "reference"):
+            reference_result = self.prepare_reference(reference, overrides=preprocess_overrides)
+        warnings.extend(reference_result.report_after.issues)
+
+        # -- reference transcript (F5-TTS needs one) -----------------------
+        resolved_reference_text = (reference_text or "").strip()
+        if tts.capabilities.requires_reference_text and not resolved_reference_text:
+            report(0.08, "Transcribing reference audio")
+            with _stopwatch(timings, "asr"):
+                try:
+                    resolved_reference_text = self.transcribe_reference(reference_result.audio)
+                except Exception as exc:
+                    raise SynthesisError(
+                        f"Could not transcribe the reference clip: {exc}",
+                        hint="Type the reference transcript manually, or install faster-whisper.",
+                    ) from exc
+            if not resolved_reference_text:
+                raise SynthesisError(
+                    "The reference transcript came back empty.",
+                    hint="The clip may contain no clear speech. Try another recording.",
+                )
+            log.info("Reference transcript: %s", resolved_reference_text)
+
+        # -- text ----------------------------------------------------------
+        report(0.12, "Preparing text")
+        with _stopwatch(timings, "text"):
+            prepared = self.text_pipeline.prepare(text, engine_name=engine_name)
+
+        if not prepared.chunks:
+            raise SynthesisError("There is nothing to synthesise after normalisation.")
+
+        # -- synthesis -----------------------------------------------------
+        report(0.15, f"Loading {tts.display_name}")
+        with _stopwatch(timings, "load"):
+            tts.load()
+
+        rendered: list[Audio] = []
+        gaps: list[int] = []
+        used_seed = seed
+
+        with _stopwatch(timings, "synthesis"):
+            for position, chunk in enumerate(prepared.chunks):
+                fraction = 0.2 + 0.7 * (position / max(len(prepared.chunks), 1))
+                report(fraction, f"Synthesising chunk {position + 1}/{len(prepared.chunks)}")
+
+                result = tts.synthesize(
+                    chunk.synth_text,
+                    reference_result.audio,
+                    reference_text=resolved_reference_text or None,
+                    speed=speed,
+                    seed=used_seed,
+                    is_phonemes=bool(chunk.phonemes),
+                    **(engine_options or {}),
+                )
+                # Keep the seed stable across chunks so timbre does not drift.
+                if used_seed is None:
+                    used_seed = result.seed
+
+                rendered.append(strip_reference_leakage(result.audio))
+                gaps.append(chunk.gap_before_ms)
+
+        if not rendered:
+            raise SynthesisError("The engine produced no audio.")
+
+        # -- assemble ------------------------------------------------------
+        report(0.92, "Joining and mastering")
+        with _stopwatch(timings, "postprocess"):
+            output_settings = self.config.audio.output
+            joined = join_chunks(
+                rendered,
+                sample_rate=rendered[0].sample_rate,
+                crossfade_ms=output_settings.join_crossfade_ms,
+                gaps_ms=gaps,
+            )
+            final = master(
+                joined,
+                target_lufs=output_settings.loudness_lufs,
+                peak_dbfs=output_settings.peak_dbfs,
+                fade_ms=output_settings.fade_ms,
+            )
+
+        clone = CloneResult(
+            audio=final,
+            engine=engine_name,
+            mode="tts",
+            seed=used_seed,
+            reference=reference_result,
+            text=prepared,
+            reference_transcript=resolved_reference_text or None,
+            timings=timings,
+            warnings=warnings,
+        )
+
+        self._finalise(clone, report, output_path, expected_text=prepared.normalized)
+        return clone
+
+    # ------------------------------------------------------------------
+    # Speech to speech
+    # ------------------------------------------------------------------
+    def convert(
+        self,
+        source: ReferenceInput,
+        reference: ReferenceInput,
+        *,
+        mode: str | None = None,
+        engine: str | None = None,
+        speed: float = 1.0,
+        seed: int | None = None,
+        source_text: str | None = None,
+        output_path: str | Path | None = None,
+        progress: Callable[[float, str], None] | None = None,
+        preprocess_overrides: dict[str, Any] | None = None,
+        engine_options: dict[str, Any] | None = None,
+    ) -> CloneResult:
+        """Re-voice ``source`` audio with the timbre of ``reference``.
+
+        Two strategies:
+
+        * ``cascade`` - recognise the speech, run it through the Persian text
+          pipeline, and re-synthesise. Best pronunciation, and it cleans up a
+          poor-quality source, but the original delivery is replaced.
+        * ``seedvc``  - acoustic conversion. Keeps the source's rhythm,
+          emphasis and emotion; only the timbre changes.
+        """
+        strategy = (mode or self.config.engines.vc).lower()
+        report = progress if isinstance(progress, ProgressReporter) else ProgressReporter(progress)
+
+        if strategy in {"cascade", "asr", "tts"}:
+            return self._convert_cascade(
+                source,
+                reference,
+                engine=engine,
+                speed=speed,
+                seed=seed,
+                source_text=source_text,
+                output_path=output_path,
+                progress=report,
+                preprocess_overrides=preprocess_overrides,
+                engine_options=engine_options,
+            )
+        return self._convert_direct(
+            source,
+            reference,
+            engine=strategy,
+            seed=seed,
+            output_path=output_path,
+            progress=report,
+            preprocess_overrides=preprocess_overrides,
+            engine_options=engine_options,
+        )
+
+    def _convert_cascade(
+        self,
+        source: ReferenceInput,
+        reference: ReferenceInput,
+        *,
+        engine: str | None,
+        speed: float,
+        seed: int | None,
+        source_text: str | None,
+        output_path: str | Path | None,
+        progress: ProgressReporter,
+        preprocess_overrides: dict[str, Any] | None,
+        engine_options: dict[str, Any] | None = None,
+    ) -> CloneResult:
+        timings: dict[str, float] = {}
+
+        transcript = (source_text or "").strip()
+        if not transcript:
+            progress(0.05, "Transcribing source audio")
+            with _stopwatch(timings, "asr"):
+                source_audio = preprocess_source_audio(source, self.config.audio)
+                result = self.asr.transcribe(source_audio)
+                transcript = result.text.strip()
+
+            if not transcript:
+                raise SynthesisError(
+                    "No speech was recognised in the source audio.",
+                    hint="Check that the file contains clear speech, or type the text manually.",
+                )
+            log.info("Source transcript: %s", transcript)
+
+        clone = self.synthesize(
+            transcript,
+            reference,
+            engine=engine,
+            speed=speed,
+            seed=seed,
+            output_path=output_path,
+            progress=progress,
+            preprocess_overrides=preprocess_overrides,
+            engine_options=engine_options,
+        )
+        clone.mode = "s2s-cascade"
+        clone.source_transcript = transcript
+        for key, value in timings.items():
+            clone.timings[key] = clone.timings.get(key, 0.0) + value
+        return clone
+
+    def _convert_direct(
+        self,
+        source: ReferenceInput,
+        reference: ReferenceInput,
+        *,
+        engine: str,
+        seed: int | None,
+        output_path: str | Path | None,
+        progress: ProgressReporter,
+        preprocess_overrides: dict[str, Any] | None,
+        engine_options: dict[str, Any] | None = None,
+    ) -> CloneResult:
+        timings: dict[str, float] = {}
+
+        progress(0.05, "Preparing audio")
+        with _stopwatch(timings, "reference"):
+            reference_result = self.prepare_reference(reference, overrides=preprocess_overrides)
+            source_audio = preprocess_source_audio(source, self.config.audio)
+
+        vc = self.vc_engine(engine)
+        progress(0.15, f"Loading {vc.display_name}")
+        with _stopwatch(timings, "load"):
+            vc.load()
+
+        progress(0.3, "Converting voice")
+        with _stopwatch(timings, "synthesis"):
+            result = vc.convert(
+                source_audio, reference_result.audio, seed=seed, **(engine_options or {})
+            )
+
+        progress(0.9, "Mastering")
+        with _stopwatch(timings, "postprocess"):
+            output_settings = self.config.audio.output
+            final = master(
+                result.audio,
+                target_lufs=output_settings.loudness_lufs,
+                peak_dbfs=output_settings.peak_dbfs,
+                fade_ms=output_settings.fade_ms,
+            )
+
+        clone = CloneResult(
+            audio=final,
+            engine=engine,
+            mode="s2s-vc",
+            seed=result.seed,
+            reference=reference_result,
+            timings=timings,
+        )
+        self._finalise(clone, progress, output_path, expected_text=None)
+        return clone
+
+    # ------------------------------------------------------------------
+    # Shared tail: evaluation + saving
+    # ------------------------------------------------------------------
+    def _finalise(
+        self,
+        clone: CloneResult,
+        progress: ProgressReporter,
+        output_path: str | Path | None,
+        *,
+        expected_text: str | None,
+    ) -> None:
+        evaluation = self.config.evaluation
+        if evaluation.enabled and clone.reference is not None:
+            progress(0.95, "Measuring quality")
+            timings = clone.timings
+            with _stopwatch(timings, "evaluation"):
+                clone.scores = self._evaluate(clone, expected_text)
+
+        progress(0.98, "Saving")
+        target = Path(output_path) if output_path else self._default_output_path(clone)
+        try:
+            clone.output_path = save_audio(
+                clone.audio,
+                target,
+                audio_format=self.config.audio.output.format,
+                bit_depth=self.config.audio.output.bit_depth,
+            )
+            log.info("Wrote %s (%.1fs)", clone.output_path, clone.duration)
+        except Exception as exc:
+            clone.warnings.append(f"Could not write the output file: {exc}")
+            log.warning("Saving failed", exc_info=True)
+
+        progress(1.0, "Done")
+
+    def _evaluate(self, clone: CloneResult, expected_text: str | None) -> QualityScores:
+        scores = QualityScores()
+        evaluation = self.config.evaluation
+
+        if evaluation.speaker_similarity and clone.reference is not None:
+            try:
+                from ..evaluation.similarity import speaker_similarity
+
+                result = speaker_similarity(clone.reference.audio, clone.audio)
+                if result is not None:
+                    scores.speaker_similarity = round(result.score, 4)
+                    if not result.reliable:
+                        clone.warnings.append(
+                            "Speaker similarity is approximate - install speechbrain for a real score."
+                        )
+            except Exception:
+                log.debug("Similarity scoring failed", exc_info=True)
+
+        if evaluation.transcribe_check and expected_text:
+            try:
+                from ..evaluation.similarity import word_error_rate
+
+                heard = self.asr.transcribe(clone.audio).text.strip()
+                scores.transcription = heard
+                scores.word_error_rate = word_error_rate(expected_text, heard)
+            except Exception:
+                log.debug("Round-trip transcription failed", exc_info=True)
+
+        return scores
+
+    def _default_output_path(self, clone: CloneResult) -> Path:
+        directory = self.config.paths.ensure("output_dir")
+        stamp = time.strftime("%Y%m%d-%H%M%S")
+        extension = self.config.audio.output.format
+        return directory / f"{clone.mode}_{clone.engine}_{stamp}.{extension}"
+
+    # ------------------------------------------------------------------
+    # Diagnostics
+    # ------------------------------------------------------------------
+    def diagnostics(self) -> dict[str, Any]:
+        """Everything the Diagnostics tab shows."""
+        from ..audio.denoise import available_backends as denoise_backends
+        from ..device import describe_hardware
+        from ..engines import engine_status
+        from ..evaluation.similarity import available_backends as similarity_backends
+        from ..models import free_disk_gb
+
+        return {
+            "hardware": describe_hardware(),
+            "device": str(self.device),
+            "engines": engine_status(),
+            "asr": ASREngine.available_backends(),
+            "denoise": denoise_backends(),
+            "similarity": similarity_backends(),
+            "g2p": self.text_pipeline.g2p_status(),
+            "cache_dir": str(self.config.paths.resolved("cache_dir")),
+            "output_dir": str(self.config.paths.resolved("output_dir")),
+            "free_disk_gb": round(free_disk_gb(self.config.paths.resolved("cache_dir")), 1),
+        }
+
+
+def load_reference(source: ReferenceInput) -> Audio:
+    """Public helper used by the UI to preview a file before processing."""
+    if isinstance(source, Audio):
+        return source
+    return load_audio(source, mono=True)
+
+
+__all__ = ["ReferenceInput", "Studio", "load_reference"]

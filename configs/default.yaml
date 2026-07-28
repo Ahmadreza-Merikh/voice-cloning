@@ -17,6 +17,11 @@ paths:
   voices_dir: voices
 
 runtime:
+  # Apple Silicon note: PyTorch's Metal backend has an intermittent crash in
+  # its `abs()` kernel (observed on torch 2.13), which takes the whole process
+  # down mid-synthesis with "Bus error: 10". It is not deterministic and gets
+  # more likely under memory pressure. If you hit it, set `device: cpu` - it is
+  # slower but reliable, and the output is identical.
   device: auto              # auto | cuda | mps | cpu
   dtype: auto               # auto | float32 | float16 | bfloat16
   seed: 0                   # 0 => a fresh random seed on every run

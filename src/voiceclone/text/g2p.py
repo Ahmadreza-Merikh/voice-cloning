@@ -210,10 +210,18 @@ class PersianG2P:
 
     @property
     def status(self) -> str:
+        """Human-readable state, safe to call before the model is loaded.
+
+        Loading pulls in a T5, so diagnostics must be able to report on the
+        G2P without triggering it - and must not describe a perfectly good
+        installation as broken merely because nothing has needed it yet.
+        """
         if self.backend != "unavailable":
             return f"ready ({self.backend})"
         if self.repo_path is None:
             return "not found - set text.g2p.repo_path or $VOICECLONE_G2P_REPO"
+        if not self._loaded:
+            return f"found at {self.repo_path} (loads on first use)"
         return f"failed to load: {self._load_error or 'unknown error'}"
 
     # -- loading -----------------------------------------------------------

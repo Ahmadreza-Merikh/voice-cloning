@@ -267,3 +267,33 @@ class TestUIConstruction:
         from voiceclone.ui import build_app
 
         assert build_app(config) is not None
+
+
+class TestEvaluationMetrics:
+    """WER must measure pronunciation, not typography."""
+
+    def test_punctuation_and_zwnj_do_not_count_as_errors(self) -> None:
+        from voiceclone.evaluation.similarity import word_error_rate
+
+        # What we asked for, versus what Whisper actually returns: no
+        # punctuation, and ZWNJ-joined words split apart.
+        requested = "سلام، این یک آزمایش شبیه‌سازی صدا است. امیدوارم واضح باشد."
+        heard = "سلام این یک آزمایش شبیه سازی صدا است امیدوارم واضح باشد"
+        assert word_error_rate(requested, heard) == 0.0
+
+    def test_a_real_substitution_is_still_caught(self) -> None:
+        from voiceclone.evaluation.similarity import word_error_rate
+
+        score = word_error_rate("صدا طبیعی و واضح باشد", "صدا عجیب و واضح باشد")
+        assert score is not None and score > 0.0
+
+    def test_empty_inputs(self) -> None:
+        from voiceclone.evaluation.similarity import word_error_rate
+
+        assert word_error_rate("", "چیزی") is None
+        assert word_error_rate("چیزی", "") is None
+
+    def test_similarity_backends_reported(self) -> None:
+        from voiceclone.evaluation.similarity import available_backends
+
+        assert set(available_backends()) == {"speechbrain", "resemblyzer"}

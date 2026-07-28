@@ -75,7 +75,11 @@ the system still runs, reading raw Persian script, and tells you so in Diagnosti
 | Python | 3.10 | 3.11 |
 | RAM | 8 GB | 16 GB |
 | Disk | 8 GB | 20 GB |
-| Compute | CPU | NVIDIA GPU (CUDA) or Apple Silicon (MPS) |
+| Compute | CPU | NVIDIA GPU (CUDA) |
+
+Apple Silicon works and is used by default, but see the `Bus error: 10` note under
+[Troubleshooting](#troubleshooting) — PyTorch's Metal backend has an intermittent
+crash that `--device cpu` avoids.
 
 `ffmpeg` is optional but strongly recommended — without it, mp3/m4a/video inputs may
 not decode.
@@ -274,6 +278,31 @@ Reading the numbers:
 | 0.60 – 0.70 | fair — related but noticeably off |
 | < 0.60 | the clone did not take; fix the reference |
 
+### Measured results
+
+From an actual run on an M1 Pro (16 GB), F5-TTS at the *High quality* preset
+(48 ODE steps), 11.7 s reference, one Persian sentence:
+
+| Metric | Result |
+|---|---|
+| Speaker similarity (ECAPA-TDNN) | **0.825** — excellent match |
+| Round-trip WER (Whisper re-transcribes the output) | **0.0%** — every word came back correct |
+| Synthesis, MPS | 56 s for 10.2 s of audio (~5.5× realtime) |
+| Synthesis, CPU | 294 s for the same (~29× realtime) |
+
+Enable the round-trip check yourself with `evaluation.transcribe_check: true`;
+it re-runs ASR on the render and reports WER against what you asked for. The
+first run of a session is much slower than the numbers above — it pays for the
+checkpoint conversion, the vocoder download and a cold cache.
+
+The G2P output for that sentence, showing the invisible vowels being recovered:
+
+```
+گلِ زیبای باغ ما امروز شکفت. چای و ژاله و جان.
+→ gole zibɒje bɒqe mɒ emruz ʃekoft tʃɒj væ ʒɒle væ dʒɒn
+        ^^      ^^                 ezafe vowels that the script never writes
+```
+
 ---
 
 ## Configuration
@@ -399,7 +428,7 @@ Design rules the code follows:
 ## Testing
 
 ```bash
-.venv/bin/python -m pytest tests/ -q        # ~145 tests, seconds, no downloads
+.venv/bin/python -m pytest tests/ -q        # 151 tests, seconds, no downloads
 .venv/bin/python -m pytest tests/ -v        # verbose
 .venv/bin/ruff check src tests              # lint
 ```
@@ -426,8 +455,31 @@ Use the F5-TTS engine, set `runtime.device: cpu`, lower `engines.f5.nfe_step`, o
 shorten `text.chunk.max_chars`.
 
 **Very slow on Apple Silicon**
-Expected — MPS has no kernel for some operations and falls back to CPU. Use the
+Partly expected — MPS has no kernel for some operations and falls back to CPU. Use the
 *Balanced* or *Fast preview* preset while iterating, *Maximum quality* for the final take.
+The first run of a session is also much slower than later ones: it pays for the
+checkpoint conversion, the vocoder download and a cold page cache.
+
+**`Bus error: 10` / the process dies mid-synthesis on a Mac**
+An upstream PyTorch bug, not this project. The Metal backend's `abs()` kernel
+(`abs_kernel_mps`) intermittently faults, which kills the process outright — so it
+cannot be caught and retried in Python. It is non-deterministic and more likely under
+memory pressure. Observed on torch 2.13 / M1 Pro. The fix is to move off Metal:
+
+```bash
+python app.py --device cpu
+voiceclone tts "..." -r ref.wav --device cpu
+```
+
+Or make it permanent in `configs/default.yaml`:
+
+```yaml
+runtime:
+  device: cpu
+```
+
+Output is bit-for-bit the same idea, just slower. Closing other applications also
+reduces how often it happens.
 
 **The clone does not sound like the reference**
 Press **Analyse reference** first. A score below 60 explains most failures. Also check

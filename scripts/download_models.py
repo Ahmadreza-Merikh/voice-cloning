@@ -2,7 +2,7 @@
 """Pre-download model weights so the first synthesis is not a surprise.
 
     python scripts/download_models.py                 # default engine + ASR
-    python scripts/download_models.py --engine moss    # add MOSS-TTS (6.2 GB)
+    python scripts/download_models.py --engine moss    # add MOSS-TTS (13.5 GB)
     python scripts/download_models.py --all            # everything
     python scripts/download_models.py --list           # sizes, no download
 
@@ -13,6 +13,7 @@ default), so removing that directory reclaims every byte.
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -59,17 +60,37 @@ def download_f5(config: AppConfig, *, slim: bool = True) -> None:
             print("      The original .pt can be deleted if you want the space back.")
 
 
+#: MOSS ships the acoustic codec as a *separate* repository, named by
+#: ``codec_path`` in processor_config.json and defaulted in its remote code.
+#: The processor pulls it on first use, so fetching only the transformer
+#: leaves the documented "download now, synthesise offline" flow broken.
+_MOSS_CODEC_FALLBACK = "OpenMOSS-Team/MOSS-Audio-Tokenizer"
+
+
+def _moss_codec_id(snapshot: Path) -> str:
+    """Resolve the audio-tokenizer repo the processor will ask for."""
+    config_file = snapshot / "processor_config.json"
+    try:
+        declared = json.loads(config_file.read_text()).get("codec_path")
+    except (OSError, ValueError):
+        declared = None
+    return declared or _MOSS_CODEC_FALLBACK
+
+
 def download_moss(config: AppConfig) -> None:
     """Fetch the MOSS-TTS repository snapshot (weights + custom code)."""
     from huggingface_hub import snapshot_download  # type: ignore
 
+    cache_dir = str(config.paths.ensure("cache_dir"))
     model_id = config.engines.moss.model_id
     print(f"  ..  Downloading {model_id} (~6.2 GB)")
-    path = snapshot_download(
-        repo_id=model_id,
-        cache_dir=str(config.paths.ensure("cache_dir")),
-    )
+    path = snapshot_download(repo_id=model_id, cache_dir=cache_dir)
     print(f"  OK  MOSS-TTS: {path}")
+
+    codec_id = _moss_codec_id(Path(path))
+    print(f"  ..  Downloading {codec_id} (~7.3 GB, the acoustic codec)")
+    codec_path = snapshot_download(repo_id=codec_id, cache_dir=cache_dir)
+    print(f"  OK  Audio tokenizer: {codec_path}")
 
 
 def download_asr(config: AppConfig) -> None:
@@ -130,7 +151,7 @@ def show_status(config: AppConfig) -> None:
     for uri, description, size in _f5_targets(config):
         cached = is_cached(uri, cache_dir)
         print(f"  {description:34s} {size:7.2f}G  {'yes' if cached else 'no'}")
-    print(f"  {'MOSS-TTS (' + config.engines.moss.model_id.split('/')[-1] + ')':34s} {6.2:7.2f}G  see HF cache")
+    print(f"  {'MOSS-TTS (' + config.engines.moss.model_id.split('/')[-1] + ')':34s} {13.5:7.2f}G  see HF cache")
     print(f"  {'faster-whisper ' + config.engines.asr.model:34s} {1.6:7.2f}G  see HF cache")
     print(f"  {'Vocos vocoder':34s} {0.08:7.2f}G  see HF cache")
 
@@ -165,7 +186,7 @@ def main(argv: list[str] | None = None) -> int:
         engines = {config.engines.tts}
 
     free = free_disk_gb(config.paths.resolved("cache_dir"))
-    needed = (5.5 if "f5" in engines else 0) + (6.3 if "moss" in engines else 0)
+    needed = (5.5 if "f5" in engines else 0) + (13.6 if "moss" in engines else 0)
     print(f"Downloading: {', '.join(sorted(engines))}")
     print(f"Estimated {needed:.1f} GB required, {free:.1f} GB free.\n")
     if needed > free:

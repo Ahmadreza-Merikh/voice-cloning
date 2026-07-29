@@ -18,8 +18,11 @@ the 8B flagship.
 
 from __future__ import annotations
 
+import contextlib
 import importlib.util
+import os
 import tempfile
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -36,6 +39,28 @@ log = get_logger("engines.moss")
 
 #: Minimum transformers version that ships the MOSS model classes.
 _MIN_TRANSFORMERS = (5, 0)
+
+
+@contextlib.contextmanager
+def _hub_cache(cache_dir: str) -> Iterator[None]:
+    """Point huggingface_hub at ``cache_dir`` for the duration of the block.
+
+    ``ProcessorMixin.from_pretrained`` forwards whatever kwargs it does not
+    consume straight into the processor constructor, which accepts only its
+    declared sub-processors and raises ``TypeError: Unexpected keyword
+    argument cache_dir``. The download layer reads ``HF_HUB_CACHE`` from the
+    environment, so routing the cache that way keeps the weights in our
+    directory without the kwarg ever reaching ``__init__``.
+    """
+    previous = os.environ.get("HF_HUB_CACHE")
+    os.environ["HF_HUB_CACHE"] = cache_dir
+    try:
+        yield
+    finally:
+        if previous is None:
+            os.environ.pop("HF_HUB_CACHE", None)
+        else:
+            os.environ["HF_HUB_CACHE"] = previous
 
 
 def _transformers_version() -> tuple[int, ...]:
@@ -115,9 +140,10 @@ class MossTTSEngine(TTSEngine):
         log.info("Loading MOSS-TTS '%s' (%s, %s) ...", settings.model_id, self.device.device, dtype)
 
         try:
-            self._processor = AutoProcessor.from_pretrained(
-                settings.model_id, trust_remote_code=True, cache_dir=cache_dir
-            )
+            with _hub_cache(cache_dir):
+                self._processor = AutoProcessor.from_pretrained(
+                    settings.model_id, trust_remote_code=True
+                )
             # The audio tokenizer is a separate module and must move explicitly.
             if hasattr(self._processor, "audio_tokenizer"):
                 self._processor.audio_tokenizer = self._processor.audio_tokenizer.to(self.device.device)

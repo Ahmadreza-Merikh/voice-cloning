@@ -9,10 +9,15 @@
 
 # ---- MOSS-TTS engine (highest quality Persian + IPA phoneme control) -----
 # 1.7B "Local" variant needs ~3.5 GB in bf16, ~7 GB in fp32.
-# NOTE: MOSS-TTS ships custom modelling code and requires Transformers 5.x.
+# NOTE: MOSS-TTS ships custom modelling code pinned to Transformers *5.0.x*,
+#       not 5.x. Its generation loop calls private APIs that later 5.x
+#       releases deleted - on 5.14 it raises
+#       `'MossTTSDelayModel' object has no attribute _get_initial_cache_position`
+#       partway through generate. Upstream says the same: "a clean, isolated
+#       Python environment with Transformers 5.0.0".
 #       It conflicts with the transformers pin that f5-tts installs, so give
 #       it its own virtualenv (scripts/setup_env.sh --moss) if you hit a clash.
-transformers>=5.0.0
+transformers>=5.0.0,<5.1
 accelerate>=0.33.0
 
 # ---- Voice activity detection -------------------------------------------

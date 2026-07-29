@@ -40,6 +40,13 @@ log = get_logger("engines.moss")
 #: Minimum transformers version that ships the MOSS model classes.
 _MIN_TRANSFORMERS = (5, 0)
 
+#: First transformers version MOSS's remote code no longer runs on. Its
+#: generation loop calls ``_get_initial_cache_position`` and friends, private
+#: APIs that 5.1+ removed - the failure lands mid-``generate`` as a bare
+#: AttributeError, so it is worth catching up front. Upstream's own README
+#: asks for "a clean, isolated Python environment with Transformers 5.0.0".
+_MAX_TRANSFORMERS = (5, 1)
+
 
 #: ``MossTTSDelayConfig`` copies ``hidden_size`` and ``vocab_size`` up from its
 #: Qwen3 ``language_config`` but stops there. Transformers allocates the KV
@@ -127,9 +134,16 @@ class MossTTSEngine(TTSEngine):
         if importlib.util.find_spec("transformers") is None:
             return False, "pip install 'transformers>=5.0.0' accelerate"
         version = _transformers_version()
+        found = ".".join(str(part) for part in version)
         if version < _MIN_TRANSFORMERS:
-            found = ".".join(str(part) for part in version)
             return False, f"needs transformers>=5.0 (found {found}): pip install -U transformers"
+        if version >= _MAX_TRANSFORMERS:
+            return False, (
+                f"MOSS-TTS is pinned to transformers 5.0.x (found {found}); later 5.x "
+                "releases removed private generation APIs its modelling code calls, so "
+                "synthesis dies partway through generate. "
+                "pip install 'transformers>=5.0.0,<5.1'"
+            )
         return True, ""
 
     # -- loading -----------------------------------------------------------

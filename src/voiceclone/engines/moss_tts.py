@@ -41,6 +41,35 @@ log = get_logger("engines.moss")
 _MIN_TRANSFORMERS = (5, 0)
 
 
+#: ``MossTTSDelayConfig`` copies ``hidden_size`` and ``vocab_size`` up from its
+#: Qwen3 ``language_config`` but stops there. Transformers allocates the KV
+#: cache for the backbone from the *top-level* config
+#: (``cache_utils.get_layer_types_and_kwargs``), so generation dies on the
+#: first attribute it does not find. These are the fields that path consults.
+_LANGUAGE_CONFIG_MIRRORED = (
+    "num_hidden_layers",
+    "num_attention_heads",
+    "num_key_value_heads",
+    "head_dim",
+    "layer_types",
+    "sliding_window",
+    "max_position_embeddings",
+)
+
+
+def _mirror_language_config(config: Any) -> None:
+    """Copy backbone geometry onto the wrapper config, where absent.
+
+    Only fills gaps: anything MOSS sets deliberately is left alone.
+    """
+    language_config = getattr(config, "language_config", None)
+    if language_config is None:
+        return
+    for name in _LANGUAGE_CONFIG_MIRRORED:
+        if getattr(config, name, None) is None and hasattr(language_config, name):
+            setattr(config, name, getattr(language_config, name))
+
+
 @contextlib.contextmanager
 def _hub_cache(cache_dir: str) -> Iterator[None]:
     """Point huggingface_hub at ``cache_dir`` for the duration of the block.
@@ -156,6 +185,7 @@ class MossTTSEngine(TTSEngine):
                 cache_dir=cache_dir,
             ).to(self.device.device)
             self._model.eval()
+            _mirror_language_config(self._model.config)
         except Exception as exc:
             raise EngineNotAvailableError(
                 f"Could not load MOSS-TTS ({settings.model_id}): {exc}",

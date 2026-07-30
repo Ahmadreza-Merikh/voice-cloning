@@ -160,7 +160,8 @@ class F5Config:
 @dataclass
 class MossConfig:
     model_id: str = "OpenMOSS-Team/MOSS-TTS-Local-Transformer"
-    temperature: float = 1.0
+    #: Below upstream's 1.0 - see configs/default.yaml for the measurements.
+    temperature: float = 0.8
     top_p: float = 0.95
     top_k: int = 50
     repetition_penalty: float = 1.1

@@ -143,7 +143,14 @@ engines:
     model_id: OpenMOSS-Team/MOSS-TTS-Local-Transformer
     # Swap for the 8B flagship on a >=24 GB GPU:
     #   model_id: OpenMOSS-Team/MOSS-TTS
-    temperature: 1.0
+    # Upstream ships 1.0, which is a *creative* setting; this is a fidelity
+    # task. Measured over a 3x3 temperature/seed grid on one reference,
+    # scoring every take by round-trip WER:
+    #     temp 1.0 -> 24.5% mean WER      temp 0.8 -> 15.6%      temp 0.6 -> 11.1%
+    # Speaker similarity barely moves across that range (0.777 / 0.793 /
+    # 0.780), so the whole effect is intelligibility. 0.8 keeps some variation
+    # for best-of-n selection; drop to 0.6 for a single-take workflow.
+    temperature: 0.8
     top_p: 0.95
     top_k: 50
     repetition_penalty: 1.1

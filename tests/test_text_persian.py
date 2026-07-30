@@ -10,6 +10,8 @@ from voiceclone.text.normalize_fa import (
     NormalizationOptions,
     fix_zwnj,
     normalize,
+    normalize_for_g2p,
+    remove_ezafe_marks,
     strip_bracketed_tags,
     unify_characters,
 )
@@ -151,6 +153,43 @@ class TestNormalizePipeline:
     def test_digits_inside_numbers_keep_their_separator(self) -> None:
         # 1,500 must read as one number, not "one" and "five hundred".
         assert normalize("مبلغ 1,500 تومان").count("هزار") == 1
+
+
+class TestEzafeMarks:
+    """A written ezafe must not survive into the G2P.
+
+    GE2PE emits a vowel for the kasra *and* applies its own ezafe rule, so
+    the marked spelling doubles: کتابِ من -> "ketaebe" rather than "ketabe".
+    Quoting the real model output here because a regression is silent - it
+    mispronounces rather than raising.
+    """
+
+    @pytest.mark.parametrize(
+        ("marked", "expected"),
+        [
+            ("کتابِ من", "کتاب من"),
+            ("گلِ باغ", "گل باغ"),
+            ("شهرِ ما", "شهر ما"),
+            ("جشنِ بزرگِ بهار", "جشن بزرگ بهار"),
+            ("باغِ.", "باغ."),
+            ("خانهِ", "خانه"),
+        ],
+    )
+    def test_word_final_kasra_is_dropped(self, marked: str, expected: str) -> None:
+        assert remove_ezafe_marks(marked) == expected
+
+    @pytest.mark.parametrize("word", ["کِرم", "کَرَم", "مُرده"])
+    def test_word_internal_harakat_survive(self, word: str) -> None:
+        # These are the only thing disambiguating a homograph; stripping them
+        # would trade one mispronunciation for another.
+        assert remove_ezafe_marks(word) == word
+
+    def test_g2p_normalisation_applies_it(self) -> None:
+        assert normalize_for_g2p("گلِ زیبای باغ") == "گل زیبای باغ"
+
+    def test_plain_normalisation_leaves_it_alone(self) -> None:
+        # Only the G2P front end has this quirk; the engines see the original.
+        assert "ِ" in normalize("گلِ زیبای باغ")
 
 
 class TestLanguageDetection:

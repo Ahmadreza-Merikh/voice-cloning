@@ -56,6 +56,10 @@ CHARACTER_UNIFICATION = {
 #: Arabic harakat (short-vowel marks). Optional to strip - the G2P can use them.
 DIACRITICS = re.compile("[ً-ْٰٕٖٓ-ٟۖ-ۭ]")
 
+#: Kasra (and kasratan) sitting at the end of a word - the ezafe marker.
+#: Anchored on a following boundary so a word-internal mark is left alone.
+_WORD_FINAL_KASRA = re.compile("[ٍِ]+(?=$|[\\s‌]|[^\\w؀-ۿ])")
+
 #: ASCII punctuation -> the Persian forms the models were trained on.
 PUNCTUATION_MAP = {
     ",": "،",
@@ -138,6 +142,25 @@ def unify_characters(text: str) -> str:
 def remove_diacritics(text: str) -> str:
     """Drop harakat. Only do this when the downstream G2P ignores them."""
     return DIACRITICS.sub("", text)
+
+
+def remove_ezafe_marks(text: str) -> str:
+    """Drop a *word-final* kasra, keeping every other harakat in place.
+
+    Writing the ezafe explicitly (``کتابِ من``) is careful Persian, and the
+    obvious expectation is that spelling it out helps. It does the opposite:
+    GE2PE emits a vowel for the kasra *and* applies its own ezafe rule, so
+    the marked form comes out doubled.
+
+        کتابِ من  ->  ketaebe m/n      کتاب من  ->  ketabe m/n
+        گلِ باغ   ->  goele baq        گل باغ   ->  gole baq
+
+    The rule engine gets ezafe right from unmarked text on its own, so the
+    marker is pure downside at this position. Word-*internal* harakat are
+    left alone - they disambiguate homographs (کَرَم *karam* / کِرم *kerm*),
+    which is a job nothing else does.
+    """
+    return _WORD_FINAL_KASRA.sub("", text)
 
 
 def fix_zwnj(text: str, *, join_verb_prefixes: bool = True, join_suffixes: bool = False) -> str:
@@ -235,17 +258,22 @@ def normalize(text: str, options: NormalizationOptions | None = None) -> str:
 def normalize_for_g2p(text: str) -> str:
     """Normalisation tuned for the Homo-GE2PE front end.
 
-    Diacritics are preserved: the model uses an explicit kasra as evidence for
-    ezafe, and they help disambiguate homographs.
+    Word-internal harakat are preserved - they disambiguate homographs, which
+    nothing else here does. The word-final kasra is dropped: it marks ezafe,
+    and GE2PE doubles the vowel when it is written explicitly while getting
+    the same construction right from unmarked text. See
+    :func:`remove_ezafe_marks`.
     """
-    return normalize(
-        text,
-        NormalizationOptions(
-            remove_diacritics=False,
-            expand_numbers=True,
-            normalize_punctuation=True,
-            join_suffixes=False,
-        ),
+    return remove_ezafe_marks(
+        normalize(
+            text,
+            NormalizationOptions(
+                remove_diacritics=False,
+                expand_numbers=True,
+                normalize_punctuation=True,
+                join_suffixes=False,
+            ),
+        )
     )
 
 
@@ -261,6 +289,7 @@ __all__ = [
     "normalize_for_g2p",
     "normalize_punctuation",
     "remove_diacritics",
+    "remove_ezafe_marks",
     "remove_invisibles",
     "strip_bracketed_tags",
     "unify_characters",

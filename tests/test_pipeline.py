@@ -321,23 +321,28 @@ class TestBestOfNSelection:
     Getting this backwards is silent: you still get audio, it is just the
     wrong take. Both metrics are quantised to their measured noise first -
     WER clamped at ~11-15% (Whisper's own error on real Persian speech),
-    similarity bucketed at 0.02 (ECAPA's spread across identity-preserving
-    perturbations of one render). Numbers below are from real runs.
+    similarity counted in 0.02 steps below the batch best (ECAPA's spread
+    across identity-preserving perturbations). Numbers below are from real
+    runs.
     """
 
     FLOOR = 0.15
     STEP = 0.02
 
     @classmethod
+    def _keys(cls, scored: list[tuple[float | None, float | None]]) -> list[tuple[float, float]]:
+        observed = [sim for _, sim in scored if sim is not None]
+        best = max(observed) if observed else None
+        return [_candidate_rank(w, sim, best, cls.FLOOR, cls.STEP) for w, sim in scored]
+
+    @classmethod
     def _pick(cls, scored: list[tuple[float | None, float | None]]) -> int:
-        return min(
-            range(len(scored)),
-            key=lambda i: _candidate_rank(scored[i][0], scored[i][1], cls.FLOOR, cls.STEP),
-        )
+        keys = cls._keys(scored)
+        return min(range(len(scored)), key=lambda i: keys[i])
 
     @classmethod
     def _tied(cls, scored: list[tuple[float | None, float | None]]) -> int:
-        keys = [_candidate_rank(w, s, cls.FLOOR, cls.STEP) for w, s in scored]
+        keys = cls._keys(scored)
         return keys.count(min(keys))
 
     def test_similarity_decides_inside_the_noise_band(self) -> None:
@@ -354,22 +359,39 @@ class TestBestOfNSelection:
         # intelligible render in it.
         assert self._pick([(0.267, 0.823), (0.000, 0.786)]) == 1
 
+    def test_all_inside_the_floor_leaves_similarity_to_decide(self) -> None:
+        # Three takes, every WER inside the recogniser's noise, so the raw
+        # WER ordering must not matter at all.
+        assert self._pick([(0.02, 0.70), (0.10, 0.83), (0.00, 0.75)]) == 1
+
     def test_least_broken_take_survives_when_everything_is_bad(self) -> None:
         # Four takes of a collapsed IPA render; similarity means nothing
         # there, so the one that kept the most words wins.
         assert self._pick([(1.00, 0.526), (1.00, 0.645), (0.933, 0.515)]) == 2
 
     def test_similarity_inside_ecapa_noise_is_a_tie(self) -> None:
-        # The 0.788/0.782 pair I once agonised over is one bucket wide.
+        # The 0.788/0.782 pair I once agonised over is inside one step.
         assert self._tied([(0.20, 0.788), (0.20, 0.782)]) == 2
 
-    def test_a_tie_resolves_deterministically(self) -> None:
-        pair = [(0.20, 0.788), (0.20, 0.782)]
-        assert self._pick(pair) == self._pick(pair) == 0
+    @pytest.mark.parametrize("shift", [0.0, 0.002, 0.05, -0.1, 0.199])
+    def test_the_tie_test_survives_translation(self, shift: float) -> None:
+        # The property is about separation, so sliding both scores must not
+        # change the verdict. A fixed grid failed exactly here: 0.788/0.782
+        # tied but 0.790/0.784 - same gap - did not.
+        assert self._tied([(0.20, 0.788 + shift), (0.20, 0.782 + shift)]) == 2
 
-    def test_similarity_beyond_the_noise_still_decides(self) -> None:
-        # 0.646 vs 0.671 from the reference sweep - more than one bucket.
-        assert self._pick([(0.20, 0.646), (0.20, 0.671)]) == 1
+    @pytest.mark.parametrize("shift", [0.0, 0.002, 0.05, -0.1])
+    def test_a_gap_wider_than_the_step_ranks_under_translation(self, shift: float) -> None:
+        # 0.646 vs 0.671 from the reference sweep - more than one step apart.
+        assert self._tied([(0.20, 0.646 + shift), (0.20, 0.671 + shift)]) == 1
+
+    def test_a_hair_apart_is_never_ranked(self) -> None:
+        # The fixed grid separated these two, 100x below ECAPA's noise.
+        assert self._tied([(0.20, 0.7899), (0.20, 0.7901)]) == 2
+
+    def test_a_wide_gap_is_never_tied(self) -> None:
+        # ...while tying these, fifty times further apart.
+        assert self._tied([(0.20, 0.7901), (0.20, 0.8199)]) == 1
 
     def test_unscored_wer_ranks_at_the_floor(self) -> None:
         # ASR unavailable is not evidence of a bad take.
@@ -387,3 +409,11 @@ class TestBestOfNSelection:
         # ECAPA missing entirely: WER decides, and the tie is visible so the
         # caller can say so rather than implying the winner was better.
         assert self._tied([(0.05, None), (0.10, None), (0.02, None)]) == 3
+
+    def test_zero_step_compares_raw_scores(self) -> None:
+        # 0 reads like "do not quantise", so it must not mean "ignore".
+        keys = [
+            _candidate_rank(0.20, sim, 0.7901, self.FLOOR, 0.0)
+            for sim in (0.7899, 0.7901)
+        ]
+        assert keys[1] < keys[0]

@@ -45,6 +45,7 @@ def _stopwatch(timings: dict[str, float], label: str):
 def _candidate_rank(
     wer: float | None,
     similarity: float | None,
+    best_similarity: float | None,
     wer_floor: float,
     similarity_step: float,
 ) -> tuple[float, float]:
@@ -60,34 +61,43 @@ def _candidate_rank(
     recogniser. Above the floor the difference is real, and WER dominates -
     similarity cannot buy its way past a dropped word.
 
-    *Similarity* is bucketed to ``similarity_step``. Perturbing one render in
-    ways that cannot change who is speaking - cropping 85-95% of it, +/-1 dB
-    of gain, dither at -60 dBFS - moves the ECAPA score by up to 0.0205
-    (sd 0.0055), and cropping accounts for nearly all of it. For scale, the
-    whole temperature sweep moved similarity by 0.016, so that comparison was
-    inside the noise too.
+    *Similarity* is counted in whole ``similarity_step`` intervals below the
+    best take in the batch, so whether two takes tie depends on how far apart
+    they are rather than where they sit. Rounding onto a fixed grid was tried
+    first and does not survive translation: with step 0.02 it separated 0.7899
+    from 0.7901 while tying 0.7901 with 0.7999, fifty times further apart.
 
-    A hard WER threshold was tried first and is the wrong shape: near the
-    floor almost nothing passes and selection silently becomes "lowest WER";
-    high enough for ordinary takes to pass and similarity starts outranking
-    real mistakes. Quantising degrades smoothly instead of flipping between
-    those failures.
+    The step is ECAPA's own noise. Perturbing one render in ways that cannot
+    change who is speaking - cropping 85-95% of it, +/-1 dB of gain, dither at
+    -60 dBFS - moves the score by up to 0.0205 (sd 0.0055), nearly all from
+    the crop. For scale, the whole temperature sweep moved similarity by
+    0.016, so that comparison was inside the noise too.
 
     ``wer`` of ``None`` ranks at the floor: a take nobody transcribed is not
     thereby a bad take. ``similarity`` of ``None`` ranks last on that axis
     instead, because the two absences are not symmetric - the WER floor is a
-    real "no worse than this" bound, whereas an unscored take simply cannot
-    be *shown* to resemble the reference. In practice the speaker encoder is
+    real "no worse than this" bound, whereas an unscored take simply cannot be
+    *shown* to resemble the reference. In practice the speaker encoder is
     all-or-nothing, so every take ties there and the WER clamp decides;
     `_render_best_of` warns when that happens rather than letting it pass
     silently.
+
+    A ``similarity_step`` of zero means no quantisation - the raw gap is used,
+    which is what the number reads like in the config.
     """
     ranked_wer = max(wer, wer_floor) if wer is not None else wer_floor
-    if similarity is None or similarity_step <= 0:
-        ranked_similarity = 0.0
-    else:
-        ranked_similarity = -round(similarity / similarity_step)
-    return (ranked_wer, ranked_similarity)
+
+    if similarity is None:
+        # Explicit sentinel, so this does not depend on the sign convention of
+        # the branch below.
+        return (ranked_wer, float("inf"))
+    if best_similarity is None:
+        return (ranked_wer, 0.0)
+
+    gap = best_similarity - similarity
+    if similarity_step <= 0:
+        return (ranked_wer, gap)
+    return (ranked_wer, float(int(gap / similarity_step)))
 
 
 class Studio:
@@ -210,6 +220,7 @@ class Studio:
         preprocess_overrides: dict[str, Any] | None = None,
         engine_options: dict[str, Any] | None = None,
         use_phonemes: bool | None = None,
+        candidates: int | None = None,
     ) -> CloneResult:
         """Clone ``reference`` and make it say ``text``.
 
@@ -220,6 +231,12 @@ class Studio:
         ``use_phonemes`` requests IPA input; it is always intersected with the
         engine's declared capability, because handing IPA to a grapheme
         tokenizer produces confident nonsense rather than an error.
+
+        ``candidates`` overrides ``evaluation.candidates`` for this call only.
+        It is a parameter rather than a config write because callers share one
+        Studio: a UI tab that assigned it would change every later render,
+        including ones with no control for it, and concurrent requests would
+        race on the value.
         """
         report = progress if isinstance(progress, ProgressReporter) else ProgressReporter(progress)
         timings: dict[str, float] = {}
@@ -280,7 +297,7 @@ class Studio:
         with _stopwatch(timings, "load"):
             tts.load()
 
-        takes = max(1, int(self.config.evaluation.candidates))
+        takes = max(1, int(self.config.evaluation.candidates if candidates is None else candidates))
 
         def render(take_seed: int | None, base: float, span: float) -> tuple[Audio, int | None]:
             rendered: list[Audio] = []
@@ -424,8 +441,13 @@ class Studio:
             )
             scored.append((wer, similarity, audio, used))
 
+        # Similarity is ranked relative to the best take in this batch, so the
+        # tie test depends on separation rather than absolute position.
+        observed = [row[1] for row in scored if row[1] is not None]
+        best_similarity = max(observed) if observed else None
+
         def rank(row: tuple[float | None, float | None, Audio, int | None]) -> tuple[float, float]:
-            return _candidate_rank(row[0], row[1], floor, step)
+            return _candidate_rank(row[0], row[1], best_similarity, floor, step)
 
         best = min(scored, key=rank)
         tied = sum(1 for row in scored if rank(row) == rank(best))
@@ -478,6 +500,7 @@ class Studio:
         preprocess_overrides: dict[str, Any] | None = None,
         engine_options: dict[str, Any] | None = None,
         use_phonemes: bool | None = None,
+        candidates: int | None = None,
     ) -> CloneResult:
         """Re-voice ``source`` audio with the timbre of ``reference``.
 
@@ -488,6 +511,11 @@ class Studio:
           poor-quality source, but the original delivery is replaced.
         * ``seedvc``  - acoustic conversion. Keeps the source's rhythm,
           emphasis and emotion; only the timbre changes.
+
+        ``candidates`` applies to the cascade only: it re-synthesises, so
+        best-of-N means the same thing there as in ``synthesize``. Seed-VC
+        transforms the source waveform directly and has nothing to pick
+        between, so the value is ignored rather than silently costing N runs.
         """
         strategy = (mode or self.config.engines.vc).lower()
         report = progress if isinstance(progress, ProgressReporter) else ProgressReporter(progress)
@@ -505,6 +533,7 @@ class Studio:
                 preprocess_overrides=preprocess_overrides,
                 engine_options=engine_options,
                 use_phonemes=use_phonemes,
+                candidates=candidates,
             )
         return self._convert_direct(
             source,
@@ -527,6 +556,7 @@ class Studio:
         seed: int | None,
         source_text: str | None,
         output_path: str | Path | None,
+        candidates: int | None,
         progress: ProgressReporter,
         preprocess_overrides: dict[str, Any] | None,
         engine_options: dict[str, Any] | None = None,
@@ -560,6 +590,7 @@ class Studio:
             preprocess_overrides=preprocess_overrides,
             engine_options=engine_options,
             use_phonemes=use_phonemes,
+            candidates=candidates,
         )
         clone.mode = "s2s-cascade"
         clone.source_transcript = transcript

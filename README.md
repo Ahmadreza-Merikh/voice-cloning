@@ -147,7 +147,10 @@ Check what your machine can actually run at any time:
 - Iterating on wording, or on a modest machine → **F5-TTS**.
 - Final renders, or anything where timbre matters → **MOSS-TTS on Persian script**.
   Measured against the same reference and sentence: 0.819 speaker similarity versus
-  F5's 0.730, and it got بهار، کردند، باغ، شکفت right where F5 got all four wrong.
+  F5's 0.730 — a gap well outside the 0.02 measurement noise of the speaker encoder,
+  so it is a real difference. The pronunciation observation alongside it (MOSS got
+  بهار، کردند، باغ، شکفت right where F5 got all four wrong) is **one sentence, one
+  reference, one seed** — suggestive, not established.
   It needs its own environment (`transformers>=5.0,<5.1`) and ~13.5 GB of weights.
 - You want the *source recording's* delivery preserved → **Seed-VC**.
 

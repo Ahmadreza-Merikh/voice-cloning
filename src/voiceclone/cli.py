@@ -46,6 +46,13 @@ def build_parser() -> argparse.ArgumentParser:
         sub.add_argument("-e", "--engine", default=None, help="TTS engine (f5 / moss)")
         sub.add_argument("--speed", type=float, default=1.0)
         sub.add_argument("--seed", type=int, default=0, help="0 = random")
+        sub.add_argument(
+            "--best-of",
+            type=int,
+            default=None,
+            metavar="N",
+            help="Render N takes and keep the best (costs N x the time)",
+        )
         sub.add_argument("--no-denoise", action="store_true")
         sub.add_argument("--separate-vocals", action="store_true", help="Strip music with Demucs")
         sub.add_argument("--no-phonemes", action="store_true", help="Disable Persian G2P")
@@ -125,6 +132,8 @@ def command_tts(args: argparse.Namespace) -> int:
     from .pipelines import Studio
 
     config = _build_config(args)
+    if getattr(args, "best_of", None):
+        config.evaluation.candidates = max(1, int(args.best_of))
     studio = Studio(config)
     engine = (args.engine or config.engines.tts).lower()
 

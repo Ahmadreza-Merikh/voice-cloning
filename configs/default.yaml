@@ -204,7 +204,14 @@ evaluation:
   # Best-of-N. Autoregressive engines vary a lot between seeds - more, in
   # measurement, than any sampling knob moves them - so rendering several
   # takes and keeping the best is the cheapest quality win available without
-  # a new model. Costs N x synthesis time; 1 disables it.
+  # a new model. 1 disables it.
+  #
+  # It is not cheap in time. Measured end to end on an M1 Pro with MOSS on
+  # MPS, for one ~6 s sentence: 41 s to load the model, then ~92 s per take -
+  # roughly 65 s of synthesis, 20 s of round-trip ASR and 2 s of speaker
+  # scoring. Best-of-4 took 6 m 48 s in total against about 2 m for a single
+  # take. Both scorers run per take, so the overhead is not just N x
+  # synthesis. Left at 1 for that reason; raise it for final renders.
   candidates: 1
   # Round-trip WER is clamped here before takes are compared, so anything at
   # or below counts as equally intelligible and speaker similarity picks

@@ -195,7 +195,9 @@ voiceclone tts "سلام، حال شما چطور است؟" -r reference.wav -o 
 
 # Render 4 takes and keep the best. Autoregressive engines vary more between
 # seeds than any sampling knob moves them, so this is the cheapest quality
-# win available. Costs 4x the time.
+# win available - but it is slow: measured at 6 m 48 s for one ~6 s sentence
+# on an M1 Pro (MOSS/MPS), against ~2 m for a single take. Each take pays for
+# round-trip ASR and speaker scoring on top of synthesis.
 voiceclone tts "متن شما" -r reference.wav --best-of 4 -o out.wav
 
 # long text from a file, with the MOSS engine

@@ -331,7 +331,15 @@ class TestBestOfNSelection:
 
     @classmethod
     def _keys(cls, scored: list[tuple[float | None, float | None]]) -> list[tuple[float, float]]:
-        observed = [sim for _, sim in scored if sim is not None]
+        # Mirrors Studio._render_best_of: the similarity reference comes from
+        # the takes that tie on the primary key, never the batch maximum.
+        ranked = [max(w, cls.FLOOR) if w is not None else cls.FLOOR for w, _ in scored]
+        contending = min(ranked)
+        observed = [
+            sim
+            for (_, sim), r in zip(scored, ranked, strict=True)
+            if sim is not None and r == contending
+        ]
         best = max(observed) if observed else None
         return [_candidate_rank(w, sim, best, cls.FLOOR, cls.STEP) for w, sim in scored]
 
@@ -409,6 +417,21 @@ class TestBestOfNSelection:
         # ECAPA missing entirely: WER decides, and the tie is visible so the
         # caller can say so rather than implying the winner was better.
         assert self._tied([(0.05, None), (0.10, None), (0.02, None)]) == 3
+
+    def test_a_disqualified_take_does_not_anchor_the_similarity_scale(self) -> None:
+        # The r = -0.06 case: the most similar take (0.823) is the least
+        # intelligible, so WER rules it out. Anchoring the similarity scale on
+        # it split two clean contenders 0.0002 apart into different buckets -
+        # a hundred times below the noise the step encodes.
+        scored = [(0.267, 0.8230), (0.000, 0.7031), (0.000, 0.7029)]
+        assert self._tied(scored) == 2
+        assert self._pick(scored) in {1, 2}
+
+    def test_no_take_carries_a_negative_similarity_key(self) -> None:
+        # A take outside the contending tier sits above its best. Inert while
+        # WER leads the tuple, but it must not depend on that.
+        keys = self._keys([(0.267, 0.8230), (0.000, 0.7031)])
+        assert all(key[1] >= 0 for key in keys)
 
     def test_zero_step_compares_raw_scores(self) -> None:
         # 0 reads like "do not quantise", so it must not mean "ignore".

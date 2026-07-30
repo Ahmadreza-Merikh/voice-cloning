@@ -61,11 +61,17 @@ def _candidate_rank(
     recogniser. Above the floor the difference is real, and WER dominates -
     similarity cannot buy its way past a dropped word.
 
-    *Similarity* is counted in whole ``similarity_step`` intervals below the
-    best take in the batch, so whether two takes tie depends on how far apart
-    they are rather than where they sit. Rounding onto a fixed grid was tried
-    first and does not survive translation: with step 0.02 it separated 0.7899
-    from 0.7901 while tying 0.7901 with 0.7999, fifty times further apart.
+    *Similarity* is counted in whole ``similarity_step`` intervals below
+    ``best_similarity``, so whether two takes tie depends on how far apart they
+    are rather than where they sit. Rounding onto a fixed grid was tried first
+    and does not survive translation: with step 0.02 it separated 0.7899 from
+    0.7901 while tying 0.7901 with 0.7999, fifty times further apart.
+
+    ``best_similarity`` must come from the takes that tie on the *primary* key,
+    not from the batch as a whole. Anchoring on the global maximum puts the
+    origin on a take that WER has already disqualified, and then the surviving
+    contenders are bucketed against an irrelevant point - which brings the
+    translation problem straight back for exactly the takes that matter.
 
     The step is ECAPA's own noise. Perturbing one render in ways that cannot
     change who is speaking - cropping 85-95% of it, +/-1 dB of gain, dither at
@@ -92,9 +98,14 @@ def _candidate_rank(
         # the branch below.
         return (ranked_wer, float("inf"))
     if best_similarity is None:
+        # Only reachable from a direct call; `_render_best_of` always supplies
+        # a reference point whenever any take was scored.
         return (ranked_wer, 0.0)
 
-    gap = best_similarity - similarity
+    # Clamped: a take outside the contending WER tier can sit *above* the
+    # tier's best and would otherwise carry a negative similarity key. Inert
+    # while WER leads the tuple, and a mine for anyone who reorders it.
+    gap = max(0.0, best_similarity - similarity)
     if similarity_step <= 0:
         return (ranked_wer, gap)
     return (ranked_wer, float(int(gap / similarity_step)))
@@ -441,9 +452,21 @@ class Studio:
             )
             scored.append((wer, similarity, audio, used))
 
-        # Similarity is ranked relative to the best take in this batch, so the
-        # tie test depends on separation rather than absolute position.
-        observed = [row[1] for row in scored if row[1] is not None]
+        # Similarity is ranked relative to a reference point, so the tie test
+        # depends on separation rather than absolute position. The reference
+        # has to come from the takes that can still win: WER leads the key, so
+        # anchoring on the batch maximum would put the origin on a take that
+        # WER disqualifies. That is not hypothetical - "the most similar take
+        # was also the least intelligible" is the r = -0.06 case this ordering
+        # exists for, and it would silently split two clean contenders that sit
+        # a hair apart.
+        ranked_wers = [max(row[0], floor) if row[0] is not None else floor for row in scored]
+        contending = min(ranked_wers)
+        observed = [
+            row[1]
+            for row, ranked in zip(scored, ranked_wers, strict=True)
+            if row[1] is not None and ranked == contending
+        ]
         best_similarity = max(observed) if observed else None
 
         def rank(row: tuple[float | None, float | None, Audio, int | None]) -> tuple[float, float]:

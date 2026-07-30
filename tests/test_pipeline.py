@@ -117,9 +117,24 @@ class TestTextPipeline:
         assert not prepared.used_phonemes
         assert all(not chunk.phonemes for chunk in prepared.chunks)
 
-    def test_should_use_phonemes_follows_config(self, config: AppConfig) -> None:
-        pipeline = TextPipeline(config.text)
+    def test_should_use_phonemes_follows_config(self) -> None:
+        # The name is the contract: whatever is listed gets phonemes, and
+        # nothing else does. Which engines are listed is a tuning decision
+        # that has already changed once, so do not hard-code it here.
+        # Local config: the `config` fixture is session-scoped, so mutating
+        # it would leak this setting into every later test.
+        local = AppConfig.load()
+        local.text.g2p.apply_to_engines = ["moss"]
+        pipeline = TextPipeline(local.text)
         assert pipeline.should_use_phonemes("moss")
+        assert not pipeline.should_use_phonemes("f5")
+
+    def test_no_engine_gets_phonemes_by_default(self, config: AppConfig) -> None:
+        # Nothing in this project reads Persian IPA better than Persian
+        # script: MOSS's phoneme channel is English/pinyin-trained and
+        # collapses on it, and F5's tokenizer is grapheme-only.
+        pipeline = TextPipeline(config.text)
+        assert not pipeline.should_use_phonemes("moss")
         assert not pipeline.should_use_phonemes("f5")
 
     def test_empty_input(self, config: AppConfig) -> None:

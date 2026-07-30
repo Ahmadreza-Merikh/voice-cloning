@@ -105,7 +105,19 @@ text:
     output: ipa
     # Engines whose tokenizer is grapheme-only still benefit from
     # normalisation but must not receive phonemes.
-    apply_to_engines: [moss]
+    #
+    # Empty on purpose. MOSS is the only engine here that *accepts* IPA, and
+    # its phoneme channel is trained on English (CMUdict) and Chinese pinyin -
+    # upstream's own examples are all English. Persian IPA is out of
+    # distribution and it collapses: the same sentence that renders in 7.3s
+    # from Persian script came back as 1.3s of nonsense from IPA, 100% WER
+    # against 40%. Measured on an M1 Pro, MOSS-TTS-Local, Mana reference.
+    #
+    # So the G2P earns its keep for analysis, homograph inspection and the
+    # WER metric - but nothing in this project can currently synthesise from
+    # its output. Add an engine here only once it is measured to read Persian
+    # phonemes better than Persian script.
+    apply_to_engines: []
 
   chunk:
     # Long text is split on sentence boundaries and synthesised in pieces so

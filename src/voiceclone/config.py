@@ -123,7 +123,9 @@ class G2PConfig:
     repo_path: str | None = "auto"
     inject_ezafe: bool = True
     output: str = "ipa"
-    apply_to_engines: list[str] = field(default_factory=lambda: ["moss"])
+    #: Empty: no engine here reads Persian IPA better than Persian script.
+    #: See configs/default.yaml for the measurement.
+    apply_to_engines: list[str] = field(default_factory=list)
 
 
 @dataclass

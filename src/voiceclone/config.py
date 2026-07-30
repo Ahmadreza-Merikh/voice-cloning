@@ -210,10 +210,10 @@ class EvaluationConfig:
     transcribe_check: bool = False
     #: Render this many takes and keep the best. 1 disables the machinery.
     candidates: int = 1
-    #: Takes at or below this WER are treated as equally intelligible and
-    #: ranked on similarity instead. Sits at Whisper's own error floor on
-    #: real Persian speech - see `Studio._render_best_of`.
-    candidate_wer_gate: float = 0.15
+    #: Round-trip WER is clamped here before candidates are compared, so
+    #: takes inside the recogniser's noise are ranked on similarity instead.
+    #: Whisper's own floor on real Persian speech - see `_candidate_rank`.
+    candidate_wer_floor: float = 0.15
 
 
 @dataclass

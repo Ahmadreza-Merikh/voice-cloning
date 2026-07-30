@@ -10,6 +10,7 @@ from voiceclone.config import AppConfig, deep_merge
 from voiceclone.engines import engine_status, list_tts_engines, list_vc_engines
 from voiceclone.errors import EngineNotAvailableError, VoiceCloneError
 from voiceclone.models import parse_hf_uri
+from voiceclone.pipelines.studio import _candidate_rank
 from voiceclone.pipelines.voices import VoiceLibrary, slugify
 from voiceclone.text.chunker import chunk_text, estimate_duration, split_sentences
 from voiceclone.text.g2p import compact_word_to_ipa, find_g2p_repo
@@ -315,51 +316,51 @@ class TestEvaluationMetrics:
 
 
 class TestBestOfNSelection:
-    """The gate-then-rank rule, exercised without loading any model.
+    """The ranking rule, exercised without loading any model.
 
     Getting this backwards is silent: you still get audio, it is just the
-    wrong take. Whisper's own floor on real Persian speech is ~11% WER, so
-    ranking candidates by WER ranks noise - and speaker similarity, measured
-    across a temperature/seed grid, is uncorrelated with it (r = -0.06). The
-    most similar take in that grid was the *least* intelligible one.
+    wrong take. WER is clamped at Whisper's own ~11% floor on real Persian
+    speech before comparison, so differences inside the noise band become a
+    tie that speaker similarity breaks, while a genuine mistake still wins
+    the comparison outright.
     """
 
     @staticmethod
-    def _pick(scored: list[tuple[float | None, float]], gate: float = 0.15) -> int:
-        """Mirror of Studio._render_best_of's decision, over indices."""
-        rows = [(wer, sim, index) for index, (wer, sim) in enumerate(scored)]
-        passed = [r for r in rows if r[0] is None or r[0] <= gate]
-        if passed:
-            return max(passed, key=lambda r: r[1])[2]
-        return min(rows, key=lambda r: (r[0] if r[0] is not None else 1.0, -r[1]))[2]
+    def _pick(scored: list[tuple[float | None, float]], floor: float = 0.15) -> int:
+        return min(
+            range(len(scored)),
+            key=lambda i: _candidate_rank(scored[i][0], scored[i][1], floor),
+        )
 
-    def test_most_similar_take_wins_when_all_are_intelligible(self) -> None:
-        assert self._pick([(0.05, 0.77), (0.10, 0.82), (0.02, 0.75)]) == 1
-
-    def test_a_broken_take_loses_however_similar_it_sounds(self) -> None:
-        # The real case: 0.823 similarity at 26.7% WER beat everything on
-        # similarity alone, and it is the take that mangles the sentence.
-        assert self._pick([(0.267, 0.823), (0.00, 0.786)]) == 1
-
-    def test_wer_does_not_rank_below_the_gate(self) -> None:
-        # 0% vs 6.7% is inside Whisper's own error floor - similarity decides.
+    def test_similarity_decides_inside_the_noise_band(self) -> None:
+        # 0% vs 6.7% is Whisper disagreeing with itself, not a better take.
         assert self._pick([(0.000, 0.76), (0.067, 0.81)]) == 1
 
-    def test_least_broken_take_survives_when_everything_trips_the_gate(self) -> None:
-        assert self._pick([(0.40, 0.90), (0.22, 0.60), (0.31, 0.85)]) == 1
-
-    def test_wer_ties_in_the_fallback_break_on_similarity(self) -> None:
-        # Two takes at 20.0% WER really happened; picking by list order made
-        # the right choice by luck, which is not a property worth keeping.
-        assert self._pick([(0.20, 0.70), (0.20, 0.78)]) == 1
-
-    def test_a_real_error_beats_a_marginal_similarity_gain(self) -> None:
-        # Straight from a live best-of-4: no take reached the floor, so the
-        # fallback ran. Take 0 is +0.006 more similar but drops a word
-        # (33.3% vs 20.0%). Widening the gate to admit both would buy that
-        # rounding error at the cost of an audible mistake.
+    def test_a_real_mistake_outranks_a_similarity_gain(self) -> None:
+        # Live best-of-4: take 0 is +0.006 more similar but drops a word.
         assert self._pick([(0.333, 0.788), (0.200, 0.782)]) == 1
 
-    def test_unscored_takes_are_not_discarded(self) -> None:
-        # ASR unavailable => WER is None => the take still competes.
+    def test_the_most_similar_take_loses_when_it_is_broken(self) -> None:
+        # Straight from the temperature grid: 0.823 similarity at 26.7% WER
+        # was the least intelligible render in it.
+        assert self._pick([(0.267, 0.823), (0.000, 0.786)]) == 1
+
+    def test_a_clean_take_beats_a_marginally_cleaner_but_duller_one(self) -> None:
+        # Both are inside the floor, so the more similar one wins even though
+        # its raw WER is worse.
+        assert self._pick([(0.02, 0.70), (0.10, 0.83), (0.00, 0.75)]) == 1
+
+    def test_least_broken_take_survives_when_everything_is_bad(self) -> None:
+        # All four takes of a collapsed IPA render; similarity is meaningless
+        # there, so the one that kept the most words wins.
+        assert self._pick([(1.00, 0.526), (1.00, 0.645), (0.933, 0.515)]) == 2
+
+    def test_ties_above_the_floor_break_on_similarity(self) -> None:
+        assert self._pick([(0.20, 0.699), (0.20, 0.782)]) == 1
+
+    def test_unscored_takes_rank_at_the_floor(self) -> None:
+        # ASR unavailable is not evidence of a bad take.
         assert self._pick([(None, 0.88), (0.05, 0.70)]) == 0
+
+    def test_an_unscored_take_still_loses_to_nothing_broken(self) -> None:
+        assert self._pick([(None, 0.60), (0.40, 0.95)]) == 0

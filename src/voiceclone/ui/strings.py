@@ -34,6 +34,12 @@ STRINGS: dict[str, dict[str, str]] = {
         "mode": "Conversion mode",
         "speed": "Speed",
         "seed": "Seed",
+        "best_of": "Takes (best-of-N)",
+        "best_of_help": (
+            "Render this many takes and keep the best. Seeds vary more than any "
+            "sampling setting does, so this is the cheapest quality win - at N times "
+            "the wait."
+        ),
         "seed_help": "0 draws a new random seed. Reuse a seed to reproduce a take exactly.",
         "quality_preset": "Quality preset",
         "advanced": "Advanced settings",
@@ -43,7 +49,11 @@ STRINGS: dict[str, dict[str, str]] = {
         "trim_silence": "Trim silence",
         "auto_window": "Auto-select best window",
         "use_phonemes": "Use Persian G2P (phonemes)",
-        "use_phonemes_help": "Resolves short vowels, ezafe and homographs before synthesis.",
+        "use_phonemes_help": (
+            "Sends IPA instead of Persian script. Measured worse on every engine here - "
+            "MOSS's phoneme channel is English/pinyin-trained and collapses on Persian. "
+            "Leave off unless you are testing a new engine."
+        ),
         # actions
         "generate": "Generate",
         "generating": "Generating...",
@@ -84,6 +94,12 @@ STRINGS: dict[str, dict[str, str]] = {
         "mode": "حالت تبدیل",
         "speed": "سرعت",
         "seed": "دانه تصادفی",
+        "best_of": "تعداد برداشت (بهترین از N)",
+        "best_of_help": (
+            "این تعداد برداشت تولید می‌شود و بهترین آن نگه داشته می‌شود. تفاوت بین "
+            "دانه‌های تصادفی از هر تنظیم دیگری بیشتر است، پس ارزان‌ترین راه بهبود "
+            "کیفیت است - با N برابر زمان."
+        ),
         "seed_help": "صفر یعنی دانه تصادفی جدید. برای بازتولید دقیق، همان دانه را دوباره وارد کنید.",
         "quality_preset": "پیش‌تنظیم کیفیت",
         "advanced": "تنظیمات پیشرفته",
@@ -93,7 +109,11 @@ STRINGS: dict[str, dict[str, str]] = {
         "trim_silence": "حذف سکوت",
         "auto_window": "انتخاب خودکار بهترین بازه",
         "use_phonemes": "استفاده از واج‌نگار فارسی",
-        "use_phonemes_help": "مصوت‌های کوتاه، کسره اضافه و هم‌نگاشت‌ها را پیش از تولید حل می‌کند.",
+        "use_phonemes_help": (
+            "به جای خط فارسی، IPA فرستاده می‌شود. در اندازه‌گیری‌ها روی همه موتورهای "
+            "موجود بدتر بود؛ کانال واجی MOSS با انگلیسی و پینیین آموزش دیده و روی "
+            "فارسی فرو می‌ریزد. جز برای آزمودن موتور تازه، خاموش بماند."
+        ),
         "generate": "تولید صدا",
         "generating": "در حال تولید...",
         "stop": "توقف",

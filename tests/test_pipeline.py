@@ -319,48 +319,71 @@ class TestBestOfNSelection:
     """The ranking rule, exercised without loading any model.
 
     Getting this backwards is silent: you still get audio, it is just the
-    wrong take. WER is clamped at Whisper's own ~11% floor on real Persian
-    speech before comparison, so differences inside the noise band become a
-    tie that speaker similarity breaks, while a genuine mistake still wins
-    the comparison outright.
+    wrong take. Both metrics are quantised to their measured noise first -
+    WER clamped at ~11-15% (Whisper's own error on real Persian speech),
+    similarity bucketed at 0.02 (ECAPA's spread across identity-preserving
+    perturbations of one render). Numbers below are from real runs.
     """
 
-    @staticmethod
-    def _pick(scored: list[tuple[float | None, float]], floor: float = 0.15) -> int:
+    FLOOR = 0.15
+    STEP = 0.02
+
+    @classmethod
+    def _pick(cls, scored: list[tuple[float | None, float | None]]) -> int:
         return min(
             range(len(scored)),
-            key=lambda i: _candidate_rank(scored[i][0], scored[i][1], floor),
+            key=lambda i: _candidate_rank(scored[i][0], scored[i][1], cls.FLOOR, cls.STEP),
         )
 
-    def test_similarity_decides_inside_the_noise_band(self) -> None:
-        # 0% vs 6.7% is Whisper disagreeing with itself, not a better take.
-        assert self._pick([(0.000, 0.76), (0.067, 0.81)]) == 1
+    @classmethod
+    def _tied(cls, scored: list[tuple[float | None, float | None]]) -> int:
+        keys = [_candidate_rank(w, s, cls.FLOOR, cls.STEP) for w, s in scored]
+        return keys.count(min(keys))
 
-    def test_a_real_mistake_outranks_a_similarity_gain(self) -> None:
-        # Live best-of-4: take 0 is +0.006 more similar but drops a word.
-        assert self._pick([(0.333, 0.788), (0.200, 0.782)]) == 1
+    def test_similarity_decides_inside_the_noise_band(self) -> None:
+        # 0% vs 6.7% WER is Whisper disagreeing with itself; 0.76 vs 0.83 is
+        # wider than ECAPA's noise, so it is a real preference.
+        assert self._pick([(0.000, 0.76), (0.067, 0.83)]) == 1
+
+    def test_a_real_mistake_outranks_any_similarity_gain(self) -> None:
+        # Live best-of-4: take 0 is more similar but drops a word.
+        assert self._pick([(0.333, 0.788), (0.200, 0.700)]) == 1
 
     def test_the_most_similar_take_loses_when_it_is_broken(self) -> None:
-        # Straight from the temperature grid: 0.823 similarity at 26.7% WER
-        # was the least intelligible render in it.
+        # From the temperature grid: 0.823 at 26.7% WER was the least
+        # intelligible render in it.
         assert self._pick([(0.267, 0.823), (0.000, 0.786)]) == 1
 
-    def test_a_clean_take_beats_a_marginally_cleaner_but_duller_one(self) -> None:
-        # Both are inside the floor, so the more similar one wins even though
-        # its raw WER is worse.
-        assert self._pick([(0.02, 0.70), (0.10, 0.83), (0.00, 0.75)]) == 1
-
     def test_least_broken_take_survives_when_everything_is_bad(self) -> None:
-        # All four takes of a collapsed IPA render; similarity is meaningless
+        # Four takes of a collapsed IPA render; similarity means nothing
         # there, so the one that kept the most words wins.
         assert self._pick([(1.00, 0.526), (1.00, 0.645), (0.933, 0.515)]) == 2
 
-    def test_ties_above_the_floor_break_on_similarity(self) -> None:
-        assert self._pick([(0.20, 0.699), (0.20, 0.782)]) == 1
+    def test_similarity_inside_ecapa_noise_is_a_tie(self) -> None:
+        # The 0.788/0.782 pair I once agonised over is one bucket wide.
+        assert self._tied([(0.20, 0.788), (0.20, 0.782)]) == 2
 
-    def test_unscored_takes_rank_at_the_floor(self) -> None:
+    def test_a_tie_resolves_deterministically(self) -> None:
+        pair = [(0.20, 0.788), (0.20, 0.782)]
+        assert self._pick(pair) == self._pick(pair) == 0
+
+    def test_similarity_beyond_the_noise_still_decides(self) -> None:
+        # 0.646 vs 0.671 from the reference sweep - more than one bucket.
+        assert self._pick([(0.20, 0.646), (0.20, 0.671)]) == 1
+
+    def test_unscored_wer_ranks_at_the_floor(self) -> None:
         # ASR unavailable is not evidence of a bad take.
         assert self._pick([(None, 0.88), (0.05, 0.70)]) == 0
 
-    def test_an_unscored_take_still_loses_to_nothing_broken(self) -> None:
+    def test_an_unscored_take_beats_a_broken_one(self) -> None:
         assert self._pick([(None, 0.60), (0.40, 0.95)]) == 0
+
+    def test_unscored_similarity_does_not_win_on_that_axis(self) -> None:
+        # Asymmetric with WER on purpose: the floor is a real "no worse than"
+        # bound, whereas an unscored take cannot be *shown* to match.
+        assert self._pick([(0.05, None), (0.05, 0.70)]) == 1
+
+    def test_everything_ties_when_no_similarity_is_available(self) -> None:
+        # ECAPA missing entirely: WER decides, and the tie is visible so the
+        # caller can say so rather than implying the winner was better.
+        assert self._tied([(0.05, None), (0.10, None), (0.02, None)]) == 3

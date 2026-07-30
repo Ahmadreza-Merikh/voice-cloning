@@ -175,6 +175,7 @@ class VoiceCloneUI:
         preset: str,
         speed: float,
         seed: float,
+        best_of: float,
         use_phonemes: bool,
         denoise: str,
         separate_vocals: bool,
@@ -187,6 +188,8 @@ class VoiceCloneUI:
 
         reference = self._resolve_reference(mode, uploaded, saved_slug)
         studio = self.studio
+        # Per-request, so one render does not change the setting for the next.
+        studio.config.evaluation.candidates = max(1, int(best_of))
 
         try:
             result = studio.synthesize(
@@ -541,9 +544,17 @@ class VoiceCloneUI:
                         )
                         tts_speed = gr.Slider(0.5, 1.6, value=1.0, step=0.05, label=strings["speed"])
                         tts_seed = gr.Number(value=0, precision=0, label=strings["seed"])
+                        tts_best_of = gr.Slider(
+                            1, 8, value=1, step=1,
+                            label=strings["best_of"],
+                            info=strings["best_of_help"],
+                        )
 
+                    # Off by default. Ticking this passes an explicit preference
+                    # that overrides text.g2p.apply_to_engines, and no engine here
+                    # reads Persian IPA better than Persian script.
                     tts_phonemes = gr.Checkbox(
-                        value=True,
+                        value=False,
                         label=strings["use_phonemes"],
                         info=strings["use_phonemes_help"],
                     )
@@ -597,7 +608,7 @@ class VoiceCloneUI:
                         s2s_speed = gr.Slider(0.5, 1.6, value=1.0, step=0.05, label=strings["speed"])
                         s2s_seed = gr.Number(value=0, precision=0, label=strings["seed"])
 
-                    s2s_phonemes = gr.Checkbox(value=True, label=strings["use_phonemes"])
+                    s2s_phonemes = gr.Checkbox(value=False, label=strings["use_phonemes"])
                     s2s_pre = self._preprocessing_block()
 
                     s2s_button = gr.Button(
@@ -666,7 +677,7 @@ class VoiceCloneUI:
                     tts_text,
                     tts_ref["mode"], tts_ref["upload"], tts_ref["saved"],
                     tts_ref_text,
-                    tts_engine, tts_preset, tts_speed, tts_seed, tts_phonemes,
+                    tts_engine, tts_preset, tts_speed, tts_seed, tts_best_of, tts_phonemes,
                     *preprocessing_inputs(tts_pre),
                 ],
                 outputs=[tts_out, tts_report, tts_badges],

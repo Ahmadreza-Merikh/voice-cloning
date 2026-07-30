@@ -213,6 +213,12 @@ evaluation:
   # differences under it are the recogniser, not the render. Above it the
   # difference is real and WER decides.
   candidate_wer_floor: 0.15
+  # Speaker-similarity differences below this count as a tie. Perturbing one
+  # render in ways that cannot change who is speaking - cropping 85-95% of it,
+  # +/-1 dB of gain, dither at -60 dBFS - moves the ECAPA score by up to
+  # 0.0205 (sd 0.0055). The entire temperature sweep moved it by 0.016, i.e.
+  # that comparison was inside the noise as well.
+  candidate_similarity_step: 0.02
 
 ui:
   server_name: 127.0.0.1

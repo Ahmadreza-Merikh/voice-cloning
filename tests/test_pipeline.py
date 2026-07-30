@@ -331,7 +331,7 @@ class TestBestOfNSelection:
         passed = [r for r in rows if r[0] is None or r[0] <= gate]
         if passed:
             return max(passed, key=lambda r: r[1])[2]
-        return min(rows, key=lambda r: (r[0] if r[0] is not None else 1.0))[2]
+        return min(rows, key=lambda r: (r[0] if r[0] is not None else 1.0, -r[1]))[2]
 
     def test_most_similar_take_wins_when_all_are_intelligible(self) -> None:
         assert self._pick([(0.05, 0.77), (0.10, 0.82), (0.02, 0.75)]) == 1
@@ -347,6 +347,18 @@ class TestBestOfNSelection:
 
     def test_least_broken_take_survives_when_everything_trips_the_gate(self) -> None:
         assert self._pick([(0.40, 0.90), (0.22, 0.60), (0.31, 0.85)]) == 1
+
+    def test_wer_ties_in_the_fallback_break_on_similarity(self) -> None:
+        # Two takes at 20.0% WER really happened; picking by list order made
+        # the right choice by luck, which is not a property worth keeping.
+        assert self._pick([(0.20, 0.70), (0.20, 0.78)]) == 1
+
+    def test_a_real_error_beats_a_marginal_similarity_gain(self) -> None:
+        # Straight from a live best-of-4: no take reached the floor, so the
+        # fallback ran. Take 0 is +0.006 more similar but drops a word
+        # (33.3% vs 20.0%). Widening the gate to admit both would buy that
+        # rounding error at the cost of an audible mistake.
+        assert self._pick([(0.333, 0.788), (0.200, 0.782)]) == 1
 
     def test_unscored_takes_are_not_discarded(self) -> None:
         # ASR unavailable => WER is None => the take still competes.

@@ -210,10 +210,9 @@ class EvaluationConfig:
     transcribe_check: bool = False
     #: Render this many takes and keep the best. 1 disables the machinery.
     candidates: int = 1
-    #: A take whose round-trip WER exceeds this is discarded outright.
-    #: Measured against real human speech, Whisper's own floor on Persian is
-    #: ~11%, so this is a *gate* on broken renders, not a ranking key - see
-    #: `_pick_best_candidate`.
+    #: Takes at or below this WER are treated as equally intelligible and
+    #: ranked on similarity instead. Sits at Whisper's own error floor on
+    #: real Persian speech - see `Studio._render_best_of`.
     candidate_wer_gate: float = 0.15
 
 

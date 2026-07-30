@@ -329,8 +329,15 @@ class Studio:
         reference corpus back with the same Whisper model scores ~11% WER, so
         anything in that neighbourhood is the recogniser's own error, not the
         render's. Ranking by it would be ranking noise. What it does detect
-        reliably is a take that has actually come apart - dropped words,
-        repeated syllables, an early stop - which lands far above the floor.
+        reliably is a take that has genuinely lost words, which lands well
+        above it - 20-33% for an ordinary slip, 90-100% for a render that has
+        come apart entirely.
+
+        Often no take reaches the floor. The fallback then keeps the
+        lowest-WER take and breaks ties on similarity, which is the point: a
+        live best-of-4 offered 0.788 similarity at 33.3% WER against 0.782 at
+        20.0%, and the six-thousandth of similarity is not worth the dropped
+        word.
 
         *Speaker similarity is the ranking key,* but only among takes that
         already passed the gate. Measured across a temperature/seed grid the
@@ -381,7 +388,7 @@ class Studio:
         else:
             # Every take tripped the gate. Fall back to the least broken one
             # rather than the most similar, and say so.
-            best = min(scored, key=lambda row: (row[0] if row[0] is not None else 1.0))
+            best = min(scored, key=lambda row: (row[0] if row[0] is not None else 1.0, -row[1]))
             warnings.append(
                 f"All {takes} takes exceeded the {gate * 100:.0f}% WER gate; "
                 "kept the most intelligible. Try a cleaner reference or a lower temperature."

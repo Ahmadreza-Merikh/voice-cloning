@@ -206,17 +206,13 @@ evaluation:
   # takes and keeping the best is the cheapest quality win available without
   # a new model. Costs N x synthesis time; 1 disables it.
   candidates: 1
-  # Takes at or below this WER count as equally intelligible, and similarity
-  # picks between them. Set at Whisper's own error floor: transcribing *real
-  # human speech* from the reference corpus scores ~11% with this same model,
-  # so differences under it are the recogniser, not the render.
-  #
-  # It is normal for no take to reach the floor - then the fallback keeps the
-  # lowest-WER take, breaking ties on similarity. That is the intended
-  # behaviour, not a misconfiguration: a take at 33.3% WER is audibly worse
-  # than one at 20.0%, and no similarity gain of a few thousandths is worth a
-  # dropped word.
-  candidate_wer_gate: 0.15
+  # Round-trip WER is clamped here before takes are compared, so anything at
+  # or below counts as equally intelligible and speaker similarity picks
+  # between them. Set at Whisper's own error floor: transcribing *real human
+  # speech* from the reference corpus scores ~11% with this same model, so
+  # differences under it are the recogniser, not the render. Above it the
+  # difference is real and WER decides.
+  candidate_wer_floor: 0.15
 
 ui:
   server_name: 127.0.0.1

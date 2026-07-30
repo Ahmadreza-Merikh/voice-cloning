@@ -42,6 +42,28 @@ def _stopwatch(timings: dict[str, float], label: str):
         timings[label] = timings.get(label, 0.0) + (time.perf_counter() - start)
 
 
+def _candidate_rank(wer: float | None, similarity: float, floor: float) -> tuple[float, float]:
+    """Sort key for one best-of-N take. Lower is better.
+
+    Round-trip WER is clamped at ``floor`` before it is compared, which is
+    what makes this work. Whisper misreads genuine human speech from the
+    reference corpus at ~11%, so a take at 0% and a take at 7% differ only in
+    the recogniser's noise - clamping collapses them to a tie and lets
+    speaker similarity decide. Above the floor the difference is real, so WER
+    dominates and similarity cannot buy its way past a dropped word.
+
+    A hard threshold was tried first and is the wrong shape: set near the
+    floor almost nothing passes and selection silently becomes "lowest WER",
+    set high enough for ordinary takes to pass and similarity starts
+    outranking real mistakes. Clamping degrades smoothly instead of flipping
+    between those two failures.
+
+    ``wer`` of ``None`` means transcription was unavailable, which is not
+    evidence of a bad take - it ranks at the floor so similarity decides.
+    """
+    return (max(wer, floor) if wer is not None else floor, -similarity)
+
+
 class Studio:
     """Model registry, caches and the two synthesis pipelines."""
 
@@ -346,7 +368,7 @@ class Studio:
         """
         from ..evaluation.similarity import speaker_similarity, word_error_rate
 
-        gate = float(self.config.evaluation.candidate_wer_gate)
+        floor = float(self.config.evaluation.candidate_wer_floor)
         span = 0.7 / takes
         scored: list[tuple[float | None, float, Audio, int | None]] = []
 
@@ -382,24 +404,19 @@ class Studio:
             )
             scored.append((wer, similarity, audio, used))
 
-        passed = [row for row in scored if row[0] is None or row[0] <= gate]
-        if passed:
-            best = max(passed, key=lambda row: row[1])
-        else:
-            # Every take tripped the gate. Fall back to the least broken one
-            # rather than the most similar, and say so.
-            best = min(scored, key=lambda row: (row[0] if row[0] is not None else 1.0, -row[1]))
+        best = min(scored, key=lambda row: _candidate_rank(row[0], row[1], floor))
+        if best[0] is not None and best[0] > floor:
             warnings.append(
-                f"All {takes} takes exceeded the {gate * 100:.0f}% WER gate; "
-                "kept the most intelligible. Try a cleaner reference or a lower temperature."
+                f"No take reached the {floor * 100:.0f}% transcription floor "
+                f"(best {best[0] * 100:.1f}%); kept the most intelligible. "
+                "A cleaner reference or a lower temperature usually helps."
             )
 
         log.info(
-            "Best of %d: similarity %.3f, WER %s (%d passed the gate)",
+            "Best of %d: similarity %.3f, WER %s",
             takes,
             best[1],
             "n/a" if best[0] is None else f"{best[0] * 100:.1f}%",
-            len(passed),
         )
         return best[2], best[3]
 

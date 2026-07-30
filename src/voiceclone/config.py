@@ -214,6 +214,11 @@ class EvaluationConfig:
     #: takes inside the recogniser's noise are ranked on similarity instead.
     #: Whisper's own floor on real Persian speech - see `_candidate_rank`.
     candidate_wer_floor: float = 0.15
+    #: Similarity differences smaller than this are treated as a tie.
+    #: Identity-preserving perturbations of one render (85-95% crops, +/-1 dB,
+    #: -60 dBFS dither) move the ECAPA score by up to 0.0205 - see
+    #: `_candidate_rank`.
+    candidate_similarity_step: float = 0.02
 
 
 @dataclass

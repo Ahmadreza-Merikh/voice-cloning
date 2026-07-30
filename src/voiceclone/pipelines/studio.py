@@ -42,26 +42,52 @@ def _stopwatch(timings: dict[str, float], label: str):
         timings[label] = timings.get(label, 0.0) + (time.perf_counter() - start)
 
 
-def _candidate_rank(wer: float | None, similarity: float, floor: float) -> tuple[float, float]:
+def _candidate_rank(
+    wer: float | None,
+    similarity: float | None,
+    wer_floor: float,
+    similarity_step: float,
+) -> tuple[float, float]:
     """Sort key for one best-of-N take. Lower is better.
 
-    Round-trip WER is clamped at ``floor`` before it is compared, which is
-    what makes this work. Whisper misreads genuine human speech from the
-    reference corpus at ~11%, so a take at 0% and a take at 7% differ only in
-    the recogniser's noise - clamping collapses them to a tie and lets
-    speaker similarity decide. Above the floor the difference is real, so WER
-    dominates and similarity cannot buy its way past a dropped word.
+    Both metrics are quantised to their own measurement noise before they are
+    compared, because neither resolves differences below it and sorting on
+    what a metric cannot resolve is sorting on nothing.
 
-    A hard threshold was tried first and is the wrong shape: set near the
-    floor almost nothing passes and selection silently becomes "lowest WER",
-    set high enough for ordinary takes to pass and similarity starts
-    outranking real mistakes. Clamping degrades smoothly instead of flipping
-    between those two failures.
+    *WER* is clamped at ``wer_floor``. Transcribing genuine human speech from
+    the reference corpus with the same Whisper model scores 4-18% per clip
+    (mean 11.3%), so a take at 0% and a take at 7% differ only in the
+    recogniser. Above the floor the difference is real, and WER dominates -
+    similarity cannot buy its way past a dropped word.
 
-    ``wer`` of ``None`` means transcription was unavailable, which is not
-    evidence of a bad take - it ranks at the floor so similarity decides.
+    *Similarity* is bucketed to ``similarity_step``. Perturbing one render in
+    ways that cannot change who is speaking - cropping 85-95% of it, +/-1 dB
+    of gain, dither at -60 dBFS - moves the ECAPA score by up to 0.0205
+    (sd 0.0055), and cropping accounts for nearly all of it. For scale, the
+    whole temperature sweep moved similarity by 0.016, so that comparison was
+    inside the noise too.
+
+    A hard WER threshold was tried first and is the wrong shape: near the
+    floor almost nothing passes and selection silently becomes "lowest WER";
+    high enough for ordinary takes to pass and similarity starts outranking
+    real mistakes. Quantising degrades smoothly instead of flipping between
+    those failures.
+
+    ``wer`` of ``None`` ranks at the floor: a take nobody transcribed is not
+    thereby a bad take. ``similarity`` of ``None`` ranks last on that axis
+    instead, because the two absences are not symmetric - the WER floor is a
+    real "no worse than this" bound, whereas an unscored take simply cannot
+    be *shown* to resemble the reference. In practice the speaker encoder is
+    all-or-nothing, so every take ties there and the WER clamp decides;
+    `_render_best_of` warns when that happens rather than letting it pass
+    silently.
     """
-    return (max(wer, floor) if wer is not None else floor, -similarity)
+    ranked_wer = max(wer, wer_floor) if wer is not None else wer_floor
+    if similarity is None or similarity_step <= 0:
+        ranked_similarity = 0.0
+    else:
+        ranked_similarity = -round(similarity / similarity_step)
+    return (ranked_wer, ranked_similarity)
 
 
 class Studio:
@@ -344,33 +370,25 @@ class Studio:
     ) -> tuple[Audio, int | None]:
         """Render ``takes`` candidates and return the best one.
 
-        Selection is deliberately asymmetric, because the two metrics carry
-        very different amounts of information:
+        Both metrics are quantised to their own measurement noise and then
+        compared lexicographically - WER clamped at the transcription floor
+        first, bucketed speaker similarity second. `_candidate_rank` carries
+        the reasoning and the measurements.
 
-        *Round-trip WER is a gate.* Transcribing genuine human speech from the
-        reference corpus back with the same Whisper model scores ~11% WER, so
-        anything in that neighbourhood is the recogniser's own error, not the
-        render's. Ranking by it would be ranking noise. What it does detect
-        reliably is a take that has genuinely lost words, which lands well
-        above it - 20-33% for an ordinary slip, 90-100% for a render that has
-        come apart entirely.
-
-        Often no take reaches the floor. The fallback then keeps the
-        lowest-WER take and breaks ties on similarity, which is the point: a
-        live best-of-4 offered 0.788 similarity at 33.3% WER against 0.782 at
-        20.0%, and the six-thousandth of similarity is not worth the dropped
-        word.
-
-        *Speaker similarity is the ranking key,* but only among takes that
-        already passed the gate. Measured across a temperature/seed grid the
-        two are uncorrelated (r = -0.06): the single most similar take was
-        also the least intelligible. Similarity alone would reliably pick it.
+        Two consequences worth knowing about. Takes whose WER is inside the
+        floor are ordered purely on similarity, which is the case this exists
+        for. And when several takes land in the same bucket on *both* axes
+        they are genuinely indistinguishable by anything measured here; the
+        pick is then arbitrary but deterministic, and the result says so
+        rather than implying the winner was better.
         """
         from ..evaluation.similarity import speaker_similarity, word_error_rate
 
-        floor = float(self.config.evaluation.candidate_wer_floor)
+        settings = self.config.evaluation
+        floor = float(settings.candidate_wer_floor)
+        step = float(settings.candidate_similarity_step)
         span = 0.7 / takes
-        scored: list[tuple[float | None, float, Audio, int | None]] = []
+        scored: list[tuple[float | None, float | None, Audio, int | None]] = []
 
         for index in range(takes):
             base = 0.2 + span * index
@@ -387,7 +405,9 @@ class Studio:
             except Exception:
                 log.debug("Round-trip transcription failed for take %d", index + 1, exc_info=True)
 
-            similarity = 0.0
+            # None, not 0.0: an unscored take and a dissimilar one are
+            # different facts, and only one of them is about the audio.
+            similarity: float | None = None
             try:
                 result = speaker_similarity(reference, audio)
                 if result is not None:
@@ -396,27 +416,47 @@ class Studio:
                 log.debug("Similarity scoring failed for take %d", index + 1, exc_info=True)
 
             log.info(
-                "Take %d/%d: similarity %.3f, WER %s",
+                "Take %d/%d: similarity %s, WER %s",
                 index + 1,
                 takes,
-                similarity,
+                "n/a" if similarity is None else f"{similarity:.3f}",
                 "n/a" if wer is None else f"{wer * 100:.1f}%",
             )
             scored.append((wer, similarity, audio, used))
 
-        best = min(scored, key=lambda row: _candidate_rank(row[0], row[1], floor))
+        def rank(row: tuple[float | None, float | None, Audio, int | None]) -> tuple[float, float]:
+            return _candidate_rank(row[0], row[1], floor, step)
+
+        best = min(scored, key=rank)
+        tied = sum(1 for row in scored if rank(row) == rank(best))
+
+        if all(row[1] is None for row in scored):
+            warnings.append(
+                "Speaker similarity was unavailable, so takes could only be ranked on "
+                "transcription. Install speechbrain to let best-of-N compare voices."
+            )
+        elif tied > 1:
+            # Say it plainly: on everything measured here these takes are the
+            # same, so N renders bought nothing this time.
+            warnings.append(
+                f"{tied} of {takes} takes scored identically once WER and similarity "
+                "were quantised to their measurement noise; the pick between them is "
+                "arbitrary. Best-of-N is not helping on this text."
+            )
+
         if best[0] is not None and best[0] > floor:
             warnings.append(
-                f"No take reached the {floor * 100:.0f}% transcription floor "
-                f"(best {best[0] * 100:.1f}%); kept the most intelligible. "
+                f"Every take transcribed back above the {floor * 100:.0f}% noise floor "
+                f"(best {best[0] * 100:.1f}%), so all of them lost words. "
                 "A cleaner reference or a lower temperature usually helps."
             )
 
         log.info(
-            "Best of %d: similarity %.3f, WER %s",
+            "Best of %d: similarity %s, WER %s%s",
             takes,
-            best[1],
+            "n/a" if best[1] is None else f"{best[1]:.3f}",
             "n/a" if best[0] is None else f"{best[0] * 100:.1f}%",
+            f" ({tied} tied)" if tied > 1 else "",
         )
         return best[2], best[3]
 

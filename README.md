@@ -1,8 +1,16 @@
 # Persian Voice Cloning Studio
 
-High-fidelity zero-shot voice cloning with **phoneme-accurate Persian pronunciation**.
-Give it a few seconds of someone's voice and either text or an audio file, and it
-produces speech in that voice.
+High-fidelity zero-shot voice cloning for Persian. Give it a few seconds of
+someone's voice and either text or an audio file, and it produces speech in that
+voice.
+
+> **On phonemes.** This project was built around feeding IPA to a phoneme-capable
+> engine. Measurement did not support it: MOSS-TTS accepts IPA, but its phoneme
+> channel is trained on English (CMUdict) and Chinese pinyin, and Persian IPA is out
+> of distribution — the same sentence renders in 7.3 s from Persian script and
+> collapses to 1.3 s of nonsense from IPA (100% WER against 40%). `apply_to_engines`
+> is therefore empty by default and every engine receives Persian script. The G2P
+> still earns its keep for analysis, homograph inspection and the WER metric.
 
 ```
                                  ┌─────────────────────┐
@@ -39,8 +47,9 @@ This project fixes each of them **before** the model sees the text:
 1. **Normalisation** unifies Arabic letterforms, digits, ZWNJ and punctuation.
 2. **Verbalisation** turns numbers, dates, times, currency and percentages into words.
 3. **Grapheme-to-phoneme conversion** resolves short vowels, ezafe and homographs,
-   emitting IPA.
-4. A **phoneme-capable engine** synthesises from the IPA, with nothing left to guess.
+   emitting IPA — used for inspection and measurement, not currently for synthesis
+   (see the note at the top).
+4. The engine synthesises from normalised Persian script.
 
 Step 3 uses a [Homo-GE2PE](https://huggingface.co/MahtaFetrat/Homo-GE2PE-Persian) based
 Persian G2P system (3.98% PER, 76.9% homograph accuracy). It is optional — without it
@@ -130,14 +139,16 @@ Check what your machine can actually run at any time:
 | Engine | Persian | Phoneme input | Size | Speed | Notes |
 |---|---|---|---|---|---|
 | **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. |
-| **MOSS-TTS** (`moss`) | official (1 of 20 languages) | **yes (IPA)** | 6.2 GB | slower | Apache-2.0. The quality-first choice — pair it with the G2P. |
+| **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 13.5 GB | slower | Apache-2.0. Best measured similarity. Pinned to transformers 5.0.x. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
 
 **Which should I use?**
 
 - Iterating on wording, or on a modest machine → **F5-TTS**.
-- Final renders, tricky vocabulary, or anything where a mispronounced ezafe matters
-  → **MOSS-TTS with the G2P enabled**. This is the configuration the project is built around.
+- Final renders, or anything where timbre matters → **MOSS-TTS on Persian script**.
+  Measured against the same reference and sentence: 0.819 speaker similarity versus
+  F5's 0.730, and it got بهار، کردند، باغ، شکفت right where F5 got all four wrong.
+  It needs its own environment (`transformers>=5.0,<5.1`) and ~13.5 GB of weights.
 - You want the *source recording's* delivery preserved → **Seed-VC**.
 
 Switch the default in `configs/default.yaml`:
@@ -181,6 +192,11 @@ A good first run:
 ```bash
 # text to speech
 voiceclone tts "سلام، حال شما چطور است؟" -r reference.wav -o out.wav
+
+# Render 4 takes and keep the best. Autoregressive engines vary more between
+# seeds than any sampling knob moves them, so this is the cheapest quality
+# win available. Costs 4x the time.
+voiceclone tts "متن شما" -r reference.wav --best-of 4 -o out.wav
 
 # long text from a file, with the MOSS engine
 voiceclone tts @script.txt -r reference.wav -e moss -o narration.wav
@@ -336,7 +352,7 @@ text:
   g2p:
     enabled: auto               # auto | true (require) | false
     repo_path: auto             # path to the Persian G2P project
-    apply_to_engines: [moss]    # engines that accept IPA
+    apply_to_engines: []        # empty: see the note at the top of this file
 
 engines:
   f5:
@@ -486,9 +502,17 @@ Press **Analyse reference** first. A score below 60 explains most failures. Also
 the reference is a single speaker with no background music, and try 10-12 seconds.
 
 **Persian words are mispronounced**
-Enable **Use Persian G2P** and switch to the MOSS engine — F5-TTS reads graphemes and
-cannot use phonemes. Confirm the G2P actually loaded in **Diagnostics**; if it says
-"not found", set `text.g2p.repo_path`.
+Switch to the MOSS engine, which measured better on exactly this. Do *not* reach for
+phonemes — handing MOSS Persian IPA makes it worse, not better (see the note at the
+top). Try `--best-of 4` as well: seed variance moves pronunciation more than any
+sampling knob does.
+
+Do not write the ezafe explicitly either. `کتابِ من` is careful Persian, but GE2PE
+emits a vowel for the kasra *and* applies its own ezafe rule, so the marked spelling
+used to come out doubled (`ketaebe` for `ketabe`). The pipeline now strips a
+word-final kasra before the G2P sees it; word-internal harakat are kept, since they
+disambiguate homographs. MOSS also reads an explicit kasra as /i/, so `شهرِ` becomes
+*shahri*.
 
 **Numbers are read as digits**
 `text.expand_numbers` must be `true`. Check with `voiceclone text "your text"`.

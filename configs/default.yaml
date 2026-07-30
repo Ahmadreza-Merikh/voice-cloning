@@ -189,6 +189,18 @@ evaluation:
   speaker_similarity: true   # ECAPA-TDNN / Resemblyzer cosine vs. reference
   transcribe_check: false    # re-run ASR on the output and report WER/CER
 
+  # Best-of-N. Autoregressive engines vary a lot between seeds - more, in
+  # measurement, than any sampling knob moves them - so rendering several
+  # takes and keeping the best is the cheapest quality win available without
+  # a new model. Costs N x synthesis time; 1 disables it.
+  candidates: 1
+  # A take whose round-trip WER exceeds this is discarded before ranking.
+  # Transcribing *real human speech* from the reference corpus scores ~11%
+  # with the same Whisper model, so this is a gate on renders that have come
+  # apart - not a quality score. Ranking below the floor is ranking noise;
+  # survivors are ordered by speaker similarity instead.
+  candidate_wer_gate: 0.15
+
 ui:
   server_name: 127.0.0.1
   server_port: 7860

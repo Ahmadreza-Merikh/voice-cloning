@@ -232,13 +232,15 @@ class Studio:
         with _stopwatch(timings, "load"):
             tts.load()
 
-        rendered: list[Audio] = []
-        gaps: list[int] = []
-        used_seed = seed
+        takes = max(1, int(self.config.evaluation.candidates))
 
-        with _stopwatch(timings, "synthesis"):
+        def render(take_seed: int | None, base: float, span: float) -> tuple[Audio, int | None]:
+            rendered: list[Audio] = []
+            gaps: list[int] = []
+            used = take_seed
+
             for position, chunk in enumerate(prepared.chunks):
-                fraction = 0.2 + 0.7 * (position / max(len(prepared.chunks), 1))
+                fraction = base + span * 0.8 * (position / max(len(prepared.chunks), 1))
                 report(fraction, f"Synthesising chunk {position + 1}/{len(prepared.chunks)}")
 
                 result = tts.synthesize(
@@ -246,23 +248,21 @@ class Studio:
                     reference_result.audio,
                     reference_text=resolved_reference_text or None,
                     speed=speed,
-                    seed=used_seed,
+                    seed=used,
                     is_phonemes=bool(chunk.phonemes),
                     **(engine_options or {}),
                 )
                 # Keep the seed stable across chunks so timbre does not drift.
-                if used_seed is None:
-                    used_seed = result.seed
+                if used is None:
+                    used = result.seed
 
                 rendered.append(strip_reference_leakage(result.audio))
                 gaps.append(chunk.gap_before_ms)
 
-        if not rendered:
-            raise SynthesisError("The engine produced no audio.")
+            if not rendered:
+                raise SynthesisError("The engine produced no audio.")
 
-        # -- assemble ------------------------------------------------------
-        report(0.92, "Joining and mastering")
-        with _stopwatch(timings, "postprocess"):
+            report(base + span * 0.9, "Joining and mastering")
             output_settings = self.config.audio.output
             joined = join_chunks(
                 rendered,
@@ -270,12 +270,29 @@ class Studio:
                 crossfade_ms=output_settings.join_crossfade_ms,
                 gaps_ms=gaps,
             )
-            final = master(
-                joined,
-                target_lufs=output_settings.loudness_lufs,
-                peak_dbfs=output_settings.peak_dbfs,
-                fade_ms=output_settings.fade_ms,
+            return (
+                master(
+                    joined,
+                    target_lufs=output_settings.loudness_lufs,
+                    peak_dbfs=output_settings.peak_dbfs,
+                    fade_ms=output_settings.fade_ms,
+                ),
+                used,
             )
+
+        with _stopwatch(timings, "synthesis"):
+            if takes == 1:
+                final, used_seed = render(seed, 0.2, 0.7)
+            else:
+                final, used_seed = self._render_best_of(
+                    render,
+                    takes=takes,
+                    seed=seed,
+                    reference=reference_result.audio,
+                    expected_text=prepared.normalized,
+                    warnings=warnings,
+                    report=report,
+                )
 
         clone = CloneResult(
             audio=final,
@@ -291,6 +308,93 @@ class Studio:
 
         self._finalise(clone, report, output_path, expected_text=prepared.normalized)
         return clone
+
+    def _render_best_of(
+        self,
+        render: Callable[[int | None, float, float], tuple[Audio, int | None]],
+        *,
+        takes: int,
+        seed: int | None,
+        reference: Audio,
+        expected_text: str,
+        warnings: list[str],
+        report: ProgressReporter,
+    ) -> tuple[Audio, int | None]:
+        """Render ``takes`` candidates and return the best one.
+
+        Selection is deliberately asymmetric, because the two metrics carry
+        very different amounts of information:
+
+        *Round-trip WER is a gate.* Transcribing genuine human speech from the
+        reference corpus back with the same Whisper model scores ~11% WER, so
+        anything in that neighbourhood is the recogniser's own error, not the
+        render's. Ranking by it would be ranking noise. What it does detect
+        reliably is a take that has actually come apart - dropped words,
+        repeated syllables, an early stop - which lands far above the floor.
+
+        *Speaker similarity is the ranking key,* but only among takes that
+        already passed the gate. Measured across a temperature/seed grid the
+        two are uncorrelated (r = -0.06): the single most similar take was
+        also the least intelligible. Similarity alone would reliably pick it.
+        """
+        from ..evaluation.similarity import speaker_similarity, word_error_rate
+
+        gate = float(self.config.evaluation.candidate_wer_gate)
+        span = 0.7 / takes
+        scored: list[tuple[float | None, float, Audio, int | None]] = []
+
+        for index in range(takes):
+            base = 0.2 + span * index
+            report(base, f"Take {index + 1}/{takes}")
+            # Derive each take from the caller's seed so a run stays
+            # reproducible; None means the engine picks its own.
+            take_seed = None if seed is None else seed + index
+            audio, used = render(take_seed, base, span)
+
+            wer: float | None = None
+            try:
+                heard = self.asr.transcribe(audio).text.strip()
+                wer = word_error_rate(expected_text, heard)
+            except Exception:
+                log.debug("Round-trip transcription failed for take %d", index + 1, exc_info=True)
+
+            similarity = 0.0
+            try:
+                result = speaker_similarity(reference, audio)
+                if result is not None:
+                    similarity = result.score
+            except Exception:
+                log.debug("Similarity scoring failed for take %d", index + 1, exc_info=True)
+
+            log.info(
+                "Take %d/%d: similarity %.3f, WER %s",
+                index + 1,
+                takes,
+                similarity,
+                "n/a" if wer is None else f"{wer * 100:.1f}%",
+            )
+            scored.append((wer, similarity, audio, used))
+
+        passed = [row for row in scored if row[0] is None or row[0] <= gate]
+        if passed:
+            best = max(passed, key=lambda row: row[1])
+        else:
+            # Every take tripped the gate. Fall back to the least broken one
+            # rather than the most similar, and say so.
+            best = min(scored, key=lambda row: (row[0] if row[0] is not None else 1.0))
+            warnings.append(
+                f"All {takes} takes exceeded the {gate * 100:.0f}% WER gate; "
+                "kept the most intelligible. Try a cleaner reference or a lower temperature."
+            )
+
+        log.info(
+            "Best of %d: similarity %.3f, WER %s (%d passed the gate)",
+            takes,
+            best[1],
+            "n/a" if best[0] is None else f"{best[0] * 100:.1f}%",
+            len(passed),
+        )
+        return best[2], best[3]
 
     # ------------------------------------------------------------------
     # Speech to speech

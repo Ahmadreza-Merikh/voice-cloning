@@ -297,3 +297,42 @@ class TestEvaluationMetrics:
         from voiceclone.evaluation.similarity import available_backends
 
         assert set(available_backends()) == {"speechbrain", "resemblyzer"}
+
+
+class TestBestOfNSelection:
+    """The gate-then-rank rule, exercised without loading any model.
+
+    Getting this backwards is silent: you still get audio, it is just the
+    wrong take. Whisper's own floor on real Persian speech is ~11% WER, so
+    ranking candidates by WER ranks noise - and speaker similarity, measured
+    across a temperature/seed grid, is uncorrelated with it (r = -0.06). The
+    most similar take in that grid was the *least* intelligible one.
+    """
+
+    @staticmethod
+    def _pick(scored: list[tuple[float | None, float]], gate: float = 0.15) -> int:
+        """Mirror of Studio._render_best_of's decision, over indices."""
+        rows = [(wer, sim, index) for index, (wer, sim) in enumerate(scored)]
+        passed = [r for r in rows if r[0] is None or r[0] <= gate]
+        if passed:
+            return max(passed, key=lambda r: r[1])[2]
+        return min(rows, key=lambda r: (r[0] if r[0] is not None else 1.0))[2]
+
+    def test_most_similar_take_wins_when_all_are_intelligible(self) -> None:
+        assert self._pick([(0.05, 0.77), (0.10, 0.82), (0.02, 0.75)]) == 1
+
+    def test_a_broken_take_loses_however_similar_it_sounds(self) -> None:
+        # The real case: 0.823 similarity at 26.7% WER beat everything on
+        # similarity alone, and it is the take that mangles the sentence.
+        assert self._pick([(0.267, 0.823), (0.00, 0.786)]) == 1
+
+    def test_wer_does_not_rank_below_the_gate(self) -> None:
+        # 0% vs 6.7% is inside Whisper's own error floor - similarity decides.
+        assert self._pick([(0.000, 0.76), (0.067, 0.81)]) == 1
+
+    def test_least_broken_take_survives_when_everything_trips_the_gate(self) -> None:
+        assert self._pick([(0.40, 0.90), (0.22, 0.60), (0.31, 0.85)]) == 1
+
+    def test_unscored_takes_are_not_discarded(self) -> None:
+        # ASR unavailable => WER is None => the take still competes.
+        assert self._pick([(None, 0.88), (0.05, 0.70)]) == 0

@@ -188,8 +188,6 @@ class VoiceCloneUI:
 
         reference = self._resolve_reference(mode, uploaded, saved_slug)
         studio = self.studio
-        # Per-request, so one render does not change the setting for the next.
-        studio.config.evaluation.candidates = max(1, int(best_of))
 
         try:
             result = studio.synthesize(
@@ -204,6 +202,7 @@ class VoiceCloneUI:
                     denoise, separate_vocals, trim_silence, auto_window
                 ),
                 engine_options=self._engine_options(preset, engine),
+                candidates=max(1, int(best_of)),
                 # Requesting phonemes is a preference; the Studio still checks
                 # whether this engine can actually read them.
                 use_phonemes=bool(use_phonemes),
@@ -229,6 +228,7 @@ class VoiceCloneUI:
         preset: str,
         speed: float,
         seed: float,
+        best_of: float,
         source_text: str,
         use_phonemes: bool,
         denoise: str,
@@ -259,6 +259,8 @@ class VoiceCloneUI:
                 ),
                 engine_options=self._engine_options(preset, target_engine),
                 use_phonemes=bool(use_phonemes),
+                # Ignored by seedvc, which has nothing to choose between.
+                candidates=max(1, int(best_of)),
             )
         except VoiceCloneError as exc:
             raise gr.Error(str(exc)) from exc
@@ -607,6 +609,11 @@ class VoiceCloneUI:
                         )
                         s2s_speed = gr.Slider(0.5, 1.6, value=1.0, step=0.05, label=strings["speed"])
                         s2s_seed = gr.Number(value=0, precision=0, label=strings["seed"])
+                        s2s_best_of = gr.Slider(
+                            1, 8, value=1, step=1,
+                            label=strings["best_of"],
+                            info=strings["best_of_cascade_help"],
+                        )
 
                     s2s_phonemes = gr.Checkbox(value=False, label=strings["use_phonemes"])
                     s2s_pre = self._preprocessing_block()
@@ -688,7 +695,7 @@ class VoiceCloneUI:
                 inputs=[
                     s2s_source, s2s_mode,
                     s2s_ref["mode"], s2s_ref["upload"], s2s_ref["saved"],
-                    s2s_engine, s2s_preset, s2s_speed, s2s_seed, s2s_text, s2s_phonemes,
+                    s2s_engine, s2s_preset, s2s_speed, s2s_seed, s2s_best_of, s2s_text, s2s_phonemes,
                     *preprocessing_inputs(s2s_pre),
                 ],
                 outputs=[s2s_out, s2s_report, s2s_badges],

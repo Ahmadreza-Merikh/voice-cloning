@@ -40,6 +40,10 @@ STRINGS: dict[str, dict[str, str]] = {
             "sampling setting does, so this is the cheapest quality win - at N times "
             "the wait."
         ),
+        "best_of_cascade_help": (
+            "Cascade mode only - it re-synthesises, so best-of-N applies. Seed-VC "
+            "transforms the source directly and ignores this."
+        ),
         "seed_help": "0 draws a new random seed. Reuse a seed to reproduce a take exactly.",
         "quality_preset": "Quality preset",
         "advanced": "Advanced settings",
@@ -99,6 +103,10 @@ STRINGS: dict[str, dict[str, str]] = {
             "این تعداد برداشت تولید می‌شود و بهترین آن نگه داشته می‌شود. تفاوت بین "
             "دانه‌های تصادفی از هر تنظیم دیگری بیشتر است، پس ارزان‌ترین راه بهبود "
             "کیفیت است - با N برابر زمان."
+        ),
+        "best_of_cascade_help": (
+            "فقط در حالت آبشاری - چون دوباره تولید می‌کند. Seed-VC مستقیم روی صدای "
+            "مبدأ کار می‌کند و این مقدار را نادیده می‌گیرد."
         ),
         "seed_help": "صفر یعنی دانه تصادفی جدید. برای بازتولید دقیق، همان دانه را دوباره وارد کنید.",
         "quality_preset": "پیش‌تنظیم کیفیت",

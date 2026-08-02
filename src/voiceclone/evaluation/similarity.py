@@ -202,11 +202,70 @@ def normalize_for_wer(text: str) -> str:
     return re.sub(r"\s+", " ", cleaned).strip()
 
 
+def normalize_for_cer(text: str) -> str:
+    """Reduce text to the letters that were actually pronounced.
+
+    Persian word boundaries inside compounds are not fixed by the orthography:
+    ``کتابخانه``, ``کتاب خانه`` and ``کتاب‌خانه`` are all accepted spellings of
+    one word, and a recogniser picks whichever its training data favoured.
+    Word-level scoring treats that choice as two errors - a deletion and an
+    insertion - and a flawless render of a nine-word sentence came back at 55%
+    WER for no reason other than where Whisper put its spaces.
+
+    So this drops whitespace entirely and compares letters. It also folds the
+    Arabic letterforms and the harakat, which ASR does not emit at all.
+    """
+    import re
+    import unicodedata
+
+    from ..text.normalize_fa import CHARACTER_UNIFICATION, DIACRITICS
+
+    cleaned = unicodedata.normalize("NFC", text or "")
+    cleaned = "".join(CHARACTER_UNIFICATION.get(char, char) for char in cleaned)
+    cleaned = DIACRITICS.sub("", cleaned)
+    cleaned = "".join("" if char in _WER_PUNCTUATION else char for char in cleaned)
+    # Whitespace and ZWNJ carry no sound; keeping them would score typography.
+    return re.sub(r"[\s‌‍ـ]+", "", cleaned)
+
+
+def _edit_distance(reference: list[str] | str, hypothesis: list[str] | str) -> int:
+    """Levenshtein distance, two-row rolling table."""
+    previous = list(range(len(hypothesis) + 1))
+    for i, left in enumerate(reference, start=1):
+        current = [i] + [0] * len(hypothesis)
+        for j, right in enumerate(hypothesis, start=1):
+            cost = 0 if left == right else 1
+            current[j] = min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + cost)
+        previous = current
+    return previous[-1]
+
+
+def character_error_rate(reference_text: str, hypothesis: str) -> float | None:
+    """CER between the requested text and what ASR heard back.
+
+    The intelligibility metric to trust for Persian. Unlike WER it does not
+    punish the recogniser's choice of word spacing, and a single wrong letter
+    costs one edit rather than a whole word.
+    """
+    if not reference_text or not hypothesis:
+        return None
+
+    reference = normalize_for_cer(reference_text)
+    hypothesis = normalize_for_cer(hypothesis)
+    if not reference:
+        return None
+    return _edit_distance(reference, hypothesis) / len(reference)
+
+
 def word_error_rate(reference_text: str, hypothesis: str) -> float | None:
     """WER between the requested text and what ASR heard back.
 
     Both sides are punctuation- and ZWNJ-normalised first, so the score
     reflects pronunciation and intelligibility rather than typography.
+
+    Sensitive to where the recogniser puts spaces inside Persian compounds,
+    which is not a property of the render - prefer `character_error_rate`
+    when the question is whether the speech was intelligible.
     """
     if not reference_text or not hypothesis:
         return None
@@ -228,22 +287,15 @@ def word_error_rate(reference_text: str, hypothesis: str) -> float | None:
     if not reference_words:
         return None
 
-    # Standard Levenshtein over words, two-row rolling table.
-    previous = list(range(len(hypothesis_words) + 1))
-    for i, ref_word in enumerate(reference_words, start=1):
-        current = [i] + [0] * len(hypothesis_words)
-        for j, hyp_word in enumerate(hypothesis_words, start=1):
-            cost = 0 if ref_word == hyp_word else 1
-            current[j] = min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + cost)
-        previous = current
-
-    return previous[-1] / len(reference_words)
+    return _edit_distance(reference_words, hypothesis_words) / len(reference_words)
 
 
 __all__ = [
     "SimilarityResult",
     "available_backends",
+    "character_error_rate",
     "cosine_similarity",
+    "normalize_for_cer",
     "normalize_for_wer",
     "speaker_similarity",
     "word_error_rate",

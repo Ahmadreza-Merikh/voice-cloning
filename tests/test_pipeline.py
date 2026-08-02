@@ -8,8 +8,10 @@ import pytest
 from voiceclone.audio.io import Audio
 from voiceclone.config import AppConfig, deep_merge
 from voiceclone.engines import engine_status, list_tts_engines, list_vc_engines
+from voiceclone.engines.asr import Transcript
 from voiceclone.errors import EngineNotAvailableError, VoiceCloneError
 from voiceclone.models import parse_hf_uri
+from voiceclone.pipelines.results import QualityScores
 from voiceclone.pipelines.studio import _candidate_rank
 from voiceclone.pipelines.voices import VoiceLibrary, slugify
 from voiceclone.text.chunker import chunk_text, estimate_duration, split_sentences
@@ -440,3 +442,70 @@ class TestBestOfNSelection:
             for sim in (0.7899, 0.7901)
         ]
         assert keys[1] < keys[0]
+
+
+class TestSimilarityVerdicts:
+    """The two similarity scales, pinned against this project's calibration.
+
+    Measured on ECAPA-TDNN with clips through `preprocess_reference`:
+    different speakers reach 0.544, one speaker across sessions sits at 0.647,
+    one speaker within a session at 0.800. A clone reproduces its prompt's
+    channel, so scoring it against that prompt lands in the same-session band
+    and says nothing about identity.
+    """
+
+    def test_held_out_inside_the_stranger_range_is_not_a_match(self) -> None:
+        # A real F5 render: 0.456 held-out, inside the different-speaker range.
+        scores = QualityScores(reference_similarity=0.731, held_out_similarity=0.456)
+        assert "not distinguishable" in scores.held_out_verdict
+
+    def test_held_out_at_the_human_ceiling_is_a_match(self) -> None:
+        scores = QualityScores(held_out_similarity=0.66)
+        assert "same speaker" in scores.held_out_verdict
+
+    def test_a_human_pair_is_never_called_a_fair_match(self) -> None:
+        # Two genuine recordings of one person score 0.647. The old bands
+        # returned "fair match" for that, which reached users in both front ends.
+        assert "fair" not in QualityScores(held_out_similarity=0.647).held_out_verdict
+
+    def test_reference_verdict_never_claims_identity(self) -> None:
+        # This comparison shares the prompt's channel and cannot show identity,
+        # so no wording here may imply a speaker judgement.
+        for value in (0.95, 0.80, 0.70, 0.55, 0.30):
+            verdict = QualityScores(reference_similarity=value).reference_verdict
+            assert "speaker" not in verdict.lower()
+
+    def test_summary_leads_with_the_honest_number(self) -> None:
+        text = QualityScores(reference_similarity=0.731, held_out_similarity=0.456).summary()
+        assert text.index("held-out") < text.index("reference clip")
+
+    def test_reference_only_summary_flags_what_it_is_not(self) -> None:
+        text = QualityScores(reference_similarity=0.731).summary()
+        assert "not identity transfer" in text
+
+    def test_unmeasured_scores_say_so(self) -> None:
+        scores = QualityScores()
+        assert scores.held_out_verdict == "not measured"
+        assert scores.reference_verdict == "not measured"
+
+
+class TestReferenceTranscriptGate:
+    """Both gates on the transcript F5 conditions on."""
+
+    def test_a_mid_sentence_start_is_caught(self) -> None:
+        # The real case: high confidence, corrupt transcript, no warning.
+        transcript = Transcript(text="یا بدون نسخ مصرف می‌کنید و همراه داشته باشید.", avg_logprob=-0.3)
+        assert transcript.starts_mid_sentence
+        assert transcript.is_confident  # which is why confidence alone missed it
+
+    def test_a_whole_utterance_passes(self) -> None:
+        transcript = Transcript(text="گل زیبای باغ ما امروز شکفت.", avg_logprob=-0.3)
+        assert not transcript.starts_mid_sentence
+
+    def test_the_confidence_floor_is_tighter_than_it_was(self) -> None:
+        # -0.9 passed the old -1.0 threshold.
+        assert not Transcript(text="سلام", avg_logprob=-0.9).is_confident
+        assert Transcript(text="سلام", avg_logprob=-0.3).is_confident
+
+    def test_missing_confidence_is_not_treated_as_failure(self) -> None:
+        assert Transcript(text="سلام").is_confident

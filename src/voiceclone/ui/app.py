@@ -107,7 +107,9 @@ class VoiceCloneUI:
 
     @staticmethod
     def _badges(result: CloneResult) -> str:
-        parts = [similarity_badge(result.scores.speaker_similarity)]
+        parts = [similarity_badge(result.scores.reference_similarity)]
+        if result.scores.held_out_similarity is not None:
+            parts.insert(0, similarity_badge(result.scores.held_out_similarity, held_out=True))
         if result.reference is not None:
             report = result.reference.report_after
             parts.append(quality_badge(report.score, f"reference {report.verdict}"))

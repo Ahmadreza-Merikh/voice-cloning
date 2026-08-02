@@ -10,35 +10,82 @@ from ..audio.io import Audio
 from ..audio.preprocess import PreprocessResult
 from ..text.pipeline import PreparedText
 
+#: Where the speaker encoder actually sits, measured on this project's own
+#: audio and pipeline (ECAPA-TDNN, clips through `preprocess_reference`):
+#:
+#:     different speaker, same gender, same corpus   0.288   (39 pairs, max 0.544)
+#:     same speaker, *different* recording session   0.647   (6 pairs)
+#:     same speaker, *same* recording session        0.800   (17 pairs)
+#:
+#: The last two are the important pair. A single speaker scores 0.800 against
+#: themselves within one session and 0.647 across sessions; the gap is shared
+#: channel - room, microphone, noise floor - not identity. A zero-shot clone
+#: reproduces its prompt's channel, so scoring it against that prompt lands it
+#: in the same-session band and flatters it by roughly 0.26.
+SIMILARITY_DIFFERENT_SPEAKER = 0.288
+SIMILARITY_DIFFERENT_SPEAKER_MAX = 0.544
+SIMILARITY_SAME_SPEAKER_CROSS_SESSION = 0.647
+SIMILARITY_SAME_SPEAKER_SAME_SESSION = 0.800
+
 
 @dataclass
 class QualityScores:
     """Objective measurements of a render."""
 
-    speaker_similarity: float | None = None
+    #: Cosine similarity between the render and *the clip it was conditioned
+    #: on*. Shares that clip's channel, so it is not a measure of identity
+    #: transfer - see `held_out_similarity` for that. Useful for spotting a
+    #: collapsed render, and valid for comparing engines or settings on one
+    #: fixed reference, where the channel term is constant.
+    reference_similarity: float | None = None
+    #: Cosine similarity against recordings of the same speaker that the
+    #: render was *not* conditioned on. This is the number that describes
+    #: voice cloning. Only available when held-out audio was supplied.
+    held_out_similarity: float | None = None
     transcription: str | None = None
     word_error_rate: float | None = None
 
     @property
-    def similarity_verdict(self) -> str:
-        if self.speaker_similarity is None:
+    def reference_verdict(self) -> str:
+        """Deliberately not phrased as identity - this comparison cannot show it."""
+        value = self.reference_similarity
+        if value is None:
             return "not measured"
-        value = self.speaker_similarity
-        if value >= 0.80:
-            return "excellent match"
-        if value >= 0.70:
-            return "strong match"
-        if value >= 0.60:
-            return "fair match"
-        if value >= 0.45:
-            return "weak match"
-        return "poor match"
+        if value >= SIMILARITY_SAME_SPEAKER_SAME_SESSION:
+            return "as close to the prompt as two takes from one session"
+        if value >= 0.65:
+            return "close to the prompt"
+        if value >= 0.50:
+            return "moderate"
+        return "weak - the render may have come apart"
+
+    @property
+    def held_out_verdict(self) -> str:
+        """The identity question, on a scale that was actually measured."""
+        value = self.held_out_similarity
+        if value is None:
+            return "not measured"
+        if value >= SIMILARITY_SAME_SPEAKER_CROSS_SESSION:
+            return "as close as another recording of the same speaker"
+        if value >= SIMILARITY_DIFFERENT_SPEAKER_MAX:
+            return "above every different-speaker pair measured, below same-speaker"
+        if value >= SIMILARITY_DIFFERENT_SPEAKER:
+            return "inside the range different speakers occupy - not distinguishable"
+        return "no better than an unrelated speaker"
 
     def summary(self) -> str:
         lines: list[str] = []
-        if self.speaker_similarity is not None:
+        if self.held_out_similarity is not None:
             lines.append(
-                f"Speaker similarity: {self.speaker_similarity:.3f} ({self.similarity_verdict})"
+                f"Speaker similarity (held-out): {self.held_out_similarity:.3f} "
+                f"({self.held_out_verdict})"
+            )
+        if self.reference_similarity is not None:
+            label = "Similarity to the reference clip"
+            if self.held_out_similarity is None:
+                label += " (shares its channel; not identity transfer)"
+            lines.append(
+                f"{label}: {self.reference_similarity:.3f} ({self.reference_verdict})"
             )
         if self.word_error_rate is not None:
             lines.append(f"Round-trip WER: {self.word_error_rate * 100:.1f}%")
@@ -88,7 +135,8 @@ class CloneResult:
             "output_path": str(self.output_path) if self.output_path else None,
             "timings": {key: round(value, 2) for key, value in self.timings.items()},
             "realtime_factor": round(self.realtime_factor, 2) if self.realtime_factor else None,
-            "speaker_similarity": self.scores.speaker_similarity,
+            "reference_similarity": self.scores.reference_similarity,
+            "held_out_similarity": self.scores.held_out_similarity,
             "text": self.text.to_dict() if self.text else None,
             "reference": self.reference.to_dict() if self.reference else None,
             "warnings": self.warnings,

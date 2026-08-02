@@ -40,6 +40,22 @@ _TRANSFORMERS_MODELS = {
 }
 
 
+#: Whisper's mean token log-probability below which a transcript is suspect.
+#: -1.0 was far too lax: a clip transcribed with a wrong consonant
+#: (``عوارز`` for ``عوارض``) passed it comfortably. Good Persian output from
+#: large-v3-turbo sits around -0.2 to -0.4.
+MIN_AVG_LOGPROB = -0.55
+
+#: Persian words that continue a sentence rather than open one. A reference
+#: transcript starting with any of them is a fragment of something longer.
+_CONTINUATION_WORDS = frozenset(
+    {
+        "یا", "و", "که", "اما", "ولی", "چون", "زیرا", "تا", "پس", "اگرچه",
+        "بلکه", "یعنی", "هرچند", "وگرنه", "بنابراین", "درنتیجه", "همچنین",
+    }
+)
+
+
 @dataclass
 class Transcript:
     """Recognised text plus per-segment timing and confidence."""
@@ -53,7 +69,23 @@ class Transcript:
 
     @property
     def is_confident(self) -> bool:
-        return self.avg_logprob is None or self.avg_logprob > -1.0
+        return self.avg_logprob is None or self.avg_logprob > MIN_AVG_LOGPROB
+
+    @property
+    def starts_mid_sentence(self) -> bool:
+        """True when the text opens on a word that cannot begin an utterance.
+
+        A reference clip cut out of a longer recording often starts partway
+        through a sentence. Whisper transcribes the fragment perfectly and
+        reports high confidence, so the confidence signal never fires - but
+        F5-TTS conditions on this text, and a transcript that does not match
+        the audio it describes degrades the clone.
+
+        Observed on a real clip: ``یا بدون نسخ مصرف می‌کنید ...`` - opening on
+        *or*, with no warning raised.
+        """
+        first = self.text.strip().split()
+        return bool(first) and first[0].strip("،؛:") in _CONTINUATION_WORDS
 
     @property
     def word_count(self) -> int:

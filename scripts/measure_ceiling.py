@@ -277,7 +277,7 @@ def score_clone(
             print(f"    failed: {type(exc).__name__}: {exc}")
             continue
 
-        own = result.scores.speaker_similarity
+        own = result.scores.reference_similarity
         wer = result.scores.word_error_rate
         against: list[float] = []
         for clip, audio in held_audio.items():

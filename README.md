@@ -65,7 +65,7 @@ the system still runs, reading raw Persian script, and tells you so in Diagnosti
   - *voice conversion* (Seed-VC): keeps the original rhythm, emphasis and emotion
 - **Serious audio preprocessing** — quality analysis with a 0-100 score, denoising,
   vocal isolation, VAD trimming, automatic best-window selection, loudness normalisation
-- **Objective quality feedback** — speaker-similarity scoring on every render, so
+- **Objective quality feedback** — calibrated similarity scoring on every render, so
   "did this work?" has a number rather than an opinion
 - **Long-form stability** — sentence-aware chunking with equal-power crossfades, so
   minute ten sounds like minute one
@@ -146,9 +146,9 @@ Check what your machine can actually run at any time:
 
 - Iterating on wording, or on a modest machine → **F5-TTS**.
 - Final renders, or anything where timbre matters → **MOSS-TTS on Persian script**.
-  Measured against the same reference and sentence: 0.819 speaker similarity versus
-  F5's 0.730 — a gap well outside the 0.02 measurement noise of the speaker encoder,
-  so it is a real difference. The pronunciation observation alongside it (MOSS got
+  Measured against the same reference and sentence: 0.819 versus F5's 0.730 — both
+  reference-clip scores, and a gap well outside the encoder's 0.02 noise, so the
+  ordering is real even though neither figure is a cloning score. The pronunciation observation alongside it (MOSS got
   بهار، کردند، باغ، شکفت right where F5 got all four wrong) is **one sentence, one
   reference, one seed** — suggestive, not established.
   It needs its own environment (`transformers>=5.0,<5.1`) and ~13.5 GB of weights.
@@ -188,7 +188,9 @@ A good first run:
 2. Fix anything flagged as an issue (noise, clipping, band-limiting) — the clone can
    never be better than the reference.
 3. Type Persian text, pick **High quality**, and generate.
-4. Read the **speaker similarity** score under the player. Above 0.75 is a strong match.
+4. Read the badges under the player. **VS PROMPT** compares the render with the
+   clip it cloned from and shares its channel; **SPEAKER** appears when you supply
+   held-out audio and is the one that measures identity.
 
 ### Command line
 
@@ -245,7 +247,8 @@ result = studio.synthesize(
 )
 
 print(result.output_path)                      # outputs/tts_moss_....wav
-print(result.scores.speaker_similarity)        # e.g. 0.81
+print(result.scores.reference_similarity)      # vs the prompt: e.g. 0.81
+print(result.scores.held_out_similarity)       # vs other clips: the honest one
 print(result.report())                         # full human-readable summary
 
 # Speech to speech
@@ -290,14 +293,35 @@ Then, in the app:
   transcript measurably degrades output. Auto-transcription is good; checking it is better.
 - Fix the seed once you like a take, so you can reproduce it.
 
-Reading the numbers:
+Reading the numbers — **two scales, and the difference matters.**
 
-| Speaker similarity | Meaning |
+By default a render is scored against *the clip it was conditioned on*. A
+zero-shot clone reproduces that clip's channel — room, microphone, noise floor —
+alongside the voice, and ECAPA encodes channel as well as identity. So that
+number runs roughly **0.26 high** and is not a measure of identity transfer. Pass
+`--held-out other1.wav other2.wav` (other recordings of the same speaker, not
+used as the prompt) to get the figure that is.
+
+Calibrated on this project's own audio and pipeline, ECAPA-TDNN:
+
+| Comparison | Score |
 |---|---|
-| ≥ 0.80 | excellent — hard to distinguish |
-| 0.70 – 0.80 | strong — clearly the same speaker |
-| 0.60 – 0.70 | fair — related but noticeably off |
-| < 0.60 | the clone did not take; fix the reference |
+| different speaker, same gender | **0.288** (39 pairs, highest 0.544) |
+| same speaker, **different** session | **0.647** (6 pairs) |
+| same speaker, **same** session | 0.800 (17 pairs) |
+
+The last two rows are the whole point: one person scores 0.800 against
+themselves within a session and 0.647 across sessions. That 0.153 gap is
+channel, not identity.
+
+| Held-out similarity | Meaning |
+|---|---|
+| ≥ 0.647 | as close as another recording of the same speaker |
+| 0.544 – 0.647 | above every different-speaker pair measured |
+| 0.288 – 0.544 | inside the range different speakers occupy — not distinguishable |
+| < 0.288 | no resemblance |
+
+Reproduce the calibration with `scripts/measure_ceiling.py`.
 
 ### Measured results
 
@@ -306,8 +330,14 @@ From an actual run on an M1 Pro (16 GB), F5-TTS at the *High quality* preset
 
 | Metric | Result |
 |---|---|
-| Speaker similarity (ECAPA-TDNN) | **0.825** — excellent match |
+| Similarity to the reference clip | **0.825** — shares its channel; not identity |
 | Round-trip WER (Whisper re-transcribes the output) | **0.0%** — every word came back correct |
+
+That 0.825 is the reference comparison, not a cloning score. A separate F5 run
+measured against **held-out** recordings of the same speaker scored **0.456** —
+inside the range different speakers occupy. One sentence, one seed, and its
+reference transcript was corrupt, so treat it as a first data point rather than
+a verdict on the engine. It is the honest kind of number.
 | Synthesis, MPS | 56 s for 10.2 s of audio (~5.5× realtime) |
 | Synthesis, CPU | 294 s for the same (~29× realtime) |
 

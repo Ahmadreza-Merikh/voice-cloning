@@ -149,17 +149,32 @@ def quality_badge(score: float, verdict: str) -> str:
     return f'<span class="badge {css_class}">{verdict.upper()} &middot; {score:.0f}/100</span>'
 
 
-def similarity_badge(score: float | None) -> str:
-    """HTML badge for a speaker-similarity score."""
+def similarity_badge(score: float | None, *, held_out: bool = False) -> str:
+    """HTML badge for a similarity score.
+
+    Two scales, because the two comparisons are not interchangeable. A
+    held-out score is measured against recordings the render never saw and
+    can be read as identity; thresholds come from this project's own
+    calibration - different speakers reach 0.544, the same speaker across
+    sessions sits at 0.647. A reference score shares the prompt's channel and
+    runs about 0.26 higher for the same voice, so it gets its own bands and
+    is labelled as the prompt comparison it is.
+    """
     if score is None:
         return '<span class="badge badge-neutral">SIMILARITY N/A</span>'
-    if score >= 0.75:
+    if held_out:
+        label = "SPEAKER"
+        good, warn = 0.647, 0.544
+    else:
+        label = "VS PROMPT"
+        good, warn = 0.800, 0.650
+    if score >= good:
         css_class = "badge-good"
-    elif score >= 0.60:
+    elif score >= warn:
         css_class = "badge-warn"
     else:
         css_class = "badge-bad"
-    return f'<span class="badge {css_class}">SIMILARITY {score:.2f}</span>'
+    return f'<span class="badge {css_class}">{label} {score:.2f}</span>'
 
 
 __all__ = ["CSS", "PERSIAN_FONTS", "build_theme", "quality_badge", "similarity_badge"]

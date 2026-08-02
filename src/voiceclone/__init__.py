@@ -6,7 +6,7 @@ High-fidelity zero-shot voice cloning with first-class Persian pronunciation.
 
     studio = Studio()
     result = studio.synthesize("سلام، حال شما چطور است؟", "reference.wav")
-    print(result.output_path, result.scores.speaker_similarity)
+    print(result.output_path, result.scores.reference_similarity)
 
 The heavy submodules (engines, pipelines) are imported lazily so that
 ``import voiceclone`` stays fast and works even when optional engine

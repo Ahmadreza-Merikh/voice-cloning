@@ -47,6 +47,17 @@ def build_parser() -> argparse.ArgumentParser:
         sub.add_argument("--speed", type=float, default=1.0)
         sub.add_argument("--seed", type=int, default=0, help="0 = random")
         sub.add_argument(
+            "--held-out",
+            nargs="+",
+            default=None,
+            metavar="CLIP",
+            help=(
+                "Other recordings of the same speaker, not used as the prompt. "
+                "Scoring against these is the only similarity figure that measures "
+                "identity rather than channel."
+            ),
+        )
+        sub.add_argument(
             "--best-of",
             type=int,
             default=None,
@@ -132,8 +143,6 @@ def command_tts(args: argparse.Namespace) -> int:
     from .pipelines import Studio
 
     config = _build_config(args)
-    if getattr(args, "best_of", None):
-        config.evaluation.candidates = max(1, int(args.best_of))
     studio = Studio(config)
     engine = (args.engine or config.engines.tts).lower()
 
@@ -147,6 +156,8 @@ def command_tts(args: argparse.Namespace) -> int:
         output_path=args.output,
         preprocess_overrides=_preprocess_overrides(args),
         use_phonemes=_phoneme_preference(args),
+        candidates=max(1, int(args.best_of)) if getattr(args, "best_of", None) else None,
+        held_out=getattr(args, "held_out", None),
     )
 
     if args.json:
@@ -175,6 +186,8 @@ def command_s2s(args: argparse.Namespace) -> int:
         output_path=args.output,
         preprocess_overrides=_preprocess_overrides(args),
         use_phonemes=_phoneme_preference(args),
+        candidates=max(1, int(args.best_of)) if getattr(args, "best_of", None) else None,
+        held_out=getattr(args, "held_out", None),
     )
 
     if args.json:

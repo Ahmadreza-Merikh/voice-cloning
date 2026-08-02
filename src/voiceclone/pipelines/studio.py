@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
@@ -210,7 +210,18 @@ class Studio:
         transcript = self.asr.transcribe(reference, language=language)
         text = transcript.text.strip()
         if not transcript.is_confident:
-            log.warning("Reference transcription confidence is low; check it before synthesising.")
+            log.warning(
+                "Reference transcription confidence is low (avg logprob %.2f). "
+                "F5-TTS conditions on this text - check it before synthesising.",
+                transcript.avg_logprob if transcript.avg_logprob is not None else float("nan"),
+            )
+        if transcript.starts_mid_sentence:
+            log.warning(
+                "The reference transcript starts mid-sentence (%r...). The clip was "
+                "probably cut out of a longer recording; trim it to a whole utterance "
+                "or supply the transcript yourself.",
+                " ".join(text.split()[:4]),
+            )
         self._transcript_cache[key] = text
         return text
 
@@ -232,6 +243,7 @@ class Studio:
         engine_options: dict[str, Any] | None = None,
         use_phonemes: bool | None = None,
         candidates: int | None = None,
+        held_out: Sequence[ReferenceInput] | None = None,
     ) -> CloneResult:
         """Clone ``reference`` and make it say ``text``.
 
@@ -242,6 +254,12 @@ class Studio:
         ``use_phonemes`` requests IPA input; it is always intersected with the
         engine's declared capability, because handing IPA to a grapheme
         tokenizer produces confident nonsense rather than an error.
+
+        ``held_out`` is other recordings of the same speaker that the render
+        was *not* conditioned on. Supply them and the result carries the only
+        similarity figure that describes identity transfer: scoring against
+        the conditioning clip shares its channel and flatters the render by
+        roughly 0.26 - see `QualityScores`.
 
         ``candidates`` overrides ``evaluation.candidates`` for this call only.
         It is a parameter rather than a config write because callers share one
@@ -382,7 +400,9 @@ class Studio:
             warnings=warnings,
         )
 
-        self._finalise(clone, report, output_path, expected_text=prepared.normalized)
+        self._finalise(
+            clone, report, output_path, expected_text=prepared.normalized, held_out=held_out
+        )
         return clone
 
     def _render_best_of(
@@ -524,6 +544,7 @@ class Studio:
         engine_options: dict[str, Any] | None = None,
         use_phonemes: bool | None = None,
         candidates: int | None = None,
+        held_out: Sequence[ReferenceInput] | None = None,
     ) -> CloneResult:
         """Re-voice ``source`` audio with the timbre of ``reference``.
 
@@ -557,6 +578,7 @@ class Studio:
                 engine_options=engine_options,
                 use_phonemes=use_phonemes,
                 candidates=candidates,
+                held_out=held_out,
             )
         return self._convert_direct(
             source,
@@ -580,6 +602,7 @@ class Studio:
         source_text: str | None,
         output_path: str | Path | None,
         candidates: int | None,
+        held_out: Sequence[ReferenceInput] | None,
         progress: ProgressReporter,
         preprocess_overrides: dict[str, Any] | None,
         engine_options: dict[str, Any] | None = None,
@@ -614,6 +637,7 @@ class Studio:
             engine_options=engine_options,
             use_phonemes=use_phonemes,
             candidates=candidates,
+            held_out=held_out,
         )
         clone.mode = "s2s-cascade"
         clone.source_transcript = transcript
@@ -682,13 +706,14 @@ class Studio:
         output_path: str | Path | None,
         *,
         expected_text: str | None,
+        held_out: Sequence[ReferenceInput] | None = None,
     ) -> None:
         evaluation = self.config.evaluation
         if evaluation.enabled and clone.reference is not None:
             progress(0.95, "Measuring quality")
             timings = clone.timings
             with _stopwatch(timings, "evaluation"):
-                clone.scores = self._evaluate(clone, expected_text)
+                clone.scores = self._evaluate(clone, expected_text, held_out)
 
         progress(0.98, "Saving")
         target = Path(output_path) if output_path else self._default_output_path(clone)
@@ -706,7 +731,12 @@ class Studio:
 
         progress(1.0, "Done")
 
-    def _evaluate(self, clone: CloneResult, expected_text: str | None) -> QualityScores:
+    def _evaluate(
+        self,
+        clone: CloneResult,
+        expected_text: str | None,
+        held_out: Sequence[ReferenceInput] | None = None,
+    ) -> QualityScores:
         scores = QualityScores()
         evaluation = self.config.evaluation
 
@@ -716,13 +746,30 @@ class Studio:
 
                 result = speaker_similarity(clone.reference.audio, clone.audio)
                 if result is not None:
-                    scores.speaker_similarity = round(result.score, 4)
+                    scores.reference_similarity = round(result.score, 4)
                     if not result.reliable:
                         clone.warnings.append(
                             "Speaker similarity is approximate - install speechbrain for a real score."
                         )
             except Exception:
                 log.debug("Similarity scoring failed", exc_info=True)
+
+            # The honest figure: recordings of this speaker the render never
+            # saw. Scoring against the prompt shares its channel; this does not.
+            if held_out:
+                try:
+                    from ..evaluation.similarity import speaker_similarity
+
+                    against: list[float] = []
+                    for item in held_out:
+                        other = item if isinstance(item, Audio) else load_audio(str(item))
+                        measured = speaker_similarity(other, clone.audio)
+                        if measured is not None:
+                            against.append(measured.score)
+                    if against:
+                        scores.held_out_similarity = round(sum(against) / len(against), 4)
+                except Exception:
+                    log.debug("Held-out similarity scoring failed", exc_info=True)
 
         if evaluation.transcribe_check and expected_text:
             try:

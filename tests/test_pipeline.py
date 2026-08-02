@@ -311,6 +311,40 @@ class TestEvaluationMetrics:
         assert word_error_rate("", "چیزی") is None
         assert word_error_rate("چیزی", "") is None
 
+    def test_compound_spacing_wrecks_wer_but_not_cer(self) -> None:
+        """The case that made this metric necessary.
+
+        Persian compounds have no fixed spacing, and Whisper picks its own.
+        This render was correct - every sound in the right place - and word
+        scoring called it 55% wrong purely over where the spaces landed.
+        """
+        from voiceclone.evaluation.similarity import character_error_rate, word_error_rate
+
+        requested = "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم."
+        heard = "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم."
+
+        assert word_error_rate(requested, heard) > 0.5
+        assert character_error_rate(requested, heard) < 0.05
+
+    def test_cer_still_catches_real_errors(self) -> None:
+        from voiceclone.evaluation.similarity import character_error_rate
+
+        assert character_error_rate("صدا طبیعی و واضح باشد", "صدا طبیعی و واضح باشد") == 0.0
+        # A render that came apart should not hide behind whitespace folding.
+        assert character_error_rate("صدا طبیعی و واضح باشد", "سلام چطوری") > 0.5
+
+    def test_cer_ignores_arabic_letterforms_and_harakat(self) -> None:
+        """ASR emits neither, so neither can be an error the render made."""
+        from voiceclone.evaluation.similarity import character_error_rate
+
+        assert character_error_rate("کتابِ یاسمین", "كتاب ياسمين") == 0.0
+
+    def test_cer_empty_inputs(self) -> None:
+        from voiceclone.evaluation.similarity import character_error_rate
+
+        assert character_error_rate("", "چیزی") is None
+        assert character_error_rate("چیزی", "") is None
+
     def test_similarity_backends_reported(self) -> None:
         from voiceclone.evaluation.similarity import available_backends
 

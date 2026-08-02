@@ -128,80 +128,23 @@ def load_corpus(corpus_dir: Path) -> dict[str, list[dict[str, Any]]]:
 # ----------------------------------------------------------------------------
 # embeddings - one treatment for every piece of audio, real or synthetic
 # ----------------------------------------------------------------------------
-class Embedder:
-    """Cached ECAPA embeddings with a single, uniform preprocessing path.
+def Embedder() -> Any:  # noqa: N802 - reads as a constructor at every call site
+    """The library's uniformly-preprocessing embedder.
 
-    The comparison only means something if both sides are treated the same. A
-    real clip straight off disk and a render that has been loudness-normalised
-    to -18 LUFS are not the same treatment, and the difference lands in the
-    score. So everything that reaches the encoder here goes through the same
-    two steps and nothing else.
+    Kept as a local name so this script reads the same as it did when the class
+    lived here; the implementation belongs in the library because the corpus
+    builder needs the identical treatment to verify speakers.
     """
+    from voiceclone.evaluation import CachedEmbedder
 
-    def __init__(self) -> None:
-        self._cache: dict[str, Any] = {}
-        self._backend = "unknown"
-        self._reliable = False
-
-    @property
-    def backend(self) -> str:
-        return self._backend
-
-    @property
-    def reliable(self) -> bool:
-        return self._reliable
-
-    def _prepare(self, audio: Any) -> Any:
-        import numpy as np
-
-        from voiceclone.audio.io import Audio
-
-        mono = audio.to_mono()
-        samples = np.asarray(mono.samples, dtype=np.float32)
-        peak = float(np.max(np.abs(samples))) if samples.size else 0.0
-        if peak > 0:
-            samples = samples * (0.95 / peak)
-        return Audio(samples, mono.sample_rate, source="benchmark")
-
-    def embed(self, audio: Any, key: str) -> Any:
-        import numpy as np
-
-        if key in self._cache:
-            return self._cache[key]
-
-        from voiceclone.evaluation.similarity import (
-            EMBEDDING_SAMPLE_RATE,
-            _embed_speechbrain,
-            _load_speechbrain,
-        )
-
-        model = _load_speechbrain()
-        if model is None:
-            raise SystemExit(
-                "speechbrain is not installed, so every similarity number would be a\n"
-                "spectral fallback rather than a speaker embedding:  pip install speechbrain"
-            )
-        self._backend, self._reliable = "speechbrain-ecapa", True
-
-        prepared = self._prepare(audio).resample(EMBEDDING_SAMPLE_RATE)
-        vector = _embed_speechbrain(model, prepared)
-        if vector is None:
-            raise RuntimeError(f"Could not embed {key}")
-        vector = np.asarray(vector, dtype=np.float64)
-        self._cache[key] = vector
-        return vector
-
-    def similarity(self, left: Any, left_key: str, right: Any, right_key: str) -> float:
-        from voiceclone.evaluation.similarity import cosine_similarity
-
-        return float(cosine_similarity(self.embed(left, left_key), self.embed(right, right_key)))
+    return CachedEmbedder()
 
 
 # ----------------------------------------------------------------------------
 # calibration
 # ----------------------------------------------------------------------------
 def calibrate(
-    corpus: dict[str, list[dict[str, Any]]], embedder: Embedder
+    corpus: dict[str, list[dict[str, Any]]], embedder: Any
 ) -> dict[str, Any]:
     """Bound the scale: what the same person scores, and what a stranger scores."""
     from itertools import combinations
@@ -262,6 +205,52 @@ def calibrate(
 
 
 # ----------------------------------------------------------------------------
+# the recogniser's own error floor
+# ----------------------------------------------------------------------------
+def asr_floor(corpus: dict[str, list[dict[str, Any]]], config: Any) -> dict[str, Any]:
+    """Transcribe *real human speech* and score it against its own transcript.
+
+    A render's CER is only interpretable next to this. Whisper does not reach
+    zero on Persian - crowdsourced audio, ambiguous spelling, no diacritics -
+    so a clone scoring 6% CER against a recogniser that scores 5% on genuine
+    speech is not making four times the errors of a human, it is making
+    roughly none. Without this number every intelligibility claim in this
+    project is uncalibrated.
+    """
+    from voiceclone.audio.io import load_audio
+    from voiceclone.evaluation.similarity import character_error_rate, word_error_rate
+    from voiceclone.pipelines import Studio
+
+    _rule("Recogniser floor - Whisper against real human speech")
+    studio = Studio(config)
+    cers: list[float] = []
+    wers: list[float] = []
+    for speaker, entries in sorted(corpus.items()):
+        for entry in entries:
+            heard = studio.asr.transcribe(load_audio(str(entry["path"]))).text.strip()
+            cer = character_error_rate(entry["transcript"], heard)
+            wer = word_error_rate(entry["transcript"], heard)
+            if cer is not None:
+                cers.append(cer)
+            if wer is not None:
+                wers.append(wer)
+        print(f"  {speaker:6s} done", flush=True)
+
+    print(f"\n  CER on real speech  {_spread(cers)}")
+    print(f"  WER on real speech  {_spread(wers)}")
+    print(
+        "\n  A render cannot be expected to beat these. Anything at or below is\n"
+        "  as intelligible as the corpus itself."
+    )
+    return {
+        "cer_mean": _mean(cers),
+        "wer_mean": _mean(wers),
+        "cer_median": statistics.median(cers) if cers else None,
+        "clips": len(cers),
+    }
+
+
+# ----------------------------------------------------------------------------
 # the benchmark itself
 # ----------------------------------------------------------------------------
 def run(args: argparse.Namespace) -> dict[str, Any]:
@@ -282,6 +271,19 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     sentences = [s for s in SENTENCES if not args.sentences or s[0] in set(args.sentences)]
     sentences = sentences[: args.max_sentences]
     seeds = list(args.seeds)
+
+    config = AppConfig.load()
+    if args.device:
+        config.runtime.device = args.device
+
+    floor_path = RESULTS_DIR / "_asr_floor.json"
+    if args.asr_floor or not floor_path.is_file():
+        RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+        measured = asr_floor(corpus, config)
+        floor_path.write_text(json.dumps(measured, indent=2), encoding="utf-8")
+    recogniser_floor = json.loads(floor_path.read_text(encoding="utf-8"))
+    if args.asr_floor_only:
+        return {"asr_floor": recogniser_floor}
 
     config = AppConfig.load()
     if args.device:
@@ -378,6 +380,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                         "held_out_scores": [round(v, 4) for v in against],
                         "reference_similarity": round(own, 4),
                         "word_error_rate": result.scores.word_error_rate,
+                        "character_error_rate": result.scores.character_error_rate,
                         "transcription": result.scores.transcription,
                         "expected": sentence,
                         "output": str(result.output_path),
@@ -385,16 +388,19 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     }
                 )
                 last = rows[-1]
-                wer = last["word_error_rate"]
+                cer, wer = last["character_error_rate"], last["word_error_rate"]
                 print(
                     f"      held-out {_fmt(last['held_out_similarity'])}"
                     f"   own-ref {_fmt(last['reference_similarity'])}"
+                    f"   CER {'n/a' if cer is None else f'{cer * 100:.1f}%'}"
                     f"   WER {'n/a' if wer is None else f'{wer * 100:.1f}%'}",
                     flush=True,
                 )
 
     studio.release()
-    return summarise(args, rows, calibration, corpus, sentences, seeds, embedder, started)
+    return summarise(
+        args, rows, calibration, corpus, sentences, seeds, embedder, started, recogniser_floor
+    )
 
 
 # ----------------------------------------------------------------------------
@@ -405,13 +411,15 @@ def summarise(
     corpus: dict[str, list[dict[str, Any]]],
     sentences: list[tuple[str, str]],
     seeds: list[int],
-    embedder: Embedder,
+    embedder: Any,
     started: float,
+    recogniser_floor: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     good = [r for r in rows if "error" not in r]
     held = [r["held_out_similarity"] for r in good]
     own = [r["reference_similarity"] for r in good]
     wers = [r["word_error_rate"] for r in good if r["word_error_rate"] is not None]
+    cers = [r["character_error_rate"] for r in good if r.get("character_error_rate") is not None]
 
     ceiling = calibration.get("ceiling")
     floor = calibration.get("floor")
@@ -432,24 +440,32 @@ def summarise(
     print(f"  reference similarity  {_spread(own)}")
     if held and own:
         print(f"  channel inflation     {statistics.mean(own) - statistics.mean(held):+.3f}")
+    if cers:
+        line = f"  round-trip CER        {statistics.mean(cers) * 100:.1f}%  (median {statistics.median(cers) * 100:.1f}%)"
+        base = (recogniser_floor or {}).get("cer_mean")
+        if base is not None:
+            line += f"   vs {base * 100:.1f}% on real speech"
+        print(line)
     if wers:
-        print(f"  round-trip WER        {statistics.mean(wers) * 100:.1f}%  (median {statistics.median(wers) * 100:.1f}%)")
+        print(f"  round-trip WER        {statistics.mean(wers) * 100:.1f}%  (spacing-sensitive)")
     if fractions:
         print(f"  position on scale     {statistics.mean(fractions):.1%} of stranger -> same person")
     if rows and len(good) < len(rows):
         print(f"  failures              {len(rows) - len(good)} of {len(rows)}")
 
-    print(f"\n  {'speaker':8s} {'held-out':>9s} {'ceiling':>8s} {'gap':>7s} {'own ref':>8s} {'WER':>7s}")
+    print(f"\n  {'speaker':8s} {'held-out':>9s} {'ceiling':>8s} {'gap':>7s} {'own ref':>8s} {'CER':>7s} {'WER':>7s}")
     per_speaker: dict[str, dict[str, Any]] = {}
     for speaker in sorted({r["speaker"] for r in good}):
         subset = [r for r in good if r["speaker"] == speaker]
         h = _mean([r["held_out_similarity"] for r in subset])
         o = _mean([r["reference_similarity"] for r in subset])
         w = _mean([r["word_error_rate"] for r in subset if r["word_error_rate"] is not None])
+        c_err = _mean([r["character_error_rate"] for r in subset if r.get("character_error_rate") is not None])
         c = per_ceiling.get(speaker)
         gap = None if (h is None or c is None) else h - c
         print(
             f"  {speaker:8s} {_fmt(h, 9)} {_fmt(c, 8)} {_fmt(gap, 7)} {_fmt(o, 8)} "
+            f"{'    n/a' if c_err is None else f'{c_err * 100:6.1f}%'} "
             f"{'    n/a' if w is None else f'{w * 100:6.1f}%'}"
         )
         per_speaker[speaker] = {
@@ -458,6 +474,7 @@ def summarise(
             "gap": gap,
             "reference": o,
             "wer": w,
+            "cer": c_err,
             "renders": len(subset),
         }
 
@@ -493,12 +510,14 @@ def summarise(
             "similarity_backend": embedder.backend,
         },
         "calibration": calibration,
+        "recogniser_floor": recogniser_floor,
         "summary": {
             "held_out_mean": _mean(held),
             "held_out_sd": statistics.stdev(held) if len(held) > 1 else None,
             "reference_mean": _mean(own),
             "wer_mean": _mean(wers),
-            "wer_median": statistics.median(wers) if wers else None,
+            "cer_mean": _mean(cers),
+            "cer_median": statistics.median(cers) if cers else None,
             "scale_position": _mean(fractions),
             "renders": len(good),
             "failures": len(rows) - len(good),
@@ -526,12 +545,12 @@ def compare(labels: list[str]) -> int:
         runs.append(json.loads(path.read_text(encoding="utf-8")))
 
     _rule("Comparison")
-    print(f"  {'label':22s} {'held-out':>9s} {'vs first':>9s} {'own ref':>8s} {'WER':>8s} {'scale':>7s}")
+    print(f"  {'label':22s} {'held-out':>9s} {'vs first':>9s} {'own ref':>8s} {'CER':>8s} {'scale':>7s}")
     base = runs[0]["summary"]["held_out_mean"]
     for run_data in runs:
         summary = run_data["summary"]
         delta = None if (base is None or summary["held_out_mean"] is None) else summary["held_out_mean"] - base
-        wer = summary["wer_mean"]
+        wer = summary.get("cer_mean")
         scale = summary["scale_position"]
         print(
             f"  {run_data['label']:22s} {_fmt(summary['held_out_mean'], 9)} "
@@ -574,6 +593,8 @@ def main() -> int:
         help="Forwarded to the engine, e.g. nfe_step=64",
     )
     parser.add_argument("--calibrate-only", action="store_true")
+    parser.add_argument("--asr-floor", action="store_true", help="Re-measure the recogniser floor")
+    parser.add_argument("--asr-floor-only", action="store_true")
     parser.add_argument("--compare", nargs="+", default=None, metavar="LABEL")
     args = parser.parse_args()
 

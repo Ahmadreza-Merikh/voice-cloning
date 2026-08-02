@@ -773,11 +773,12 @@ class Studio:
 
         if evaluation.transcribe_check and expected_text:
             try:
-                from ..evaluation.similarity import word_error_rate
+                from ..evaluation.similarity import character_error_rate, word_error_rate
 
                 heard = self.asr.transcribe(clone.audio).text.strip()
                 scores.transcription = heard
                 scores.word_error_rate = word_error_rate(expected_text, heard)
+                scores.character_error_rate = character_error_rate(expected_text, heard)
             except Exception:
                 log.debug("Round-trip transcription failed", exc_info=True)
 

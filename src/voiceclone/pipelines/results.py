@@ -43,7 +43,14 @@ class QualityScores:
     #: voice cloning. Only available when held-out audio was supplied.
     held_out_similarity: float | None = None
     transcription: str | None = None
+    #: Word error rate of the round trip. Persian compounds have no fixed
+    #: spacing, so this partly scores where the recogniser put its spaces:
+    #: a flawless render measured 55.6% here purely because Whisper wrote
+    #: `کتاب خانه` for `کتابخانه`. Kept for continuity; read `character_error_rate`.
     word_error_rate: float | None = None
+    #: Character error rate, whitespace-insensitive. The intelligibility
+    #: number to trust for Persian.
+    character_error_rate: float | None = None
 
     @property
     def reference_verdict(self) -> str:
@@ -87,8 +94,13 @@ class QualityScores:
             lines.append(
                 f"{label}: {self.reference_similarity:.3f} ({self.reference_verdict})"
             )
+        if self.character_error_rate is not None:
+            lines.append(f"Round-trip CER: {self.character_error_rate * 100:.1f}%")
         if self.word_error_rate is not None:
-            lines.append(f"Round-trip WER: {self.word_error_rate * 100:.1f}%")
+            lines.append(
+                f"Round-trip WER: {self.word_error_rate * 100:.1f}% "
+                "(counts the recogniser's word spacing too)"
+            )
         if self.transcription:
             lines.append(f"Heard back: {self.transcription}")
         return "\n".join(lines) or "No objective metrics were computed."

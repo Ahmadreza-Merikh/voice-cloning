@@ -333,11 +333,22 @@ From an actual run on an M1 Pro (16 GB), F5-TTS at the *High quality* preset
 | Similarity to the reference clip | **0.825** — shares its channel; not identity |
 | Round-trip WER (Whisper re-transcribes the output) | **0.0%** — every word came back correct |
 
-That 0.825 is the reference comparison, not a cloning score. A separate F5 run
-measured against **held-out** recordings of the same speaker scored **0.456** —
-inside the range different speakers occupy. One sentence, one seed, and its
-reference transcript was corrupt, so treat it as a first data point rather than
-a verdict on the engine. It is the honest kind of number.
+That 0.825 is the reference comparison, not a cloning score. Measured against
+**held-out** recordings of the same speaker, with a hand-corrected reference
+transcript, the same pipeline scores:
+
+| engine | held-out | vs reference clip | WER |
+|---|---|---|---|
+| F5-TTS | **0.490** | 0.755 | 9.1% |
+| MOSS-TTS | 0.434 | 0.654 | 36.4% |
+
+Both sit **inside the range different speakers occupy** (up to 0.544). The
+renders are clean and intelligible — F5's 9.1% WER is below Whisper's own ~11%
+error floor on real Persian speech — but a speaker encoder cannot reliably tell
+either of them from a different person. That is the honest state of zero-shot
+cloning here, and it is invisible if you only read the reference-clip score.
+
+n=1 on every axis: one reference, one sentence, one seed per engine.
 | Synthesis, MPS | 56 s for 10.2 s of audio (~5.5× realtime) |
 | Synthesis, CPU | 294 s for the same (~29× realtime) |
 

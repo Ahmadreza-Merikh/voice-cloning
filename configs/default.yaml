@@ -238,12 +238,16 @@ evaluation:
   # takes and keeping the best is the cheapest quality win available without
   # a new model. 1 disables it.
   #
-  # It is not cheap in time. Measured end to end on an M1 Pro with MOSS on
-  # MPS, for one ~6 s sentence: 41 s to load the model, then ~92 s per take -
-  # roughly 65 s of synthesis, 20 s of round-trip ASR and 2 s of speaker
-  # scoring. Best-of-4 took 6 m 48 s in total against about 2 m for a single
-  # take. Both scorers run per take, so the overhead is not just N x
-  # synthesis. Left at 1 for that reason; raise it for final renders.
+  # Measured on the nine-speaker benchmark, F5 on MPS, 27 renders: best-of-4
+  # scores 0.533 held-out against 0.520 for a single take, at 60 minutes
+  # against 15. Paired cell by cell, it changed the chosen take in 10 of 27
+  # cases and improved 9 of those (mean +0.046, best +0.118); one got worse.
+  # CER was unaffected, 2.9% -> 2.8%.
+  #
+  # That is the only intervention measured on this project that moves identity
+  # transfer at all - every inference knob is inside the noise - but it buys
+  # back about 8% of the gap to the human ceiling for 4x the wall clock. Left
+  # at 1 for iteration; raise it for final renders.
   candidates: 1
   # Round-trip CER is clamped here before takes are compared, so anything at
   # or below counts as equally intelligible and speaker similarity picks

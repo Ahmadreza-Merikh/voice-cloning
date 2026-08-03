@@ -378,11 +378,31 @@ corpus, sentences, seed and device):
 | baseline | 0.520 | — |
 | `trim_silence: false` | 0.524 | +0.004 |
 | `denoise: none` | 0.510 | −0.010 |
+| `cfg_strength: 2.5` | 0.518 | −0.002 |
+| `cfg_strength: 1.5` | 0.521 | +0.002 |
+| `nfe_step: 64` | 0.517 | −0.003 |
+| ASR reference transcripts | 0.514 | −0.005 |
 
-Both are inside the noise. Reference preprocessing was not the problem: the
-pipeline's own preprocessing moves a clip's speaker embedding by only 0.037
-(0.963 self-similarity), and `denoise: auto` already resolves to a no-op on
-clean audio.
+**Six configurations span 0.014 — narrower than the encoder's own 0.0205
+noise.** Nothing on the inference side moves identity transfer. Reference
+preprocessing was not the problem either: it moves a clip's speaker embedding
+by only 0.037 (0.963 self-similarity), and `denoise: auto` already resolves to
+a no-op on clean audio.
+
+The one thing that **did**:
+
+| Change | Held-out | CER | Cost |
+|---|---|---|---|
+| `evaluation.candidates: 4` | **0.533** | 2.8% | 4× |
+
+Paired cell by cell against the baseline, best-of-4 changed the chosen take in
+10 of 27 cases and improved 9 of them (mean +0.046, best +0.118). It buys back
+about 8% of the gap to the human ceiling for four times the wall clock — worth
+switching on for a final render, not for iteration.
+
+See [`FINDINGS.md`](FINDINGS.md) for the full investigation and
+[`docs/REMOTE-TRAINING.md`](docs/REMOTE-TRAINING.md) for the recipe that
+follows from it.
 | Synthesis, MPS | 56 s for 10.2 s of audio (~5.5× realtime) |
 | Synthesis, CPU | 294 s for the same (~29× realtime) |
 

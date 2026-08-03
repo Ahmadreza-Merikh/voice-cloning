@@ -181,6 +181,31 @@ class ASRConfig:
 
 
 @dataclass
+class ChatterboxConfig:
+    """Chatterbox, driven out-of-process in its own virtualenv.
+
+    ``t3_checkpoint`` swaps the text-to-speech-token transformer for a Persian
+    finetune. The speaker path - voice encoder and S3Gen - stays as trained and
+    never sees Persian text, which is why this engine's identity transfer does
+    not depend on how much Persian data anyone had.
+    """
+
+    python: str | None = "auto"
+    t3_checkpoint: str | None = "hf://Thomcles/Chatterbox-TTS-Persian-Farsi/t3_fa.safetensors"
+    #: Emotion intensity. 0.5 is upstream's neutral; higher is more theatrical
+    #: and, in upstream's own guidance, less stable.
+    exaggeration: float = 0.5
+    #: Classifier-free guidance on the token model. Upstream notes lower values
+    #: slow the delivery, which matters for a fidelity task more than a demo.
+    cfg_weight: float = 0.5
+    temperature: float = 0.8
+    repetition_penalty: float = 1.2
+    min_p: float = 0.05
+    top_p: float = 1.0
+    timeout_seconds: int = 900
+
+
+@dataclass
 class SeedVCConfig:
     repo_path: str | None = "auto"
     python: str | None = "auto"
@@ -199,6 +224,7 @@ class EnginesConfig:
     vc: str = "cascade"
     f5: F5Config = field(default_factory=F5Config)
     moss: MossConfig = field(default_factory=MossConfig)
+    chatterbox: ChatterboxConfig = field(default_factory=ChatterboxConfig)
     asr: ASRConfig = field(default_factory=ASRConfig)
     seedvc: SeedVCConfig = field(default_factory=SeedVCConfig)
 

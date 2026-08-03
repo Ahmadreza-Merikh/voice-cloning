@@ -168,6 +168,35 @@ engines:
     repetition_penalty: 1.1
     max_new_tokens: 4096
 
+  chatterbox:
+    # Chatterbox splits the job F5 does in one model: a voice encoder and
+    # S3Gen carry speaker identity and never see Persian text, while T3 - a
+    # 0.5B Llama - turns characters into speech tokens and is the only
+    # language-specific part. `t3_checkpoint` replaces just that part.
+    #
+    # The point of the arrangement: measurement puts F5's identity transfer
+    # 0.17 below the human ceiling while its pronunciation already beats the
+    # corpus. Here the speaker path does not depend on how much Persian data
+    # anyone had.
+    #
+    # Needs its own environment - it pins torch 2.6 / transformers 5.2 /
+    # numpy<2, which cannot coexist with F5-TTS:
+    #   python3.11 -m venv ~/.cache/persian-voice-cloning/chatterbox/.venv
+    #   ~/.cache/.../chatterbox/.venv/bin/pip install chatterbox-tts
+    #
+    # The Persian T3 is gated: accept the licence on the model page while
+    # signed in, then `hf auth login`. Without it the engine still runs on the
+    # base checkpoint and says so - Persian read with an English mouth.
+    python: auto
+    t3_checkpoint: hf://Thomcles/Chatterbox-TTS-Persian-Farsi/t3_fa.safetensors
+    exaggeration: 0.5        # 0.5 is neutral; higher is theatrical and less stable
+    cfg_weight: 0.5          # lower slows the delivery
+    temperature: 0.8
+    repetition_penalty: 1.2
+    min_p: 0.05
+    top_p: 1.0
+    timeout_seconds: 900
+
   asr:
     # Used to auto-transcribe the reference clip (F5-TTS needs the reference
     # transcript) and to drive the speech-to-speech cascade.

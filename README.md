@@ -138,21 +138,28 @@ Check what your machine can actually run at any time:
 
 | Engine | Persian | Phoneme input | Size | Speed | Notes |
 |---|---|---|---|---|---|
-| **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. |
-| **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 13.5 GB | slower | Apache-2.0. Best measured similarity. Pinned to transformers 5.0.x. |
+| **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520, CER 2.9%. |
+| **Chatterbox** (`chatterbox`) | community T3 finetune | no (grapheme) | ~3.5 GB | medium | Speaker path is language-agnostic — the part Persian data is *not* needed for. Own venv (torch 2.6). |
+| **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 13.5 GB | slower | Apache-2.0. Pinned to transformers 5.0.x. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
 
 **Which should I use?**
 
-- Iterating on wording, or on a modest machine → **F5-TTS**.
-- Final renders, or anything where timbre matters → **MOSS-TTS on Persian script**.
-  Measured against the same reference and sentence: 0.819 versus F5's 0.730 — both
-  reference-clip scores, and a gap well outside the encoder's 0.02 noise, so the
-  ordering is real even though neither figure is a cloning score. The pronunciation observation alongside it (MOSS got
-  بهار، کردند، باغ، شکفت right where F5 got all four wrong) is **one sentence, one
-  reference, one seed** — suggestive, not established.
-  It needs its own environment (`transformers>=5.0,<5.1`) and ~13.5 GB of weights.
+- Anything where you want the words right → **F5-TTS**. Its Persian
+  pronunciation measures 2.9% CER against a 7.8% recogniser floor: better than
+  the corpus it is scored against.
+- Where **timbre** matters → this is the open question, and it is why
+  `chatterbox` exists here. F5 clones in context, so identity transfer is bound
+  up with how well someone trained it on Persian, and measurement puts it 0.170
+  under the human ceiling. Chatterbox separates the two: its voice encoder and
+  S3Gen carry identity and never see Persian text, and only T3 — the 0.5B
+  text-to-token model — is language-specific.
 - You want the *source recording's* delivery preserved → **Seed-VC**.
+
+The earlier claim here that MOSS beat F5 on similarity (0.819 vs 0.730) was
+measured against the **conditioning clip**, on one sentence with one seed. That
+comparison rewards reproducing the prompt's room and microphone as much as its
+voice, and it has been withdrawn rather than restated.
 
 Switch the default in `configs/default.yaml`:
 
@@ -302,53 +309,80 @@ number runs roughly **0.26 high** and is not a measure of identity transfer. Pas
 `--held-out other1.wav other2.wav` (other recordings of the same speaker, not
 used as the prompt) to get the figure that is.
 
-Calibrated on this project's own audio and pipeline, ECAPA-TDNN:
+Calibrated on a **verified** corpus of nine speakers — Common Voice 26 Persian
+plus one studio voice — 45 clips, ECAPA-TDNN:
 
 | Comparison | Score |
 |---|---|
-| different speaker, same gender | **0.288** (39 pairs, highest 0.544) |
-| same speaker, **different** session | **0.647** (6 pairs) |
-| same speaker, **same** session | 0.800 (17 pairs) |
+| different speakers | **0.132** (900 pairs, highest 0.508) |
+| same speaker, different recordings | **0.689** (90 pairs, lowest 0.365) |
 
-The last two rows are the whole point: one person scores 0.800 against
-themselves within a session and 0.647 across sessions. That 0.153 gap is
-channel, not identity.
+*Verified* is load-bearing. Common Voice `client_id` is an account, not a
+person: households share them and one contributor may record on a laptop one
+week and a phone in a car the next. Of 21 candidate speakers, **12 were
+rejected** — one account's own two recordings scored 0.099 against each other,
+lower than most different-speaker pairs, and two accounts scored 0.671 against
+*each other*. A speaker is kept only when their worst pair against themselves
+beats their best pair against anyone else.
 
 | Held-out similarity | Meaning |
 |---|---|
-| ≥ 0.647 | as close as another recording of the same speaker |
-| 0.544 – 0.647 | above every different-speaker pair measured |
-| 0.288 – 0.544 | inside the range different speakers occupy — not distinguishable |
-| < 0.288 | no resemblance |
+| ≥ 0.689 | as close as another recording of the same speaker |
+| 0.508 – 0.689 | above every different-speaker pair measured |
+| 0.132 – 0.508 | inside the range different speakers occupy — not distinguishable |
+| < 0.132 | no resemblance |
 
-Reproduce the calibration with `scripts/measure_ceiling.py`.
+Rebuild the corpus with `scripts/build_eval_corpus.py`, reproduce the
+calibration with `scripts/benchmark.py --calibrate-only`.
+
+### On WER, and why this project reports CER
+
+**Word error rate does not work for Persian.** Compounds have no fixed
+spacing — `کتابخانه`, `کتاب خانه` and `کتاب‌خانه` are the same word — and the
+recogniser picks whichever its training data favoured. Word scoring counts that
+choice as a deletion plus an insertion.
+
+Measured here: Whisper transcribing **genuine human speech** from this corpus,
+against the corpus's own transcripts, scores **37.4% WER**. One flawless render
+scored 55.6% WER purely over where the spaces landed; the same render is 2.2%
+CER. Every WER figure in older revisions of this document was partly measuring
+typography.
+
+`character_error_rate` is whitespace-insensitive and folds the Arabic
+letterforms and harakat that ASR never emits. **On real human speech from this
+corpus it scores 7.8%** — that is the floor a render is read against, not zero.
 
 ### Measured results
 
-From an actual run on an M1 Pro (16 GB), F5-TTS at the *High quality* preset
-(48 ODE steps), 11.7 s reference, one Persian sentence:
+F5-TTS, 9 speakers × 3 sentences, one seed, M1 Pro on MPS. Held-out scoring
+throughout — the render against recordings of that speaker it was never
+conditioned on:
 
-| Metric | Result |
-|---|---|
-| Similarity to the reference clip | **0.825** — shares its channel; not identity |
-| Round-trip WER (Whisper re-transcribes the output) | **0.0%** — every word came back correct |
+| Metric | Result | Read against |
+|---|---|---|
+| **Held-out similarity** | **0.520** ± 0.083 | ceiling 0.689, floor 0.132 |
+| Position on the scale | **69%** stranger → same person | |
+| **Round-trip CER** | **2.9%** | 7.8% on the corpus's real speech |
+| Similarity to the reference clip | 0.654 | inflated +0.135 by shared channel |
 
-That 0.825 is the reference comparison, not a cloning score. Measured against
-**held-out** recordings of the same speaker, with a hand-corrected reference
-transcript, the same pipeline scores:
+**Pronunciation is not where the quality is going.** The renders are *more*
+intelligible than the human recordings they are measured against. The gap is
+identity: 0.520 sits 0.170 below the human ceiling, eight times the encoder's
+0.0205 noise, and inside the band where different speakers still occur.
 
-| engine | held-out | vs reference clip | WER |
-|---|---|---|---|
-| F5-TTS | **0.490** | 0.755 | 9.1% |
-| MOSS-TTS | 0.434 | 0.654 | 36.4% |
+Things that did **not** move it (each run changes exactly one thing, same
+corpus, sentences, seed and device):
 
-Both sit **inside the range different speakers occupy** (up to 0.544). The
-renders are clean and intelligible — F5's 9.1% WER is below Whisper's own ~11%
-error floor on real Persian speech — but a speaker encoder cannot reliably tell
-either of them from a different person. That is the honest state of zero-shot
-cloning here, and it is invisible if you only read the reference-clip score.
+| Change | Held-out | vs baseline |
+|---|---|---|
+| baseline | 0.520 | — |
+| `trim_silence: false` | 0.524 | +0.004 |
+| `denoise: none` | 0.510 | −0.010 |
 
-n=1 on every axis: one reference, one sentence, one seed per engine.
+Both are inside the noise. Reference preprocessing was not the problem: the
+pipeline's own preprocessing moves a clip's speaker embedding by only 0.037
+(0.963 self-similarity), and `denoise: auto` already resolves to a no-op on
+clean audio.
 | Synthesis, MPS | 56 s for 10.2 s of audio (~5.5× realtime) |
 | Synthesis, CPU | 294 s for the same (~29× realtime) |
 
@@ -436,9 +470,16 @@ Voice Cloning/
 ├── configs/default.yaml        # every setting, commented
 ├── requirements.txt            # core runtime
 ├── requirements-optional.txt   # optional extras
+├── eval/
+│   ├── corpus/manifest.json    # the verified evaluation corpus
+│   └── results/*.json          # every measured run, comparable
 ├── scripts/
 │   ├── setup_env.sh            # environment bootstrap
-│   └── download_models.py      # weight downloader + checkpoint slimming
+│   ├── download_models.py      # weight downloader + checkpoint slimming
+│   ├── build_eval_corpus.py    # assemble + verify the eval corpus
+│   ├── benchmark.py            # held-out similarity, CER, calibration
+│   ├── run_sweep.sh            # one hypothesis per run
+│   └── chatterbox_worker.py    # persistent out-of-process Chatterbox
 ├── src/voiceclone/
 │   ├── config.py               # typed, layered configuration
 │   ├── device.py               # CUDA / MPS / CPU resolution
@@ -463,6 +504,7 @@ Voice Cloning/
 │   ├── engines/
 │   │   ├── base.py             # engine interfaces + registry
 │   │   ├── f5_tts.py           # F5-TTS
+│   │   ├── chatterbox_tts.py   # Chatterbox (out-of-process)
 │   │   ├── moss_tts.py         # MOSS-TTS
 │   │   ├── asr.py              # Whisper
 │   │   └── vc_seedvc.py        # Seed-VC (out-of-process)
@@ -470,7 +512,8 @@ Voice Cloning/
 │   │   ├── studio.py           # the orchestrator
 │   │   ├── results.py          # result objects
 │   │   └── voices.py           # voice library
-│   ├── evaluation/similarity.py# speaker similarity, WER
+│   ├── evaluation/similarity.py# speaker similarity, WER + CER
+│   ├── evaluation/embedding.py # one preprocessing path for every clip
 │   └── ui/                     # Gradio app, theme, strings
 └── tests/                      # 145 tests, no weights or network needed
 ```

@@ -97,6 +97,7 @@ the named flag differs.
 | `cfg_strength: 2.5` | 0.518 | −0.002 | 3.2% | inside noise |
 | `cfg_strength: 1.5` | 0.521 | +0.002 | 3.3% | inside noise |
 | `nfe_step: 64` | 0.517 | −0.003 | 3.1% | inside noise |
+| ASR reference transcripts | 0.514 | −0.005 | 3.1% | inside noise |
 
 **Every F5 knob is inert.** Six configurations span 0.510 to 0.524 — a range of
 0.014, smaller than the encoder's own 0.0205 noise. Nothing available on the
@@ -187,11 +188,22 @@ Every task in `FINDINGS-similarity-metric.md`:
 | T5 reference-transcript gate | measured, see below |
 | T6 no floor exists | done — 0.132 over 900 cross-speaker pairs |
 
-T5's specific complaint stands: `transcribe_reference` warned that a clip began
-mid-sentence but said nothing about `عوارز` for `عوارض`, a wrong word delivered
-confidently. The benchmark feeds F5 ground-truth transcripts from the corpus;
-`--ref-transcript asr` measures what production loses by feeding it Whisper's
-guess instead.
+T5 is now **measured, and the worry does not survive it.** The concern was that
+F5 conditions on a transcript of the reference and that a wrong one degrades
+output — `transcribe_reference` warned a clip began mid-sentence but said nothing
+about `عوارز` for `عوارض`, a wrong word delivered confidently.
+
+Feeding F5 Whisper's transcripts instead of the corpus's ground truth, over all
+nine speakers:
+
+| Reference transcript | Held-out | CER |
+|---|---|---|
+| corpus ground truth | 0.520 | 2.9% |
+| Whisper | 0.514 | 3.1% |
+
+Both differences are inside the noise. The transcripts are good enough that the
+production path loses nothing measurable by using them. The gate could still be
+tightened, but not on quality grounds — there is no quality here to recover.
 
 ---
 

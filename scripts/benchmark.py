@@ -293,22 +293,34 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     config.evaluation.transcribe_check = True
     config.evaluation.candidates = args.candidates
 
-    engine_options: dict[str, Any] = {}
-    for item in args.engine_option or []:
-        key, _, value = item.partition("=")
-        try:
-            engine_options[key] = int(value)
-        except ValueError:
+    def parse_options(items: list[str] | None) -> dict[str, Any]:
+        parsed: dict[str, Any] = {}
+        for item in items or []:
+            key, _, raw = item.partition("=")
+            if raw.lower() in {"true", "false"}:
+                parsed[key] = raw.lower() == "true"
+                continue
+            if raw.lower() in {"none", "null"}:
+                parsed[key] = None
+                continue
             try:
-                engine_options[key] = float(value)
+                parsed[key] = int(raw)
             except ValueError:
-                engine_options[key] = value
+                try:
+                    parsed[key] = float(raw)
+                except ValueError:
+                    parsed[key] = raw
+        return parsed
+
+    engine_options = parse_options(args.engine_option)
+    preprocess_overrides = parse_options(args.preprocess_option)
 
     _rule(f"Benchmark - engine {args.engine}, label '{args.label}'")
     print(f"Speakers  : {len(corpus)}  ({', '.join(sorted(corpus))})")
     print(f"Sentences : {len(sentences)}   Seeds: {seeds}   Takes: {args.candidates}")
     print(f"Reference transcripts: {args.ref_transcript}")
     print(f"Engine options: {engine_options or 'config defaults'}")
+    print(f"Preprocess overrides: {preprocess_overrides or 'config defaults'}")
     print(f"Device    : {config.runtime.device}")
     total = len(corpus) * len(sentences) * len(seeds)
     print(f"{total} renders\n")
@@ -347,6 +359,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                         seed=seed,
                         use_phonemes=False,
                         engine_options=engine_options or None,
+                        preprocess_overrides=preprocess_overrides or None,
                         output_path=out_dir / f"{speaker}_{key}_seed{seed}.wav",
                     )
                 except (VoiceCloneError, Exception) as exc:  # noqa: BLE001 - report, continue
@@ -502,6 +515,7 @@ def summarise(
         "config": {
             "ref_transcript": args.ref_transcript,
             "engine_option": args.engine_option or [],
+            "preprocess_option": args.preprocess_option or [],
             "candidates": args.candidates,
             "seeds": seeds,
             "sentences": [k for k, _ in sentences],
@@ -591,6 +605,13 @@ def main() -> int:
         default=None,
         metavar="KEY=VALUE",
         help="Forwarded to the engine, e.g. nfe_step=64",
+    )
+    parser.add_argument(
+        "--preprocess-option",
+        action="append",
+        default=None,
+        metavar="KEY=VALUE",
+        help="Reference preprocessing override, e.g. denoise=none",
     )
     parser.add_argument("--calibrate-only", action="store_true")
     parser.add_argument("--asr-floor", action="store_true", help="Re-measure the recogniser floor")

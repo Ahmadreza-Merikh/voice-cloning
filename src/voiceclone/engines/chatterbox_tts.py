@@ -105,6 +105,7 @@ class ChatterboxEngine(TTSEngine):
         self._tempdir: tempfile.TemporaryDirectory[str] | None = None
         self._sample_rate = 24000
         self._using_persian_t3 = False
+        self._stack = "unknown"
 
     # -- availability ------------------------------------------------------
     @classmethod
@@ -156,7 +157,14 @@ class ChatterboxEngine(TTSEngine):
         checkpoint = self._resolve_t3()
         self._using_persian_t3 = checkpoint is not None
 
-        command = [python, str(_worker_script()), "--device", str(self.device.device)]
+        command = [
+            python,
+            str(_worker_script()),
+            "--device",
+            str(self.device.device),
+            "--language-id",
+            str(settings.language_id),
+        ]
         if checkpoint:
             command += ["--t3-checkpoint", checkpoint]
 
@@ -181,10 +189,12 @@ class ChatterboxEngine(TTSEngine):
                 hint=str(ready.get("error", "no reason given")),
             )
         self._sample_rate = int(ready.get("sample_rate", 24000))
+        self._stack = str(ready.get("stack", "unknown"))
         self._tempdir = tempfile.TemporaryDirectory(prefix="voiceclone_chatterbox_")
         log.info(
-            "Chatterbox ready (%s T3, %d Hz)",
-            "Persian" if self._using_persian_t3 else "base English",
+            "Chatterbox ready (%s T3 on the %s stack, %d Hz)",
+            "Persian" if self._using_persian_t3 else "base",
+            self._stack,
             self._sample_rate,
         )
 
@@ -283,6 +293,7 @@ class ChatterboxEngine(TTSEngine):
             seed=used_seed,
             metadata={
                 "persian_t3": self._using_persian_t3,
+                "stack": self._stack,
                 "exaggeration": job["exaggeration"],
                 "cfg_weight": job["cfg_weight"],
                 "temperature": job["temperature"],

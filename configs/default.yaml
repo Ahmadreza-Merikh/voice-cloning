@@ -189,6 +189,9 @@ engines:
     # base checkpoint and says so - Persian read with an English mouth.
     python: auto
     t3_checkpoint: hf://Thomcles/Chatterbox-TTS-Persian-Farsi/t3_fa.safetensors
+    # The multilingual stack needs a language tag; Persian is not one of its 23,
+    # and Arabic is the nearest script. Revisit if measurement prefers another.
+    language_id: ar
     exaggeration: 0.5        # 0.5 is neutral; higher is theatrical and less stable
     cfg_weight: 0.5          # lower slows the delivery
     temperature: 0.8

@@ -192,6 +192,10 @@ class ChatterboxConfig:
 
     python: str | None = "auto"
     t3_checkpoint: str | None = "hf://Thomcles/Chatterbox-TTS-Persian-Farsi/t3_fa.safetensors"
+    #: The multilingual stack requires a language tag and Persian is not one
+    #: of its 23. Arabic shares the script and is the default until a
+    #: measurement says another tag reads Persian better.
+    language_id: str = "ar"
     #: Emotion intensity. 0.5 is upstream's neutral; higher is more theatrical
     #: and, in upstream's own guidance, less stable.
     exaggeration: float = 0.5

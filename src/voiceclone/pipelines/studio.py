@@ -43,10 +43,10 @@ def _stopwatch(timings: dict[str, float], label: str):
 
 
 def _candidate_rank(
-    wer: float | None,
+    error_rate: float | None,
     similarity: float | None,
     best_similarity: float | None,
-    wer_floor: float,
+    error_floor: float,
     similarity_step: float,
 ) -> tuple[float, float]:
     """Sort key for one best-of-N take. Lower is better.
@@ -55,11 +55,17 @@ def _candidate_rank(
     compared, because neither resolves differences below it and sorting on
     what a metric cannot resolve is sorting on nothing.
 
-    *WER* is clamped at ``wer_floor``. Transcribing genuine human speech from
-    the reference corpus with the same Whisper model scores 4-18% per clip
-    (mean 11.3%), so a take at 0% and a take at 7% differ only in the
-    recogniser. Above the floor the difference is real, and WER dominates -
-    similarity cannot buy its way past a dropped word.
+    *Intelligibility* is character error rate, clamped at ``error_floor``.
+    It was word error rate until WER was shown to be scoring the recogniser's
+    choice of word spacing rather than the render: Persian compounds have no
+    fixed spelling, and Whisper transcribing genuine human speech from this
+    project's corpus scores 37.4% WER against its own ground truth. Ranking
+    takes on that ranked whitespace.
+
+    On the same clips CER is 7.8%, which is where the floor sits: a take at 2%
+    and a take at 6% differ only in the recogniser. Above the floor the
+    difference is real, and it dominates - similarity cannot buy its way past
+    a dropped word.
 
     *Similarity* is counted in whole ``similarity_step`` intervals below
     ``best_similarity``, so whether two takes tie depends on how far apart they
@@ -69,7 +75,7 @@ def _candidate_rank(
 
     ``best_similarity`` must come from the takes that tie on the *primary* key,
     not from the batch as a whole. Anchoring on the global maximum puts the
-    origin on a take that WER has already disqualified, and then the surviving
+    origin on a take that CER has already disqualified, and then the surviving
     contenders are bucketed against an irrelevant point - which brings the
     translation problem straight back for exactly the takes that matter.
 
@@ -79,36 +85,36 @@ def _candidate_rank(
     the crop. For scale, the whole temperature sweep moved similarity by
     0.016, so that comparison was inside the noise too.
 
-    ``wer`` of ``None`` ranks at the floor: a take nobody transcribed is not
-    thereby a bad take. ``similarity`` of ``None`` ranks last on that axis
-    instead, because the two absences are not symmetric - the WER floor is a
+    ``error_rate`` of ``None`` ranks at the floor: a take nobody transcribed
+    is not thereby a bad take. ``similarity`` of ``None`` ranks last on that axis
+    instead, because the two absences are not symmetric - the CER floor is a
     real "no worse than this" bound, whereas an unscored take simply cannot be
     *shown* to resemble the reference. In practice the speaker encoder is
-    all-or-nothing, so every take ties there and the WER clamp decides;
+    all-or-nothing, so every take ties there and the CER clamp decides;
     `_render_best_of` warns when that happens rather than letting it pass
     silently.
 
     A ``similarity_step`` of zero means no quantisation - the raw gap is used,
     which is what the number reads like in the config.
     """
-    ranked_wer = max(wer, wer_floor) if wer is not None else wer_floor
+    ranked_error = max(error_rate, error_floor) if error_rate is not None else error_floor
 
     if similarity is None:
         # Explicit sentinel, so this does not depend on the sign convention of
         # the branch below.
-        return (ranked_wer, float("inf"))
+        return (ranked_error, float("inf"))
     if best_similarity is None:
         # Only reachable from a direct call; `_render_best_of` always supplies
         # a reference point whenever any take was scored.
-        return (ranked_wer, 0.0)
+        return (ranked_error, 0.0)
 
-    # Clamped: a take outside the contending WER tier can sit *above* the
+    # Clamped: a take outside the contending CER tier can sit *above* the
     # tier's best and would otherwise carry a negative similarity key. Inert
-    # while WER leads the tuple, and a mine for anyone who reorders it.
+    # while CER leads the tuple, and a mine for anyone who reorders it.
     gap = max(0.0, best_similarity - similarity)
     if similarity_step <= 0:
-        return (ranked_wer, gap)
-    return (ranked_wer, float(int(gap / similarity_step)))
+        return (ranked_error, gap)
+    return (ranked_error, float(int(gap / similarity_step)))
 
 
 class Studio:
@@ -419,21 +425,21 @@ class Studio:
         """Render ``takes`` candidates and return the best one.
 
         Both metrics are quantised to their own measurement noise and then
-        compared lexicographically - WER clamped at the transcription floor
+        compared lexicographically - CER clamped at the transcription floor
         first, bucketed speaker similarity second. `_candidate_rank` carries
         the reasoning and the measurements.
 
-        Two consequences worth knowing about. Takes whose WER is inside the
+        Two consequences worth knowing about. Takes whose CER is inside the
         floor are ordered purely on similarity, which is the case this exists
         for. And when several takes land in the same bucket on *both* axes
         they are genuinely indistinguishable by anything measured here; the
         pick is then arbitrary but deterministic, and the result says so
         rather than implying the winner was better.
         """
-        from ..evaluation.similarity import speaker_similarity, word_error_rate
+        from ..evaluation.similarity import character_error_rate, speaker_similarity
 
         settings = self.config.evaluation
-        floor = float(settings.candidate_wer_floor)
+        floor = float(settings.candidate_cer_floor)
         step = float(settings.candidate_similarity_step)
         span = 0.7 / takes
         scored: list[tuple[float | None, float | None, Audio, int | None]] = []
@@ -446,10 +452,10 @@ class Studio:
             take_seed = None if seed is None else seed + index
             audio, used = render(take_seed, base, span)
 
-            wer: float | None = None
+            cer: float | None = None
             try:
                 heard = self.asr.transcribe(audio).text.strip()
-                wer = word_error_rate(expected_text, heard)
+                cer = character_error_rate(expected_text, heard)
             except Exception:
                 log.debug("Round-trip transcription failed for take %d", index + 1, exc_info=True)
 
@@ -464,27 +470,27 @@ class Studio:
                 log.debug("Similarity scoring failed for take %d", index + 1, exc_info=True)
 
             log.info(
-                "Take %d/%d: similarity %s, WER %s",
+                "Take %d/%d: similarity %s, CER %s",
                 index + 1,
                 takes,
                 "n/a" if similarity is None else f"{similarity:.3f}",
-                "n/a" if wer is None else f"{wer * 100:.1f}%",
+                "n/a" if cer is None else f"{cer * 100:.1f}%",
             )
-            scored.append((wer, similarity, audio, used))
+            scored.append((cer, similarity, audio, used))
 
         # Similarity is ranked relative to a reference point, so the tie test
         # depends on separation rather than absolute position. The reference
-        # has to come from the takes that can still win: WER leads the key, so
+        # has to come from the takes that can still win: CER leads the key, so
         # anchoring on the batch maximum would put the origin on a take that
-        # WER disqualifies. That is not hypothetical - "the most similar take
+        # CER disqualifies. That is not hypothetical - "the most similar take
         # was also the least intelligible" is the r = -0.06 case this ordering
         # exists for, and it would silently split two clean contenders that sit
         # a hair apart.
-        ranked_wers = [max(row[0], floor) if row[0] is not None else floor for row in scored]
-        contending = min(ranked_wers)
+        ranked_errors = [max(row[0], floor) if row[0] is not None else floor for row in scored]
+        contending = min(ranked_errors)
         observed = [
             row[1]
-            for row, ranked in zip(scored, ranked_wers, strict=True)
+            for row, ranked in zip(scored, ranked_errors, strict=True)
             if row[1] is not None and ranked == contending
         ]
         best_similarity = max(observed) if observed else None
@@ -504,7 +510,7 @@ class Studio:
             # Say it plainly: on everything measured here these takes are the
             # same, so N renders bought nothing this time.
             warnings.append(
-                f"{tied} of {takes} takes scored identically once WER and similarity "
+                f"{tied} of {takes} takes scored identically once CER and similarity "
                 "were quantised to their measurement noise; the pick between them is "
                 "arbitrary. Best-of-N is not helping on this text."
             )
@@ -517,7 +523,7 @@ class Studio:
             )
 
         log.info(
-            "Best of %d: similarity %s, WER %s%s",
+            "Best of %d: similarity %s, CER %s%s",
             takes,
             "n/a" if best[1] is None else f"{best[1]:.3f}",
             "n/a" if best[0] is None else f"{best[0] * 100:.1f}%",

@@ -240,10 +240,11 @@ class EvaluationConfig:
     transcribe_check: bool = False
     #: Render this many takes and keep the best. 1 disables the machinery.
     candidates: int = 1
-    #: Round-trip WER is clamped here before candidates are compared, so
-    #: takes inside the recogniser's noise are ranked on similarity instead.
-    #: Whisper's own floor on real Persian speech - see `_candidate_rank`.
-    candidate_wer_floor: float = 0.15
+    #: Round-trip CER is clamped here before candidates are compared, so takes
+    #: inside the recogniser's noise are ranked on similarity instead. Measured:
+    #: Whisper scores 7.8% CER transcribing this project's *real human* clips
+    #: against their own transcripts - see `_candidate_rank`.
+    candidate_cer_floor: float = 0.08
     #: Similarity differences smaller than this are treated as a tie.
     #: Identity-preserving perturbations of one render (85-95% crops, +/-1 dB,
     #: -60 dBFS dither) move the ECAPA score by up to 0.0205 - see

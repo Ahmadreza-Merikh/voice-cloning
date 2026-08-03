@@ -356,13 +356,17 @@ class TestBestOfNSelection:
 
     Getting this backwards is silent: you still get audio, it is just the
     wrong take. Both metrics are quantised to their measured noise first -
-    WER clamped at ~11-15% (Whisper's own error on real Persian speech),
-    similarity counted in 0.02 steps below the batch best (ECAPA's spread
-    across identity-preserving perturbations). Numbers below are from real
-    runs.
+    CER clamped at 8% (Whisper scores 7.8% transcribing this project's real
+    human clips against their own transcripts), similarity counted in 0.02
+    steps below the contending best (ECAPA's spread across identity-preserving
+    perturbations). Numbers below are from real runs.
+
+    The primary metric was word error rate until WER was measured at 37.4% on
+    genuine human speech here - Persian compounds have no fixed spacing and
+    Whisper picks its own, so the ranking was partly sorting on whitespace.
     """
 
-    FLOOR = 0.15
+    FLOOR = 0.08
     STEP = 0.02
 
     @classmethod
@@ -390,7 +394,7 @@ class TestBestOfNSelection:
         return keys.count(min(keys))
 
     def test_similarity_decides_inside_the_noise_band(self) -> None:
-        # 0% vs 6.7% WER is Whisper disagreeing with itself; 0.76 vs 0.83 is
+        # 0% vs 6.7% CER is Whisper disagreeing with itself; 0.76 vs 0.83 is
         # wider than ECAPA's noise, so it is a real preference.
         assert self._pick([(0.000, 0.76), (0.067, 0.83)]) == 1
 
@@ -404,9 +408,10 @@ class TestBestOfNSelection:
         assert self._pick([(0.267, 0.823), (0.000, 0.786)]) == 1
 
     def test_all_inside_the_floor_leaves_similarity_to_decide(self) -> None:
-        # Three takes, every WER inside the recogniser's noise, so the raw
-        # WER ordering must not matter at all.
-        assert self._pick([(0.02, 0.70), (0.10, 0.83), (0.00, 0.75)]) == 1
+        # Three takes, every CER inside the recogniser's noise, so the raw
+        # error ordering must not matter at all. These are real baseline
+        # figures: renders here land at 1.5-4.4% CER against a 7.8% floor.
+        assert self._pick([(0.015, 0.70), (0.044, 0.83), (0.000, 0.75)]) == 1
 
     def test_least_broken_take_survives_when_everything_is_bad(self) -> None:
         # Four takes of a collapsed IPA render; similarity means nothing
@@ -445,18 +450,19 @@ class TestBestOfNSelection:
         assert self._pick([(None, 0.60), (0.40, 0.95)]) == 0
 
     def test_unscored_similarity_does_not_win_on_that_axis(self) -> None:
-        # Asymmetric with WER on purpose: the floor is a real "no worse than"
+        # Asymmetric with CER on purpose: the floor is a real "no worse than"
         # bound, whereas an unscored take cannot be *shown* to match.
         assert self._pick([(0.05, None), (0.05, 0.70)]) == 1
 
     def test_everything_ties_when_no_similarity_is_available(self) -> None:
-        # ECAPA missing entirely: WER decides, and the tie is visible so the
-        # caller can say so rather than implying the winner was better.
-        assert self._tied([(0.05, None), (0.10, None), (0.02, None)]) == 3
+        # ECAPA missing entirely: CER decides, and the tie is visible so the
+        # caller can say so rather than implying the winner was better. All
+        # three sit inside the floor, so none of them is measurably worse.
+        assert self._tied([(0.05, None), (0.07, None), (0.02, None)]) == 3
 
     def test_a_disqualified_take_does_not_anchor_the_similarity_scale(self) -> None:
         # The r = -0.06 case: the most similar take (0.823) is the least
-        # intelligible, so WER rules it out. Anchoring the similarity scale on
+        # intelligible, so CER rules it out. Anchoring the similarity scale on
         # it split two clean contenders 0.0002 apart into different buckets -
         # a hundred times below the noise the step encodes.
         scored = [(0.267, 0.8230), (0.000, 0.7031), (0.000, 0.7029)]
@@ -465,7 +471,7 @@ class TestBestOfNSelection:
 
     def test_no_take_carries_a_negative_similarity_key(self) -> None:
         # A take outside the contending tier sits above its best. Inert while
-        # WER leads the tuple, but it must not depend on that.
+        # CER leads the tuple, but it must not depend on that.
         keys = self._keys([(0.267, 0.8230), (0.000, 0.7031)])
         assert all(key[1] >= 0 for key in keys)
 

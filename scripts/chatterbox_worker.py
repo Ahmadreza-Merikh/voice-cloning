@@ -37,14 +37,36 @@ from __future__ import annotations
 import argparse
 import contextlib
 import json
+import os
 import sys
 import traceback
 from typing import Any
 
 
+def _claim_stdout() -> Any:
+    """Take sole ownership of stdout, and point everything else at stderr.
+
+    The protocol is one JSON object per line on stdout, and Chatterbox's own
+    dependencies do not know that: loading the watermarker prints "loaded
+    PerthNet (Implicit) at step 250,000" to stdout, which lands in the middle
+    of the handshake and desynchronises the parent for the rest of the run.
+
+    Redirecting ``sys.stdout`` alone would not be enough - some of the chatter
+    comes from C extensions writing to file descriptor 1 directly - so the
+    descriptor itself is duplicated away and then replaced by stderr.
+    """
+    protocol = os.fdopen(os.dup(1), "w")
+    os.dup2(2, 1)
+    sys.stdout = sys.stderr
+    return protocol
+
+
+_PROTOCOL = _claim_stdout()
+
+
 def _emit(payload: dict[str, Any]) -> None:
-    sys.stdout.write(json.dumps(payload) + "\n")
-    sys.stdout.flush()
+    _PROTOCOL.write(json.dumps(payload) + "\n")
+    _PROTOCOL.flush()
 
 
 def _log(message: str) -> None:

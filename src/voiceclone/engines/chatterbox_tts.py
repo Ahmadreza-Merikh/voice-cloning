@@ -199,19 +199,29 @@ class ChatterboxEngine(TTSEngine):
         )
 
     def _read_reply(self, timeout: float) -> dict[str, Any]:
-        """Read one JSON line from the worker, or explain why there wasn't one."""
+        """Read the worker's next JSON line, stepping over anything that is not.
+
+        The worker redirects file descriptor 1 so its dependencies cannot write
+        here, but a library that reopens stdout would desynchronise the protocol
+        for the rest of the run. Skipping unparseable lines costs nothing and
+        turns that from a failed run into a log message.
+        """
         assert self._process is not None and self._process.stdout is not None
-        line = self._process.stdout.readline()
-        if not line:
-            code = self._process.poll()
-            raise SynthesisError(
-                f"The Chatterbox worker exited (code {code}).",
-                hint="Its traceback was written to this console.",
-            )
-        try:
-            return dict(json.loads(line))
-        except json.JSONDecodeError as exc:
-            raise SynthesisError(f"Unreadable reply from the Chatterbox worker: {line[:200]!r}") from exc
+        while True:
+            line = self._process.stdout.readline()
+            if not line:
+                code = self._process.poll()
+                raise SynthesisError(
+                    f"The Chatterbox worker exited (code {code}).",
+                    hint="Its traceback was written to this console.",
+                )
+            stripped = line.strip()
+            if not stripped:
+                continue
+            try:
+                return dict(json.loads(stripped))
+            except json.JSONDecodeError:
+                log.debug("Ignoring non-protocol output from the worker: %r", stripped[:200])
 
     def _stop(self) -> None:
         if self._process is None:

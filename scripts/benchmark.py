@@ -268,8 +268,14 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     embedder = Embedder()
     calibration = calibrate(corpus, embedder)
 
-    sentences = [s for s in SENTENCES if not args.sentences or s[0] in set(args.sentences)]
-    sentences = sentences[: args.max_sentences]
+    if args.sentence_text:
+        # An ad-hoc sentence, for probing something the standard set cannot -
+        # e.g. giving an engine text in a language it can pronounce, to
+        # separate its speaker transfer from its reading of Persian.
+        sentences = [("custom", args.sentence_text)]
+    else:
+        sentences = [s for s in SENTENCES if not args.sentences or s[0] in set(args.sentences)]
+        sentences = sentences[: args.max_sentences]
     seeds = list(args.seeds)
 
     config = AppConfig.load()
@@ -610,6 +616,12 @@ def main() -> int:
     parser.add_argument("--seeds", type=int, nargs="+", default=[42])
     parser.add_argument("--max-sentences", type=int, default=3)
     parser.add_argument("--sentences", nargs="+", default=None, help="Sentence ids, e.g. s1 s3")
+    parser.add_argument(
+        "--sentence-text",
+        default=None,
+        help="Synthesise this text instead of the standard set. CER is then only "
+             "meaningful if the engine is meant to read it.",
+    )
     parser.add_argument("--speakers", nargs="+", default=None)
     parser.add_argument("--limit-speakers", type=int, default=None)
     parser.add_argument("--candidates", type=int, default=1, help="Takes per render (best-of-N)")

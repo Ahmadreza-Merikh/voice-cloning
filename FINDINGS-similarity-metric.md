@@ -1,5 +1,11 @@
 # Handoff: the similarity metric is not measuring voice cloning
 
+> **Closed, 3 August 2026.** Every task below is resolved; see `FINDINGS.md`
+> for the outcome and the numbers that replaced these. Two figures quoted here
+> did not survive re-measurement on a corpus that could be checked: the
+> different-speaker floor is 0.132 rather than 0.288, and the same-speaker
+> ceiling 0.689 rather than 0.647. Kept for the reasoning, not the values.
+
 Supervisor report, 30 July 2026. Supersedes `REVIEW-best-of-n.md`, which is now
 fully closed (see §1).
 

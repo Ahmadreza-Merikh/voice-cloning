@@ -277,6 +277,9 @@ class ChatterboxEngine(TTSEngine):
             "repetition_penalty": float(kwargs.get("repetition_penalty", settings.repetition_penalty)),
             "min_p": float(kwargs.get("min_p", settings.min_p)),
             "top_p": float(kwargs.get("top_p", settings.top_p)),
+            # Per call, so the speaker path can be probed with text the base
+            # model can actually pronounce without editing config.
+            "language_id": str(kwargs.get("language_id", settings.language_id)),
         }
 
         try:
@@ -307,6 +310,7 @@ class ChatterboxEngine(TTSEngine):
                 "exaggeration": job["exaggeration"],
                 "cfg_weight": job["cfg_weight"],
                 "temperature": job["temperature"],
+                "language_id": job["language_id"],
                 "reference_seconds": round(reference.duration, 2),
             },
         )

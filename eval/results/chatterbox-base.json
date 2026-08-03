@@ -1,0 +1,172 @@
+{
+  "label": "chatterbox-base",
+  "engine": "chatterbox",
+  "created": "2026-08-03 13:55:29",
+  "duration_minutes": 2.6,
+  "config": {
+    "ref_transcript": "corpus",
+    "engine_option": [],
+    "preprocess_option": [],
+    "candidates": 1,
+    "seeds": [
+      42
+    ],
+    "sentences": [
+      "s1"
+    ],
+    "device": "mps",
+    "speakers": [
+      "cv02",
+      "cv03",
+      "cv04",
+      "cv07"
+    ],
+    "similarity_backend": "speechbrain-ecapa"
+  },
+  "calibration": {
+    "ceiling": 0.6807546286549476,
+    "floor": 0.10926956514272321,
+    "cross_max": 0.357732653039252,
+    "same_pairs": 40,
+    "cross_pairs": 150,
+    "per_speaker_ceiling": {
+      "cv02": 0.6793774266324999,
+      "cv03": 0.6613597293034932,
+      "cv04": 0.7020731804276903,
+      "cv07": 0.6802081782561071
+    }
+  },
+  "recogniser_floor": {
+    "cer_mean": 0.07800123509335873,
+    "wer_mean": 0.3740008247479986,
+    "cer_median": 0.046875,
+    "clips": 45
+  },
+  "summary": {
+    "held_out_mean": 0.423325,
+    "held_out_sd": 0.17859633021612362,
+    "reference_mean": 0.5443,
+    "wer_mean": 0.8333333333333333,
+    "cer_mean": 0.6111111111111112,
+    "cer_median": 0.7333333333333334,
+    "scale_position": 0.544726792193503,
+    "renders": 4,
+    "failures": 0
+  },
+  "per_speaker": {
+    "cv02": {
+      "held_out": 0.5818,
+      "ceiling": 0.6793774266324999,
+      "gap": -0.09757742663249991,
+      "reference": 0.8035,
+      "wer": 0.6666666666666666,
+      "cer": 0.06666666666666667,
+      "renders": 1
+    },
+    "cv03": {
+      "held_out": 0.2265,
+      "ceiling": 0.6613597293034932,
+      "gap": -0.43485972930349315,
+      "reference": 0.3722,
+      "wer": 0.8888888888888888,
+      "cer": 0.8666666666666667,
+      "renders": 1
+    },
+    "cv04": {
+      "held_out": 0.5672,
+      "ceiling": 0.7020731804276903,
+      "gap": -0.13487318042769025,
+      "reference": 0.654,
+      "wer": 0.7777777777777778,
+      "cer": 0.6,
+      "renders": 1
+    },
+    "cv07": {
+      "held_out": 0.3178,
+      "ceiling": 0.6802081782561071,
+      "gap": -0.3624081782561071,
+      "reference": 0.3475,
+      "wer": 1.0,
+      "cer": 0.9111111111111111,
+      "renders": 1
+    }
+  },
+  "rows": [
+    {
+      "speaker": "cv02",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5818,
+      "held_out_scores": [
+        0.5379,
+        0.6415,
+        0.566,
+        0.5817
+      ],
+      "reference_similarity": 0.8035,
+      "word_error_rate": 0.6666666666666666,
+      "character_error_rate": 0.06666666666666667,
+      "transcription": "دیروز در کتاب خانه شهر کتابی دربار هو تاریخ و ایران خوانتم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-base/cv02_s1_seed42.wav",
+      "seconds": 5.33
+    },
+    {
+      "speaker": "cv03",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.2265,
+      "held_out_scores": [
+        0.2088,
+        0.2665,
+        0.1253,
+        0.3054
+      ],
+      "reference_similarity": 0.3722,
+      "word_error_rate": 0.8888888888888888,
+      "character_error_rate": 0.8666666666666667,
+      "transcription": "در اینجا",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-base/cv03_s1_seed42.wav",
+      "seconds": 0.3
+    },
+    {
+      "speaker": "cv04",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5672,
+      "held_out_scores": [
+        0.6416,
+        0.4988,
+        0.5933,
+        0.5352
+      ],
+      "reference_similarity": 0.654,
+      "word_error_rate": 0.7777777777777778,
+      "character_error_rate": 0.6,
+      "transcription": "دیروز در کتاب خانهی شهر",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-base/cv04_s1_seed42.wav",
+      "seconds": 2.24
+    },
+    {
+      "speaker": "cv07",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.3178,
+      "held_out_scores": [
+        0.2674,
+        0.3527,
+        0.3089,
+        0.3424
+      ],
+      "reference_similarity": 0.3475,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.9111111111111111,
+      "transcription": "دیرو",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-base/cv07_s1_seed42.wav",
+      "seconds": 0.57
+    }
+  ]
+}

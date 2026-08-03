@@ -559,6 +559,21 @@ def compare(labels: list[str]) -> int:
         runs.append(json.loads(path.read_text(encoding="utf-8")))
 
     _rule("Comparison")
+
+    # A run over four speakers and a run over nine are not comparable: the mean
+    # is over different voices, and `scale` is normalised against a floor and
+    # ceiling computed from whichever speakers were present. Saying so is
+    # cheaper than someone reading a speaker-set difference as an improvement.
+    speaker_sets = {tuple(r["config"].get("speakers", [])) for r in runs}
+    mixed = len(speaker_sets) > 1
+    if mixed:
+        print("  WARNING: these runs do not cover the same speakers, so the means are")
+        print("  over different voices and the scale positions have different origins.")
+        for run_data in runs:
+            speakers = run_data["config"].get("speakers", [])
+            print(f"    {run_data['label']:22s} {len(speakers)} speakers: {', '.join(speakers)}")
+        print()
+
     print(f"  {'label':22s} {'held-out':>9s} {'vs first':>9s} {'own ref':>8s} {'CER':>8s} {'scale':>7s}")
     base = runs[0]["summary"]["held_out_mean"]
     for run_data in runs:
@@ -577,6 +592,11 @@ def compare(labels: list[str]) -> int:
         f"\n  A held-out difference smaller than {NOISE} is inside the encoder's own\n"
         "  noise and is not a difference."
     )
+    if mixed:
+        print(
+            "  The 'vs first' column is not meaningful above: rerun the shorter run\n"
+            "  over the same speakers before drawing a conclusion from it."
+        )
     return 0
 
 

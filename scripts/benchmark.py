@@ -554,6 +554,51 @@ def summarise(
 
 
 # ----------------------------------------------------------------------------
+def _paired(before: dict[str, Any], after: dict[str, Any]) -> None:
+    """Compare two runs cell by cell rather than mean against mean.
+
+    Two runs over the same speakers, sentences and seeds are *paired*, and
+    treating them as independent samples throws away most of the power. It also
+    misreads what a selector does: best-of-N keeps the baseline take whenever
+    the baseline take was already best, so a large share of cells are exact
+    ties and the mean difference is diluted by them. What matters is how often
+    it changed the pick and how often that change was an improvement.
+    """
+
+    def cells(run: dict[str, Any]) -> dict[tuple[str, str, int], dict[str, Any]]:
+        return {
+            (r["speaker"], r["sentence"], r["seed"]): r
+            for r in run["rows"]
+            if "error" not in r
+        }
+
+    left, right = cells(before), cells(after)
+    shared = sorted(set(left) & set(right))
+    if len(shared) < 3:
+        return
+
+    deltas = [right[k]["held_out_similarity"] - left[k]["held_out_similarity"] for k in shared]
+    ties = [d for d in deltas if abs(d) < 1e-9]
+    wins = [d for d in deltas if d > 1e-9]
+    losses = [d for d in deltas if d < -1e-9]
+
+    print(f"\n  Paired over {len(shared)} cells (same speaker, sentence and seed):")
+    mean = statistics.mean(deltas)
+    if len(deltas) > 1 and statistics.stdev(deltas) > 0:
+        error = statistics.stdev(deltas) / len(deltas) ** 0.5
+        print(f"    mean difference  {mean:+.4f}   ({abs(mean) / error:.1f} standard errors from zero)")
+    else:
+        print(f"    mean difference  {mean:+.4f}")
+    print(f"    unchanged        {len(ties):>3d}")
+    if wins:
+        print(f"    better           {len(wins):>3d}   mean {statistics.mean(wins):+.3f}, best {max(wins):+.3f}")
+    if losses:
+        print(f"    worse            {len(losses):>3d}   mean {statistics.mean(losses):+.3f}, worst {min(losses):+.3f}")
+    changed = len(wins) + len(losses)
+    if changed:
+        print(f"    -> changed the outcome in {changed} of {len(shared)} cells, improving {len(wins)}")
+
+
 def compare(labels: list[str]) -> int:
     """Put two or more runs side by side, with the noise floor in view."""
     runs = []
@@ -594,9 +639,13 @@ def compare(labels: list[str]) -> int:
             f"{'     n/a' if wer is None else f'{wer * 100:7.1f}%'} "
             f"{'    n/a' if scale is None else f'{scale:6.1%}'}"
         )
+    if not mixed and len(runs) == 2:
+        _paired(runs[0], runs[1])
+
     print(
         f"\n  A held-out difference smaller than {NOISE} is inside the encoder's own\n"
-        "  noise and is not a difference."
+        "  noise for a *single* render. A paired mean over many cells can resolve\n"
+        "  finer than that - see the breakdown above when there is one."
     )
     if mixed:
         print(

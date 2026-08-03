@@ -106,6 +106,36 @@ limit is the model rather than how it is being driven. Doubling the ODE budget
 from 32 to 64 does not help either, so the flow-matching solver is not the
 bottleneck.
 
+### The one thing that worked: best-of-4
+
+| Run | Held-out | CER | Cost |
+|---|---|---|---|
+| baseline (one take) | 0.520 | 2.9% | 15 min |
+| best-of-4 | **0.533** | 2.8% | 60 min |
+
+The aggregate difference is +0.014, *below* the 0.0205 noise figure — but that
+figure bounds a single render comparison, and these two runs are **paired**: same
+speakers, same sentences, same seeds. Best-of-4 renders seed 42 as one of its
+four takes, so whenever seed 42 was already the best take the result is an exact
+tie, and those ties dilute the mean rather than arguing against the effect.
+
+Cell by cell over 27 pairs:
+
+| | |
+|---|---|
+| unchanged | 17 |
+| better | **9** — mean +0.046, best +0.118 |
+| worse | 1 — −0.046 |
+
+**It changed the outcome in 10 cells and got 9 of them right** (sign test on the
+changed cells, p ≈ 0.02; mean difference 2.2 standard errors from zero). CER did
+not suffer — 2.9% to 2.8%.
+
+So the selector works, and it is the only intervention measured here that does.
+It is also the most expensive: **4× the wall-clock for +0.014**, which buys back
+about 8% of the 0.170 gap. Worth switching on for a final render, not for
+iteration — which is what `evaluation.candidates` already defaults to.
+
 Reference preprocessing was separately exonerated by direct measurement: the
 pipeline's own preprocessing moves a clip's speaker embedding by only 0.037
 (0.963 self-similarity), and `denoise: auto` already resolves to a no-op on

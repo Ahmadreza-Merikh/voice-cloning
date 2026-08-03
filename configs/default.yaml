@@ -245,13 +245,17 @@ evaluation:
   # take. Both scorers run per take, so the overhead is not just N x
   # synthesis. Left at 1 for that reason; raise it for final renders.
   candidates: 1
-  # Round-trip WER is clamped here before takes are compared, so anything at
+  # Round-trip CER is clamped here before takes are compared, so anything at
   # or below counts as equally intelligible and speaker similarity picks
-  # between them. Set at Whisper's own error floor: transcribing *real human
-  # speech* from the reference corpus scores ~11% with this same model, so
-  # differences under it are the recogniser, not the render. Above it the
-  # difference is real and WER decides.
-  candidate_wer_floor: 0.15
+  # between them.
+  #
+  # This was WER until WER was shown to be scoring typography: Persian
+  # compounds have no fixed spacing, and Whisper transcribing *real human
+  # speech* from this project's corpus against its own transcripts scores
+  # 37.4% WER. Ranking takes on that ranked whitespace. On the same clips CER
+  # is 7.8%, which is where this floor sits - differences under it are the
+  # recogniser, not the render. Above it the difference is real and CER decides.
+  candidate_cer_floor: 0.08
   # Speaker-similarity differences below this count as a tie. 0 disables the
   # quantisation and compares raw scores. Perturbing one
   # render in ways that cannot change who is speaking - cropping 85-95% of it,

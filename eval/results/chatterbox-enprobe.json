@@ -1,0 +1,324 @@
+{
+  "label": "chatterbox-enprobe",
+  "engine": "chatterbox",
+  "created": "2026-08-03 14:36:07",
+  "duration_minutes": 6.5,
+  "config": {
+    "ref_transcript": "corpus",
+    "engine_option": [
+      "language_id=en"
+    ],
+    "preprocess_option": [],
+    "candidates": 1,
+    "seeds": [
+      42
+    ],
+    "sentences": [
+      "custom"
+    ],
+    "device": "mps",
+    "speakers": [
+      "cv02",
+      "cv03",
+      "cv04",
+      "cv07",
+      "cv08",
+      "cv09",
+      "cv10",
+      "cv11",
+      "mana"
+    ],
+    "similarity_backend": "speechbrain-ecapa"
+  },
+  "calibration": {
+    "ceiling": 0.6891468139857311,
+    "floor": 0.13164384461441692,
+    "cross_max": 0.5080686271151329,
+    "same_pairs": 90,
+    "cross_pairs": 900,
+    "per_speaker_ceiling": {
+      "cv02": 0.6793774266324999,
+      "cv03": 0.6613597293034932,
+      "cv04": 0.7020731804276903,
+      "cv07": 0.6802081782561071,
+      "cv08": 0.6072819550114098,
+      "cv09": 0.7810301211671395,
+      "cv10": 0.5953755729725827,
+      "cv11": 0.7568971756212158,
+      "mana": 0.7387179864794412
+    }
+  },
+  "recogniser_floor": {
+    "cer_mean": 0.07800123509335873,
+    "wer_mean": 0.3740008247479986,
+    "cer_median": 0.046875,
+    "clips": 45
+  },
+  "summary": {
+    "held_out_mean": 0.3892,
+    "held_out_sd": 0.15763820920068838,
+    "reference_mean": 0.5184111111111112,
+    "wer_mean": 0.75,
+    "cer_mean": 0.7427536231884058,
+    "cer_median": 1.0,
+    "scale_position": 0.4536561668450012,
+    "renders": 9,
+    "failures": 0
+  },
+  "per_speaker": {
+    "cv02": {
+      "held_out": 0.4825,
+      "ceiling": 0.6793774266324999,
+      "gap": -0.1968774266324999,
+      "reference": 0.7111,
+      "wer": 1.0,
+      "cer": 1.0,
+      "renders": 1
+    },
+    "cv03": {
+      "held_out": 0.4468,
+      "ceiling": 0.6613597293034932,
+      "gap": -0.2145597293034932,
+      "reference": 0.5807,
+      "wer": 1.0,
+      "cer": 1.0,
+      "renders": 1
+    },
+    "cv04": {
+      "held_out": 0.3951,
+      "ceiling": 0.7020731804276903,
+      "gap": -0.3069731804276903,
+      "reference": 0.4731,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 1
+    },
+    "cv07": {
+      "held_out": 0.513,
+      "ceiling": 0.6802081782561071,
+      "gap": -0.16720817825610712,
+      "reference": 0.6736,
+      "wer": 1.0,
+      "cer": 1.0,
+      "renders": 1
+    },
+    "cv08": {
+      "held_out": 0.4541,
+      "ceiling": 0.6072819550114098,
+      "gap": -0.1531819550114098,
+      "reference": 0.6362,
+      "wer": 1.0,
+      "cer": 1.0,
+      "renders": 1
+    },
+    "cv09": {
+      "held_out": 0.4935,
+      "ceiling": 0.7810301211671395,
+      "gap": -0.28753012116713955,
+      "reference": 0.5797,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 1
+    },
+    "cv10": {
+      "held_out": -0.0008,
+      "ceiling": 0.5953755729725827,
+      "gap": -0.5961755729725827,
+      "reference": 0.0701,
+      "wer": null,
+      "cer": null,
+      "renders": 1
+    },
+    "cv11": {
+      "held_out": 0.3244,
+      "ceiling": 0.7568971756212158,
+      "gap": -0.4324971756212158,
+      "reference": 0.3415,
+      "wer": 1.0,
+      "cer": 1.0,
+      "renders": 1
+    },
+    "mana": {
+      "held_out": 0.3942,
+      "ceiling": 0.7387179864794412,
+      "gap": -0.3445179864794412,
+      "reference": 0.5997,
+      "wer": 1.0,
+      "cer": 0.9420289855072463,
+      "renders": 1
+    }
+  },
+  "rows": [
+    {
+      "speaker": "cv02",
+      "sentence": "custom",
+      "seed": 42,
+      "held_out_similarity": 0.4825,
+      "held_out_scores": [
+        0.5391,
+        0.5424,
+        0.3629,
+        0.4855
+      ],
+      "reference_similarity": 0.7111,
+      "word_error_rate": 1.0,
+      "character_error_rate": 1.0,
+      "transcription": "بروهو بزنید برمک زیادی کنید کارید کانید بزنید بازگی کنید",
+      "expected": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-enprobe/cv02_custom_seed42.wav",
+      "seconds": 4.03
+    },
+    {
+      "speaker": "cv03",
+      "sentence": "custom",
+      "seed": 42,
+      "held_out_similarity": 0.4468,
+      "held_out_scores": [
+        0.5514,
+        0.5179,
+        0.1615,
+        0.5564
+      ],
+      "reference_similarity": 0.5807,
+      "word_error_rate": 1.0,
+      "character_error_rate": 1.0,
+      "transcription": "A دوانضی حوش که دیگر خوش شای دار خوش روز بیدی که بیدیه.",
+      "expected": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-enprobe/cv03_custom_seed42.wav",
+      "seconds": 4.27
+    },
+    {
+      "speaker": "cv04",
+      "sentence": "custom",
+      "seed": 42,
+      "held_out_similarity": 0.3951,
+      "held_out_scores": [
+        0.4356,
+        0.3753,
+        0.3433,
+        0.4262
+      ],
+      "reference_similarity": 0.4731,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "expected": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-enprobe/cv04_custom_seed42.wav",
+      "seconds": 3.96
+    },
+    {
+      "speaker": "cv07",
+      "sentence": "custom",
+      "seed": 42,
+      "held_out_similarity": 0.513,
+      "held_out_scores": [
+        0.4749,
+        0.5033,
+        0.5532,
+        0.5207
+      ],
+      "reference_similarity": 0.6736,
+      "word_error_rate": 1.0,
+      "character_error_rate": 1.0,
+      "transcription": "ویشتر میمویمتاریت این همه پایی روزارمنون",
+      "expected": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-enprobe/cv07_custom_seed42.wav",
+      "seconds": 3.61
+    },
+    {
+      "speaker": "cv08",
+      "sentence": "custom",
+      "seed": 42,
+      "held_out_similarity": 0.4541,
+      "held_out_scores": [
+        0.5533,
+        0.491,
+        0.3428,
+        0.4293
+      ],
+      "reference_similarity": 0.6362,
+      "word_error_rate": 1.0,
+      "character_error_rate": 1.0,
+      "transcription": "اینجا هام باغ داری روید روید کاریم تزده باوتی چیز روید کنید",
+      "expected": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-enprobe/cv08_custom_seed42.wav",
+      "seconds": 4.15
+    },
+    {
+      "speaker": "cv09",
+      "sentence": "custom",
+      "seed": 42,
+      "held_out_similarity": 0.4935,
+      "held_out_scores": [
+        0.4668,
+        0.427,
+        0.5265,
+        0.5538
+      ],
+      "reference_similarity": 0.5797,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "expected": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-enprobe/cv09_custom_seed42.wav",
+      "seconds": 4.59
+    },
+    {
+      "speaker": "cv10",
+      "sentence": "custom",
+      "seed": 42,
+      "held_out_similarity": -0.0008,
+      "held_out_scores": [
+        -0.009,
+        0.0297,
+        -0.0031,
+        -0.021
+      ],
+      "reference_similarity": 0.0701,
+      "word_error_rate": null,
+      "character_error_rate": null,
+      "transcription": "",
+      "expected": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-enprobe/cv10_custom_seed42.wav",
+      "seconds": 0.14
+    },
+    {
+      "speaker": "cv11",
+      "sentence": "custom",
+      "seed": 42,
+      "held_out_similarity": 0.3244,
+      "held_out_scores": [
+        0.346,
+        0.4091,
+        0.2646,
+        0.2781
+      ],
+      "reference_similarity": 0.3415,
+      "word_error_rate": 1.0,
+      "character_error_rate": 1.0,
+      "transcription": "تقوید",
+      "expected": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-enprobe/cv11_custom_seed42.wav",
+      "seconds": 0.38
+    },
+    {
+      "speaker": "mana",
+      "sentence": "custom",
+      "seed": 42,
+      "held_out_similarity": 0.3942,
+      "held_out_scores": [
+        0.4588,
+        0.3932,
+        0.3477,
+        0.3773
+      ],
+      "reference_similarity": 0.5997,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.9420289855072463,
+      "transcription": "دیگر ازوانم که زیده که از گرمی که سوید تایدوری تش acknowledge.",
+      "expected": "The quick brown fox jumps over the lazy dog while morning light fills the quiet room.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/chatterbox-enprobe/mana_custom_seed42.wav",
+      "seconds": 4.67
+    }
+  ]
+}

@@ -95,11 +95,15 @@ the named flag differs.
 | `trim_silence: false` | 0.524 | +0.004 | 3.4% | inside noise |
 | `denoise: none` | 0.510 | −0.010 | 7.0% | inside noise |
 | `cfg_strength: 2.5` | 0.518 | −0.002 | 3.2% | inside noise |
-| `cfg_strength: 1.5` | 0.521 | +0.001 | — | inside noise |
+| `cfg_strength: 1.5` | 0.521 | +0.002 | 3.3% | inside noise |
+| `nfe_step: 64` | 0.517 | −0.003 | 3.1% | inside noise |
 
-**Every F5 knob is inert.** Nothing available on the inference side moves
-identity transfer, which is what one would expect if the limit is the model
-rather than how it is being driven.
+**Every F5 knob is inert.** Six configurations span 0.510 to 0.524 — a range of
+0.014, smaller than the encoder's own 0.0205 noise. Nothing available on the
+inference side moves identity transfer, which is what one would expect if the
+limit is the model rather than how it is being driven. Doubling the ODE budget
+from 32 to 64 does not help either, so the flow-matching solver is not the
+bottleneck.
 
 Reference preprocessing was separately exonerated by direct measurement: the
 pipeline's own preprocessing moves a clip's speaker embedding by only 0.037
@@ -123,14 +127,37 @@ and that is the single file `Thomcles/Chatterbox-TTS-Persian-Farsi` replaces.
 The component this project is weakest on would be the component Persian data is
 *not* needed for.
 
-**Status: not yet demonstrated.** With the base T3 — which cannot read Persian —
-the engine produced usable audio for two of four speakers and garbage for the
-other two. On the two that worked it scored 0.582 and 0.567 against F5's 0.563
-and 0.556: better, but inside the noise, so not yet a win. Where it collapsed
-(86–91% CER) similarity collapsed with it, which is expected — a speaker
-embedding of non-speech means nothing.
+**Status: the hypothesis is not supported by either proxy available so far.**
 
-The Persian T3 is gated and needs an account that has accepted its licence.
+*Probe one — base T3, Persian text.* The engine produced usable audio for two
+of four speakers and garbage for the other two. On the two that worked it scored
+0.582 and 0.567 against F5's 0.563 and 0.556: better, but inside the noise. Where
+it collapsed (86–91% CER) similarity collapsed with it, which is expected — a
+speaker embedding of non-speech means nothing.
+
+*Probe two — base T3, English text.* This isolates the speaker path from the
+inability to read Persian: give the model text it can actually pronounce, clone
+a Persian speaker, and score against that speaker's Persian held-out clips.
+Speaker embeddings are largely text-independent, so this should approximate what
+the architecture can carry for these voices.
+
+| | held-out |
+|---|---|
+| Chatterbox, English text, base T3 | **0.389** (0.438 excluding one collapsed render) |
+| F5, Persian text | **0.520** |
+
+That is 0.131 *worse* than F5, six times the encoder's noise. The architecture
+argument predicted the opposite.
+
+**Caveat, and it is a real one.** The English probe changes engine and language
+together. Cross-lingual cloning is known to be harder — the render carries an
+English accent the reference never had, and some of that distance is language
+rather than speaker path. So this is evidence against the hypothesis, not proof.
+
+The clean test is Chatterbox with the Persian T3 on Persian text, which needs
+the gated checkpoint. Until then the honest position is: **the architecture
+argument is unconfirmed, and the two proxies that could be run both point the
+wrong way.** F5 remains the better measured engine.
 
 ### A trap worth recording
 

@@ -38,6 +38,10 @@ logs/
 voices/
 !voices/.gitkeep
 
+# Downloaded training corpora. Gigabytes, and reproducible from the prepare
+# script plus the manifest, so the recipe is what gets tracked, not the audio.
+data/
+
 # Generated audio
 *.wav
 *.mp3

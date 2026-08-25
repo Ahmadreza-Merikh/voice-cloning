@@ -72,23 +72,32 @@ repository is what keeps failing, cache the listing once and pass it back with
 plus `hf auth login`. Reach for it only after a run at 12.5 h has been measured —
 otherwise there is no way to tell which change did the work.
 
-Then pack it:
-
-```bash
-cd data && tar -czf finetune-fa.tar.gz finetune-fa && cd ..
-```
-
 ## 2. Upload
 
-```bash
-pip install kaggle                       # already in .venv
-# ~/.kaggle/kaggle.json from https://www.kaggle.com/settings/account
-chmod 600 ~/.kaggle/kaggle.json
+Authenticate once. The OAuth flow is what the current CLI wants; a legacy
+`~/.kaggle/kaggle.json` still authenticates reads but not every endpoint:
 
-kaggle datasets init -p data/finetune-fa
-# edit data/finetune-fa/dataset-metadata.json: set title and id (marsmanam/persian-f5-multispeaker)
-kaggle datasets create -p data/finetune-fa --dir-mode tar
+```bash
+.venv/bin/kaggle auth login
 ```
+
+Then publish the prepared directory as a **private** dataset — it is 2.7 GB of
+Common Voice audio and there is no reason for it to be public:
+
+```bash
+.venv/bin/kaggle datasets init -p data/finetune-fa
+# set title and id in data/finetune-fa/dataset-metadata.json:
+#   "id": "marsmanam/persian-f5-multispeaker"
+.venv/bin/kaggle datasets create -p data/finetune-fa --dir-mode zip
+```
+
+`--dir-mode zip` matters: the default skips subdirectories entirely, which would
+upload `metadata.csv` and none of the audio. Kaggle unpacks the archive on its
+side, and the notebook copes with either layout.
+
+Check `dataset_info.json` reports the clip count you expect before uploading. A
+partial download produces a dataset that trains without complaint on whatever
+fraction arrived.
 
 ## 3. Train
 
@@ -183,18 +192,46 @@ levels, are what confirm the checkpoint actually loaded.
 ## 4. Bring it back and measure it
 
 ```bash
-# put model_last.pt and vocab.txt somewhere local, then:
-VOICECLONE__ENGINES__F5__CHECKPOINT=/path/to/model_last.pt \
-VOICECLONE__ENGINES__F5__VOCAB=/path/to/vocab.txt \
+KAGGLE_CONFIG_DIR=~/.kaggle-oauth \
+  .venv/bin/kaggle kernels output marsmanam/persian-f5-multispeaker-train -p remote/
+```
+
+**Rename it before pointing anything at it.** The engine converts a training
+checkpoint to EMA-only safetensors and caches the result as
+`<stem>_ema.safetensors` beside the input, so a second `model_last.pt` in a
+directory that already has one will be read from the first one's cache and the
+benchmark will measure the old weights while reporting the new label. Give it a
+name of its own:
+
+```bash
+mv remote/model_last.pt remote/persian_multispeaker_40ep.pt
+```
+
+Then measure:
+
+```bash
+VOICECLONE__ENGINES__F5__CHECKPOINT=$PWD/remote/persian_multispeaker_40ep.pt \
   .venv/bin/python scripts/benchmark.py --label finetuned --device mps
 
 .venv/bin/python scripts/benchmark.py --compare baseline finetuned
 ```
 
+The vocabulary does not change — the run continues on the same 2609-entry
+Persian tokenizer — so leave `VOICECLONE__ENGINES__F5__VOCAB` alone unless the
+checkpoint came from somewhere else.
+
+Both the override and the checkpoint conversion are verified: the environment
+variable reaches `config.engines.f5.checkpoint`, and `slim_f5_checkpoint`
+already prefers `ema_model_state_dict`, drops `initted`/`step`, and strips the
+`ema_model.` prefix — which is exactly the layout the trainer writes.
+
 The number that decides it is **held-out similarity**, against a baseline of
 **0.520** and a ceiling of **0.689**. A move smaller than 0.0205 is not a move.
 Watch CER at the same time: if similarity rises while CER climbs past the 7.8%
 floor, the model has traded away the axis that was already won.
+
+Sanity-check the first render before trusting the aggregate. A checkpoint that
+loaded wrong does not usually crash — it produces confident, fluent noise.
 
 ---
 

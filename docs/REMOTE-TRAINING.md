@@ -49,6 +49,29 @@ round-robin — and **excludes every evaluation speaker**, so the benchmark cann
 end up measuring memorisation. Produces `wavs/`, `metadata.csv` (`id|transcript`)
 and `dataset_info.json`.
 
+**What comes out: 8797 clips, 2739 speakers, 12.5 h.** Not the 25 h asked for —
+the dataset lists 34134 clips but publishes 9985, and that is the whole supply.
+This is a ceiling, not a cut: an average of 3.2 clips per speaker is *more*
+speaker-diverse than 25 h from a smaller pool would have been, and diversity is
+the intervention. It shortens training to roughly 3–5 h on 2×T4, which fits one
+Kaggle session. The one way past the ceiling is more corpora — see the note at
+the end of this section.
+
+The run takes hours over anonymous Hub requests and will be rate-limited. It
+retries, and rerunning skips whatever is already on disk, so an interrupted run
+resumes rather than restarts. Set `HF_TOKEN` to be throttled less. If listing the
+repository is what keeps failing, cache the listing once and pass it back with
+`--repo-files`.
+
+> An earlier serial version of this script died mid-download leaving 1157 wavs
+> and no `metadata.csv`. Audio without transcripts trains nothing — check that
+> both `metadata.csv` and `dataset_info.json` exist before uploading anything.
+
+**If 12.5 h turns out not to be enough**, the next corpus is
+`Thomcles/Persian-Farsi-Speech`, which is gated and needs an accepted licence
+plus `hf auth login`. Reach for it only after a run at 12.5 h has been measured —
+otherwise there is no way to tell which change did the work.
+
 Then pack it:
 
 ```bash
@@ -113,9 +136,10 @@ which matters when clips run 2.5–10 s. Warmup is lower than the original 6418
 because this is a continuation, not a cold finetune. fp16 is what a T4 gives;
 it is what the original used too.
 
-Expect roughly 6–10 h on 2×T4 for 25 h of audio at 40 epochs. Kaggle allows 30
-GPU-hours a week and 12 h per session — `--save_per_updates 5000` means a
-session that times out resumes rather than restarts.
+Expect roughly 3–5 h on 2×T4 for the 12.5 h of audio at 40 epochs. Kaggle allows
+30 GPU-hours a week and 12 h per session, so this fits in one — and
+`--save_per_updates 5000` means a session that times out anyway resumes rather
+than restarts.
 
 ## 4. Bring it back and measure it
 

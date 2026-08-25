@@ -92,30 +92,59 @@ kaggle datasets create -p data/finetune-fa --dir-mode tar
 
 ## 3. Train
 
-Kaggle notebook, **GPU T4 ×2**, internet on, the prepared dataset attached.
+The notebook is generated, not hand-written — hand-written is how the two traps
+below got into this document in the first place:
 
-```python
-!pip -q install f5-tts
-
-import os, json
-os.environ["WANDB_DISABLED"] = "true"
-
-# The Persian checkpoint to continue from, and its vocabulary. The vocabulary
-# is not optional: it is a character tokenizer extended with the Persian
-# alphabet, and the base F5 vocabulary has no Persian in it at all.
-from huggingface_hub import hf_hub_download
-ckpt  = hf_hub_download("Lumos675/F5_TTS_Persian", "model_last.pt")
-vocab = hf_hub_download("Lumos675/F5_TTS_Persian", "vocab.txt")
+```bash
+.venv/bin/python kaggle/build_kernel.py
+KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle kernels push -p kaggle/train
 ```
 
-Then, from a shell cell:
+It runs on **GPU T4 ×2**, internet on, with the uploaded dataset attached, and
+carries the hyperparameters unchanged. Every cell source lives in
+`kaggle/build_kernel.py`, which compile-checks each one before writing the
+`.ipynb`.
+
+### Two ways this silently does nothing
+
+Both were in the earlier version of this recipe. Neither raises an error; both
+produce a run that looks healthy and finishes having learned nothing.
+
+**`--finetune` is required.** `finetune_cli` only assigns `ckpt_path` inside
+`if args.finetune:`. Without the flag, `--pretrain` is ignored outright and the
+model trains from random initialisation.
+
+**The published checkpoint carries its own training state.** `model_last.pt`
+holds `update: 420000` next to the optimizer and scheduler.
+`Trainer.load_checkpoint` branches on that key: when it is present the optimizer
+and scheduler are restored and the starting update is 420000. `train()` then
+computes `skipped_epoch = 420000 // steps_per_epoch`, which is thousands, so
+`range(skipped_epoch, epochs)` is empty and the loop never runs. The fix is to
+save only the EMA weights:
+
+```python
+state = torch.load(raw_ckpt, map_location="cpu", weights_only=True)
+torch.save({"ema_model_state_dict": state["ema_model_state_dict"]}, pretrain)
+```
+
+With no `update` key at the top level, `load_checkpoint` takes the other branch,
+loads the weights, and returns 0. The notebook asserts this rather than trusting
+it.
+
+A third, smaller one: `prepare_csv_wavs` demands a header line reading exactly
+`audio_file|text` and rejects relative paths, and in finetune mode it copies the
+*Emilia Chinese/English* vocabulary in as `vocab.txt`. The notebook translates
+the manifest and points the trainer at the Persian vocabulary explicitly.
+
+### The command it runs
 
 ```bash
 accelerate launch --mixed_precision=fp16 \
   -m f5_tts.train.finetune_cli \
   --exp_name F5TTS_v1_Base \
   --dataset_name persian_multispeaker \
-  --pretrain "$CKPT" \
+  --finetune \
+  --pretrain "$PRETRAIN_EMA_ONLY" \
   --tokenizer custom --tokenizer_path "$VOCAB" \
   --learning_rate 7.5e-5 \
   --batch_size_per_gpu 12000 --batch_size_type frame \
@@ -124,22 +153,32 @@ accelerate launch --mixed_precision=fp16 \
   --epochs 40 \
   --num_warmup_updates 2000 \
   --save_per_updates 5000 --last_per_updates 2000 \
+  --keep_last_n_checkpoints 2 \
   --logger none
 ```
 
 **Why these values.** `learning_rate`, `batch_size_per_gpu`, `max_samples`,
 `grad_accumulation_steps` and `max_grad_norm` are exactly what produced the
-checkpoint being continued (its `setting.json`) — changing them mid-run changes
-the optimisation dynamics against weights already adapted to them.
+checkpoint being continued — verified against its `setting.json`, which reads
+`7.5e-05`, `12000`, `frame`, `64`, `1`, `1`, `fp16`. Changing them mid-run
+changes the optimisation dynamics against weights already adapted to them.
 `batch_size_type frame` keeps the effective batch constant across clip lengths,
 which matters when clips run 2.5–10 s. Warmup is lower than the original 6418
-because this is a continuation, not a cold finetune. fp16 is what a T4 gives;
-it is what the original used too.
+because this is a continuation, not a cold start.
+
+**Checkpoints must be redirected.** The trainer writes to
+`<f5_tts>/../../ckpts/<dataset_name>`, which on Kaggle is inside the Python
+installation and is discarded when the session ends. The notebook symlinks it to
+`/kaggle/working/ckpts` before training starts.
 
 Expect roughly 3–5 h on 2×T4 for the 12.5 h of audio at 40 epochs. Kaggle allows
 30 GPU-hours a week and 12 h per session, so this fits in one — and
 `--save_per_updates 5000` means a session that times out anyway resumes rather
 than restarts.
+
+**Watch the first log lines.** `vocab : 2609`, and a loss that starts low
+because the weights are already trained rather than at random-initialisation
+levels, are what confirm the checkpoint actually loaded.
 
 ## 4. Bring it back and measure it
 

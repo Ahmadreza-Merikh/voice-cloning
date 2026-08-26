@@ -23,6 +23,13 @@ USER = "marsmanam"
 DATASET_SLUG = "persian-f5-multispeaker"
 SLUG = "persian-f5-multispeaker-train"
 
+#: How the notebook finds the directory f5_tts anchors its data and checkpoint
+#: paths to. Kept as one string so `verify_base_expression` can run the very
+#: same code against the local install - a compile check would not have caught
+#: the version that used `f5_tts.__file__`, because that is None at runtime
+#: rather than wrong at parse time, and it cost a pushed kernel to find out.
+BASE_EXPR = "Path(list(f5_tts.__path__)[0]).resolve().parent.parent"
+
 SETUP = '''\
 # F5-TTS continuation on many Persian speakers.
 #
@@ -54,7 +61,11 @@ import torch
 # f5_tts resolves its data and checkpoint directories relative to the package
 # as "<pkg>/../..", so every path below has to be anchored the same way or the
 # trainer silently looks somewhere else.
-BASE = Path(f5_tts.__file__).resolve().parent.parent.parent
+#
+# __path__[0], not __file__: f5_tts is a namespace package, so __file__ is None
+# and Path(None) raises. str(files("f5_tts")) is no good either - it returns the
+# MultiplexedPath repr rather than a path.
+BASE = __BASE_EXPR__
 
 DATASET_NAME = "persian_multispeaker"
 TOKENIZER = "custom"
@@ -272,6 +283,30 @@ else:
 '''
 
 
+def verify_base_expression() -> None:
+    """Run the notebook's path resolution here, against the installed f5_tts.
+
+    Compiling a cell proves only that it parses. This proves the one expression
+    everything else hangs off actually produces the directory f5_tts itself
+    reads and writes - which is the failure that got pushed once already.
+    """
+    import os
+    from importlib.resources import files
+
+    import f5_tts
+
+    base = eval(BASE_EXPR, {"Path": Path, "f5_tts": f5_tts})  # noqa: S307 - our own literal
+    for name in ("data/probe_custom", "ckpts/probe"):
+        theirs = os.path.normpath(str(files("f5_tts").joinpath(f"../../{name}")))
+        ours = str(base / name)
+        if theirs != ours:
+            raise SystemExit(
+                f"BASE_EXPR resolves to {ours!r} but f5_tts uses {theirs!r}.\n"
+                "The trainer would read and write somewhere the notebook never looks."
+            )
+    print(f"base path verified against installed f5_tts: {base}")
+
+
 def cell(source: str) -> dict:
     return {
         "cell_type": "code",
@@ -283,10 +318,11 @@ def cell(source: str) -> dict:
 
 
 def main() -> int:
+    verify_base_expression()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     sources = [
         SETUP,
-        ENVIRONMENT,
+        ENVIRONMENT.replace("__BASE_EXPR__", BASE_EXPR),
         FIND_DATA,
         BUILD_CSV,
         CHECKPOINT,

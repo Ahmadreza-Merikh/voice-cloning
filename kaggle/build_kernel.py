@@ -61,6 +61,9 @@ import sys
 from pathlib import Path
 
 os.environ["WANDB_DISABLED"] = "true"
+# Costs nothing and changes no arithmetic: the allocator stops carving fixed
+# blocks, which is worth roughly the margin this run was short by.
+os.environ["PYTORCH_ALLOC_CONF"] = "expandable_segments:True"
 
 import f5_tts
 import torch
@@ -282,10 +285,23 @@ train_args = [
     "--tokenizer", "custom",
     "--tokenizer_path", str(VOCAB),
     "--learning_rate", "7.5e-5",
-    "--batch_size_per_gpu", "12000",
+    # 6000 x 2 accumulation, not 12000 x 1. A T4 has 14.56 GiB and 12000 frames
+    # overruns it by about 46 MiB at the first forward pass. Splitting the batch
+    # and accumulating keeps the effective batch at 12000 frames per GPU, so the
+    # optimiser still steps on the same quantity of audio the checkpoint was
+    # trained with - the alternative, simply halving it, would change the
+    # optimisation dynamics against weights already adapted to that batch.
+    #
+    # Not free of any difference: with frame-based batching the two halves hold
+    # unequal sample counts, so a mean-over-batch loss becomes a mean of two
+    # means. The deviation is small and the weighting is the only thing that
+    # moves - the model uses AdaLN, so there are no cross-sample statistics to
+    # disturb. 8-bit Adam would also have fit, by changing the optimiser itself,
+    # which is the more invasive of the two.
+    "--batch_size_per_gpu", "6000",
     "--batch_size_type", "frame",
     "--max_samples", "64",
-    "--grad_accumulation_steps", "1",
+    "--grad_accumulation_steps", "2",
     "--max_grad_norm", "1",
     "--epochs", str(EPOCHS),
     "--num_warmup_updates", str(WARMUP),
@@ -301,12 +317,21 @@ train_args = [
 saved_argv = sys.argv
 sys.argv = ["finetune_cli.py", *train_args]
 try:
-    parse_args()
-    print("arguments accepted by finetune_cli's own parser")
+    settings = parse_args()
+    print("arguments accepted by the trainer's own parser")
 except SystemExit as exit_code:
-    raise RuntimeError(f"finetune_cli rejected these arguments (exit {exit_code.code})") from None
+    raise RuntimeError(f"the trainer rejected these arguments (exit {exit_code.code})") from None
 finally:
     sys.argv = saved_argv
+
+frames = (
+    settings.batch_size_per_gpu * settings.grad_accumulation_steps * torch.cuda.device_count()
+)
+print(
+    f"effective batch: {settings.batch_size_per_gpu} frames x "
+    f"{settings.grad_accumulation_steps} accumulation x "
+    f"{torch.cuda.device_count()} gpus = {frames} frames per optimiser step"
+)
 
 command = "accelerate launch --mixed_precision=fp16 -m f5_tts.train.finetune_cli " + " ".join(
     shlex.quote(a) for a in train_args

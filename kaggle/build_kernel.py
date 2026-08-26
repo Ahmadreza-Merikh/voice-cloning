@@ -23,6 +23,13 @@ USER = "marsmanam"
 DATASET_SLUG = "persian-f5-multispeaker"
 SLUG = "persian-f5-multispeaker-train"
 
+#: Kaggle's name for the T4 accelerator, which is served as a pair. Confirm it
+#: took by pulling the kernel metadata back after a push: an unrecognised value
+#: is not rejected, it is quietly recorded as "Gpu" and served as one P100 -
+#: which is both half the GPUs and a card recent torch builds have dropped.
+#: "GpuT4x2" and "nvidiaTeslaT4x2" both fail that way.
+MACHINE_SHAPE = "NvidiaTeslaT4"
+
 #: How the notebook finds the directory f5_tts anchors its data and checkpoint
 #: paths to. Kept as one string so `verify_base_expression` can run the very
 #: same code against the local install - a compile check would not have caught
@@ -77,9 +84,23 @@ print("f5_tts base :", BASE)
 print("data dir    :", DATA_DIR)
 print("ckpt dir    :", CKPT_DIR)
 print("torch       :", torch.__version__)
-print("gpus        :", torch.cuda.device_count(),
-      [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())])
-assert torch.cuda.device_count() >= 1, "No GPU. Set the accelerator before running."
+names = [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())]
+print("gpus        :", torch.cuda.device_count(), names)
+
+# Two GPUs is part of the recipe, not a preference. batch_size_per_gpu is 12000
+# frames because that is what produced the checkpoint being continued, and the
+# effective batch is that times the number of processes - so a single card
+# halves it and changes the optimisation dynamics against weights already
+# adapted to them. Falling back to one card would be a silent quality cut, so
+# stop here instead and go fix the accelerator.
+#
+# The card matters too: a generic "Gpu" request yields one P100 (sm_60), which
+# recent torch builds no longer support.
+assert torch.cuda.device_count() == 2, (
+    f"Need 2 GPUs, got {torch.cuda.device_count()}: {names}. "
+    "Set machine_shape to the T4 x2 accelerator and push again - training on "
+    "one card would halve the effective batch."
+)
 '''
 
 FIND_DATA = '''\
@@ -227,6 +248,10 @@ print("contents    :", [p.name for p in PERSIST.iterdir()])
 '''
 
 TRAIN = '''\
+import shlex
+
+from f5_tts.train.finetune_cli import parse_args
+
 # Every hyperparameter below is what produced the checkpoint being continued
 # (its setting.json): lr 7.5e-5, 12000 frames per GPU, max_samples 64,
 # grad accumulation 1, grad norm 1, fp16. Changing them mid-run would change
@@ -245,23 +270,48 @@ TRAIN = '''\
 EPOCHS = 80
 WARMUP = 2000
 
-command = f"""accelerate launch --mixed_precision=fp16 \\
-  -m f5_tts.train.finetune_cli \\
-  --exp_name F5TTS_v1_Base \\
-  --dataset_name {DATASET_NAME} \\
-  --finetune \\
-  --pretrain "{PERSIST / PRETRAIN.name}" \\
-  --tokenizer custom --tokenizer_path "{VOCAB}" \\
-  --learning_rate 7.5e-5 \\
-  --batch_size_per_gpu 12000 --batch_size_type frame \\
-  --max_samples 64 \\
-  --grad_accumulation_steps 1 --max_grad_norm 1 \\
-  --epochs {EPOCHS} \\
-  --num_warmup_updates {WARMUP} \\
-  --save_per_updates 5000 --last_per_updates 2000 \\
-  --keep_last_n_checkpoints 2 \\
-  --logger none"""
-print(command, flush=True)
+# No --logger. Its choices are [None, "wandb", "tensorboard"] - the Python None
+# object, which no command-line string can ever match, so `--logger none` is
+# rejected by argparse with exit code 2 and the flag is unusable from a shell.
+# Omitting it lands on the same default. WANDB_DISABLED is set above.
+train_args = [
+    "--exp_name", "F5TTS_v1_Base",
+    "--dataset_name", DATASET_NAME,
+    "--finetune",
+    "--pretrain", str(PERSIST / PRETRAIN.name),
+    "--tokenizer", "custom",
+    "--tokenizer_path", str(VOCAB),
+    "--learning_rate", "7.5e-5",
+    "--batch_size_per_gpu", "12000",
+    "--batch_size_type", "frame",
+    "--max_samples", "64",
+    "--grad_accumulation_steps", "1",
+    "--max_grad_norm", "1",
+    "--epochs", str(EPOCHS),
+    "--num_warmup_updates", str(WARMUP),
+    "--save_per_updates", "5000",
+    "--last_per_updates", "2000",
+    "--keep_last_n_checkpoints", "2",
+]
+
+# Hand the arguments to the real parser before spending a GPU on them. An
+# unusable flag costs a whole queued run to discover otherwise, and argparse
+# reports it as a bare exit code 2 from inside accelerate, several tracebacks
+# deep. This is the same check, in milliseconds.
+saved_argv = sys.argv
+sys.argv = ["finetune_cli.py", *train_args]
+try:
+    parse_args()
+    print("arguments accepted by finetune_cli's own parser")
+except SystemExit as exit_code:
+    raise RuntimeError(f"finetune_cli rejected these arguments (exit {exit_code.code})") from None
+finally:
+    sys.argv = saved_argv
+
+command = "accelerate launch --mixed_precision=fp16 -m f5_tts.train.finetune_cli " + " ".join(
+    shlex.quote(a) for a in train_args
+)
+print("\\n" + command, flush=True)
 '''
 
 LAUNCH = '''\
@@ -357,6 +407,11 @@ def main() -> int:
         "kernel_type": "notebook",
         "is_private": True,
         "enable_gpu": True,
+        # enable_gpu alone means "a GPU", which the scheduler reads as one
+        # P100. machine_shape is what selects the pair of T4s; a value the
+        # server does not recognise is silently downgraded to "Gpu", so the
+        # notebook checks the card count rather than trusting this.
+        "machine_shape": MACHINE_SHAPE,
         "enable_internet": True,
         "dataset_sources": [f"{USER}/{DATASET_SLUG}"],
         "competition_sources": [],

@@ -285,23 +285,27 @@ train_args = [
     "--tokenizer", "custom",
     "--tokenizer_path", str(VOCAB),
     "--learning_rate", "7.5e-5",
-    # 6000 x 2 accumulation, not 12000 x 1. A T4 has 14.56 GiB and 12000 frames
-    # overruns it by about 46 MiB at the first forward pass. Splitting the batch
-    # and accumulating keeps the effective batch at 12000 frames per GPU, so the
-    # optimiser still steps on the same quantity of audio the checkpoint was
-    # trained with - the alternative, simply halving it, would change the
-    # optimisation dynamics against weights already adapted to that batch.
+    # 3000 x 4 accumulation, not 12000 x 1. The product is what matters: the
+    # optimiser still steps on 12000 frames per GPU, which is what produced the
+    # checkpoint being continued. Simply halving the batch instead would change
+    # the optimisation dynamics against weights already adapted to it.
     #
-    # Not free of any difference: with frame-based batching the two halves hold
-    # unequal sample counts, so a mean-over-batch loss becomes a mean of two
-    # means. The deviation is small and the weighting is the only thing that
-    # moves - the model uses AdaLN, so there are no cross-sample statistics to
-    # disturb. 8-bit Adam would also have fit, by changing the optimiser itself,
-    # which is the more invasive of the two.
-    "--batch_size_per_gpu", "6000",
+    # A T4 holds 14.56 GiB and the static cost is already about 6.7 GB - fp32
+    # weights, Adam's two moments, gradients, and a full EMA copy of the model -
+    # so what is left for activations is thin. 12000 frames overran by 46 MiB,
+    # 6000 got one optimiser step out and overran by 22 MiB. Each halving cuts
+    # the activation side roughly in half; 3000 leaves real headroom.
+    #
+    # Not free of any difference: with frame-based batching the micro-batches
+    # hold unequal sample counts, so a mean-over-batch loss becomes a mean of
+    # means. That reweighting is the only thing that moves - the model uses
+    # AdaLN, so there are no cross-sample statistics to disturb. 8-bit Adam
+    # would also have freed the memory, by quantising the optimiser state, which
+    # changes more than the loss weighting.
+    "--batch_size_per_gpu", "3000",
     "--batch_size_type", "frame",
     "--max_samples", "64",
-    "--grad_accumulation_steps", "2",
+    "--grad_accumulation_steps", "4",
     "--max_grad_norm", "1",
     "--epochs", str(EPOCHS),
     "--num_warmup_updates", str(WARMUP),

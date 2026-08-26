@@ -46,6 +46,7 @@ import json
 import random
 import shutil
 import sys
+import threading
 import time
 from collections import defaultdict
 from collections.abc import Callable
@@ -70,27 +71,93 @@ def _rule(title: str) -> None:
     print(f"\n{title}\n{'-' * len(title)}", flush=True)
 
 
-def retry(call: Callable[[], T], *, what: str, tries: int = 8, base: float = 2.0) -> T:
-    """Retry with jittered backoff, waiting longer when the Hub says slow down.
+def is_throttled(error: Exception) -> bool:
+    message = str(error)
+    return "429" in message or "too many requests" in message.lower()
 
-    Anonymous Hub traffic is throttled, and a throttled request looks like an
-    ordinary failure. Backing off is the difference between finishing and losing
-    the whole run to one bad minute.
+
+class Throttle:
+    """One shared brake for all workers.
+
+    The Hub limits by address, not by connection, so six threads retrying
+    independently are six threads making the same limit worse and burning their
+    retry budgets in parallel. An earlier run lost 1650 clips that way. When any
+    worker is refused, every worker waits, and the penalty grows until requests
+    start landing again.
+    """
+
+    FLOOR = 30.0
+    CEILING = 600.0
+
+    def __init__(self) -> None:
+        self._lock = threading.Lock()
+        self._until = 0.0
+        self._penalty = self.FLOOR
+        self._announced = 0.0
+
+    def wait(self) -> None:
+        while True:
+            with self._lock:
+                remaining = self._until - time.monotonic()
+            if remaining <= 0:
+                return
+            time.sleep(min(remaining, 5.0))
+
+    def refused(self) -> float:
+        with self._lock:
+            now = time.monotonic()
+            self._until = max(self._until, now + self._penalty)
+            penalty = self._penalty
+            self._penalty = min(self._penalty * 1.5, self.CEILING)
+            if now - self._announced > 30:
+                self._announced = now
+                print(f"  rate limited; all workers pausing {penalty:.0f}s", flush=True)
+            return penalty
+
+    def allowed(self) -> None:
+        with self._lock:
+            self._penalty = max(self.FLOOR, self._penalty * 0.9)
+
+
+def retry(
+    call: Callable[[], T],
+    *,
+    what: str,
+    tries: int = 8,
+    base: float = 2.0,
+    throttle: Throttle | None = None,
+) -> T:
+    """Retry with jittered backoff, deferring to the shared brake on a refusal.
+
+    A throttled request looks like an ordinary failure, so without this the run
+    reports lost clips rather than a rate limit.
     """
     delay = base
     failure: Exception | None = None
-    for attempt in range(tries):
+    attempt = 0
+    refusals = 0
+    while attempt < tries:
+        if throttle:
+            throttle.wait()
         try:
-            return call()
+            result = call()
+            if throttle:
+                throttle.allowed()
+            return result
         except Exception as error:  # noqa: BLE001 - any failure is worth a retry here
             failure = error
-            message = str(error)
+            if throttle and is_throttled(error):
+                # Being refused says nothing about this clip, so it should not
+                # cost an attempt - but cap it so a permanent block still ends.
+                refusals += 1
+                throttle.refused()
+                if refusals <= tries * 3:
+                    continue
+            attempt += 1
             wait = delay + random.random() * 2
-            if "429" in message or "rate limit" in message.lower():
-                wait = max(wait, 15.0)
             print(
-                f"  retry {what} {attempt + 1}/{tries}: "
-                f"{type(error).__name__}: {message[:160]} (sleep {wait:.1f}s)",
+                f"  retry {what} {attempt}/{tries}: "
+                f"{type(error).__name__}: {str(error)[:140]} (sleep {wait:.1f}s)",
                 flush=True,
             )
             time.sleep(wait)
@@ -196,6 +263,8 @@ def fetch(
     """Download the selection, skipping whatever a previous run already got."""
     from huggingface_hub import hf_hub_download
 
+    throttle = Throttle()
+
     def one(row: dict[str, str]) -> tuple[str, str, str]:
         name = Path(row["output_audio"]).stem
         text = " ".join(row["text"].split())
@@ -213,7 +282,7 @@ def fetch(
             shutil.copyfile(source, destination)
             return name, text, "new"
 
-        return retry(download, what=name, tries=6)
+        return retry(download, what=name, tries=6, throttle=throttle)
 
     landed: dict[str, str] = {}
     new = skipped = failed = 0

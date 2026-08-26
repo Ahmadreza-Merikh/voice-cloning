@@ -53,9 +53,13 @@ and `dataset_info.json`.
 the dataset lists 34134 clips but publishes 9985, and that is the whole supply.
 This is a ceiling, not a cut: an average of 3.2 clips per speaker is *more*
 speaker-diverse than 25 h from a smaller pool would have been, and diversity is
-the intervention. It shortens training to roughly 3–5 h on 2×T4, which fits one
-Kaggle session. The one way past the ceiling is more corpora — see the note at
+the intervention. The one way past the ceiling is more corpora — see the note at
 the end of this section.
+
+Half the audio at the same epoch count would also be half the gradient updates,
+so the epoch count doubles to 80 to keep the training budget the recipe was
+written for. That is holding the plan steady against a smaller corpus, not
+adding to it.
 
 The run takes hours over anonymous Hub requests and will be rate-limited. It
 retries, and rerunning skips whatever is already on disk, so an interrupted run
@@ -159,7 +163,7 @@ accelerate launch --mixed_precision=fp16 \
   --batch_size_per_gpu 12000 --batch_size_type frame \
   --max_samples 64 \
   --grad_accumulation_steps 1 --max_grad_norm 1 \
-  --epochs 40 \
+  --epochs 80 \
   --num_warmup_updates 2000 \
   --save_per_updates 5000 --last_per_updates 2000 \
   --keep_last_n_checkpoints 2 \
@@ -180,7 +184,7 @@ because this is a continuation, not a cold start.
 installation and is discarded when the session ends. The notebook symlinks it to
 `/kaggle/working/ckpts` before training starts.
 
-Expect roughly 3–5 h on 2×T4 for the 12.5 h of audio at 40 epochs. Kaggle allows
+Expect roughly 6–10 h on 2×T4 for the 12.5 h of audio at 80 epochs. Kaggle allows
 30 GPU-hours a week and 12 h per session, so this fits in one — and
 `--save_per_updates 5000` means a session that times out anyway resumes rather
 than restarts.

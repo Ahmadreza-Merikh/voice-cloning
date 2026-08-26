@@ -38,12 +38,18 @@ SETUP = '''\
 '''
 
 ENVIRONMENT = '''\
-import os, sys, json, csv, shutil, subprocess
+import csv
+import json
+import os
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 os.environ["WANDB_DISABLED"] = "true"
 
-import torch, f5_tts
+import f5_tts
+import torch
 
 # f5_tts resolves its data and checkpoint directories relative to the package
 # as "<pkg>/../..", so every path below has to be anchored the same way or the
@@ -68,7 +74,9 @@ assert torch.cuda.device_count() >= 1, "No GPU. Set the accelerator before runni
 FIND_DATA = '''\
 # Kaggle may present the attached dataset as plain directories or as archives
 # depending on how it was uploaded, so find it rather than assume a layout.
-import tarfile, zipfile
+import tarfile
+import zipfile
+
 
 def locate() -> Path:
     roots = sorted(Path("/kaggle/input").glob("*"))
@@ -216,7 +224,14 @@ TRAIN = '''\
 # --finetune is load-bearing and easy to miss: without it finetune_cli never
 # assigns ckpt_path, --pretrain is ignored outright, and the run trains from
 # random initialisation while looking perfectly healthy.
-EPOCHS = 40
+#
+# 80 rather than 40 because the corpus came out at 12.5 h, not the 25 h the
+# plan assumed - Common Voice publishes 9985 of the 34134 clips it lists. Half
+# the audio at the same epoch count is half the gradient updates, and speaker
+# generalisation is the slow half of what this run is trying to move. Doubling
+# the epochs restores the training budget the recipe was written for; it does
+# not add anything the plan did not already call for.
+EPOCHS = 80
 WARMUP = 2000
 
 command = f"""accelerate launch --mixed_precision=fp16 \\

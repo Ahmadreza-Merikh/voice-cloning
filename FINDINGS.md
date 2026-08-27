@@ -309,10 +309,35 @@ across voices, which is a lead rather than a conclusion.
 - Probe tensors moved 1.42% and 1.57% relative; the text embedding only 0.046%,
   which is what a continuation on an already-Persian vocabulary should look like.
 
-### Not yet tried
+### Composed with best-of-4
 
-Best-of-4 scored 0.533 on its own and is independent of the weights, so the two
-should compose. Neither has been measured together.
+They do stack, and they overlap.
+
+| Configuration | Held-out | CER | Paired vs baseline |
+|---|---|---|---|
+| baseline | 0.520 | 2.9% | — |
+| best-of-4 | 0.533 | 2.8% | +0.0135, 2.2 SE |
+| finetuned | 0.539 | 2.7% | +0.0199, 4.4 SE |
+| **finetuned + best-of-4** | **0.546** | **2.2%** | **+0.0266, 4.6 SE** |
+
+The full stack is the first configuration to clear the pre-registered 0.0205
+threshold outright, and it does so while CER falls to 2.2% - better than either
+lever alone, which is what a CER-ranked selector on better weights should give.
+Paired against the baseline it changed all 27 cells, improving 23.
+
+But the levers are **sub-additive**. Independently they sum to +0.034; together
+they deliver +0.027. Best-of-4's own contribution on top of the finetune is
++0.0067 at 1.7 standard errors - not resolved - and it changes the chosen take
+in 7 of 27 cells where on the baseline it changed 10.
+
+That is the shape expected if the finetune narrowed the spread between seeds:
+selecting among four takes recovers less when the takes agree more. It is a
+consistent reading of two numbers, not a measurement of seed variance, which
+has not been made.
+
+**What remains is most of the gap.** 0.546 against a 0.689 ceiling leaves
+0.143, seven times the encoder's noise. The per-speaker spread is the standing
+lead: cv09 sits 0.071 from its own ceiling, cv11 and mana more than 0.19.
 
 ## 7. Caveats
 

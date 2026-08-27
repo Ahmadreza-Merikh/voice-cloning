@@ -138,7 +138,7 @@ Check what your machine can actually run at any time:
 
 | Engine | Persian | Phoneme input | Size | Speed | Notes |
 |---|---|---|---|---|---|
-| **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520, CER 2.9%. |
+| **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520 stock, 0.546 continued on 2739 speakers with best-of-4; CER 2.2%. |
 | **Chatterbox** (`chatterbox`) | community T3 finetune | no (grapheme) | ~3.5 GB | medium | Speaker path is language-agnostic — the part Persian data is *not* needed for. Own venv (torch 2.6). |
 | **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 13.5 GB | slower | Apache-2.0. Pinned to transformers 5.0.x. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
@@ -389,279 +389,41 @@ preprocessing was not the problem either: it moves a clip's speaker embedding
 by only 0.037 (0.963 self-similarity), and `denoise: auto` already resolves to
 a no-op on clean audio.
 
-The one thing that **did**:
+The one inference-side thing that **did**:
 
 | Change | Held-out | CER | Cost |
 |---|---|---|---|
 | `evaluation.candidates: 4` | **0.533** | 2.8% | 4× |
 
 Paired cell by cell against the baseline, best-of-4 changed the chosen take in
-10 of 27 cases and improved 9 of them (mean +0.046, best +0.118). It buys back
-about 8% of the gap to the human ceiling for four times the wall clock — worth
-switching on for a final render, not for iteration.
+10 of 27 cases and improved 9 of them (mean +0.046, best +0.118).
+
+### What closed part of the gap
+
+Continuing the checkpoint on **2739 speakers, 12.47 h** of Common Voice Persian
+— selected for diversity, evaluation speakers excluded, 78 epochs on 2×T4:
+
+| Configuration | Held-out | CER | Paired vs baseline |
+|---|---|---|---|
+| baseline | 0.520 | 2.9% | — |
+| best-of-4 | 0.533 | 2.8% | +0.0135, 2.2 SE |
+| finetuned | 0.539 | 2.7% | +0.0199, 4.4 SE |
+| **finetuned + best-of-4** | **0.546** | **2.2%** | **+0.0266, 4.6 SE** |
+
+The full stack is the first configuration to clear the pre-registered
+threshold of 0.0205, and it does so while CER *improves*. Paired over the same
+27 cells it changed every one, improving 23 and costing 4.
+
+**The two levers overlap.** Independently they total +0.034; together they
+deliver +0.027. Best-of-4's own contribution on top of the finetune is +0.0067
+at 1.7 standard errors — not resolved — and it changes 7 of 27 cells where on
+the baseline it changed 10. The finetune appears to have absorbed some of what
+seed selection was recovering.
+
+**What is left is most of it.** 0.546 against a 0.689 ceiling is still 0.143
+short, seven times the encoder's noise, and the gap is not spread evenly: cv09
+lands within 0.071 of its own ceiling while cv11 and mana remain more than 0.19
+away.
 
 See [`FINDINGS.md`](FINDINGS.md) for the full investigation and
-[`docs/REMOTE-TRAINING.md`](docs/REMOTE-TRAINING.md) for the recipe that
-follows from it.
-| Synthesis, MPS | 56 s for 10.2 s of audio (~5.5× realtime) |
-| Synthesis, CPU | 294 s for the same (~29× realtime) |
-
-Enable the round-trip check yourself with `evaluation.transcribe_check: true`;
-it re-runs ASR on the render and reports WER against what you asked for. The
-first run of a session is much slower than the numbers above — it pays for the
-checkpoint conversion, the vocoder download and a cold cache.
-
-The G2P output for that sentence, showing the invisible vowels being recovered:
-
-```
-گلِ زیبای باغ ما امروز شکفت. چای و ژاله و جان.
-→ gole zibɒje bɒqe mɒ emruz ʃekoft tʃɒj væ ʒɒle væ dʒɒn
-        ^^      ^^                 ezafe vowels that the script never writes
-```
-
----
-
-## Configuration
-
-Everything lives in [`configs/default.yaml`](configs/default.yaml), which is heavily
-commented. Override it three ways, in increasing precedence:
-
-```bash
-# 1. a custom file
-python app.py --config configs/my-setup.yaml
-
-# 2. environment variables
-VOICECLONE__RUNTIME__DEVICE=cpu VOICECLONE__ENGINES__TTS=moss python app.py
-
-# 3. CLI flags
-python app.py --device cpu --engine moss
-```
-
-Settings worth knowing:
-
-```yaml
-audio:
-  reference:
-    target_seconds: 10.0        # length of the voice prompt
-    auto_select_window: true    # pick the best window of a long recording
-  preprocess:
-    denoise: auto               # auto | deepfilternet | noisereduce | none
-    separate_vocals: false      # Demucs — for references taken from music/video
-
-text:
-  g2p:
-    enabled: auto               # auto | true (require) | false
-    repo_path: auto             # path to the Persian G2P project
-    apply_to_engines: []        # empty: see the note at the top of this file
-
-engines:
-  f5:
-    nfe_step: 48                # flow-matching steps; higher = better, slower
-  moss:
-    model_id: OpenMOSS-Team/MOSS-TTS-Local-Transformer   # 1.7B, ~3.5 GB at bf16
-    # 24 GB+ GPU? Use the 8B flagship:
-    # model_id: OpenMOSS-Team/MOSS-TTS
-```
-
-### Connecting the Persian G2P
-
-The G2P bridge looks for the project automatically in `~/Desktop/G2P Research`,
-`~/G2P Research` and a few other locations. Point it explicitly with either:
-
-```yaml
-text:
-  g2p:
-    repo_path: /path/to/G2P Research
-```
-
-```bash
-export VOICECLONE_G2P_REPO="/path/to/G2P Research"
-```
-
-The **Diagnostics** tab reports which backend loaded, or exactly why it did not.
-
----
-
-## Project structure
-
-```
-Voice Cloning/
-├── app.py                      # Gradio entry point
-├── configs/default.yaml        # every setting, commented
-├── requirements.txt            # core runtime
-├── requirements-optional.txt   # optional extras
-├── eval/
-│   ├── corpus/manifest.json    # the verified evaluation corpus
-│   └── results/*.json          # every measured run, comparable
-├── scripts/
-│   ├── setup_env.sh            # environment bootstrap
-│   ├── download_models.py      # weight downloader + checkpoint slimming
-│   ├── build_eval_corpus.py    # assemble + verify the eval corpus
-│   ├── benchmark.py            # held-out similarity, CER, calibration
-│   ├── run_sweep.sh            # one hypothesis per run
-│   └── chatterbox_worker.py    # persistent out-of-process Chatterbox
-├── src/voiceclone/
-│   ├── config.py               # typed, layered configuration
-│   ├── device.py               # CUDA / MPS / CPU resolution
-│   ├── models.py               # hf:// URI resolution and caching
-│   ├── errors.py               # typed, actionable errors
-│   ├── cli.py                  # command-line interface
-│   ├── audio/
-│   │   ├── io.py               # decode/encode, resampling
-│   │   ├── analysis.py         # SNR, bandwidth, clipping → quality score
-│   │   ├── denoise.py          # DeepFilterNet / noisereduce / Demucs
-│   │   ├── vad.py              # Silero / energy VAD, silence handling
-│   │   ├── segment.py          # best reference-window selection
-│   │   ├── loudness.py         # EBU R128 normalisation, limiting
-│   │   ├── preprocess.py       # the reference pipeline
-│   │   └── postprocess.py      # crossfade joining, mastering
-│   ├── text/
-│   │   ├── normalize_fa.py     # Persian normalisation
-│   │   ├── numbers_fa.py       # number/date/currency verbalisation
-│   │   ├── g2p.py              # Homo-GE2PE bridge → IPA
-│   │   ├── chunker.py          # sentence-aware chunking
-│   │   └── pipeline.py         # the text pipeline
-│   ├── engines/
-│   │   ├── base.py             # engine interfaces + registry
-│   │   ├── f5_tts.py           # F5-TTS
-│   │   ├── chatterbox_tts.py   # Chatterbox (out-of-process)
-│   │   ├── moss_tts.py         # MOSS-TTS
-│   │   ├── asr.py              # Whisper
-│   │   └── vc_seedvc.py        # Seed-VC (out-of-process)
-│   ├── pipelines/
-│   │   ├── studio.py           # the orchestrator
-│   │   ├── results.py          # result objects
-│   │   └── voices.py           # voice library
-│   ├── evaluation/similarity.py# speaker similarity, WER + CER
-│   ├── evaluation/embedding.py # one preprocessing path for every clip
-│   └── ui/                     # Gradio app, theme, strings
-└── tests/                      # 145 tests, no weights or network needed
-```
-
-Design rules the code follows:
-
-- **Nothing heavy at import time.** Engines register themselves cheaply; models load
-  on first use. `import voiceclone` stays fast.
-- **Optional dependencies are always lazy** and always have a fallback or a clear
-  message. There is no import that can break the app.
-- **The UI holds no logic.** It marshals values into `Studio`, which the CLI and the
-  Python API also use, so all three behave identically.
-- **Errors are typed and carry a fix.** `DependencyMissingError` prints the pip command.
-
----
-
-## Testing
-
-```bash
-.venv/bin/python -m pytest tests/ -q        # 151 tests, seconds, no downloads
-.venv/bin/python -m pytest tests/ -v        # verbose
-.venv/bin/ruff check src tests              # lint
-```
-
-Tests cover Persian normalisation and number verbalisation, chunking and paragraph
-handling, audio analysis/loudness/VAD/assembly, config layering, the engine registry
-and the voice library. Anything needing model weights is marked `slow` and skipped
-by default.
-
----
-
-## Troubleshooting
-
-**`No module named 'f5_tts'`**
-`pip install f5-tts`, or `./scripts/setup_env.sh`.
-
-**MOSS-TTS will not load**
-It needs `transformers>=5.0`: `pip install -U transformers accelerate`. The 1.7B model
-needs ~6.2 GB of download and ~3.5 GB of memory. Run
-`python scripts/download_models.py --engine moss` first.
-
-**Out of memory**
-Use the F5-TTS engine, set `runtime.device: cpu`, lower `engines.f5.nfe_step`, or
-shorten `text.chunk.max_chars`.
-
-**Very slow on Apple Silicon**
-Partly expected — MPS has no kernel for some operations and falls back to CPU. Use the
-*Balanced* or *Fast preview* preset while iterating, *Maximum quality* for the final take.
-The first run of a session is also much slower than later ones: it pays for the
-checkpoint conversion, the vocoder download and a cold page cache.
-
-**`Bus error: 10` / the process dies mid-synthesis on a Mac**
-An upstream PyTorch bug, not this project. The Metal backend's `abs()` kernel
-(`abs_kernel_mps`) intermittently faults, which kills the process outright — so it
-cannot be caught and retried in Python. It is non-deterministic and more likely under
-memory pressure. Observed on torch 2.13 / M1 Pro. The fix is to move off Metal:
-
-```bash
-python app.py --device cpu
-voiceclone tts "..." -r ref.wav --device cpu
-```
-
-Or make it permanent in `configs/default.yaml`:
-
-```yaml
-runtime:
-  device: cpu
-```
-
-Output is bit-for-bit the same idea, just slower. Closing other applications also
-reduces how often it happens.
-
-**The clone does not sound like the reference**
-Press **Analyse reference** first. A score below 60 explains most failures. Also check
-the reference is a single speaker with no background music, and try 10-12 seconds.
-
-**Persian words are mispronounced**
-Switch to the MOSS engine, which measured better on exactly this. Do *not* reach for
-phonemes — handing MOSS Persian IPA makes it worse, not better (see the note at the
-top). Try `--best-of 4` as well: seed variance moves pronunciation more than any
-sampling knob does.
-
-Do not write the ezafe explicitly either. `کتابِ من` is careful Persian, but GE2PE
-emits a vowel for the kasra *and* applies its own ezafe rule, so the marked spelling
-used to come out doubled (`ketaebe` for `ketabe`). The pipeline now strips a
-word-final kasra before the G2P sees it; word-internal harakat are kept, since they
-disambiguate homographs. MOSS also reads an explicit kasra as /i/, so `شهرِ` becomes
-*shahri*.
-
-**Numbers are read as digits**
-`text.expand_numbers` must be `true`. Check with `voiceclone text "your text"`.
-
-**`ffmpeg not found` / a file will not decode**
-`brew install ffmpeg` (macOS) or `sudo apt install ffmpeg` (Ubuntu).
-
-**Seed-VC exits non-zero**
-It needs its own environment: `./scripts/setup_env.sh --seedvc`. Or use `--mode cascade`,
-which needs nothing extra.
-
----
-
-## Responsible use
-
-Voice cloning is powerful and easy to misuse.
-
-- **Only clone voices you have explicit permission to clone.** Someone's voice is
-  personal, and in many jurisdictions it is legally protected.
-- **Label synthetic audio as synthetic.** Do not pass it off as a real recording.
-- **Never** use it for impersonation, fraud, harassment, or to fabricate statements.
-
-Cloning a voice without consent is unacceptable regardless of what the software allows.
-
----
-
-## Acknowledgements
-
-- [F5-TTS](https://github.com/SWivid/F5-TTS) — flow-matching TTS
-- [F5-TTS Persian finetune](https://huggingface.co/Lumos675/F5_TTS_Persian)
-- [MOSS-TTS](https://github.com/OpenMOSS/MOSS-TTS) — OpenMOSS / MOSI.AI (Apache-2.0)
-- [Homo-GE2PE](https://huggingface.co/MahtaFetrat/Homo-GE2PE-Persian) — Persian G2P with
-  homograph disambiguation ([paper](https://huggingface.co/papers/2505.12973))
-- [Seed-VC](https://github.com/Plachtaa/seed-vc) — zero-shot voice conversion
-- [Whisper](https://github.com/openai/whisper) / [faster-whisper](https://github.com/SYSTRAN/faster-whisper)
-- [Silero VAD](https://github.com/snakers4/silero-vad), [DeepFilterNet](https://github.com/Rikorose/DeepFilterNet), [Demucs](https://github.com/facebookresearch/demucs)
-
-Model weights carry their own licences — MOSS-TTS is Apache-2.0, Seed-VC and some
-F5-TTS checkpoints are not commercially licensed. Check before shipping anything.
-
-## Licence
-
-MIT for this project's code. See `pyproject.toml`.
+[`docs/REMOTE-TRAINING.md`](docs/REMOTE-TRAINING.md) for the recipe.

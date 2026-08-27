@@ -25,6 +25,7 @@ import argparse
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -44,6 +45,92 @@ PROBES = (
 
 def _rule(title: str) -> None:
     print(f"\n{title}\n{'-' * len(title)}", flush=True)
+
+
+def output_urls() -> dict[str, str]:
+    """Signed download URLs for the kernel's output files, freshly minted.
+
+    They expire, so this is called again on every retry rather than cached.
+    """
+    os.environ.setdefault("KAGGLE_CONFIG_DIR", str(Path("~/.kaggle-oauth").expanduser()))
+    from kaggle.api.kaggle_api_extended import KaggleApi
+    from kagglesdk.kernels.types.kernels_api_service import ApiListKernelSessionOutputRequest
+
+    api = KaggleApi()
+    api.authenticate()
+    owner, slug = KERNEL.split("/")
+    with api.build_kaggle_client() as client:
+        request = ApiListKernelSessionOutputRequest()
+        request.user_name, request.kernel_slug = owner, slug
+        response = client.kernels.kernels_api_client.list_kernel_session_output(request)
+    return {f.file_name: f.url for f in response.files or []}
+
+
+def download_resumable(name: str, destination: Path, attempts: int = 40) -> Path:
+    """Fetch one output file, continuing where a broken transfer left off.
+
+    `kaggle kernels output` reads the whole response into memory with a single
+    `.content` and has no resume, so a 2 GB file over a flaky link never lands -
+    successive attempts got 946 MB, then 4 MB, then 8 MB, each starting again
+    from zero. Range requests turn that into progress that accumulates.
+    """
+    import requests
+
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    total: int | None = None
+
+    for attempt in range(1, attempts + 1):
+        have = destination.stat().st_size if destination.is_file() else 0
+        if total is not None and have >= total:
+            break
+
+        url = output_urls().get(name)
+        if url is None:
+            raise SystemExit(f"{name} is not among the kernel's output files")
+
+        headers = {"Range": f"bytes={have}-"} if have else {}
+        try:
+            with requests.get(url, headers=headers, stream=True, timeout=60) as response:
+                if have and response.status_code == 200:
+                    # Server ignored the range; start over rather than corrupt.
+                    have, mode = 0, "wb"
+                elif response.status_code in (200, 206):
+                    mode = "ab" if have else "wb"
+                else:
+                    print(f"  attempt {attempt}: HTTP {response.status_code}", flush=True)
+                    time.sleep(5)
+                    continue
+
+                if total is None:
+                    span = response.headers.get("Content-Range")
+                    if span and "/" in span:
+                        total = int(span.rsplit("/", 1)[1])
+                    elif response.headers.get("Content-Length"):
+                        total = have + int(response.headers["Content-Length"])
+
+                with destination.open(mode) as out:
+                    for chunk in response.iter_content(chunk_size=1 << 20):
+                        out.write(chunk)
+        except Exception as error:  # noqa: BLE001 - every transport failure is retryable
+            got = destination.stat().st_size if destination.is_file() else 0
+            print(
+                f"  attempt {attempt}: {type(error).__name__} at "
+                f"{got / 1e6:.0f} MB{f' of {total / 1e6:.0f}' if total else ''}",
+                flush=True,
+            )
+            time.sleep(min(5 * attempt, 30))
+            continue
+
+        got = destination.stat().st_size
+        print(f"  attempt {attempt}: {got / 1e9:.2f} GB", flush=True)
+        if total is not None and got >= total:
+            break
+        time.sleep(2)
+
+    got = destination.stat().st_size if destination.is_file() else 0
+    if total is not None and got < total:
+        raise SystemExit(f"{name}: stopped at {got} of {total} bytes")
+    return destination
 
 
 def kaggle(*args: str) -> subprocess.CompletedProcess:
@@ -129,31 +216,39 @@ def main() -> int:
     parser.add_argument("--kernel", default=KERNEL)
     parser.add_argument("--out", type=Path, default=REPO_ROOT / "remote")
     parser.add_argument("--label", default="finetuned")
+    parser.add_argument("--file", default="ckpts/model_last.pt")
     parser.add_argument("--skip-download", action="store_true")
     args = parser.parse_args()
 
     _rule("Kernel")
-    if not ready(args.kernel) and not args.skip_download:
-        print("\nNot complete yet. Nothing to fetch.", file=sys.stderr)
-        return 1
+    if not ready(args.kernel):
+        # A kernel that ran out of disk while saving still has every checkpoint
+        # it wrote before that, and those are worth having. Only a run with no
+        # output at all is nothing to fetch - which the file listing decides,
+        # not the status.
+        print("  not COMPLETE - taking whatever it managed to save")
 
     args.out.mkdir(parents=True, exist_ok=True)
-    if not args.skip_download:
-        _rule("Fetching output")
-        result = kaggle("kernels", "output", args.kernel, "-p", str(args.out))
-        print((result.stdout or result.stderr).strip()[:2000])
-        if result.returncode != 0:
-            return 1
-
-    checkpoint = newest_checkpoint(args.out)
-    if checkpoint is None:
-        print(f"\nNo model_*.pt under {args.out}.", file=sys.stderr)
-        print("The run finished without reaching a save point.", file=sys.stderr)
-        return 2
-
     named = args.out / f"{args.label}.pt"
-    if checkpoint != named:
-        checkpoint.replace(named)
+
+    if not args.skip_download:
+        _rule("Output files")
+        available = output_urls()
+        for name in sorted(available):
+            print(f"  {name}")
+        # model_last.pt is written once more when training ends, so it is the
+        # furthest along; the numbered saves are earlier snapshots.
+        wanted = args.file if args.file in available else "ckpts/model_last.pt"
+        if wanted not in available:
+            print(f"\n{wanted} is not there - the run saved nothing.", file=sys.stderr)
+            return 2
+
+        _rule(f"Fetching {wanted}")
+        download_resumable(wanted, named)
+
+    if not named.is_file():
+        print(f"\nNo checkpoint at {named}.", file=sys.stderr)
+        return 2
     print(f"\n  {named}  ({named.stat().st_size / 1e9:.2f} GB)")
 
     _rule("Did it learn anything")

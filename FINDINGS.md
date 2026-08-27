@@ -237,7 +237,84 @@ tightened, but not on quality grounds — there is no quality here to recover.
 
 ---
 
-## 6. Caveats
+---
+
+## 6. The finetune: the first thing to move identity transfer
+
+Continuing the Persian checkpoint on **2739 speakers, 12.47 h** of Common Voice
+Persian — selected for speaker diversity, evaluation speakers excluded — is the
+first intervention measured here that moves the axis the investigation named.
+
+| | baseline | finetuned |
+|---|---|---|
+| Held-out similarity | 0.520 | **0.539** |
+| Reference similarity | 0.654 | 0.680 |
+| Round-trip CER | 2.9% | **2.7%** |
+| Position on the 0.132–0.689 scale | 69.2% | **73.0%** |
+
+Paired over the same 27 cells — same speakers, sentences and seed:
+
+| | |
+|---|---|
+| mean difference | **+0.0199**, 4.4 standard errors from zero |
+| better | **23** — mean +0.027, best +0.069 |
+| worse | 4 — mean −0.021, worst −0.030 |
+| unchanged | 0 |
+
+**On the pre-registered threshold: the aggregate misses it, by 0.0006.** The
+rule set in advance was a move larger than 0.0205, and +0.0199 is not that. What
+that figure bounds, though, is a *single* render comparison; the paired mean over
+27 cells has a standard error of 0.0045, and the effect sits 4.4 of them from
+zero. Twenty-three of twenty-seven cells improved. The distinction between an
+aggregate threshold and a paired test was written into the tool before this run,
+for best-of-4, so it is not a goalpost moved to fit a result.
+
+The honest reading is that **the effect is real, and it is small**: 0.019 of the
+0.170 gap, about 11%. Held-out similarity sits 0.150 under the human ceiling —
+seven times the encoder's noise, still inside the band where genuinely different
+speakers occur.
+
+CER did not pay for it: 2.9% to 2.7%, both far under the 7.8% recogniser floor.
+The model did not trade away the axis that was already won.
+
+### Per speaker
+
+| speaker | held-out | ceiling | gap |
+|---|---|---|---|
+| cv09 | 0.691 | 0.781 | −0.090 |
+| cv02 | 0.573 | 0.679 | −0.106 |
+| cv04 | 0.573 | 0.702 | −0.129 |
+| cv03 | 0.546 | 0.661 | −0.115 |
+| cv11 | 0.539 | 0.757 | −0.218 |
+| mana | 0.529 | 0.739 | −0.209 |
+| cv07 | 0.493 | 0.680 | −0.187 |
+| cv08 | 0.465 | 0.607 | −0.142 |
+| cv10 | 0.446 | 0.595 | −0.149 |
+
+The gap is not uniform. cv09 lands within 0.090 of its own ceiling; cv11 and
+mana remain more than 0.2 short. Whatever is left is not evenly distributed
+across voices, which is a lead rather than a conclusion.
+
+### What was actually trained
+
+- 78 of 80 epochs. The run ended at update 15,000 of 15,440 when Kaggle's
+  20 GB working disk filled while saving — `--keep_last_n_checkpoints 2`
+  deletes *after* writing, and the write is what failed. `model_15000.pt` was
+  truncated to 2.05 GB by that; `model_last.pt`, update 14,000, is intact and is
+  what was measured.
+- Loss 1.61 → 0.52.
+- Effective batch held at 12000 frames per GPU via 3000 × 4 accumulation, since
+  12000 in one pass does not fit a T4. Deviation from the original recipe is a
+  reweighting of the loss mean across unequal micro-batches, nothing else.
+- Probe tensors moved 1.42% and 1.57% relative; the text embedding only 0.046%,
+  which is what a continuation on an already-Persian vocabulary should look like.
+
+### Not yet tried
+
+Best-of-4 scored 0.533 on its own and is independent of the weights, so the two
+should compose. Neither has been measured together.
+
+## 7. Caveats
 
 - **One seed per configuration.** Autoregressive and flow-matching engines vary
   between seeds; the differences reported as "inside noise" would need several

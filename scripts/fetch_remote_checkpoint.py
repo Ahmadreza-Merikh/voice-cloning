@@ -66,7 +66,7 @@ def output_urls() -> dict[str, str]:
     return {f.file_name: f.url for f in response.files or []}
 
 
-def download_resumable(name: str, destination: Path, attempts: int = 40) -> Path:
+def download_resumable(name: str, destination: Path, attempts: int = 200) -> Path:
     """Fetch one output file, continuing where a broken transfer left off.
 
     `kaggle kernels output` reads the whole response into memory with a single
@@ -84,12 +84,15 @@ def download_resumable(name: str, destination: Path, attempts: int = 40) -> Path
         if total is not None and have >= total:
             break
 
-        url = output_urls().get(name)
-        if url is None:
-            raise SystemExit(f"{name} is not among the kernel's output files")
-
         headers = {"Range": f"bytes={have}-"} if have else {}
         try:
+            # Minting the URL is itself a network call, and the link here drops
+            # outright often enough that a failed DNS lookup was killing the
+            # whole loop. It belongs inside the retry, not before it.
+            url = output_urls().get(name)
+            if url is None:
+                raise SystemExit(f"{name} is not among the kernel's output files")
+
             with requests.get(url, headers=headers, stream=True, timeout=60) as response:
                 if have and response.status_code == 200:
                     # Server ignored the range; start over rather than corrupt.
@@ -111,6 +114,8 @@ def download_resumable(name: str, destination: Path, attempts: int = 40) -> Path
                 with destination.open(mode) as out:
                     for chunk in response.iter_content(chunk_size=1 << 20):
                         out.write(chunk)
+        except SystemExit:
+            raise
         except Exception as error:  # noqa: BLE001 - every transport failure is retryable
             got = destination.stat().st_size if destination.is_file() else 0
             print(

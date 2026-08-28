@@ -554,10 +554,59 @@ larger than the finetune. It is **not reachable by inspection**. Choosing a
 reference by measurement means rendering from each candidate and comparing,
 which is the same trade best-of-N already makes on the seed axis.
 
-That comparison is worth making directly. Best-of-4 over seeds buys +0.014 for
-4× the compute; the reference axis has +0.027 sitting on it for the same kind of
-spend. Nothing has yet tested selecting over references instead of over seeds,
-and on these numbers it is the better-looking of the two.
+That comparison is made directly below, and the reference axis wins.
+
+### Selecting over references beats selecting over seeds
+
+If no property of a clip identifies the good one, take the trade best-of-N
+already makes: render from several and choose by measurement.
+
+**The trap this has to avoid.** The obvious selector — score each render against
+the speaker's other recordings, keep the best — *is* the evaluation metric.
+Selecting on it and reporting it would inflate the result by exactly the amount
+the selection chose, then present the inflation as a gain.
+
+So the evaluation clip is withheld from the decision. For each held-out clip h:
+candidates are every reference except h; each is scored against the speaker's
+clips excluding both itself and h; the chosen render is then reported against h
+alone. h never touches the choice. Rotating h over all five clips and averaging
+gives what the rule is worth on a recording the selector has not seen.
+
+No new rendering — the five reference sweeps were already on disk.
+
+| | |
+|---|---|
+| decisions | 129 |
+| default | 0.5461 |
+| **selected** | **0.5634** |
+| oracle | 0.5812 |
+| **gain** | **+0.0173**, 3.9 standard errors |
+| oracle headroom captured | **49%** |
+| changed the pick | 78 of 129 — 55 better, 23 worse, 51 chose the same clip |
+
+Per speaker the gain is uneven and roughly tracks how much room there was:
+cv11 +0.038, mana +0.037, cv10 +0.029, cv09 +0.021, cv03 +0.022, down to cv02
++0.000 and cv08 −0.007.
+
+### Against the seed axis
+
+| axis | gain | evidence | cost |
+|---|---|---|---|
+| seeds (best-of-4) | +0.0135 | 2.2 SE | 4× render |
+| **references** | **+0.0173** | **3.9 SE** | N× render |
+
+More gain and far firmer, for the same kind of spend. The reason is visible in
+the headroom: seed choice moves a render less than reference choice does, so
+searching the reference axis has more to find.
+
+Two things this does not show. The two selectors have not been **combined** —
+every render here is seed 42, so choosing over both axes at once is untested and
+its gain is not the sum of these. And the comparison is not perfectly like for
+like: best-of-4 was measured on four seeds, this on up to five references.
+
+*(The absolute numbers here sit slightly above the headline 0.539 because each
+decision is scored against a single withheld recording rather than four. Read
+the gain, not the level.)*
 
 ## 8. Caveats
 

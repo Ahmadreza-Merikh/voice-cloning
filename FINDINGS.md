@@ -426,28 +426,55 @@ recordings and its own ceiling recomputed.
 | cv11 | **0.218** | 0.175 | −0.044 |
 | mana | 0.209 | 0.213 | +0.004 |
 
-**Rank correlation between the two orderings: −0.033.** Not weakened —
-*erased*. cv09 was the best-cloned speaker and becomes the seventh; cv11 was the
-worst and becomes the sixth. The mean absolute change is 0.042, twice the
-encoder's noise, and cv09 alone moves 0.100 — seventy per cent of the average
-gap, from swapping one input file.
+**Rank correlation between the two orderings: −0.033.** cv09 was the
+best-cloned speaker and becomes the seventh; cv11 was the worst and becomes the
+sixth. The mean absolute change is 0.042, twice the encoder's noise, and cv09
+alone moves 0.100 — seventy per cent of the average gap, from swapping one
+input file.
 
-So "cv11 and mana are hard voices" was never a finding. It was one draw from a
-distribution over reference clips, read as a property of the speakers. Every
-per-speaker conclusion in section 7 dissolves with it, including the lead it
-recommended chasing.
+That single swap looked like it erased the speaker effect. Running all five
+clips shows it did not — see below. What it did erase is any confidence in a
+ranking built on **one** reference each.
 
-### Duration does not explain it either
+### All five clips, and two corrections to the above
 
-The obvious candidate, since the manifest's reference is the longest clip and
-the alternates are shorter:
+Every clip as the reference, for every speaker. Eight of the 45 combinations
+never rendered: below about 5 s the clip fails the pipeline's 3 s
+usable-speech guard outright, which is worth stating plainly as the strongest
+duration effect there is.
+
+On the five speakers where all five clips survive:
+
+| | variance | sd |
+|---|---|---|
+| within speaker (reference choice) | 0.00171 | 0.041 |
+| between speaker (voice identity) | 0.00227 | 0.048 |
+
+**Ratio 1.33.** Both are real and they are the same size. Voice identity is not
+an illusion — it is simply no larger than the noise from choosing a reference,
+which is why one draw per speaker produced a ranking that inverted on the second
+draw. Mean within-speaker spread from best to worst clip is **0.092**, most of
+the 0.143 gap.
+
+**Correction 1.** The "erased" reading above was one draw over-interpreted. The
+right statement is that per-speaker rankings need averaging over references, not
+that speakers do not differ.
+
+**Correction 2, and this one was an error rather than an overstatement.**
+Section 7 reported duration against gap at rho +0.001 and concluded length was
+irrelevant. That used 18 points from two runs, all of which had already passed
+the 3 s guard — range restriction, on a variable whose most important effect is
+the cliff at the bottom. Over all 37 surviving cells:
 
 | | Spearman rho |
 |---|---|
-| change in duration vs change in gap | +0.017 |
-| reference duration vs gap, 18 points | +0.001 |
+| duration vs similarity, all survivors | **+0.231** |
+| duration vs similarity, within speaker | **+0.337** |
 
-Nothing. Reference choice matters enormously and length is not why.
+Longer references are moderately better, and short ones do not work at all. The
+earlier claim was wrong. It is still not a rule — the longest clip is the best
+one for only 3 of 9 speakers — so length is a weak predictor above the floor and
+a decisive one below it.
 
 ### What survives, and what this costs
 
@@ -456,20 +483,16 @@ finetuned-bestof4 all used the same reference clips, so the paired comparisons
 between them hold reference choice constant. +0.0266 at 4.6 standard errors
 stands.
 
-**The absolute numbers are less precise than reported.** The ±0.076 quoted on
-0.546 is spread across speakers and sentences; it does not include reference
-choice, which moved the overall mean from 0.539 to 0.526 on a single alternate
-draw. Treat the headline as carrying roughly ±0.015 of unmodelled reference
-uncertainty on top.
+**The absolute numbers carry uncertainty that was not reported.** The ±0.076
+quoted on 0.546 is spread across speakers and sentences; reference choice adds
+about ±0.041 per speaker on top, which the run-level means (0.539, 0.526, 0.530,
+0.511, 0.557) show directly.
 
-**Reference selection is a real lever, and an uncharacterised one.** A 0.100
-swing on one speaker is larger than everything the finetune bought. What makes a
-reference good is now the open question — and it is not duration, not SNR
-(every clip scores 88 "excellent"), and not the speaker.
-
-The honest next step is not another hypothesis about voices. It is to run every
-clip as the reference for a few speakers, so the distribution is measured
-instead of sampled once.
+**Reference selection is the largest untapped lever measured so far.** An oracle
+picking each speaker's best clip gains **+0.028** over the default — as much as
+the finetune and best-of-4 combined. That figure is an upper bound: taking the
+maximum of a few noisy draws is biased upward, and no method for picking the
+best clip in advance exists yet. Duration explains part of it and not most of it.
 
 ## 8. Caveats
 

@@ -1,0 +1,667 @@
+{
+  "label": "finetuned-ref1",
+  "engine": "f5",
+  "created": "2026-08-28 07:33:51",
+  "duration_minutes": 11.5,
+  "config": {
+    "ref_transcript": "corpus",
+    "engine_option": [],
+    "preprocess_option": [],
+    "candidates": 1,
+    "reference_index": 1,
+    "seeds": [
+      42
+    ],
+    "sentences": [
+      "s1",
+      "s2",
+      "s3"
+    ],
+    "device": "mps",
+    "speakers": [
+      "cv02",
+      "cv03",
+      "cv04",
+      "cv07",
+      "cv08",
+      "cv09",
+      "cv10",
+      "cv11",
+      "mana"
+    ],
+    "similarity_backend": "speechbrain-ecapa"
+  },
+  "calibration": {
+    "ceiling": 0.6891468139857311,
+    "floor": 0.13164384461441692,
+    "cross_max": 0.5080686271151329,
+    "same_pairs": 90,
+    "cross_pairs": 900,
+    "per_speaker_ceiling": {
+      "cv02": 0.6793774266324999,
+      "cv03": 0.6613597293034932,
+      "cv04": 0.7020731804276903,
+      "cv07": 0.6802081782561071,
+      "cv08": 0.6072819550114098,
+      "cv09": 0.7810301211671395,
+      "cv10": 0.5953755729725827,
+      "cv11": 0.7568971756212158,
+      "mana": 0.7387179864794412
+    }
+  },
+  "recogniser_floor": {
+    "cer_mean": 0.07800123509335873,
+    "wer_mean": 0.3740008247479986,
+    "cer_median": 0.046875,
+    "clips": 45
+  },
+  "summary": {
+    "held_out_mean": 0.5263518518518518,
+    "held_out_sd": 0.04736635750574265,
+    "reference_mean": 0.6411444444444444,
+    "wer_mean": 0.23828023828023828,
+    "cer_mean": 0.02546791900797069,
+    "cer_median": 0.023255813953488372,
+    "scale_position": 0.7097768370882896,
+    "renders": 27,
+    "failures": 0
+  },
+  "per_speaker": {
+    "cv02": {
+      "held_out": 0.47626666666666667,
+      "ceiling": 0.6793774266324999,
+      "gap": -0.20311075996583322,
+      "reference": 0.5550333333333333,
+      "wer": 0.27143227143227144,
+      "cer": 0.024683154915713056,
+      "renders": 3
+    },
+    "cv03": {
+      "held_out": 0.5235666666666666,
+      "ceiling": 0.6613597293034932,
+      "gap": -0.13779306263682656,
+      "reference": 0.6805666666666667,
+      "wer": 0.21082621082621084,
+      "cer": 0.015159345391903532,
+      "renders": 3
+    },
+    "cv04": {
+      "held_out": 0.5466666666666667,
+      "ceiling": 0.7020731804276903,
+      "gap": -0.15540651376102355,
+      "reference": 0.6574333333333333,
+      "wer": 0.1851851851851852,
+      "cer": 0.007407407407407408,
+      "renders": 3
+    },
+    "cv07": {
+      "held_out": 0.5261333333333333,
+      "ceiling": 0.6802081782561071,
+      "gap": -0.1540748449227738,
+      "reference": 0.5765666666666667,
+      "wer": 0.3017353017353017,
+      "cer": 0.0437307739633321,
+      "renders": 3
+    },
+    "cv08": {
+      "held_out": 0.4906333333333333,
+      "ceiling": 0.6072819550114098,
+      "gap": -0.11664862167807649,
+      "reference": 0.6841,
+      "wer": 0.24112924112924114,
+      "cer": 0.03420696443952258,
+      "renders": 3
+    },
+    "cv09": {
+      "held_out": 0.5911666666666666,
+      "ceiling": 0.7810301211671395,
+      "gap": -0.18986345450047293,
+      "reference": 0.6150666666666667,
+      "wer": 0.1851851851851852,
+      "cer": 0.007407407407407408,
+      "renders": 3
+    },
+    "cv10": {
+      "held_out": 0.47503333333333336,
+      "ceiling": 0.5953755729725827,
+      "gap": -0.12034223963924934,
+      "reference": 0.5914333333333334,
+      "wer": 0.27143227143227144,
+      "cer": 0.04161437184692999,
+      "renders": 3
+    },
+    "cv11": {
+      "held_out": 0.5822333333333333,
+      "ceiling": 0.7568971756212158,
+      "gap": -0.17466384228788256,
+      "reference": 0.7180333333333333,
+      "wer": 0.21082621082621084,
+      "cer": 0.015159345391903532,
+      "renders": 3
+    },
+    "mana": {
+      "held_out": 0.5254666666666666,
+      "ceiling": 0.7387179864794412,
+      "gap": -0.21325131981277456,
+      "reference": 0.6920666666666667,
+      "wer": 0.2667702667702668,
+      "cer": 0.03984250030761659,
+      "renders": 3
+    }
+  },
+  "rows": [
+    {
+      "speaker": "cv02",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.4857,
+      "held_out_scores": [
+        0.5165,
+        0.4954,
+        0.4773,
+        0.4537
+      ],
+      "reference_similarity": 0.5367,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv02_s1_seed42.wav",
+      "seconds": 3.29
+    },
+    {
+      "speaker": "cv02",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.4814,
+      "held_out_scores": [
+        0.4566,
+        0.4793,
+        0.5761,
+        0.4138
+      ],
+      "reference_similarity": 0.6023,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "و گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv02_s2_seed42.wav",
+      "seconds": 3.32
+    },
+    {
+      "speaker": "cv02",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.4617,
+      "held_out_scores": [
+        0.504,
+        0.4572,
+        0.5059,
+        0.3795
+      ],
+      "reference_similarity": 0.5261,
+      "word_error_rate": 0.18181818181818182,
+      "character_error_rate": 0.02857142857142857,
+      "transcription": "گل زیبای باغم و امروز شکفت و بهار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv02_s3_seed42.wav",
+      "seconds": 2.68
+    },
+    {
+      "speaker": "cv03",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5101,
+      "held_out_scores": [
+        0.659,
+        0.6231,
+        0.2404,
+        0.5179
+      ],
+      "reference_similarity": 0.6956,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv03_s1_seed42.wav",
+      "seconds": 4.26
+    },
+    {
+      "speaker": "cv03",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5495,
+      "held_out_scores": [
+        0.7305,
+        0.6442,
+        0.229,
+        0.5944
+      ],
+      "reference_similarity": 0.6951,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "و گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv03_s2_seed42.wav",
+      "seconds": 4.4
+    },
+    {
+      "speaker": "cv03",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5111,
+      "held_out_scores": [
+        0.6666,
+        0.5776,
+        0.2556,
+        0.5445
+      ],
+      "reference_similarity": 0.651,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv03_s3_seed42.wav",
+      "seconds": 3.24
+    },
+    {
+      "speaker": "cv04",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5822,
+      "held_out_scores": [
+        0.6601,
+        0.555,
+        0.5375,
+        0.5762
+      ],
+      "reference_similarity": 0.6776,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv04_s1_seed42.wav",
+      "seconds": 4.28
+    },
+    {
+      "speaker": "cv04",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.554,
+      "held_out_scores": [
+        0.62,
+        0.5353,
+        0.5361,
+        0.5246
+      ],
+      "reference_similarity": 0.668,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv04_s2_seed42.wav",
+      "seconds": 4.12
+    },
+    {
+      "speaker": "cv04",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5038,
+      "held_out_scores": [
+        0.543,
+        0.52,
+        0.4065,
+        0.5458
+      ],
+      "reference_similarity": 0.6267,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv04_s3_seed42.wav",
+      "seconds": 3.54
+    },
+    {
+      "speaker": "cv07",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5444,
+      "held_out_scores": [
+        0.5733,
+        0.5282,
+        0.6191,
+        0.457
+      ],
+      "reference_similarity": 0.6104,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv07_s1_seed42.wav",
+      "seconds": 3.7
+    },
+    {
+      "speaker": "cv07",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.4966,
+      "held_out_scores": [
+        0.6355,
+        0.4768,
+        0.4901,
+        0.3839
+      ],
+      "reference_similarity": 0.5862,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "و گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv07_s2_seed42.wav",
+      "seconds": 3.73
+    },
+    {
+      "speaker": "cv07",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5374,
+      "held_out_scores": [
+        0.641,
+        0.5433,
+        0.5127,
+        0.4526
+      ],
+      "reference_similarity": 0.5331,
+      "word_error_rate": 0.2727272727272727,
+      "character_error_rate": 0.08571428571428572,
+      "transcription": "گل زیبای باغ ما امروز شکف و بحار از راه رسیم",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv07_s3_seed42.wav",
+      "seconds": 2.95
+    },
+    {
+      "speaker": "cv08",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.4942,
+      "held_out_scores": [
+        0.5965,
+        0.5631,
+        0.3598,
+        0.4576
+      ],
+      "reference_similarity": 0.7188,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv08_s1_seed42.wav",
+      "seconds": 4.44
+    },
+    {
+      "speaker": "cv08",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.491,
+      "held_out_scores": [
+        0.6015,
+        0.5836,
+        0.3776,
+        0.4014
+      ],
+      "reference_similarity": 0.6901,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "و گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv08_s2_seed42.wav",
+      "seconds": 4.46
+    },
+    {
+      "speaker": "cv08",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.4867,
+      "held_out_scores": [
+        0.5774,
+        0.5819,
+        0.3711,
+        0.4165
+      ],
+      "reference_similarity": 0.6434,
+      "word_error_rate": 0.09090909090909091,
+      "character_error_rate": 0.05714285714285714,
+      "transcription": "گل زیبای باقه ما امروز شکفت و بهار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv08_s3_seed42.wav",
+      "seconds": 3.46
+    },
+    {
+      "speaker": "cv09",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5799,
+      "held_out_scores": [
+        0.5331,
+        0.5827,
+        0.6333,
+        0.5705
+      ],
+      "reference_similarity": 0.5778,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv09_s1_seed42.wav",
+      "seconds": 4.1
+    },
+    {
+      "speaker": "cv09",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6015,
+      "held_out_scores": [
+        0.5716,
+        0.5518,
+        0.6554,
+        0.6271
+      ],
+      "reference_similarity": 0.6639,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv09_s2_seed42.wav",
+      "seconds": 4.17
+    },
+    {
+      "speaker": "cv09",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5921,
+      "held_out_scores": [
+        0.5443,
+        0.5596,
+        0.6621,
+        0.6022
+      ],
+      "reference_similarity": 0.6035,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv09_s3_seed42.wav",
+      "seconds": 3.47
+    },
+    {
+      "speaker": "cv10",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.463,
+      "held_out_scores": [
+        0.4592,
+        0.4475,
+        0.552,
+        0.3934
+      ],
+      "reference_similarity": 0.6315,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.044444444444444446,
+      "transcription": "دیروز در کتاب خان شهر کتابی در باره تاریخ ایران خاندم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv10_s1_seed42.wav",
+      "seconds": 3.74
+    },
+    {
+      "speaker": "cv10",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5128,
+      "held_out_scores": [
+        0.5231,
+        0.5256,
+        0.5544,
+        0.4479
+      ],
+      "reference_similarity": 0.5723,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "و گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv10_s2_seed42.wav",
+      "seconds": 3.51
+    },
+    {
+      "speaker": "cv10",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.4493,
+      "held_out_scores": [
+        0.4861,
+        0.4845,
+        0.4901,
+        0.3366
+      ],
+      "reference_similarity": 0.5705,
+      "word_error_rate": 0.18181818181818182,
+      "character_error_rate": 0.05714285714285714,
+      "transcription": "گل زیبای باغ ما امروز شکفت و بحار از راه رسیم",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv10_s3_seed42.wav",
+      "seconds": 2.88
+    },
+    {
+      "speaker": "cv11",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.58,
+      "held_out_scores": [
+        0.5606,
+        0.6486,
+        0.4705,
+        0.6402
+      ],
+      "reference_similarity": 0.7465,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv11_s1_seed42.wav",
+      "seconds": 5.04
+    },
+    {
+      "speaker": "cv11",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6343,
+      "held_out_scores": [
+        0.634,
+        0.6774,
+        0.5581,
+        0.6677
+      ],
+      "reference_similarity": 0.7348,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "و گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv11_s2_seed42.wav",
+      "seconds": 4.94
+    },
+    {
+      "speaker": "cv11",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5324,
+      "held_out_scores": [
+        0.4866,
+        0.5873,
+        0.4695,
+        0.5861
+      ],
+      "reference_similarity": 0.6728,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/cv11_s3_seed42.wav",
+      "seconds": 3.69
+    },
+    {
+      "speaker": "mana",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5291,
+      "held_out_scores": [
+        0.6103,
+        0.5035,
+        0.5036,
+        0.4991
+      ],
+      "reference_similarity": 0.6895,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.044444444444444446,
+      "transcription": "دیروز در کتاب خان شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/mana_s1_seed42.wav",
+      "seconds": 3.95
+    },
+    {
+      "speaker": "mana",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5576,
+      "held_out_scores": [
+        0.6065,
+        0.5741,
+        0.5198,
+        0.5299
+      ],
+      "reference_similarity": 0.7095,
+      "word_error_rate": 0.15384615384615385,
+      "character_error_rate": 0.046511627906976744,
+      "transcription": "و گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کنند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/mana_s2_seed42.wav",
+      "seconds": 4.01
+    },
+    {
+      "speaker": "mana",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.4897,
+      "held_out_scores": [
+        0.5345,
+        0.5004,
+        0.4243,
+        0.4997
+      ],
+      "reference_similarity": 0.6772,
+      "word_error_rate": 0.09090909090909091,
+      "character_error_rate": 0.02857142857142857,
+      "transcription": "گل زیبای باق ما امروز شکفت و بهار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/Users/ahmadrezamerikh/Desktop/Voice Cloning/outputs/benchmark/finetuned-ref1/mana_s3_seed42.wav",
+      "seconds": 3.09
+    }
+  ]
+}

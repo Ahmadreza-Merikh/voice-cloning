@@ -341,7 +341,7 @@ lead: cv09 sits 0.071 from its own ceiling, cv11 and mana more than 0.19.
 
 ---
 
-## 7. Chasing the per-speaker spread, and finding nothing
+## 7. The per-speaker spread was the reference clip
 
 At 0.546 overall the gap to each speaker's own ceiling ranges from 0.071 (cv09)
 to 0.217 (mana) — three times the spread. `scripts/analyse_speaker_gap.py`
@@ -399,12 +399,77 @@ The spread is mostly **speaker-specific and unexplained**. It is not the model
 averaging voices, not the voices being unusual, and not one common artefact. So
 the remaining levers are the model and the data, not post-processing.
 
-The cheapest untested explanation is the **reference clip**: each speaker was
-cloned from exactly one, and cv09's may simply be a better sample of that voice
-than mana's is of theirs. Re-running with a different reference per speaker
-would separate "this voice is hard" from "this clip was unlucky" — and if
-reference choice moves the number, reference selection becomes a production
-lever in its own right.
+The cheapest untested explanation was the **reference clip**. It has now been
+tested, and it does not merely contribute — it accounts for the whole spread.
+
+### The spread was not a property of the voices
+
+Section 7 ended by naming the reference clip as the cheapest untested
+explanation. It is the explanation, and it is worse than expected: **the
+per-speaker ranking does not survive changing which clip the model is
+conditioned on.**
+
+Same weights, same sentences, same seed, same device. Only the reference clip
+differs — index 1 instead of the manifest's index 0, with the swapped clip
+moving into the held-out set so each speaker is still scored against four
+recordings and its own ceiling recomputed.
+
+| speaker | gap, ref 0 | gap, ref 1 | change |
+|---|---|---|---|
+| cv09 | **0.090** | 0.190 | **+0.100** |
+| cv02 | 0.106 | 0.203 | +0.097 |
+| cv03 | 0.115 | 0.138 | +0.022 |
+| cv04 | 0.129 | 0.155 | +0.026 |
+| cv08 | 0.142 | 0.117 | −0.026 |
+| cv10 | 0.149 | 0.120 | −0.029 |
+| cv07 | 0.187 | 0.154 | −0.033 |
+| cv11 | **0.218** | 0.175 | −0.044 |
+| mana | 0.209 | 0.213 | +0.004 |
+
+**Rank correlation between the two orderings: −0.033.** Not weakened —
+*erased*. cv09 was the best-cloned speaker and becomes the seventh; cv11 was the
+worst and becomes the sixth. The mean absolute change is 0.042, twice the
+encoder's noise, and cv09 alone moves 0.100 — seventy per cent of the average
+gap, from swapping one input file.
+
+So "cv11 and mana are hard voices" was never a finding. It was one draw from a
+distribution over reference clips, read as a property of the speakers. Every
+per-speaker conclusion in section 7 dissolves with it, including the lead it
+recommended chasing.
+
+### Duration does not explain it either
+
+The obvious candidate, since the manifest's reference is the longest clip and
+the alternates are shorter:
+
+| | Spearman rho |
+|---|---|
+| change in duration vs change in gap | +0.017 |
+| reference duration vs gap, 18 points | +0.001 |
+
+Nothing. Reference choice matters enormously and length is not why.
+
+### What survives, and what this costs
+
+**The finetune result is unaffected.** baseline, finetuned and
+finetuned-bestof4 all used the same reference clips, so the paired comparisons
+between them hold reference choice constant. +0.0266 at 4.6 standard errors
+stands.
+
+**The absolute numbers are less precise than reported.** The ±0.076 quoted on
+0.546 is spread across speakers and sentences; it does not include reference
+choice, which moved the overall mean from 0.539 to 0.526 on a single alternate
+draw. Treat the headline as carrying roughly ±0.015 of unmodelled reference
+uncertainty on top.
+
+**Reference selection is a real lever, and an uncharacterised one.** A 0.100
+swing on one speaker is larger than everything the finetune bought. What makes a
+reference good is now the open question — and it is not duration, not SNR
+(every clip scores 88 "excellent"), and not the speaker.
+
+The honest next step is not another hypothesis about voices. It is to run every
+clip as the reference for a few speakers, so the distribution is measured
+instead of sampled once.
 
 ## 8. Caveats
 

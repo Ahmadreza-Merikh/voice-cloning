@@ -340,7 +340,12 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     done = 0
 
     for speaker, entries in sorted(corpus.items()):
-        reference = next((e for e in entries if e["role"] == "reference"), entries[0])
+        # Index 0 is the clip the manifest tags as the reference, so the default
+        # reproduces earlier runs exactly. Any other index makes a different clip
+        # the one the model is conditioned on and scores against the rest, which
+        # is what separates a hard voice from an unlucky sample of it.
+        ordered = sorted(entries, key=lambda e: e["file"])
+        reference = ordered[args.reference_index % len(ordered)]
         held_out = [e for e in entries if e is not reference]
         held_audio = {e["file"]: load_audio(str(e["path"])) for e in held_out}
         reference_audio = load_audio(str(reference["path"]))
@@ -523,6 +528,7 @@ def summarise(
             "engine_option": args.engine_option or [],
             "preprocess_option": args.preprocess_option or [],
             "candidates": args.candidates,
+            "reference_index": args.reference_index,
             "seeds": seeds,
             "sentences": [k for k, _ in sentences],
             "device": args.device or "auto",
@@ -674,6 +680,12 @@ def main() -> int:
     parser.add_argument("--speakers", nargs="+", default=None)
     parser.add_argument("--limit-speakers", type=int, default=None)
     parser.add_argument("--candidates", type=int, default=1, help="Takes per render (best-of-N)")
+    parser.add_argument(
+        "--reference-index",
+        type=int,
+        default=0,
+        help="Which of a speaker's clips to condition on (0 = the manifest's reference)",
+    )
     parser.add_argument(
         "--ref-transcript",
         choices=["corpus", "asr"],

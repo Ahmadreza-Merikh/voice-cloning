@@ -491,8 +491,73 @@ about ±0.041 per speaker on top, which the run-level means (0.539, 0.526, 0.530
 **Reference selection is the largest untapped lever measured so far.** An oracle
 picking each speaker's best clip gains **+0.028** over the default — as much as
 the finetune and best-of-4 combined. That figure is an upper bound: taking the
-maximum of a few noisy draws is biased upward, and no method for picking the
-best clip in advance exists yet. Duration explains part of it and not most of it.
+maximum of a few noisy draws is biased upward.
+
+### Can the good clip be picked in advance? Not from anything measurable here
+
+Thirteen properties of a reference clip, correlated within speaker against the
+similarity it actually produced. Within speaker, because between speakers the
+voices differ as much as the references do — a pooled correlation would mostly
+measure which speaker a clip belongs to.
+
+| feature | mean rho | consistent |
+|---|---|---|
+| speech seconds (after VAD) | **+0.575** | 7 of 8 |
+| voiced fraction | +0.500 | 6 of 8 |
+| speech ratio | +0.450 | 6 of 8 |
+| typicality (closeness to the speaker's other clips) | +0.450 | 7 of 8 |
+| **the project's own quality score** | **−0.362** | 6 of 8 |
+| raw duration | +0.337 | 7 of 8 |
+| SNR | −0.175 | 5 of 8 |
+
+Speech content is what matters — actual speech seconds ranks better than raw
+duration, which is why the earlier duration finding was real but weak: silence
+was diluting it.
+
+**The project's 0–100 usability score points the wrong way.** It is built to
+judge whether a recording is clean enough to use, and on that job it is fine —
+every clip here scores "excellent". As a way to choose between clips it is worse
+than a coin, and nothing should be selecting references with it.
+
+### The correlations do not survive contact with the decision
+
+Ranking is not picking. Each rule below chooses the clip it ranks first, and is
+scored on what that clip actually achieved:
+
+| rule | gain over the default clip | share of the headroom | picked the true best |
+|---|---|---|---|
+| voiced fraction | **+0.0074** | 27% | 5 of 8 |
+| speech seconds | +0.0052 | 19% | 4 of 8 |
+| speech ratio | +0.0036 | 13% | 4 of 8 |
+| raw duration | +0.0000 | 0% | 3 of 8 |
+| typicality | **−0.0108** | −40% | 3 of 8 |
+| oracle | +0.0272 | 100% | 8 of 8 |
+
+The best rule captures **27% of the available gain and lands at +0.007 — a third
+of the encoder's own noise.** A rank correlation of +0.575 over four clips still
+puts the wrong one first most of the time, and only the first pick ships.
+
+Note also that the strongest correlation and the best realised gain are
+different features. With eight speakers and three to five clips each, that
+difference is not resolvable — which is itself the point: none of these is
+reliable enough to build on.
+
+*(Typicality is worse than useless despite correlating at +0.450, and it carries
+a caveat besides: it is measured against the same recordings the render is later
+scored against, so part of its apparent signal is the evaluation setup rather
+than the clip.)*
+
+### Where that leaves reference selection
+
+The +0.027 is real and it is the largest single lever measured on this corpus —
+larger than the finetune. It is **not reachable by inspection**. Choosing a
+reference by measurement means rendering from each candidate and comparing,
+which is the same trade best-of-N already makes on the seed axis.
+
+That comparison is worth making directly. Best-of-4 over seeds buys +0.014 for
+4× the compute; the reference axis has +0.027 sitting on it for the same kind of
+spend. Nothing has yet tested selecting over references instead of over seeds,
+and on these numbers it is the better-looking of the two.
 
 ## 8. Caveats
 

@@ -339,7 +339,74 @@ has not been made.
 0.143, seven times the encoder's noise. The per-speaker spread is the standing
 lead: cv09 sits 0.071 from its own ceiling, cv11 and mana more than 0.19.
 
-## 7. Caveats
+---
+
+## 7. Chasing the per-speaker spread, and finding nothing
+
+At 0.546 overall the gap to each speaker's own ceiling ranges from 0.071 (cv09)
+to 0.217 (mana) — three times the spread. `scripts/analyse_speaker_gap.py`
+tests three explanations for it. **All three fail**, which is worth recording
+because each would have implied a different fix.
+
+### Mean-voice regression: refuted, and backwards
+
+The obvious hypothesis is that the model pulls every render toward the centre of
+the voices it was trained on, so distinctive speakers lose most. Measured
+against the centroid of the nine real voices:
+
+| | |
+|---|---|
+| renders pulled *toward* the centre | **1 of 9** |
+| mean displacement | **−0.080** (away) |
+
+Renders sit *further* from the centre of real speech than the references they
+were cloned from. Whatever the model is doing, averaging voices is not it.
+
+### Distinctiveness does not predict the loss
+
+If some voices were simply harder for sitting far from the training
+distribution, distance from the centroid would track the gap. Spearman rho over
+the nine speakers is **+0.067** — nothing. mana is the *least* distinctive voice
+in the set and has the largest gap; cv11 is the most distinctive and has the
+second largest.
+
+### One shared artefact: real, weak, and not a lever
+
+Since renders move away from real speech in some direction, that direction might
+be shared — a "this is synthetic" signature carried regardless of speaker. The
+per-speaker offsets do align, weakly: mean pairwise cosine **+0.147** across 36
+pairs.
+
+Projecting it out — fitted leave-one-speaker-out, so no speaker's own offset
+informs its own correction — recovers **+0.0167**, improving 8 of 9. That is
+about 12% of the remaining gap, from a direction that genuinely generalises
+across voices.
+
+**It is not a fix, and should not be used as one.** Subtracting a direction from
+an embedding changes the score, not the audio. Applying it would improve the
+metric while leaving the render exactly as it sounds — which is the definition
+of gaming the measurement. It is recorded as a diagnostic: a shared artefact
+exists, and it is a minority of the problem.
+
+*(The similarities in that test run higher than the headline numbers — 0.66
+against 0.55 — because they compare each render to the mean of a speaker's
+held-out clips rather than pair by pair. Comparable within the test, not to the
+benchmark.)*
+
+### What that leaves
+
+The spread is mostly **speaker-specific and unexplained**. It is not the model
+averaging voices, not the voices being unusual, and not one common artefact. So
+the remaining levers are the model and the data, not post-processing.
+
+The cheapest untested explanation is the **reference clip**: each speaker was
+cloned from exactly one, and cv09's may simply be a better sample of that voice
+than mana's is of theirs. Re-running with a different reference per speaker
+would separate "this voice is hard" from "this clip was unlucky" — and if
+reference choice moves the number, reference selection becomes a production
+lever in its own right.
+
+## 8. Caveats
 
 - **One seed per configuration.** Autoregressive and flow-matching engines vary
   between seeds; the differences reported as "inside noise" would need several

@@ -210,6 +210,33 @@ class ChatterboxConfig:
 
 
 @dataclass
+class OmniVoiceConfig:
+    """OmniVoice, driven out-of-process in its own virtualenv.
+
+    Generation defaults are upstream's ``omnivoice-infer`` values, which are
+    what arXiv 2604.00688 measured with. Changing any of them is a departure
+    from the published configuration and belongs in a benchmark label.
+    """
+
+    python: str | None = "auto"
+    model_id: str = "k2-fsa/OmniVoice"
+    #: Upstream: performance is slightly better when the language is named.
+    language: str = "fa"
+    #: Upstream's own inference dtype. The worker steps up to float32 only if
+    #: float16 fails to load, and reports it.
+    dtype: str = "float16"
+    num_step: int = 32
+    guidance_scale: float = 2.0
+    t_shift: float = 0.1
+    denoise: bool = True
+    postprocess_output: bool = True
+    layer_penalty_factor: float = 5.0
+    position_temperature: float = 5.0
+    class_temperature: float = 0.0
+    timeout_seconds: int = 900
+
+
+@dataclass
 class SeedVCConfig:
     repo_path: str | None = "auto"
     python: str | None = "auto"
@@ -229,6 +256,7 @@ class EnginesConfig:
     f5: F5Config = field(default_factory=F5Config)
     moss: MossConfig = field(default_factory=MossConfig)
     chatterbox: ChatterboxConfig = field(default_factory=ChatterboxConfig)
+    omnivoice: OmniVoiceConfig = field(default_factory=OmniVoiceConfig)
     asr: ASRConfig = field(default_factory=ASRConfig)
     seedvc: SeedVCConfig = field(default_factory=SeedVCConfig)
 

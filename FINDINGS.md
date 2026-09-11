@@ -608,7 +608,67 @@ like: best-of-4 was measured on four seeds, this on up to five references.
 decision is scored against a single withheld recording rather than four. Read
 the gain, not the level.)*
 
-## 8. Caveats
+---
+
+## 8. What exists, checked rather than recalled
+
+Every result above rests on one base, and that base was never compared against
+anything current. The choice came from recalled knowledge that placed F5-TTS at
+the frontier. On 11 September 2026 the landscape was checked live instead —
+Hugging Face's API, model cards, papers — and the recalled picture turned out to
+be months stale.
+
+### Current models that list Persian
+
+Verified against each model's own card or repository:
+
+| model | size | licence | Persian | runs on this 16 GB Mac |
+|---|---|---|---|---|
+| [k2-fsa/OmniVoice](https://github.com/k2-fsa/OmniVoice) | 3.3 GB | Apache-2.0 | yes | yes — MPS documented |
+| [MOSS-TTS-Local-Transformer-v1.5](https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5) | 5B, bf16 | Apache-2.0 | yes | no — ~10 GB of weights |
+| [fishaudio/s2-pro](https://huggingface.co/fishaudio/s2-pro) | 5B | research / non-commercial | yes | no |
+| [bosonai/higgs-tts-3-4b](https://huggingface.co/bosonai/higgs-tts-3-4b) | ~4B | research / non-commercial | yes | no |
+| SWivid/F5-TTS (the base this project continued) | 330M | — | **no** | yes |
+
+Also found: [ParsVoice](https://arxiv.org/abs/2510.10774), the largest public
+multi-speaker Persian TTS corpus, latest version 26 May 2026. A zero-shot XTTS
+adapted on it reports naturalness MOS 3.6 and speaker-similarity MOS 4.0. It is
+exactly the kind of corpus this project's discussion had assumed did not exist.
+
+### Why no leaderboard answers "what is state of the art" here
+
+- [Voice Arena](https://voicearena.com/tts-methodology) measures naturalness
+  only and says so explicitly — it does not measure voice-cloning similarity. It
+  covers six languages; Persian is not one.
+- The multilingual cloning benchmarks — [CV3-Eval](https://arxiv.org/pdf/2505.17589)
+  (9 languages), LEMAS-TTS (10), Seed-TTS-eval (zh, en) — include no Persian.
+- Published speaker similarity uses WavLM-based extractors. PilotTTS reports
+  0.862 and 0.815. This corpus's human ceiling on ECAPA is 0.689, so on a shared
+  scale those systems would be clone-better-than-the-person — which shows only
+  that the scales are different instruments.
+
+So for Persian zero-shot cloning there is no external answer to "which is best".
+The calibrated benchmark in this repository is the instrument that can give one,
+and running current models through it is, as far as a search finds, the first
+such comparison.
+
+### First candidate: OmniVoice
+
+Chosen because it is the only one that fits this machine without cutting
+anything. From [its paper](https://arxiv.org/abs/2604.00688), not recalled:
+
+- FLEURS Persian CER **1.90%** against 1.57% for the ground-truth recordings
+- on identical training data it beats F5-TTS on every speaker-similarity set its
+  authors report: 0.729 vs 0.655, 0.741 vs 0.664, 0.777 vs 0.750
+
+Integrated as engine `omnivoice`, out-of-process in its own environment, with
+upstream's published inference settings. **Not yet measured here** — its paper's
+numbers say nothing about this corpus, and the benchmark decides.
+
+The three larger candidates do not fit locally without compromise and belong on
+remote hardware, where their non-commercial licences also need weighing.
+
+## 9. Caveats
 
 - **One seed per configuration.** Autoregressive and flow-matching engines vary
   between seeds; the differences reported as "inside noise" would need several

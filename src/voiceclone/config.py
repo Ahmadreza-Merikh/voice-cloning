@@ -222,8 +222,9 @@ class OmniVoiceConfig:
     model_id: str = "k2-fsa/OmniVoice"
     #: Upstream: performance is slightly better when the language is named.
     language: str = "fa"
-    #: Upstream's own inference dtype. The worker steps up to float32 only if
-    #: float16 fails to load, and reports it.
+    #: Upstream's own inference dtype, which the paper measured with. On MPS the
+    #: worker casts on CPU and then moves the model, because casting during
+    #: transformers' threaded weight loading crashes torch's Metal backend.
     dtype: str = "float16"
     num_step: int = 32
     guidance_scale: float = 2.0

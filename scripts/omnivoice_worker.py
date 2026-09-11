@@ -105,6 +105,45 @@ def _model_class() -> Any:
     return OmniVoice
 
 
+def _load_once(model_class: Any, model_id: str, device: str, dtype_name: str) -> Any:
+    """One placement attempt.
+
+    On Apple Silicon a float16 load is cast on CPU and then moved, because
+    casting during the load itself kills the process. transformers 5.x
+    materialises weights in a thread pool (``GLOBAL_WORKERS``, hard-coded, no
+    environment switch), and asking it for float16 on MPS aborts inside
+    ``_materialize_copy``: macOS's crash report puts the fault in torch's
+    ``copy_cast_kernel_mps`` -> ``MetalShaderLibrary::exec_unary_kernel``. It is a
+    native crash, so no ``except`` here can recover from it.
+
+    Probed on this machine, each placement in its own process, loading and then
+    rendering one Persian sentence:
+
+        MPS, float16                     aborts during weight loading
+        MPS, float32                     loads and renders
+        CPU float16, then moved to MPS   loads and renders (fastest of the three)
+        CPU, float32                     loads and renders, about twice as slow
+
+    Casting on CPU and moving the finished model keeps upstream's float16 - the
+    dtype its published numbers were measured with - on Metal. The checkpoint is
+    stored in float32, so this is the same cast, just on the other side of the
+    copy. The audio tokenizer stays on CPU, as upstream already arranges for MPS.
+
+    A minimal threaded cast-copy did not reproduce the crash in isolation, so the
+    exact trigger is unconfirmed; the placement above is what measurably works.
+    """
+    import torch
+
+    dtype = _dtype(dtype_name)
+    if device.startswith("mps") and dtype != torch.float32:
+        model = model_class.from_pretrained(model_id, device_map="cpu", dtype=dtype)
+        tokenizer = model.audio_tokenizer
+        model = model.to(device)
+        model.audio_tokenizer = tokenizer.to("cpu")
+        return model
+    return model_class.from_pretrained(model_id, device_map=device, dtype=dtype)
+
+
 def load_model(model_id: str, device: str, dtype_name: str) -> tuple[Any, str, str]:
     """Load on the requested device and dtype, stepping aside only on failure.
 
@@ -113,6 +152,10 @@ def load_model(model_id: str, device: str, dtype_name: str) -> tuple[Any, str, s
     fallback trades away quality - but a run that quietly landed somewhere other
     than where it was asked to would still be measuring a configuration nobody
     chose, and that should be visible in the result.
+
+    These fallbacks only catch Python-level failures. A native crash ends the
+    process before any of them run, which is why :func:`_load_once` avoids the
+    known one up front instead of relying on this loop.
     """
     import torch
 
@@ -128,9 +171,7 @@ def load_model(model_id: str, device: str, dtype_name: str) -> tuple[Any, str, s
     last_error: Exception | None = None
     for attempt_device, attempt_dtype in attempts:
         try:
-            model = model_class.from_pretrained(
-                model_id, device_map=attempt_device, dtype=_dtype(attempt_dtype)
-            )
+            model = _load_once(model_class, model_id, attempt_device, attempt_dtype)
             model.eval()
             if (attempt_device, attempt_dtype) != (device, dtype_name):
                 _log(

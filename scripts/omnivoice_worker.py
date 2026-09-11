@@ -206,6 +206,26 @@ def _seed(seed: int) -> None:
         torch.mps.manual_seed(seed)
 
 
+def _release_memory() -> None:
+    """Hand cached accelerator memory back to the system after every job.
+
+    The first full run on this 16 GB Mac had to be stopped at cell 20 of 27 when
+    system memory pressure reached warning. Sampled every 30 s, this worker's
+    resident size had risen from 1,855 to 2,021 MB in one minute of rendering -
+    roughly 55 MB per cell. Emptying Metal's allocator cache and collecting
+    garbage changes no computation, only what stays reserved between renders.
+    Whether it removes the growth is for the next run's samples to show.
+    """
+    import gc
+
+    import torch
+
+    gc.collect()
+    with contextlib.suppress(Exception):
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+
+
 def synthesize(model: Any, job: dict[str, Any]) -> dict[str, Any]:
     import numpy as np
     import soundfile as sf
@@ -287,6 +307,8 @@ def main() -> int:
         except Exception as exc:
             _emit({"ok": False, "error": f"{type(exc).__name__}: {exc}"})
             _log(traceback.format_exc())
+        finally:
+            _release_memory()
     return 0
 
 

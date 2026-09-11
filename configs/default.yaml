@@ -200,6 +200,36 @@ engines:
     top_p: 1.0
     timeout_seconds: 900
 
+  omnivoice:
+    # k2-fsa OmniVoice (arXiv 2604.00688): diffusion-language-model TTS trained
+    # on 581k hours across 600+ languages. Chosen by checking the landscape
+    # live, not from memory. Verified against its own paper and model card:
+    #   - Persian is a training language; FLEURS Persian CER 1.90% vs 1.57%
+    #     for the ground-truth recordings
+    #   - on identical training data it beats F5-TTS on every SIM test set
+    #     its authors report
+    #   - Apache-2.0, 3.3 GB, Apple Silicon a documented target
+    # Its SIM numbers use a WavLM-based extractor on other corpora and are not
+    # comparable to this project's. The benchmark decides.
+    #
+    # Brings its own torch/transformers, so it runs in its own environment:
+    #   uv venv --python python3.11 ~/.cache/persian-voice-cloning/omnivoice/.venv
+    #   VIRTUAL_ENV=~/.cache/.../omnivoice/.venv uv pip install omnivoice
+    python: auto
+    model_id: k2-fsa/OmniVoice
+    language: fa
+    dtype: float16             # upstream's inference dtype
+    # Upstream `omnivoice-infer` defaults - the configuration the paper measured.
+    num_step: 32
+    guidance_scale: 2.0
+    t_shift: 0.1
+    denoise: true
+    postprocess_output: true
+    layer_penalty_factor: 5.0
+    position_temperature: 5.0
+    class_temperature: 0.0
+    timeout_seconds: 900
+
   asr:
     # Used to auto-transcribe the reference clip (F5-TTS needs the reference
     # transcript) and to drive the speech-to-speech cascade.

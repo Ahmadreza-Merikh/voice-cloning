@@ -129,7 +129,8 @@ Cell by cell over 27 pairs:
 
 **It changed the outcome in 10 cells and got 9 of them right** (sign test on the
 changed cells, p ≈ 0.02; mean difference 2.2 standard errors from zero). CER did
-not suffer — 2.9% to 2.8%.
+not suffer, but 2.9% to 2.8% is smaller than the recogniser's own run-to-run
+wobble (§9): read it as "no cost", not as an improvement.
 
 So the selector works, and it is the only intervention measured here that does.
 It is also the most expensive: **4× the wall-clock for +0.014**, which buys back
@@ -321,8 +322,10 @@ They do stack, and they overlap.
 | **finetuned + best-of-4** | **0.546** | **2.2%** | **+0.0266, 4.6 SE** |
 
 The full stack is the first configuration to clear the pre-registered 0.0205
-threshold outright, and it does so while CER falls to 2.2% - better than either
-lever alone, which is what a CER-ranked selector on better weights should give.
+threshold outright, and CER does not pay for it. The CER column moves the way a
+CER-ranked selector on better weights should, but that reading is weaker than it
+looks: re-scoring identical audio moves the aggregate by itself (§9), and one
+replication is not enough to put an error bar on a 0.7-point difference.
 Paired against the baseline it changed all 27 cells, improving 23.
 
 But the levers are **sub-additive**. Independently they sum to +0.034; together
@@ -682,3 +685,13 @@ remote hardware, where their non-commercial licences also need weighing.
 - **The ceiling is a property of this corpus.** 0.689 is what these speakers
   score against themselves across their own recordings. A corpus recorded in one
   session would sit higher and make every clone look worse by comparison.
+- **The recogniser is not deterministic, so small CER differences are noise.**
+  Re-scoring one run's existing renders — identical audio, nothing re-generated —
+  reproduced held-out similarity exactly in 27 of 27 cells, but CER matched in
+  only 25 of 27, differing by up to 2.86 points in a single cell and moving the
+  aggregate from 2.9% to 3.0%. Every CER difference of a few tenths quoted above
+  is therefore at or below the instrument's resolution, and the ones flagged in
+  §3 and §6 have been softened accordingly. What survives is the gap that
+  carries the claim: 2.9% against the 7.8% the same recogniser scores on these
+  speakers' real recordings. Similarity is unaffected — it reproduced exactly,
+  and it is what every ranking in this document rests on.

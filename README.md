@@ -138,7 +138,7 @@ Check what your machine can actually run at any time:
 
 | Engine | Persian | Phoneme input | Size | Speed | Notes |
 |---|---|---|---|---|---|
-| **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520 stock, 0.546 continued on 2739 speakers with best-of-4; CER 2.2%. |
+| **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520 stock, 0.546 continued on 2739 speakers with best-of-4; CER 2.2%, a figure whose small differences are within recogniser noise (FINDINGS §9). |
 | **Chatterbox** (`chatterbox`) | community T3 finetune | no (grapheme) | ~3.5 GB | medium | Speaker path is language-agnostic — the part Persian data is *not* needed for. Own venv (torch 2.6). |
 | **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 13.5 GB | slower | Apache-2.0. Pinned to transformers 5.0.x. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
@@ -411,8 +411,11 @@ Continuing the checkpoint on **2739 speakers, 12.47 h** of Common Voice Persian
 | **finetuned + best-of-4** | **0.546** | **2.2%** | **+0.0266, 4.6 SE** |
 
 The full stack is the first configuration to clear the pre-registered
-threshold of 0.0205, and it does so while CER *improves*. Paired over the same
-27 cells it changed every one, improving 23 and costing 4.
+threshold of 0.0205, and CER does not pay for it. The CER column moves in the
+right direction, but re-scoring identical audio shifts it on its own, so these
+tenths sit at the recogniser's resolution rather than above it — see the caveat
+in FINDINGS §9. Paired over the same 27 cells it changed every one, improving
+23 and costing 4.
 
 **The two levers overlap.** Independently they total +0.034; together they
 deliver +0.027. Best-of-4's own contribution on top of the finetune is +0.0067

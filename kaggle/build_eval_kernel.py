@@ -53,15 +53,17 @@ import torch
 INPUT = Path("/kaggle/input")
 print("mounted   :", sorted(p.name for p in INPUT.iterdir()) if INPUT.exists() else "nothing")
 
-# Version 1 died here on a bare FileNotFoundError, which cannot distinguish a
-# wrong path from a dataset version that mounted while still being indexed -
-# an empty mount. Locating the repo by a file that has to be inside it
-# separates the two, and prints what is actually there when neither holds.
-found = sorted(INPUT.glob("*/repo/scripts/benchmark.py"))
+# Two runs died here, both on an assumed depth. The dataset does not mount at
+# /kaggle/input/<slug> as version 1 assumed, nor one level down as version 2's
+# glob assumed - it lands at /kaggle/input/datasets/<owner>/<slug>/. Searching
+# for a file that has to be inside the repo makes the depth irrelevant.
+# Version 2's failure listing was 40 corpus wavs and said nothing, so list
+# directories instead.
+found = sorted(INPUT.rglob("repo/scripts/benchmark.py"))
 if not found:
-    for path in sorted(INPUT.rglob("*"))[:40]:
+    for path in sorted(p for p in INPUT.rglob("*") if p.is_dir())[:40]:
         print("   ", path)
-    raise SystemExit("no repo under /kaggle/input - see the listing above")
+    raise SystemExit("no repo under /kaggle/input - see the directories above")
 SOURCE = found[0].parent.parent
 print("source    :", SOURCE)
 

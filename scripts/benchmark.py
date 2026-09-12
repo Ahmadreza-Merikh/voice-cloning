@@ -333,6 +333,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
     out_dir = args.out_dir / args.label
     out_dir.mkdir(parents=True, exist_ok=True)
+    replay_dir = args.out_dir / (args.replay_from or args.label)
+    if args.score_only:
+        print(f"Scoring existing renders in {replay_dir} - nothing is synthesised.\n")
     studio = Studio(config)
 
     rows: list[dict[str, Any]] = []
@@ -362,17 +365,24 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     flush=True,
                 )
                 try:
-                    result = studio.synthesize(
-                        sentence,
-                        str(reference["path"]),
-                        engine=args.engine,
-                        reference_text=reference_text,
-                        seed=seed,
-                        use_phonemes=False,
-                        engine_options=engine_options or None,
-                        preprocess_overrides=preprocess_overrides or None,
-                        output_path=out_dir / f"{speaker}_{key}_seed{seed}.wav",
-                    )
+                    if args.score_only:
+                        result = _score_existing(
+                            studio,
+                            replay_dir / f"{speaker}_{key}_seed{seed}.wav",
+                            sentence,
+                        )
+                    else:
+                        result = studio.synthesize(
+                            sentence,
+                            str(reference["path"]),
+                            engine=args.engine,
+                            reference_text=reference_text,
+                            seed=seed,
+                            use_phonemes=False,
+                            engine_options=engine_options or None,
+                            preprocess_overrides=preprocess_overrides or None,
+                            output_path=out_dir / f"{speaker}_{key}_seed{seed}.wav",
+                        )
                 except (VoiceCloneError, Exception) as exc:  # noqa: BLE001 - report, continue
                     print(f"      failed: {type(exc).__name__}: {exc}")
                     rows.append(
@@ -424,6 +434,38 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     studio.release()
     return summarise(
         args, rows, calibration, corpus, sentences, seeds, embedder, started, recogniser_floor
+    )
+
+
+def _score_existing(studio: Any, path: Path, expected: str) -> Any:
+    """Score a render that already exists, loading no synthesis engine.
+
+    The recogniser and the two error-rate functions are the ones Studio itself
+    uses when it scores a fresh render, so a replayed run stays comparable to
+    the run that produced the audio. Similarity is computed by the caller from
+    the same embedder every other row uses.
+
+    This is what makes a score measured on one machine checkable on another:
+    re-score the same wavs elsewhere and the difference is the scale, not the
+    engine.
+    """
+    from types import SimpleNamespace
+
+    from voiceclone.audio.io import load_audio
+    from voiceclone.evaluation.similarity import character_error_rate, word_error_rate
+
+    if not path.is_file():
+        raise FileNotFoundError(f"no render at {path}")
+    audio = load_audio(str(path))
+    heard = studio.asr.transcribe(audio).text.strip()
+    return SimpleNamespace(
+        audio=audio,
+        output_path=path,
+        scores=SimpleNamespace(
+            transcription=heard,
+            character_error_rate=character_error_rate(expected, heard),
+            word_error_rate=word_error_rate(expected, heard),
+        ),
     )
 
 
@@ -529,6 +571,8 @@ def summarise(
             "preprocess_option": args.preprocess_option or [],
             "candidates": args.candidates,
             "reference_index": args.reference_index,
+            "score_only": args.score_only,
+            "replay_from": args.replay_from,
             "seeds": seeds,
             "sentences": [k for k, _ in sentences],
             "device": args.device or "auto",
@@ -680,6 +724,20 @@ def main() -> int:
     parser.add_argument("--speakers", nargs="+", default=None)
     parser.add_argument("--limit-speakers", type=int, default=None)
     parser.add_argument("--candidates", type=int, default=1, help="Takes per render (best-of-N)")
+    parser.add_argument(
+        "--score-only",
+        action="store_true",
+        help="Score renders that already exist instead of making new ones. No synthesis "
+             "engine is loaded, so a run can be re-scored anywhere - which is how a "
+             "score measured on one machine is checked against another.",
+    )
+    parser.add_argument(
+        "--replay-from",
+        default=None,
+        metavar="LABEL",
+        help="With --score-only, read renders from this label's directory while writing "
+             "results under --label, so the original run's results are left alone.",
+    )
     parser.add_argument(
         "--reference-index",
         type=int,

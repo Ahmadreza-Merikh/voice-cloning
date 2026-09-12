@@ -50,7 +50,21 @@ from pathlib import Path
 
 import torch
 
-SOURCE = Path("/kaggle/input/persian-voice-eval/repo")
+INPUT = Path("/kaggle/input")
+print("mounted   :", sorted(p.name for p in INPUT.iterdir()) if INPUT.exists() else "nothing")
+
+# Version 1 died here on a bare FileNotFoundError, which cannot distinguish a
+# wrong path from a dataset version that mounted while still being indexed -
+# an empty mount. Locating the repo by a file that has to be inside it
+# separates the two, and prints what is actually there when neither holds.
+found = sorted(INPUT.glob("*/repo/scripts/benchmark.py"))
+if not found:
+    for path in sorted(INPUT.rglob("*"))[:40]:
+        print("   ", path)
+    raise SystemExit("no repo under /kaggle/input - see the listing above")
+SOURCE = found[0].parent.parent
+print("source    :", SOURCE)
+
 REPO = Path("/kaggle/working/repo")
 if REPO.exists():
     shutil.rmtree(REPO)

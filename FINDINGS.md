@@ -695,3 +695,17 @@ remote hardware, where their non-commercial licences also need weighing.
   carries the claim: 2.9% against the 7.8% the same recogniser scores on these
   speakers' real recordings. Similarity is unaffected — it reproduced exactly,
   and it is what every ranking in this document rests on.
+- **Across machines, similarity is exact and CER is not.** All three F5 runs
+  were re-scored on a Kaggle T4: the same wav files, a different device and a
+  separately installed embedder and recogniser. Held-out similarity reproduced
+  *exactly* in 27 of 27 cells for all three, maximum difference 0.00000 — which
+  is what makes a cross-device comparison of similarity legitimate at all. CER
+  did not: it rose by 0.27, 0.38 and 0.49 points (1.8, 2.1 and 2.4 standard
+  errors). But 22 to 24 of 27 cells were identical each time, so the difference
+  is carried by three or four cells rather than by a drift across the set, and
+  that per-cell instability is the same size as re-scoring on one machine (25
+  of 27). So this is mostly the recogniser's own non-determinism showing up
+  again, not a property of the GPU. All three moving upward is a hint at
+  something device-specific, but no run clears 2.5 standard errors and a single
+  remote scoring cannot separate the two explanations. A second one can, and
+  the next remote run produces it.

@@ -73,8 +73,12 @@ if REPO.exists():
 shutil.copytree(SOURCE, REPO)
 
 # The worker runs out-of-process so it can hold its own pins on the laptop.
-# Here one interpreter has everything, so point it at this one.
-os.environ["VOICECLONE__ENGINES__OMNIVOICE__PYTHON"] = sys.executable
+# Here one interpreter has everything, so point it at this one. The name is the
+# flat one find_omnivoice_python() actually reads - version 3 set a nested
+# VOICECLONE__ENGINES__OMNIVOICE__PYTHON, which nothing consumes, and every one
+# of the 27 cells failed on an unavailable engine. It went unnoticed locally
+# because the Mac has a prepared venv the lookup falls back to.
+os.environ["VOICECLONE_OMNIVOICE_PYTHON"] = sys.executable
 
 print("gpus      :", torch.cuda.device_count(),
       [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())])
@@ -88,6 +92,29 @@ assert torch.cuda.device_count() >= 1, "no GPU - set the accelerator"
 RENDER = '''\
 # Renders and scores OmniVoice. Same flags as the laptop run apart from the
 # device, so the cells line up with every earlier run.
+#
+# This runs after the control on purpose. Version 3 failed here, and had the
+# check below existed then it would have stopped the notebook before the
+# control was written - which was the only part of that run worth keeping.
+assert run("--label", "omnivoice", "--engine", "omnivoice", "--device", "cuda") == 0
+
+# benchmark.py records failures in its results file, not in its exit code, so
+# version 3 exited 0 with all 27 cells failed and the kernel reported COMPLETE.
+# The file is the evidence; the exit code is not.
+import json
+
+summary = json.loads((REPO / "eval/results/omnivoice.json").read_text())["summary"]
+print("omnivoice summary:", summary, flush=True)
+failures = summary.get("failures") or 0
+assert failures == 0, f"OmniVoice failed {failures} cells - see the traceback above"
+assert (summary.get("renders") or 0) > 0, "OmniVoice produced no renders"
+'''
+
+REPLAY = '''\
+# The control: score the F5 renders that were made on the laptop, with the
+# embedder and recogniser running here. Nothing is re-rendered.
+#
+# It runs before OmniVoice so that a failing engine cannot cost us the control.
 def run(*arguments):
     command = [sys.executable, "scripts/benchmark.py", *arguments]
     print(" ".join(command), flush=True)
@@ -95,12 +122,6 @@ def run(*arguments):
     print("exit code:", outcome.returncode, flush=True)
     return outcome.returncode
 
-assert run("--label", "omnivoice", "--engine", "omnivoice", "--device", "cuda") == 0
-'''
-
-REPLAY = '''\
-# The control: score the F5 renders that were made on the laptop, with the
-# embedder and recogniser running here. Nothing is re-rendered.
 for label in ("baseline", "finetuned", "finetuned-bestof4"):
     assert run("--label", label + "-remote", "--score-only", "--replay-from", label,
                "--device", "cuda") == 0
@@ -152,7 +173,9 @@ def cell(source: str) -> dict:
 
 
 def main() -> int:
-    sources = [SETUP, ENVIRONMENT, RENDER, REPLAY, COMPARE, COLLECT]
+    # The control runs before OmniVoice: version 3's engine failed every cell,
+    # and the re-scored F5 runs were the only part of it worth keeping.
+    sources = [SETUP, ENVIRONMENT, REPLAY, RENDER, COMPARE, COLLECT]
     for index, source in enumerate(sources):
         compile(
             "".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),

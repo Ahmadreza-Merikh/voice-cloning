@@ -1,7 +1,7 @@
 {
   "label": "baseline-remote",
   "engine": "f5",
-  "created": "2026-09-12 12:25:52",
+  "created": "2026-09-12 12:47:49",
   "duration_minutes": 0.8,
   "config": {
     "ref_transcript": "corpus",

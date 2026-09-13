@@ -1,7 +1,7 @@
 {
   "label": "finetuned-bestof4-remote",
   "engine": "f5",
-  "created": "2026-09-12 12:29:28",
+  "created": "2026-09-12 12:50:53",
   "duration_minutes": 0.5,
   "config": {
     "ref_transcript": "corpus",

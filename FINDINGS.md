@@ -628,7 +628,7 @@ Verified against each model's own card or repository:
 | model | size | licence | Persian | runs on this 16 GB Mac |
 |---|---|---|---|---|
 | [k2-fsa/OmniVoice](https://github.com/k2-fsa/OmniVoice) | 3.3 GB | Apache-2.0 | yes | yes — MPS documented |
-| [MOSS-TTS-Local-Transformer-v1.5](https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5) | 5B, bf16 | Apache-2.0 | yes | no — ~10 GB of weights |
+| [MOSS-TTS-Local-Transformer](https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Local-Transformer) | 1.7B, bf16 | Apache-2.0 | yes | yes — ~3.5 GB, but needs transformers 5.0.x |
 | [fishaudio/s2-pro](https://huggingface.co/fishaudio/s2-pro) | 5B | research / non-commercial | yes | no |
 | [bosonai/higgs-tts-3-4b](https://huggingface.co/bosonai/higgs-tts-3-4b) | ~4B | research / non-commercial | yes | no |
 | SWivid/F5-TTS (the base this project continued) | 330M | — | **no** | yes |

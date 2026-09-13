@@ -140,7 +140,8 @@ Check what your machine can actually run at any time:
 |---|---|---|---|---|---|
 | **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520 stock, 0.546 continued on 2739 speakers with best-of-4; CER 2.2%, a figure whose small differences are within recogniser noise (FINDINGS §9). |
 | **Chatterbox** (`chatterbox`) | community T3 finetune | no (grapheme) | ~3.5 GB | medium | Speaker path is language-agnostic — the part Persian data is *not* needed for. Own venv (torch 2.6). |
-| **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 13.5 GB | slower | Apache-2.0. Pinned to transformers 5.0.x. |
+| **OmniVoice** (`omnivoice`) | official (1 of 600+) | no (grapheme) | 3.3 GB | medium | Apache-2.0, k2-fsa. **Strongest identity transfer measured here: held-out 0.583**, +0.0371 over the best F5 configuration, paired at 3.4 SE. Own venv. |
+| **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Apache-2.0. 3.06B params. Pinned to transformers 5.0.x, so it needs its own environment. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
 
 **Which should I use?**
@@ -148,12 +149,16 @@ Check what your machine can actually run at any time:
 - Anything where you want the words right → **F5-TTS**. Its Persian
   pronunciation measures 2.9% CER against a 7.8% recogniser floor: better than
   the corpus it is scored against.
-- Where **timbre** matters → this is the open question, and it is why
-  `chatterbox` exists here. F5 clones in context, so identity transfer is bound
-  up with how well someone trained it on Persian, and measurement puts it 0.170
-  under the human ceiling. Chatterbox separates the two: its voice encoder and
-  S3Gen carry identity and never see Persian text, and only T3 — the 0.5B
-  text-to-token model — is language-specific.
+- Where **timbre** matters → **OmniVoice**, on the measurement in this
+  repository: held-out 0.583 against 0.546 for the best F5 configuration,
+  paired at 3.4 standard errors and better in 22 of 27 cells. Nothing was
+  trained for it — picking a base that already had Persian in it beat nine
+  GPU-hours of continuing F5 on 2739 speakers. F5 clones in context, so its
+  identity transfer is bound up with how well someone trained it on Persian,
+  and measurement puts it 0.170 under the human ceiling. `chatterbox` remains
+  here as the other way at the same axis: its voice encoder and S3Gen carry
+  identity and never see Persian text, so only T3 — the 0.5B text-to-token
+  model — is language-specific.
 - You want the *source recording's* delivery preserved → **Seed-VC**.
 
 The earlier claim here that MOSS beat F5 on similarity (0.819 vs 0.730) was
@@ -165,7 +170,7 @@ Switch the default in `configs/default.yaml`:
 
 ```yaml
 engines:
-  tts: moss
+  tts: omnivoice
 ```
 
 > **Seed-VC needs its own environment.** It pins `transformers==4.46` and `numpy==1.26`,
@@ -427,6 +432,34 @@ seed selection was recovering.
 short, seven times the encoder's noise, and the gap is not spread evenly: cv09
 lands within 0.071 of its own ceiling while cv11 and mana remain more than 0.19
 away.
+
+### Changing the base closed more than training it did
+
+[OmniVoice](https://github.com/k2-fsa/OmniVoice) (k2-fsa, Apache-2.0) has
+Persian among its training languages. Run at its published inference settings,
+one take per cell, on the same speakers, sentences, seed and reference clips,
+with every run below re-scored on one machine so the comparison is paired:
+
+| Run | Held-out | vs OmniVoice, paired |
+|---|---|---|
+| F5 baseline | 0.520 | +0.0637, 5.4 SE, better in 23/27 |
+| F5 continued | 0.540 | +0.0438, 3.7 SE, better in 22/27 |
+| F5 continued + best-of-4 | 0.546 | +0.0371, 3.4 SE, better in 22/27 |
+| **OmniVoice, single take** | **0.583** | — |
+
+It wins seven speakers of nine, and reaches 84.8% of each speaker's own ceiling
+against 79.2% for the best F5 configuration and 75.2% for the baseline — so the
+gain survives normalising away how self-consistent each speaker's recordings
+happen to be. Nothing was trained for it. The continuation cost nine GPU-hours and bought
++0.0266; changing the base bought +0.0371 for free. On this corpus the choice
+of base mattered more than tuning it — and the better base was found only
+because the landscape was checked against live sources instead of recalled.
+
+**This is not a state-of-the-art claim.** OmniVoice is someone else's model,
+the scale is local to this corpus and comparable to no published number, three
+larger candidates that list Persian are still unmeasured, and no human has
+scored any of it. What this repository contributes is the instrument that could
+tell the difference.
 
 See [`FINDINGS.md`](FINDINGS.md) for the full investigation and
 [`docs/REMOTE-TRAINING.md`](docs/REMOTE-TRAINING.md) for the recipe.

@@ -628,7 +628,7 @@ Verified against each model's own card or repository:
 | model | size | licence | Persian | runs on this 16 GB Mac |
 |---|---|---|---|---|
 | [k2-fsa/OmniVoice](https://github.com/k2-fsa/OmniVoice) | 3.3 GB | Apache-2.0 | yes | yes — MPS documented |
-| [MOSS-TTS-Local-Transformer](https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Local-Transformer) | 1.7B, bf16 | Apache-2.0 | yes | yes — ~3.5 GB, but needs transformers 5.0.x |
+| [MOSS-TTS-Local-Transformer](https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Local-Transformer) | 3.06B, bf16 | Apache-2.0 | yes | marginally — 6.1 GB of weights, and transformers 5.0.x |
 | [fishaudio/s2-pro](https://huggingface.co/fishaudio/s2-pro) | 5B | research / non-commercial | yes | no |
 | [bosonai/higgs-tts-3-4b](https://huggingface.co/bosonai/higgs-tts-3-4b) | ~4B | research / non-commercial | yes | no |
 | SWivid/F5-TTS (the base this project continued) | 330M | — | **no** | yes |
@@ -665,8 +665,61 @@ anything. From [its paper](https://arxiv.org/abs/2604.00688), not recalled:
   authors report: 0.729 vs 0.655, 0.741 vs 0.664, 0.777 vs 0.750
 
 Integrated as engine `omnivoice`, out-of-process in its own environment, with
-upstream's published inference settings. **Not yet measured here** — its paper's
-numbers say nothing about this corpus, and the benchmark decides.
+upstream's published inference settings. Its paper's numbers say nothing about
+this corpus, so the benchmark decided.
+
+### What the benchmark decided
+
+Nine speakers, three sentences, seed 42, the same reference clip each engine
+gets — every configuration below scored by one embedder and one recogniser on
+one machine, so the comparison is paired cell by cell.
+
+| Run | Held-out | vs OmniVoice, paired | CER |
+|---|---|---|---|
+| F5 baseline | 0.520 | +0.0637, 5.4 SE, better in 23/27 | 3.1% |
+| F5 continued on 2739 speakers | 0.540 | +0.0438, 3.7 SE, better in 22/27 | 3.1% |
+| F5 continued + best-of-4 | 0.546 | +0.0371, 3.4 SE, better in 22/27 | 2.7% |
+| **OmniVoice, single take** | **0.583** | — | 2.6% |
+
+All three gaps clear the pre-registered 0.0205 threshold; against the strongest
+F5 configuration the margin is about 1.8× the encoder's noise. Per speaker
+OmniVoice wins seven of nine, losing only `cv02` by 0.016 and `cv03` by 0.006.
+On the calibrated scale it sits at 81% of the way from stranger to same person,
+against 69% for the F5 baseline.
+
+Speakers differ in how self-consistent their own recordings are, so the raw
+mean mixes clone quality with corpus quality. Measured against each speaker's
+*own* ceiling the ordering is unchanged and the margin survives:
+
+| Run | share of each speaker's own ceiling |
+|---|---|
+| F5 baseline | 75.2% |
+| F5 continued | 78.2% |
+| F5 continued + best-of-4 | 79.2% |
+| **OmniVoice** | **84.8%** |
+
+That normalisation also reorders which speakers are *hard*. `cv08` and `cv10`
+look like OmniVoice's biggest wins in raw terms (+0.121 and +0.067), but both
+have low ceilings — 0.607 and 0.595 — so there was less room there and
+OmniVoice nearly saturates it, reaching 97% and 88%. `mana`, mid-table at 0.571
+raw, is the furthest any speaker sits from its own ceiling at 77%. Treat these
+ratios as direction rather than precision: each speaker's ceiling comes from
+ten pairs, so it carries its own noise, and a ratio of two noisy numbers
+carries more.
+
+**The result is not that this project built something better.** OmniVoice is
+k2-fsa's model under Apache-2.0, run at its published settings with no training
+of any kind. What this project contributed is the instrument that could tell.
+The honest comparison is uncomfortable: nine GPU-hours of continuation on 2739
+speakers bought +0.0266, and changing the base model bought +0.0371 for free.
+On this corpus, choosing the base mattered more than tuning it — and the only
+reason the better base was found at all is that the landscape was checked live
+instead of recalled.
+
+Two caveats travel with the number. It is one seed and one take per cell, where
+the F5 best-of-4 figure is the best of four; and CER differences this small are
+at the recogniser's resolution (§9), so the CER column should be read as "no
+worse", not as better.
 
 The three larger candidates do not fit locally without compromise and belong on
 remote hardware, where their non-commercial licences also need weighing.
@@ -704,8 +757,16 @@ remote hardware, where their non-commercial licences also need weighing.
   errors). But 22 to 24 of 27 cells were identical each time, so the difference
   is carried by three or four cells rather than by a drift across the set, and
   that per-cell instability is the same size as re-scoring on one machine (25
-  of 27). So this is mostly the recogniser's own non-determinism showing up
-  again, not a property of the GPU. All three moving upward is a hint at
-  something device-specific, but no run clears 2.5 standard errors and a single
-  remote scoring cannot separate the two explanations. A second one can, and
-  the next remote run produces it.
+  of 27), which at first reading suggested the recogniser's own
+  non-determinism rather than anything about the GPU.
+
+  A second remote scoring settled it, and against that reading. The kernel was
+  re-run and the same three F5 runs re-scored again: every cell came back
+  *identical* to the first remote scoring — 27 of 27 on similarity **and** on
+  CER, mean difference +0.0000, maximum 0.000. The remote scorer is
+  deterministic, while the same operation on this Mac is not. That removes
+  run-to-run variation as the explanation and leaves the installation itself:
+  different builds of the recogniser, or the machine it runs on. The practical
+  rule is therefore narrower than "CER is noisy". CER may be compared between
+  runs scored on the *same* machine, and never across machines. Similarity may
+  be compared anywhere — it reproduced exactly in every test of both kinds.

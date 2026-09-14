@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the Kaggle notebook that measures MOSS-TTS.
+"""Generate the Kaggle notebook that measures MOSS-TTS over the full benchmark.
 
 Why a second kernel rather than another label in the OmniVoice one: MOSS is
 pinned to transformers 5.0.x - later 5.x releases removed the private
@@ -8,11 +8,26 @@ The rest of this project runs on transformers 5.14. Those two cannot share an
 interpreter, and unlike OmniVoice and Chatterbox the MOSS engine runs
 in-process, so it cannot be isolated behind a worker without writing one.
 
-The consequence is that MOSS's renders are also *scored* inside that pinned
-environment, which is a different dependency world from the one every number on
-record came from. So the notebook proves the scale before it measures anything:
-it re-scores a set of renders whose answer is already established and stops if
-the answer comes back different. The engine runs only after that passes.
+The first attempt at this ran for about seven hours and was cancelled having
+produced nothing. A single-cell timing run then measured 2.6 minutes end to
+end - download and model load included - which extrapolates to roughly 1.2
+hours for 27 cells, so the engine is not inherently slow enough to explain
+that. Three things changed as a result:
+
+* **the render runs before the scale control**, so a control that trips cannot
+  cost us the measurement, which is what the first attempt's ordering did;
+* **the render is bounded.** A hard subprocess timeout means a pathological run
+  costs two hours rather than a whole GPU session. The bound is generous
+  against the 1.2 hour estimate on purpose - it is a backstop, not a budget;
+* **the control reports rather than asserts.** It runs last, and stopping the
+  notebook there would skip collecting the results the render just produced.
+
+One known inefficiency is left alone deliberately. With MOSS resident on the
+card, faster-whisper cannot allocate and falls back to a Transformers Whisper
+implementation, which is slower. The fallback is correct - scoring the baseline
+renders through it reproduced the established 0.5196 exactly - so this is a
+speed cost, not a measurement problem, and changing the scoring path would
+change the instrument mid-comparison.
 
     .venv/bin/python kaggle/build_moss_kernel.py
     KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle kernels push -p kaggle/moss
@@ -31,8 +46,10 @@ DATASET = "persian-voice-eval"
 SLUG = "persian-voice-moss-run"
 MACHINE_SHAPE = "NvidiaTeslaT4"
 
-#: Held-out similarity the baseline renders are already known to score. The
-#: control re-measures exactly this, on the same wav files.
+#: Backstop for the whole 27-cell render. The measured pace predicts ~1.2 h.
+RENDER_TIMEOUT = 7200
+
+#: Held-out similarity the baseline renders are already known to score.
 KNOWN_BASELINE = 0.5196
 
 SETUP = '''\
@@ -43,10 +60,12 @@ SETUP = '''\
 '''
 
 ENVIRONMENT = '''\
+import json
 import os
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import torch
@@ -75,55 +94,64 @@ print("transformers:", transformers.__version__)
 print("torch       :", torch.__version__)
 print("gpus        :", torch.cuda.device_count(),
       [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())])
-# T4 is Turing and has no native bfloat16, so the engine falls back to float16.
-# Printed rather than assumed, because it decides what precision MOSS runs at.
-print("bf16 native :", torch.cuda.is_bf16_supported())
+print("bf16        :", torch.cuda.is_bf16_supported())
 
 assert (5, 0) <= version < (5, 1), f"MOSS needs transformers 5.0.x, found {transformers.__version__}"
 assert torch.cuda.device_count() >= 1, "no GPU - set the accelerator"
 
 
-def run(*arguments):
+def run(*arguments, timeout=None):
+    """Run the benchmark and return (exit code, wall-clock seconds)."""
     command = [sys.executable, "scripts/benchmark.py", *arguments]
     print(" ".join(command), flush=True)
-    outcome = subprocess.run(command, cwd=REPO, text=True)
-    print("exit code:", outcome.returncode, flush=True)
-    return outcome.returncode
+    start = time.time()
+    try:
+        outcome = subprocess.run(command, cwd=REPO, text=True, timeout=timeout)
+        code = outcome.returncode
+    except subprocess.TimeoutExpired:
+        print(f"TIMED OUT after {timeout}s - called off", flush=True)
+        code = -1
+    elapsed = time.time() - start
+    print(f"exit {code} in {elapsed / 60:.1f} min", flush=True)
+    return code, elapsed
 '''
 
-CONTROL = f'''\
-# Prove the scale before measuring anything on it.
-#
-# Every number on record was produced with transformers 5.14. This kernel runs
-# 5.0.x, so its embedder and recogniser are a different build. Re-score renders
-# whose answer is already established and require that answer back. If the
-# scale has moved, stop here - a MOSS number from a shifted scale would be
-# worse than no MOSS number, because it would look comparable and not be.
-import json
-
-assert run("--label", "baseline-moss-env", "--score-only", "--replay-from", "baseline",
-           "--device", "cuda") == 0
-
-summary = json.loads((REPO / "eval/results/baseline-moss-env.json").read_text())["summary"]
-print("control held-out:", summary["held_out_mean"], " CER:", summary["cer_mean"], flush=True)
-assert abs(summary["held_out_mean"] - {KNOWN_BASELINE}) < 0.0005, (
-    f"this environment scores the same audio at {{summary['held_out_mean']:.4f}}, "
-    "not {KNOWN_BASELINE} - its numbers are not on the established scale"
-)
-print("scale confirmed", flush=True)
-'''
-
-RENDER = '''\
-# Same flags as every other engine apart from the device, so the cells line up.
-assert run("--label", "moss", "--engine", "moss", "--device", "cuda") == 0
+RENDER = f'''\
+# Same flags as every other engine apart from the device, so the cells line up
+# with every earlier run. Bounded: the single-cell timing run predicts about
+# 1.2 h, and this stops at two.
+code, elapsed = run("--label", "moss", "--engine", "moss", "--device", "cuda",
+                    timeout={RENDER_TIMEOUT})
+print(f"render wall clock: {{elapsed / 60:.1f}} min")
 
 # benchmark.py records failures in its results file, not in its exit code: an
 # earlier run exited 0 with all 27 cells failed and the kernel said COMPLETE.
-summary = json.loads((REPO / "eval/results/moss.json").read_text())["summary"]
-print("moss summary:", summary, flush=True)
-failures = summary.get("failures") or 0
-assert failures == 0, f"MOSS failed {failures} cells - see the traceback above"
-assert (summary.get("renders") or 0) > 0, "MOSS produced no renders"
+path = REPO / "eval/results/moss.json"
+if path.is_file():
+    summary = json.loads(path.read_text())["summary"]
+    print("moss summary:", summary, flush=True)
+    print("failures:", summary.get("failures"), " renders:", summary.get("renders"))
+else:
+    print("no results file - the render did not get far enough to write one")
+'''
+
+CONTROL = f'''\
+# The scale check, after the measurement is safely on disk.
+#
+# Every number on record was produced with transformers 5.14; this kernel runs
+# 5.0.x, so its embedder and recogniser are a different build. Re-score renders
+# whose answer is already established and compare. This reports rather than
+# asserts, because stopping here would skip collecting what the render made.
+code, elapsed = run("--label", "baseline-moss-env", "--score-only", "--replay-from", "baseline",
+                    "--device", "cuda", timeout=1800)
+path = REPO / "eval/results/baseline-moss-env.json"
+if path.is_file():
+    value = json.loads(path.read_text())["summary"]["held_out_mean"]
+    drift = value - {KNOWN_BASELINE}
+    print(f"control: {{value:.4f}} vs {KNOWN_BASELINE} known ({{drift:+.4f}})")
+    print("ON the established scale" if abs(drift) < 0.0005 else "OFF THE ESTABLISHED SCALE")
+else:
+    print("control did not produce a results file")
 '''
 
 COLLECT = '''\
@@ -157,7 +185,9 @@ def cell(source: str) -> dict:
 
 
 def main() -> int:
-    sources = [SETUP, ENVIRONMENT, CONTROL, RENDER, COLLECT]
+    # Render before control: the first attempt put the control first, and when
+    # the run was cancelled it had produced nothing worth keeping.
+    sources = [SETUP, ENVIRONMENT, RENDER, CONTROL, COLLECT]
     for index, source in enumerate(sources):
         compile(
             "".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),

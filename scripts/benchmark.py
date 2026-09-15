@@ -518,6 +518,15 @@ def summarise(
         print(f"  position on scale     {statistics.mean(fractions):.1%} of stranger -> same person")
     if rows and len(good) < len(rows):
         print(f"  failures              {len(rows) - len(good)} of {len(rows)}")
+    # A render the recogniser never transcribed is not a failure - its
+    # similarity is real - but it silently drops out of CER and WER. A MOSS run
+    # lost the recogniser on every cell and still reported zero failures, so
+    # this is stated plainly rather than left to a missing line.
+    untranscribed = sum(1 for r in good if r.get("character_error_rate") is None)
+    if good and untranscribed == len(good):
+        print(f"  NOT TRANSCRIBED       none of the {len(good)} renders - this run has no CER or WER")
+    elif untranscribed:
+        print(f"  NOT TRANSCRIBED       {untranscribed} of {len(good)} renders - CER and WER cover only the rest")
 
     print(f"\n  {'speaker':8s} {'held-out':>9s} {'ceiling':>8s} {'gap':>7s} {'own ref':>8s} {'CER':>7s} {'WER':>7s}")
     per_speaker: dict[str, dict[str, Any]] = {}
@@ -591,6 +600,9 @@ def summarise(
             "scale_position": _mean(fractions),
             "renders": len(good),
             "failures": len(rows) - len(good),
+            # Scored for similarity but never transcribed - the NOT TRANSCRIBED
+            # line above. Results written before this field existed lack it.
+            "untranscribed": untranscribed,
         },
         "per_speaker": per_speaker,
         "rows": rows,

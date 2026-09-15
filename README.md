@@ -303,9 +303,13 @@ Then, in the app:
   2.2-2.9%, all scored by one recogniser). MOSS-TTS, which this line used to
   recommend for pronunciation, measured the worst CER of any engine here (6.5%).
   Persian G2P does not help rendering - see the note on phonemes at the top.
-- Use the **Maximum quality** preset for final renders (64 ODE steps).
-- Give F5-TTS an accurate **reference transcript**. It conditions on it, and a wrong
-  transcript measurably degrades output. Auto-transcription is good; checking it is better.
+- The **Maximum quality** preset (64 ODE steps) measured no better than the
+  default: held-out 0.517 against 0.520, inside the encoder's noise. It costs time
+  and buys nothing measurable here.
+- F5-TTS conditions on a **reference transcript**. Whisper's own transcripts
+  measured no worse than the corpus's ground truth (0.514 against 0.520, inside
+  the noise), so auto-transcription is fine. A transcript that is actually wrong was
+  never tested - correct one if you can see it is.
 - Fix the seed once you like a take, so you can reproduce it.
 
 Reading the numbers — **two scales, and the difference matters.**

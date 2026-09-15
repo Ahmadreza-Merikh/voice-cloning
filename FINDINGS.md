@@ -721,8 +721,63 @@ the F5 best-of-4 figure is the best of four; and CER differences this small are
 at the recogniser's resolution (§9), so the CER column should be read as "no
 worse", not as better.
 
-The three larger candidates do not fit locally without compromise and belong on
-remote hardware, where their non-commercial licences also need weighing.
+### Second candidate: MOSS-TTS
+
+[MOSS-TTS-Local-Transformer](https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Local-Transformer)
+(Apache-2.0, 3.06B parameters) lists Persian among its twenty training
+languages. It needs transformers 5.0.x and runs in-process, so it was measured
+in a Kaggle kernel of its own - after re-scoring the baseline renders there
+reproduced the established 0.5196 exactly, CER included.
+
+It took about ten GPU-hours to get a number. Two runs froze on their first cell
+and printed nothing more: the second one's log places the stall in
+transformers' threaded weight loading, at parameter 866 of 1600 of MOSS's audio
+tokenizer. A controlled load test in clean processes could not reproduce it -
+seven loads, none hung - so the cause is not established. The run that
+succeeded disabled threaded loading (`HF_DEACTIVATE_ASYNC_LOAD`) and ran under a
+watchdog that would have killed and retried a silent process; it finished on
+its first attempt in 24 minutes. That is consistent with the thread pool being
+the cause and does not show it.
+
+That run exposed a gap in the benchmark itself. With MOSS occupying the card no
+speech recogniser could allocate - faster-whisper, then its Transformers
+fallback, on every cell - and the run reported zero failures, with similarity
+for all 27 cells and a transcription for none. `benchmark.py` now says so. The
+renders were re-scored on this Mac instead, where every paired similarity
+statistic came out identical to the Kaggle scoring, so the table below uses the
+Mac's recogniser for every run - the only way CER may be compared (§9).
+
+| Run, all scored on the Mac | Held-out | share of own ceiling | CER |
+|---|---|---|---|
+| F5 baseline | 0.520 | 75.2% | 2.9% |
+| F5 continued + best-of-4 | 0.546 | 79.2% | 2.2% |
+| MOSS-TTS | 0.559 | 81.2% | 6.5% |
+| **OmniVoice** | **0.583** | **84.8%** | 2.8% |
+
+| MOSS against, paired | similarity | CER |
+|---|---|---|
+| F5 baseline | +0.0391, 3.1 SE — better | +3.7 points, 4.2 SE — worse |
+| F5 continued + best-of-4 | +0.0125, 1.0 SE — inside noise | +4.4 points, 4.8 SE — worse |
+| OmniVoice | −0.0246, 1.5 SE — not resolved | +3.7 points, 3.6 SE — worse |
+
+On identity MOSS is not shown to differ from the best F5 configuration or from
+OmniVoice. On pronunciation it is clearly worse than every other run: three and
+a half to four and a half points of CER, worse than OmniVoice in 18 of 27 cells
+and better in 3. It stays under the 7.8% the same recogniser scores on the
+corpus's own speech, so it is not unintelligible. Every one of its five worst
+cells has its first word dropped or garbled - "او گفت که فردا صبح" comes back as
+"که فرداس رو" - and several have more damage after it. Part of any Persian CER
+is the recogniser choosing between homophones such as بهار and بحار, which
+OmniVoice's transcripts show too; that affects both engines and does not account
+for the gap.
+
+So OmniVoice is the strongest public model measured here on both axes at once.
+That is a statement about this instrument - nine speakers, one seed, a local
+scale, no systematic human listening - not a world ranking.
+
+The remaining candidates in the table, Fish S2 Pro and Higgs TTS 3, carry
+research or non-commercial licences, do not fit this machine without
+compromise, and are unmeasured.
 
 ## 9. Caveats
 

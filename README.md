@@ -141,7 +141,7 @@ Check what your machine can actually run at any time:
 | **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520 stock, 0.546 continued on 2739 speakers with best-of-4; CER 2.2%, a figure whose small differences are within recogniser noise (FINDINGS §9). |
 | **Chatterbox** (`chatterbox`) | community T3 finetune | no (grapheme) | ~3.5 GB | medium | Speaker path is language-agnostic — the part Persian data is *not* needed for. Own venv (torch 2.6). |
 | **OmniVoice** (`omnivoice`) | official (1 of 600+) | no (grapheme) | 3.3 GB | medium | Apache-2.0, k2-fsa. **Strongest identity transfer measured here: held-out 0.583**, +0.0371 over the best F5 configuration, paired at 3.4 SE. Own venv. |
-| **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Apache-2.0. 3.06B params. Pinned to transformers 5.0.x, so it needs its own environment. |
+| **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Apache-2.0, 3.06B params, pinned to transformers 5.0.x (own environment). Measured: held-out 0.559, not shown to differ from the best F5 or from OmniVoice - but CER 6.5% against OmniVoice's 2.8% on the same recogniser, worse at 3.6 SE. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
 
 **Which should I use?**
@@ -298,8 +298,11 @@ The single biggest factor is the **reference recording**. In order of impact:
 
 Then, in the app:
 
-- Enable **Use Persian G2P** and pick **MOSS-TTS**. This is where Persian pronunciation
-  is won or lost.
+- Pick **OmniVoice** for Persian. In this repository's measurements it transfers
+  identity best (held-out 0.583) and pronounces as well as F5 (CER 2.8% against
+  2.2-2.9%, all scored by one recogniser). MOSS-TTS, which this line used to
+  recommend for pronunciation, measured the worst CER of any engine here (6.5%).
+  Persian G2P does not help rendering - see the note on phonemes at the top.
 - Use the **Maximum quality** preset for final renders (64 ODE steps).
 - Give F5-TTS an accurate **reference transcript**. It conditions on it, and a wrong
   transcript measurably degrades output. Auto-transcription is good; checking it is better.
@@ -456,9 +459,10 @@ of base mattered more than tuning it — and the better base was found only
 because the landscape was checked against live sources instead of recalled.
 
 **This is not a state-of-the-art claim.** OmniVoice is someone else's model,
-the scale is local to this corpus and comparable to no published number, three
-larger candidates that list Persian are still unmeasured, and no human has
-scored any of it. What this repository contributes is the instrument that could
+the scale is local to this corpus and comparable to no published number, two
+candidates that list Persian are still unmeasured, and no human has scored any
+of it. The one other candidate measured, MOSS-TTS, was not shown to differ from
+it on identity and was clearly worse on pronunciation (FINDINGS §8). What this repository contributes is the instrument that could
 tell the difference.
 
 See [`FINDINGS.md`](FINDINGS.md) for the full investigation and

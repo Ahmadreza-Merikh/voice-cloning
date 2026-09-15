@@ -40,11 +40,15 @@ So this run does not bet on the cause. It is built to finish either way:
 * **the repo copy lives in /tmp**, so the kernel's output is only what this run
   measured. An earlier fetch of an output made mostly of that copy broke off.
 
-One comparability problem is recorded rather than hidden. With MOSS on the
-card, faster-whisper cannot allocate and the pipeline falls back to a
-Transformers Whisper implementation. That fallback scored the baseline renders'
-*similarity* identically, but MOSS's CER then comes from a different recogniser
-than every other run's. The notebook detects the fallback and says so.
+One measurement gap is recorded rather than hidden. With MOSS on the card,
+faster-whisper cannot allocate; the pipeline then tries a Transformers Whisper
+implementation, and in the run this version produced, that failed to allocate
+too - on every cell. So the run has similarity for all 27 cells and no CER or
+WER at all, while benchmark.py still reported zero failures. The report judges
+this from the results - whether any row has a transcription - rather than from
+log text, which is how the previous version came to claim that a fallback had
+scored MOSS. MOSS's CER has to come from scoring its renders where a recogniser
+fits.
 
     .venv/bin/python kaggle/build_moss_kernel.py
     KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle kernels push -p kaggle/moss
@@ -301,15 +305,23 @@ if finished:
     if gaps:
         print(f"each later cell, render and score: median {statistics.median(gaps):.0f}s,"
               f" {min(gaps):.0f}-{max(gaps):.0f}s over {len(gaps)} cells")
-    if "asr_fallback" in finished[-1]["seen"]:
-        print("MOSS was transcribed by the Transformers Whisper fallback, not faster-whisper, because"
-              " MOSS occupied the card. Its CER comes from a different recogniser than every other run"
-              " and is not comparable with theirs. Similarity is unaffected.")
-
 path = REPO / "eval/results/moss.json"
 if path.is_file():
-    summary = json.loads(path.read_text())["summary"]
+    data = json.loads(path.read_text())
+    summary = data["summary"]
     print("moss summary:", {k: summary.get(k) for k in ("held_out_mean", "cer_mean", "renders", "failures")})
+    # Judged from the results rather than from log text. The previous version saw
+    # faster-whisper's warning and reported a fallback recogniser - and missed that
+    # the fallback failed to load as well, so every cell went without a
+    # transcription while the run still reported zero failures.
+    transcribed = sum(1 for row in data["rows"] if row.get("transcription"))
+    if transcribed == 0:
+        print("No speech recogniser loaded while MOSS occupied the card: this run has no CER or WER"
+              " for MOSS at all. Score its renders with --score-only where a recogniser fits."
+              " Similarity is unaffected.")
+    elif finished and "asr_fallback" in finished[-1]["seen"]:
+        print(f"{transcribed}/{len(data['rows'])} cells were transcribed by a fallback recogniser, not"
+              " faster-whisper, so MOSS's CER is not comparable with other runs'. Similarity is unaffected.")
 else:
     print("no MOSS results file")
 '''

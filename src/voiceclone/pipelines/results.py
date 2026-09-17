@@ -10,22 +10,42 @@ from ..audio.io import Audio
 from ..audio.preprocess import PreprocessResult
 from ..text.pipeline import PreparedText
 
-#: Where the speaker encoder actually sits, measured on this project's own
-#: audio and pipeline (ECAPA-TDNN, clips through `preprocess_reference`):
+#: Where this encoder sits on *this* corpus. Measured by `scripts/benchmark.py`
+#: on 45 clips from 9 speakers, every clip through the same peak-normalising
+#: path in `evaluation/embedding.py`, ECAPA-TDNN on CPU:
 #:
-#:     different speaker, same gender, same corpus   0.288   (39 pairs, max 0.544)
-#:     same speaker, *different* recording session   0.647   (6 pairs)
-#:     same speaker, *same* recording session        0.800   (17 pairs)
+#:     different speakers                     0.132 mean, 0.508 highest (900 pairs)
+#:     same speaker, two different clips      0.689 mean                 (90 pairs)
 #:
-#: The last two are the important pair. A single speaker scores 0.800 against
-#: themselves within one session and 0.647 across sessions; the gap is shared
-#: channel - room, microphone, noise floor - not identity. A zero-shot clone
-#: reproduces its prompt's channel, so scoring it against that prompt lands it
-#: in the same-session band and flatters it by roughly 0.26.
-SIMILARITY_DIFFERENT_SPEAKER = 0.288
-SIMILARITY_DIFFERENT_SPEAKER_MAX = 0.544
-SIMILARITY_SAME_SPEAKER_CROSS_SESSION = 0.647
-SIMILARITY_SAME_SPEAKER_SAME_SESSION = 0.800
+#: Three things this is not.
+#:
+#: It is not a general ECAPA calibration. Nine speakers of Persian read speech,
+#: recorded by crowdsourcing, is what it describes.
+#:
+#: It is not an unselected sample. `scripts/build_eval_corpus.py` drops a
+#: speaker whose own clips score worse against each other than against someone
+#: else's - using this same encoder. That keeps the ground truth usable and it
+#: also pushes this ceiling up and this floor down relative to a random sample.
+#: Engine comparisons are unaffected, since every engine meets the same
+#: speakers; absolute statements about "the human ceiling" are not.
+#:
+#: And it is not a session calibration. An earlier version of this block put
+#: same-speaker pairs into "same session 0.800" and "different session 0.647"
+#: bands. Common Voice publishes no session field, so for those speakers the
+#: evidenced statement is only "a different clip", and the bands are gone.
+#:
+#: What survives that is the channel effect, which is measured directly: across
+#: five engines a render scores 0.11 to 0.16 higher against the clip it was
+#: conditioned on than against other recordings of the same speaker. Scoring a
+#: clone against its own prompt therefore flatters it by about that much.
+SIMILARITY_DIFFERENT_SPEAKER = 0.132
+SIMILARITY_DIFFERENT_SPEAKER_MAX = 0.508
+SIMILARITY_SAME_SPEAKER = 0.689
+
+#: The lowest per-engine mean of render-against-its-own-prompt measured here
+#: (Fish S2 Pro, 0.651; the highest is OmniVoice at 0.741). Used only to tell
+#: "this render sits where working engines sit" from "something came apart".
+REFERENCE_SIMILARITY_TYPICAL = 0.65
 
 
 @dataclass
@@ -58,10 +78,8 @@ class QualityScores:
         value = self.reference_similarity
         if value is None:
             return "not measured"
-        if value >= SIMILARITY_SAME_SPEAKER_SAME_SESSION:
-            return "as close to the prompt as two takes from one session"
-        if value >= 0.65:
-            return "close to the prompt"
+        if value >= REFERENCE_SIMILARITY_TYPICAL:
+            return "as close to the prompt as a working engine gets here"
         if value >= 0.50:
             return "moderate"
         return "weak - the render may have come apart"
@@ -72,8 +90,8 @@ class QualityScores:
         value = self.held_out_similarity
         if value is None:
             return "not measured"
-        if value >= SIMILARITY_SAME_SPEAKER_CROSS_SESSION:
-            return "as close as another recording of the same speaker"
+        if value >= SIMILARITY_SAME_SPEAKER:
+            return "as close as another recording of the same speaker on this corpus"
         if value >= SIMILARITY_DIFFERENT_SPEAKER_MAX:
             return "above every different-speaker pair measured, below same-speaker"
         if value >= SIMILARITY_DIFFERENT_SPEAKER:

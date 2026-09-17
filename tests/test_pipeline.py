@@ -485,14 +485,31 @@ class TestBestOfNSelection:
 
 
 class TestSimilarityVerdicts:
-    """The two similarity scales, pinned against this project's calibration.
+    """The two similarity scales, pinned against what the benchmark measured.
 
-    Measured on ECAPA-TDNN with clips through `preprocess_reference`:
-    different speakers reach 0.544, one speaker across sessions sits at 0.647,
-    one speaker within a session at 0.800. A clone reproduces its prompt's
-    channel, so scoring it against that prompt lands in the same-session band
-    and says nothing about identity.
+    ECAPA-TDNN on CPU, every clip through the same peak-normalising path:
+    different speakers average 0.132 and never exceed 0.508 over 900 pairs, two
+    different clips of one speaker average 0.689 over 90. A clone reproduces its
+    prompt's channel, so scoring it against that prompt adds 0.11 to 0.16 and
+    says nothing about identity.
     """
+
+    def test_the_constants_match_the_calibration_that_was_measured(self) -> None:
+        # The app's verdicts and the benchmark's scale drifted apart once
+        # already: results.py kept an early 39-pair sample while the benchmark
+        # had moved to 900. Anything that re-runs the calibration has to come
+        # back through here.
+        import json
+        from pathlib import Path
+
+        from voiceclone.pipelines import results as R
+
+        calibration = json.loads(
+            (Path(__file__).resolve().parents[1] / "eval/results/baseline.json").read_text()
+        )["calibration"]
+        assert pytest.approx(calibration["floor"], abs=0.001) == R.SIMILARITY_DIFFERENT_SPEAKER
+        assert pytest.approx(calibration["cross_max"], abs=0.001) == R.SIMILARITY_DIFFERENT_SPEAKER_MAX
+        assert pytest.approx(calibration["ceiling"], abs=0.001) == R.SIMILARITY_SAME_SPEAKER
 
     def test_held_out_inside_the_stranger_range_is_not_a_match(self) -> None:
         # A real F5 render: 0.456 held-out, inside the different-speaker range.
@@ -500,13 +517,15 @@ class TestSimilarityVerdicts:
         assert "not distinguishable" in scores.held_out_verdict
 
     def test_held_out_at_the_human_ceiling_is_a_match(self) -> None:
-        scores = QualityScores(held_out_similarity=0.66)
+        # 0.689 is the mean same-speaker pair; at or above it, the render is as
+        # close as one of the speaker's own other recordings.
+        scores = QualityScores(held_out_similarity=0.70)
         assert "same speaker" in scores.held_out_verdict
 
     def test_a_human_pair_is_never_called_a_fair_match(self) -> None:
-        # Two genuine recordings of one person score 0.647. The old bands
+        # Two genuine recordings of one person score around 0.689. The old bands
         # returned "fair match" for that, which reached users in both front ends.
-        assert "fair" not in QualityScores(held_out_similarity=0.647).held_out_verdict
+        assert "fair" not in QualityScores(held_out_similarity=0.689).held_out_verdict
 
     def test_reference_verdict_never_claims_identity(self) -> None:
         # This comparison shares the prompt's channel and cannot show identity,

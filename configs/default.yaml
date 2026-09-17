@@ -267,6 +267,36 @@ engines:
     max_new_tokens: 1024     # ~48 s of audio: a bound on a render that never stops
     timeout_seconds: 900
 
+  higgs:
+    # Boson AI Higgs TTS 3: a Qwen3-4B backbone with a fused 8-codebook audio
+    # head. Persian is in the model card's top tier - the 85 languages it calls
+    # "WER/CER under 5" - and on its own multilingual table it reports the
+    # lowest error of eleven systems, three of which this project has measured.
+    # That table is the vendor's own; the benchmark decides.
+    #
+    # Research and non-commercial licence, with a separate grant covering the
+    # output. Narrower than every other engine here except Fish.
+    #
+    # Boson ships it for SGLang-Omni or vLLM-Omni, which want compute 8.0 - the
+    # free T4 is 7.5. This loads a transformers port of the same checkpoint
+    # instead: weights verified identical by sha256, modeling code read, and the
+    # revision pinned below because it runs with trust_remote_code.
+    #   uv venv --python python3.11 ~/.cache/persian-voice-cloning/higgs/.venv
+    #   VIRTUAL_ENV=~/.cache/.../higgs/.venv uv pip install "transformers>=5.5" torch torchaudio soundfile
+    python: auto
+    model_id: multimodalart/higgs-audio-v3-tts-4b-transformers
+    revision: 30f01593ee6a12efa586c92455afe4b76e45095d
+    # The codec runs in fp32 whatever this says - it is unstable in 16-bit, and
+    # that is the likely cause of the all-constant renders Turing produced
+    # through the vendor's own serving stack.
+    dtype: bfloat16
+    # Boson's own serving example.
+    temperature: 0.8
+    top_p: null
+    top_k: 50
+    max_new_tokens: 1024     # about 43 s of audio
+    timeout_seconds: 900
+
   asr:
     # Used to auto-transcribe the reference clip (F5-TTS needs the reference
     # transcript) and to drive the speech-to-speech cascade.

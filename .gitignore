@@ -63,3 +63,6 @@ Thumbs.db
 # Checkpoints pulled back from the remote GPU: gigabytes each, and reproducible
 # from the kernel output. The recipe is what belongs in git, not the weights.
 remote/
+
+# Staged copies for the Kaggle dataset, rebuilt by kaggle/build_dataset.py
+kaggle/dataset/

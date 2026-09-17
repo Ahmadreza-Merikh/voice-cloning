@@ -218,10 +218,11 @@ engines:
     python: auto
     model_id: k2-fsa/OmniVoice
     language: fa
-    # Upstream's inference dtype. On Apple Silicon the worker casts on CPU and
-    # then moves the model: asking for float16 on MPS during transformers'
-    # threaded weight loading aborts the process. Probed placements: MPS/f16
-    # aborts; MPS/f32, CPU-f16 -> MPS and CPU/f32 all load and render.
+    # Upstream's inference dtype. It loads straight onto Metal: what aborted the
+    # process was transformers' threaded weight loading, and the worker switches
+    # that pool off before importing it. Measured, each load in its own process:
+    # pool on aborts; pool off loads in 3.8s at 1.97 GB peak, against 4.39 GB
+    # for the cast-on-CPU-then-move it replaces.
     dtype: float16
     # Upstream `omnivoice-infer` defaults - the configuration the paper measured.
     num_step: 32

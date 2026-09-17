@@ -222,9 +222,10 @@ class OmniVoiceConfig:
     model_id: str = "k2-fsa/OmniVoice"
     #: Upstream: performance is slightly better when the language is named.
     language: str = "fa"
-    #: Upstream's own inference dtype, which the paper measured with. On MPS the
-    #: worker casts on CPU and then moves the model, because casting during
-    #: transformers' threaded weight loading crashes torch's Metal backend.
+    #: Upstream's own inference dtype, which the paper measured with. It loads
+    #: straight onto Metal: what crashed was transformers' threaded weight
+    #: loading, and the worker switches that thread pool off before importing
+    #: it. Loading directly also halves the peak - 1.97 GB against 4.39 GB.
     dtype: str = "float16"
     num_step: int = 32
     guidance_scale: float = 2.0

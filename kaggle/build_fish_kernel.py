@@ -66,7 +66,7 @@ SETUP = '''\
 # actually reaches are installed. transformers is pinned to what the checkpoint
 # was saved with - fish-speech declares <=4.57.3 - and the scale control at the
 # end says whether the scoring stack minds.
-!pip -q install descript-audio-codec loguru hydra-core omegaconf einops "transformers==4.57.1" speechbrain faster-whisper jiwer pyloudnorm noisereduce num2words silero-vad onnxruntime 2>&1 | tail -5
+!pip -q install descript-audio-codec loralib loguru hydra-core omegaconf einops "transformers==4.57.1" speechbrain faster-whisper jiwer pyloudnorm noisereduce num2words silero-vad onnxruntime 2>&1 | tail -5
 !git clone --depth 1 https://github.com/fishaudio/fish-speech /kaggle/working/fish-speech 2>&1 | tail -2
 '''
 
@@ -127,6 +127,33 @@ def run(command, timeout=None, cwd=None):
     elapsed = time.time() - start
     print(f"exit {code} in {elapsed / 60:.1f} min", flush=True)
     return code, elapsed
+'''
+
+IMPORTS = '''\
+# fish-speech is imported from a checkout with a hand-picked dependency list, and
+# the first run of this notebook died on one name that list had missed - after
+# paying for the install and the 11 GB download. So the import chain is walked
+# here, before anything expensive, and a module it turns out to need is fetched
+# by name. Each install is printed: the point is to finish the run *and* to end
+# up with the list this notebook should have shipped with.
+sys.path.insert(0, str(FISH))
+for attempt in range(5):
+    try:
+        from fish_speech.models.text2semantic.inference import (  # noqa: F401
+            decode_to_audio, encode_audio, generate_long, init_model, load_codec_model,
+        )
+        print("import chain complete" + (" after installing" if attempt else ""))
+        break
+    except ModuleNotFoundError as exc:
+        missing = exc.name.split(".")[0]
+        print(f"missing module: {missing} - installing", flush=True)
+        outcome = subprocess.run([sys.executable, "-m", "pip", "install", "-q", missing],
+                                 text=True, capture_output=True)
+        if outcome.returncode != 0:
+            print(outcome.stderr[-2000:])
+            raise SystemExit(f"could not install {missing}; the PyPI name may differ")
+else:
+    raise SystemExit("still missing modules after five installs")
 '''
 
 DOWNLOAD = f'''\
@@ -289,6 +316,31 @@ else:
     print("control did not produce a results file")
 '''
 
+FULL = f'''\
+# The full 27 cells, but only if the single scored cell above came back with a
+# number. A broken engine that reached this point would otherwise spend the
+# session rendering 27 failures, which is what the smoke cell exists to prevent.
+smoke = REPO / "eval/results/fish-smoke.json"
+ready = False
+if smoke.is_file():
+    data = json.loads(smoke.read_text())
+    row = (data["rows"] or [{{}}])[0]
+    ready = data["summary"]["renders"] == 1 and row.get("held_out_similarity") is not None
+    print("smoke cell:", json.dumps(data["summary"], ensure_ascii=False))
+if not ready:
+    print("no scored render from the smoke cell - not starting the full run")
+else:
+    code, elapsed = run([sys.executable, "scripts/benchmark.py", "--label", "fish",
+                         "--engine", "fish", "--device", "cuda"],
+                        timeout=7200, cwd=str(REPO))
+    path = REPO / "eval/results/fish.json"
+    if path.is_file():
+        data = json.loads(path.read_text())
+        print(json.dumps(data["summary"], ensure_ascii=False, indent=2))
+    else:
+        print("no results file for the full run")
+'''
+
 COLLECT = '''\
 destination = Path("/kaggle/working/results")
 destination.mkdir(exist_ok=True)
@@ -296,7 +348,8 @@ for path in (REPO / "eval/results").glob("*.json"):
     shutil.copy2(path, destination / path.name)
 renders = Path("/kaggle/working/fish_renders")
 renders.mkdir(exist_ok=True)
-for path in list((REPO / "outputs/benchmark/fish-smoke").glob("*.wav")) + [RENDER]:
+for path in list((REPO / "outputs/benchmark/fish-smoke").glob("*.wav")
+                    + list((REPO / "outputs/benchmark/fish").glob("*.wav"))) + [RENDER]:
     if path.is_file():
         shutil.copy2(path, renders / path.name)
 print("saved:", sorted(p.name for p in renders.glob("*.wav")))
@@ -314,7 +367,7 @@ def cell(source: str) -> dict:
 
 
 def main() -> int:
-    sources = [SETUP, ENVIRONMENT, DOWNLOAD, DRIVER, WORKER, CLI_CONTROL, BENCH, CONTROL, COLLECT]
+    sources = [SETUP, ENVIRONMENT, IMPORTS, DOWNLOAD, DRIVER, WORKER, CLI_CONTROL, BENCH, CONTROL, FULL, COLLECT]
     for index, source in enumerate(sources):
         compile(
             "".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),

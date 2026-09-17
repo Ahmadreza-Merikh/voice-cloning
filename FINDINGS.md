@@ -816,7 +816,7 @@ under-5 claim, is the only evidence available that the port is faithful.
 | **OmniVoice** | **0.583** | 84.8% | 2.6% | CC-BY-NC |
 | MOSS-TTS (older variant) | 0.559 | 81.2% | not transcribed | Apache-2.0 |
 | F5 continued + best-of-4 | 0.546 | 79.2% | 2.2% | base is CC-BY-NC |
-| Fish S2 Pro | 0.537 | 77.9% | **9.5%** | research only |
+| Fish S2 Pro | 0.537 | 77.7% | **9.5%** | research only |
 | Higgs TTS 3 | 0.531 | 77.3% | 2.9% | research only |
 | F5 baseline | 0.520 | 75.2% | 2.9% | base is CC-BY-NC |
 

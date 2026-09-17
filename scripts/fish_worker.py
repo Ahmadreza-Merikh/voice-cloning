@@ -120,15 +120,19 @@ def choose_precision(requested: str, device: str) -> str:
     trades mantissa for range. Which one ran is reported back to the parent and
     ends up in the results file, because it is a difference between machines
     and not something to discover later from a log.
+
+    The test is the compute capability, not ``torch.cuda.is_bf16_supported()``:
+    on a T4 that returns True, because torch counts the emulated path. Emulation
+    is exactly what upstream's flag exists to avoid.
     """
     import torch
 
     if requested != "bfloat16" or not device.startswith("cuda"):
         return requested
-    if not torch.cuda.is_available() or torch.cuda.is_bf16_supported():
+    if not torch.cuda.is_available() or torch.cuda.get_device_capability(0)[0] >= 8:
         return requested
     name = torch.cuda.get_device_name(0)
-    _log(f"fish: {name} has no bfloat16 - loading float16 instead (upstream's --half)")
+    _log(f"fish: {name} has no bfloat16 unit - loading float16 instead (upstream's --half)")
     return "float16"
 
 

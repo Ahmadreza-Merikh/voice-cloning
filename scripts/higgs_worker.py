@@ -110,14 +110,18 @@ def choose_dtype(requested: str, device: str) -> str:
     Turing - the T4 this is benchmarked on - has no bfloat16 unit. Both are
     16-bit; bfloat16 trades mantissa for range. The codec is loaded in fp32 by
     the port either way, which is the part that was unstable in 16-bit.
+
+    The test is the compute capability, not ``torch.cuda.is_bf16_supported()``:
+    on a T4 that returns True because torch counts the emulated path, which
+    would quietly run every layer through software bfloat16.
     """
     import torch
 
     if requested != "bfloat16" or not device.startswith("cuda"):
         return requested
-    if not torch.cuda.is_available() or torch.cuda.is_bf16_supported():
+    if not torch.cuda.is_available() or torch.cuda.get_device_capability(0)[0] >= 8:
         return requested
-    _log(f"higgs: {torch.cuda.get_device_name(0)} has no bfloat16 - loading float16")
+    _log(f"higgs: {torch.cuda.get_device_name(0)} has no bfloat16 unit - loading float16")
     return "float16"
 
 

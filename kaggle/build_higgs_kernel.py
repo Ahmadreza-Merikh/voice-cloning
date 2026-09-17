@@ -266,6 +266,31 @@ else:
     print("control did not produce a results file")
 '''
 
+FULL = f'''\
+# The full 27 cells, but only if the single scored cell above came back with a
+# number. A broken engine that reached this point would otherwise spend the
+# session rendering 27 failures, which is what the smoke cell exists to prevent.
+smoke = REPO / "eval/results/higgs-smoke.json"
+ready = False
+if smoke.is_file():
+    data = json.loads(smoke.read_text())
+    row = (data["rows"] or [{{}}])[0]
+    ready = data["summary"]["renders"] == 1 and row.get("held_out_similarity") is not None
+    print("smoke cell:", json.dumps(data["summary"], ensure_ascii=False))
+if not ready:
+    print("no scored render from the smoke cell - not starting the full run")
+else:
+    code, elapsed = run([sys.executable, "scripts/benchmark.py", "--label", "higgs",
+                         "--engine", "higgs", "--device", "cuda"],
+                        timeout=7200, cwd=str(REPO))
+    path = REPO / "eval/results/higgs.json"
+    if path.is_file():
+        data = json.loads(path.read_text())
+        print(json.dumps(data["summary"], ensure_ascii=False, indent=2))
+    else:
+        print("no results file for the full run")
+'''
+
 COLLECT = '''\
 destination = Path("/kaggle/working/results")
 destination.mkdir(exist_ok=True)
@@ -273,7 +298,8 @@ for path in (REPO / "eval/results").glob("*.json"):
     shutil.copy2(path, destination / path.name)
 renders = Path("/kaggle/working/higgs_renders")
 renders.mkdir(exist_ok=True)
-for path in list((REPO / "outputs/benchmark/higgs-smoke").glob("*.wav")) + [RENDER]:
+for path in list((REPO / "outputs/benchmark/higgs-smoke").glob("*.wav")
+                    + list((REPO / "outputs/benchmark/higgs").glob("*.wav"))) + [RENDER]:
     if path.is_file():
         shutil.copy2(path, renders / path.name)
 print("saved:", sorted(p.name for p in renders.glob("*.wav")))
@@ -291,7 +317,7 @@ def cell(source: str) -> dict:
 
 
 def main() -> int:
-    sources = [SETUP, ENVIRONMENT, DOWNLOAD, DRIVER, WORKER, BENCH, CONTROL, COLLECT]
+    sources = [SETUP, ENVIRONMENT, DOWNLOAD, DRIVER, WORKER, BENCH, CONTROL, FULL, COLLECT]
     for index, source in enumerate(sources):
         compile(
             "".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),

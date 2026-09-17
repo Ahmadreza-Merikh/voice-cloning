@@ -1,0 +1,670 @@
+{
+  "label": "higgs",
+  "engine": "higgs",
+  "created": "2026-09-17 21:38:22",
+  "duration_minutes": 4.5,
+  "config": {
+    "ref_transcript": "corpus",
+    "engine_option": [],
+    "preprocess_option": [],
+    "candidates": 1,
+    "reference_index": 0,
+    "score_only": false,
+    "replay_from": null,
+    "seeds": [
+      42
+    ],
+    "sentences": [
+      "s1",
+      "s2",
+      "s3"
+    ],
+    "device": "cuda",
+    "speakers": [
+      "cv02",
+      "cv03",
+      "cv04",
+      "cv07",
+      "cv08",
+      "cv09",
+      "cv10",
+      "cv11",
+      "mana"
+    ],
+    "similarity_backend": "speechbrain-ecapa"
+  },
+  "calibration": {
+    "ceiling": 0.6891468030769063,
+    "floor": 0.1316438156117278,
+    "cross_max": 0.5080684251441061,
+    "same_pairs": 90,
+    "cross_pairs": 900,
+    "per_speaker_ceiling": {
+      "cv02": 0.6793774830612641,
+      "cv03": 0.6613597308232737,
+      "cv04": 0.7020731823124866,
+      "cv07": 0.6802082451751559,
+      "cv08": 0.6072817959603607,
+      "cv09": 0.7810301492495116,
+      "cv10": 0.5953754171063774,
+      "cv11": 0.7568972039731086,
+      "mana": 0.7387180200306187
+    }
+  },
+  "recogniser_floor": {
+    "cer_mean": 0.07800123509335873,
+    "wer_mean": 0.3740008247479986,
+    "cer_median": 0.046875,
+    "clips": 45
+  },
+  "summary": {
+    "held_out_mean": 0.5311851851851852,
+    "held_out_sd": 0.06989393449915435,
+    "reference_mean": 0.6638666666666667,
+    "wer_mean": 0.23465423465423466,
+    "cer_mean": 0.028842131167712563,
+    "cer_median": 0.022222222222222223,
+    "scale_position": 0.7198543943290889,
+    "renders": 27,
+    "failures": 0,
+    "untranscribed": 0
+  },
+  "per_speaker": {
+    "cv02": {
+      "held_out": 0.5718666666666666,
+      "ceiling": 0.6793774830612641,
+      "gap": -0.10751081639459747,
+      "reference": 0.748,
+      "wer": 0.2457912457912458,
+      "cer": 0.026455026455026454,
+      "renders": 3
+    },
+    "cv03": {
+      "held_out": 0.5473333333333333,
+      "ceiling": 0.6613597308232737,
+      "gap": -0.11402639748994037,
+      "reference": 0.6707333333333333,
+      "wer": 0.2154882154882155,
+      "cer": 0.016931216931216932,
+      "renders": 3
+    },
+    "cv04": {
+      "held_out": 0.5801666666666667,
+      "ceiling": 0.7020731823124866,
+      "gap": -0.12190651564581989,
+      "reference": 0.657,
+      "wer": 0.2154882154882155,
+      "cer": 0.016931216931216932,
+      "renders": 3
+    },
+    "cv07": {
+      "held_out": 0.47159999999999996,
+      "ceiling": 0.6802082451751559,
+      "gap": -0.20860824517515592,
+      "reference": 0.6261333333333333,
+      "wer": 0.24112924112924114,
+      "cer": 0.03243509290020918,
+      "renders": 3
+    },
+    "cv08": {
+      "held_out": 0.5128,
+      "ceiling": 0.6072817959603607,
+      "gap": -0.09448179596036066,
+      "reference": 0.6954333333333333,
+      "wer": 0.2154882154882155,
+      "cer": 0.016931216931216932,
+      "renders": 3
+    },
+    "cv09": {
+      "held_out": 0.6263,
+      "ceiling": 0.7810301492495116,
+      "gap": -0.15473014924951167,
+      "reference": 0.6780333333333334,
+      "wer": 0.24112924112924114,
+      "cer": 0.0419589024240187,
+      "renders": 3
+    },
+    "cv10": {
+      "held_out": 0.4576,
+      "ceiling": 0.5953754171063774,
+      "gap": -0.13777541710637742,
+      "reference": 0.5417,
+      "wer": 0.2457912457912458,
+      "cer": 0.03597883597883598,
+      "renders": 3
+    },
+    "cv11": {
+      "held_out": 0.4808,
+      "ceiling": 0.7568972039731086,
+      "gap": -0.27609720397310855,
+      "reference": 0.61,
+      "wer": 0.2457912457912458,
+      "cer": 0.03597883597883598,
+      "renders": 3
+    },
+    "mana": {
+      "held_out": 0.5322,
+      "ceiling": 0.7387180200306187,
+      "gap": -0.2065180200306187,
+      "reference": 0.7477666666666667,
+      "wer": 0.2457912457912458,
+      "cer": 0.03597883597883598,
+      "renders": 3
+    }
+  },
+  "rows": [
+    {
+      "speaker": "cv02",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5624,
+      "held_out_scores": [
+        0.5274,
+        0.605,
+        0.551,
+        0.5663
+      ],
+      "reference_similarity": 0.7372,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خوندم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv02_s1_seed42.wav",
+      "seconds": 4.45
+    },
+    {
+      "speaker": "cv02",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5926,
+      "held_out_scores": [
+        0.5946,
+        0.6097,
+        0.576,
+        0.59
+      ],
+      "reference_similarity": 0.7475,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv02_s2_seed42.wav",
+      "seconds": 4.56
+    },
+    {
+      "speaker": "cv02",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5606,
+      "held_out_scores": [
+        0.5631,
+        0.5508,
+        0.5685,
+        0.5601
+      ],
+      "reference_similarity": 0.7593,
+      "word_error_rate": 0.18181818181818182,
+      "character_error_rate": 0.05714285714285714,
+      "transcription": "گل زیبای باق ما امروز شکفت و بحار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv02_s3_seed42.wav",
+      "seconds": 4.32
+    },
+    {
+      "speaker": "cv03",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5716,
+      "held_out_scores": [
+        0.6531,
+        0.6961,
+        0.3811,
+        0.5563
+      ],
+      "reference_similarity": 0.6736,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv03_s1_seed42.wav",
+      "seconds": 4.73
+    },
+    {
+      "speaker": "cv03",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5598,
+      "held_out_scores": [
+        0.7144,
+        0.5829,
+        0.3333,
+        0.6086
+      ],
+      "reference_similarity": 0.7019,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv03_s2_seed42.wav",
+      "seconds": 4.37
+    },
+    {
+      "speaker": "cv03",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5106,
+      "held_out_scores": [
+        0.5782,
+        0.583,
+        0.3457,
+        0.5354
+      ],
+      "reference_similarity": 0.6367,
+      "word_error_rate": 0.09090909090909091,
+      "character_error_rate": 0.02857142857142857,
+      "transcription": "گل زیبای باغ ما امروز شکفت و بحار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv03_s3_seed42.wav",
+      "seconds": 3.51
+    },
+    {
+      "speaker": "cv04",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5624,
+      "held_out_scores": [
+        0.6382,
+        0.5329,
+        0.552,
+        0.5265
+      ],
+      "reference_similarity": 0.6441,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv04_s1_seed42.wav",
+      "seconds": 4.53
+    },
+    {
+      "speaker": "cv04",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5681,
+      "held_out_scores": [
+        0.6215,
+        0.5808,
+        0.5579,
+        0.5121
+      ],
+      "reference_similarity": 0.6613,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv04_s2_seed42.wav",
+      "seconds": 4.61
+    },
+    {
+      "speaker": "cv04",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.61,
+      "held_out_scores": [
+        0.6563,
+        0.6099,
+        0.5807,
+        0.5931
+      ],
+      "reference_similarity": 0.6656,
+      "word_error_rate": 0.09090909090909091,
+      "character_error_rate": 0.02857142857142857,
+      "transcription": "گل زیبای باغ ما امروز شکفت و بحار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv04_s3_seed42.wav",
+      "seconds": 3.84
+    },
+    {
+      "speaker": "cv07",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.4924,
+      "held_out_scores": [
+        0.5454,
+        0.5521,
+        0.5159,
+        0.356
+      ],
+      "reference_similarity": 0.5541,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv07_s1_seed42.wav",
+      "seconds": 4.83
+    },
+    {
+      "speaker": "cv07",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.419,
+      "held_out_scores": [
+        0.412,
+        0.4197,
+        0.5008,
+        0.3436
+      ],
+      "reference_similarity": 0.6557,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.046511627906976744,
+      "transcription": "گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv07_s2_seed42.wav",
+      "seconds": 4.36
+    },
+    {
+      "speaker": "cv07",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5034,
+      "held_out_scores": [
+        0.511,
+        0.4883,
+        0.5674,
+        0.4467
+      ],
+      "reference_similarity": 0.6686,
+      "word_error_rate": 0.09090909090909091,
+      "character_error_rate": 0.02857142857142857,
+      "transcription": "گل زیبای باغ ما امروز شکفت و بحار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv07_s3_seed42.wav",
+      "seconds": 3.76
+    },
+    {
+      "speaker": "cv08",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5235,
+      "held_out_scores": [
+        0.5702,
+        0.6512,
+        0.3291,
+        0.5436
+      ],
+      "reference_similarity": 0.7271,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv08_s1_seed42.wav",
+      "seconds": 4.97
+    },
+    {
+      "speaker": "cv08",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.536,
+      "held_out_scores": [
+        0.6094,
+        0.5967,
+        0.3984,
+        0.5394
+      ],
+      "reference_similarity": 0.713,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv08_s2_seed42.wav",
+      "seconds": 4.98
+    },
+    {
+      "speaker": "cv08",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.4789,
+      "held_out_scores": [
+        0.515,
+        0.5781,
+        0.3351,
+        0.4876
+      ],
+      "reference_similarity": 0.6462,
+      "word_error_rate": 0.09090909090909091,
+      "character_error_rate": 0.02857142857142857,
+      "transcription": "گل زیبای باغ ما امروز شکفت و بحار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv08_s3_seed42.wav",
+      "seconds": 4.46
+    },
+    {
+      "speaker": "cv09",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.713,
+      "held_out_scores": [
+        0.6674,
+        0.6932,
+        0.7351,
+        0.7562
+      ],
+      "reference_similarity": 0.7428,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv09_s1_seed42.wav",
+      "seconds": 5.65
+    },
+    {
+      "speaker": "cv09",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5711,
+      "held_out_scores": [
+        0.5707,
+        0.5227,
+        0.5698,
+        0.6211
+      ],
+      "reference_similarity": 0.6687,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.046511627906976744,
+      "transcription": "گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv09_s2_seed42.wav",
+      "seconds": 5.21
+    },
+    {
+      "speaker": "cv09",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5948,
+      "held_out_scores": [
+        0.5533,
+        0.5508,
+        0.5855,
+        0.6898
+      ],
+      "reference_similarity": 0.6226,
+      "word_error_rate": 0.09090909090909091,
+      "character_error_rate": 0.05714285714285714,
+      "transcription": "گل زیبای باقی ما امروز شکفت و بهار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv09_s3_seed42.wav",
+      "seconds": 4.25
+    },
+    {
+      "speaker": "cv10",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5327,
+      "held_out_scores": [
+        0.476,
+        0.521,
+        0.5437,
+        0.59
+      ],
+      "reference_similarity": 0.6231,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv10_s1_seed42.wav",
+      "seconds": 4.73
+    },
+    {
+      "speaker": "cv10",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5157,
+      "held_out_scores": [
+        0.5044,
+        0.5355,
+        0.5184,
+        0.5046
+      ],
+      "reference_similarity": 0.6328,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv10_s2_seed42.wav",
+      "seconds": 5.24
+    },
+    {
+      "speaker": "cv10",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.3244,
+      "held_out_scores": [
+        0.3115,
+        0.3321,
+        0.2865,
+        0.3676
+      ],
+      "reference_similarity": 0.3692,
+      "word_error_rate": 0.18181818181818182,
+      "character_error_rate": 0.08571428571428572,
+      "transcription": "گل زیبای باقی ما امروز شکفت و بحار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv10_s3_seed42.wav",
+      "seconds": 4.28
+    },
+    {
+      "speaker": "cv11",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.4696,
+      "held_out_scores": [
+        0.5035,
+        0.5066,
+        0.3712,
+        0.4972
+      ],
+      "reference_similarity": 0.5986,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv11_s1_seed42.wav",
+      "seconds": 4.71
+    },
+    {
+      "speaker": "cv11",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5085,
+      "held_out_scores": [
+        0.5313,
+        0.5674,
+        0.4253,
+        0.5101
+      ],
+      "reference_similarity": 0.635,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv11_s2_seed42.wav",
+      "seconds": 5.16
+    },
+    {
+      "speaker": "cv11",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.4643,
+      "held_out_scores": [
+        0.5109,
+        0.4644,
+        0.3699,
+        0.5121
+      ],
+      "reference_similarity": 0.5964,
+      "word_error_rate": 0.18181818181818182,
+      "character_error_rate": 0.08571428571428572,
+      "transcription": "قبل زیبای باغ ما امروز شکفت و بحار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/cv11_s3_seed42.wav",
+      "seconds": 3.67
+    },
+    {
+      "speaker": "mana",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5039,
+      "held_out_scores": [
+        0.5451,
+        0.5497,
+        0.4462,
+        0.4745
+      ],
+      "reference_similarity": 0.6633,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/mana_s1_seed42.wav",
+      "seconds": 4.64
+    },
+    {
+      "speaker": "mana",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5639,
+      "held_out_scores": [
+        0.6387,
+        0.5576,
+        0.4867,
+        0.5726
+      ],
+      "reference_similarity": 0.816,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/mana_s2_seed42.wav",
+      "seconds": 4.69
+    },
+    {
+      "speaker": "mana",
+      "sentence": "s3",
+      "seed": 42,
+      "held_out_similarity": 0.5288,
+      "held_out_scores": [
+        0.6192,
+        0.5533,
+        0.4388,
+        0.504
+      ],
+      "reference_similarity": 0.764,
+      "word_error_rate": 0.18181818181818182,
+      "character_error_rate": 0.08571428571428572,
+      "transcription": "گل زیبای باقی ما امروز شکفت و بحار از راه رسید.",
+      "expected": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید.",
+      "output": "/kaggle/working/repo/outputs/benchmark/higgs/mana_s3_seed42.wav",
+      "seconds": 4.43
+    }
+  ]
+}

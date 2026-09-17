@@ -1,0 +1,86 @@
+{
+  "label": "fish-smoke",
+  "engine": "fish",
+  "created": "2026-09-17 22:20:06",
+  "duration_minutes": 2.9,
+  "config": {
+    "ref_transcript": "corpus",
+    "engine_option": [],
+    "preprocess_option": [],
+    "candidates": 1,
+    "reference_index": 0,
+    "score_only": false,
+    "replay_from": null,
+    "seeds": [
+      42
+    ],
+    "sentences": [
+      "s1"
+    ],
+    "device": "cuda",
+    "speakers": [
+      "cv02"
+    ],
+    "similarity_backend": "speechbrain-ecapa"
+  },
+  "calibration": {
+    "ceiling": 0.6793774830612641,
+    "floor": null,
+    "cross_max": null,
+    "same_pairs": 10,
+    "cross_pairs": 0,
+    "per_speaker_ceiling": {
+      "cv02": 0.6793774830612641
+    }
+  },
+  "recogniser_floor": {
+    "cer_mean": 0.07800123509335873,
+    "wer_mean": 0.3740008247479986,
+    "cer_median": 0.046875,
+    "clips": 45
+  },
+  "summary": {
+    "held_out_mean": 0.4483,
+    "held_out_sd": null,
+    "reference_mean": 0.5452,
+    "wer_mean": 0.5555555555555556,
+    "cer_mean": 0.06666666666666667,
+    "cer_median": 0.06666666666666667,
+    "scale_position": null,
+    "renders": 1,
+    "failures": 0,
+    "untranscribed": 0
+  },
+  "per_speaker": {
+    "cv02": {
+      "held_out": 0.4483,
+      "ceiling": 0.6793774830612641,
+      "gap": -0.23107748306126413,
+      "reference": 0.5452,
+      "wer": 0.5555555555555556,
+      "cer": 0.06666666666666667,
+      "renders": 1
+    }
+  },
+  "rows": [
+    {
+      "speaker": "cv02",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.4483,
+      "held_out_scores": [
+        0.3964,
+        0.4659,
+        0.4097,
+        0.5213
+      ],
+      "reference_similarity": 0.5452,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.06666666666666667,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در بار تاریخ ایران خاند",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/fish-smoke/cv02_s1_seed42.wav",
+      "seconds": 4.14
+    }
+  ]
+}

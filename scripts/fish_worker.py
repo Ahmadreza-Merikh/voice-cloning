@@ -152,6 +152,12 @@ def load_models(checkpoint: Path, device: str, precision_name: str, max_seq_len:
     import torch
     from fish_speech.models.text2semantic.inference import init_model, load_codec_model
 
+    # Upstream loads the codec under @torch.inference_mode(), which makes its
+    # parameters inference tensors. Anything that then touches them with grad
+    # still enabled fails inside the codec's TorchScript snake activation with
+    # "Inference tensors cannot be saved for backward" - which is how the first
+    # render died after the model had loaded perfectly.
+    torch.set_grad_enabled(False)
     dtype = _dtype(precision_name)
     model, decode_one_token = init_model(checkpoint, device, dtype, compile=False)
     model.config.max_seq_len = max_seq_len
@@ -185,15 +191,16 @@ def encode_reference(path: str, codec: Any, device: str) -> Any:
     import torchaudio
 
     data, rate = sf.read(path, dtype="float32", always_2d=True)
-    wav = torch.from_numpy(np.asarray(data, dtype=np.float32).mean(axis=1)).to(device)
-    if rate != codec.sample_rate:
-        wav = torchaudio.functional.resample(wav, rate, codec.sample_rate)
+    with torch.inference_mode():  # upstream's decorator on encode_audio
+        wav = torch.from_numpy(np.asarray(data, dtype=np.float32).mean(axis=1)).to(device)
+        if rate != codec.sample_rate:
+            wav = torchaudio.functional.resample(wav, rate, codec.sample_rate)
 
-    model_dtype = next(codec.parameters()).dtype
-    audios = wav[None, None].to(dtype=model_dtype)
-    audio_lengths = torch.tensor([wav.shape[-1]], device=device, dtype=torch.long)
-    indices, feature_lengths = codec.encode(audios, audio_lengths)
-    return indices[0, :, : feature_lengths[0]]
+        model_dtype = next(codec.parameters()).dtype
+        audios = wav[None, None].to(dtype=model_dtype)
+        audio_lengths = torch.tensor([wav.shape[-1]], device=device, dtype=torch.long)
+        indices, feature_lengths = codec.encode(audios, audio_lengths)
+        return indices[0, :, : feature_lengths[0]]
 
 
 def _seed(seed: int) -> None:

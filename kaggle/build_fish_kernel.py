@@ -103,6 +103,9 @@ assert (FISH / "fish_speech" / "models" / "text2semantic" / "inference.py").is_f
 os.environ["VOICECLONE_FISH_PYTHON"] = sys.executable
 os.environ["PYTHONPATH"] = f"{FISH}:{REPO / 'src'}"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+# The run that first reached a render died 54 MiB short of the card, and this
+# is what the allocator's own message asks for when that happens.
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 print("torch       :", torch.__version__)
 print("gpus        :", torch.cuda.device_count(),

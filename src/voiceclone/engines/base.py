@@ -40,6 +40,11 @@ class EngineCapabilities:
     supports_seed: bool = True
     #: Approximate weight footprint, for the download planner.
     approx_download_gb: float = 0.0
+    #: Longest reference the engine uses as given, or None for no limit. An
+    #: engine that clips a longer prompt internally but keeps the transcript it
+    #: was handed ends up conditioning on text the audio no longer contains, so
+    #: the Studio cuts the window - and transcribes the cut - before that.
+    max_reference_seconds: float | None = None
 
 
 @dataclass

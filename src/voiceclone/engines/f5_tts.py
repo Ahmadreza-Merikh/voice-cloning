@@ -42,6 +42,13 @@ class F5TTSEngine(TTSEngine):
     capabilities = EngineCapabilities(
         accepts_phonemes=False,
         requires_reference_text=True,
+        # F5-TTS's preprocess_ref_audio_text clips a reference over 12 s - at a
+        # silence if it finds one, else hard at 12 s - but keeps the transcript
+        # it was given whole. That transcript then describes speech the audio
+        # has lost, and the output length F5 derives from their ratio comes out
+        # short: a 12.4 s reference turned a four-word greeting into 1.1 s of
+        # garble. 11.5 leaves a margin under its 12 s check.
+        max_reference_seconds=11.5,
         native_persian=True,
         supports_speed=True,
         supports_seed=True,

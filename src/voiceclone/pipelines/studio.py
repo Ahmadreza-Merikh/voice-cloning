@@ -286,6 +286,38 @@ class Studio:
             reference_result = self.prepare_reference(reference, overrides=preprocess_overrides)
         warnings.extend(reference_result.report_after.issues)
 
+        # -- the engine's own reference limit -------------------------------
+        # F5-TTS clips a prompt longer than 12 s inside its preprocessing but
+        # keeps the transcript it was handed, which then describes speech the
+        # audio no longer has, so its output comes out short and garbled.
+        # Cutting the window here, before anything is transcribed, keeps the
+        # two in agreement. The cached reference stays whole for other engines.
+        limit = tts.capabilities.max_reference_seconds
+        if limit and reference_result.audio.duration > limit:
+            from dataclasses import replace
+
+            from ..audio.segment import fit_reference
+
+            original = reference_result.audio.duration
+            fitted = fit_reference(
+                reference_result.audio,
+                limit,
+                target_seconds=self.config.audio.reference.target_seconds,
+                min_seconds=self.config.audio.reference.min_seconds,
+                vad_backend=self.config.audio.preprocess.vad_backend,
+            )
+            reference_result = replace(reference_result, audio=fitted)
+            note = (
+                f"{tts.display_name} uses at most {limit:.1f}s of reference, so the "
+                f"{original:.1f}s clip was cut to {fitted.duration:.1f}s"
+            )
+            if (reference_text or "").strip():
+                # The transcript supplied was written for the longer clip.
+                reference_text = None
+                note += " and transcribed again to match"
+            warnings.append(note + ".")
+            log.info(note)
+
         # -- reference transcript (F5-TTS needs one) -----------------------
         resolved_reference_text = (reference_text or "").strip()
         if tts.capabilities.requires_reference_text and not resolved_reference_text:

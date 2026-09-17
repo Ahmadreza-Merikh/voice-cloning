@@ -178,4 +178,56 @@ def fit_to_duration(
     ).audio
 
 
-__all__ = ["WindowChoice", "fit_to_duration", "select_reference_window"]
+#: Shortest silence `fit_reference` treats as a pause. A VAD can also report a
+#: boundary in the dip between two syllables; cutting there is cutting mid-word.
+#: Reference preprocessing compacts real pauses to at most 0.35 s, so they stay
+#: well above this.
+MIN_PAUSE_SECONDS = 0.15
+
+
+def fit_reference(
+    audio: Audio,
+    limit: float,
+    *,
+    target_seconds: float = 10.0,
+    min_seconds: float = 3.0,
+    vad_backend: str = "auto",
+) -> Audio:
+    """Cut a prepared reference to at most ``limit`` seconds.
+
+    Unlike `fit_to_duration` this is a hard limit, for engines that cannot
+    condition on anything longer. It keeps the start of the clip and ends
+    inside the last real pause before the limit, so the prompt does not stop
+    mid-word - which is exactly where an engine like F5-TTS picks up into the
+    new text. Without such a pause it falls back to the best window, and to a
+    hard cut only if that window is still too long. A clip that already fits
+    comes back unchanged.
+    """
+    if audio.duration <= limit:
+        return audio
+
+    segments = detect_speech(audio, backend=vad_backend)
+    following = [start for start, _ in segments[1:]] + [audio.duration]
+    cuts = [
+        # Inside the gap: a little after the speech before it, never past its middle.
+        end + min(0.1, (next_start - end) / 2)
+        for (_, end), next_start in zip(segments, following, strict=True)
+        if next_start - end >= MIN_PAUSE_SECONDS
+    ]
+    cuts = [cut for cut in cuts if min_seconds <= cut <= limit]
+    if cuts:
+        return audio.slice_seconds(0.0, max(cuts))
+
+    fitted = select_reference_window(
+        audio,
+        target_seconds=min(target_seconds, limit),
+        min_seconds=min(min_seconds, limit),
+        max_seconds=limit,
+        vad_backend=vad_backend,
+    ).audio
+    # A clip already close to its target length comes back whole from the
+    # window search, and can still be over the limit.
+    return fitted if fitted.duration <= limit else fitted.slice_seconds(0.0, limit)
+
+
+__all__ = ["WindowChoice", "fit_reference", "fit_to_duration", "select_reference_window"]

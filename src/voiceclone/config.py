@@ -270,6 +270,33 @@ class FishS2Config:
 
 
 @dataclass
+class HiggsConfig:
+    """Higgs TTS 3, driven out-of-process in its own virtualenv.
+
+    Defaults are the values in Boson's own serving example. The checkpoint is
+    loaded through a transformers port of the vendor's weights, because the
+    vendor's own serving stacks need an Ampere card; the worker's docstring
+    records what was verified about that port.
+    """
+
+    python: str | None = "auto"
+    model_id: str = "multimodalart/higgs-audio-v3-tts-4b-transformers"
+    #: Pinned to the commit whose modeling code was read, since it runs with
+    #: trust_remote_code.
+    revision: str = "30f01593ee6a12efa586c92455afe4b76e45095d"
+    #: The port's recommendation. A GPU with no bfloat16 unit gets float16; the
+    #: codec runs in fp32 either way, which is the part that is unstable in
+    #: 16-bit and the likely cause of the constant-output failure on Turing.
+    dtype: str = "bfloat16"
+    temperature: float = 0.8
+    top_p: float | None = None
+    top_k: int = 50
+    #: About 43 s of audio at the model's frame rate.
+    max_new_tokens: int = 1024
+    timeout_seconds: int = 900
+
+
+@dataclass
 class SeedVCConfig:
     repo_path: str | None = "auto"
     python: str | None = "auto"
@@ -291,6 +318,7 @@ class EnginesConfig:
     chatterbox: ChatterboxConfig = field(default_factory=ChatterboxConfig)
     omnivoice: OmniVoiceConfig = field(default_factory=OmniVoiceConfig)
     fish: FishS2Config = field(default_factory=FishS2Config)
+    higgs: HiggsConfig = field(default_factory=HiggsConfig)
     asr: ASRConfig = field(default_factory=ASRConfig)
     seedvc: SeedVCConfig = field(default_factory=SeedVCConfig)
 

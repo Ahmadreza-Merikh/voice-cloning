@@ -168,6 +168,34 @@ def load_models(checkpoint: Path, device: str, precision_name: str, max_seq_len:
     return model, decode_one_token, codec
 
 
+def encode_reference(path: str, codec: Any, device: str) -> Any:
+    """Reference waveform -> VQ codes, without going through torchaudio.load.
+
+    This is upstream's ``encode_audio`` with one line changed. Upstream reads
+    the clip with ``torchaudio.load``, which in torchaudio 2.9 delegates to
+    torchcodec and needs FFmpeg's shared libraries; on the image this runs on,
+    every version of libavutil torchcodec looks for is missing, so a model that
+    had loaded perfectly failed on its first render. soundfile reads a WAV
+    without any of that. Everything after the read - the mono mean, the
+    resample, the dtype, the length tensor - is upstream's own.
+    """
+    import numpy as np
+    import soundfile as sf
+    import torch
+    import torchaudio
+
+    data, rate = sf.read(path, dtype="float32", always_2d=True)
+    wav = torch.from_numpy(np.asarray(data, dtype=np.float32).mean(axis=1)).to(device)
+    if rate != codec.sample_rate:
+        wav = torchaudio.functional.resample(wav, rate, codec.sample_rate)
+
+    model_dtype = next(codec.parameters()).dtype
+    audios = wav[None, None].to(dtype=model_dtype)
+    audio_lengths = torch.tensor([wav.shape[-1]], device=device, dtype=torch.long)
+    indices, feature_lengths = codec.encode(audios, audio_lengths)
+    return indices[0, :, : feature_lengths[0]]
+
+
 def _seed(seed: int) -> None:
     import random
 
@@ -197,11 +225,7 @@ def synthesize(state: dict[str, Any], job: dict[str, Any]) -> dict[str, Any]:
     import numpy as np
     import soundfile as sf
     import torch
-    from fish_speech.models.text2semantic.inference import (
-        decode_to_audio,
-        encode_audio,
-        generate_long,
-    )
+    from fish_speech.models.text2semantic.inference import decode_to_audio, generate_long
 
     if job.get("seed") is not None:
         _seed(int(job["seed"]))
@@ -212,7 +236,7 @@ def synthesize(state: dict[str, Any], job: dict[str, Any]) -> dict[str, Any]:
     prompt_tokens = None
     prompt_text = None
     if job.get("reference") and reference_text:
-        prompt_tokens = [encode_audio(job["reference"], codec, device).cpu()]
+        prompt_tokens = [encode_reference(job["reference"], codec, device).cpu()]
         prompt_text = [reference_text]
 
     kwargs = {name: job[name] for name in GENERATION_FIELDS if job.get(name) is not None}

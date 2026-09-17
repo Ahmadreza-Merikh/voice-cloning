@@ -4,7 +4,7 @@ A handover file. It says where the work is, what is already answered, what is
 running elsewhere, and what the next concrete step is - enough for someone (or
 some later session) to resume without re-deriving any of it. No credentials.
 
-Last updated: 2026-09-18, after the Fish S2 Pro run finished.
+Last updated: 2026-09-18, after the audit pass and SOTA_ROADMAP.md.
 
 ## Stage
 
@@ -13,8 +13,8 @@ that the earlier measurements were reported with. Not training anything yet.
 
 ## Last healthy commit
 
-`ed19ad0` - "Stop treating 27 cells as 27 independent observations". Tree clean,
-214 tests plus 13 worker tests pass, `ruff check src scripts tests` clean.
+`0c8e2ac` - "Correct the record: the licences, the statistics, and the two new
+engines". Tree clean, 228 tests pass, `ruff check src scripts tests` clean.
 
 ## What is measured
 
@@ -57,26 +57,30 @@ Kaggle notes that cost sessions before: a dataset push must land *before* the
 kernel that mounts it, `kernels output` returns nothing while a kernel is
 running, and the log is only reachable through `api.kernels_logs`.
 
-## Open corrections, in order
+## Corrections from the audit
 
-1. **done** - speaker-clustered statistics (`scripts/compare_runs.py`).
-2. `src/voiceclone/pipelines/results.py` still carries an early small-sample
-   calibration (0.288 / 0.544 / 0.647 / 0.800) while the benchmark measures
-   0.132 / 0.508 / 0.689 on 900 and 90 pairs. The app's verdict strings are
-   computed from the stale set.
-3. The corpus drops speakers using the same ECAPA that scores the results
-   (`scripts/build_eval_corpus.py`, `verify()`). That biases the absolute scale
-   - ceiling up, floor down - though not the comparison between engines, which
-   all see the same speakers.
-4. The manifest calls each Common Voice clip a separate "session". Common Voice
-   publishes no session field; the evidenced statement is "a different clip".
-5. FINDINGS and README still quote the cell-level statistics.
+1. **done** `ed19ad0` - speaker-clustered statistics (`scripts/compare_runs.py`).
+   Only one comparison in the project still clears both bars.
+2. **done** `d134b75` - `results.py` recalibrated from the early 39-pair sample
+   to the benchmark's 900 and 90 pairs, the unevidenced session bands dropped,
+   and a test pins the constants to `eval/results/baseline.json`.
+3. **done** `0c8e2ac` - licences corrected (OmniVoice weights are CC-BY-NC, not
+   Apache-2.0; the F5 base is CC-BY-NC too), Fish and Higgs added to the record,
+   and the corpus-selection and rounding caveats written down.
+4. **open** - `scripts/build_eval_corpus.py` still selects speakers with the
+   encoder that grades the results. Documented, not fixed; fixing it means
+   admitting speakers on evidence that is not the judge, which belongs with the
+   corpus widening in SOTA_ROADMAP.md §3.
+5. **open** - only the Higgs engine pins a model revision in config. The others
+   should, now that the exact shas are recorded in SOTA_ROADMAP.md §4.
 
 ## Next concrete step
 
-Item 2 above: replace the calibration constants in `results.py` with the
-measured ones, scope them to this corpus and encoder, and drop the
-same-session band that has no evidence behind it.
+`SOTA_ROADMAP.md` §8 sets the order. The first two items that need no decision
+from the user: measure `MOSS-TTS-Local-Transformer-v1.5` (the only unrestricted
+candidate, and the variant measured here is the older one), and test
+multi-reference conditioning on the existing corpus, which needs no training and
+is the first evidence for or against the channel hypothesis.
 
 ## Blockers
 

@@ -303,6 +303,13 @@ Then, in the app:
   2.2-2.9%, all scored by one recogniser). MOSS-TTS, which this line used to
   recommend for pronunciation, measured the worst CER of any engine here (6.5%).
   Persian G2P does not help rendering - see the note on phonemes at the top.
+  On a 16 GB Mac it is a tight fit. Its worker peaks around 2.9 GB, which leaves
+  room only while the recogniser is not loaded as well: measured, a render with
+  the transcript supplied peaked at 3.4 GB and never raised memory pressure,
+  while the same render with the transcript left empty - so the recogniser had
+  to load - reached warning pressure and was stopped. So paste the reference
+  transcript rather than leaving the box empty, keep browsers light, or use F5,
+  which is the default for that reason.
 - The **Maximum quality** preset (64 ODE steps) measured no better than the
   default: held-out 0.517 against 0.520, inside the encoder's noise. It costs time
   and buys nothing measurable here.

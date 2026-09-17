@@ -24,6 +24,7 @@ from .base import (
 # Side-effect imports: each module registers its engine class.
 from .chatterbox_tts import ChatterboxEngine  # noqa: F401  (registers "chatterbox")
 from .f5_tts import F5TTSEngine  # noqa: F401  (registers "f5")
+from .fish_tts import FishS2Engine  # noqa: F401  (registers "fish")
 from .moss_tts import MossTTSEngine  # noqa: F401  (registers "moss")
 from .omnivoice_tts import OmniVoiceEngine  # noqa: F401  (registers "omnivoice")
 from .vc_seedvc import SeedVCEngine  # noqa: F401  (registers "seedvc")
@@ -34,6 +35,7 @@ __all__ = [
     "Engine",
     "EngineCapabilities",
     "F5TTSEngine",
+    "FishS2Engine",
     "MossTTSEngine",
     "OmniVoiceEngine",
     "SeedVCEngine",

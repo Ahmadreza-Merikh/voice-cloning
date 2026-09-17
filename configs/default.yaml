@@ -235,6 +235,38 @@ engines:
     class_temperature: 0.0
     timeout_seconds: 900
 
+  fish:
+    # Fish Audio S2 Pro (arXiv 2603.08823): dual-autoregressive TTS, a 4B slow
+    # transformer over time plus a 400M fast one filling 9 residual codebooks
+    # per frame, trained on 10M+ hours across 80+ languages. Persian is in the
+    # third tier - tier 1 is ja/en/zh, tier 2 another seven - so its headline
+    # Seed-TTS numbers are not a Persian claim. The benchmark decides.
+    #
+    # Fish Audio Research License: research and non-commercial use only, unlike
+    # every other engine here. Winning does not make it shippable.
+    #
+    # Pins torch 2.8 and transformers <=4.57, so it runs in its own environment:
+    #   git clone https://github.com/fishaudio/fish-speech ~/.cache/persian-voice-cloning/fish
+    #   uv venv --python python3.12 ~/.cache/persian-voice-cloning/fish/.venv
+    #   VIRTUAL_ENV=~/.cache/.../fish/.venv uv pip install -e ~/.cache/persian-voice-cloning/fish
+    python: auto
+    checkpoint: fishaudio/s2-pro   # about 11 GB on first use
+    # Upstream's dtype. A GPU with no bfloat16 unit (Turing, so the T4) loads
+    # float16 instead - upstream's own --half - and the results say which ran.
+    precision: bfloat16
+    # Bounds the KV cache and how far generation may run. The checkpoint says
+    # 32768, which reserves ~4.8 GB in 16-bit on top of 9.1 GB of weights and a
+    # 1.9 GB codec. At ~21 frames/s this is still about three minutes of speech.
+    max_seq_len: 4096
+    # Upstream CLI defaults - the configuration upstream ships.
+    temperature: 1.0
+    top_p: 0.9
+    top_k: 30
+    repetition_penalty: 1.1
+    chunk_length: 300
+    max_new_tokens: 1024     # ~48 s of audio: a bound on a render that never stops
+    timeout_seconds: 900
+
   asr:
     # Used to auto-transcribe the reference clip (F5-TTS needs the reference
     # transcript) and to drive the speech-to-speech cascade.

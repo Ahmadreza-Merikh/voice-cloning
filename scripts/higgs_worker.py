@@ -136,7 +136,10 @@ def load_model(model_id: str, revision: str | None, device: str, dtype_name: str
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
     torch.set_grad_enabled(False)
-    tokenizer = AutoTokenizer.from_pretrained(model_id, revision=revision)
+    # The tokenizer reads the same config, whose auto_map points at the custom
+    # code, so it asks too - and a worker whose stdin is the job protocol has no
+    # way to answer a [y/N] prompt.
+    tokenizer = AutoTokenizer.from_pretrained(model_id, revision=revision, trust_remote_code=True)
     model = AutoModelForCausalLM.from_pretrained(
         model_id, revision=revision, trust_remote_code=True, dtype=_dtype(dtype_name)
     )

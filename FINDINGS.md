@@ -627,7 +627,7 @@ Verified against each model's own card or repository:
 
 | model | size | licence | Persian | runs on this 16 GB Mac |
 |---|---|---|---|---|
-| [k2-fsa/OmniVoice](https://github.com/k2-fsa/OmniVoice) | 3.3 GB | Apache-2.0 | yes | yes — MPS documented |
+| [k2-fsa/OmniVoice](https://github.com/k2-fsa/OmniVoice) | 3.3 GB | code Apache-2.0, **weights CC-BY-NC** | yes | yes — MPS documented |
 | [MOSS-TTS-Local-Transformer](https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Local-Transformer) | 3.06B, bf16 | Apache-2.0 | yes | marginally — 6.1 GB of weights, and transformers 5.0.x |
 | [fishaudio/s2-pro](https://huggingface.co/fishaudio/s2-pro) | 5B | research / non-commercial | yes | no |
 | [bosonai/higgs-tts-3-4b](https://huggingface.co/bosonai/higgs-tts-3-4b) | ~4B | research / non-commercial | yes | no |
@@ -708,10 +708,15 @@ ten pairs, so it carries its own noise, and a ratio of two noisy numbers
 carries more.
 
 **The result is not that this project built something better.** OmniVoice is
-k2-fsa's model under Apache-2.0, run at its published settings with no training
-of any kind. What this project contributed is the instrument that could tell.
+k2-fsa's model, run at its published settings with no training of any kind. Its
+code is Apache-2.0; its *weights* are CC-BY-NC, which its model card states
+plainly ("due to constraints from its training data (e.g., Emilia)") and which
+this document got wrong until it was checked. The same check found that the F5
+base this project has been continuing is CC-BY-NC-4.0 as well. What this project contributed is the instrument that could tell.
 The honest comparison is uncomfortable: nine GPU-hours of continuation on 2739
-speakers bought +0.0266, and changing the base model bought +0.0371 for free.
+speakers bought +0.027, and changing the base model bought +0.037 for free -
+both of them differences whose *direction* is established and whose *size* is
+not, once the statistics are done per speaker rather than per cell (below).
 On this corpus, choosing the base mattered more than tuning it — and the only
 reason the better base was found at all is that the landscape was checked live
 instead of recalled.
@@ -775,12 +780,111 @@ So OmniVoice is the strongest public model measured here on both axes at once.
 That is a statement about this instrument - nine speakers, one seed, a local
 scale, no systematic human listening - not a world ranking.
 
-The remaining candidates in the table, Fish S2 Pro and Higgs TTS 3, carry
-research or non-commercial licences, do not fit this machine without
-compromise, and are unmeasured.
+### The last two candidates: Fish S2 Pro and Higgs TTS 3
+
+Both were listed and left unmeasured because their licences are research-only
+and neither fits this Mac. That decides what may be *shipped*, not what may be
+*known*, so both were measured on a T4 in float16 - neither card has a bfloat16
+unit, and `torch.cuda.is_bf16_supported()` returns True there anyway because it
+counts the emulated path, which is worth knowing before trusting it.
+
+[Fish S2 Pro](https://huggingface.co/fishaudio/s2-pro) (revision
+`1de9996b`, 11 GB) runs through upstream's own dual-AR code. Two things had to
+change to make it run at all, both recorded in `scripts/fish_worker.py`: the
+reference is read with soundfile, because torchaudio 2.9 delegates to torchcodec
+and no FFmpeg shared library on that image satisfies it; and the transformer is
+built with `max_length=4096`, because at the checkpoint's declared 32768 the
+causal mask alone is a gibibyte of triangle. Measured on the card: transformer
+8.51 GiB, KV cache 0.57, codec 3.85 - which is why the codec sits on the second
+T4.
+
+[Higgs TTS 3](https://huggingface.co/bosonai/higgs-tts-3-4b) claims Persian in
+the top tier of its own model card, the 85 languages it puts under "WER/CER
+under 5", and tops its own eleven-system multilingual table. Boson ships it for
+SGLang-Omni or vLLM-Omni, both of which want compute capability 8.0 against the
+T4's 7.5, and the one public attempt to force that path returned WAV files whose
+every sample was -32768. It was measured instead through
+`multimodalart/higgs-audio-v3-tts-4b-transformers` at revision `30f01593`,
+whose `model.safetensors` and `tokenizer.json` have sha256 hashes identical to
+Boson's own - verified again inside the run. The *weights* are therefore the
+vendor's; the generation loop is not, and a port that differed would be measured
+here as the model. Its CER landing at 2.9%, consistent with the card's
+under-5 claim, is the only evidence available that the port is faithful.
+
+| Run | Held-out | share of own ceiling | CER | licence of the weights |
+|---|---|---|---|---|
+| **OmniVoice** | **0.583** | 84.8% | 2.6% | CC-BY-NC |
+| MOSS-TTS (older variant) | 0.559 | 81.2% | not transcribed | Apache-2.0 |
+| F5 continued + best-of-4 | 0.546 | 79.2% | 2.2% | base is CC-BY-NC |
+| Fish S2 Pro | 0.537 | 77.9% | **9.5%** | research only |
+| Higgs TTS 3 | 0.531 | 77.3% | 2.9% | research only |
+| F5 baseline | 0.520 | 75.2% | 2.9% | base is CC-BY-NC |
+
+Neither new candidate changes the ordering. Higgs and Fish both sit inside the
+band this test cannot separate: against the best F5 configuration, Higgs is
+-0.015 [-0.048, +0.018] and Fish -0.009 [-0.036, +0.018]. What Fish does show
+is a resolved *pronunciation* gap - +7.4 points of CER against the best F5,
+[+4.8, +9.9], worse in all nine speakers - which matches its own model card
+putting Persian in the third tier behind ten other languages.
+
+### What the statistics actually support
+
+Every comparison above was previously reported over 27 cells as if they were 27
+independent observations. They are not: three cells share a speaker, a
+reference clip and a voice. Averaging each speaker's three cells and working
+with the nine speaker differences - `scripts/compare_runs.py` - roughly doubles
+every interval:
+
+| comparison | speaker mean | 95% interval | non-zero | above 0.0205 |
+|---|---|---|---|---|
+| OmniVoice - F5 baseline | +0.064 | [+0.025, +0.102] | yes | yes |
+| OmniVoice - Higgs | +0.052 | [+0.012, +0.093] | yes | no |
+| OmniVoice - Fish | +0.046 | [+0.011, +0.082] | yes | no |
+| OmniVoice - best F5 | +0.037 | [+0.005, +0.069] | yes | no |
+| MOSS - F5 baseline | +0.039 | [+0.007, +0.071] | yes | no |
+| best F5 - F5 baseline | +0.027 | [+0.015, +0.038] | yes | no |
+| OmniVoice - MOSS | +0.025 | [-0.020, +0.069] | no | no |
+| Higgs - best F5 | -0.015 | [-0.048, +0.018] | no | no |
+
+**One comparison in the project clears both bars**: OmniVoice over the F5
+baseline. Four that were reported as resolved at three to five cell-level
+standard errors now establish a direction and not a size. The two bars are
+separate questions and only the first is statistical - 0.0205 is this encoder's
+spread on re-scoring, and nobody has shown a listener can or cannot hear a pair
+that far apart.
+
+Nothing here says two engines are *equal*. With nine speakers this design
+cannot see a difference below about 0.04, which is most of the table.
 
 ## 9. Caveats
 
+- **The nine speakers were chosen by the encoder that grades the results.**
+  `scripts/build_eval_corpus.py` keeps a speaker only when their worst pair
+  against themselves beats their best pair against anyone else, measured with
+  the same ECAPA-TDNN that produces every number in this document. That rule
+  exists for a good reason - a Common Voice `client_id` is an account, not a
+  person, and one candidate's own two clips scored 0.099 against each other -
+  but it is selection on the outcome variable. It pushes the ceiling up and the
+  floor down relative to an unselected sample, so "84.8% of the human ceiling"
+  is a statement about nine speakers who passed an ECAPA coherence test. It
+  does not bias engine comparisons, which all meet the same speakers. And a
+  speaker dropped for incoherence may be a failure of the encoder on that audio
+  rather than evidence that the account is two people; the record should not
+  say which.
+- **"Different recording session" was an assumption and has been withdrawn.**
+  Common Voice publishes no session field. Earlier versions of this project
+  labelled every clip its own session and carried a same-session band of 0.800
+  into `results.py`; what is actually evidenced is "a different clip by the
+  same speaker". The channel effect itself is still measured directly: across
+  five engines a render scores 0.11 to 0.16 higher against the clip it was
+  conditioned on than against that speaker's other recordings.
+- **Cells are clustered, and the intervals in §8 now say so.** Three cells
+  share a speaker; nine share a sentence. Every statistic here is over nine
+  speaker-level differences, not 27 cell-level ones.
+- **Scores are recorded to four decimals.** `benchmark.py` rounds each cell's
+  similarity before writing it, and a run mean is the mean of those rounded
+  numbers. Where this document says two scorings agree "exactly", what is
+  demonstrated is that the rounded cells matched - agreement within 5e-5 a cell.
 - **One seed per configuration.** Autoregressive and flow-matching engines vary
   between seeds; the differences reported as "inside noise" would need several
   seeds each to be called *equal* rather than *not shown to differ*.
@@ -821,7 +925,11 @@ compromise, and are unmeasured.
   CER, mean difference +0.0000, maximum 0.000. The remote scorer is
   deterministic, while the same operation on this Mac is not. That removes
   run-to-run variation as the explanation and leaves the installation itself:
-  different builds of the recogniser, or the machine it runs on. The practical
+  different builds of the recogniser, or the machine it runs on. The similarity
+  half of this has a mechanism, found later in the code rather than inferred:
+  `evaluation/similarity.py` loads the encoder with `run_opts={"device": "cpu"}`,
+  so `--device cuda` never reaches the scoring path and no GPU arithmetic is
+  involved in any similarity number in this document. The practical
   rule is therefore narrower than "CER is noisy". CER may be compared between
   runs scored on the *same* machine, and never across machines. Similarity may
   be compared anywhere — it reproduced exactly in every test of both kinds.

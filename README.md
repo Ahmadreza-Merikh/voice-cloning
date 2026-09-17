@@ -140,8 +140,10 @@ Check what your machine can actually run at any time:
 |---|---|---|---|---|---|
 | **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520 stock, 0.546 continued on 2739 speakers with best-of-4; CER 2.2%, a figure whose small differences are within recogniser noise (FINDINGS §9). |
 | **Chatterbox** (`chatterbox`) | community T3 finetune | no (grapheme) | ~3.5 GB | medium | Speaker path is language-agnostic — the part Persian data is *not* needed for. Own venv (torch 2.6). |
-| **OmniVoice** (`omnivoice`) | official (1 of 600+) | no (grapheme) | 3.3 GB | medium | Apache-2.0, k2-fsa. **Strongest identity transfer measured here: held-out 0.583**, +0.0371 over the best F5 configuration, paired at 3.4 SE. Own venv. |
-| **MOSS-TTS** (`moss`) | official (1 of 20 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Apache-2.0, 3.06B params, pinned to transformers 5.0.x (own environment). Measured: held-out 0.559, not shown to differ from the best F5 or from OmniVoice - but CER 6.5% against OmniVoice's 2.8% on the same recogniser, worse at 3.6 SE. |
+| **OmniVoice** (`omnivoice`) | official (1 of 600+) | no (grapheme) | 3.3 GB | medium | k2-fsa. Code Apache-2.0, **weights CC-BY-NC**. **Strongest identity transfer measured here: held-out 0.583**; over the best F5 configuration +0.037, 95% interval [+0.005, +0.069] across nine speakers - a direction, not a size. Own venv. |
+| **MOSS-TTS** (`moss`) | official (1 of 31 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Apache-2.0 - the only unrestricted licence here. 3.06B params, pinned to transformers 5.0.x (own environment). Measured: held-out 0.559, not shown to differ from the best F5 or from OmniVoice; CER 6.5% against OmniVoice's 2.8% on the same recogniser. This is the *older* variant: `MOSS-TTS-Local-Transformer-v1.5` (9.1 GB) exists and is unmeasured. |
+| **Fish S2 Pro** (`fish`) | third tier of 80+ | no | 11 GB | slow | Fish Audio Research License, non-commercial. Measured on a T4 in fp16: held-out 0.537, and CER 9.5% - worse than the best F5 by 7.4 points, [+4.8, +9.9], in all nine speakers. Needs a CUDA card; own venv. |
+| **Higgs TTS 3** (`higgs`) | claimed top tier of 102 | no | 10 GB | medium | Boson research/non-commercial licence. Measured on a T4 in fp16 through a transformers port whose weights hash identical to Boson's: held-out 0.531, CER 2.9%. Needs a CUDA card; own venv. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
 
 **Which should I use?**
@@ -449,7 +451,7 @@ away.
 
 ### Changing the base closed more than training it did
 
-[OmniVoice](https://github.com/k2-fsa/OmniVoice) (k2-fsa, Apache-2.0) has
+[OmniVoice](https://github.com/k2-fsa/OmniVoice) (k2-fsa; code Apache-2.0, weights CC-BY-NC) has
 Persian among its training languages. Run at its published inference settings,
 one take per cell, on the same speakers, sentences, seed and reference clips,
 with every run below re-scored on one machine so the comparison is paired:

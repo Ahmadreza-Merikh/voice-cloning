@@ -239,6 +239,37 @@ class OmniVoiceConfig:
 
 
 @dataclass
+class FishS2Config:
+    """Fish Audio S2 Pro, driven out-of-process in its own virtualenv.
+
+    Generation defaults are upstream's own CLI values, so a run with nothing
+    overridden is the configuration upstream ships.
+    """
+
+    python: str | None = "auto"
+    checkpoint: str = "fishaudio/s2-pro"
+    #: Upstream's inference dtype. A GPU with no bfloat16 unit - Turing, which
+    #: includes the T4 this is benchmarked on - gets float16 instead, which is
+    #: upstream's own ``--half``. Which one ran is reported in the results.
+    precision: str = "bfloat16"
+    #: Bounds the KV cache and, through it, how far generation may run. The
+    #: checkpoint declares 32768, which reserves about 4.8 GB in 16-bit on top
+    #: of 9.1 GB of weights and a 1.9 GB codec - more than a 16 GB card has.
+    #: At roughly 21 frames per second this is still about three minutes of
+    #: speech, so no benchmark sentence comes close to it.
+    max_seq_len: int = 4096
+    temperature: float = 1.0
+    top_p: float = 0.9
+    top_k: int = 30
+    repetition_penalty: float = 1.1
+    chunk_length: int = 300
+    #: 0 means "up to max_seq_len". 1024 frames is about 48 s of audio: far
+    #: beyond any sentence here, and a bound on a render that never stops.
+    max_new_tokens: int = 1024
+    timeout_seconds: int = 900
+
+
+@dataclass
 class SeedVCConfig:
     repo_path: str | None = "auto"
     python: str | None = "auto"
@@ -259,6 +290,7 @@ class EnginesConfig:
     moss: MossConfig = field(default_factory=MossConfig)
     chatterbox: ChatterboxConfig = field(default_factory=ChatterboxConfig)
     omnivoice: OmniVoiceConfig = field(default_factory=OmniVoiceConfig)
+    fish: FishS2Config = field(default_factory=FishS2Config)
     asr: ASRConfig = field(default_factory=ASRConfig)
     seedvc: SeedVCConfig = field(default_factory=SeedVCConfig)
 

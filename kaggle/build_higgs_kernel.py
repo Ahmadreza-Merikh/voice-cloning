@@ -51,6 +51,12 @@ SETUP = '''\
 # Fish notebook - hence a separate kernel. The rest is the harness's own scoring
 # stack, and the scale control at the end says whether it minds the version.
 !pip -q install "transformers>=5.5" speechbrain faster-whisper jiwer pyloudnorm noisereduce num2words silero-vad onnxruntime 2>&1 | tail -5
+# Installing transformers pulled torchvision 0.25, which is built against
+# torch 2.10 while this image has 2.9.1 - so importing it raises "operator
+# torchvision::nms does not exist", and transformers' own lazy import of
+# PreTrainedModel dies with it. Nothing here needs torchvision: no vision
+# model is loaded, and transformers skips it cleanly when it is absent.
+!pip -q uninstall -y torchvision 2>&1 | tail -2
 '''
 
 ENVIRONMENT = f'''\
@@ -97,6 +103,12 @@ print(f"vram        : {{free / 2**30:.1f}} GB free of {{total / 2**30:.1f}} GB")
 version = tuple(int(part) for part in transformers.__version__.split(".")[:2])
 assert version >= (5, 5), f"the port needs transformers >= 5.5, found {{transformers.__version__}}"
 assert torch.cuda.device_count() >= 1, "no GPU - set the accelerator"
+
+# The last run got all the way to loading 9.3 GB before this import failed, so
+# it is checked here, where it costs nothing.
+from transformers import AutoModelForCausalLM, PreTrainedModel  # noqa: F401
+
+print("transformers imports cleanly")
 
 
 def run(command, timeout=None, cwd=None):
@@ -298,8 +310,10 @@ for path in (REPO / "eval/results").glob("*.json"):
     shutil.copy2(path, destination / path.name)
 renders = Path("/kaggle/working/higgs_renders")
 renders.mkdir(exist_ok=True)
-for path in list((REPO / "outputs/benchmark/higgs-smoke").glob("*.wav")
-                    + list((REPO / "outputs/benchmark/higgs").glob("*.wav"))) + [RENDER]:
+takes = [RENDER]
+for folder in ("higgs-smoke", "higgs"):
+    takes.extend(sorted((REPO / "outputs/benchmark" / folder).glob("*.wav")))
+for path in takes:
     if path.is_file():
         shutil.copy2(path, renders / path.name)
 print("saved:", sorted(p.name for p in renders.glob("*.wav")))

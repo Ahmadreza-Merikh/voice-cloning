@@ -348,8 +348,10 @@ for path in (REPO / "eval/results").glob("*.json"):
     shutil.copy2(path, destination / path.name)
 renders = Path("/kaggle/working/fish_renders")
 renders.mkdir(exist_ok=True)
-for path in list((REPO / "outputs/benchmark/fish-smoke").glob("*.wav")
-                    + list((REPO / "outputs/benchmark/fish").glob("*.wav"))) + [RENDER]:
+takes = [RENDER]
+for folder in ("fish-smoke", "fish"):
+    takes.extend(sorted((REPO / "outputs/benchmark" / folder).glob("*.wav")))
+for path in takes:
     if path.is_file():
         shutil.copy2(path, renders / path.name)
 print("saved:", sorted(p.name for p in renders.glob("*.wav")))

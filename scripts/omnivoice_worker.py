@@ -46,6 +46,15 @@ import sys
 import traceback
 from typing import Any
 
+# transformers 5.x materialises weights in a thread pool, and asking it for
+# float16 on MPS aborts inside it - a native crash, with no exception to catch.
+# This switch makes the load sequential, which avoids the crash and lets the
+# weights go straight onto Metal instead of being cast on the CPU and copied.
+# Measured on an M1 Pro with transformers 5.17: 1.97 GB peak against 4.39 GB
+# for the copy, and 1.25 GB of Metal against 2.31 GB, in the same 3-4 seconds.
+# It has to be set before transformers is imported, so it lives up here.
+os.environ.setdefault("HF_DEACTIVATE_ASYNC_LOAD", "1")
+
 
 def _claim_stdout() -> Any:
     """Take sole ownership of stdout, and point everything else at stderr.
@@ -106,42 +115,49 @@ def _model_class() -> Any:
 
 
 def _load_once(model_class: Any, model_id: str, device: str, dtype_name: str) -> Any:
-    """One placement attempt.
+    """One placement attempt: straight onto the requested device.
 
-    On Apple Silicon a float16 load is cast on CPU and then moved, because
-    casting during the load itself kills the process. transformers 5.x
-    materialises weights in a thread pool (``GLOBAL_WORKERS``, hard-coded, no
-    environment switch), and asking it for float16 on MPS aborts inside
-    ``_materialize_copy``: macOS's crash report puts the fault in torch's
-    ``copy_cast_kernel_mps`` -> ``MetalShaderLibrary::exec_unary_kernel``. It is a
-    native crash, so no ``except`` here can recover from it.
+    Asking transformers for float16 on MPS used to abort inside
+    ``_materialize_copy`` - macOS's crash report puts the fault in torch's
+    ``copy_cast_kernel_mps`` -> ``MetalShaderLibrary::exec_unary_kernel``, a
+    native crash no ``except`` can recover from - so this module used to cast on
+    the CPU and move the finished model instead. The crash is in the thread pool
+    transformers materialises weights in, and that pool *can* be switched off,
+    which the top of this module does before transformers is imported. An
+    earlier version of this docstring said there was no such switch; there is,
+    in 5.0 and still in 5.17.
 
-    Probed on this machine, each placement in its own process, loading and then
-    rendering one Persian sentence:
+    Probed again on this machine (transformers 5.17, torch 2.14), each load in
+    its own process:
 
-        MPS, float16                     aborts during weight loading
-        MPS, float32                     loads and renders
-        CPU float16, then moved to MPS   loads and renders (fastest of the three)
-        CPU, float32                     loads and renders, about twice as slow
+        MPS float16, pool on             aborts during weight loading (signal 11)
+        MPS float16, pool off            loads: 3.8s, 1.97 GB peak, 1.25 GB Metal
+        CPU float16 then moved to MPS    loads: 3.4s, 4.39 GB peak, 2.31 GB Metal
 
-    Casting on CPU and moving the finished model keeps upstream's float16 - the
-    dtype its published numbers were measured with - on Metal. The checkpoint is
-    stored in float32, so this is the same cast, just on the other side of the
-    copy. The audio tokenizer stays on CPU, as upstream already arranges for MPS.
+    So the direct load is not only possible once the pool is off, it costs 2.4 GB
+    less at its peak - which is what decides whether this fits beside everything
+    else on a 16 GB machine. The move is kept below as a fallback.
 
-    A minimal threaded cast-copy did not reproduce the crash in isolation, so the
-    exact trigger is unconfirmed; the placement above is what measurably works.
+    A minimal threaded cast-copy never reproduced the crash in isolation, so what
+    exactly trips it inside the pool is still unconfirmed.
     """
     import torch
 
     dtype = _dtype(dtype_name)
-    if device.startswith("mps") and dtype != torch.float32:
+    try:
+        return model_class.from_pretrained(model_id, device_map=device, dtype=dtype)
+    except Exception:
+        if not (device.startswith("mps") and dtype != torch.float32):
+            raise
+        # What this module did for every MPS float16 load before the thread pool
+        # could be switched off. Kept as a fallback because it is known to work:
+        # the checkpoint is float32, so casting on the CPU and moving the
+        # finished model is the same cast, just on the other side of the copy.
         model = model_class.from_pretrained(model_id, device_map="cpu", dtype=dtype)
         tokenizer = model.audio_tokenizer
         model = model.to(device)
         model.audio_tokenizer = tokenizer.to("cpu")
         return model
-    return model_class.from_pretrained(model_id, device_map=device, dtype=dtype)
 
 
 def load_model(model_id: str, device: str, dtype_name: str) -> tuple[Any, str, str]:
@@ -154,8 +170,9 @@ def load_model(model_id: str, device: str, dtype_name: str) -> tuple[Any, str, s
     chose, and that should be visible in the result.
 
     These fallbacks only catch Python-level failures. A native crash ends the
-    process before any of them run, which is why :func:`_load_once` avoids the
-    known one up front instead of relying on this loop.
+    process before any of them run, which is why the known one is avoided at the
+    top of this module - by switching the loader's thread pool off - rather than
+    left to this loop.
     """
     import torch
 

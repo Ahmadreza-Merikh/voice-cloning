@@ -1,238 +1,263 @@
 # Road to a defensible Persian voice-cloning result
 
 What would have to be true to claim a state-of-the-art Persian zero-shot voice
-clone, what is true now, and what each next step costs. Every line is marked:
+clone, what is true now, and what each next step costs. Every statement is
+marked:
 
 * **[measured]** - produced by this project's own runs, with the file to check
 * **[source]** - taken from a vendor's own card, repository or paper, checked
-  live on 2026-09-18, with the quote or field named
+  live on 2026-09-18, with the revision or field named
 * **[hypothesis]** - not established; written down so it can be tested or dropped
 
 Nothing here is a plan to train yet. It is the decision material for choosing
-what to train, on what, and how anyone would know it worked.
+what to train, on what, and how anyone would know it worked. An independent
+review has not accepted any SOTA claim, and nothing below makes one.
 
 ## 1. The claim, and what would settle it
 
-A defensible claim needs three things this project does not yet have:
+A defensible claim needs four things this project does not have yet:
 
-1. an instrument that can see the difference being claimed (§3)
-2. a test set that was not used to choose anything (§3)
-3. at least one human listening result, collected blind (§3.4)
+1. a test set of speakers that was never used to choose anything (§3.2)
+2. a design with a stated chance of detecting the difference being claimed,
+   sized from the pilot's uncertainty rather than its point estimate (§3.1)
+3. identity labels whose validity does not rest on the judging encoder (§3.2)
+4. at least one blind human listening result (§3.4)
 
-Until then the honest form of every statement is the one §8 of FINDINGS.md now
-uses: a direction, an interval, and the size of the effect the design could not
-have seen.
+Until then every statement takes the form FINDINGS §8 now uses: an interval,
+what it excludes, and how weak the design is.
 
-## 2. Where the work actually stands
+## 2. Where the work stands
 
-**[measured]** Six configurations, one benchmark, 27 cells each
-(`eval/results/*.json`, compared by `scripts/compare_runs.py`):
+**[measured]** Six configurations on one development benchmark - nine speakers,
+three sentences, one seed, one reference clip each (`eval/results/*.json`,
+compared by `scripts/compare_runs.py`):
 
-| run | held-out | share of ceiling | CER | weights licence |
-|---|---|---|---|---|
-| OmniVoice | 0.583 | 84.8% | 2.6% | CC-BY-NC **[source]** |
-| MOSS-TTS (older variant) | 0.559 | 81.2% | not transcribed | Apache-2.0 **[source]** |
-| F5 continued + best-of-4 | 0.546 | 79.2% | 2.2% | base is CC-BY-NC **[source]** |
-| Fish S2 Pro | 0.537 | 77.7% | 9.5% | research only **[source]** |
-| Higgs TTS 3 | 0.531 | 77.3% | 2.9% | research only **[source]** |
-| F5 baseline | 0.520 | 75.2% | 2.9% | base is CC-BY-NC **[source]** |
+| run | held-out similarity | CER, and where it was scored | weights licence **[source]** |
+|---|---|---|---|
+| OmniVoice | 0.583 | 2.6%, Kaggle eval kernel | CC-BY-NC |
+| MOSS-TTS v1.0 | 0.559 | 6.5%, this Mac (`moss-local`) | Apache-2.0; codec not checked |
+| F5 continued + best-of-4 | 0.546 | 2.2%, this Mac | base CC-BY-NC |
+| Fish S2 Pro | 0.537 | 9.5%, Kaggle Fish kernel | research only |
+| Higgs TTS 3 (ported, fp16) | 0.531 | 2.9%, Kaggle Higgs kernel | research only |
+| F5 baseline | 0.520 | 2.9%, this Mac | base CC-BY-NC |
 
-**[measured]** Clustered by speaker, one comparison in the whole project clears
-both the non-zero bar and the instrument-noise bar: OmniVoice over the F5
-baseline, +0.064 [+0.025, +0.102]. OmniVoice over the best F5 configuration,
-over Fish and over Higgs are directions with intervals that reach down into the
-noise. Nothing here shows any two engines are equal.
+CER is only comparable inside one scoring environment, because the recogniser
+runs cpu/int8 on the Mac and cuda/float16 on a GPU (`engines/asr.py`). Inside
+their environments: Fish is +6.4 points [+4.2, +8.6] against the baseline
+re-scored in the same kernel; MOSS v1.0 is +3.7 [+1.7, +5.6] against the Mac
+baseline; Higgs and OmniVoice have intervals that include zero.
 
-**The licence finding changes the shape of the problem.** **[source]** The model
-that leads this table is CC-BY-NC, as is the F5 base the project has been
-continuing, as is ParsVoice, as are Fish and Higgs. The only unrestricted
-weights among the candidates are MOSS-TTS (Apache-2.0) - and the MOSS variant
-measured here is the older one. So:
+**[measured]** On similarity, per speaker with a 95% t interval, one comparison
+has an interval clear of both zero and the 0.0205 reference line: OmniVoice
+over the F5 baseline, +0.064 [+0.025, +0.102]. OmniVoice over the best F5,
+over Fish and over Higgs have intervals that exclude zero and overlap the line.
+The design's power is low - about 59% for a true 0.04 difference, 38% at 0.03 -
+so intervals that include zero are weak evidence either way.
 
-* if the result may be non-commercial, the base to beat is OmniVoice
-* if it must be shippable, the whole table collapses to MOSS-TTS, and the
-  version that should be measured has not been
+**[measured]** The Higgs number is for a transformers port in fp16 on a T4, not
+Boson's serving stack in bf16. Identical weights (sha256) and a CER near the
+card's claim do not show that the port's generation loop or the precision
+change leave quality unchanged.
 
-That question is the user's to answer and it decides most of what follows.
+## 3. The instrument
 
-## 3. The instrument, and what it cannot currently see
+### 3.1 How big the test has to be
 
-### 3.1 Sample size
+**[measured]** The speaker-level standard deviation of paired similarity
+differences is about 0.048 across five engine pairs - estimated from nine
+speakers, so its own 95% interval is roughly [0.032, 0.092]. Test speakers
+needed for 80% power, two-sided alpha 0.05, exact noncentral t:
 
-**[measured]** The speaker-level standard deviation of paired differences is
-about 0.048 across five engine pairs. With a paired t test at 80% power:
+| true difference | spread 0.048 | spread 0.092 (pilot's upper bound) |
+|---|---|---|
+| 0.04 | 14 | 44 |
+| 0.03 | 23 | 76 |
+| 0.02 | 48 | 168 |
 
-| difference to detect | speakers needed |
-|---|---|
-| 0.05 | 8 |
-| 0.04 | 12 |
-| 0.03 | 21 |
-| 0.02 | 46 |
+With three primary comparisons and a Bonferroni split (alpha 0.0167 each), 0.03
+needs 30 to 102. Eighty percent power is a planning figure, not a guarantee: it
+is the chance of an interval excluding zero *if* the true difference and the
+spread are as assumed.
 
-The corpus has nine. Every unresolved comparison in §2 is between 0.01 and
-0.05, which is exactly the band nine speakers cannot reach. **Widening the
-corpus to roughly 24 speakers is the single change that would make the next
-comparison decisive**, and it costs no GPU time - only corpus building and
-re-scoring.
+**Proposal.** Declare one primary comparison before building the test set -
+for example "the chosen candidate against OmniVoice, one-sided, margin 0.03" -
+and size the test for it at about 30 speakers, which covers the pilot spread up
+to roughly 0.055. Every other comparison is exploratory, reported with a Holm
+correction and labelled as such. If the test set's own spread comes out higher,
+say so and report the interval; do not add speakers after looking.
 
-### 3.2 What the corpus is, and what it is not
+**[measured]** Adding speakers is not free. Each new speaker needs new renders
+from every engine under test. Measured on a T4, including scoring: OmniVoice 6
+s a cell, Higgs 10 s, Fish 20 s, MOSS v1.0 50 s. Thirty speakers x twelve texts
+x two seeds is 720 cells per engine: about 1.2 GPU-hours for OmniVoice, 10 for
+MOSS v1.0. Kaggle's weekly T4 allowance is about 30 hours, so a four-engine
+comparison is a planned week, not a rescoring job.
 
-**[measured]** Nine speakers, 45 clips: eight from a Common Voice 26 Persian
-re-upload, one from Mana-TTS. Reference clips are 8.7-9.9 s.
+### 3.2 Development and test, kept apart
+
+**[measured]** Every configuration decision so far - best-of-4, reference
+choice, CFG, NFE steps, and every "which engine is best" - was made on the
+current nine speakers. They are a **development set** and stay one. A test set
+is new speakers, disjoint from development, scored once per final candidate,
+and never used to choose a recipe, a setting or an engine.
 
 **[measured]** `scripts/build_eval_corpus.py` selects speakers with the same
-ECAPA-TDNN that scores the results, keeping a speaker only when their worst
-self-pair beats their best cross-pair. That is selection on the outcome
-variable: it lifts the ceiling, lowers the floor, and makes "84.8% of the human
-ceiling" a statement about speakers who passed an ECAPA test. The next corpus
-should decide inclusion on evidence that is not the judge - published speaker
-metadata, or a second encoder of a different family (WavLM-based, say) used only
-for admission.
+ECAPA-TDNN that scores the results. That makes comparisons conditional on
+speakers who pass an ECAPA coherence test, and it can bias both the absolute
+scale and the ranking. The test set must not repeat this. Swapping in a second
+encoder for admission would not fix it either: an encoder is not evidence that
+two clips are one person. Identity has to come from the source - published,
+verified speaker ids, or recordings made for the purpose - with encoders used
+at most to *flag* a speaker for a human to check, and every flag reported.
 
-**[measured]** Every configuration decision in this project - best-of-4,
-reference selection, CFG strength, NFE steps - was made on these same nine
-speakers, and the headline numbers are reported on them too. There is no held-out
-split. The next corpus needs one: a development half for choosing anything, and
-a test half that is scored once per candidate and never used to select.
+### 3.3 Texts
 
-### 3.3 What the texts cover
-
-**[measured]** Three sentences, all written register. The within-speaker spread
-across them is large - for `cv07` the OmniVoice-over-baseline difference is
-+0.124, +0.016, +0.050 on the three - so text choice is a real source of
-variance, not a formality.
-
-Proposed set, six categories, five sentences each:
-
-| category | why |
-|---|---|
-| formal written | the current three; continuity with every past run |
-| conversational | the actual use case, and no engine has been tested on it |
-| numbers, dates, prices | Persian numeral reading is a known failure mode |
-| proper nouns, borrowed words | where a grapheme model has least support |
-| homographs and ezafe | already the design principle of s1-s3, extended |
-| very short (< 5 words) and long (> 25 words) | duration models fail at both ends |
+**[measured]** The within-speaker spread across the three current sentences is
+large (for `cv07`, OmniVoice over baseline is +0.124, +0.016, +0.050), so text
+is a real source of variance. Proposed test texts, twelve per speaker, two in
+each category: formal written, conversational, numbers/dates/prices, proper
+nouns and borrowed words, homographs and ezafe, and very short (< 5 words) or
+long (> 25 words). None may appear in any prompt or in any development text.
 
 ### 3.4 Listening
 
-**[hypothesis]** Nothing in this project has been listened to systematically,
-and cosine similarity is not a perceptual scale. A blind test is the only way to
-learn whether a 0.03 difference is audible at all - which is also what would
-justify or retire the 0.0205 threshold as a decision bar.
+**[hypothesis]** Cosine similarity is not a perceptual scale; whether a 0.03
+difference is audible is unknown. A blind test is the only way to find out,
+and it is also the only thing that could turn the 0.0205 reference line into a
+justified decision bar - or retire it.
 
-Minimum viable design: pairs of renders from two systems for the same speaker
-and text, presented in random order beside one real recording of that speaker,
-three questions scored separately - *which sounds more like the same person*,
-*which sounds more natural*, *did either misread the text*. Tooling belongs in
-this repository; recruiting listeners does not happen without the user.
+Design: for one speaker and one text, two renders from two systems in random
+order beside a real recording of that speaker, three separate questions -
+*same person as the recording?*, *natural?*, *any misread words?* - with the
+real recording drawn from the evaluation pool, never the prompt. The tooling
+belongs here; recruiting listeners needs the user, and no result is written
+down until listening has actually happened.
 
 ## 4. Candidate bases
 
-| base | licence **[source]** | measured | official fine-tuning path | keep or drop |
+| base | licences **[source]** | measured | official fine-tuning path | keep or drop |
 |---|---|---|---|---|
-| OmniVoice 3.3 GB | code Apache-2.0, weights CC-BY-NC | **[measured]** best here | yes - `examples/run_finetune.sh`, JSONL of `{id, audio_path, text, language_id}`, 5,000 steps at lr 5e-5 against 300,000 from scratch **[source]** | keep if non-commercial is acceptable |
-| MOSS-TTS-Local-Transformer-v1.5, 9.1 GB | Apache-2.0 | **no** | not checked yet | measure before anything else if the result must be shippable |
-| MOSS-TTS-Local-Transformer, 6.1 GB | Apache-2.0 | **[measured]** 0.559 | not checked | superseded by v1.5; keep only as the measured reference point |
-| F5-TTS continued | base CC-BY-NC | **[measured]** 0.546 | this project already has one | keep as the control, not as the destination |
-| Fish S2 Pro | research only | **[measured]** 0.537, CER 9.5% | out of scope | drop - worst Persian pronunciation measured and the most restrictive licence |
-| Higgs TTS 3 | research only | **[measured]** 0.531 | out of scope | drop for training; keep the engine, since it is the only one whose vendor claims Persian in a top tier and it may be worth re-measuring on a stronger instrument |
+| OmniVoice | code Apache-2.0, weights CC-BY-NC | **[measured]** 0.583 | yes: `examples/run_finetune.sh`, JSONL `{id, audio_path, text, language_id}`, 5,000 steps at lr 5e-5 | keep if non-commercial is acceptable |
+| MOSS-TTS-Local-Transformer-v1.5 | model, codec and code all Apache-2.0 (below) | **no** | not checked | measure next (§7) |
+| MOSS-TTS-Local-Transformer v1.0 | model Apache-2.0; codec licence not checked | **[measured]** 0.559, CER +3.7 | not checked | superseded; kept as a reference point |
+| F5-TTS continued | base CC-BY-NC | **[measured]** 0.546 | this project has one | control, not destination |
+| Fish S2 Pro | research only | **[measured]** 0.537, CER +6.4 | out of scope | drop - worst Persian CER measured and the narrowest licence |
+| Higgs TTS 3 | research only | **[measured]**, ported fp16 only | out of scope | drop for training; re-measure only through an official path |
 
-**[source]** Exact revisions of what was measured, for reproducibility:
-`k2-fsa/OmniVoice` `c5fdb5cc`, `OpenMOSS-Team/MOSS-TTS-Local-Transformer`
-`12aa734e`, `fishaudio/s2-pro` `1de9996b`, the Higgs port `30f01593` (weights
-sha256 identical to `bosonai/higgs-tts-3-4b`), `SWivid/F5-TTS` `84e5a410`,
-`Lumos675/F5_TTS_Persian` `cc322511`. Only the Higgs engine currently pins its
-revision in config; the others should.
+"Unrestricted" is a claim about every component, so it is only made where
+every component was checked. For MOSS v1.5 **[source]**:
+
+* model `OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5` at `be7766a6`,
+  Apache-2.0, 9.1 GB
+* codec `OpenMOSS-Team/MOSS-Audio-Tokenizer-v2` at `f6e20e54`, Apache-2.0,
+  8.5 GB in fp32 on disk, loaded as bf16 by the processor by default
+* code `OpenMOSS/MOSS-TTS` at `934d6826`, Apache-2.0
+* remote code read at those revisions: imports torch, torchaudio,
+  transformers, safetensors and the standard library; no network, shell,
+  pickle or eval
+
+So among the candidates audited here, MOSS v1.5 is the one whose model, codec
+and code were all checked and found Apache-2.0. That is not the same as "the
+only commercial option": other models were not audited, and training data
+licences (ParsVoice is CC-BY-NC) bind the result independently.
+
+Exact revisions measured so far: `k2-fsa/OmniVoice` `c5fdb5cc`,
+`OpenMOSS-Team/MOSS-TTS-Local-Transformer` `12aa734e`, `fishaudio/s2-pro`
+`1de9996b`, the Higgs port `30f01593`, `SWivid/F5-TTS` `84e5a410`,
+`Lumos675/F5_TTS_Persian` `cc322511`. Only Higgs pins its revision in config.
 
 ## 5. Data
 
-**[source]** ParsVoice (`MohammadJRanjbar/ParsVoice`, card checked 2026-09-18):
-CC-BY-NC-4.0, gated behind an access request, 273 parquet shards, size category
-1M-10M. The paper (arXiv 2510.10774) reports 2,200 hours, 1,815 automatically
-inferred speaker ids, 1.36M aligned segments, sourced from **audiobooks**, with
-a fine-tuned XTTSv2 reaching naturalness MOS 3.6 and speaker-similarity MOS 4.0.
+**[source]** ParsVoice (`MohammadJRanjbar/ParsVoice`, card fields checked
+2026-09-18): CC-BY-NC-4.0, gated behind an access request, 273 parquet shards.
+The paper (arXiv 2510.10774) reports 2,200 hours, 1,815 speaker ids that were
+*automatically inferred*, 1.36M segments from audiobooks, and a fine-tuned
+XTTSv2 at naturalness MOS 3.6 and speaker-similarity MOS 4.0. The card body
+could not be read without accepting the terms, which is the user's decision.
 
-Three consequences:
+What that means for use:
 
-* **[source]** the licence is non-commercial, so training on it cannot produce
-  shippable weights whatever the base licence is
-* **[hypothesis]** audiobook speech is read, performed and cleanly recorded;
-  the target use is a person recording themselves on a phone or laptop. Data
-  like this should improve pronunciation and prosody and do little for channel
-  robustness, which §6 argues is the actual weakness
-* **[measured]** access needs the user to accept terms and supply a token; no
-  account action has been taken on their behalf
+* it cannot produce shippable weights, whatever the base
+* its speaker ids are inferred, so it is not a source of identity ground truth
+  for a test set (§3.2)
+* **[hypothesis]** read audiobook speech should help pronunciation and prosody
+  more than robustness to a phone in a room, which is the actual use case;
+  phone recordings and conversational speech are not represented, and would
+  need a separate source
 
-**[hypothesis]** What the target actually needs is several recordings of the
-same speaker in *different* channels. Common Voice has that structurally - one
-contributor, many clips, plausibly different devices - and is CC0 upstream.
-Whether the pairing is real is exactly the assumption §9 of FINDINGS withdrew,
-so it would have to be established rather than assumed.
+## 6. A hypothesis worth testing
 
-## 6. The hypothesis worth testing
+**[measured]** Every engine scores 0.11 to 0.16 higher against the clip it was
+conditioned on than against the same speaker's other clips, and that is about
+the size of its gap to the development set's same-speaker mean.
 
-**[measured]** Every engine loses most of its score to the same thing: a render
-scores 0.11-0.16 higher against the clip it was conditioned on than against the
-same speaker's other recordings. The gap between a clone and the human ceiling,
-0.10-0.16 depending on engine, is the same size as the channel term.
+**[hypothesis]** Part of that gap is recording channel carried from the prompt
+into the render. Other explanations - continuation of the prompt's prosody,
+level or content - have not been separated from it, and nothing shows the
+mechanism is the same in every engine.
 
-**[hypothesis]** Therefore the limiting factor is not "the model does not know
-this voice" but "the model reproduces the prompt's channel along with the
-voice", and a training objective that separates them would move the number that
-matters more than more data of the same kind would.
+Two ways to probe it:
 
-Two concrete forms, both testable and neither novel enough to assume:
+1. **Multi-reference conditioning, no training.** Condition on clips from two
+   different recordings instead of one. It needs a fixed manifest first
+   (`eval/manifests/`, §8): prompt clips and evaluation clips fully disjoint;
+   one evaluation pool shared by every condition; single- and multi-reference
+   prompts with *equal* total speech, and a separately named condition for a
+   larger budget. An improvement would be consistent with the hypothesis
+   without proving it - more diverse prompt material helps for other reasons
+   too.
+2. **Two-recording training pairs.** Prompt and target from different
+   recordings of one speaker, so copying the prompt's channel earns nothing.
+   It needs identity-validated multi-recording data, which is §3.2's problem.
 
-1. **Two-channel pairing.** Train on pairs where the prompt and the target are
-   different recordings of the same speaker, so reproducing the prompt's channel
-   earns nothing. Needs speaker-linked multi-recording data, which is §5's open
-   question.
-2. **Multi-reference conditioning.** Condition on two or three clips of the
-   speaker at once. Cheap to test *without any training at all*: the benchmark
-   already holds four clips per speaker, and an engine that accepts a longer or
-   concatenated prompt can be measured this week.
+## 7. MOSS-TTS v1.5: what the official recipe is
 
-Form 2 should be run first precisely because it costs nothing and would give the
-hypothesis its first evidence. **[hypothesis]** If multi-reference conditioning
-moves held-out similarity, channel entanglement is real and form 1 is worth GPU
-time; if it does not, the hypothesis is weakened before anything is trained.
+**[source]** From the model card and `pyproject.toml` at the revisions above:
 
-## 7. Resources, and what needs asking first
+* `torch==2.9.1+cu128`, `torchaudio==2.9.1+cu128`, `torchcodec==0.8.1`,
+  `transformers==5.0.0`, loaded with `trust_remote_code=True`
+* `dtype = torch.bfloat16 if device == "cuda" else torch.float32`
+* FlashAttention 2 only on compute capability 8.0+; otherwise SDPA on CUDA -
+  an official fallback, so a T4 uses SDPA without leaving the recipe
+* 48 kHz stereo output, 12 codebooks fixed (`n_vq_for_inference` must not change)
+* recommended sampling: audio_temperature 1.7, top_p 0.8, top_k 25, repetition
+  penalty 1.0, max_new_tokens 4096
+* a language tag is recommended when known. The examples use English names
+  ("French", "Chinese"); the Persian string is not documented, so "Persian" is
+  an inference by analogy and is recorded as one
 
-**[measured]** What is already known about cost on free hardware: OmniVoice
-renders 27 cells in about 25 minutes on a T4; Higgs loads in 17 s and renders at
-about twice real time; Fish needs both T4s (transformer 8.5 GiB, codec 3.9 GiB)
-and takes 10 minutes for 27 cells. Kaggle allows about 30 GPU-hours a week on
-T4 x2.
+**[measured]** On a T4 the question is bf16, which Turing has no unit for. The
+v1.0 run's own log shows it loaded `torch.bfloat16` with transformers 5.0.0 on
+the T4 and completed 27 cells, so emulated bf16 has run this model family
+there. That is the official precision, run slowly - not a precision change.
+The plan keeps it: model on one T4, codec (bf16, about 4.3 GB) on the other,
+and if bf16 fails on Turing, the run stops and the blocker is written down
+rather than switched to fp16 without the user.
 
-**[source]** OmniVoice's own fine-tuning example assumes two GPUs and 5,000
-steps; it states no VRAM figure, and the batch size lives in
-`config/train_config_finetune.json`, which has not been read yet. Estimating the
-cost properly means reading that config and running one smoke step - not
-guessing.
-
-Standing constraints, unchanged: no new spend, no GPU purchase, and no new
-upload of the user's private audio without the user saying so. A full-quality
-training run goes to remote hardware sized for the recipe; the recipe is not
-shrunk to fit a laptop or a T4.
+Audio: rendered 48 kHz stereo is kept on disk as rendered. The harness reads a
+render as mono by averaging its channels (`Audio.to_mono`, `audio/io.py`), and
+the similarity scorer resamples to 16 kHz (`EMBEDDING_SAMPLE_RATE`,
+`evaluation/similarity.py`) - the same path every engine's audio takes. A
+stereo engine is therefore scored on its channel mean, which is worth stating
+next to its numbers.
 
 ## 8. Order of work
 
-1. Decide commercial or non-commercial. It selects the base and it is not a
-   technical question.
-2. Measure `MOSS-TTS-Local-Transformer-v1.5` on the current benchmark. Cheap,
-   and it is the only unrestricted candidate.
-3. Multi-reference conditioning on the existing corpus. No training, and it is
-   the first evidence for or against §6.
-4. Widen the corpus to about 24 speakers with a development/test split and the
-   six text categories. This is what makes step 5 decisive.
-5. Re-measure the surviving candidates on the widened set, once each.
-6. Only then choose a base and a recipe, read its training config, size the
-   hardware, and ask.
+1. Build and validate the multi-reference manifest on the development set.
+   No GPU.
+2. Smoke-test MOSS v1.5 on a T4 at the official recipe, recording load time,
+   per-cell time and memory on each card. Then, only if it renders valid
+   audio, the 27-cell development benchmark.
+3. Run the multi-reference conditions on the development set for the engines
+   that accept the prompt budget, with the manifest fixed beforehand.
+4. Decide commercial or not (the user's question) and declare the primary test
+   comparison.
+5. Build the independent test set: about 30 identity-validated speakers,
+   twelve texts each, disjoint from development. Budget it (§3.1).
+6. Score each final candidate on it once.
 
 ## 9. Open questions for the user
 
-* Commercial use or not?
-* Is a ParsVoice access request something they want to make themselves?
-* Is a listening test something they are willing to organise, even with five
-  listeners?
+* Commercial use or not? It selects the base, and it binds the data too.
+* A ParsVoice access request, if wanted, is theirs to make.
+* Would they organise a listening test, even with five listeners?

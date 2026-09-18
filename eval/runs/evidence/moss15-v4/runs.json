@@ -1,0 +1,67 @@
+{
+  "runner_check": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 120,
+    "seconds": 0.3,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/runner_check/runner_check.log",
+    "output_bytes": 1853785,
+    "shown_bytes": 104588,
+    "display_blocked": false,
+    "problems": []
+  },
+  "worker": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 2700,
+    "seconds": 67.3,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/worker.log",
+    "output_bytes": 768038,
+    "shown_bytes": 2497,
+    "display_blocked": false,
+    "problems": []
+  },
+  "bench": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 3600,
+    "seconds": 117.5,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/bench.log",
+    "output_bytes": 772127,
+    "shown_bytes": 5827,
+    "display_blocked": false,
+    "problems": []
+  },
+  "control": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 3600,
+    "seconds": 98.9,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/control.log",
+    "output_bytes": 5714,
+    "shown_bytes": 5714,
+    "display_blocked": false,
+    "problems": []
+  },
+  "full": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 14400,
+    "seconds": 433.4,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/full.log",
+    "output_bytes": 805045,
+    "shown_bytes": 39932,
+    "display_blocked": false,
+    "problems": []
+  }
+}

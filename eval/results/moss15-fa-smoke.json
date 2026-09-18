@@ -1,0 +1,105 @@
+{
+  "label": "moss15-fa-smoke",
+  "engine": "moss15",
+  "created": "2026-09-18 20:03:51",
+  "duration_minutes": 1.7,
+  "config": {
+    "ref_transcript": "corpus",
+    "engine_option": [],
+    "preprocess_option": [],
+    "candidates": 1,
+    "reference_index": 0,
+    "score_only": false,
+    "replay_from": null,
+    "seeds": [
+      42
+    ],
+    "sentences": [
+      "s1"
+    ],
+    "device": "cuda",
+    "speakers": [
+      "cv02"
+    ],
+    "similarity_backend": "speechbrain-ecapa"
+  },
+  "scoring_environment": {
+    "id": "kaggle:persian-voice-moss15-v4",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "recogniser": "faster-whisper/large-v3-turbo (cuda/float16)",
+    "similarity": "speechbrain-ecapa",
+    "similarity_device": "cpu",
+    "packages": {
+      "torch": "2.9.1+cu128",
+      "torchaudio": "2.9.1+cu128",
+      "speechbrain": "1.1.1",
+      "faster-whisper": "1.2.1",
+      "ctranslate2": "4.8.2",
+      "transformers": "5.0.0",
+      "jiwer": "4.0.0",
+      "numpy": "2.0.2"
+    }
+  },
+  "calibration": {
+    "ceiling": 0.6793774830612641,
+    "floor": null,
+    "cross_max": null,
+    "same_pairs": 10,
+    "cross_pairs": 0,
+    "per_speaker_ceiling": {
+      "cv02": 0.6793774830612641
+    }
+  },
+  "recogniser_floor": {
+    "cer_mean": 0.07800123509335873,
+    "wer_mean": 0.3740008247479986,
+    "cer_median": 0.046875,
+    "clips": 45,
+    "source": "cached: eval/results/_asr_floor.json, measured on another run"
+  },
+  "summary": {
+    "held_out_mean": 0.3536,
+    "held_out_sd": null,
+    "reference_mean": 0.5526,
+    "wer_mean": 0.6666666666666666,
+    "cer_mean": 0.08888888888888889,
+    "cer_median": 0.08888888888888889,
+    "scale_position": null,
+    "renders": 1,
+    "failures": 0,
+    "untranscribed": 0
+  },
+  "per_speaker": {
+    "cv02": {
+      "held_out": 0.3536,
+      "ceiling": 0.6793774830612641,
+      "gap": -0.3257774830612641,
+      "reference": 0.5526,
+      "wer": 0.6666666666666666,
+      "cer": 0.08888888888888889,
+      "renders": 1
+    }
+  },
+  "rows": [
+    {
+      "speaker": "cv02",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.3536,
+      "held_out_scores": [
+        0.2983,
+        0.4387,
+        0.2708,
+        0.4065
+      ],
+      "reference_similarity": 0.5526,
+      "word_error_rate": 0.6666666666666666,
+      "character_error_rate": 0.08888888888888889,
+      "transcription": "دوی روز در کتاب خانه شهر کتاب درباره تاریخ ایریانو خواندم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/moss15-fa-smoke/cv02_s1_seed42.wav",
+      "seconds": 4.56
+    }
+  ]
+}

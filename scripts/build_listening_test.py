@@ -17,8 +17,11 @@ What makes it blind and fair:
   target for every clip, including the reference, because louder is heard as
   better. If any clip would clip at that target, the target is lowered for all
 * **the reference is a real recording of the speaker that neither system was
-  conditioned on** - a held-out clip, never the prompt - so "same person?" asks
-  about identity, not about copying the prompt's recording
+  conditioned on**, taken from the evaluation pool the runs actually used - read
+  from each run's results file (which clip it was prompted with) or from the
+  experiment's manifest. Without that provenance the builder refuses: it does
+  not guess, and it does not promise "never the prompt" on the strength of a
+  clip's role in the corpus, which a multi-reference run changes
 
 Three questions, kept separate because they are separate: which sample sounds
 more like the person in the reference; which sounds more natural; and whether
@@ -56,16 +59,44 @@ def sentences() -> dict[str, str]:
     return dict(module.SENTENCES)
 
 
-def held_out_reference(speaker: str, manifest: dict) -> dict:
-    """The first held-out clip: a real recording the systems never conditioned on."""
-    clips = sorted((e for e in manifest["entries"] if e["speaker"] == speaker and e["role"] == "held_out"),
-                   key=lambda e: e["file"])
-    if not clips:
-        raise SystemExit(f"{speaker} has no held-out clip")
-    return clips[0]
+def prompts_from_results(results: dict, corpus: dict) -> dict[str, set[str]]:
+    """Which clip each speaker was prompted with in a benchmark run.
+
+    ``benchmark.py`` prompts with ``sorted(clips)[reference_index]`` and scores
+    against the rest, and records reference_index in the results file.
+    """
+    config = results.get("config") or {}
+    if "reference_index" not in config:
+        raise SystemExit(f"{results.get('label')}: no reference_index recorded - provenance unknown")
+    by_speaker: dict[str, list[str]] = {}
+    for entry in corpus["entries"]:
+        by_speaker.setdefault(entry["speaker"], []).append(entry["file"])
+    index = int(config["reference_index"])
+    return {s: {sorted(files)[index % len(files)]} for s, files in by_speaker.items()}
 
 
-def build(name: str, a_dir: Path, b_dir: Path, seed: int, out_root: Path = OUT) -> dict:
+def pools_from_manifest(manifest: dict) -> tuple[dict[str, set[str]], dict[str, list[str]]]:
+    """Prompt clips and evaluation pool per speaker from an experiment manifest."""
+    prompts, pools = {}, {}
+    for speaker, entry in manifest["speakers"].items():
+        prompts[speaker] = {clip["file"] for c in entry["conditions"].values() for clip in c["clips"]}
+        pools[speaker] = list(entry["evaluation_clips"])
+    return prompts, pools
+
+
+def listening_reference(speaker: str, prompts: list[dict[str, set[str]]], pool: list[str] | None,
+                        corpus: dict) -> str | None:
+    """A clip of this speaker that no system was prompted with, from the evaluation pool."""
+    used = set().union(*(p.get(speaker, set()) for p in prompts))
+    candidates = pool if pool is not None else sorted(
+        e["file"] for e in corpus["entries"] if e["speaker"] == speaker)
+    free = sorted(c for c in candidates if c not in used)
+    return free[0] if free else None
+
+
+def build(name: str, a_dir: Path, b_dir: Path, seed: int, out_root: Path = OUT, *,
+          a_results: dict | None = None, b_results: dict | None = None,
+          pool_manifest: dict | None = None) -> dict:
     from voiceclone.audio.io import load_audio, save_audio
     from voiceclone.audio.loudness import apply_gain, measure_lufs, peak_dbfs
 
@@ -75,12 +106,32 @@ def build(name: str, a_dir: Path, b_dir: Path, seed: int, out_root: Path = OUT) 
     if not shared:
         raise SystemExit("the two render folders have no file names in common")
 
+    if pool_manifest is not None:
+        prompts_a, pools = pools_from_manifest(pool_manifest)
+        prompt_sets, provenance = [prompts_a], f"manifest {pool_manifest.get('name')}"
+    elif a_results is not None and b_results is not None:
+        prompt_sets = [prompts_from_results(a_results, manifest), prompts_from_results(b_results, manifest)]
+        pools, provenance = None, f"results {a_results.get('label')} and {b_results.get('label')}"
+    else:
+        raise SystemExit("give both runs' results files, or the experiment manifest: without them "
+                         "nothing says which clips were prompts")
+
     rng = random.Random(seed)
-    items = []
+    items, skipped = [], {}
     for filename in shared:
         speaker, sentence, _ = filename[:-4].split("_", 2)
+        pool = pools.get(speaker) if pools is not None else None
+        if pools is not None and pool is None:
+            skipped[filename] = "speaker not in the experiment manifest"
+            continue
+        reference = listening_reference(speaker, prompt_sets, pool, manifest)
+        if reference is None:
+            skipped[filename] = "no clip of this speaker was free of every prompt"
+            continue
         items.append({"speaker": speaker, "sentence": sentence, "file": filename,
-                      "reference": held_out_reference(speaker, manifest)})
+                      "reference": {"file": reference}})
+    if not items:
+        raise SystemExit(f"no usable trials: {skipped}")
     rng.shuffle(items)
     a_first = [i < len(items) // 2 + (len(items) % 2 and rng.random() < 0.5) for i in range(len(items))]
     rng.shuffle(a_first)
@@ -117,14 +168,16 @@ def build(name: str, a_dir: Path, b_dir: Path, seed: int, out_root: Path = OUT) 
         gains[tag] = round(gain, 2)
         save_audio(apply_gain(audio, gain), audio_dir / f"{anonymous(tag)}.wav", bit_depth=32)
 
+    fingerprint = hashlib.sha1(json.dumps([name, seed, sorted(i["id"] for i in items)]).encode()).hexdigest()[:16]
     trials = [{"id": item["id"], "text": texts[item["sentence"]],
                "reference": f"audio/{anonymous(item['id'] + '-ref')}.wav",
                "sample_1": f"audio/{anonymous(item['id'] + '-1')}.wav",
                "sample_2": f"audio/{anonymous(item['id'] + '-2')}.wav"} for item in items]
-    (served / "index.html").write_text(page(name, trials), encoding="utf-8")
+    (served / "index.html").write_text(page(name, fingerprint, trials), encoding="utf-8")
 
     key = {
-        "name": name, "seed": seed, "target_lufs": round(target, 2),
+        "name": name, "fingerprint": fingerprint, "seed": seed, "target_lufs": round(target, 2),
+        "reference_provenance": provenance, "skipped": skipped,
         "systems": {"a": str(a_dir), "b": str(b_dir)},
         "trials": {item["id"]: {"speaker": item["speaker"], "sentence": item["sentence"],
                                 "file": item["file"], "reference": item["reference"]["file"],
@@ -137,7 +190,7 @@ def build(name: str, a_dir: Path, b_dir: Path, seed: int, out_root: Path = OUT) 
     return key
 
 
-def page(name: str, trials: list[dict]) -> str:
+def page(name: str, fingerprint: str, trials: list[dict]) -> str:
     rows = []
     for number, trial in enumerate(trials, start=1):
         tid = html.escape(trial["id"])
@@ -156,9 +209,10 @@ def page(name: str, trials: list[dict]) -> str:
     <label><input type="radio" name="{tid}-natural" value="1">۱</label>
     <label><input type="radio" name="{tid}-natural" value="2">۲</label>
     <label><input type="radio" name="{tid}-natural" value="0">فرقی ندارد</label></fieldset>
-  <fieldset><legend>کدام کلمه‌ای را اشتباه یا نامفهوم گفت؟</legend>
+  <fieldset><legend>کدام کلمه‌ای را اشتباه یا نامفهوم گفت؟ (حتماً یکی را بزنید)</legend>
     <label><input type="checkbox" name="{tid}-misread" value="1">۱</label>
-    <label><input type="checkbox" name="{tid}-misread" value="2">۲</label></fieldset>
+    <label><input type="checkbox" name="{tid}-misread" value="2">۲</label>
+    <label><input type="checkbox" name="{tid}-misread" value="none">هیچ‌کدام</label></fieldset>
 </section>""")
     return f"""<!doctype html>
 <html lang="fa" dir="rtl"><head><meta charset="utf-8"><title>آزمون شنیداری</title>
@@ -174,7 +228,8 @@ def page(name: str, trials: list[dict]) -> str:
 <script>
 const KEY = "listening:{html.escape(name)}";
 function collect() {{
-  const out = {{listener: document.getElementById("listener").value, answers: {{}}}};
+  const out = {{test: "{html.escape(name)}", fingerprint: "{fingerprint}",
+               listener: document.getElementById("listener").value, answers: {{}}}};
   document.querySelectorAll(".trial").forEach(t => {{
     const id = t.dataset.id;
     const pick = q => (t.querySelector(`input[name="${{id}}-${{q}}"]:checked`) || {{}}).value || null;
@@ -199,8 +254,18 @@ def main() -> int:
     parser.add_argument("--a-dir", type=Path, required=True)
     parser.add_argument("--b-dir", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=20260918)
+    parser.add_argument("--a-results", help="results label of system a, for its prompt clips")
+    parser.add_argument("--b-results", help="results label of system b")
+    parser.add_argument("--pool-manifest", type=Path, help="experiment manifest, e.g. eval/manifests/...")
     args = parser.parse_args()
-    key = build(args.name, args.a_dir, args.b_dir, args.seed)
+
+    def results(label: str | None) -> dict | None:
+        path = ROOT / "eval" / "results" / f"{label}.json"
+        return json.loads(path.read_text(encoding="utf-8")) if label else None
+
+    pool = json.loads(args.pool_manifest.read_text(encoding="utf-8")) if args.pool_manifest else None
+    key = build(args.name, args.a_dir, args.b_dir, args.seed, a_results=results(args.a_results),
+                b_results=results(args.b_results), pool_manifest=pool)
     print(f"{len(key['trials'])} trials in listening/{args.name}/ ; key kept at listening/{args.name}.key.json")
     print("Give listeners only the folder. The key must not travel with it.")
     return 0

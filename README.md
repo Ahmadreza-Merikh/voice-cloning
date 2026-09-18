@@ -141,7 +141,8 @@ Check what your machine can actually run at any time:
 | **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520 stock, 0.546 continued on 2739 speakers with best-of-4; CER 2.2%, a figure whose small differences are within recogniser noise (FINDINGS §9). |
 | **Chatterbox** (`chatterbox`) | community T3 finetune | no (grapheme) | ~3.5 GB | medium | Speaker path is language-agnostic — the part Persian data is *not* needed for. Own venv (torch 2.6). |
 | **OmniVoice** (`omnivoice`) | official (1 of 600+) | no (grapheme) | 3.3 GB | medium | k2-fsa. Code Apache-2.0, **weights CC-BY-NC**. **Strongest identity transfer measured here: held-out 0.583**; over the best F5 configuration +0.037, 95% interval [+0.005, +0.069] across nine speakers - a direction, not a size. Own venv. |
-| **MOSS-TTS** (`moss`) | official (1 of 31 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Apache-2.0 - the only unrestricted licence here. 3.06B params, pinned to transformers 5.0.x (own environment). Measured: held-out 0.559, not shown to differ from the best F5 or from OmniVoice; CER 6.5% against OmniVoice's 2.8% on the same recogniser. This is the *older* variant: `MOSS-TTS-Local-Transformer-v1.5` (9.1 GB) exists and is unmeasured. |
+| **MOSS-TTS** (`moss`) | official (1 of 31 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Model Apache-2.0 (its codec's licence was not checked). 3.06B params, pinned to transformers 5.0.x (own environment). Measured: held-out 0.559, not shown to differ from the best F5 or from OmniVoice; CER 6.5% against OmniVoice's 2.8% on the same recogniser. This is the older variant; v1.5 is the next row. |
+| **MOSS-TTS v1.5** (`moss15`) | official, as "Persian (Farsi)" (1 of 31) | no | 9.1 GB + 8.5 GB codec | medium | Model, codec and code all Apache-2.0 at the pinned revisions. Runs out of process on its official stack (torch 2.9.1, transformers 5.0.0); on T4s it needs two cards, the codec on the second. Measured at the official recipe: held-out 0.507, not above the F5 baseline (-0.013 [-0.053, +0.027]) and below OmniVoice (-0.077 [-0.122, -0.032]); CER +7.7 points over the baseline scored in the same session (FINDINGS §8). |
 | **Fish S2 Pro** (`fish`) | third tier of 80+ | no | 11 GB | slow | Fish Audio Research License, non-commercial. Measured on a T4 in fp16: held-out 0.537, and CER 9.5% - against the F5 baseline re-scored in the same session, +6.4 points [+4.2, +8.6], worse for all nine speakers (CER is only compared inside one scoring environment, FINDINGS §9). Needs a CUDA card; own venv. |
 | **Higgs TTS 3** (`higgs`) | claimed top tier of 102 | no | 10 GB | medium | Boson research/non-commercial licence. Measured on a T4 in fp16 through a transformers port whose weights hash identical to Boson's: held-out 0.531, CER 2.9%. Needs a CUDA card; own venv. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
@@ -475,10 +476,12 @@ of base mattered more than tuning it — and the better base was found only
 because the landscape was checked against live sources instead of recalled.
 
 **This is not a state-of-the-art claim.** OmniVoice is someone else's model,
-the scale is local to this corpus and comparable to no published number, two
-candidates that list Persian are still unmeasured, and no human has scored any
-of it. The one other candidate measured, MOSS-TTS, was not shown to differ from
-it on identity and was clearly worse on pronunciation (FINDINGS §8). What this repository contributes is the instrument that could
+the scale is local to this corpus and comparable to no published number,
+nine development speakers are too few to rank close engines, and no human has
+scored any of it. Of the other candidates measured, MOSS-TTS v1.0 was not shown
+to differ from it on identity and was clearly worse on pronunciation; Fish S2
+Pro, Higgs TTS 3 and MOSS-TTS v1.5 at its official recipe scored lower on
+identity (FINDINGS §8). What this repository contributes is the instrument that could
 tell the difference.
 
 See [`FINDINGS.md`](FINDINGS.md) for the full investigation and

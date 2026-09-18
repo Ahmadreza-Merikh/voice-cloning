@@ -820,6 +820,7 @@ under-5 claim, is the only evidence available that the port is faithful.
 | Fish S2 Pro | 0.537 | 77.7% | **9.5%** | research only |
 | Higgs TTS 3 | 0.531 | 77.3% | 2.9% | research only |
 | F5 baseline | 0.520 | 75.2% | 2.9% | base is CC-BY-NC |
+| MOSS-TTS v1.5, official recipe (below) | 0.507 | 73.5% | 10.9%, same session's baseline 3.1% | Apache-2.0 |
 
 Neither new candidate changes the ordering. Against the best F5
 configuration, Higgs is -0.015 [-0.048, +0.018] and Fish -0.009 [-0.036,
@@ -836,6 +837,55 @@ columns above mix environments: MOSS's 6.5% was scored on this Mac from the
 Kaggle renders (`moss-local`, because no recogniser fit beside MOSS on the
 card), and against the Mac-scored baseline it is +3.7 points [+1.7, +5.6].
 `eval/results/_provenance.json` records where every run was scored and why.
+
+### MOSS-TTS v1.5, at its official recipe
+
+The newer variant, `OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5` at
+`be7766a6` - Apache-2.0 for the model, the codec (`MOSS-Audio-Tokenizer-v2` at
+`f6e20e54`) and the code (`OpenMOSS/MOSS-TTS` at `934d6826`) - was measured on a
+T4 pair at the card's recipe: the repository's runtime pins (torch
+2.9.1+cu128, torchaudio 2.9.1+cu128, transformers 5.0.0, safetensors 0.6.2),
+installed and checked by the notebook rather than trusted to the image;
+bfloat16, which Turing runs emulated; SDPA, the card's own fallback below
+compute 8.0; the recommended sampling (temperature 1.7, top-p 0.8, top-k 25,
+repetition penalty 1.0, 4096 new tokens); 48 kHz stereo, scored like every
+other engine on its channel mean. Cloning goes through the processor's
+`build_user_message(text, reference=[audio], language)`, as in the card's
+transformers example.
+
+Three attempts failed before the first render, none of them the model's
+fault: the runner that read the worker's output also wrote it to the notebook
+display, the display stopped taking data, and the worker blocked on a full
+pipe (`eval/runs/persian-voice-moss15-probe-v2.json`). With that fixed, the
+model loads in about 55 s and renders a sentence in 8-10 s.
+
+Two sessions differ in one string. The first sent the language tag "Persian",
+by analogy with the card's examples; the official string, found afterwards in
+the card's language table and in the official v1.5 app, is "Persian (Farsi)",
+and the second sent that. Their baseline controls agree in every cell -
+similarity, CER and transcript - so the two are compared directly:
+
+| | held-out | share of own ceiling | CER (same session's baseline: 3.1%) |
+|---|---|---|---|
+| tag "Persian" | 0.524 | 75.8% | 9.0% |
+| tag "Persian (Farsi)", the official string | 0.507 | 73.5% | 10.9% |
+
+The tag made no detectable difference: -0.018 [-0.046, +0.010] in similarity,
++1.9 CER points [-3.4, +7.2]. Against the F5 baseline the official
+configuration is -0.013 [-0.053, +0.027] in similarity and +7.7 CER points
+[+2.8, +12.7] in its own session; against OmniVoice -0.077 [-0.122, -0.032], an
+interval that also clears the 0.0205 line; against MOSS v1.0 -0.052 [-0.095,
+-0.009]. The errors gather at the start of the sentence - a first word garbled
+or dropped, or words added before it - and one render (`cv09`/s3) is
+unintelligible as the target.
+
+So on this development set and these metrics, v1.5 does not do what its card
+says it does over v1.0 once the language is tagged. Three things keep that from
+being a verdict on the model: nine speakers; renders that are single samples at
+temperature 1.7; and metrics that are not the card's. And one official mode is
+untested: "continuation", which also takes the reference clip's transcript and
+which the official server documentation says gives better speaker similarity.
+The transformers processor at this revision has no field for it.
 
 ### What the statistics actually support
 
@@ -856,11 +906,15 @@ results below had been seen; it is a correction, not a pre-registration.
 | best F5 - F5 baseline | +0.027 | [+0.015, +0.038] | excludes 0 | overlaps it |
 | OmniVoice - MOSS | +0.025 | [-0.020, +0.069] | includes 0 | - |
 | Higgs - best F5 | -0.015 | [-0.048, +0.018] | includes 0 | - |
+| OmniVoice - MOSS v1.5 | +0.077 | [+0.032, +0.122] | excludes 0 | clear of it |
+| MOSS - MOSS v1.5 | +0.052 | [+0.009, +0.095] | excludes 0 | overlaps it |
+| MOSS v1.5 - F5 baseline | -0.013 | [-0.053, +0.027] | includes 0 | - |
 
 How to read it. An interval that excludes 0 means the data would be unusual if
 the true difference were zero, for these nine speakers; it is not a proof of
 direction, and with the other comparisons in the table some such result is
-expected by chance. Only the first row's interval also clears +/-0.0205.
+expected by chance. Two rows' intervals also clear +/-0.0205: OmniVoice over
+the F5 baseline, and OmniVoice over MOSS v1.5.
 
 What 0.0205 is matters here, because earlier versions of this document called
 it "the encoder's noise". It is the largest change in ECAPA score measured

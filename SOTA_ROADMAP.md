@@ -28,7 +28,7 @@ what it excludes, and how weak the design is.
 
 ## 2. Where the work stands
 
-**[measured]** Six configurations on one development benchmark - nine speakers,
+**[measured]** Seven configurations on one development benchmark - nine speakers,
 three sentences, one seed, one reference clip each (`eval/results/*.json`,
 compared by `scripts/compare_runs.py`):
 
@@ -40,16 +40,19 @@ compared by `scripts/compare_runs.py`):
 | Fish S2 Pro | 0.537 | 9.5%, Kaggle Fish kernel | research only |
 | Higgs TTS 3 (ported, fp16) | 0.531 | 2.9%, Kaggle Higgs kernel | research only |
 | F5 baseline | 0.520 | 2.9%, this Mac | base CC-BY-NC |
+| MOSS-TTS v1.5, official recipe | 0.507 | 10.9%, Kaggle v1.5 kernel | Apache-2.0, codec and code too |
 
 CER is only comparable inside one scoring environment, because the recogniser
 runs cpu/int8 on the Mac and cuda/float16 on a GPU (`engines/asr.py`). Inside
 their environments: Fish is +6.4 points [+4.2, +8.6] against the baseline
-re-scored in the same kernel; MOSS v1.0 is +3.7 [+1.7, +5.6] against the Mac
-baseline; Higgs and OmniVoice have intervals that include zero.
+re-scored in the same kernel; MOSS v1.5 +7.7 [+2.8, +12.7] likewise; MOSS
+v1.0 is +3.7 [+1.7, +5.6] against the Mac baseline; Higgs and OmniVoice have
+intervals that include zero.
 
 **[measured]** On similarity, per speaker with a 95% t interval, one comparison
 has an interval clear of both zero and the 0.0205 reference line: OmniVoice
-over the F5 baseline, +0.064 [+0.025, +0.102]. OmniVoice over the best F5,
+over the F5 baseline, +0.064 [+0.025, +0.102] - and, since MOSS v1.5 was
+measured, OmniVoice over it, +0.077 [+0.032, +0.122]. OmniVoice over the best F5,
 over Fish and over Higgs have intervals that exclude zero and overlap the line.
 The design's power is low - about 59% for a true 0.04 difference, 38% at 0.03 -
 so intervals that include zero are weak evidence either way.
@@ -138,7 +141,7 @@ down until listening has actually happened.
 | base | licences **[source]** | measured | official fine-tuning path | keep or drop |
 |---|---|---|---|---|
 | OmniVoice | code Apache-2.0, weights CC-BY-NC | **[measured]** 0.583 | yes: `examples/run_finetune.sh`, JSONL `{id, audio_path, text, language_id}`, 5,000 steps at lr 5e-5 | keep if non-commercial is acceptable |
-| MOSS-TTS-Local-Transformer-v1.5 | model, codec and code all Apache-2.0 (below) | **no** | not checked | measure next (§7) |
+| MOSS-TTS-Local-Transformer-v1.5 | model, codec and code all Apache-2.0 (below) | **[measured]** 0.507 at the official recipe; CER +7.7 over the baseline in its session | not checked | below OmniVoice and v1.0 here; its "continuation" mode, with the reference transcript, is untested |
 | MOSS-TTS-Local-Transformer v1.0 | model Apache-2.0; codec licence not checked | **[measured]** 0.559, CER +3.7 | not checked | superseded; kept as a reference point |
 | F5-TTS continued | base CC-BY-NC | **[measured]** 0.546 | this project has one | control, not destination |
 | Fish S2 Pro | research only | **[measured]** 0.537, CER +6.4 | out of scope | drop - worst Persian CER measured and the narrowest licence |
@@ -272,9 +275,11 @@ next to its numbers.
 
 1. Build and validate the multi-reference manifest on the development set.
    No GPU.
-2. Smoke-test MOSS v1.5 on a T4 at the official recipe, recording load time,
-   per-cell time and memory on each card. Then, only if it renders valid
-   audio, the 27-cell development benchmark.
+2. ~~Smoke-test MOSS v1.5 on a T4 at the official recipe, then the 27-cell
+   development benchmark.~~ Done on 2026-09-18 (kernel v3 and v4, all gates
+   passed): 0.507 with the official tag, not above the baseline. Open: its
+   "continuation" mode with the reference transcript - one variable, with the
+   official app's prompt construction.
 3. Run the multi-reference conditions on the development set for the engines
    that accept the prompt budget, with the manifest fixed beforehand.
 4. Decide commercial or not (the user's question) and declare the primary test

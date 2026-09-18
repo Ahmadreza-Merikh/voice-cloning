@@ -26,18 +26,25 @@ from ..text.pipeline import PreparedText
 #: speaker whose own clips score worse against each other than against someone
 #: else's - using this same encoder. That keeps the ground truth usable and it
 #: also pushes this ceiling up and this floor down relative to a random sample.
-#: Engine comparisons are unaffected, since every engine meets the same
-#: speakers; absolute statements about "the human ceiling" are not.
+#: Comparing engines on this set is still well-defined, since every engine
+#: meets the same speakers, but the result is conditional on the set: a
+#: selection made by this encoder can favour whichever engine best preserves
+#: what this encoder listens to, so neither a ranking nor its generalisation to
+#: other speakers is protected from the bias. Absolute statements about "the
+#: human ceiling" are affected directly.
 #:
 #: And it is not a session calibration. An earlier version of this block put
 #: same-speaker pairs into "same session 0.800" and "different session 0.647"
 #: bands. Common Voice publishes no session field, so for those speakers the
 #: evidenced statement is only "a different clip", and the bands are gone.
 #:
-#: What survives that is the channel effect, which is measured directly: across
-#: five engines a render scores 0.11 to 0.16 higher against the clip it was
-#: conditioned on than against other recordings of the same speaker. Scoring a
-#: clone against its own prompt therefore flatters it by about that much.
+#: What is measured directly is a gap: across five engines a render scores 0.11
+#: to 0.16 higher against the clip it was conditioned on than against other
+#: recordings of the same speaker, so scoring a clone against its own prompt
+#: flatters it by about that much. *Why* is not established. Shared recording
+#: channel is one explanation; the render continuing the prompt's prosody,
+#: level or content is another, and neither has been separated from the other,
+#: nor shown to be the same size for every engine.
 SIMILARITY_DIFFERENT_SPEAKER = 0.132
 SIMILARITY_DIFFERENT_SPEAKER_MAX = 0.508
 SIMILARITY_SAME_SPEAKER = 0.689

@@ -45,6 +45,9 @@ WORKER_TIMEOUT = 3600
 BENCH_TIMEOUT = 3600
 FULL_TIMEOUT = 4 * 3600
 
+#: Seconds per cell for scoring on top of generation, for the budget estimate.
+SCORING_ALLOWANCE = 20
+
 SETUP = '''\
 # The card's runtime stack is torch 2.9.1+cu128 (checked in the next cell) with
 # transformers 5.0.0. torchcodec is part of that stack only for torchaudio.load,
@@ -117,31 +120,31 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["HF_DEACTIVATE_ASYNC_LOAD"] = "1"
 
 
-def run(command, timeout=None, cwd=None):
-    print("$", " ".join(str(part) for part in command), flush=True)
-    start = time.time()
-    try:
-        code = subprocess.run(command, cwd=cwd, text=True, timeout=timeout).returncode
-    except subprocess.TimeoutExpired:
-        print(f"TIMED OUT after {{timeout}}s - called off", flush=True)
-        code = -1
-    elapsed = time.time() - start
-    print(f"exit {{code}} in {{elapsed / 60:.1f}} min", flush=True)
-    return code, elapsed
+# Every stage asks the gates before it starts, and every command runs in its own
+# process group so a timeout ends the worker a driver started, not just the
+# driver. See scripts/kernel_gates.py.
+sys.path.insert(0, str(REPO / "scripts"))
+from kernel_gates import (Gates, bench_verdict, budget_verdict, control_verdict,  # noqa: E402
+                          run_bounded, worker_verdict)
+
+GATES = Gates()
+CAPACITY = {{f"cuda:{{i}}": torch.cuda.get_device_properties(i).total_memory / 2**30
+            for i in range(torch.cuda.device_count())}}
 '''
 
 DOWNLOAD = f'''\
 from huggingface_hub import snapshot_download
 
-start = time.time()
-MODEL_DIR = Path(snapshot_download(repo_id="{MODEL}", revision="{MODEL_REVISION}"))
-print(f"model in {{(time.time() - start) / 60:.1f}} min -> {{MODEL_DIR}}")
-start = time.time()
-CODEC_DIR = Path(snapshot_download(repo_id="{CODEC}", revision="{CODEC_REVISION}"))
-print(f"codec in {{(time.time() - start) / 60:.1f}} min -> {{CODEC_DIR}}")
-for folder in (MODEL_DIR, CODEC_DIR):
-    size = sum(p.stat().st_size for p in folder.rglob("*") if p.is_file())
-    print(f"   {{size / 2**30:5.2f}} GiB  {{folder.name}}")
+try:
+    start = time.time()
+    MODEL_DIR = Path(snapshot_download(repo_id="{MODEL}", revision="{MODEL_REVISION}"))
+    CODEC_DIR = Path(snapshot_download(repo_id="{CODEC}", revision="{CODEC_REVISION}"))
+    sizes = {{d.name: sum(p.stat().st_size for p in d.rglob("*") if p.is_file()) / 2**30
+             for d in (MODEL_DIR, CODEC_DIR)}}
+    GATES.record("download", True, f"{{(time.time() - start) / 60:.1f}} min, " +
+                 ", ".join(f"{{n}} {{s:.2f}} GiB" for n, s in sizes.items()))
+except Exception as exc:
+    GATES.record("download", False, f"{{type(exc).__name__}}: {{exc}}")
 '''
 
 DRIVER = '''\
@@ -152,7 +155,7 @@ import json, subprocess, sys, time
 model_dir, codec_dir, reference, text, output, cwd = sys.argv[1:7]
 command = [sys.executable, "scripts/moss15_worker.py", "--model-dir", model_dir,
            "--codec-dir", codec_dir, "--device", "cuda", "--codec-device", "auto"]
-start = time.time()
+start_load = time.time()
 worker = subprocess.Popen(command, cwd=cwd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                           text=True, bufsize=1)
 
@@ -167,8 +170,9 @@ def reply():
             continue
 
 ready = reply()
+ready_at = time.time()
 print("READY", json.dumps(ready), flush=True)
-print(f"LOAD {time.time() - start:.1f}s", flush=True)
+print(f"LOAD {ready_at - start_load:.1f}s", flush=True)
 if not ready.get("ready"):
     raise SystemExit("worker did not load")
 job = {"text": text, "reference": reference, "output": output, "seed": 42, "language": "Persian",
@@ -178,10 +182,17 @@ start = time.time()
 worker.stdin.write(json.dumps(job, ensure_ascii=False) + chr(10))
 worker.stdin.flush()
 answer = reply()
-print(f"RENDER {time.time() - start:.1f}s", flush=True)
+render_seconds = time.time() - start
+print(f"RENDER {render_seconds:.1f}s", flush=True)
 print("RESULT", json.dumps(answer), flush=True)
 worker.stdin.write(json.dumps({"op": "quit"}) + chr(10))
 worker.stdin.flush()
+worker.wait(timeout=120)
+with open("/kaggle/working/moss15_smoke.json", "w") as handle:
+    json.dump({"ready": ready, "load_seconds": ready_at - start_load, "result": answer,
+               "render_seconds": render_seconds}, handle)
+if not answer.get("ok"):
+    raise SystemExit("the render failed")
 """, encoding="utf-8")
 
 manifest = json.loads((REPO / "eval/corpus/manifest.json").read_text(encoding="utf-8"))
@@ -189,80 +200,78 @@ entry = next(e for e in manifest["entries"] if e["speaker"] == "cv02" and e["rol
 REFERENCE = REPO / "eval/corpus" / entry["file"]
 SENTENCE = "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم."
 RENDER = Path("/kaggle/working/moss15_worker.wav")
+SMOKE = Path("/kaggle/working/moss15_smoke.json")
 '''
 
 WORKER = f'''\
-worker_code, worker_seconds = run(
-    [sys.executable, "/kaggle/working/drive_moss15.py", str(MODEL_DIR), str(CODEC_DIR),
-     str(REFERENCE), SENTENCE, str(RENDER), str(REPO)],
-    timeout={WORKER_TIMEOUT},
-)
-subprocess.run(["nvidia-smi", "--query-gpu=index,memory.used,memory.total", "--format=csv"])
-
-if RENDER.is_file():
-    import numpy as np
-    import soundfile as sf
-
-    samples, rate = sf.read(RENDER, always_2d=True)
-    flat = np.asarray(samples, dtype=np.float64).reshape(-1)
-    print()
-    print(f"render      : {{samples.shape[0] / rate:.2f}} s, {{rate}} Hz, {{samples.shape[1]}} channel(s)")
-    print(f"peak / rms  : {{float(np.abs(flat).max()):.3f}} / {{float(np.sqrt((flat ** 2).mean())):.4f}}")
-    print(f"distinct    : {{len(np.unique(flat))}} sample values")
-    verdict = []
-    if rate != 48000 or samples.shape[1] != 2:
-        verdict.append("NOT THE NATIVE 48 kHz STEREO THE CARD DESCRIBES")
-    if not np.isfinite(flat).all():
-        verdict.append("NOT FINITE")
-    if len(np.unique(flat)) < 1000:
-        verdict.append("CONSTANT OR NEARLY SO")
-    print("VERDICT     :", " | ".join(verdict) if verdict else "native-format audio")
-else:
-    print("no render was written - the log above says why; nothing later will run the model")
+FACTS = {{}}
+if not GATES.skip("worker", ("download",)):
+    code, seconds, timed_out = run_bounded(
+        [sys.executable, "/kaggle/working/drive_moss15.py", str(MODEL_DIR), str(CODEC_DIR),
+         str(REFERENCE), SENTENCE, str(RENDER), str(REPO)],
+        timeout={WORKER_TIMEOUT})
+    subprocess.run(["nvidia-smi", "--query-gpu=index,memory.used,memory.total", "--format=csv"])
+    ok, reason, FACTS = worker_verdict(code, timed_out, RENDER, SMOKE, expect_rate=48000, expect_channels=2)
+    GATES.record("worker", ok, reason)
+    if FACTS:
+        print("load s:", round(FACTS.get("load_seconds", 0), 1),
+              "| render s:", round(FACTS.get("render_seconds", 0), 1),
+              "| peaks after load:", FACTS.get("ready", {{}}).get("memory_gib_after_load"),
+              "| peaks during render:", FACTS.get("result", {{}}).get("memory_gib"))
 '''
 
 BENCH = f'''\
-code, elapsed = run([sys.executable, "scripts/benchmark.py", "--label", "moss15-smoke",
-                     "--engine", "moss15", "--device", "cuda", "--speakers", "cv02", "--sentences", "s1"],
-                    timeout={BENCH_TIMEOUT}, cwd=str(REPO))
-path = REPO / "eval/results/moss15-smoke.json"
-if path.is_file():
-    data = json.loads(path.read_text())
-    print("summary:", json.dumps(data["summary"], ensure_ascii=False))
-    print("environment:", json.dumps(data.get("scoring_environment"), ensure_ascii=False))
-else:
-    print("no results file")
+if not GATES.skip("bench", ("worker",)):
+    code, BENCH_SECONDS, timed_out = run_bounded(
+        [sys.executable, "scripts/benchmark.py", "--label", "moss15-smoke", "--engine", "moss15",
+         "--device", "cuda", "--speakers", "cv02", "--sentences", "s1"],
+        timeout={BENCH_TIMEOUT}, cwd=str(REPO))
+    ok, reason = bench_verdict(code, timed_out, REPO / "eval/results/moss15-smoke.json")
+    GATES.record("bench", ok, reason)
 '''
 
 CONTROL = '''\
-code, elapsed = run([sys.executable, "scripts/benchmark.py", "--label", "baseline-moss15-env",
-                     "--score-only", "--replay-from", "baseline", "--device", "cuda"],
-                    timeout=3600, cwd=str(REPO))
-sys.path.insert(0, str(REPO / "scripts"))
-import compare_runs
+if not GATES.skip("control", ("bench",)):
+    code, seconds, timed_out = run_bounded(
+        [sys.executable, "scripts/benchmark.py", "--label", "baseline-moss15-env",
+         "--score-only", "--replay-from", "baseline", "--device", "cuda"],
+        timeout=3600, cwd=str(REPO))
+    check = None
+    if code == 0 and not timed_out and (REPO / "eval/results/baseline-moss15-env.json").is_file():
+        import compare_runs
 
-reference = compare_runs.load("baseline", REPO / "eval/results")
-control = compare_runs.load("baseline-moss15-env", REPO / "eval/results")
-check = compare_runs.scale_control(reference, control)
-print("scale control, cell by cell:", {k: (len(v) if isinstance(v, (list, dict)) else v)
-                                       for k, v in check.items()})
+        results = REPO / "eval/results"
+        check = compare_runs.scale_control(compare_runs.load("baseline", results),
+                                           compare_runs.load("baseline-moss15-env", results))
+    ok, reason = control_verdict(code, timed_out, check)
+    GATES.record("control", ok, reason)
 '''
 
 FULL = f'''\
-smoke = REPO / "eval/results/moss15-smoke.json"
-ready = False
-if smoke.is_file():
-    data = json.loads(smoke.read_text())
-    row = (data["rows"] or [{{}}])[0]
-    ready = data["summary"]["renders"] == 1 and row.get("held_out_similarity") is not None
-if not ready:
-    print("no scored render from the smoke cell - not starting the development benchmark")
-else:
-    code, elapsed = run([sys.executable, "scripts/benchmark.py", "--label", "moss15",
-                         "--engine", "moss15", "--device", "cuda"],
-                        timeout={FULL_TIMEOUT}, cwd=str(REPO))
+# The full run is priced from what the smoke run measured, not guessed: the
+# worker's load time, one render's generation time plus a scoring allowance,
+# and the peak memory each card reached, against the time budget and each
+# card's capacity.
+if not GATES.skip("budget", ("worker", "bench", "control")):
+    peaks = {{}}
+    for snapshot in (FACTS.get("ready", {{}}).get("memory_gib_after_load", {{}}),
+                     FACTS.get("result", {{}}).get("memory_gib", {{}})):
+        for card, stats in snapshot.items():
+            peaks[card] = max(peaks.get(card, 0.0), stats.get("peak_reserved", 0.0))
+    ok, reason = budget_verdict(load_seconds=FACTS.get("load_seconds", 0.0),
+                                cell_seconds=FACTS["result"]["generate_seconds"] + {SCORING_ALLOWANCE},
+                                cells=27, timeout={FULL_TIMEOUT}, peaks_gib=peaks, capacity_gib=CAPACITY)
+    GATES.record("budget", ok, reason)
+
+if not GATES.skip("full", ("budget",)):
+    code, seconds, timed_out = run_bounded(
+        [sys.executable, "scripts/benchmark.py", "--label", "moss15", "--engine", "moss15", "--device", "cuda"],
+        timeout={FULL_TIMEOUT}, cwd=str(REPO))
     path = REPO / "eval/results/moss15.json"
-    print(json.dumps(json.loads(path.read_text())["summary"], indent=2) if path.is_file() else "no results")
+    summary = json.loads(path.read_text())["summary"] if path.is_file() else {{}}
+    complete = (not timed_out and code == 0 and summary.get("renders") == 27
+                and not summary.get("failures") and not summary.get("untranscribed"))
+    GATES.record("full", complete, json.dumps(summary) if summary else f"exit {{code}}, no results file")
 '''
 
 COLLECT = '''\
@@ -280,6 +289,11 @@ for folder in ("moss15-smoke", "moss15"):
         shutil.copy2(path, renders / f"{folder}__{path.name}")
 if RENDER.is_file():
     shutil.copy2(RENDER, renders / RENDER.name)
+for extra in (SMOKE,):
+    if extra.is_file():
+        shutil.copy2(extra, destination / extra.name)
+(destination / "gates.json").write_text(json.dumps(GATES.summary(), indent=2))
+print("gates:", json.dumps(GATES.summary(), indent=1))
 print("saved:", len(list(renders.glob("*.wav"))), "harness renders,",
       len(list(Path("/kaggle/working/moss15_native").glob("*.wav"))) if native.is_dir() else 0, "native")
 '''

@@ -1,0 +1,50 @@
+{
+  "kernel": "marsmanam/persian-voice-moss15-probe",
+  "version": 2,
+  "version_source": "the service's push response: 'Kernel version 2 successfully pushed'",
+  "status": "COMPLETE (kaggle kernels status, read 2026-09-18 20:1x +0330)",
+  "dataset": "marsmanam/persian-voice-eval version 11, uploaded 2026-09-18 12:47 UTC: repository code as of f21ca87 (fa7578f changed only the notebook). So run_bounded wrote each chunk to the notebook's raw stdout inside its read loop, and waited without a limit after SIGKILL",
+  "timeline_utc": {
+    "pushed": "about 14:41 (commit fa7578f at 14:41:22; the service lists the run at 14:41:26)",
+    "started": "about 14:41:33 (log zero; the worker's phase line at 219.5 s reads 14:45:12)",
+    "ended": "about 15:05:21 (last log entry at 1427.8 s)",
+    "queue": "none measurable - the run began within seconds of the push",
+    "run_seconds": 1428
+  },
+  "correction": "The status of 18:35 +0330 (15:05 UTC, commit 96c64a8) called this run 'still RUNNING past every budget - probably stuck', and the report said it had run 'more than 2 h, since about 16:27'. Wrong: at that moment it had run 24 minutes, inside its budgets (600 + 600 + 1200 s plus setup), and it was finishing on its own. 16:27 was not this run's start. Nothing was stopped or deleted.",
+  "environment": {
+    "torch": "2.10.0+cu128",
+    "transformers": "5.0.0",
+    "gpus": "2 x Tesla T4",
+    "cpus": 4,
+    "memory": "32100 MB, no swap",
+    "note": "Not the image the main kernel's v1 and v2 ran on - those printed torch 2.9.1+cu128. The probe builder assumed 2.9.1 here; that was wrong, so this run did not reproduce v1/v2's environment exactly."
+  },
+  "results": {
+    "drained_cold_cache": {"exit": 0, "seconds": 70, "timed_out": false, "codec": "loaded in 67 s, 2.12B parameters, peak RSS 9.0 GiB"},
+    "inherited_warm_cache": {"exit": 0, "seconds": 15, "timed_out": false, "codec": "loaded in 13 s, peak RSS 9.0 GiB"},
+    "worker_path_drained": {"exit": -1, "seconds": 1210, "timed_out": true, "note": "-1 is the old runner's stand-in for a timeout, not an exit status; 1210 = the 1200 s budget + the reader's 10 s join, which expired"}
+  },
+  "reading_decided_in_advance": "the codec loads alone but the worker's full path hangs - the cause is in that path",
+  "what_the_kept_files_show": {
+    "method": "post hoc, from two records the run itself kept: worker_load.log, the runner's tee of the worker stage (every byte its reader took from the worker's pipe, written before the reader passed the chunk on), against the service log (everything the notebook displayed). Recomputed by kaggle/analyse_probe_v2.py from eval/runs/evidence/moss15-probe-v2/",
+    "reader_took": "187,498 bytes - the codec's progress bar up to 650 of 2094",
+    "notebook_showed": "123,075 bytes of that - up to 429 of 2094, the same point in both copies the service log holds of every raw-stdout write",
+    "taken_never_shown": "64,423 bytes - less than one 64 KiB read, starting exactly where the display stops",
+    "worker": "pid 151: state Sl, wchan pipe_write, RSS 1,078,504 KB - identical in all 20 one-minute reports",
+    "driver": "pid 149: wchan pipe_read, waiting for the worker's ready line",
+    "memory": "about 29.6 GB available throughout",
+    "end": "at the deadline the group died on SIGTERM - both processes were in interruptible sleep - and the reader thread then failed its 10 s join: it was still inside the display write",
+    "comparison": "the same notebook display carried the codec-only drained stage's 640,459 bytes in full, at up to 782 KB/s, 80 s earlier",
+    "print_output": "the runner's monitor reports, printed with print() from the waiting thread, kept arriving every minute"
+  },
+  "conclusion": {
+    "measured": "The worker did not hang in loading. The only reader of its pipe - the runner's thread - stopped reading because it was blocked writing a 64,423-byte chunk to the notebook's raw stdout, which took nothing more after 123,075 bytes of this stage. The pipe filled, the worker blocked writing its progress bar, and the driver waited for a ready line the worker could not reach.",
+    "reproduced": "without a model, on a laptop: the same reader against a display nobody reads deadlocks the same way (tests/test_kernel_gates.py, TestAStalledDisplay.test_deadlocked_the_old_reader), and the reader it held back had taken about one chunk more than the display.",
+    "not_established": "Why the notebook's raw stdout stopped taking data in this stage after carrying 640 KB earlier. print() output kept arriving, so what stalled is the raw-descriptor path - ipykernel's descriptor capture or whatever drains the kernel's own stdout - not the notebook's message channel. Unexplained.",
+    "consistent_with_but_not_shown_for": "the main kernel's v1 and v2, whose worker wrote straight into the notebook's stderr and went silent within a second of its progress bar starting - v2's faulthandler dumps, written to the same stream, never appeared. They kept no tee, so this is inference.",
+    "retracted": "The hypothesis behind 312b757 - a process surviving SIGKILL, or the final wait hanging. This run shows neither. The bounded wait stays, as correct, but it explains nothing here."
+  },
+  "fix": "run_bounded's reader now writes only to a file; the display is drawn by its own thread from a bounded queue that drops instead of waiting; the waiting thread never writes to the display; every notebook subprocess has its output captured; and the notebook runs the same fake-worker job on its own display before downloading anything (scripts/runner_check.py)",
+  "lost": "about 24 minutes of T4 x2 quota; nothing measured about MOSS v1.5 quality"
+}

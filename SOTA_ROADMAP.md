@@ -103,10 +103,14 @@ success *if* the true difference and the spread are as assumed.
 **Declared on 2026-09-19, before any test render.** The primary comparison is
 the Persian adaptation of OmniVoice minus OmniVoice as published, on held-out
 similarity, paired per speaker: H0 Δ ≤ 0 (m = 0), one-sided alpha 0.025,
-planned for a true effect of δ = 0.03. The test set has 30 speakers (§3.2),
-which gives 89% power at spread 0.050 and 38% at 0.096. Secondary, reported
-and labelled as such: whether the lower end also clears m = 0.0205 (88% power
-only if δ = 0.05 and the spread is 0.050). CER is a guard, not a target: the
+planned for a true effect of δ = 0.03, on the primary test set: the 28
+Neyshekar test speakers that have a reference and four held-out clips (§3.2) -
+87% power at spread 0.050 and 36% at 0.096. The 30 Common Voice test speakers
+are a secondary test set, because OmniVoice has very probably heard them.
+(Amended the same day, still before any test render, when Neyshekar was found:
+the first version of this paragraph named the Common Voice set.) Secondary, reported
+and labelled as such: whether the lower end also clears m = 0.0205 (85% power
+with 28 speakers only if δ = 0.05 and the spread is 0.050). CER is a guard, not a target: the
 adapted model's CER against the published model's, scored in one session, is
 reported with its interval, and a CER interval above zero counts against the
 adaptation whatever its similarity. Every other comparison is exploratory,
@@ -138,6 +142,31 @@ encoder for admission would not fix it either: an encoder is not evidence that
 two clips are one person. Identity has to come from the source - published,
 verified speaker ids, or recordings made for the purpose - with encoders used
 at most to *flag* a speaker for a human to check, and every flag reported.
+
+**[measured] The split, drawn 2026-09-19** by `scripts/build_adaptation_splits.py`
+from source metadata only - no audio read, no encoder - into
+`eval/manifests/adaptation_splits_v1.jsonl.gz` (one line per clip, with the
+source's own clip and speaker ids) and its `.summary.json`:
+
+| source | split | clips | speakers | hours |
+|---|---|---|---|---|
+| Common Voice 26 (cleaned) | train | 33,148 | 3,703 | 41.70 |
+| | valid | 365 | 40 | 0.53 |
+| | test (secondary, sealed) | 427 | 30, 15 per self-reported gender | 0.58 |
+| | test reserve (sealed) | 127 | 10 | 0.18 |
+| | development speakers, excluded | 59 | 8 | 0.10 |
+| | train clips dropped for shared text | 8 | 7 | 0.01 |
+| Neyshekar v6 | train | 54,351 | 132 | 86.16 |
+| | valid (its validation split) | 1,886 | 26 | 3.15 |
+| | test (primary, sealed; its test split) | 2,149 | 30, 28 with the clips a test needs | 3.88 |
+| | train clips dropped for shared text | 3,893 | 98 | 5.84 |
+
+No speaker is in two splits; no training text equals, after CER
+normalisation, the text of any development, valid or test clip; no training
+text contains or is contained in a benchmark sentence. What this cannot rule
+out: one person behind two accounts, or recording on both platforms. And the
+Common Voice test speakers are very probably in OmniVoice's own training data
+(FINDINGS §9), which is why Neyshekar's are primary.
 
 ### 3.3 Texts
 
@@ -197,14 +226,35 @@ Exact revisions measured so far: `k2-fsa/OmniVoice` `c5fdb5cc`,
 
 ## 5. Data
 
-**[source]** ParsVoice (`MohammadJRanjbar/ParsVoice`, card fields checked
-2026-09-18): CC-BY-NC-4.0, gated behind an access request, 273 parquet shards.
-The paper (arXiv 2510.10774) reports 2,200 hours, 1,815 speaker ids that were
-*automatically inferred*, 1.36M segments from audiobooks, and a fine-tuned
-XTTSv2 at naturalness MOS 3.6 and speaker-similarity MOS 4.0. The card body
-could not be read without accepting the terms, which is the user's decision.
+**[source]** Public Persian speech, surveyed on the Hugging Face Hub on
+2026-09-19 (search by language, task and name; each candidate's card, licence
+field, gating and files read at its current revision). "In OmniVoice" means
+listed in its paper's complete list of training data (arXiv 2604.00688v3,
+Appendix A).
 
-What that means for use:
+| source | licence, access | size | speaker ids | in OmniVoice | use here |
+|---|---|---|---|---|---|
+| Common Voice 26 Persian, cleaned (`pymmdrza/...-26.0-Persian-Clean` @ `142e9bb4`) | CC0, ungated | 34,134 clips, 43.1 h, 3,791 speakers, 24 kHz | `client_id` | yes, very probably (Common Voice) | train, valid, secondary test |
+| Neyshekar v6 (`shekar-ai/neyshekar` @ `30696ada`; arXiv 2609.14542) | CC0, ungated; card forbids identifying speakers | 62,279 clips, 99.0 h, 190 speakers, 16 kHz read speech, 24% informal | anonymous stable ids, speaker-disjoint official splits | not listed | train, valid, **primary test** |
+| Common Voice Persian, full (official: Mozilla Data Collective; ungated mirrors such as `fsicoli/common_voice_22_0`) | CC0; official download needs an account and terms | 372 validated h, 4,600+ speakers | `client_id` | yes | not used: the user's terms to accept, and it is what OmniVoice trained on |
+| FLEURS `fa_ir` (`google/fleurs`) | CC-BY-4.0, ungated | about 10 h of training data per language (card) | none | yes | not used: no speaker ids |
+| YODAS2, Sidon-denoised (`sarulab-speech/yodas2_sidon`, `fa000`) | CC-BY-3.0, ungated | 9.3 GB | none (YouTube videos) | not as Persian (its YODAS-Granary covers European languages) | possible later training data; not a test source |
+| Ganjoor recitations (`Reza2kn/ganjoor-recitations`) | CC-BY-3.0, ungated | 30,133 recitations, 1,276 h, full-length | reciter per recording | not listed | possible later; poetry, unsegmented |
+| WorldSpeech `fa_ir` (`disco-eth/WorldSpeech`) | CC-BY-NC-4.0, ungated | 27.6 h, broadcast and parliament | not checked | not listed | not used yet |
+| Persian accents benchmark (`MR3z4/...`) | CC-BY-NC-SA-4.0, ungated | 279 files, 4.4 h, overlapping speech | not checked | not listed | evaluation only, if ever |
+| ParsVoice (`MohammadJRanjbar/ParsVoice`) | CC-BY-NC-4.0, **gated** | 2,177.9 h, 1,803 *inferred* speakers, audiobooks | inferred | not listed | the user's terms to accept |
+| Persian-Farsi-Speech (`Thomcles/...`) | CC-BY-4.0, **gated** | 417 h TTS subset, merged from several sources | not checked | not listed | the user's terms to accept |
+| Mana-TTS (`MahtaFetrat/Mana-TTS`) | CC0, ungated | 114 h, one speaker | one | not listed | never: it is development speaker `mana` |
+| Telegram audiobooks (`Reza2kn/telegram-audiobook-chizzled`) | "other"; its card says no licence or consent is established | 14,430 h | none | - | not used: not permitted |
+
+What the adaptation trains on, then, is the two ungated CC0 sources with
+speaker ids, split as in §3.2: 127.9 hours from 3,835 speakers. The largest
+Persian TTS corpus, ParsVoice, and the 417-hour `Thomcles` set are gated, and
+accepting their terms is the user's decision; neither is needed to start.
+
+**[source]** ParsVoice, for the record: the card reports 2,177.9 hours, 1,803
+automatically inferred speaker ids and 1,877 source audiobooks, FLAC 16 kHz;
+annotations CC-BY-NC-4.0. What that means for use:
 
 * it cannot produce shippable weights, whatever the base
 * its speaker ids are inferred, so it is not a source of identity ground truth

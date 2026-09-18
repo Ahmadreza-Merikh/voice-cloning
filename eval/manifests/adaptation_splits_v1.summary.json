@@ -1,0 +1,173 @@
+{
+  "sources": {
+    "cv26": {
+      "repo": "pymmdrza/Common-Voice-Speech-26.0-Persian-Clean",
+      "revision": "142e9bb40b56d9491faa0ec0987ee8d408bd9c05",
+      "file": "reports/kept.csv",
+      "sha256": "f3633e017ec5342201cd7ca68b6dbacdf0a781bb50a756b95fd7c91d1e303b09",
+      "licence": "CC0-1.0 (the dataset card; Common Voice upstream)",
+      "gated": false,
+      "version": "cv-corpus-26.0-2026-06-12"
+    },
+    "neyshekar": {
+      "repo": "shekar-ai/neyshekar",
+      "revision": "30696ada746a66bb3047c984744b5ecfd60fe4e9",
+      "columns": [
+        "id",
+        "text",
+        "duration",
+        "speaker_id"
+      ],
+      "licence": "CC0-1.0 (the dataset card)",
+      "gated": false,
+      "version": "V6.0 (2026-09-01)",
+      "terms": "the card prohibits any attempt to identify speakers"
+    }
+  },
+  "rules": {
+    "seed": 20260919,
+    "cv26_test": "15 per self-reported gender, reserve 5 per gender",
+    "cv26_valid_speakers": 40,
+    "cv26_eligible": "5-40 clips, one of at least 6.5 s and 4 more of at least 3.5 s",
+    "neyshekar": "the source's own speaker-disjoint splits: test is test, validation is valid",
+    "selection": "seeded random order over eligible speakers; no audio read, no encoder",
+    "text": "a train clip is dropped if its CER-normalised text equals any non-train clip's in either source, or overlaps a benchmark sentence"
+  },
+  "records": "eval/manifests/adaptation_splits_v1.jsonl.gz",
+  "records_sha256": "85be52bdeebf6d5e05e525b57ee2ad0433f5922eb2acc69e90de132e7ef3c186",
+  "splits": {
+    "cv26": {
+      "excluded-development": {
+        "clips": 59,
+        "speakers": 8,
+        "hours": 0.1,
+        "genders": {
+          "female_feminine": 3,
+          "male_masculine": 5
+        }
+      },
+      "excluded-text": {
+        "clips": 8,
+        "speakers": 7,
+        "hours": 0.011,
+        "genders": {
+          "unknown": 4,
+          "male_masculine": 3
+        }
+      },
+      "test": {
+        "clips": 427,
+        "speakers": 30,
+        "hours": 0.584,
+        "genders": {
+          "male_masculine": 15,
+          "female_feminine": 15
+        }
+      },
+      "test-reserve": {
+        "clips": 127,
+        "speakers": 10,
+        "hours": 0.184,
+        "genders": {
+          "male_masculine": 5,
+          "female_feminine": 5
+        }
+      },
+      "train": {
+        "clips": 33148,
+        "speakers": 3703,
+        "hours": 41.695,
+        "genders": {
+          "male_masculine": 1030,
+          "unknown": 2480,
+          "female_feminine": 193
+        }
+      },
+      "valid": {
+        "clips": 365,
+        "speakers": 40,
+        "hours": 0.53,
+        "genders": {
+          "male_masculine": 11,
+          "female_feminine": 2,
+          "unknown": 27
+        }
+      }
+    },
+    "neyshekar": {
+      "excluded-text": {
+        "clips": 3893,
+        "speakers": 98,
+        "hours": 5.839,
+        "genders": {
+          "unknown": 98
+        }
+      },
+      "test": {
+        "clips": 2149,
+        "speakers": 30,
+        "hours": 3.876,
+        "genders": {
+          "unknown": 30
+        }
+      },
+      "train": {
+        "clips": 54351,
+        "speakers": 132,
+        "hours": 86.155,
+        "genders": {
+          "unknown": 132
+        }
+      },
+      "valid": {
+        "clips": 1886,
+        "speakers": 26,
+        "hours": 3.145,
+        "genders": {
+          "unknown": 26
+        }
+      }
+    }
+  },
+  "development_speakers_excluded": 8,
+  "speaker_overlap_between_splits": {
+    "excluded-development & excluded-text": 0,
+    "excluded-development & test": 0,
+    "excluded-development & test-reserve": 0,
+    "excluded-development & train": 0,
+    "excluded-development & valid": 0,
+    "excluded-text & test": 0,
+    "excluded-text & test-reserve": 0,
+    "excluded-text & valid": 0,
+    "test & test-reserve": 0,
+    "test & train": 0,
+    "test & valid": 0,
+    "test-reserve & train": 0,
+    "test-reserve & valid": 0,
+    "train & valid": 0
+  },
+  "train_texts_shared_with_other_splits": 0,
+  "train_texts_overlapping_benchmark_sentences": {
+    "s1": 0,
+    "s2": 0,
+    "s3": 0,
+    "s4": 0,
+    "s5": 0
+  },
+  "test_roles": {
+    "cv26/test/held_out": 120,
+    "cv26/test/other": 277,
+    "cv26/test/reference": 30,
+    "cv26/test-reserve/held_out": 40,
+    "cv26/test-reserve/other": 77,
+    "cv26/test-reserve/reference": 10,
+    "neyshekar/test/held_out": 112,
+    "neyshekar/test/other": 1999,
+    "neyshekar/test/reference": 28,
+    "neyshekar/test/unused": 10
+  },
+  "primary_test": "neyshekar test speakers with a reference and four held-out clips",
+  "secondary_test": "cv26 test speakers",
+  "sealed": "test and test-reserve are not rendered or scored until the final candidates are fixed",
+  "caveat": "OmniVoice's training data includes Common Voice; all but 4 of the cv26 speakers had clips in Common Voice 22.0, so it has very probably heard the cv26 test speakers. Neyshekar is not on OmniVoice's published list of training data."
+}

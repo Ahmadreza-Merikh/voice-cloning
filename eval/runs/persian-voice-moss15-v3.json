@@ -37,7 +37,11 @@
   },
   "runner": "every stage: exit 0, process group ended with the command, display never blocked; each stage's full log is in evidence/moss15-v3/",
   "results": {
-    "files": ["eval/results/moss15.json", "eval/results/moss15-smoke.json", "eval/results/baseline-moss15-env.json"],
+    "files": [
+      "eval/results/moss15.json",
+      "eval/results/moss15-smoke.json",
+      "eval/results/baseline-moss15-env.json"
+    ],
     "held_out": "0.5244 (sd 0.1008 over cells, range 0.201-0.666)",
     "cer": "9.0% mean, 8.6% median, by sentence s1 10.1%, s2 5.7%, s3 11.1%",
     "same_environment_baseline_cer": "3.1%"
@@ -50,8 +54,19 @@
     "cer_moss15_minus_baseline_same_environment": "+5.8 points [+3.9, +7.8] - excludes 0",
     "cer_against_moss_v1_0": "not judged: v1.0's CER was scored on the Mac, this one on Kaggle"
   },
-  "what_the_errors_look_like": "Mostly real mispronunciations, concentrated on the first word of the sentence - 'دیروز' heard as 'ایراز' or dropped, 'گل' as 'بله' or 'بوکیل' - plus consonant slips; some differences (بهار/بحار) are spelling only and hit the baseline too. Transcripts are in eval/results/moss15.json.",
-  "reading": "At this recipe, on this development set, MOSS v1.5 does not beat the F5 baseline on speaker similarity, is below both OmniVoice and MOSS v1.0, and mispronounces clearly more than the baseline. The card claims v1.5 with a language tag beats v1.0 on almost all supported languages; this run's tag string was not the official one, so it cannot test that claim. Nothing here is a SOTA result.",
+  "what_the_errors_look_like": "In the recogniser's transcripts: errors concentrated on the first word of the sentence - 'دیروز' heard as 'ایراز' or dropped, 'گل' as 'بله' or 'بوکیل' - plus consonant slips; some differences (بهار/بحار) are spelling only and hit the baseline too. Nobody has listened to the renders, so how many of these are mispronunciations rather than recogniser errors is not established. Transcripts are in eval/results/moss15.json.",
+  "reading": "At this recipe, on this development set, MOSS v1.5 shows no detectable difference from the F5 baseline on speaker similarity (+0.005 [-0.028, +0.037]); it is below OmniVoice and MOSS v1.0 by intervals that exclude zero; and its CER is clearly higher than the baseline scored in the same session - a recogniser measurement, not a listening result. The card claims v1.5 with a language tag beats v1.0 on almost all supported languages; this run's tag string was not the official one, so it cannot test that claim. Nothing here is a SOTA result.",
   "next": "the same run with only the language string changed to \"Persian (Farsi)\"",
-  "lost": "nothing; about 18 minutes of T4 x2 quota"
+  "lost": "nothing; about 18 minutes of T4 x2 quota",
+  "corrections": [
+    {
+      "date": "2026-09-19",
+      "fields": [
+        "what_the_errors_look_like",
+        "reading"
+      ],
+      "was": "'Mostly real mispronunciations'; 'does not beat the F5 baseline'; 'mispronounces clearly more than the baseline'",
+      "why": "Independent review of 2026-09-19: an interval that includes zero shows no detectable effect, not the absence of one; CER and ASR transcripts are the recogniser's reading, not evidence of pronunciation or intelligibility without listening; identical baseline controls show the recogniser agreed on those 27 inputs only."
+    }
+  ]
 }

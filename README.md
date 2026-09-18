@@ -141,20 +141,23 @@ Check what your machine can actually run at any time:
 | **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Default. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520 stock, 0.546 continued on 2739 speakers with best-of-4; CER 2.2%, a figure whose small differences are within recogniser noise (FINDINGS §9). |
 | **Chatterbox** (`chatterbox`) | community T3 finetune | no (grapheme) | ~3.5 GB | medium | Speaker path is language-agnostic — the part Persian data is *not* needed for. Own venv (torch 2.6). |
 | **OmniVoice** (`omnivoice`) | official (1 of 600+) | no (grapheme) | 3.3 GB | medium | k2-fsa. Code Apache-2.0, **weights CC-BY-NC**. **Strongest identity transfer measured here: held-out 0.583**; over the best F5 configuration +0.037, 95% interval [+0.005, +0.069] across nine speakers - a direction, not a size. Own venv. |
-| **MOSS-TTS** (`moss`) | official (1 of 31 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Model Apache-2.0 (its codec's licence was not checked). 3.06B params, pinned to transformers 5.0.x (own environment). Measured: held-out 0.559, not shown to differ from the best F5 or from OmniVoice; CER 6.5% against OmniVoice's 2.8% on the same recogniser. This is the older variant; v1.5 is the next row. |
-| **MOSS-TTS v1.5** (`moss15`) | official, as "Persian (Farsi)" (1 of 31) | no | 9.1 GB + 8.5 GB codec | medium | Model, codec and code all Apache-2.0 at the pinned revisions. Runs out of process on its official stack (torch 2.9.1, transformers 5.0.0); on T4s it needs two cards, the codec on the second. Measured at the official recipe: held-out 0.507, not above the F5 baseline (-0.013 [-0.053, +0.027]) and below OmniVoice (-0.077 [-0.122, -0.032]); CER +7.7 points over the baseline scored in the same session (FINDINGS §8). |
+| **MOSS-TTS** (`moss`) | official (1 of 31 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Model Apache-2.0 (its codec's licence was not checked). 3.06B params, pinned to transformers 5.0.x (own environment). Measured: held-out 0.559, not shown to differ from the best F5 or from OmniVoice; CER 6.5% against OmniVoice's 2.8%, +3.7 points [+1.4, +6.0], both Kaggle renders re-scored on this Mac two minutes apart with the same recogniser settings and packages (what that rests on: FINDINGS §8). This is the older variant; v1.5 is the next row. |
+| **MOSS-TTS v1.5** (`moss15`) | official, as "Persian (Farsi)" (1 of 31) | no | 9.1 GB + 8.5 GB codec | medium | Model, codec and code all Apache-2.0 at the pinned revisions. Runs out of process on its official stack (torch 2.9.1, transformers 5.0.0); on T4s it needs two cards, the codec on the second. Measured at the official recipe: held-out 0.507, no detectable difference from the F5 baseline in either direction (-0.013 [-0.053, +0.027]) and below OmniVoice (-0.077 [-0.122, -0.032]); CER +7.7 points over the baseline scored in the same session (FINDINGS §8). |
 | **Fish S2 Pro** (`fish`) | third tier of 80+ | no | 11 GB | slow | Fish Audio Research License, non-commercial. Measured on a T4 in fp16: held-out 0.537, and CER 9.5% - against the F5 baseline re-scored in the same session, +6.4 points [+4.2, +8.6], worse for all nine speakers (CER is only compared inside one scoring environment, FINDINGS §9). Needs a CUDA card; own venv. |
 | **Higgs TTS 3** (`higgs`) | claimed top tier of 102 | no | 10 GB | medium | Boson research/non-commercial licence. Measured on a T4 in fp16 through a transformers port whose weights hash identical to Boson's: held-out 0.531, CER 2.9%. Needs a CUDA card; own venv. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
 
 **Which should I use?**
 
-- Anything where you want the words right → **F5-TTS**. Its Persian
-  pronunciation measures 2.9% CER against a 7.8% recogniser floor: better than
-  the corpus it is scored against.
+- Anything where you want the words right → **F5-TTS**. The recogniser reads
+  its renders at 2.9% CER, against 7.8% for the corpus's own recordings - a
+  measure of what the recogniser can read, not a check by ear. OmniVoice's CER
+  is not detectably different (FINDINGS §8).
 - Where **timbre** matters → **OmniVoice**, on the measurement in this
   repository: held-out 0.583 against 0.546 for the best F5 configuration,
-  paired at 3.4 standard errors and better in 22 of 27 cells. Nothing was
+  +0.037 [+0.005, +0.069] over the nine speakers and better in 22 of 27 cells -
+  on a development set whose Common Voice speakers OmniVoice very probably
+  heard in training (FINDINGS §9). Nothing was
   trained for it — picking a base that already had Persian in it beat nine
   GPU-hours of continuing F5 on 2739 speakers. F5 clones in context, so its
   identity transfer is bound up with how well someone trained it on Persian,
@@ -301,10 +304,16 @@ The single biggest factor is the **reference recording**. In order of impact:
 
 Then, in the app:
 
-- Pick **OmniVoice** for Persian. In this repository's measurements it transfers
-  identity best (held-out 0.583) and pronounces as well as F5 (CER 2.8% against
-  2.2-2.9%, all scored by one recogniser). MOSS-TTS, which this line used to
-  recommend for pronunciation, measured the worst CER of any engine here (6.5%).
+- Pick **OmniVoice** for Persian. In this repository's measurements it has the
+  highest identity score (held-out 0.583; the development set may favour it,
+  FINDINGS §9), and its CER on this Mac, 2.8%, is not detectably different from
+  F5's 2.2-2.9% (-0.0 points [-1.1, +1.0] against the baseline). All of those
+  were transcribed here with the same recogniser settings and packages - what
+  that rests on is in FINDINGS §8 - and CER is the recogniser's reading, not a
+  listening test. MOSS-TTS v1.0, which this line used to recommend, has the
+  highest CER of the engines scored on this Mac (6.5%, +3.7 [+1.4, +6.0] over
+  OmniVoice). Fish S2 Pro and MOSS v1.5 were scored on Kaggle; their CER is only
+  compared with the baseline scored in the same session.
   Persian G2P does not help rendering - see the note on phonemes at the top.
   On a 16 GB Mac it is a tight fit. Its worker peaks around 2.9 GB, which leaves
   room only while the recogniser is not loaded as well: measured, a render with
@@ -387,8 +396,10 @@ conditioned on:
 | **Round-trip CER** | **2.9%** | 7.8% on the corpus's real speech |
 | Similarity to the reference clip | 0.654 | inflated +0.135 by shared channel |
 
-**Pronunciation is not where the quality is going.** The renders are *more*
-intelligible than the human recordings they are measured against. The gap is
+**By the recogniser, the words are not where the quality is going.** It reads
+the renders *more* accurately than the human recordings they are measured
+against - a measure of what the recogniser can read, not a check of
+pronunciation by ear, which nobody has done systematically. The gap is
 identity: 0.520 sits 0.170 below the human ceiling, eight times the 0.0205
 perturbation-sensitivity figure (what that figure is and is not: FINDINGS §8),
 and inside the band where different speakers still occur.
@@ -477,12 +488,14 @@ because the landscape was checked against live sources instead of recalled.
 
 **This is not a state-of-the-art claim.** OmniVoice is someone else's model,
 the scale is local to this corpus and comparable to no published number,
-nine development speakers are too few to rank close engines, and no human has
+nine development speakers are too few to rank close engines, eight of them
+were very probably in OmniVoice's training data (FINDINGS §9), and no human has
 scored any of it. Of the other candidates measured, MOSS-TTS v1.0 was not shown
-to differ from it on identity and was clearly worse on pronunciation; Fish S2
-Pro, Higgs TTS 3 and MOSS-TTS v1.5 at its official recipe scored lower on
-identity (FINDINGS §8). What this repository contributes is the instrument that could
-tell the difference.
+to differ from it on identity and had a clearly higher CER - a recogniser
+measurement, nobody has listened; Fish S2 Pro, Higgs TTS 3 and MOSS-TTS v1.5 at
+its official recipe scored lower on identity, with speaker-level intervals that
+exclude zero (FINDINGS §8). What this repository contributes is the instrument
+that could tell the difference.
 
 See [`FINDINGS.md`](FINDINGS.md) for the full investigation and
 [`docs/REMOTE-TRAINING.md`](docs/REMOTE-TRAINING.md) for the recipe.

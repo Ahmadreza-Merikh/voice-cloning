@@ -15,7 +15,7 @@ Everything here is reproducible:
 
 ## 1. The finding
 
-**Persian pronunciation is not the problem. Identity transfer is.**
+**By the recogniser's reading, the Persian comes out right. The gap is identity transfer.**
 
 F5-TTS, nine verified speakers, three sentences, one seed, scored against
 recordings it was never conditioned on:
@@ -26,13 +26,15 @@ recordings it was never conditioned on:
 | Position on that scale | **69%** stranger → same person | |
 | Round-trip CER | **2.9%** | **7.8%** on the corpus's own human speech |
 
-The renders come back *more* intelligible than the human recordings they are
-measured against. Meanwhile similarity sits 0.170 below the human ceiling —
+The recogniser transcribes the renders *more* accurately than the human
+recordings they are measured against. That is a measurement of what the
+recogniser can read, not a listening judgement: nobody has checked the
+pronunciation by ear. Meanwhile similarity sits 0.170 below the human ceiling —
 eight times the 0.0205 perturbation-sensitivity figure (§8) — and inside the band where genuinely
 different speakers still occur.
 
-Any further effort spent on Persian text handling is spent on the axis that is
-already won.
+On these two measures, further effort on Persian text handling goes to the
+smaller of the two gaps.
 
 ---
 
@@ -753,6 +755,20 @@ renders were re-scored on this Mac instead, where every paired similarity
 statistic came out identical to the Kaggle scoring, so the table below uses the
 Mac's recogniser for every run - the only way CER may be compared (§9).
 
+What "the same recogniser" rests on, checked on 2026-09-19 rather than assumed:
+every run in the table was transcribed on this Mac by faster-whisper
+`large-v3-turbo` as cpu/int8, language `fa`, beam 5, VAD on. That settings block
+has not changed since the repository's first commit (2026-07-28);
+`engines/asr.py` last changed on 2026-08-02 and the CER normalisation
+(`evaluation/similarity.py`) at 03:00 on 2026-08-03, both before the first
+result here (the baseline, 03:17 that day); and the recogniser's packages -
+faster-whisper 1.2.1, ctranslate2 4.8.1 - were installed on 2026-07-28 and have
+not been reinstalled since (their install records are dated that day). Two
+differences remain. The F5 runs were transcribed in-process from the rendered
+waveform, MOSS and OmniVoice later from the saved 16-bit files, two minutes
+apart on 2026-09-16. And re-scoring identical files on this Mac reproduced CER
+in 25 of 27 cells, so differences of a few tenths of a point are inside that.
+
 | Run, all scored on the Mac | Held-out | share of own ceiling | CER |
 |---|---|---|---|
 | F5 baseline | 0.520 | 75.2% | 2.9% |
@@ -760,26 +776,36 @@ Mac's recogniser for every run - the only way CER may be compared (§9).
 | MOSS-TTS | 0.559 | 81.2% | 6.5% |
 | **OmniVoice** | **0.583** | **84.8%** | 2.8% |
 
-| MOSS against, paired | similarity | CER |
+Speaker-level differences, 95% t interval over the nine speakers (the rule in
+"What the statistics actually support", below; this table first reported
+cell-level standard errors, which overstate the evidence):
+
+| MOSS minus | similarity | CER, points |
 |---|---|---|
-| F5 baseline | +0.0391, 3.1 SE — better | +3.7 points, 4.2 SE — worse |
-| F5 continued + best-of-4 | +0.0125, 1.0 SE — inside noise | +4.4 points, 4.8 SE — worse |
-| OmniVoice | −0.0246, 1.5 SE — not resolved | +3.7 points, 3.6 SE — worse |
+| F5 baseline | +0.039 [+0.007, +0.071] | +3.7 [+1.7, +5.6] |
+| F5 continued + best-of-4 | +0.013 [-0.023, +0.048] | +4.4 [+2.1, +6.6] |
+| OmniVoice | -0.025 [-0.069, +0.020] | +3.7 [+1.4, +6.0] |
 
 On identity MOSS is not shown to differ from the best F5 configuration or from
-OmniVoice. On pronunciation it is clearly worse than every other run: three and
-a half to four and a half points of CER, worse than OmniVoice in 18 of 27 cells
-and better in 3. It stays under the 7.8% the same recogniser scores on the
-corpus's own speech, so it is not unintelligible. Every one of its five worst
-cells has its first word dropped or garbled - "او گفت که فردا صبح" comes back as
-"که فرداس رو" - and several have more damage after it. Part of any Persian CER
-is the recogniser choosing between homophones such as بهار and بحار, which
-OmniVoice's transcripts show too; that affects both engines and does not account
-for the gap.
+OmniVoice. Its CER is higher than every other run's scored by this recogniser:
+three and a half to four and a half points, higher than OmniVoice's in 18 of 27
+cells and lower in 3. CER is what the recogniser makes of a render. Nobody has
+listened to these, so how much of the gap is mispronunciation and how much is a
+voice the recogniser finds harder to read is not established. In each of its
+five worst cells the transcript drops or garbles the first word - "او گفت که
+فردا صبح" comes back as "که فرداس رو" - and several have more damage after it.
+Part of any Persian CER is the recogniser choosing between homophones such as
+بهار and بحار, which OmniVoice's transcripts show too; that affects both engines
+and does not account for the gap.
 
-So OmniVoice is the strongest public model measured here on both axes at once.
-That is a statement about this instrument - nine speakers, one seed, a local
-scale, no systematic human listening - not a world ranking.
+OmniVoice's CER is not detectably different from either F5 run's: -0.0 points
+[-1.1, +1.0] against the baseline, +0.6 [-0.0, +1.3] against the best F5.
+
+So on this instrument OmniVoice has the highest identity score measured, and a
+CER no engine here is shown to beat. That is a statement about this instrument
+- nine speakers, one seed, a local scale, no systematic human listening - not a
+world ranking. And the instrument may favour it: see the training-data caveat
+in §9.
 
 ### The last two candidates: Fish S2 Pro and Higgs TTS 3
 
@@ -843,9 +869,13 @@ card), and against the Mac-scored baseline it is +3.7 points [+1.7, +5.6].
 The newer variant, `OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5` at
 `be7766a6` - Apache-2.0 for the model, the codec (`MOSS-Audio-Tokenizer-v2` at
 `f6e20e54`) and the code (`OpenMOSS/MOSS-TTS` at `934d6826`) - was measured on a
-T4 pair at the card's recipe: the repository's runtime pins (torch
-2.9.1+cu128, torchaudio 2.9.1+cu128, transformers 5.0.0, safetensors 0.6.2),
-installed and checked by the notebook rather than trusted to the image;
+T4 pair at the card's recipe: the repository's runtime pins for everything
+the model's code imports (torch 2.9.1+cu128, torchaudio 2.9.1+cu128,
+transformers 5.0.0, safetensors 0.6.2), installed and checked by the notebook
+rather than trusted to the image - the pyproject's other pins were left at the
+image's versions and differ: torchcodec 0.10.0 (official 0.8.1, never called),
+numpy 2.0.2 (2.1.0), tqdm 4.67.3 (4.67.1), einops 0.8.2 (0.8.1), scipy 1.16.3
+(1.16.2), all listed in each run's `environment.json`;
 bfloat16, which Turing runs emulated; SDPA, the card's own fallback below
 compute 8.0; the recommended sampling (temperature 1.7, top-p 0.8, top-k 25,
 repetition penalty 1.0, 4096 new tokens); 48 kHz stereo, scored like every
@@ -853,17 +883,22 @@ other engine on its channel mean. Cloning goes through the processor's
 `build_user_message(text, reference=[audio], language)`, as in the card's
 transformers example.
 
-Three attempts failed before the first render, none of them the model's
-fault: the runner that read the worker's output also wrote it to the notebook
-display, the display stopped taking data, and the worker blocked on a full
-pipe (`eval/runs/persian-voice-moss15-probe-v2.json`). With that fixed, the
-model loads in about 55 s and renders a sentence in 8-10 s.
+Three attempts failed before the first render. For the last of them, the T4
+probe, the cause is documented: the runner that read the worker's output also
+wrote it to the notebook display, the display stopped taking data, and the
+worker blocked on a full pipe - the runner's own copy of what it read shows it
+(`eval/runs/persian-voice-moss15-probe-v2.json`). The first two, in the main
+kernel, kept no such copy; that they stalled the same way is an inference from
+identical symptoms, not a finding. With the runner fixed, the model loads in
+about 55 s and renders a sentence in 8-10 s.
 
 Two sessions differ in one string. The first sent the language tag "Persian",
 by analogy with the card's examples; the official string, found afterwards in
 the card's language table and in the official v1.5 app, is "Persian (Farsi)",
 and the second sent that. Their baseline controls agree in every cell -
-similarity, CER and transcript - so the two are compared directly:
+similarity, CER and transcript. That shows the recogniser gave the same output
+for those 27 inputs in both sessions, not that it would for every input; on
+that evidence the two are compared directly:
 
 | | held-out | share of own ceiling | CER (same session's baseline: 3.1%) |
 |---|---|---|---|
@@ -871,21 +906,27 @@ similarity, CER and transcript - so the two are compared directly:
 | tag "Persian (Farsi)", the official string | 0.507 | 73.5% | 10.9% |
 
 The tag made no detectable difference: -0.018 [-0.046, +0.010] in similarity,
-+1.9 CER points [-3.4, +7.2]. Against the F5 baseline the official
-configuration is -0.013 [-0.053, +0.027] in similarity and +7.7 CER points
-[+2.8, +12.7] in its own session; against OmniVoice -0.077 [-0.122, -0.032], an
-interval that also clears the 0.0205 line; against MOSS v1.0 -0.052 [-0.095,
--0.009]. The errors gather at the start of the sentence - a first word garbled
-or dropped, or words added before it - and one render (`cv09`/s3) is
-unintelligible as the target.
++1.9 CER points [-3.4, +7.2]. Both intervals include zero and are wide, so this
+does not show the tag has no effect - only that nine speakers did not detect
+one. Against the F5 baseline the official configuration is -0.013 [-0.053,
++0.027] in similarity - no detectable difference in either direction - and +7.7
+CER points [+2.8, +12.7] in its own session; against OmniVoice -0.077 [-0.122,
+-0.032], an interval that also clears the 0.0205 line; against MOSS v1.0 -0.052
+[-0.095, -0.009]. In the recogniser's transcripts the errors gather at the start
+of the sentence - a first word garbled or dropped, or words added before it -
+and one render (`cv09`/s3) is transcribed 68.6% away from its target. Nobody
+has listened to these renders, so whether that one is unintelligible to a
+person, and how much of the CER is mispronunciation, is not established.
 
-So on this development set and these metrics, v1.5 does not do what its card
-says it does over v1.0 once the language is tagged. Three things keep that from
-being a verdict on the model: nine speakers; renders that are single samples at
-temperature 1.7; and metrics that are not the card's. And one official mode is
-untested: "continuation", which also takes the reference clip's transcript and
-which the official server documentation says gives better speaker similarity.
-The transformers processor at this revision has no field for it.
+So on this development set's similarity measure, the card's claim that v1.5
+with a language tag beats v1.0 is not reproduced: v1.5 scored lower, with an
+interval that excludes zero. CER was scored in different environments for the
+two and is not compared. Three things keep this from being a verdict on the
+model: nine speakers; renders that are single samples at temperature 1.7; and
+metrics that are not the card's. And one official mode is untested:
+"continuation", which also takes the reference clip's transcript and which the
+official server documentation says gives better speaker similarity. The
+transformers processor at this revision has no field for it.
 
 ### What the statistics actually support
 
@@ -953,6 +994,22 @@ includes zero in this table is therefore weak evidence of no difference.
   speaker dropped for incoherence may be a failure of the encoder on that audio
   rather than evidence that the account is two people; the record should not
   say which.
+- **OmniVoice has very probably trained on eight of the nine speakers.**
+  Checked on 2026-09-19. OmniVoice's paper (arXiv 2604.00688v3, Appendix A)
+  lists Common Voice among its training data, without a version, and its
+  language table gives Persian 366.07 hours - close to Common Voice Persian's
+  372.21 validated hours in v23 (2025-09-05), which the Hub account the
+  official training docs link to for their manifests (`zhu-han`) published in
+  December 2025 (`zhu-han/commonvoice_v23`). All eight Common Voice speakers here
+  already had validated clips in v22 (2025-06-20), and releases are cumulative.
+  So the voices - possibly the very clips used as references and held-out
+  recordings - were very likely in its training set. That is an inference: the
+  paper publishes no manifest. It can favour OmniVoice on this development set
+  over engines that never heard these people, and none of the other engines'
+  training data was checked for the same thing. `mana` comes from Mana-TTS,
+  which is not on OmniVoice's list. Of the 3,791 speakers in the Common Voice
+  26 subset this project uses, only 4 are absent from v22, so no test set drawn
+  from it can avoid the problem.
 - **"Different recording session" was an assumption and has been withdrawn.**
   Common Voice publishes no session field. Earlier versions of this project
   labelled every clip its own session and carried a same-session band of 0.800

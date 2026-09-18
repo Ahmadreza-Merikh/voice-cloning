@@ -5,7 +5,11 @@
   "status": "COMPLETE (kaggle kernels status, 20:13:58 UTC)",
   "dataset": "marsmanam/persian-voice-eval version 13, uploaded 2026-09-18 19:55 UTC: code at cdc4b36, all 55 code and config files verified identical to the repository by download before the push",
   "session": "kaggle:persian-voice-moss15-v4",
-  "timeline_utc": {"pushed": "19:56:56", "complete_by": "20:13:58", "queue": "none measurable"},
+  "timeline_utc": {
+    "pushed": "19:56:56",
+    "complete_by": "20:13:58",
+    "queue": "none measurable"
+  },
   "the_one_change": "the language tag: \"Persian\" in v3, \"Persian (Farsi)\" here - the official string (the card's language table at be7766a6; the official v1.5 app's LANGUAGE_TAG_CHOICES at 934d6826, which passes it into the prompt unchanged). Everything else as v3: same model, codec, precision, sampling, seed, mode, dataset contents apart from the config line",
   "reading_decided_in_advance": "written into kaggle/build_moss15_kernel.py (commit cdc4b36) before the push: CER against this session's own baseline; against v3 directly only if the two sessions' baseline controls agree cell for cell in CER; the tag matters only if the speaker-level interval of (v4 - v3) excludes 0, and with nine speakers an interval that includes 0 is weak evidence of no effect",
   "environment": "as v3 - the official pins installed and checked (torch 2.9.1+cu128, torchaudio 2.9.1+cu128, transformers 5.0.0, safetensors 0.6.2, accelerate 1.13.0); evidence/moss15-v4/environment.json",
@@ -18,13 +22,17 @@
     "budget": "PASS - estimated 14 min",
     "full": "PASS - 27 renders, 0 failures, 0 untranscribed"
   },
-  "sessions_compared": "the baseline controls of v3 and v4 agree in all 27 cells in CER, in held-out similarity, and in the exact transcription text: the recogniser behaved identically, so v4's CER is compared with v3's directly (computed with compare_runs.compare; the tool's own printout marks the pair 'not judged' only because the session names differ)",
+  "sessions_compared": "the baseline controls of v3 and v4 agree in all 27 cells in CER, in held-out similarity, and in the exact transcription text: on those 27 inputs the recogniser gave identical output in both sessions. That is evidence about those inputs, not a guarantee for MOSS's renders; on it, v4's CER is compared with v3's directly (computed with compare_runs.compare; the tool's own printout marks the pair 'not judged' only because the session names differ)",
   "results": {
-    "files": ["eval/results/moss15-fa.json", "eval/results/moss15-fa-smoke.json", "eval/results/baseline-moss15v4-env.json"],
+    "files": [
+      "eval/results/moss15-fa.json",
+      "eval/results/moss15-fa-smoke.json",
+      "eval/results/baseline-moss15v4-env.json"
+    ],
     "held_out": "0.5066 (sd 0.089 over cells)",
     "cer": "10.9% mean, 7.0% median; by sentence s1 8.1%, s2 7.0%, s3 17.5%",
-    "worst_cell": "cv09/s3 at 68.6%: the render is unintelligible as the target sentence ('بلا شی با یا پاک مانو...'); v3's render of the same cell was at 14.3%",
-    "other_errors": "as in v3, mostly at the start of the sentence: a first word garbled, or words added before it (cv07/s2 opens with 'آخور سی.')"
+    "worst_cell": "cv09/s3 at 68.6%: the recogniser's transcript is far from the target ('بلا شی با یا پاک مانو...'); v3's render of the same cell was at 14.3%. Nobody has listened to it, so whether it is unintelligible to a person is not established",
+    "other_errors": "as in v3, and in the transcripts only: mostly at the start of the sentence - a first word garbled, or words added before it (cv07/s2 opens with 'آخور سی.')"
   },
   "comparisons_speaker_level": {
     "tag_effect_similarity_v4_minus_v3": "-0.018 [-0.046, +0.010] - includes 0",
@@ -34,7 +42,20 @@
     "v4_minus_omnivoice": "-0.077 [-0.122, -0.032] - excludes 0 and clears +/-0.0205",
     "v4_minus_moss_v1_0": "-0.052 [-0.095, -0.009] - excludes 0, overlaps +/-0.0205"
   },
-  "reading": "The official tag string made no detectable difference - to similarity or to CER - so v3's weak result was not the tag. At the official recipe, on this development set and these metrics, MOSS v1.5 does not beat the F5 baseline on speaker similarity, is below OmniVoice by an interval that clears the 0.0205 reference line, is below MOSS v1.0, and mispronounces clearly more than the baseline. Its card says v1.5 with a language tag beats v1.0 on almost all supported languages; for Persian, here, it does not. Nine speakers, sampled renders, and metrics that are not the card's: a development-set finding, not a verdict on the model.",
+  "reading": "The official tag string made no detectable difference - to similarity or to CER. Both intervals include zero and are wide (similarity -0.046 to +0.010, CER -3.4 to +7.2 points), so this does not show the tag has no effect, and it does not settle why v3 scored as it did. At the official recipe, on this development set and these metrics, MOSS v1.5 shows no detectable difference from the F5 baseline on speaker similarity (-0.013 [-0.053, +0.027], an interval that allows either direction); it is below OmniVoice by an interval that clears the 0.0205 reference line, and below MOSS v1.0; and its CER is clearly higher than the baseline scored in the same session - a recogniser measurement; nobody has listened, so how much of that is mispronunciation is not established. Its card says v1.5 with a language tag beats v1.0 on almost all supported languages; on this set's similarity measure that is not reproduced for Persian. Nine speakers, sampled renders, and metrics that are not the card's: a development-set finding, not a verdict on the model.",
   "not_tested": "the second official cloning mode - 'continuation' with the reference transcript, which the official app offers and the server docs say gives better speaker similarity; the transformers processor has no transcript field, so it needs the official app's own prompt construction",
-  "lost": "nothing; about 17 minutes of T4 x2 quota"
+  "lost": "nothing; about 17 minutes of T4 x2 quota",
+  "corrections": [
+    {
+      "date": "2026-09-19",
+      "fields": [
+        "sessions_compared",
+        "results.worst_cell",
+        "results.other_errors",
+        "reading"
+      ],
+      "was": "'so v3's weak result was not the tag'; 'the render is unintelligible as the target sentence'; 'mispronounces clearly more than the baseline'; 'the recogniser behaved identically'",
+      "why": "Independent review of 2026-09-19: an interval that includes zero shows no detectable effect, not the absence of one; CER and ASR transcripts are the recogniser's reading, not evidence of pronunciation or intelligibility without listening; identical baseline controls show the recogniser agreed on those 27 inputs only."
+    }
+  ]
 }

@@ -54,8 +54,8 @@ TREES = (
 
 #: Single files, and the scripts a kernel actually invokes.
 FILES = ("pyproject.toml",)
-SCRIPTS = ("benchmark.py", "compare_runs.py", "omnivoice_worker.py", "chatterbox_worker.py",
-           "fish_worker.py", "higgs_worker.py", "moss15_worker.py")
+SCRIPTS = ("benchmark.py", "compare_runs.py", "kernel_gates.py", "omnivoice_worker.py",
+           "chatterbox_worker.py", "fish_worker.py", "higgs_worker.py", "moss15_worker.py")
 
 PROVENANCE = """\
 # Provenance

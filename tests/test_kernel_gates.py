@@ -174,3 +174,27 @@ def test_a_chatty_child_is_drained_and_its_output_kept(tmp_path: Path) -> None:
 def test_the_undrained_mode_still_runs(tmp_path: Path) -> None:
     code, seconds, timed_out = gates.run_bounded([sys.executable, "-c", "print('ok')"], timeout=30, drain=False)
     assert (code, timed_out) == (0, False)
+
+
+def test_ending_a_group_never_waits_without_a_limit(monkeypatch: pytest.MonkeyPatch) -> None:
+    # A process in uninterruptible sleep ignores even SIGKILL. The old code then
+    # waited on it forever, which would have hung the notebook before its
+    # record cell ran.
+    import subprocess as sp
+
+    class Unkillable:
+        pid = 999_999_999
+
+        def poll(self):
+            return None
+
+        def wait(self, timeout=None):
+            if timeout is None:
+                raise AssertionError("waited without a limit")
+            raise sp.TimeoutExpired("x", timeout)
+
+    monkeypatch.setattr(gates.os, "killpg", lambda group, sig: None)
+    started = time.time()
+    outcome = gates._end_group(Unkillable(), grace=0.2)
+    assert "still alive" in outcome
+    assert time.time() - started < 5

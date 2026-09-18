@@ -16,7 +16,8 @@ Official, from the card at ``be7766a6`` and ``pyproject.toml`` at ``934d6826``:
 * ``audio_temperature`` 1.7, ``audio_top_p`` 0.8, ``audio_top_k`` 25,
   ``audio_repetition_penalty`` 1.0, ``max_new_tokens`` 4096, sampling on
 * the codec loaded through the processor, bf16 weights by default
-* output saved as the processor returns it: ``[channels, samples]`` at 48 kHz
+* output saved as the processor returns it: ``[channels, samples]`` at 48 kHz,
+  written as 32-bit float so no quantisation happens on the way to disk
 
 Departures, both about plumbing and neither about computation:
 
@@ -87,14 +88,33 @@ def _log(message: str) -> None:
     sys.stderr.flush()
 
 
-def memory() -> dict[str, float]:
-    """GiB allocated on each card, for the record rather than for decisions."""
+def memory() -> dict[str, dict[str, float]]:
+    """Per card, in GiB: what is allocated now, and the *peaks* since the last reset.
+
+    Allocation after a render is not what the render needed at its worst, and
+    the worst is what decides whether a longer sentence or a longer run fits.
+    """
     import torch
 
     if not torch.cuda.is_available():
         return {}
-    return {f"cuda:{i}": round(torch.cuda.memory_allocated(i) / 2**30, 2)
-            for i in range(torch.cuda.device_count())}
+    return {
+        f"cuda:{i}": {
+            "allocated": round(torch.cuda.memory_allocated(i) / 2**30, 2),
+            "peak_allocated": round(torch.cuda.max_memory_allocated(i) / 2**30, 2),
+            "peak_reserved": round(torch.cuda.max_memory_reserved(i) / 2**30, 2),
+            "capacity": round(torch.cuda.get_device_properties(i).total_memory / 2**30, 2),
+        }
+        for i in range(torch.cuda.device_count())
+    }
+
+
+def reset_peaks() -> None:
+    import torch
+
+    if torch.cuda.is_available():
+        for i in range(torch.cuda.device_count()):
+            torch.cuda.reset_peak_memory_stats(i)
 
 
 def official_dtype(device: str) -> Any:
@@ -195,6 +215,7 @@ def synthesize(processor: Any, model: Any, device: str, job: dict[str, Any]) -> 
 
     if job.get("seed") is not None:
         _seed(int(job["seed"]))
+    reset_peaks()
 
     reference = None
     if job.get("reference"):
@@ -221,6 +242,9 @@ def synthesize(processor: Any, model: Any, device: str, job: dict[str, Any]) -> 
     if not decoded:
         raise RuntimeError("the processor decoded no message")
     audio = decoded[0].audio_codes_list[0]
+    produced_dtype = str(audio.dtype).replace("torch.", "")
+    # float32 holds every bf16 and fp32 value exactly, so this is lossless for
+    # whatever the processor returned; the dtype it returned is recorded.
     samples = np.asarray(audio.float().cpu().numpy(), dtype=np.float32)  # [channels, samples]
     if samples.size == 0:
         raise RuntimeError("MOSS v1.5 returned no audio")
@@ -230,12 +254,16 @@ def synthesize(processor: Any, model: Any, device: str, job: dict[str, Any]) -> 
         raise RuntimeError(f"only {np.unique(samples).size} distinct sample values - not speech")
 
     rate = int(processor.model_config.sampling_rate)
-    sf.write(job["output"], samples.T, rate)  # native 48 kHz, native channels
+    # 32-bit float WAV: soundfile's default for .wav is 16-bit PCM, which would
+    # quantise the render before anyone heard or scored it.
+    sf.write(job["output"], samples.T, rate, subtype="FLOAT")
     return {
         "ok": True,
         "output": job["output"],
         "sample_rate": rate,
         "channels": int(samples.shape[0]),
+        "produced_dtype": produced_dtype,
+        "file_subtype": "FLOAT",
         "seconds": round(samples.shape[-1] / rate, 3),
         "generate_seconds": round(time.time() - started, 2),
         "memory_gib": memory(),

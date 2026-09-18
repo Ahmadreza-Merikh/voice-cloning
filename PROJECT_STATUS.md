@@ -4,8 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-18, after the second review's corrections (up to the
-multi-reference manifest), before MOSS v1.5.
+Last updated: 2026-09-18, MOSS v1.5 smoke kernel pushed (version 1), running.
 
 ## Stage
 
@@ -14,8 +13,9 @@ independent review has not accepted any SOTA claim.
 
 ## Last healthy commit
 
-`69c17a8` - multi-reference manifest. Tree clean; every test passes
-(`.venv/bin/python -m pytest -q`); `ruff check src scripts tests` clean.
+`d5fca50` plus the dataset commit after it - gated MOSS v1.5 kernel. Tree
+clean; every test passes (`.venv/bin/python -m pytest -q`); `ruff check src
+scripts tests` clean.
 
 ## Measured (development set: 9 speakers x 3 sentences, seed 42)
 
@@ -40,9 +40,11 @@ inside one scoring environment (`eval/results/_provenance.json` for older files,
 | `marsmanam/persian-voice-higgs-smoke` v2 | complete | no - results pulled |
 | `marsmanam/persian-voice-eval-run` | complete | no |
 | `marsmanam/persian-voice-moss-run` | complete | no |
-| dataset `marsmanam/persian-voice-eval` | current at `244c46f`-era workers | re-stage before the next kernel |
+| `marsmanam/persian-voice-moss15` **v1** | **pushed 2026-09-18, running** | **no - read its state first; never re-push a running or finished version** |
+| dataset `marsmanam/persian-voice-eval` | current: gates, float-WAV v1.5 worker, compare_runs | verified by download before the push |
 
-Nothing is queued. Logs: `kaggle/fetch_log.py marsmanam/<slug>`.
+The v1.5 kernel writes `results/gates.json` whatever happens: each stage's
+pass/fail and reason. Read that before anything else. Logs: `kaggle/fetch_log.py marsmanam/<slug>`.
 
 ## This round (second review), each its own commit
 
@@ -64,12 +66,16 @@ Nothing is queued. Logs: `kaggle/fetch_log.py marsmanam/<slug>`.
 
 ## Next concrete step
 
-MOSS-TTS-Local-Transformer-v1.5 at its official recipe (SOTA_ROADMAP.md §7):
-a new out-of-process worker (48 kHz stereo kept on disk, codes passed to the
-processor so torchaudio.load is not needed, language tag "Persian" recorded as
-an inference), a kernel that smoke-tests one render with load time, per-cell
-time and memory on each T4, and only then the 27-cell development benchmark.
-bf16 stays bf16: if Turing cannot run it, stop and record the blocker.
+Wait for `persian-voice-moss15` v1; then `kaggle/fetch_log.py
+marsmanam/persian-voice-moss15` and pull `results/` (gates.json,
+moss15_smoke.json, moss15-smoke.json, baseline-moss15-env.json and, if the
+budget gate passed, moss15.json). A gate failure is a finding: record it with
+the log line, fix the cause, and only then push a new version.
+
+Engineering since the last update: `d5fca50` stage gates (skips recorded as
+failures, verdicts defined by outputs, budget from measured time and peak
+memory), process-group timeouts, float-WAV output and peak-memory records in
+the v1.5 worker.
 
 ## Blockers and standing limits
 

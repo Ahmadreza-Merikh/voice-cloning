@@ -299,7 +299,12 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     from voiceclone.audio.io import load_audio
     from voiceclone.config import AppConfig
     from voiceclone.errors import VoiceCloneError
+    from voiceclone.evaluation.recipe import recipe_path, sha256_file
     from voiceclone.pipelines import Studio
+
+    # A label with a recipe is a finished record; its results are never replaced.
+    if recipe_path(RESULTS_DIR / f"{args.label}.json").is_file():
+        raise SystemExit(f"'{args.label}' already has a recipe in {RESULTS_DIR} - use a new label")
 
     corpus = load_corpus(args.corpus_dir)
     if args.speakers:
@@ -384,6 +389,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     studio = Studio(config)
 
     rows: list[dict[str, Any]] = []
+    cells: list[dict[str, Any]] = []
+    references: list[dict[str, Any]] = []
     started = time.time()
     done = 0
 
@@ -398,6 +405,12 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         held_audio = {e["file"]: load_audio(str(e["path"])) for e in held_out}
         reference_audio = load_audio(str(reference["path"]))
         reference_text = None if args.ref_transcript == "asr" else reference["transcript"]
+        references.append({
+            "speaker": speaker, "file": reference["file"], "sha256": sha256_file(reference["path"]),
+            "duration": reference.get("duration"),
+            "transcript_given": reference_text if reference_text is not None
+            else "transcribed by the recogniser inside the run",
+        })
 
         for key, sentence in sentences:
             for seed in seeds:
@@ -440,6 +453,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     )
                     continue
 
+                cells.append({"speaker": speaker, "sentence": key, "seed": seed,
+                              "metadata": dict(getattr(result, "metadata", None) or {})})
                 render_key = f"render::{speaker}::{key}::{seed}::{args.label}"
                 against = [
                     embedder.similarity(
@@ -480,10 +495,41 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     # it is loaded, and it is the part of the environment that decides CER.
     environment = scoring_environment(studio, embedder)
     studio.release()
-    return summarise(
+    payload = summarise(
         args, rows, calibration, corpus, sentences, seeds, embedder, started, recogniser_floor,
         environment,
     )
+    write_recipe(args, config, engine_options, preprocess_overrides, cells, references, sentences,
+                 seeds, environment)
+    return payload
+
+
+def write_recipe(args, config, engine_options, preprocess_overrides, cells, references, sentences,
+                 seeds, environment) -> None:
+    """What produced the renders, written once beside the results (see evaluation/recipe.py)."""
+    import dataclasses
+
+    from voiceclone.evaluation import recipe
+
+    results_path = RESULTS_DIR / f"{args.label}.json"
+    section = getattr(config.engines, args.engine, None)
+    settings = None
+    if not args.score_only and dataclasses.is_dataclass(section):
+        settings = dataclasses.asdict(section)
+    written = recipe.write_once(
+        recipe.recipe_path(results_path),
+        recipe.build(
+            label=args.label, engine=args.engine, engine_settings=settings,
+            engine_options=engine_options, preprocess_options=preprocess_overrides,
+            cells=cells, references=references, corpus_manifest=args.corpus_dir / "manifest.json",
+            sentences=dict(sentences), seeds=seeds, candidates=args.candidates,
+            reference_index=args.reference_index, reference_transcript=args.ref_transcript,
+            replay_from=args.replay_from if args.score_only else None,
+            scoring_environment=environment, commit=recipe.code_commit(REPO_ROOT),
+            results_path=results_path,
+        ),
+    )
+    print(f"  recipe:  {written}")
 
 
 def _score_existing(studio: Any, path: Path, expected: str) -> Any:

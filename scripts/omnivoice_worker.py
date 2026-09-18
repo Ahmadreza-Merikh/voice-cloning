@@ -285,6 +285,18 @@ def synthesize(model: Any, job: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def resolved_revision(model_id: str) -> str | None:
+    """The commit the weights came from: the Hub snapshot's directory name, or the local path."""
+    if os.path.isdir(model_id):
+        return f"local:{os.path.abspath(model_id)}"
+    try:
+        from huggingface_hub import snapshot_download
+
+        return os.path.basename(snapshot_download(model_id, local_files_only=True).rstrip("/"))
+    except Exception:  # noqa: BLE001 - an unknown revision is reported as unknown
+        return None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--model", default="k2-fsa/OmniVoice")
@@ -305,6 +317,8 @@ def main() -> int:
             "sample_rate": int(model.sampling_rate),
             "device": device,
             "dtype": dtype,
+            "model": args.model,
+            "revision": resolved_revision(args.model),
         }
     )
 

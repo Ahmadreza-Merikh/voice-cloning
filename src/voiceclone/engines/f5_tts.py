@@ -60,6 +60,7 @@ class F5TTSEngine(TTSEngine):
         self._api: Any = None
         self._reference_cache: dict[int, str] = {}
         self._tempdir: tempfile.TemporaryDirectory[str] | None = None
+        self._loaded_from: dict[str, Any] = {}
 
     # -- availability ------------------------------------------------------
     @classmethod
@@ -101,6 +102,8 @@ class F5TTSEngine(TTSEngine):
         """Fetch the Persian checkpoint, falling back to the base model."""
         try:
             resolved = resolve_model(settings.checkpoint, cache_dir=cache_dir, description="F5-TTS checkpoint")
+            self._loaded_from = {"checkpoint": settings.checkpoint, "resolved": str(resolved.path),
+                                 "fallback": False}
             # Community finetunes ship full training checkpoints; strip the
             # optimizer state once so every later load is cheap.
             return slim_f5_checkpoint(resolved.path)
@@ -116,6 +119,8 @@ class F5TTSEngine(TTSEngine):
             "Using the multilingual base checkpoint. Persian pronunciation will be noticeably worse - "
             "consider the MOSS engine instead."
         )
+        self._loaded_from = {"checkpoint": settings.fallback_checkpoint, "resolved": str(fallback.path),
+                             "fallback": True}
         return fallback.path
 
     def unload(self) -> None:
@@ -201,6 +206,8 @@ class F5TTSEngine(TTSEngine):
             engine=self.name,
             seed=used_seed,
             metadata={
+                **self._loaded_from,
+                "device": str(self.device.device),
                 "nfe_step": settings.nfe_step,
                 "cfg_strength": settings.cfg_strength,
                 "speed": speed,

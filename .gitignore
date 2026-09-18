@@ -66,3 +66,6 @@ remote/
 
 # Staged copies for the Kaggle dataset, rebuilt by kaggle/build_dataset.py
 kaggle/dataset/
+
+# Built listening tests: copies of clips and renders, and answer keys
+listening/

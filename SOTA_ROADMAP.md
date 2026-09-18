@@ -9,9 +9,11 @@ marked:
   live on 2026-09-18, with the revision or field named
 * **[hypothesis]** - not established; written down so it can be tested or dropped
 
-Nothing here is a plan to train yet. It is the decision material for choosing
-what to train, on what, and how anyone would know it worked. An independent
-review has not accepted any SOTA claim, and nothing below makes one.
+It is the decision material for choosing what to train, on what, and how
+anyone would know it worked; the first training it plans is the Persian
+adaptation of OmniVoice by its official recipe (§8), which has not run yet. An
+independent review has not accepted any SOTA claim, and nothing below makes
+one.
 
 ## 1. The claim, and what would settle it
 
@@ -195,7 +197,7 @@ down until listening has actually happened.
 
 | base | licences **[source]** | measured | official fine-tuning path | keep or drop |
 |---|---|---|---|---|
-| OmniVoice | code Apache-2.0, weights CC-BY-NC | **[measured]** 0.583 | yes: `examples/run_finetune.sh`, JSONL `{id, audio_path, text, language_id}`, 5,000 steps at lr 5e-5 | keep if non-commercial is acceptable |
+| OmniVoice | code Apache-2.0, weights CC-BY-NC | **[measured]** 0.583 | yes: `examples/run_finetune.sh`, JSONL `{id, audio_path, text, language_id}`, 5,000 steps at lr 1e-5 (§8; the README's 5e-5 is stale) | the adaptation candidate (§8) |
 | MOSS-TTS-Local-Transformer-v1.5 | model, codec and code all Apache-2.0 (below) | **[measured]** 0.507 at the official recipe; CER +7.7 over the baseline in its session | not checked | below OmniVoice and v1.0 on similarity here; its "continuation" mode, with the reference transcript, is untested - kept in reserve, not run for the licence alone |
 | MOSS-TTS-Local-Transformer v1.0 | model Apache-2.0; codec licence not checked | **[measured]** 0.559, CER +3.7 | not checked | superseded; kept as a reference point |
 | F5-TTS continued | base CC-BY-NC | **[measured]** 0.546 | this project has one | control, not destination |
@@ -279,7 +281,7 @@ Two ways to probe it:
 
 1. **Multi-reference conditioning, no training.** Condition on clips from two
    different recordings instead of one. It needs a fixed manifest first
-   (`eval/manifests/`, §8): prompt clips and evaluation clips fully disjoint;
+   (`eval/manifests/`, §9): prompt clips and evaluation clips fully disjoint;
    one evaluation pool shared by every condition; single- and multi-reference
    prompts with *equal* total speech, and a separately named condition for a
    larger budget. An improvement would be consistent with the hypothesis
@@ -347,7 +349,100 @@ the similarity scorer resamples to 16 kHz (`EMBEDDING_SAMPLE_RATE`,
 stereo engine is therefore scored on its channel mean, which is worth stating
 next to its numbers.
 
-## 8. Order of work
+## 8. OmniVoice: the official adaptation recipe
+
+**[source]** `k2-fsa/OmniVoice` at `08be0b4c` (master, 2026-08-24; package
+0.2.1), read file by file on 2026-09-19:
+
+* the entry point, `examples/run_finetune.sh`: stage 0 tokenises a JSONL of
+  `{id, audio_path, text, language_id}` with
+  `omnivoice.scripts.extract_audio_tokens` and `eustlb/higgs-audio-v2-tokenizer`
+  into WebDataset shards; stage 1 runs `accelerate launch --num_processes 2
+  -m omnivoice.cli.train` on two GPUs
+* `examples/config/train_config_finetune.json`: initialise from
+  `k2-fsa/OmniVoice`; learning rate **1e-5**; AdamW, weight decay 0.01; cosine
+  schedule with 1% warmup; 5,000 steps; 8,192 tokens per GPU per step, no
+  gradient accumulation; gradient norm clipped at 1.0; bf16 mixed precision
+  with TF32; the language tag in 80% of prompts (`language_ratio` 0.8); prompt
+  ratio 0-0.3, mask ratio 0-1, condition drop 0.1, codebook weights
+  [8, 8, 6, 6, 4, 4, 2, 2]; seed 42; an evaluation loss and a checkpoint every
+  500 steps, all kept
+* the attention backend: `flex_attention` by default, which `docs/training.md`
+  says needs "a compatible GPU (e.g. NVIDIA Ampere or newer)"; for others the
+  repository ships `train_config_finetune_sdpa.json` - the same hyperparameters
+  with SDPA attention and length-grouped padded batches (samples of 50-2,000
+  tokens, at most 64 to a batch, at most 8,192 padded tokens). A T4 is Turing,
+  so the SDPA configuration is the official path there, as SDPA was for MOSS
+  v1.5
+* **the learning rate.** `examples/README.md` still tabulates 5e-5 for
+  fine-tuning, and this roadmap copied it. The config the script runs says 1e-5.
+  The history settles it: the initial commit (`c8c0a625`, 2026-04-01) had
+  5e-5 in both; `a65149e0` ("Support training with SDPA", 2026-04-22) changed
+  the config to 1e-5 and added the SDPA config at 1e-5, and the README table
+  was never updated. What the official script executes is 1e-5, so that is the
+  recipe; the README's 5e-5 is documentation drift, recorded, not followed
+* the runtime, from `uv.lock`: torch 2.8.0+cu128, torchaudio 2.8.0+cu128,
+  transformers 5.3.0, accelerate 1.13.0, webdataset 1.0.2, safetensors 0.7.0,
+  tokenizers 0.22.2, huggingface-hub 1.7.2. DeepSpeed is not in the lock,
+  though the trainer can use it
+* the base: `k2-fsa/OmniVoice` at `c5fdb5cc`, the revision every OmniVoice
+  number here was measured on - 2.45 GB of float32, 612M parameters on a
+  Qwen3-0.6B backbone; CC-BY-NC
+* the audio tokenizer: `eustlb/higgs-audio-v2-tokenizer` at `528e871c`, whose
+  `model.safetensors` has the same sha256 (`fe7c5e87...`) as the copy bundled
+  with OmniVoice's weights, so training tokens and inference decoding use one
+  tokenizer; the bundled copy carries the Boson Higgs Audio 2 Community License
+
+**What this project changes, and why none of it is a quality change:**
+
+* the data: the two CC0 sources of §5, split as in §3.2, `language_id` "fa"
+  (Persian's id in OmniVoice's language table)
+* the SDPA configuration, because a T4 is not Ampere - unless the probe shows
+  `flex_attention` running on it
+* the base and the tokenizer loaded from local snapshots of the pinned
+  revisions instead of their moving names: the same weights, pinned
+* checkpoint retention: ten checkpoints of about 10 GB each (weights plus
+  optimizer state) do not fit Kaggle's 20 GB of output, so the latest full
+  state is kept for resuming, plus a float16 copy of the weights - which is how
+  inference loads them - every 1,000 steps
+* session boundaries: a Kaggle session is at most 12 hours, so a run that does
+  not fit stops cleanly after an official checkpoint and the next session
+  resumes through the official `resume_from_checkpoint`. The official resume
+  restarts the data order at the first epoch, so an interrupted run is not
+  bit-identical to an uninterrupted one; that is the official trainer's
+  behaviour, recorded rather than patched
+* memory: if 8,192 tokens per T4 does not fit, the only changes allowed are
+  gradient checkpointing (recomputation) and DDP gradient bucket views, which
+  change memory, not arithmetic. Fewer tokens per step, gradient accumulation
+  in their place, 8-bit optimisers, LoRA, fp16 or fewer steps are recipe
+  changes and need the user
+
+**The probe first** (`kaggle/build_omnivoice_adapt_kernel.py`; one session,
+behind the model-free runner check). It installs the pinned runtime; tokenises
+a slice of the training split with the official script - never a test clip;
+loads the pinned base; runs a few optimizer steps at the full 8,192 tokens per
+GPU, first with the default `flex_attention` configuration and then with the
+SDPA one, recording peak memory per GPU, seconds per step and the loss; and
+only if the official configuration does not fit, the same again with the
+memory techniques above, checking that the first-step loss is unchanged by
+them. Its numbers decide:
+
+* how long the full run takes: 5,000 steps at the measured rate, plus
+  tokenising 128 hours
+* whether that fits the free quota (about 30 GPU-hours a week) in sessions of
+  up to 12 hours - recorded before the run is sent
+* if a T4 pair cannot hold the recipe: the full-recipe command for hardware
+  that can (bf16-capable, e.g. two A100s or L4s), with nothing reduced
+
+**Reading, fixed before the run.** The float16 exports at steps 1,000 to 5,000
+are each rendered and scored on the development set (9 speakers x 3
+sentences, as every engine was), and the one with the highest held-out
+similarity whose CER interval against the published model does not lie above
+zero is the candidate. Choosing among five on the development set is what it
+is for. That candidate and the published model are then scored once on the
+sealed test sets (§3.1). No improvement is claimed before that has happened.
+
+## 9. Order of work
 
 1. Build and validate the multi-reference manifest on the development set.
    No GPU.
@@ -359,14 +454,21 @@ next to its numbers.
    official app's prompt construction.
 3. Run the multi-reference conditions on the development set for the engines
    that accept the prompt budget, with the manifest fixed beforehand.
-4. Decide commercial or not (the user's question) and declare the primary test
-   comparison.
-5. Build the independent test set: about 30 identity-validated speakers,
-   twelve texts each, disjoint from development. Budget it (§3.1).
-6. Score each final candidate on it once.
+4. ~~Declare the primary test comparison~~ (§3.1, 2026-09-19); the user has
+   set research and the best quality as the goal for now, so the commercial
+   question no longer blocks.
+5. ~~Build the independent test set~~: drawn 2026-09-19 (§3.2), 28 usable
+   Neyshekar speakers primary, 30 Common Voice secondary, both sealed. Still to
+   write: the twelve test texts per speaker (§3.3), checked against every
+   training text.
+6. The OmniVoice adaptation (§8): the probe, then - if it fits - the full run
+   in sessions, then the development-set choice among its exports.
+7. Score each final candidate on the sealed test sets once.
 
-## 9. Open questions for the user
+## 10. Open questions for the user
 
-* Commercial use or not? It selects the base, and it binds the data too.
+* Commercial use: set aside by the user on 2026-09-19 - research and the best
+  quality first. It will still select the base and bind the data if it
+  returns.
 * A ParsVoice access request, if wanted, is theirs to make.
 * Would they organise a listening test, even with five listeners?

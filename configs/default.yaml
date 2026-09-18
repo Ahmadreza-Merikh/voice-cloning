@@ -297,6 +297,28 @@ engines:
     max_new_tokens: 1024     # about 43 s of audio
     timeout_seconds: 900
 
+  moss15:
+    # MOSS-TTS-Local-Transformer-v1.5 (OpenMOSS). Model, codec
+    # (MOSS-Audio-Tokenizer-v2) and code all Apache-2.0, checked at the
+    # revisions pinned in scripts/moss15_worker.py, whose remote code was read.
+    # Official recipe: transformers 5.0.0, bf16 on CUDA (emulated on a T4 -
+    # the official precision run slowly, never swapped for fp16), SDPA without
+    # FlashAttention on cards below compute 8.0, 48 kHz stereo, 12 codebooks.
+    #   uv venv --python python3.12 ~/.cache/persian-voice-cloning/moss15/.venv
+    #   VIRTUAL_ENV=~/.cache/.../moss15/.venv uv pip install "torch==2.9.1" \
+    #       "torchaudio==2.9.1" "transformers==5.0.0" "accelerate>=1.10.1" soundfile
+    python: auto
+    language: Persian          # undocumented for Persian; follows the card's examples
+    # The card's recommended sampling.
+    audio_temperature: 1.7
+    audio_top_p: 0.8
+    audio_top_k: 25
+    audio_repetition_penalty: 1.0
+    max_new_tokens: 4096
+    codec_device: auto         # second GPU when present - placement, not precision
+    native_dir: outputs/native/moss15
+    timeout_seconds: 1800
+
   asr:
     # Used to auto-transcribe the reference clip (F5-TTS needs the reference
     # transcript) and to drive the speech-to-speech cascade.

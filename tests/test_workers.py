@@ -27,6 +27,7 @@ WORKERS = {
     "omnivoice": "omnivoice_worker.py",
     "fish": "fish_worker.py",
     "higgs": "higgs_worker.py",
+    "moss15": "moss15_worker.py",
 }
 
 

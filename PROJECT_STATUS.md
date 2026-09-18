@@ -4,12 +4,22 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-18 23:55 +0330 (20:25 UTC). **Nothing running remotely**
-(live state read 23:54: `persian-voice-moss15` and `-probe` both COMPLETE).
+Last updated: 2026-09-19 01:21 +0330 (21:51 UTC). **Running remotely:**
+`marsmanam/persian-voice-omnivoice-probe` version 1, pushed 21:50:12 UTC,
+RUNNING at 21:50:35 - the limited test of OmniVoice's official adaptation
+recipe on a T4 pair (plan and budget, written before the push:
+`eval/runs/persian-voice-omnivoice-probe-v1.json`). Do not resubmit or stop it;
+read its state first. Dataset `persian-voice-eval` is at the version staged
+from `d7a549c`, verified by download.
 
 ## Stage
 
-Development-set measurement. MOSS-TTS-Local-Transformer-v1.5 is measured at its
+The user's goal as of 2026-09-19: research and the best quality first; the
+commercial question no longer blocks. Current work: adapting OmniVoice - the
+highest identity score on the development set, not a proven SOTA - to Persian
+by its official recipe, on independent data (SOTA_ROADMAP §3, §5, §8).
+
+Before that: development-set measurement. MOSS-TTS-Local-Transformer-v1.5 is measured at its
 official recipe (v4, tag "Persian (Farsi)"): every gate passed, and it is not
 above the F5 baseline, below OmniVoice and below MOSS v1.0. The tag string made
 no detectable difference against v3 ("Persian"). No SOTA claim; the

@@ -4,23 +4,22 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-18 23:32 +0330 (20:02 UTC). `persian-voice-moss15` **v4
-RUNNING**, pushed 19:56:56 UTC - do not push it again while it runs. v3 is
-complete and recorded.
+Last updated: 2026-09-18 23:55 +0330 (20:25 UTC). **Nothing running remotely**
+(live state read 23:54: `persian-voice-moss15` and `-probe` both COMPLETE).
 
 ## Stage
 
-Development-set measurement. MOSS-TTS-Local-Transformer-v1.5 has its first
-full measurement (v3): every gate passed, and at that recipe it does not beat
-the F5 baseline. v3 sent the language tag "Persian"; the official string,
-found afterwards, is "Persian (Farsi)" - v4 changes only that. No SOTA claim
-has been accepted by the independent review.
+Development-set measurement. MOSS-TTS-Local-Transformer-v1.5 is measured at its
+official recipe (v4, tag "Persian (Farsi)"): every gate passed, and it is not
+above the F5 baseline, below OmniVoice and below MOSS v1.0. The tag string made
+no detectable difference against v3 ("Persian"). No SOTA claim; the
+independent review has accepted none.
 
 ## Last healthy commit
 
-`a390618` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
+`7d1c9f9` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
 gives 293 passed, 1 skipped (the skip needs Linux `/proc`; the same check ran
-on Kaggle in v3 and worked); `ruff check src scripts tests` clean.
+on Kaggle in v3 and v4 and worked); `ruff check src scripts tests` clean.
 
 ## Measured (development set: 9 speakers x 3 sentences, seed 42)
 
@@ -32,17 +31,20 @@ on Kaggle in v3 and worked); `ruff check src scripts tests` clean.
 | `fish` | Fish S2 Pro (fp16, `--half`) | 0.5368 | 9.5% | kaggle fish v5 |
 | `higgs` | Higgs TTS 3 port (fp16) | 0.5312 | 2.9% | kaggle higgs v2 |
 | `moss15` | MOSS v1.5 (bf16 on T4), tag "Persian" - not the official string | 0.5244 | 9.0% | kaggle moss15 v3 |
+| `moss15-fa` | MOSS v1.5, official recipe, tag "Persian (Farsi)" | 0.5066 | 10.9% | kaggle moss15 v4 |
 | `baseline` | F5 as found | 0.5196 | 2.9% | Mac |
 
 `scripts/compare_runs.py` gives the speaker-level intervals; CER is judged only
 inside one scoring environment (`eval/results/_provenance.json` for older files,
 `scoring_environment` in new ones). Only OmniVoice - baseline clears both 0 and
-the 0.0205 reference line: +0.064 [+0.025, +0.102]. MOSS v1.5 (v3): +0.005
-[-0.028, +0.037] over the baseline, -0.059 [-0.112, -0.006] against OmniVoice,
--0.034 [-0.067, -0.001] against MOSS v1.0; CER +5.8 points [+3.9, +7.8] over
-the baseline scored in its own session.
+the 0.0205 reference line: +0.064 [+0.025, +0.102] - and OmniVoice - MOSS v1.5
+(official), +0.077 [+0.032, +0.122]. MOSS v1.5 (official) - baseline: -0.013
+[-0.053, +0.027]; - MOSS v1.0: -0.052 [-0.095, -0.009]; CER +7.7 points
+[+2.8, +12.7] over the baseline scored in its own session. Tag effect (v4 -
+v3): similarity -0.018 [-0.046, +0.010], CER +1.9 [-3.4, +7.2], both include 0
+(the two sessions' baseline controls match in every CER cell and transcript).
 
-## Remote jobs (live state read 2026-09-18 23:26 +0330)
+## Remote jobs (live state read 2026-09-18 23:54 +0330)
 
 | kernel | state | re-run? |
 |---|---|---|
@@ -52,7 +54,7 @@ the baseline scored in its own session.
 | `persian-voice-moss15-probe` v1 | complete, CPU image: codec loaded both ways | no - `...-probe-v1.json` |
 | `persian-voice-moss15-probe` v2 | complete, 1428 s (14:41-15:05 UTC): the worker was blocked behind the runner's display write | no - `...-probe-v2.json` + `eval/runs/evidence/moss15-probe-v2/` |
 | `persian-voice-moss15` v3 | complete, ~18 min: all seven gates passed, 27/27 cells | no - `eval/runs/persian-voice-moss15-v3.json`, evidence in `eval/runs/evidence/moss15-v3/` |
-| **`persian-voice-moss15` v4** | **RUNNING since 19:56:56 UTC** - v3 with only the language string changed to "Persian (Farsi)"; results as `moss15-fa`, `moss15-fa-smoke`, `baseline-moss15v4-env` | **no - wait for it** |
+| `persian-voice-moss15` v4 | complete, ~17 min: all seven gates passed, 27/27 cells; only the tag changed from v3 | no - `eval/runs/persian-voice-moss15-v4.json`, evidence in `eval/runs/evidence/moss15-v4/` |
 | dataset `persian-voice-eval` | **v13** (19:55 UTC), code at `cdc4b36`; all 55 code and config files verified identical by download | - |
 
 v1, v2 and both probes mounted dataset v11 (code at `f21ca87`), whose runner
@@ -117,6 +119,11 @@ had the display write inside its read loop; v3 mounted v12 (`89dc14e`).
    official v1.5 app at `934d6826`); session 4 changes only that, with its
    reading stated in the builder before the run
 7. `a390618` README: Fish's CER against the same-session baseline
+8. `09b6373` v4 recorded and read as fixed in advance: the tag made no
+   detectable difference
+9. `7d1c9f9` MOSS v1.5 written into FINDINGS (§8, with the statistics table),
+   README (a row of its own; v1.0's "only unrestricted licence" and "two
+   candidates unmeasured" corrected) and the roadmap
 
 Earlier rounds, for reference: second review `79fec9d` `56a963e` `c13ab5c`
 `7944081` `0f71c71` `69c17a8`; gates `d5fca50`; listening test `1a60672`
@@ -124,19 +131,18 @@ Earlier rounds, for reference: second review `79fec9d` `56a963e` `c13ab5c`
 
 ## Next concrete step
 
-When v4 ends (a background watcher reports it): pull the output
-(`kaggle kernels output marsmanam/persian-voice-moss15`), read `results/gates.json`
-and `runs.json`, copy `moss15-fa*.json` and `baseline-moss15v4-env.json` into
-`eval/results/`, and record `eval/runs/persian-voice-moss15-v4.json`. Then read
-it the way the builder's docstring fixed in advance: CER against its own
-session's baseline; against v3 directly only if the two sessions' baseline
-controls agree cell for cell in CER too; the tag matters only if the
-speaker-level interval of (v4 - v3) excludes 0. Then write MOSS v1.5 into
-FINDINGS, README and the roadmap once, with both sessions.
+Nothing is running. The next single variable, if MOSS v1.5 stays in play, is
+its second official cloning mode: "continuation", which takes the reference
+clip's transcript (the official app's `continuation_clone`; the server docs say
+it gives better speaker similarity). The transformers processor has no field
+for it, so read the official app's `streaming` module at `934d6826` first and
+build the prompt exactly as it does; state the reading before the run; one
+session, gated like v3/v4, about 20 minutes of T4 x2.
 
-After that, the second official cloning mode (continuation with the reference
-transcript) is the next single variable - it needs the official app's prompt
-construction, since the transformers processor has no transcript field.
+Whether to spend on that, or go straight to the test set with the candidates
+already measured, depends on the user's commercial / non-commercial answer:
+MOSS v1.5 is the only candidate here with every component checked Apache-2.0,
+and it is currently the weakest on this development set.
 
 ## Open
 

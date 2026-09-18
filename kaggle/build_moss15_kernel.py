@@ -34,7 +34,7 @@ USER = "marsmanam"
 DATASET = "persian-voice-eval"
 SLUG = "persian-voice-moss15"
 MACHINE_SHAPE = "NvidiaTeslaT4"
-SESSION = "kaggle:persian-voice-moss15-v2"
+SESSION = "kaggle:persian-voice-moss15-v3"
 
 MODEL = "OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5"
 MODEL_REVISION = "be7766a6735b98bd793f7c79fb720b4d0f5d13b8"
@@ -211,7 +211,7 @@ if not GATES.skip("worker", ("download",)):
     code, seconds, timed_out = run_bounded(
         [sys.executable, "/kaggle/working/drive_moss15.py", str(MODEL_DIR), str(CODEC_DIR),
          str(REFERENCE), SENTENCE, str(RENDER), str(REPO)],
-        timeout={WORKER_TIMEOUT})
+        timeout={WORKER_TIMEOUT}, monitor_every=120, tee=Path("/kaggle/working/worker_stage.log"))
     subprocess.run(["nvidia-smi", "--query-gpu=index,memory.used,memory.total", "--format=csv"])
     ok, reason, FACTS = worker_verdict(code, timed_out, RENDER, SMOKE, expect_rate=48000, expect_channels=2)
     GATES.record("worker", ok, reason)

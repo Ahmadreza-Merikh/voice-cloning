@@ -4,8 +4,13 @@
 The order is the one that makes a failure cheap to read, and nothing expensive
 starts until the step before it has shown it works:
 
-1. the official stack installs: transformers 5.0.0 on the image's torch, which
-   must be the pinned 2.9.1+cu128 - checked, not assumed
+1. the official runtime is installed, not assumed: the code repository's
+   pyproject at 934d6826 pins torch 2.9.1+cu128, torchaudio 2.9.1+cu128,
+   transformers 5.0.0 and safetensors 0.6.2 - everything the model's code
+   imports. Kaggle images move - the probe kernel got torch 2.10.0+cu128 on
+   2026-09-18 while this kernel's image had 2.9.1 - so these are installed and
+   checked, and every installed version is written to environment.json beside
+   the official one
 2. the runner is checked on this notebook's own display with a model-free job
    shaped like the one that stalled (scripts/runner_check.py); nothing is
    downloaded unless it passes
@@ -52,6 +57,22 @@ MODEL_REVISION = "be7766a6735b98bd793f7c79fb720b4d0f5d13b8"
 CODEC = "OpenMOSS-Team/MOSS-Audio-Tokenizer-v2"
 CODEC_REVISION = "f6e20e543b33d2c252a7ef71bdf8aa71e5ff9169"
 
+#: The official stack, from pyproject.toml at 934d6826 (read 2026-09-18): its
+#: ``torch-runtime`` extra and its core dependencies.
+TORCH_INDEX = "https://download.pytorch.org/whl/cu128"
+OFFICIAL = {"torch": "2.9.1+cu128", "torchaudio": "2.9.1+cu128", "torchcodec": "0.8.1",
+            "transformers": "5.0.0", "accelerate": ">=1.10.1", "safetensors": "0.6.2",
+            "numpy": "2.1.0", "tqdm": "4.67.1", "einops": "0.8.1", "scipy": "1.16.2",
+            "librosa": "0.11.0", "tiktoken": "0.12.0"}
+#: What the model's remote code at the pinned revisions imports - so what can
+#: change what is computed - and accelerate, which transformers loads through.
+#: These are installed at the official versions and checked; a mismatch stops
+#: the run. The rest of OFFICIAL is the repository's own tooling (app, training,
+#: audio utilities) and torchcodec, which serves only torchaudio.load, which the
+#: worker does not call. Those keep the image's versions, so the scorer's stack
+#: is not disturbed, and every difference is written to environment.json.
+PINNED = ("torch", "torchaudio", "transformers", "safetensors", "accelerate")
+
 #: v1 and v2 went silent a second into loading and used their whole budgets -
 #: most likely behind a stalled display, which the probe measured but they,
 #: keeping no log file, could not show. Load plus one render needs far less;
@@ -63,24 +84,24 @@ FULL_TIMEOUT = 4 * 3600
 #: Seconds per cell for scoring on top of generation, for the budget estimate.
 SCORING_ALLOWANCE = 20
 
-SETUP = '''\
-# The card's runtime stack is torch 2.9.1+cu128 (checked in the next cell) with
-# transformers 5.0.0. torchcodec is part of that stack only for torchaudio.load,
-# which the worker does not use - it reads references with soundfile and hands
-# them to the processor's own encoder - so it is not installed.
-!pip -q install "transformers==5.0.0" "accelerate>=1.10.1" speechbrain faster-whisper jiwer pyloudnorm noisereduce num2words silero-vad onnxruntime 2>&1 | tail -5
+SETUP = f'''\
+# The official runtime stack first (see OFFICIAL in the builder), from PyTorch's
+# cu128 index; torchvision at the version that belongs to that torch, so nothing
+# on the image is left half-matched. Then the scorer's own packages.
+!pip -q install "torch==2.9.1" "torchaudio==2.9.1" "torchvision==0.24.1" --index-url {TORCH_INDEX} 2>&1 | tail -3
+!pip -q install "transformers==5.0.0" "accelerate>=1.10.1" "safetensors==0.6.2" speechbrain faster-whisper jiwer pyloudnorm noisereduce num2words silero-vad onnxruntime 2>&1 | tail -3
 '''
 
 ENVIRONMENT = f'''\
+import importlib.metadata
 import json
 import os
+import platform
 import shutil
 import subprocess
 import sys
 import time
 from pathlib import Path
-
-import torch
 
 
 def captured(command):
@@ -92,8 +113,9 @@ def captured(command):
 
 # An earlier kernel's transformers install pulled a torchvision built for
 # another torch, and transformers' lazy import of PreTrainedModel died on it.
-# If that happens here, torchvision goes - nothing in this run loads a vision
-# model - and the removal is printed, not hidden.
+# The matching torchvision is installed above; if the import still breaks on
+# it, torchvision goes - nothing in this run loads a vision model - and the
+# removal is printed, not hidden.
 probe = subprocess.run([sys.executable, "-c", "from transformers import PreTrainedModel"],
                        text=True, capture_output=True)
 if probe.returncode != 0 and "torchvision" in probe.stderr:
@@ -103,19 +125,60 @@ if probe.returncode != 0 and "torchvision" in probe.stderr:
                            text=True, capture_output=True)
 assert probe.returncode == 0, probe.stderr[-2000:]
 
-import transformers
+import torch
 
-print("torch       :", torch.__version__)
-print("transformers:", transformers.__version__)
-assert torch.__version__.startswith("2.9.1"), "the official stack pins torch 2.9.1+cu128"
-assert transformers.__version__ == "5.0.0", "the official stack pins transformers 5.0.0"
+OFFICIAL = {OFFICIAL!r}
+PINNED = {PINNED!r}
+
+
+def installed(name):
+    try:
+        return importlib.metadata.version(name)
+    except importlib.metadata.PackageNotFoundError:
+        return None
+
+
+def matches(have, want):
+    if have is None:
+        return False
+    if want.startswith(">="):
+        from packaging.version import Version
+        return Version(have.split("+")[0]) >= Version(want[2:])
+    return have == want or (have.split("+")[0] == want.split("+")[0] and "+" not in want)
+
+
+stack = {{}}
+for name, want in OFFICIAL.items():
+    have = installed(name)
+    stack[name] = {{"official": want, "installed": have, "matches": matches(have, want),
+                   "pinned_here": name in PINNED}}
+others = ("tokenizers", "huggingface-hub", "soundfile", "speechbrain", "faster-whisper", "ctranslate2",
+          "jiwer", "torchvision", "ipykernel", "jupyter-client", "nbclient", "nbconvert", "papermill")
+code, driver = captured(["nvidia-smi", "--query-gpu=name,driver_version,memory.total", "--format=csv,noheader"])
+ENVIRONMENT_RECORD = {{
+    "python": platform.python_version(),
+    "torch_cuda": torch.version.cuda,
+    "cudnn": torch.backends.cudnn.version(),
+    "gpus": [{{"name": torch.cuda.get_device_name(i), "capability": list(torch.cuda.get_device_capability(i))}}
+             for i in range(torch.cuda.device_count())],
+    "nvidia_smi": driver,
+    "official_stack": stack,
+    "other_packages": {{name: installed(name) for name in others}},
+}}
+Path("/kaggle/working/environment.json").write_text(json.dumps(ENVIRONMENT_RECORD, indent=2))
+for name, row in stack.items():
+    mark = "ok" if row["matches"] else ("DIFFERS" if row["pinned_here"] else "differs - image's version kept")
+    print(f"{{name:13}} official {{row['official']:12}} installed {{str(row['installed']):16}} {{mark}}")
+print("cuda", torch.version.cuda, "| cudnn", torch.backends.cudnn.version(), "|", driver)
+for name in PINNED:
+    assert stack[name]["matches"], f"{{name}} is not the official {{OFFICIAL[name]}}: {{stack[name]['installed']}}"
+
 gpus = [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())]
-print("gpus        :", gpus)
-print("capability  :", [torch.cuda.get_device_capability(i) for i in range(len(gpus))])
 for i in range(len(gpus)):
     free, total = torch.cuda.mem_get_info(i)
-    print(f"cuda:{{i}}      : {{free / 2**30:.1f}} GiB free of {{total / 2**30:.1f}}")
-print("disk        :", f"{{shutil.disk_usage('/root').free / 2**30:.0f}} GiB free for the HF cache")
+    print(f"cuda:{{i}}: {{gpus[i]}}, capability {{torch.cuda.get_device_capability(i)}}, "
+          f"{{free / 2**30:.1f}} GiB free of {{total / 2**30:.1f}}")
+print("disk:", f"{{shutil.disk_usage('/root').free / 2**30:.0f}} GiB free for the HF cache")
 # The model (9.1 GB bf16) and the codec (about 4.3 GB bf16) together, plus the
 # KV cache, do not fit one 15 GiB T4 with room to spare. The second card holds
 # the codec. That is placement; precision is untouched.
@@ -137,11 +200,9 @@ os.environ["VOICECLONE_MOSS15_PYTHON"] = sys.executable
 os.environ["PYTHONPATH"] = str(REPO / "src")
 os.environ["VOICECLONE_SCORING_ENV"] = "{SESSION}"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-# Sequential weight materialisation. The v1.0 run hung twice inside
-# transformers' threaded loader and finished once this was set. It changes how
-# weights are loaded, not what is computed.
+# Sequential weight materialisation, as in every earlier MOSS run. It changes
+# how weights are loaded, not what is computed.
 os.environ["HF_DEACTIVATE_ASYNC_LOAD"] = "1"
-
 
 # Every stage asks the gates before it starts; every command runs in its own
 # process group with its output in its own log. See scripts/kernel_gates.py.
@@ -337,7 +398,7 @@ for folder in ("moss15-smoke", "moss15"):
         shutil.copy2(path, renders / f"{folder}__{path.name}")
 if RENDER.is_file():
     shutil.copy2(RENDER, renders / RENDER.name)
-for extra in (SMOKE,):
+for extra in (SMOKE, Path("/kaggle/working/environment.json")):
     if extra.is_file():
         shutil.copy2(extra, destination / extra.name)
 (destination / "gates.json").write_text(json.dumps(GATES.summary(), indent=2))

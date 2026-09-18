@@ -302,13 +302,16 @@ class Moss15Config:
 
     Model, codec and code revisions are pinned in `scripts/moss15_worker.py`,
     where the remote code that runs was read. Sampling values are the card's
-    recommended ones. The language tag for Persian is not documented; "Persian"
-    follows the card's examples ("French", "Chinese") and every result records
-    it as an inference.
+    recommended ones. The language tag is the official string for Persian,
+    "Persian (Farsi)": the card's language table and the official v1.5 app's
+    ``LANGUAGE_TAG_CHOICES`` (``clis/moss_tts_local_v1.5_app.py`` at 934d6826),
+    which passes it into the prompt unchanged. The first full run used
+    "Persian", by analogy with the card's examples, before that was found
+    (eval/runs/persian-voice-moss15-v3.json).
     """
 
     python: str | None = "auto"
-    language: str = "Persian"
+    language: str = "Persian (Farsi)"
     audio_temperature: float = 1.7
     audio_top_p: float = 0.8
     audio_top_k: int = 25

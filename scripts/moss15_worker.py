@@ -28,9 +28,11 @@ Departures, both about plumbing and neither about computation:
   earlier engine on the same Kaggle image could not find
 * the codec may sit on a second GPU. Placement, not precision
 
-The language tag is not documented for Persian. The card's examples use English
-language names ("French", "Chinese"); "Persian" follows them and is recorded in
-every result as an inference, not a fact.
+The language tag comes with each job. The official string for Persian is
+"Persian (Farsi)" - the card's language table and the official v1.5 app's
+``LANGUAGE_TAG_CHOICES`` at 934d6826, which goes into the prompt unchanged. The
+first full run sent "Persian", an analogy with the card's examples, before
+that was found.
 
 Nothing here downgrades bf16. A T4 has no bf16 unit and runs it emulated; this
 model family's v1.0 did that on the same card to completion. If it cannot, the

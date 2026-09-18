@@ -23,6 +23,20 @@ starts until the step before it has shown it works:
 7. only if every gate above passed and the measured cost fits: the 27-cell
    development benchmark
 
+Version 4 changes one thing from version 3: the language tag, from "Persian"
+(an analogy with the card's examples) to "Persian (Farsi)", the official
+string (the card's table and the official v1.5 app at 934d6826). Readings
+decided before it runs:
+
+* CER is compared against this session's own baseline control. Against
+  version 3's run directly only if the two sessions' baseline controls agree
+  cell for cell in CER as well - then the recogniser behaved identically
+* the tag string matters if the speaker-level interval of (v4 - v3) excludes
+  0; with nine speakers an interval that includes 0 is weak evidence of no
+  effect, not evidence of none
+* the renders differ between the runs through sampling as well as the tag;
+  that variation is inside the interval, not separated from it
+
 Precision is the card's: bf16 on CUDA, which a T4 runs emulated. If it cannot,
 the run stops at step 4 and the log says why; it is never switched to fp16.
 
@@ -50,7 +64,13 @@ USER = "marsmanam"
 DATASET = "persian-voice-eval"
 SLUG = "persian-voice-moss15"
 MACHINE_SHAPE = "NvidiaTeslaT4"
-SESSION = "kaggle:persian-voice-moss15-v3"
+SESSION = "kaggle:persian-voice-moss15-v4"
+#: Result labels; version 3's were moss15, moss15-smoke and baseline-moss15-env.
+LABEL = "moss15-fa"
+SMOKE_LABEL = "moss15-fa-smoke"
+CONTROL_LABEL = "baseline-moss15v4-env"
+#: The official Persian tag - see OFFICIAL_PERSIAN_TAG in the engine.
+LANGUAGE = "Persian (Farsi)"
 
 MODEL = "OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5"
 MODEL_REVISION = "be7766a6735b98bd793f7c79fb720b4d0f5d13b8"
@@ -276,7 +296,7 @@ print("READY", json.dumps(ready), flush=True)
 print(f"LOAD {ready_at - start_load:.1f}s", flush=True)
 if not ready.get("ready"):
     raise SystemExit("worker did not load")
-job = {"text": text, "reference": reference, "output": output, "seed": 42, "language": "Persian",
+job = {"text": text, "reference": reference, "output": output, "seed": 42, "language": __LANGUAGE__,
        "audio_temperature": 1.7, "audio_top_p": 0.8, "audio_top_k": 25,
        "audio_repetition_penalty": 1.0, "max_new_tokens": 4096}
 start = time.time()
@@ -304,6 +324,8 @@ RENDER = Path("/kaggle/working/moss15_worker.wav")
 SMOKE = Path("/kaggle/working/moss15_smoke.json")
 '''
 
+DRIVER = DRIVER.replace("__LANGUAGE__", json.dumps(LANGUAGE))
+
 WORKER = f'''\
 FACTS = {{}}
 if not GATES.skip("worker", ("download",)):
@@ -326,30 +348,30 @@ if not GATES.skip("worker", ("download",)):
 BENCH = f'''\
 if not GATES.skip("bench", ("worker",)):
     run = run_bounded(
-        [sys.executable, "scripts/benchmark.py", "--label", "moss15-smoke", "--engine", "moss15",
+        [sys.executable, "scripts/benchmark.py", "--label", "{SMOKE_LABEL}", "--engine", "moss15",
          "--device", "cuda", "--speakers", "cv02", "--sentences", "s1"],
         timeout={BENCH_TIMEOUT}, cwd=str(REPO), monitor_every=300, log=LOGS / "bench.log")
     RUNS["bench"] = run.record()
     print(run.summary())
-    ok, reason = bench_verdict(run, REPO / "eval/results/moss15-smoke.json")
+    ok, reason = bench_verdict(run, REPO / "eval/results/{SMOKE_LABEL}.json")
     GATES.record("bench", ok, reason)
 '''
 
-CONTROL = '''\
+CONTROL = f'''\
 if not GATES.skip("control", ("bench",)):
     run = run_bounded(
-        [sys.executable, "scripts/benchmark.py", "--label", "baseline-moss15-env",
+        [sys.executable, "scripts/benchmark.py", "--label", "{CONTROL_LABEL}",
          "--score-only", "--replay-from", "baseline", "--device", "cuda"],
         timeout=3600, cwd=str(REPO), monitor_every=300, log=LOGS / "control.log")
     RUNS["control"] = run.record()
     print(run.summary())
     check = None
-    if run.ok and (REPO / "eval/results/baseline-moss15-env.json").is_file():
+    if run.ok and (REPO / "eval/results/{CONTROL_LABEL}.json").is_file():
         import compare_runs
 
         results = REPO / "eval/results"
         check = compare_runs.scale_control(compare_runs.load("baseline", results),
-                                           compare_runs.load("baseline-moss15-env", results))
+                                           compare_runs.load("{CONTROL_LABEL}", results))
     ok, reason = control_verdict(run, check)
     GATES.record("control", ok, reason)
 '''
@@ -372,11 +394,11 @@ if not GATES.skip("budget", ("worker", "bench", "control")):
 
 if not GATES.skip("full", ("budget",)):
     run = run_bounded(
-        [sys.executable, "scripts/benchmark.py", "--label", "moss15", "--engine", "moss15", "--device", "cuda"],
+        [sys.executable, "scripts/benchmark.py", "--label", "{LABEL}", "--engine", "moss15", "--device", "cuda"],
         timeout={FULL_TIMEOUT}, cwd=str(REPO), monitor_every=600, log=LOGS / "full.log")
     RUNS["full"] = run.record()
     print(run.summary())
-    path = REPO / "eval/results/moss15.json"
+    path = REPO / "eval/results/{LABEL}.json"
     summary = json.loads(path.read_text())["summary"] if path.is_file() else {{}}
     complete = (run.ok and summary.get("renders") == 27
                 and not summary.get("failures") and not summary.get("untranscribed"))
@@ -393,7 +415,7 @@ if native.is_dir():
     shutil.copytree(native, Path("/kaggle/working/moss15_native"), dirs_exist_ok=True)
 renders = Path("/kaggle/working/moss15_renders")
 renders.mkdir(exist_ok=True)
-for folder in ("moss15-smoke", "moss15"):
+for folder in __FOLDERS__:
     for path in sorted((REPO / "outputs/benchmark" / folder).glob("*.wav")):
         shutil.copy2(path, renders / f"{folder}__{path.name}")
 if RENDER.is_file():
@@ -405,8 +427,10 @@ for extra in (SMOKE, Path("/kaggle/working/environment.json")):
 (destination / "runs.json").write_text(json.dumps(RUNS, indent=2))
 print("gates:", json.dumps(GATES.summary(), indent=1))
 print("saved:", len(list(renders.glob("*.wav"))), "harness renders,",
-      len(list(Path("/kaggle/working/moss15_native").glob("*.wav"))) if native.is_dir() else 0, "native")
+      len(list(Path("/kaggle/working/moss15_native").rglob("*.wav"))) if native.is_dir() else 0, "native")
 '''
+
+COLLECT = COLLECT.replace("__FOLDERS__", repr((SMOKE_LABEL, LABEL)))
 
 
 def cell(source: str) -> dict:

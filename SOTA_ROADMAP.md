@@ -222,9 +222,15 @@ Two ways to probe it:
 * 48 kHz stereo output, 12 codebooks fixed (`n_vq_for_inference` must not change)
 * recommended sampling: audio_temperature 1.7, top_p 0.8, top_k 25, repetition
   penalty 1.0, max_new_tokens 4096
-* a language tag is recommended when known. The examples use English names
-  ("French", "Chinese"); the Persian string is not documented, so "Persian" is
-  an inference by analogy and is recorded as one
+* a language tag is recommended when known, and for Persian it is the string
+  "Persian (Farsi)": the card's language table, and the official v1.5 app's
+  `LANGUAGE_TAG_CHOICES` (`clis/moss_tts_local_v1.5_app.py` at `934d6826`),
+  which puts it into the prompt unchanged. The first full run used "Persian",
+  an analogy with the card's examples, before that was found
+* the transformers processor has no field for the reference transcript. The
+  official app and the SGLang-Omni server also offer a "continuation" mode that
+  takes one, "for better speaker similarity" - a second official mode, not
+  measured here
 
 **[measured]** On a T4 the question is bf16, which Turing has no unit for. The
 v1.0 run's own log shows it loaded `torch.bfloat16` with transformers 5.0.0 on

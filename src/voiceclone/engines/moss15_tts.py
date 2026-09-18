@@ -56,6 +56,10 @@ _VENV_CANDIDATES = (
     "./third_party/moss15/.venv",
 )
 
+#: The official tag for Persian: the card's language table and the official
+#: v1.5 app's LANGUAGE_TAG_CHOICES (clis/moss_tts_local_v1.5_app.py at 934d6826).
+OFFICIAL_PERSIAN_TAG = "Persian (Farsi)"
+
 GENERATION_FIELDS = (
     "audio_temperature",
     "audio_top_p",
@@ -264,7 +268,7 @@ class Moss15Engine(TTSEngine):
                 **{k: self._ready.get(k) for k in ("model_revision", "codec_revision", "dtype",
                                                    "attention", "capability", "codec_device")},
                 "language_tag": job["language"],
-                "language_tag_is_documented": False,
+                "language_tag_is_official": job["language"] == OFFICIAL_PERSIAN_TAG,
                 "native_file": f"{self._session}/{native.name}",
                 "native_format": f"{reply.get('sample_rate')} Hz, {reply.get('channels')} channels",
                 "scored_as": "channel mean of the native file; the similarity scorer resamples to 16 kHz",

@@ -35,7 +35,7 @@ def files(tmp_path: Path) -> tuple[Path, Path]:
 
 
 def job(**changes) -> dict:
-    base = {"language": "Persian", "audio_temperature": 1.7, "audio_top_p": 0.8, "audio_top_k": 25,
+    base = {"language": "Persian (Farsi)", "audio_temperature": 1.7, "audio_top_p": 0.8, "audio_top_k": 25,
             "audio_repetition_penalty": 1.0, "max_new_tokens": 4096}
     return {**base, **changes}
 

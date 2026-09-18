@@ -1,0 +1,42 @@
+{
+  "kernel": "marsmanam/persian-voice-moss15",
+  "version": 1,
+  "date": "2026-09-18",
+  "dataset_commit": "d5fca50 era (gates, float-WAV worker)",
+  "session": "kaggle:persian-voice-moss15-v1",
+  "environment": {
+    "torch": "2.9.1+cu128",
+    "transformers": "5.0.0",
+    "gpus": "2x Tesla T4, capability 7.5",
+    "HF_DEACTIVATE_ASYNC_LOAD": "1 - honoured by 5.0.0 (core_model_loading.py:1118), so loading was sequential"
+  },
+  "gates": {
+    "download": {
+      "passed": true,
+      "reason": "3.5 min, be7766a6735b98bd793f7c79fb720b4d0f5d13b8 8.49 GiB, f6e20e543b33d2c252a7ef71bdf8aa71e5ff9169 7.91 GiB"
+    },
+    "worker": {
+      "passed": false,
+      "reason": "timed out"
+    },
+    "bench": {
+      "passed": false,
+      "reason": "skipped - worker failed: timed out"
+    },
+    "control": {
+      "passed": false,
+      "reason": "skipped - bench failed: skipped - worker failed: timed out"
+    },
+    "budget": {
+      "passed": false,
+      "reason": "skipped - worker failed: timed out"
+    },
+    "full": {
+      "passed": false,
+      "reason": "skipped - budget failed: skipped - worker failed: timed out"
+    }
+  },
+  "what_happened": "Download passed (model 8.49 GiB, codec 7.91 GiB, 3.5 min). The worker began loading the codec (MOSS-Audio-Tokenizer-v2, 2094 parameters) within a second of starting and its last progress update was at 1408 of 2094. Nothing further was printed for 60 minutes; the timeout ended the process group; both GPUs showed 105 MiB in use, so nothing had reached a GPU. Every later stage was skipped by its gate.",
+  "cause": "not established - see the v2 kernel, which dumps every thread's stack while loading",
+  "lost": "nothing measured; about 66 minutes of T4 x2 quota"
+}

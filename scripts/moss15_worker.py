@@ -155,9 +155,24 @@ def codec_device_for(device: str, requested: str) -> str:
     return device
 
 
+#: While loading or rendering, every thread's stack is written to stderr this
+#: often. The first run on a T4 stopped printing a minute into loading the
+#: codec and said nothing for an hour, so the cause could not be named; a
+#: periodic dump turns the next silence into a stack trace.
+STACK_DUMP_SECONDS = 300
+
+
+def _phase(message: str) -> None:
+    _log(f"moss15 [{time.strftime('%H:%M:%S')}] {message}")
+
+
 def load(model_dir: Path, codec_dir: Path, device: str, codec_device: str) -> tuple[Any, Any, dict]:
+    import faulthandler
+
     import torch
     from transformers import AutoModel, AutoProcessor
+
+    faulthandler.dump_traceback_later(STACK_DUMP_SECONDS, repeat=True, file=sys.stderr)
 
     # The card's own SDPA settings.
     torch.backends.cuda.enable_cudnn_sdp(False)
@@ -169,15 +184,23 @@ def load(model_dir: Path, codec_dir: Path, device: str, codec_device: str) -> tu
     dtype = official_dtype(device)
     attention = official_attention(device, dtype)
     started = time.time()
+    _phase(f"processor and codec: loading from {codec_dir.name} (async load "
+           f"{'off' if os.environ.get('HF_DEACTIVATE_ASYNC_LOAD') else 'ON'})")
     # Local, pinned snapshots: passing revision= through would also reach the
     # codec's from_pretrained, where the model's sha does not exist.
     processor = AutoProcessor.from_pretrained(str(model_dir), trust_remote_code=True,
                                               codec_path=str(codec_dir))
+    _phase(f"codec loaded in {time.time() - started:.0f}s; moving it to {codec_device}")
     processor.audio_tokenizer = processor.audio_tokenizer.to(codec_device)
     codec_loaded = time.time()
+    _phase(f"model: loading ({dtype}, {attention})")
     model = AutoModel.from_pretrained(str(model_dir), trust_remote_code=True,
-                                      attn_implementation=attention, torch_dtype=dtype).to(device)
+                                      attn_implementation=attention, torch_dtype=dtype)
+    _phase(f"model loaded in {time.time() - codec_loaded:.0f}s; moving it to {device}")
+    model = model.to(device)
     model.eval()
+    faulthandler.cancel_dump_traceback_later()
+    _phase("ready")
     facts = {
         "dtype": str(dtype).replace("torch.", ""),
         "attention": attention,
@@ -230,7 +253,10 @@ def synthesize(processor: Any, model: Any, device: str, job: dict[str, Any]) -> 
     )
     batch = processor([[message]], mode="generation")
     kwargs = {name: job[name] for name in GENERATION_FIELDS if job.get(name) is not None}
+    import faulthandler
+
     started = time.time()
+    faulthandler.dump_traceback_later(STACK_DUMP_SECONDS, repeat=True, file=sys.stderr)
     with torch.no_grad():
         outputs = model.generate(
             input_ids=batch["input_ids"].to(device),
@@ -238,6 +264,8 @@ def synthesize(processor: Any, model: Any, device: str, job: dict[str, Any]) -> 
             do_sample=True,
             **kwargs,
         )
+    faulthandler.cancel_dump_traceback_later()
+    _phase(f"generated in {time.time() - started:.0f}s")
     decoded = [m for m in processor.decode(outputs) if m is not None]
     if not decoded:
         raise RuntimeError("the processor decoded no message")

@@ -4,18 +4,20 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-18 18:40, T4-image probe still RUNNING past every budget - probably stuck; see Blockers.
+Last updated: 2026-09-18 21:05 +0330 (17:35 UTC). `persian-voice-moss15` **v3
+RUNNING**, pushed 17:29:20 UTC. Do not push it again while it runs.
 
 ## Stage
 
-Development-set measurement and repair of the analysis. Not training. An
-independent review has not accepted any SOTA claim.
+Development-set measurement. MOSS-TTS-Local-Transformer-v1.5 has **no quality
+number yet**: every attempt so far stopped before its first render. No SOTA
+claim has been accepted by the independent review.
 
 ## Last healthy commit
 
-`d5fca50` plus the dataset commit after it - gated MOSS v1.5 kernel. Tree
-clean; every test passes (`.venv/bin/python -m pytest -q`); `ruff check src
-scripts tests` clean.
+`89dc14e` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
+gives 293 passed, 1 skipped (the skip needs Linux `/proc`; it runs on Kaggle
+through `runner_check.diagnostics`); `ruff check src scripts tests` clean.
 
 ## Measured (development set: 9 speakers x 3 sentences, seed 42)
 
@@ -30,90 +32,109 @@ scripts tests` clean.
 
 `scripts/compare_runs.py` gives the speaker-level intervals; CER is judged only
 inside one scoring environment (`eval/results/_provenance.json` for older files,
-`scoring_environment` in new ones).
+`scoring_environment` in new ones). Only OmniVoice - baseline clears both 0 and
+the 0.0205 reference line: +0.064 [+0.025, +0.102].
 
-## Remote jobs
+## Remote jobs (live state read 2026-09-18 20:1x and 21:00 +0330)
 
-| kernel | state | needs re-running? |
+| kernel | state | re-run? |
 |---|---|---|
-| `marsmanam/persian-voice-fish-smoke` v5 | complete | no - results pulled |
-| `marsmanam/persian-voice-higgs-smoke` v2 | complete | no - results pulled |
-| `marsmanam/persian-voice-eval-run` | complete | no |
-| `marsmanam/persian-voice-moss-run` | complete | no |
-| `marsmanam/persian-voice-moss15` v1 | complete: worker gate timed out in codec loading, all later stages skipped | no - recorded in `eval/runs/persian-voice-moss15-v1.json` |
-| `marsmanam/persian-voice-moss15` v2 | complete: worker gate timed out again, no stack dump ever printed | no - `eval/runs/persian-voice-moss15-v2.json` |
-| `marsmanam/persian-voice-moss15-probe` v1 | complete, CPU image: codec loaded in 20 s drained, 13 s inherited - hang not reproduced | no - `eval/runs/persian-voice-moss15-probe-v1.json` |
-| `marsmanam/persian-voice-moss15-probe` **v2** | **pushed ~16:27, still RUNNING at 18:35 against budgets totalling < 1 h; logs unreadable while running** | **no - see Blockers; never re-push while it runs** |
-| dataset `marsmanam/persian-voice-eval` | current: gates, float-WAV v1.5 worker, compare_runs | verified by download before the push |
+| `persian-voice-fish-smoke` v5, `-higgs-smoke` v2, `-eval-run`, `-moss-run` | complete | no - results pulled |
+| `persian-voice-moss15` v1 | complete: worker gate timed out, silent a second into the codec's progress bar | no - `eval/runs/persian-voice-moss15-v1.json` |
+| `persian-voice-moss15` v2 | complete: same, and no faulthandler dump ever appeared | no - `eval/runs/persian-voice-moss15-v2.json` |
+| `persian-voice-moss15-probe` v1 | complete, CPU image: codec loaded both ways | no - `...-probe-v1.json` |
+| `persian-voice-moss15-probe` v2 | complete, 1428 s (14:41-15:05 UTC): the worker was blocked behind the runner's display write | no - `...-probe-v2.json` + `eval/runs/evidence/moss15-probe-v2/` |
+| **`persian-voice-moss15` v3** | **RUNNING since 17:29 UTC** - runner check, download, load + one render at the official recipe, scored cell, scale control, budget; the 27-cell run only if every gate passes | **no - wait for it** |
+| dataset `persian-voice-eval` | **v12** (17:27 UTC), code at `89dc14e`; all 54 files under `src`/`scripts` verified identical by download | - |
 
-The v1.5 kernel writes `results/gates.json` whatever happens: each stage's
-pass/fail and reason. Read that before anything else. Logs: `kaggle/fetch_log.py marsmanam/<slug>`.
+v1, v2 and both probes mounted dataset v11 (code at `f21ca87`), whose runner
+had the display write inside its read loop.
 
-## This round (second review), each its own commit
+## What probe v2 established (details and every number: `eval/runs/persian-voice-moss15-probe-v2.json`, recomputed by `kaggle/analyse_probe_v2.py`)
 
-1. `79fec9d` comparison tool: no interval under 5 speakers or zero spread,
-   exact t quantile, failures/missing/non-finite/duplicate keys reported not
-   dropped, per-cell scale control, CER judged per scoring environment
-2. `56a963e` benchmark records `scoring_environment` (recogniser precision is
-   cpu/int8 on the Mac, cuda/float16 on GPU) and whether the ASR floor was
-   measured or read from cache
-3. `c13ab5c` wording: 0.0205's real provenance (dee1ace, perturbation
-   sensitivity of one render), post-hoc rule labelled, probabilistic language,
-   selection bias and channel claims narrowed, MOSS CER provenance
-4. `7944081` Kaggle log fetcher kept in the repo
-5. `0f71c71` roadmap: test set sized for one primary comparison with pilot
-   uncertainty; dev/test split; identity from sources, not encoders; MOSS v1.5
-   official recipe and licences at pinned revisions
-6. `69c17a8` multi-reference manifest: leak-free, shared evaluation pool;
-   supports only 4 of 9 speakers, so a descriptive pilot at most
+* **measured**: the runner's tee holds 187,498 bytes of the worker stage; the
+  notebook showed 123,075 of them. The 64,423 in between - less than one 64 KiB
+  read, starting exactly where the display stops - is the chunk the reader was
+  stuck writing to the notebook's raw stdout. The worker sat in `pipe_write` in
+  all 20 reports (RSS unchanged), the driver in `pipe_read`, ~29 GB free.
+  print() output kept arriving the whole time
+* **reproduced without a model**: the old reader deadlocks the same way
+  against a display nobody reads; the new runner passes the same job
+* **not established**: why the notebook's raw stdout stopped taking data in
+  that stage after carrying 640 KB earlier
+* **inference only**: v1 and v2 of the main kernel stalled the same way - they
+  kept no tee to show it
+
+## Corrections (kept as history, not erased)
+
+* The status of 18:35 +0330 called probe v2 "still RUNNING past every budget -
+  probably stuck", and the report said "more than 2 h, since about 16:27".
+  Wrong: it had run 24 minutes, inside its budgets, and was finishing. It was
+  never stopped or deleted.
+* `312b757` (bounded waits) was motivated by "a process survived SIGKILL". Probe
+  v2 shows no such thing: the group died on SIGTERM. The bounded wait stays as
+  correct engineering; it explains nothing here.
+* The probe builder assumed its T4 image had torch 2.9.1+cu128; it had
+  2.10.0+cu128. The main kernel's v1/v2 image did have 2.9.1.
+* The old runner's last line said "process group ended" whatever had happened;
+  a timeout was reported as exit -1.
+
+## This round (third review), each its own commit
+
+1. `90f2f9c` probe v2 recorded: service version and `probe.json`, run time vs
+   push time, real environment, the tee-vs-display analysis, evidence files
+   and the script that recomputes them; the probe builder marked historical
+2. `4341b0f` runner: the reader writes only to an unbuffered log file; the
+   display has its own thread, a bounded queue that drops, collapsed progress
+   bars, a byte limit plus the last 40 lines; the waiting thread never writes
+   to the display. `Run` separates timeout / exit code / signal; the group's
+   state is what happened, and members a finished command left behind are
+   ended. On Linux the monitor names the descriptor a blocked process waits
+   on. `scripts/runner_check.py` runs the stalled job, model-free, on the
+   notebook's own display before anything downloads. Every notebook
+   subprocess has its output captured
+3. `89dc14e` MOSS v1.5's official runtime (pyproject at `934d6826`): torch
+   2.9.1+cu128, torchaudio 2.9.1+cu128, transformers 5.0.0, safetensors 0.6.2
+   installed from PyTorch's cu128 index and checked - the run stops on any
+   difference; the pyproject's other pins keep the image's versions, and
+   `environment.json` lists every package against its official version
+
+Earlier rounds, for reference: second review `79fec9d` `56a963e` `c13ab5c`
+`7944081` `0f71c71` `69c17a8`; gates `d5fca50`; listening test `1a60672`
+`0795bbb`; v1.5 native archive `81cc65f`; FINDINGS on 16-bit PCM `ef8ea3b`.
 
 ## Next concrete step
 
-Read `persian-voice-moss15-probe` v2 (v1, on the CPU image, did not reproduce the hang): `results` are in `probe.json` (reading
-decided in advance in `kaggle/build_moss15_probe_kernel.py`) and the
-per-minute wait channels are in the log. Only then push the T4 kernel again
-(`kaggle/build_moss15_kernel.py`, session v3), which already runs its worker
-drained and monitored.
+When v3 ends (a background watcher reports it): `kaggle/fetch_log.py
+marsmanam/persian-voice-moss15`, then pull the output and read, in order,
+`results/gates.json`, `results/runs.json`, `results/environment.json`, and
+`logs/*.log`. Record it as `eval/runs/persian-voice-moss15-v3.json`.
 
+* runner gate fails -> the display or runner still misbehaves on Kaggle; the
+  runner-check log and descriptor report say where. Nothing downloaded
+* worker gate fails -> read `logs/worker.log`; a stall now leaves a monitor
+  report naming the blocked descriptor
+* all gates pass -> `moss15.json` is the first MOSS v1.5 number; compare with
+  `compare_runs.py` like the others. A passed smoke test is not a quality
+  verdict
 
-Wait for `persian-voice-moss15` v1; then `kaggle/fetch_log.py
-marsmanam/persian-voice-moss15` and pull `results/` (gates.json,
-moss15_smoke.json, moss15-smoke.json, baseline-moss15-env.json and, if the
-budget gate passed, moss15.json). A gate failure is a finding: record it with
-the log line, fix the cause, and only then push a new version.
+## Open
 
-Engineering since the last update: `d5fca50` stage gates (skips recorded as
-failures, verdicts defined by outputs, budget from measured time and peak
-memory), process-group timeouts, float-WAV output and peak-memory records in
-the v1.5 worker; `1a60672` blind listening-test builder and scorer (prepares
-material only - no listener has been run and nothing is scored); `ef8ea3b`
-FINDINGS records that the four older out-of-process workers wrote 16-bit PCM.
+* the official path logs a transformers 5.0.0 warning that MOSS v1.5's
+  tokenizer has "an incorrect regex pattern" and suggests
+  `fix_mistral_regex=True`. We keep the official behaviour; whether it changes
+  Persian tokenisation is unchecked - a CPU-only tokenizer comparison would
+  settle it
+* engines accept `timeout_seconds` but `_read_reply` never enforces it
+* `build_eval_corpus.py` still selects speakers with the judging ECAPA
+  (documented, not fixed)
+* the multi-reference pilot supports only 4 of 9 speakers; the listening test
+  is built but has had no listeners
+* for the user: commercial or non-commercial use; ParsVoice access (its terms
+  are the user's to accept); who could listen
 
-Review of 948d2fa, fixed: `0795bbb` listening scorer (explicit "none" for
-misread, invalid values never votes, duplicate files/listener ids counted once,
-responses bound to the test by name and key fingerprint, references from the
-runs' own provenance, a speakers x listeners bootstrap for a final test);
-`81cc65f` MOSS v1.5 native archive per session, keyed by the whole recipe,
-never overwritten. The running v1 kernel predates `81cc65f`: its native smoke
-render of cv02/s1 will be replaced by the full run's (harness renders of both
-are kept).
+## Standing limits
 
-Open, not urgent: engines accept `timeout_seconds` but `_read_reply` never
-enforces it, so a hung worker is only bounded by the kernel's process-group
-timeout, not by the engine.
-
-## Blockers and standing limits
-
-**The T4-image probe appears stuck and may hold GPU quota until Kaggle's
-session limit.** Most likely cause: the runner in its dataset waited without a
-limit after SIGKILL (fixed in `312b757`), and something it tried to end did not
-die - consistent with a process stuck below Python on the CUDA image. Stopping
-it needs the user: from the notebook page on Kaggle ("Stop session"), or by
-deleting the kernel, which is irreversible and is not done without explicit
-permission. Once it ends, its log should include the process states and wait
-channels printed at the timeout.
-
-
-No technical blocker known. No new spend, GPU purchase, acceptance of legal
-terms (e.g. ParsVoice), upload of the user's private audio, heavy local
-training/inference, or git push without the user.
+No new spend, GPU purchase, acceptance of legal terms (e.g. ParsVoice), upload
+of the user's private audio, heavy local training/inference, or git push
+without the user. Routine fixes and bounded runs in the free quota are allowed.

@@ -918,6 +918,15 @@ includes zero in this table is therefore weak evidence of no difference.
   cancel). Two raw scores that round to the same four decimals can differ by up
   to 1e-4. The encoder runs on CPU in every environment, which is consistent
   with the agreement but does not by itself prove the raw outputs identical.
+- **Out-of-process renders passed through 16-bit PCM.** The OmniVoice, Fish,
+  Higgs and Chatterbox workers write their render with soundfile's default for
+  WAV, which is 16-bit PCM, and the engine reads it back; F5 and MOSS v1.0 run
+  in-process and never do. Quantisation at 16 bits sits around -96 dBFS, far
+  below anything these renders contain, so no effect on the scores is expected
+  - but it is a difference in the processing path between engines, and it has
+  not been measured. The MOSS v1.5 worker writes 32-bit float. Changing the
+  others would change every future measurement relative to the recorded ones,
+  so it is written down here rather than done silently.
 - **One seed per configuration.** Autoregressive and flow-matching engines vary
   between seeds; the differences reported as "inside noise" would need several
   seeds each to be called *equal* rather than *not shown to differ*.

@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-18, MOSS v1.5 v1 and v2 both hung in codec loading (recorded); CPU probe running.
+Last updated: 2026-09-18, MOSS v1.5 v1/v2 hung in codec loading; CPU probe did not reproduce; T4-image probe running.
 
 ## Stage
 
@@ -42,7 +42,8 @@ inside one scoring environment (`eval/results/_provenance.json` for older files,
 | `marsmanam/persian-voice-moss-run` | complete | no |
 | `marsmanam/persian-voice-moss15` v1 | complete: worker gate timed out in codec loading, all later stages skipped | no - recorded in `eval/runs/persian-voice-moss15-v1.json` |
 | `marsmanam/persian-voice-moss15` v2 | complete: worker gate timed out again, no stack dump ever printed | no - `eval/runs/persian-voice-moss15-v2.json` |
-| `marsmanam/persian-voice-moss15-probe` **v1** | **pushed 2026-09-18, CPU only (no GPU quota), running** | **no - read `probe.json` and the wait channels first** |
+| `marsmanam/persian-voice-moss15-probe` v1 | complete, CPU image: codec loaded in 20 s drained, 13 s inherited - hang not reproduced | no - `eval/runs/persian-voice-moss15-probe-v1.json` |
+| `marsmanam/persian-voice-moss15-probe` **v2** | **pushed 2026-09-18, T4 image, ten-minute budgets, worker's full load path** | **no - read `probe.json` first** |
 | dataset `marsmanam/persian-voice-eval` | current: gates, float-WAV v1.5 worker, compare_runs | verified by download before the push |
 
 The v1.5 kernel writes `results/gates.json` whatever happens: each stage's
@@ -68,7 +69,7 @@ pass/fail and reason. Read that before anything else. Logs: `kaggle/fetch_log.py
 
 ## Next concrete step
 
-Read `persian-voice-moss15-probe` v1: `results` are in `probe.json` (reading
+Read `persian-voice-moss15-probe` v2 (v1, on the CPU image, did not reproduce the hang): `results` are in `probe.json` (reading
 decided in advance in `kaggle/build_moss15_probe_kernel.py`) and the
 per-minute wait channels are in the log. Only then push the T4 kernel again
 (`kaggle/build_moss15_kernel.py`, session v3), which already runs its worker

@@ -1,0 +1,14 @@
+{
+  "kernel": "marsmanam/persian-voice-moss15-probe",
+  "version": 1,
+  "date": "2026-09-18",
+  "box": "Kaggle CPU image: torch 2.10.0+cpu, transformers 5.0.0, 4 CPUs, 32 GB RAM, no swap",
+  "results": {
+    "drained_cold_cache": "exit 0 in 0.4 min; codec loaded in 20 s",
+    "inherited_warm_cache": "exit 0 in 0.2 min; codec loaded in 13 s",
+    "codec": "2.12B parameters, peak RSS 8.7 GiB"
+  },
+  "reading_decided_in_advance": "both finished: not reproduced on a CPU box",
+  "what_it_rules_out": "The codec load itself, on this transformers version and CPU, and an undrained pipe as a sufficient cause - the inherited-output load finished here.",
+  "what_it_does_not": "The T4 image runs torch 2.9.1+cu128 - the official pin - and the hung runs loaded through the processor, not the codec alone. Either could matter."
+}

@@ -122,7 +122,8 @@ def run_bounded(command: list[str], timeout: float | None = None, cwd: str | Non
                 timed_out = True
                 if monitor_every is not None:
                     report_group(process.pid)
-                _end_group(process, grace)
+                ending = _end_group(process, grace)
+                print(f"process group {process.pid}: {ending}", flush=True)
                 code = -1
                 break
             if monitor_every is not None:
@@ -156,12 +157,17 @@ def _group_alive(group: int) -> bool:
     return True
 
 
-def _end_group(process: subprocess.Popen, grace: float) -> None:
-    """TERM the group, give it ``grace`` seconds, then KILL what is left; reap the leader.
+def _end_group(process: subprocess.Popen, grace: float) -> str:
+    """TERM the group, give it ``grace`` seconds, KILL what is left; never wait without a limit.
 
     start_new_session makes the child the leader of a group containing only it
     and whatever it spawned, so this reaches the worker a driver started and
     nothing outside the job.
+
+    Every wait here is bounded. A process in uninterruptible sleep - stuck in a
+    driver or on I/O - does not die even on SIGKILL, and an unbounded wait for
+    it would hang the notebook instead of letting the next cell record what
+    happened. So after the last grace period this reports and returns.
     """
     group = process.pid
     for sig in (signal.SIGTERM, signal.SIGKILL):
@@ -172,9 +178,13 @@ def _end_group(process: subprocess.Popen, grace: float) -> None:
         deadline = time.time() + grace
         while time.time() < deadline:
             if process.poll() is not None and not _group_alive(group):
-                return
+                return "ended"
             time.sleep(0.1)
-    process.wait()
+    try:
+        process.wait(timeout=grace)
+    except subprocess.TimeoutExpired:
+        return "still alive after SIGKILL - probably in uninterruptible sleep; left behind"
+    return "ended" if not _group_alive(group) else "leader ended, group members still alive"
 
 
 def worker_verdict(code: int, timed_out: bool, render: Path, smoke: Path,

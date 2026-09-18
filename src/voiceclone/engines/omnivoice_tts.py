@@ -174,6 +174,7 @@ class OmniVoiceEngine(TTSEngine):
         self._sample_rate = int(ready.get("sample_rate", 24000))
         self._loaded_device = str(ready.get("device", "unknown"))
         self._loaded_dtype = str(ready.get("dtype", "unknown"))
+        self._loaded_model = {"model": ready.get("model"), "revision": ready.get("revision")}
         self._tempdir = tempfile.TemporaryDirectory(prefix="voiceclone_omnivoice_")
         if self._loaded_device != str(self.device.device) or self._loaded_dtype != settings.dtype:
             log.warning(
@@ -288,6 +289,7 @@ class OmniVoiceEngine(TTSEngine):
             engine=self.name,
             seed=used_seed,
             metadata={
+                **getattr(self, "_loaded_model", {}),
                 "device": self._loaded_device,
                 "dtype": self._loaded_dtype,
                 "language": job["language"],

@@ -297,6 +297,33 @@ class HiggsConfig:
 
 
 @dataclass
+class Moss15Config:
+    """MOSS-TTS-Local-Transformer-v1.5, out-of-process, at its official recipe.
+
+    Model, codec and code revisions are pinned in `scripts/moss15_worker.py`,
+    where the remote code that runs was read. Sampling values are the card's
+    recommended ones. The language tag for Persian is not documented; "Persian"
+    follows the card's examples ("French", "Chinese") and every result records
+    it as an inference.
+    """
+
+    python: str | None = "auto"
+    language: str = "Persian"
+    audio_temperature: float = 1.7
+    audio_top_p: float = 0.8
+    audio_top_k: int = 25
+    audio_repetition_penalty: float = 1.0
+    max_new_tokens: int = 4096
+    #: "auto" puts the codec on a second GPU when there is one - placement, not
+    #: precision.
+    codec_device: str = "auto"
+    #: Where native 48 kHz stereo renders are kept, with an index tying each to
+    #: its text, seed and reference.
+    native_dir: str = "outputs/native/moss15"
+    timeout_seconds: int = 1800
+
+
+@dataclass
 class SeedVCConfig:
     repo_path: str | None = "auto"
     python: str | None = "auto"
@@ -319,6 +346,7 @@ class EnginesConfig:
     omnivoice: OmniVoiceConfig = field(default_factory=OmniVoiceConfig)
     fish: FishS2Config = field(default_factory=FishS2Config)
     higgs: HiggsConfig = field(default_factory=HiggsConfig)
+    moss15: Moss15Config = field(default_factory=Moss15Config)
     asr: ASRConfig = field(default_factory=ASRConfig)
     seedvc: SeedVCConfig = field(default_factory=SeedVCConfig)
 

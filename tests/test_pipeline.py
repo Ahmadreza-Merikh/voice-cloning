@@ -489,9 +489,10 @@ class TestSimilarityVerdicts:
 
     ECAPA-TDNN on CPU, every clip through the same peak-normalising path:
     different speakers average 0.132 and never exceed 0.508 over 900 pairs, two
-    different clips of one speaker average 0.689 over 90. A clone reproduces its
-    prompt's channel, so scoring it against that prompt adds 0.11 to 0.16 and
-    says nothing about identity.
+    different clips of one speaker average 0.689 over 90. Scoring a clone
+    against its own prompt adds 0.11 to 0.16 over scoring it against the
+    speaker's other clips, so that comparison cannot speak to identity - why it
+    adds that much is not established.
     """
 
     def test_the_constants_match_the_calibration_that_was_measured(self) -> None:

@@ -388,8 +388,9 @@ conditioned on:
 
 **Pronunciation is not where the quality is going.** The renders are *more*
 intelligible than the human recordings they are measured against. The gap is
-identity: 0.520 sits 0.170 below the human ceiling, eight times the encoder's
-0.0205 noise, and inside the band where different speakers still occur.
+identity: 0.520 sits 0.170 below the human ceiling, eight times the 0.0205
+perturbation-sensitivity figure (what that figure is and is not: FINDINGS §8),
+and inside the band where different speakers still occur.
 
 Things that did **not** move it (each run changes exactly one thing, same
 corpus, sentences, seed and device):
@@ -404,8 +405,8 @@ corpus, sentences, seed and device):
 | `nfe_step: 64` | 0.517 | −0.003 |
 | ASR reference transcripts | 0.514 | −0.005 |
 
-**Six configurations span 0.014 — narrower than the encoder's own 0.0205
-noise.** Nothing on the inference side moves identity transfer. Reference
+**Six configurations span 0.014 — narrower than the 0.0205
+perturbation-sensitivity figure.** Nothing on the inference side moves identity transfer. Reference
 preprocessing was not the problem either: it moves a clip's speaker embedding
 by only 0.037 (0.963 self-similarity), and `denoise: auto` already resolves to
 a no-op on clean audio.
@@ -431,8 +432,10 @@ Continuing the checkpoint on **2739 speakers, 12.47 h** of Common Voice Persian
 | finetuned | 0.539 | 2.7% | +0.0199, 4.4 SE |
 | **finetuned + best-of-4** | **0.546** | **2.2%** | **+0.0266, 4.6 SE** |
 
-The full stack is the first configuration to clear the pre-registered
-threshold of 0.0205, and CER does not pay for it. The CER column moves in the
+The full stack is the first configuration to clear the 0.0205 reference line
+(fixed before the benchmark existed, commit `dee1ace`; per-speaker intervals in
+FINDINGS §8 put this difference at [+0.015, +0.038], clear of 0 but overlapping
+that line), and CER does not pay for it. The CER column moves in the
 right direction, but re-scoring identical audio shifts it on its own, so these
 tenths sit at the recogniser's resolution rather than above it — see the caveat
 in FINDINGS §9. Paired over the same 27 cells it changed every one, improving

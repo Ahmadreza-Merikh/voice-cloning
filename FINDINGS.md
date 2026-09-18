@@ -28,7 +28,7 @@ recordings it was never conditioned on:
 
 The renders come back *more* intelligible than the human recordings they are
 measured against. Meanwhile similarity sits 0.170 below the human ceiling —
-eight times the encoder's 0.0205 noise — and inside the band where genuinely
+eight times the 0.0205 perturbation-sensitivity figure (§8) — and inside the band where genuinely
 different speakers still occur.
 
 Any further effort spent on Persian text handling is spent on the axis that is
@@ -100,7 +100,7 @@ the named flag differs.
 | ASR reference transcripts | 0.514 | −0.005 | 3.1% | inside noise |
 
 **Every F5 knob is inert.** Six configurations span 0.510 to 0.524 — a range of
-0.014, smaller than the encoder's own 0.0205 noise. Nothing available on the
+0.014, smaller than the 0.0205 perturbation-sensitivity figure (§8). Nothing available on the
 inference side moves identity transfer, which is what one would expect if the
 limit is the model rather than how it is being driven. Doubling the ODE budget
 from 32 to 64 does not help either, so the flow-matching solver is not the
@@ -113,7 +113,7 @@ bottleneck.
 | baseline (one take) | 0.520 | 2.9% | 15 min |
 | best-of-4 | **0.533** | 2.8% | 60 min |
 
-The aggregate difference is +0.014, *below* the 0.0205 noise figure — but that
+The aggregate difference is +0.014, *below* the 0.0205 perturbation-sensitivity figure — but that
 figure bounds a single render comparison, and these two runs are **paired**: same
 speakers, same sentences, same seeds. Best-of-4 renders seed 42 as one of its
 four takes, so whenever seed 42 was already the best take the result is an exact
@@ -262,8 +262,8 @@ Paired over the same 27 cells — same speakers, sentences and seed:
 | worse | 4 — mean −0.021, worst −0.030 |
 | unchanged | 0 |
 
-**On the pre-registered threshold: the aggregate misses it, by 0.0006.** The
-rule set in advance was a move larger than 0.0205, and +0.0199 is not that. What
+**On the threshold fixed before the benchmark existed (commit `dee1ace`, 2026-07-30): the aggregate misses it, by 0.0006.** The
+rule was a move larger than 0.0205, and +0.0199 is not that. What
 that figure bounds, though, is a *single* render comparison; the paired mean over
 27 cells has a standard error of 0.0045, and the effect sits 4.4 of them from
 zero. Twenty-three of twenty-seven cells improved. The distinction between an
@@ -321,7 +321,7 @@ They do stack, and they overlap.
 | finetuned | 0.539 | 2.7% | +0.0199, 4.4 SE |
 | **finetuned + best-of-4** | **0.546** | **2.2%** | **+0.0266, 4.6 SE** |
 
-The full stack is the first configuration to clear the pre-registered 0.0205
+The full stack is the first configuration to clear the 0.0205
 threshold outright, and CER does not pay for it. The CER column moves the way a
 CER-ranked selector on better weights should, but that reading is weaker than it
 looks: re-scoring identical audio moves the aggregate by itself (§9), and one
@@ -537,7 +537,7 @@ scored on what that clip actually achieved:
 | oracle | +0.0272 | 100% | 8 of 8 |
 
 The best rule captures **27% of the available gain and lands at +0.007 — a third
-of the encoder's own noise.** A rank correlation of +0.575 over four clips still
+of the 0.0205 perturbation-sensitivity figure (§8).** A rank correlation of +0.575 over four clips still
 puts the wrong one first most of the time, and only the first pick ships.
 
 Note also that the strongest correlation and the best realised gain are
@@ -681,7 +681,7 @@ one machine, so the comparison is paired cell by cell.
 | F5 continued + best-of-4 | 0.546 | +0.0371, 3.4 SE, better in 22/27 | 2.7% |
 | **OmniVoice, single take** | **0.583** | — | 2.6% |
 
-All three gaps clear the pre-registered 0.0205 threshold; against the strongest
+All three gaps clear the 0.0205 reference line at the cell level (§8 redoes this per speaker); against the strongest
 F5 configuration the margin is about 1.8× the encoder's noise. Per speaker
 OmniVoice wins seven of nine, losing only `cv02` by 0.016 and `cv03` by 0.006.
 On the calibrated scale it sits at 81% of the way from stranger to same person,
@@ -715,8 +715,9 @@ this document got wrong until it was checked. The same check found that the F5
 base this project has been continuing is CC-BY-NC-4.0 as well. What this project contributed is the instrument that could tell.
 The honest comparison is uncomfortable: nine GPU-hours of continuation on 2739
 speakers bought +0.027, and changing the base model bought +0.037 for free -
-both of them differences whose *direction* is established and whose *size* is
-not, once the statistics are done per speaker rather than per cell (below).
+both with speaker-level intervals that exclude zero but overlap the 0.0205
+reference line, once the statistics are done per speaker rather than per cell
+(below).
 On this corpus, choosing the base mattered more than tuning it — and the only
 reason the better base was found at all is that the landscape was checked live
 instead of recalled.
@@ -814,47 +815,71 @@ under-5 claim, is the only evidence available that the port is faithful.
 | Run | Held-out | share of own ceiling | CER | licence of the weights |
 |---|---|---|---|---|
 | **OmniVoice** | **0.583** | 84.8% | 2.6% | CC-BY-NC |
-| MOSS-TTS (older variant) | 0.559 | 81.2% | not transcribed | Apache-2.0 |
+| MOSS-TTS (older variant) | 0.559 | 81.2% | 6.5%, scored on the Mac | Apache-2.0 |
 | F5 continued + best-of-4 | 0.546 | 79.2% | 2.2% | base is CC-BY-NC |
 | Fish S2 Pro | 0.537 | 77.7% | **9.5%** | research only |
 | Higgs TTS 3 | 0.531 | 77.3% | 2.9% | research only |
 | F5 baseline | 0.520 | 75.2% | 2.9% | base is CC-BY-NC |
 
-Neither new candidate changes the ordering. Higgs and Fish both sit inside the
-band this test cannot separate: against the best F5 configuration, Higgs is
--0.015 [-0.048, +0.018] and Fish -0.009 [-0.036, +0.018]. What Fish does show
-is a resolved *pronunciation* gap - +7.4 points of CER against the best F5,
-[+4.8, +9.9], worse in all nine speakers - which matches its own model card
-putting Persian in the third tier behind ten other languages.
+Neither new candidate changes the ordering. Against the best F5
+configuration, Higgs is -0.015 [-0.048, +0.018] and Fish -0.009 [-0.036,
++0.018]: both intervals include zero, and with nine speakers that is weak
+evidence either way (below).
+
+CER is only compared inside one scoring environment (§9), and each Kaggle
+kernel re-scored the F5 baseline renders in its own session, which gives every
+remote run a same-environment comparator. Against it, Fish is +6.4 CER points
+[+4.2, +8.6] - worse for all nine speakers, consistent with its own model card
+putting Persian in the third tier - while Higgs (-0.2 [-1.4, +0.9]) and
+OmniVoice (-0.5 [-1.5, +0.5]) have intervals that include zero. The CER
+columns above mix environments: MOSS's 6.5% was scored on this Mac from the
+Kaggle renders (`moss-local`, because no recogniser fit beside MOSS on the
+card), and against the Mac-scored baseline it is +3.7 points [+1.7, +5.6].
+`eval/results/_provenance.json` records where every run was scored and why.
 
 ### What the statistics actually support
 
 Every comparison above was previously reported over 27 cells as if they were 27
 independent observations. They are not: three cells share a speaker, a
-reference clip and a voice. Averaging each speaker's three cells and working
-with the nine speaker differences - `scripts/compare_runs.py` - roughly doubles
-every interval:
+reference clip and a voice. `scripts/compare_runs.py` now averages each
+speaker's cells and puts a t interval over the nine speaker differences, which
+roughly doubles every interval. This rule was adopted on 2026-09-18, after the
+results below had been seen; it is a correction, not a pre-registration.
 
-| comparison | speaker mean | 95% interval | non-zero | above 0.0205 |
+| comparison | speaker mean | 95% interval | interval vs 0 | interval vs +/-0.0205 |
 |---|---|---|---|---|
-| OmniVoice - F5 baseline | +0.064 | [+0.025, +0.102] | yes | yes |
-| OmniVoice - Higgs | +0.052 | [+0.012, +0.093] | yes | no |
-| OmniVoice - Fish | +0.046 | [+0.011, +0.082] | yes | no |
-| OmniVoice - best F5 | +0.037 | [+0.005, +0.069] | yes | no |
-| MOSS - F5 baseline | +0.039 | [+0.007, +0.071] | yes | no |
-| best F5 - F5 baseline | +0.027 | [+0.015, +0.038] | yes | no |
-| OmniVoice - MOSS | +0.025 | [-0.020, +0.069] | no | no |
-| Higgs - best F5 | -0.015 | [-0.048, +0.018] | no | no |
+| OmniVoice - F5 baseline | +0.064 | [+0.025, +0.102] | excludes 0 | clear of it |
+| OmniVoice - Higgs | +0.052 | [+0.012, +0.093] | excludes 0 | overlaps it |
+| OmniVoice - Fish | +0.046 | [+0.011, +0.082] | excludes 0 | overlaps it |
+| OmniVoice - best F5 | +0.037 | [+0.005, +0.069] | excludes 0 | overlaps it |
+| MOSS - F5 baseline | +0.039 | [+0.007, +0.071] | excludes 0 | overlaps it |
+| best F5 - F5 baseline | +0.027 | [+0.015, +0.038] | excludes 0 | overlaps it |
+| OmniVoice - MOSS | +0.025 | [-0.020, +0.069] | includes 0 | - |
+| Higgs - best F5 | -0.015 | [-0.048, +0.018] | includes 0 | - |
 
-**One comparison in the project clears both bars**: OmniVoice over the F5
-baseline. Four that were reported as resolved at three to five cell-level
-standard errors now establish a direction and not a size. The two bars are
-separate questions and only the first is statistical - 0.0205 is this encoder's
-spread on re-scoring, and nobody has shown a listener can or cannot hear a pair
-that far apart.
+How to read it. An interval that excludes 0 means the data would be unusual if
+the true difference were zero, for these nine speakers; it is not a proof of
+direction, and with the other comparisons in the table some such result is
+expected by chance. Only the first row's interval also clears +/-0.0205.
 
-Nothing here says two engines are *equal*. With nine speakers this design
-cannot see a difference below about 0.04, which is most of the table.
+What 0.0205 is matters here, because earlier versions of this document called
+it "the encoder's noise". It is the largest change in ECAPA score measured
+across identity-preserving perturbations of **one** render - 85-95% crops,
++/-1 dB of gain, dither at -60 dBFS - with sd 0.0055, recorded on 2026-07-30 in
+commit `dee1ace`, four days before the benchmark produced its first result.
+So its value was not chosen by looking at benchmark results. But it is a
+sensitivity figure from a single render: it is not re-scoring repeatability
+(re-scoring identical audio reproduces every cell), not seed-to-seed
+generation variance, not clip-to-clip variance, and not a threshold anyone has
+shown a listener can or cannot hear. It is kept as a practical reference line,
+not a decision bar with a measured justification.
+
+Nothing here says two engines are equal. The design is weak: taking the
+speaker-level spread of paired differences as about 0.048, nine speakers give
+roughly a 59% chance of an interval excluding zero if the true difference is
+0.04, 38% at 0.03 and 20% at 0.02 - and that spread is itself estimated from
+nine speakers, with a 95% interval of about [0.032, 0.092]. An interval that
+includes zero in this table is therefore weak evidence of no difference.
 
 ## 9. Caveats
 
@@ -866,8 +891,11 @@ cannot see a difference below about 0.04, which is most of the table.
   person, and one candidate's own two clips scored 0.099 against each other -
   but it is selection on the outcome variable. It pushes the ceiling up and the
   floor down relative to an unselected sample, so "84.8% of the human ceiling"
-  is a statement about nine speakers who passed an ECAPA coherence test. It
-  does not bias engine comparisons, which all meet the same speakers. And a
+  is a statement about nine speakers who passed an ECAPA coherence test.
+  Comparing engines on this set is still well-defined - they all meet the same
+  speakers - but it is conditional on the set: a selection made by this encoder
+  can favour whichever engine best preserves what this encoder listens to, so
+  neither the ranking nor its generalisation is protected from the bias. And a
   speaker dropped for incoherence may be a failure of the encoder on that audio
   rather than evidence that the account is two people; the record should not
   say which.
@@ -875,16 +903,21 @@ cannot see a difference below about 0.04, which is most of the table.
   Common Voice publishes no session field. Earlier versions of this project
   labelled every clip its own session and carried a same-session band of 0.800
   into `results.py`; what is actually evidenced is "a different clip by the
-  same speaker". The channel effect itself is still measured directly: across
-  five engines a render scores 0.11 to 0.16 higher against the clip it was
-  conditioned on than against that speaker's other recordings.
+  same speaker". What is measured directly is a gap: across five engines a
+  render scores 0.11 to 0.16 higher against the clip it was conditioned on
+  than against that speaker's other recordings. That the gap is recording
+  channel, and that it is the same mechanism in every engine, are hypotheses.
 - **Cells are clustered, and the intervals in §8 now say so.** Three cells
   share a speaker; nine share a sentence. Every statistic here is over nine
   speaker-level differences, not 27 cell-level ones.
 - **Scores are recorded to four decimals.** `benchmark.py` rounds each cell's
   similarity before writing it, and a run mean is the mean of those rounded
   numbers. Where this document says two scorings agree "exactly", what is
-  demonstrated is that the rounded cells matched - agreement within 5e-5 a cell.
+  demonstrated is that every rounded cell matched, checked cell by cell by key
+  since `79fec9d` (equal means alone prove nothing - opposite differences
+  cancel). Two raw scores that round to the same four decimals can differ by up
+  to 1e-4. The encoder runs on CPU in every environment, which is consistent
+  with the agreement but does not by itself prove the raw outputs identical.
 - **One seed per configuration.** Autoregressive and flow-matching engines vary
   between seeds; the differences reported as "inside noise" would need several
   seeds each to be called *equal* rather than *not shown to differ*.
@@ -928,8 +961,11 @@ cannot see a difference below about 0.04, which is most of the table.
   different builds of the recogniser, or the machine it runs on. The similarity
   half of this has a mechanism, found later in the code rather than inferred:
   `evaluation/similarity.py` loads the encoder with `run_opts={"device": "cpu"}`,
-  so `--device cuda` never reaches the scoring path and no GPU arithmetic is
-  involved in any similarity number in this document. The practical
+  so `--device cuda` never reaches the similarity path. The CER half has one
+  too, and it retires the vaguer explanation above: `engines/asr.py` runs the
+  recogniser as cpu/int8 without a GPU and cuda/float16 with one, so Mac and
+  CUDA CER were never the same measurement. Each run now records this
+  (`scoring_environment`, since `56a963e`). The practical
   rule is therefore narrower than "CER is noisy". CER may be compared between
   runs scored on the *same* machine, and never across machines. Similarity may
   be compared anywhere — it reproduced exactly in every test of both kinds.

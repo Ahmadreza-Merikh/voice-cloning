@@ -75,7 +75,13 @@ the log line, fix the cause, and only then push a new version.
 Engineering since the last update: `d5fca50` stage gates (skips recorded as
 failures, verdicts defined by outputs, budget from measured time and peak
 memory), process-group timeouts, float-WAV output and peak-memory records in
-the v1.5 worker.
+the v1.5 worker; `1a60672` blind listening-test builder and scorer (prepares
+material only - no listener has been run and nothing is scored); `ef8ea3b`
+FINDINGS records that the four older out-of-process workers wrote 16-bit PCM.
+
+Open, not urgent: engines accept `timeout_seconds` but `_read_reply` never
+enforces it, so a hung worker is only bounded by the kernel's process-group
+timeout, not by the engine.
 
 ## Blockers and standing limits
 

@@ -1,0 +1,127 @@
+{
+  "_what": "Where each results file was SCORED, for files written before benchmark.py recorded it. CER may only be compared inside one environment (FINDINGS section 9). Each Kaggle kernel session is its own environment: separate installs, separate pip resolutions.",
+  "_asr_floor": "recogniser_floor in every file below is the cached eval/results/_asr_floor.json, measured once on this Mac and shipped to every kernel in the dataset. It was never re-measured remotely, so the remote runs report the Mac's floor, not their own.",
+  "_mac_caveat": "'mac:project-venv' spans 2026-08-03 to 2026-09-16; package versions were not recorded, and re-scoring on this Mac reproduced CER in 25 of 27 cells, so Mac-to-Mac CER differences of a few tenths are inside that instability.",
+  "runs": {
+    "asr-transcript": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "baseline": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "baseline-fish-env": {
+      "environment": "kaggle:persian-voice-fish-smoke-v5@2026-09-17",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "baseline-higgs-env": {
+      "environment": "kaggle:persian-voice-higgs-smoke-v2@2026-09-17",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "baseline-moss-env": {
+      "environment": "kaggle:persian-voice-moss-run@2026-09-15",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "baseline-remote": {
+      "environment": "kaggle:persian-voice-eval-run@2026-09-12",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "bestof4": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "cfg15": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "cfg25": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "chatterbox-base": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "chatterbox-enprobe": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "denoise-off": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "finetuned": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "finetuned-bestof4": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "finetuned-bestof4-remote": {
+      "environment": "kaggle:persian-voice-eval-run@2026-09-12",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "finetuned-ref1": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "finetuned-ref2": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "finetuned-ref3": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "finetuned-ref4": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "finetuned-remote": {
+      "environment": "kaggle:persian-voice-eval-run@2026-09-12",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "fish": {
+      "environment": "kaggle:persian-voice-fish-smoke-v5@2026-09-17",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "fish-smoke": {
+      "environment": "kaggle:persian-voice-fish-smoke-v5@2026-09-17",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "higgs": {
+      "environment": "kaggle:persian-voice-higgs-smoke-v2@2026-09-17",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "higgs-smoke": {
+      "environment": "kaggle:persian-voice-higgs-smoke-v2@2026-09-17",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "moss": {
+      "environment": "kaggle:persian-voice-moss-run@2026-09-15",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "moss-local": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "nfe64": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "omnivoice": {
+      "environment": "kaggle:persian-voice-eval-run@2026-09-12",
+      "evidence": "config.device cuda; created within minutes of the other runs of the same kernel session, which re-scored the baseline there"
+    },
+    "omnivoice-local": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    },
+    "trim-off": {
+      "environment": "mac:project-venv",
+      "evidence": "config.device is mps or auto; scored on this Mac"
+    }
+  }
+}

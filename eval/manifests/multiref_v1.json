@@ -1,0 +1,243 @@
+{
+  "name": "multiref_v1",
+  "built_by": "scripts/build_multiref_manifest.py",
+  "set": "development - the nine benchmark speakers; never a test set",
+  "texts": [
+    "s1",
+    "s2",
+    "s3"
+  ],
+  "seeds": [
+    42,
+    43
+  ],
+  "generation_budget": "each engine's configured defaults in configs/default.yaml at the commit that renders; identical across conditions",
+  "reference_transcripts": "the corpus transcripts of whole clips; a multi prompt uses the two joined with a space, in clip order",
+  "contrasts": {
+    "multi-YZ vs single-A": "about the same length; different source clips",
+    "multi-YZ vs single-Y": "same first clip; about twice the length"
+  },
+  "rules": [
+    "no clip in any condition's prompt is ever in that speaker's evaluation_clips",
+    "every condition of a speaker is scored against the same evaluation_clips",
+    "an engine is not run on a condition listed in inapplicable_for_engine; the prompt is never cut to fit, because that would be a different condition"
+  ],
+  "known_limits": [
+    "equal speech budgets need cuts inside utterances, which the corpus cannot support with exact transcripts; lengths are matched on whole clips within 15% instead",
+    "two evaluation clips per speaker instead of the benchmark's four, so held-out scores here are noisier than the benchmark's and not comparable to them"
+  ],
+  "tolerance": 0.15,
+  "engine_prompt_limits_declared": {
+    "chatterbox": null,
+    "f5": 11.5,
+    "fish": null,
+    "higgs": null,
+    "moss": null,
+    "omnivoice": null
+  },
+  "speakers": {
+    "cv02": {
+      "evaluation_clips": [
+        "cv02_001.wav",
+        "cv02_002.wav"
+      ],
+      "conditions": {
+        "single-A": {
+          "clips": [
+            {
+              "file": "cv02_000.wav",
+              "seconds": 9.888,
+              "transcript": "چیزی که مساله را سختتر هم میکند آنکه، اغلب تنها گواه آنچه بر ما رفتهاست، خاطرات ما هستند"
+            }
+          ],
+          "seconds": 9.888,
+          "transcript": "چیزی که مساله را سختتر هم میکند آنکه، اغلب تنها گواه آنچه بر ما رفتهاست، خاطرات ما هستند"
+        },
+        "multi-YZ": {
+          "clips": [
+            {
+              "file": "cv02_003.wav",
+              "seconds": 5.76,
+              "transcript": "بازی دوستانه ی مفیدی رو با کشورای دیگه برگزار کردیم"
+            },
+            {
+              "file": "cv02_004.wav",
+              "seconds": 5.16,
+              "transcript": "من نمی خوام الان جوابمو بدین."
+            }
+          ],
+          "gap_seconds": 0.3,
+          "seconds": 11.22,
+          "transcript": "بازی دوستانه ی مفیدی رو با کشورای دیگه برگزار کردیم من نمی خوام الان جوابمو بدین."
+        },
+        "single-Y": {
+          "clips": [
+            {
+              "file": "cv02_003.wav",
+              "seconds": 5.76,
+              "transcript": "بازی دوستانه ی مفیدی رو با کشورای دیگه برگزار کردیم"
+            }
+          ],
+          "seconds": 5.76,
+          "transcript": "بازی دوستانه ی مفیدی رو با کشورای دیگه برگزار کردیم"
+        }
+      },
+      "length_mismatch_multi_vs_single_A": 0.1347,
+      "inapplicable_for_engine": {}
+    },
+    "cv07": {
+      "evaluation_clips": [
+        "cv07_001.wav",
+        "cv07_004.wav"
+      ],
+      "conditions": {
+        "single-A": {
+          "clips": [
+            {
+              "file": "cv07_000.wav",
+              "seconds": 9.216,
+              "transcript": "بازی مثل نیمه اول تند نبود ملایم تر بود ، فشار هم کمتر بود رو ایران ولی این کافی نبود"
+            }
+          ],
+          "seconds": 9.216,
+          "transcript": "بازی مثل نیمه اول تند نبود ملایم تر بود ، فشار هم کمتر بود رو ایران ولی این کافی نبود"
+        },
+        "multi-YZ": {
+          "clips": [
+            {
+              "file": "cv07_002.wav",
+              "seconds": 4.464,
+              "transcript": "منم تو آینده ات هستم؟"
+            },
+            {
+              "file": "cv07_003.wav",
+              "seconds": 4.296,
+              "transcript": "ببین تو اشتباه نمیکنی"
+            }
+          ],
+          "gap_seconds": 0.3,
+          "seconds": 9.06,
+          "transcript": "منم تو آینده ات هستم؟ ببین تو اشتباه نمیکنی"
+        },
+        "single-Y": {
+          "clips": [
+            {
+              "file": "cv07_002.wav",
+              "seconds": 4.464,
+              "transcript": "منم تو آینده ات هستم؟"
+            }
+          ],
+          "seconds": 4.464,
+          "transcript": "منم تو آینده ات هستم؟"
+        }
+      },
+      "length_mismatch_multi_vs_single_A": 0.0169,
+      "inapplicable_for_engine": {}
+    },
+    "cv08": {
+      "evaluation_clips": [
+        "cv08_001.wav",
+        "cv08_003.wav"
+      ],
+      "conditions": {
+        "single-A": {
+          "clips": [
+            {
+              "file": "cv08_000.wav",
+              "seconds": 9.216,
+              "transcript": "اینکه از خودم گذشتم به خاطربچه هام، برای خودم چیزی نخریدم اماهمیشه واسه بچه هام هزینه کردم"
+            }
+          ],
+          "seconds": 9.216,
+          "transcript": "اینکه از خودم گذشتم به خاطربچه هام، برای خودم چیزی نخریدم اماهمیشه واسه بچه هام هزینه کردم"
+        },
+        "multi-YZ": {
+          "clips": [
+            {
+              "file": "cv08_002.wav",
+              "seconds": 5.376,
+              "transcript": "بدون آنکه باز سوالی کرده باشم با عصبانیت شروع کرد"
+            },
+            {
+              "file": "cv08_004.wav",
+              "seconds": 3.936,
+              "transcript": "حالا خوبه فرش ننداختیم تو آشپزخونه"
+            }
+          ],
+          "gap_seconds": 0.3,
+          "seconds": 9.612,
+          "transcript": "بدون آنکه باز سوالی کرده باشم با عصبانیت شروع کرد حالا خوبه فرش ننداختیم تو آشپزخونه"
+        },
+        "single-Y": {
+          "clips": [
+            {
+              "file": "cv08_002.wav",
+              "seconds": 5.376,
+              "transcript": "بدون آنکه باز سوالی کرده باشم با عصبانیت شروع کرد"
+            }
+          ],
+          "seconds": 5.376,
+          "transcript": "بدون آنکه باز سوالی کرده باشم با عصبانیت شروع کرد"
+        }
+      },
+      "length_mismatch_multi_vs_single_A": 0.043,
+      "inapplicable_for_engine": {}
+    },
+    "cv10": {
+      "evaluation_clips": [
+        "cv10_001.wav",
+        "cv10_002.wav"
+      ],
+      "conditions": {
+        "single-A": {
+          "clips": [
+            {
+              "file": "cv10_000.wav",
+              "seconds": 9.072,
+              "transcript": "هیچ توری به زبان استونی وجود دارد؟"
+            }
+          ],
+          "seconds": 9.072,
+          "transcript": "هیچ توری به زبان استونی وجود دارد؟"
+        },
+        "multi-YZ": {
+          "clips": [
+            {
+              "file": "cv10_003.wav",
+              "seconds": 4.896,
+              "transcript": "امکان دارد لطفا یک اتاق بزرگتر به من نشان دهید؟"
+            },
+            {
+              "file": "cv10_004.wav",
+              "seconds": 4.728,
+              "transcript": "برای بهترین سوپ در بروسل کجا می روید؟"
+            }
+          ],
+          "gap_seconds": 0.3,
+          "seconds": 9.924,
+          "transcript": "امکان دارد لطفا یک اتاق بزرگتر به من نشان دهید؟ برای بهترین سوپ در بروسل کجا می روید؟"
+        },
+        "single-Y": {
+          "clips": [
+            {
+              "file": "cv10_003.wav",
+              "seconds": 4.896,
+              "transcript": "امکان دارد لطفا یک اتاق بزرگتر به من نشان دهید؟"
+            }
+          ],
+          "seconds": 4.896,
+          "transcript": "امکان دارد لطفا یک اتاق بزرگتر به من نشان دهید؟"
+        }
+      },
+      "length_mismatch_multi_vs_single_A": 0.0939,
+      "inapplicable_for_engine": {}
+    }
+  },
+  "excluded": {
+    "cv03": "closest pair of clips is 13.07s against a 9.82s reference, 33% apart (tolerance 15%)",
+    "cv04": "closest pair of clips is 13.91s against a 9.65s reference, 44% apart (tolerance 15%)",
+    "cv09": "closest pair of clips is 12.11s against a 9.22s reference, 31% apart (tolerance 15%)",
+    "cv11": "closest pair of clips is 14.15s against a 8.90s reference, 59% apart (tolerance 15%)",
+    "mana": "closest pair of clips is 23.32s against a 11.89s reference, 96% apart (tolerance 15%)"
+  }
+}

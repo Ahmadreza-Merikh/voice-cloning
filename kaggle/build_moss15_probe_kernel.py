@@ -1,13 +1,25 @@
 #!/usr/bin/env python3
-"""Generate a Kaggle notebook that tests why MOSS v1.5's codec load goes silent.
+"""Historical: the notebook behind the two MOSS v1.5 load probes of 2026-09-18.
+
+Kept as the record of what ran, not as something to run again. It was built
+against ``scripts/kernel_gates.py`` as of commit fa7578f - whose ``tee`` and
+``drain`` arguments no longer exist - and its results are in
+eval/runs/persian-voice-moss15-probe-v1.json and -v2.json. Two statements
+below turned out wrong and are corrected here rather than silently edited:
+
+* v2 did not get "the T4 image's 2.9.1+cu128". It got torch 2.10.0+cu128; the
+  main kernel's v1 and v2 had 2.9.1+cu128. The two kernels ran on different
+  images, so v2 did not reproduce v1/v2's environment exactly
+* the readings decided in advance did not include the cause v2 found: the
+  worker path did not hang in loading - the runner's reader was stuck writing
+  to the notebook display, and the worker was blocked writing progress output
+  behind it (see the v2 record)
 
 Version 1 of this probe ran on the CPU image and could not reproduce the hang:
-the codec loaded in 20 s drained and 13 s inherited (eval/runs/). But that image
-has torch 2.10.0+cpu, and the hung runs had the T4 image's 2.9.1+cu128 - the
-official pin - and loaded through the processor, not the codec alone. Version 2
-runs the same two loads on the T4 image with short budgets, then the worker's
-own full load path, drained and monitored. What each outcome means is written
-in the VERDICT cell before running. The original rationale follows.
+the codec loaded in 20 s drained and 13 s inherited (eval/runs/). Version 2
+ran the same two loads on a T4 image with short budgets, then the worker's own
+full load path, drained and monitored. What each outcome meant was written in
+the VERDICT cell before running. The original rationale follows.
 
 Two T4 runs went silent a second into loading the codec and stayed silent for
 their whole budget, and in the second one not even faulthandler - a C thread
@@ -51,8 +63,8 @@ DATASET = "persian-voice-eval"
 SLUG = "persian-voice-moss15-probe"
 
 #: v1 ran on the CPU image (torch 2.10.0+cpu) and loaded the codec fine both ways.
-#: v2 runs on the T4 image, whose torch 2.9.1+cu128 is the official pin, and adds
-#: the worker's own load path - processor, codec, model onto the GPUs.
+#: v2 ran on a T4 image - which had torch 2.10.0+cu128, not the 2.9.1+cu128 this
+#: comment first assumed - and added the worker's own load path.
 ON_GPU = True
 MODEL = "OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5"
 MODEL_REVISION = "be7766a6735b98bd793f7c79fb720b4d0f5d13b8"

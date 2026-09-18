@@ -1,88 +1,78 @@
 # Project status
 
-A handover file. It says where the work is, what is already answered, what is
-running elsewhere, and what the next concrete step is - enough for someone (or
-some later session) to resume without re-deriving any of it. No credentials.
+A handover file: where the work is, what is already answered, what is running
+elsewhere, and the next concrete step - enough to resume without re-deriving
+anything. No credentials.
 
-Last updated: 2026-09-18, after the audit pass and SOTA_ROADMAP.md.
+Last updated: 2026-09-18, after the second review's corrections (up to the
+multi-reference manifest), before MOSS v1.5.
 
 ## Stage
 
-Measuring candidate engines on one fixed benchmark, and repairing the analysis
-that the earlier measurements were reported with. Not training anything yet.
+Development-set measurement and repair of the analysis. Not training. An
+independent review has not accepted any SOTA claim.
 
 ## Last healthy commit
 
-`0c8e2ac` - "Correct the record: the licences, the statistics, and the two new
-engines". Tree clean, 228 tests pass, `ruff check src scripts tests` clean.
+`69c17a8` - multi-reference manifest. Tree clean; every test passes
+(`.venv/bin/python -m pytest -q`); `ruff check src scripts tests` clean.
 
-## What is measured
+## Measured (development set: 9 speakers x 3 sentences, seed 42)
 
-Six runs on the same 27 cells (9 speakers x 3 sentences, seed 42, one reference
-clip each), all scored by the same CPU-side ECAPA-TDNN:
-
-| run | engine | held-out | CER | where |
+| run | engine | held-out | CER | scored in |
 |---|---|---|---|---|
-| `omnivoice` | OmniVoice | 0.5833 | 2.6% | Kaggle T4 |
-| `moss` | MOSS-TTS | 0.5587 | not transcribed | Kaggle T4 |
-| `finetuned-bestof4` | F5-TTS continued | 0.5462 | 2.2% | local |
-| `fish` | Fish S2 Pro | 0.5368 | 9.5% | Kaggle T4, fp16 |
-| `higgs` | Higgs TTS 3 | 0.5312 | 2.9% | Kaggle T4, fp16, ported |
-| `baseline` | F5-TTS as found | 0.5196 | 2.9% | local |
+| `omnivoice` | OmniVoice | 0.5833 | 2.6% | kaggle eval-run 2026-09-12 |
+| `moss` / `moss-local` | MOSS v1.0 (bf16 on T4) | 0.5587 | 6.5% (Mac) | kaggle moss-run / Mac |
+| `finetuned-bestof4` | F5 continued | 0.5462 | 2.2% | Mac |
+| `fish` | Fish S2 Pro (fp16, `--half`) | 0.5368 | 9.5% | kaggle fish v5 |
+| `higgs` | Higgs TTS 3 port (fp16) | 0.5312 | 2.9% | kaggle higgs v2 |
+| `baseline` | F5 as found | 0.5196 | 2.9% | Mac |
 
-Results live in `eval/results/<label>.json`; renders in
-`outputs/benchmark/<label>/`. Compare them with:
-
-```
-.venv/bin/python scripts/compare_runs.py omnivoice fish higgs baseline
-```
-
-After clustering by speaker, exactly one comparison clears both bars:
-OmniVoice over the F5 baseline, +0.064 [+0.025, +0.102]. Everything else is a
-direction or not separable. "Not separable" is not "equal": with nine speakers
-this design cannot see a difference below about 0.04.
+`scripts/compare_runs.py` gives the speaker-level intervals; CER is judged only
+inside one scoring environment (`eval/results/_provenance.json` for older files,
+`scoring_environment` in new ones).
 
 ## Remote jobs
 
-| kernel | state | what it holds |
+| kernel | state | needs re-running? |
 |---|---|---|
-| `marsmanam/persian-voice-fish-smoke` v5 | complete | the `fish` run, 27/27 |
-| `marsmanam/persian-voice-higgs-smoke` v2 | complete | the `higgs` run, 27/27 |
-| `marsmanam/persian-voice-eval` (dataset) | current | the harness the kernels mount |
+| `marsmanam/persian-voice-fish-smoke` v5 | complete | no - results pulled |
+| `marsmanam/persian-voice-higgs-smoke` v2 | complete | no - results pulled |
+| `marsmanam/persian-voice-eval-run` | complete | no |
+| `marsmanam/persian-voice-moss-run` | complete | no |
+| dataset `marsmanam/persian-voice-eval` | current at `244c46f`-era workers | re-stage before the next kernel |
 
-Nothing is queued. Both results are already pulled into `eval/results/`, so
-neither needs re-running; a re-push would spend GPU quota for nothing.
+Nothing is queued. Logs: `kaggle/fetch_log.py marsmanam/<slug>`.
 
-Kaggle notes that cost sessions before: a dataset push must land *before* the
-kernel that mounts it, `kernels output` returns nothing while a kernel is
-running, and the log is only reachable through `api.kernels_logs`.
+## This round (second review), each its own commit
 
-## Corrections from the audit
-
-1. **done** `ed19ad0` - speaker-clustered statistics (`scripts/compare_runs.py`).
-   Only one comparison in the project still clears both bars.
-2. **done** `d134b75` - `results.py` recalibrated from the early 39-pair sample
-   to the benchmark's 900 and 90 pairs, the unevidenced session bands dropped,
-   and a test pins the constants to `eval/results/baseline.json`.
-3. **done** `0c8e2ac` - licences corrected (OmniVoice weights are CC-BY-NC, not
-   Apache-2.0; the F5 base is CC-BY-NC too), Fish and Higgs added to the record,
-   and the corpus-selection and rounding caveats written down.
-4. **open** - `scripts/build_eval_corpus.py` still selects speakers with the
-   encoder that grades the results. Documented, not fixed; fixing it means
-   admitting speakers on evidence that is not the judge, which belongs with the
-   corpus widening in SOTA_ROADMAP.md §3.
-5. **open** - only the Higgs engine pins a model revision in config. The others
-   should, now that the exact shas are recorded in SOTA_ROADMAP.md §4.
+1. `79fec9d` comparison tool: no interval under 5 speakers or zero spread,
+   exact t quantile, failures/missing/non-finite/duplicate keys reported not
+   dropped, per-cell scale control, CER judged per scoring environment
+2. `56a963e` benchmark records `scoring_environment` (recogniser precision is
+   cpu/int8 on the Mac, cuda/float16 on GPU) and whether the ASR floor was
+   measured or read from cache
+3. `c13ab5c` wording: 0.0205's real provenance (dee1ace, perturbation
+   sensitivity of one render), post-hoc rule labelled, probabilistic language,
+   selection bias and channel claims narrowed, MOSS CER provenance
+4. `7944081` Kaggle log fetcher kept in the repo
+5. `0f71c71` roadmap: test set sized for one primary comparison with pilot
+   uncertainty; dev/test split; identity from sources, not encoders; MOSS v1.5
+   official recipe and licences at pinned revisions
+6. `69c17a8` multi-reference manifest: leak-free, shared evaluation pool;
+   supports only 4 of 9 speakers, so a descriptive pilot at most
 
 ## Next concrete step
 
-`SOTA_ROADMAP.md` §8 sets the order. The first two items that need no decision
-from the user: measure `MOSS-TTS-Local-Transformer-v1.5` (the only unrestricted
-candidate, and the variant measured here is the older one), and test
-multi-reference conditioning on the existing corpus, which needs no training and
-is the first evidence for or against the channel hypothesis.
+MOSS-TTS-Local-Transformer-v1.5 at its official recipe (SOTA_ROADMAP.md §7):
+a new out-of-process worker (48 kHz stereo kept on disk, codes passed to the
+processor so torchaudio.load is not needed, language tag "Persian" recorded as
+an inference), a kernel that smoke-tests one render with load time, per-cell
+time and memory on each T4, and only then the 27-cell development benchmark.
+bf16 stays bf16: if Turing cannot run it, stop and record the blocker.
 
-## Blockers
+## Blockers and standing limits
 
-None technical. Two standing limits: no new spend or GPU purchase, and no new
-upload of the user's private audio, without the user saying so.
+No technical blocker known. No new spend, GPU purchase, acceptance of legal
+terms (e.g. ParsVoice), upload of the user's private audio, heavy local
+training/inference, or git push without the user.

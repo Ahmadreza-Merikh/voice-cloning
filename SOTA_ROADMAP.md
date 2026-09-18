@@ -234,6 +234,27 @@ The plan keeps it: model on one T4, codec (bf16, about 4.3 GB) on the other,
 and if bf16 fails on Turing, the run stops and the blocker is written down
 rather than switched to fp16 without the user.
 
+**[measured]** Loading the processor under transformers 5.0.0 logs that the
+tokenizer has "an incorrect regex pattern" and suggests `fix_mistral_regex=True`.
+It is a false alarm for this model: the check in transformers 5.0.0
+(`TokenizersBackend._patch_mistral_regex`) fires for any local tokenizer whose
+`config.json` lacks `transformers_version`, and MOSS v1.5's does; the tokenizer
+is Qwen2's, not Mistral's. The suggested regex leaves all nine Persian test
+sentences - the benchmark's five and four with digits, half-spaces and
+quotation marks - token-for-token identical, and changes only mixed-case Latin
+words ("iPhone" becomes "i" + "Phone"), away from how the model was trained.
+Under 5.0.0 the flag also raises a TypeError. So the official behaviour -
+warning ignored - is kept (`scripts/check_moss15_tokenizer.py`).
+
+**[measured]** Kaggle's images move: on 2026-09-18 the main kernel's image had
+torch 2.9.1+cu128 and the probe kernel's had 2.10.0+cu128. The notebook
+therefore installs torch, torchaudio, transformers and safetensors at the
+official versions - everything the remote code imports - stops on any
+difference, and writes every package against its official version to
+`environment.json`. The pyproject's other pins keep the image's versions: they
+are the repository's own tooling, and torchcodec serves only `torchaudio.load`,
+which the worker does not call.
+
 Audio: rendered 48 kHz stereo is kept on disk as rendered. The harness reads a
 render as mono by averaging its channels (`Audio.to_mono`, `audio/io.py`), and
 the similarity scorer resamples to 16 kHz (`EMBEDDING_SAMPLE_RATE`,

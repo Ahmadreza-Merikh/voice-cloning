@@ -99,6 +99,12 @@ had the display write inside its read loop.
    difference; the pyproject's other pins keep the image's versions, and
    `environment.json` lists every package against its official version
 
+4. this commit: the tokenizer's "incorrect regex pattern" warning is a false
+   alarm for MOSS v1.5 (transformers 5.0.0 fires it for any local tokenizer
+   whose config lacks `transformers_version`); the suggested regex leaves all
+   nine Persian test sentences identical and changes only mixed-case Latin
+   words, so the official behaviour stays (`scripts/check_moss15_tokenizer.py`)
+
 Earlier rounds, for reference: second review `79fec9d` `56a963e` `c13ab5c`
 `7944081` `0f71c71` `69c17a8`; gates `d5fca50`; listening test `1a60672`
 `0795bbb`; v1.5 native archive `81cc65f`; FINDINGS on 16-bit PCM `ef8ea3b`.
@@ -120,11 +126,6 @@ marsmanam/persian-voice-moss15`, then pull the output and read, in order,
 
 ## Open
 
-* the official path logs a transformers 5.0.0 warning that MOSS v1.5's
-  tokenizer has "an incorrect regex pattern" and suggests
-  `fix_mistral_regex=True`. We keep the official behaviour; whether it changes
-  Persian tokenisation is unchecked - a CPU-only tokenizer comparison would
-  settle it
 * engines accept `timeout_seconds` but `_read_reply` never enforces it
 * `build_eval_corpus.py` still selects speakers with the judging ECAPA
   (documented, not fixed)

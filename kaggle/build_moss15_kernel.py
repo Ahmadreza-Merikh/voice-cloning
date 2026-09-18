@@ -34,14 +34,16 @@ USER = "marsmanam"
 DATASET = "persian-voice-eval"
 SLUG = "persian-voice-moss15"
 MACHINE_SHAPE = "NvidiaTeslaT4"
-SESSION = "kaggle:persian-voice-moss15-v1"
+SESSION = "kaggle:persian-voice-moss15-v2"
 
 MODEL = "OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5"
 MODEL_REVISION = "be7766a6735b98bd793f7c79fb720b4d0f5d13b8"
 CODEC = "OpenMOSS-Team/MOSS-Audio-Tokenizer-v2"
 CODEC_REVISION = "f6e20e543b33d2c252a7ef71bdf8aa71e5ff9169"
 
-WORKER_TIMEOUT = 3600
+#: v1 spent its whole hour hung inside codec loading. Load plus one render
+#: needs far less; the stack dumps every five minutes say where time goes.
+WORKER_TIMEOUT = 2700
 BENCH_TIMEOUT = 3600
 FULL_TIMEOUT = 4 * 3600
 

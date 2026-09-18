@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
-"""Generate a CPU-only Kaggle notebook that tests why MOSS v1.5's codec load goes silent.
+"""Generate a Kaggle notebook that tests why MOSS v1.5's codec load goes silent.
+
+Version 1 of this probe ran on the CPU image and could not reproduce the hang:
+the codec loaded in 20 s drained and 13 s inherited (eval/runs/). But that image
+has torch 2.10.0+cpu, and the hung runs had the T4 image's 2.9.1+cu128 - the
+official pin - and loaded through the processor, not the codec alone. Version 2
+runs the same two loads on the T4 image with short budgets, then the worker's
+own full load path, drained and monitored. What each outcome means is written
+in the VERDICT cell before running. The original rationale follows.
 
 Two T4 runs went silent a second into loading the codec and stayed silent for
 their whole budget, and in the second one not even faulthandler - a C thread
@@ -41,11 +49,26 @@ OUT_DIR = HERE / "moss15-probe"
 USER = "marsmanam"
 DATASET = "persian-voice-eval"
 SLUG = "persian-voice-moss15-probe"
+
+#: v1 ran on the CPU image (torch 2.10.0+cpu) and loaded the codec fine both ways.
+#: v2 runs on the T4 image, whose torch 2.9.1+cu128 is the official pin, and adds
+#: the worker's own load path - processor, codec, model onto the GPUs.
+ON_GPU = True
+MODEL = "OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5"
+MODEL_REVISION = "be7766a6735b98bd793f7c79fb720b4d0f5d13b8"
 CODEC = "OpenMOSS-Team/MOSS-Audio-Tokenizer-v2"
 CODEC_REVISION = "f6e20e543b33d2c252a7ef71bdf8aa71e5ff9169"
 
 SETUP = '''\
 !pip -q install "transformers==5.0.0" "accelerate>=1.10.1" 2>&1 | tail -3
+'''
+
+GUARD = '''\
+import subprocess, sys
+probe = subprocess.run([sys.executable, "-c", "from transformers import PreTrainedModel"], text=True, capture_output=True)
+if probe.returncode != 0 and "torchvision" in probe.stderr:
+    print("removing a torchvision built for another torch")
+    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "-q", "torchvision"])
 '''
 
 ENVIRONMENT = '''\
@@ -90,30 +113,60 @@ from huggingface_hub import snapshot_download
 
 start = time.time()
 CODEC_DIR = Path(snapshot_download(repo_id="{CODEC}", revision="{CODEC_REVISION}"))
-print(f"codec in {{(time.time() - start) / 60:.1f}} min")
+MODEL_DIR = Path(snapshot_download(repo_id="{MODEL}", revision="{MODEL_REVISION}"))
+print(f"codec and model in {{(time.time() - start) / 60:.1f}} min")
+print("gpus:", [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())])
+'''
+
+WORKER_LOAD = '''\
+# The worker's own path: processor (tokenizer + codec), codec to cuda:1, model
+# onto cuda:0 in bf16 - then quit as soon as it reports ready. Drained and
+# monitored, with a budget that is generous for a load and short for a hang.
+scripts = found[0].parent
+driver = Path("/kaggle/working/ready_then_quit.py")
+driver.write_text(f"""
+import json, subprocess, sys, time
+start = time.time()
+worker = subprocess.Popen([sys.executable, "{scripts}/moss15_worker.py", "--model-dir", sys.argv[1],
+                           "--codec-dir", sys.argv[2], "--device", "cuda", "--codec-device", "auto"],
+                          stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+line = worker.stdout.readline()
+print("WORKER SAID", line.strip()[:2000], flush=True)
+print(f"READY AFTER {{time.time() - start:.0f}}s", flush=True)
+worker.stdin.write(json.dumps({{"op": "quit"}}) + chr(10))
+worker.stdin.flush()
+worker.wait(timeout=120)
+sys.exit(0 if json.loads(line).get("ready") else 1)
+""")
+code, seconds, timed_out = run_bounded([sys.executable, str(driver), str(MODEL_DIR), str(CODEC_DIR)],
+                                       timeout=1200, drain=True, monitor_every=60,
+                                       tee=Path("/kaggle/working/worker_load.log"))
+RESULTS["worker_path_drained"] = {"exit": code, "seconds": round(seconds), "timed_out": timed_out}
 '''
 
 DRAINED = '''\
-code, seconds, timed_out = run_bounded([sys.executable, str(PROBE), str(CODEC_DIR)], timeout=1500,
+code, seconds, timed_out = run_bounded([sys.executable, str(PROBE), str(CODEC_DIR)], timeout=600,
                                        drain=True, monitor_every=60, tee=Path("/kaggle/working/drained.log"))
 RESULTS["drained_cold_cache"] = {"exit": code, "seconds": round(seconds), "timed_out": timed_out}
 '''
 
 INHERITED = '''\
-code, seconds, timed_out = run_bounded([sys.executable, str(PROBE), str(CODEC_DIR)], timeout=900,
+code, seconds, timed_out = run_bounded([sys.executable, str(PROBE), str(CODEC_DIR)], timeout=600,
                                        drain=False, monitor_every=60)
 RESULTS["inherited_warm_cache"] = {"exit": code, "seconds": round(seconds), "timed_out": timed_out}
 '''
 
 VERDICT = '''\
 print(json.dumps(RESULTS, indent=2))
-drained, inherited = RESULTS["drained_cold_cache"], RESULTS["inherited_warm_cache"]
-if not drained["timed_out"] and drained["exit"] == 0 and inherited["timed_out"]:
-    reading = "drained finished, inherited hung: consistent with a writer blocked on an undrained pipe"
-elif not drained["timed_out"] and not inherited["timed_out"]:
-    reading = "both finished: not reproduced on a CPU box"
+ok = {name: (not r["timed_out"] and r["exit"] == 0) for name, r in RESULTS.items()}
+if not ok["drained_cold_cache"]:
+    reading = "the codec alone hangs on this image even drained - image-specific; see the wait channels"
+elif not ok["inherited_warm_cache"]:
+    reading = "codec loads drained but hangs inherited on this image - consistent with an undrained pipe"
+elif not ok["worker_path_drained"]:
+    reading = "the codec loads alone but the worker's full path hangs - the cause is in that path"
 else:
-    reading = "the drained load also failed: something other than output - see the wait channels above"
+    reading = "every load finished on this image - the T4 kernel's drained, monitored run should get past loading"
 print("READING:", reading)
 RESULTS["reading"] = reading
 Path("/kaggle/working/probe.json").write_text(json.dumps(RESULTS, indent=2))
@@ -126,7 +179,7 @@ def cell(source: str) -> dict:
 
 
 def main() -> int:
-    sources = [SETUP, ENVIRONMENT, DOWNLOAD, DRAINED, INHERITED, VERDICT]
+    sources = [SETUP, GUARD, ENVIRONMENT, DOWNLOAD, DRAINED, INHERITED, WORKER_LOAD, VERDICT]
     for index, source in enumerate(sources):
         compile("".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),
                 f"<cell {index}>", "exec")
@@ -138,11 +191,12 @@ def main() -> int:
     path = OUT_DIR / f"{SLUG}.ipynb"
     path.write_text(json.dumps(notebook, indent=1, ensure_ascii=False), encoding="utf-8")
     metadata = {"id": f"{USER}/{SLUG}", "title": SLUG, "code_file": path.name, "language": "python",
-                "kernel_type": "notebook", "is_private": True, "enable_gpu": False, "enable_internet": True,
+                "kernel_type": "notebook", "is_private": True, "enable_gpu": ON_GPU, "enable_internet": True,
+                "machine_shape": "NvidiaTeslaT4",
                 "dataset_sources": [f"{USER}/{DATASET}"], "competition_sources": [],
                 "kernel_sources": [], "model_sources": []}
     (OUT_DIR / "kernel-metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {path} ({len(sources)} cells, all compile) - CPU only")
+    print(f"wrote {path} ({len(sources)} cells, all compile) - {'T4 image' if ON_GPU else 'CPU only'}")
     return 0
 
 

@@ -168,6 +168,24 @@ class TestTheNotebookStopsWhereItShould:
         assert calls >= 3
 
 
+def test_the_environment_cell_holds_the_official_pins_to_the_letter() -> None:
+    # A torch 2.10 image passed for 2.9.1 once, by assumption. The cell's own
+    # comparison is what now decides, so it is tested here, not on Kaggle.
+    source = notebook_cell("OFFICIAL = ")
+    tree = ast.parse("".join(line + "\n" for line in source.splitlines() if not line.lstrip().startswith("!")))
+    wanted = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "matches"]
+    scope: dict = {}
+    exec(compile(ast.Module(body=wanted, type_ignores=[]), "cell", "exec"), scope)
+    matches = scope["matches"]
+    assert matches("2.9.1+cu128", "2.9.1+cu128")
+    assert not matches("2.10.0+cu128", "2.9.1+cu128")
+    assert not matches("2.9.1", "2.9.1+cu128")
+    assert matches("1.11.0", ">=1.10.1") and not matches("1.9.0", ">=1.10.1")
+    assert matches("0.6.2", "0.6.2") and not matches("0.7.0", "0.6.2") and not matches(None, "0.6.2")
+    pinned = ast.literal_eval(source.split("PINNED = ", 1)[1].splitlines()[0])
+    assert set(pinned) >= {"torch", "torchaudio", "transformers", "safetensors"}
+
+
 class TestVerdicts:
     def test_worker_needs_exit_zero_a_file_the_documented_format_and_a_good_record(self, tmp_path: Path) -> None:
         render, smoke = tmp_path / "r.wav", tmp_path / "s.json"

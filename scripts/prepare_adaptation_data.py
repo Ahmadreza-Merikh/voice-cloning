@@ -39,7 +39,9 @@ def load_split(path: Path, wanted: set[str]) -> dict[str, dict[str, dict]]:
     if refused:
         raise SystemExit(f"refused: {sorted(refused)} - only {sorted(WRITABLE)} may be written")
     records: dict[str, dict[str, dict]] = defaultdict(dict)
-    with gzip.open(path, "rt", encoding="utf-8") as handle:
+    # Kaggle unpacks a .gz inside a dataset, so the plain file is accepted too.
+    opener = gzip.open if path.suffix == ".gz" else open
+    with opener(path, "rt", encoding="utf-8") as handle:
         for line in handle:
             record = json.loads(line)
             if record["split"] not in wanted:

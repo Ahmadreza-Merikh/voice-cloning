@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-18, MOSS v1.5 smoke kernel pushed (version 1), running.
+Last updated: 2026-09-18, MOSS v1.5 v1 timed out in codec loading (recorded); v2 pushed with stack dumps.
 
 ## Stage
 
@@ -40,7 +40,8 @@ inside one scoring environment (`eval/results/_provenance.json` for older files,
 | `marsmanam/persian-voice-higgs-smoke` v2 | complete | no - results pulled |
 | `marsmanam/persian-voice-eval-run` | complete | no |
 | `marsmanam/persian-voice-moss-run` | complete | no |
-| `marsmanam/persian-voice-moss15` **v1** | **pushed 2026-09-18, running** | **no - read its state first; never re-push a running or finished version** |
+| `marsmanam/persian-voice-moss15` v1 | complete: worker gate timed out in codec loading, all later stages skipped | no - recorded in `eval/runs/persian-voice-moss15-v1.json` |
+| `marsmanam/persian-voice-moss15` **v2** | **pushed 2026-09-18, running** - same recipe, stack dumps every 5 min, 45 min worker budget | **no - read its state first** |
 | dataset `marsmanam/persian-voice-eval` | current: gates, float-WAV v1.5 worker, compare_runs | verified by download before the push |
 
 The v1.5 kernel writes `results/gates.json` whatever happens: each stage's

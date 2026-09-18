@@ -1,0 +1,18 @@
+{
+  "drained_cold_cache": {
+    "exit": 0,
+    "seconds": 70,
+    "timed_out": false
+  },
+  "inherited_warm_cache": {
+    "exit": 0,
+    "seconds": 15,
+    "timed_out": false
+  },
+  "worker_path_drained": {
+    "exit": -1,
+    "seconds": 1210,
+    "timed_out": true
+  },
+  "reading": "the codec loads alone but the worker's full path hangs - the cause is in that path"
+}

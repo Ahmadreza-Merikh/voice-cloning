@@ -83,6 +83,48 @@ SENTENCES: list[tuple[str, str]] = [
 ]
 
 
+def scoring_environment(studio: Any, embedder: Any) -> dict[str, Any]:
+    """Record what scored this run, so CER is only ever compared like with like.
+
+    CER differs between this Mac and a CUDA box for a reason in the code, not in
+    the weather: ``engines/asr.py`` runs faster-whisper as cpu/int8 without a
+    GPU and cuda/float16 with one. The device a run was *given* does not say
+    that, and neither does anything else in older results files, which is why
+    ``eval/results/_provenance.json`` had to be written by hand for them.
+
+    The id is ``$VOICECLONE_SCORING_ENV`` when a kernel sets one, and otherwise a
+    fingerprint of the platform, the recogniser as it actually loaded, and the
+    versions of every package that touches a score. Two runs share an id only if
+    all of those match. Nothing identifying a person or a machine is recorded.
+    """
+    import hashlib
+    import os
+    import platform
+    from importlib import metadata
+
+    packages: dict[str, str | None] = {}
+    for name in ("torch", "torchaudio", "speechbrain", "faster-whisper", "ctranslate2",
+                 "transformers", "jiwer", "numpy"):
+        try:
+            packages[name] = metadata.version(name)
+        except metadata.PackageNotFoundError:
+            packages[name] = None
+    recogniser = getattr(getattr(studio, "_asr", None), "backend", None)
+    system = f"{platform.system()}-{platform.machine()}"
+    digest = hashlib.sha1(
+        json.dumps([system, recogniser, embedder.backend, packages], sort_keys=True).encode()
+    ).hexdigest()[:10]
+    return {
+        "id": os.environ.get("VOICECLONE_SCORING_ENV") or f"{system}:{digest}",
+        "platform": platform.platform(terse=True),
+        "python": platform.python_version(),
+        "recogniser": recogniser,
+        "similarity": embedder.backend,
+        "similarity_device": "cpu",
+        "packages": packages,
+    }
+
+
 def _rule(title: str) -> None:
     print(f"\n{title}\n{'=' * len(title)}", flush=True)
 
@@ -283,11 +325,14 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         config.runtime.device = args.device
 
     floor_path = RESULTS_DIR / "_asr_floor.json"
+    floor_source = "cached: eval/results/_asr_floor.json, measured on another run"
     if args.asr_floor or not floor_path.is_file():
         RESULTS_DIR.mkdir(parents=True, exist_ok=True)
         measured = asr_floor(corpus, config)
         floor_path.write_text(json.dumps(measured, indent=2), encoding="utf-8")
+        floor_source = "measured in this run"
     recogniser_floor = json.loads(floor_path.read_text(encoding="utf-8"))
+    recogniser_floor["source"] = floor_source
     if args.asr_floor_only:
         return {"asr_floor": recogniser_floor}
 
@@ -431,9 +476,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     flush=True,
                 )
 
+    # Read before release: the recogniser's backend string only exists while
+    # it is loaded, and it is the part of the environment that decides CER.
+    environment = scoring_environment(studio, embedder)
     studio.release()
     return summarise(
-        args, rows, calibration, corpus, sentences, seeds, embedder, started, recogniser_floor
+        args, rows, calibration, corpus, sentences, seeds, embedder, started, recogniser_floor,
+        environment,
     )
 
 
@@ -480,6 +529,7 @@ def summarise(
     embedder: Any,
     started: float,
     recogniser_floor: dict[str, Any] | None = None,
+    environment: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     good = [r for r in rows if "error" not in r]
     held = [r["held_out_similarity"] for r in good]
@@ -588,6 +638,7 @@ def summarise(
             "speakers": sorted(corpus),
             "similarity_backend": embedder.backend,
         },
+        "scoring_environment": environment,
         "calibration": calibration,
         "recogniser_floor": recogniser_floor,
         "summary": {

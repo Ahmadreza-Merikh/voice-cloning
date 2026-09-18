@@ -195,8 +195,18 @@ REPO = Path("/kaggle/working/repo")
 if REPO.exists():
     shutil.rmtree(REPO)
 shutil.copytree(found[0].parent.parent, REPO)
-SPLITS = REPO / "eval/manifests/adaptation_splits_v1.jsonl.gz"
-assert SPLITS.is_file(), "the dataset predates the adaptation splits"
+# Kaggle unpacks the .gz when it builds the dataset; either form is checked
+# against the hash the split builder recorded for its decompressed content.
+MANIFESTS = REPO / "eval/manifests"
+SPLITS = next((p for p in (MANIFESTS / "adaptation_splits_v1.jsonl.gz", MANIFESTS / "adaptation_splits_v1.jsonl")
+               if p.is_file()), None)
+assert SPLITS is not None, "the dataset predates the adaptation splits"
+import gzip  # noqa: E402
+
+content = gzip.open(SPLITS).read() if SPLITS.suffix == ".gz" else SPLITS.read_bytes()
+expected = json.loads((MANIFESTS / "adaptation_splits_v1.summary.json").read_text())["records_sha256"]
+assert hashlib.sha256(content).hexdigest() == expected, "the split file is not the one the builder wrote"
+print("splits:", SPLITS.name, "sha256 matches the summary")
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["PYTHONPATH"] = str(REPO / "src")

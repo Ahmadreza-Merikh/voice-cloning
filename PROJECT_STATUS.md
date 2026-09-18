@@ -79,6 +79,15 @@ the v1.5 worker; `1a60672` blind listening-test builder and scorer (prepares
 material only - no listener has been run and nothing is scored); `ef8ea3b`
 FINDINGS records that the four older out-of-process workers wrote 16-bit PCM.
 
+Review of 948d2fa, fixed: `0795bbb` listening scorer (explicit "none" for
+misread, invalid values never votes, duplicate files/listener ids counted once,
+responses bound to the test by name and key fingerprint, references from the
+runs' own provenance, a speakers x listeners bootstrap for a final test);
+`81cc65f` MOSS v1.5 native archive per session, keyed by the whole recipe,
+never overwritten. The running v1 kernel predates `81cc65f`: its native smoke
+render of cv02/s1 will be replaced by the full run's (harness renders of both
+are kept).
+
 Open, not urgent: engines accept `timeout_seconds` but `_read_reply` never
 enforces it, so a hung worker is only bounded by the kernel's process-group
 timeout, not by the engine.

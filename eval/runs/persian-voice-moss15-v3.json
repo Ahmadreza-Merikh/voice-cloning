@@ -1,0 +1,57 @@
+{
+  "kernel": "marsmanam/persian-voice-moss15",
+  "version": 3,
+  "version_source": "the service's push response: 'Kernel version 3 successfully pushed'",
+  "status": "COMPLETE (kaggle kernels status, 17:47:58 UTC)",
+  "dataset": "marsmanam/persian-voice-eval version 12, uploaded 2026-09-18 17:27 UTC: code at 89dc14e, all 54 files under src/ and scripts/ verified identical to the repository by download before the push",
+  "session": "kaggle:persian-voice-moss15-v3",
+  "timeline_utc": {
+    "pushed": "17:29:20",
+    "run_length_seconds": "about 1030 (last gate at 1007 s of the kernel log)",
+    "queue": "none measurable - RUNNING at 17:29:38"
+  },
+  "environment": {
+    "source": "evidence/moss15-v3/environment.json, written by the notebook",
+    "official_pins_installed_and_checked": "torch 2.9.1+cu128, torchaudio 2.9.1+cu128, transformers 5.0.0, safetensors 0.6.2, accelerate 1.13.0 (>=1.10.1)",
+    "pyproject_pins_left_at_the_image_version": "torchcodec 0.10.0+cu128 (official 0.8.1; serves only torchaudio.load, not called), numpy 2.0.2 (2.1.0), tqdm 4.67.3 (4.67.1), einops 0.8.2 (0.8.1), scipy 1.16.3 (1.16.2); librosa 0.11.0 and tiktoken 0.12.0 match",
+    "platform": "python 3.12.13, CUDA 12.8, cuDNN 91002, driver 580.159.04, 2 x Tesla T4 (compute 7.5)",
+    "notebook_runtime": "ipykernel 6.17.1, jupyter-client 7.4.9, papermill 2.7.0, nbconvert 6.4.5"
+  },
+  "recipe": {
+    "model": "OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5 at be7766a6",
+    "codec": "OpenMOSS-Team/MOSS-Audio-Tokenizer-v2 at f6e20e54, bf16, on cuda:1",
+    "precision": "bfloat16 (emulated on Turing), SDPA attention - the card's own fallback below compute 8.0",
+    "sampling": "audio_temperature 1.7, top_p 0.8, top_k 25, repetition penalty 1.0, max_new_tokens 4096, seed 42",
+    "mode": "voice cloning through processor.build_user_message(text, reference=[audio], language) - the card's transformers example; reference audio only (this processor has no transcript field)",
+    "language": "\"Persian\"",
+    "deviation_found_after_the_run": "The official tag string for Persian is \"Persian (Farsi)\": the card's language table at be7766a6 and the official v1.5 app's LANGUAGE_TAG_CHOICES at 934d6826 (clis/moss_tts_local_v1.5_app.py), which passes the choice into the prompt unchanged. \"Persian\" was an inference by analogy with the card's examples, recorded as one. So this run is the official recipe except for the language string, and whether the model reads \"Persian\" as its Persian tag is unknown."
+  },
+  "gates": {
+    "runner": "PASS - 1,853,785 bytes of the fake worker's job through the protocol path in 0.4 s on the notebook's own display, 104,588 shown, display never stalled; the descriptor report works on this machine (a blocked reader was named as read(fd 0 = pipe:[27322]))",
+    "download": "PASS - 1.3 min, model 8.49 GiB, codec 7.91 GiB",
+    "worker": "PASS - load 57.8 s (codec 6-8 s, model weights 1 s, moves to the GPUs about 35 s), one render: 5.28 s of 48 kHz stereo float32 generated in 8.47 s; peaks cuda:0 7.9 GiB, cuda:1 5.4 GiB of 14.6",
+    "bench": "PASS - cv02/s1 through the engine and scorer: held-out 0.4807, CER 2.2%",
+    "control": "PASS - the 27 baseline renders re-scored here give the Mac's held-out similarity at 4 dp in every cell. The control covers similarity only: their CER here is 3.1% against 2.9% on the Mac, which is why CER is compared only inside one environment",
+    "budget": "PASS - estimated 14 min",
+    "full": "PASS - 27 renders, 0 failures, 0 untranscribed, 7.9 min"
+  },
+  "runner": "every stage: exit 0, process group ended with the command, display never blocked; each stage's full log is in evidence/moss15-v3/",
+  "results": {
+    "files": ["eval/results/moss15.json", "eval/results/moss15-smoke.json", "eval/results/baseline-moss15-env.json"],
+    "held_out": "0.5244 (sd 0.1008 over cells, range 0.201-0.666)",
+    "cer": "9.0% mean, 8.6% median, by sentence s1 10.1%, s2 5.7%, s3 11.1%",
+    "same_environment_baseline_cer": "3.1%"
+  },
+  "comparisons_speaker_level": {
+    "method": "scripts/compare_runs.py: mean of each speaker's paired cell differences, 95% t interval over 9 speakers",
+    "moss15_minus_f5_baseline": "+0.005 [-0.028, +0.037] - includes 0",
+    "moss15_minus_omnivoice": "-0.059 [-0.112, -0.006] - excludes 0, overlaps +/-0.0205",
+    "moss15_minus_moss_v1_0": "-0.034 [-0.067, -0.001] - excludes 0, overlaps +/-0.0205",
+    "cer_moss15_minus_baseline_same_environment": "+5.8 points [+3.9, +7.8] - excludes 0",
+    "cer_against_moss_v1_0": "not judged: v1.0's CER was scored on the Mac, this one on Kaggle"
+  },
+  "what_the_errors_look_like": "Mostly real mispronunciations, concentrated on the first word of the sentence - 'دیروز' heard as 'ایراز' or dropped, 'گل' as 'بله' or 'بوکیل' - plus consonant slips; some differences (بهار/بحار) are spelling only and hit the baseline too. Transcripts are in eval/results/moss15.json.",
+  "reading": "At this recipe, on this development set, MOSS v1.5 does not beat the F5 baseline on speaker similarity, is below both OmniVoice and MOSS v1.0, and mispronounces clearly more than the baseline. The card claims v1.5 with a language tag beats v1.0 on almost all supported languages; this run's tag string was not the official one, so it cannot test that claim. Nothing here is a SOTA result.",
+  "next": "the same run with only the language string changed to \"Persian (Farsi)\"",
+  "lost": "nothing; about 18 minutes of T4 x2 quota"
+}

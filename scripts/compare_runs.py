@@ -1,45 +1,49 @@
 #!/usr/bin/env python3
-"""Compare benchmark runs honestly: paired, clustered by speaker, with intervals.
+"""Compare benchmark runs: paired, clustered by speaker, and checked before counted.
 
-Every engine is scored on the same 27 cells - 9 speakers x 3 sentences, one seed
-- against the same reference clips, so runs are compared cell by cell rather
-than mean against mean. That much this project already did. What it did wrong
-was treat those 27 paired differences as 27 independent observations.
+Engines are scored on the same cells - speaker x sentence x seed - against the
+same reference clips, so two runs are compared cell by cell. The cells are not
+independent: every cell of a speaker shares that speaker's voice and reference
+clip. So a comparison is summarised per speaker (the mean of that speaker's
+paired differences) and the interval is a t interval over speakers.
 
-They are not. Three cells share a speaker, a reference clip and a voice; nine
-share a sentence. A difference that is really "this engine suits cv09" shows up
-three times and looks three times as certain as it is. The standard error over
-27 cells is therefore too small, and it is the denominator of every claim here.
+Before anything is averaged, each run is checked, and every problem is printed
+rather than stepped around:
 
-So the headline statistic is the **speaker-level** one: average the three cells
-of a speaker into one number, then work with the nine speaker differences. That
-is n=9, a t interval with 8 degrees of freedom, and intervals roughly twice as
-wide. The cell-level figure is printed beside it, because the gap between the
-two is itself worth seeing, but the speaker-level interval is what a claim may
-rest on.
+* a key that appears twice is an error - there is no right answer to which
+  value to use, so the comparison is refused
+* a missing value, a failed render or a non-finite score makes that speaker
+  *incomplete* for the pair, and incomplete speakers are left out **and listed**.
+  Dropping a failed cell quietly would compare an engine only where it worked,
+  which flatters exactly the engine that failed
+* an interval needs at least MIN_SPEAKERS complete speakers, and at least some
+  spread between them. Fewer, or none, and the tool says so instead of printing
+  a zero-width interval that looks like certainty
 
-Decision rule, fixed before looking (the same one FINDINGS has used):
+How to read the output. Each pair gets a 95% t interval over speakers, with the
+exact t quantile for its degrees of freedom. The interval is then described
+against two reference points, kept separate because they are different kinds
+of thing:
 
-* a difference is **resolved** only if the 95% interval excludes zero *and*
-  lies entirely beyond +/-0.0205
-* an interval that excludes zero but not that floor is **direction only**: the
-  sign is established, the size is not
-* anything else is **not separable**, which is not the same as equal - with
-  nine speakers this test cannot see a difference smaller than about 0.04
+* **0** - the statistical question
+* **+/-0.0205** - a practical reference, not an instrument floor and not a
+  perceptual threshold. It is the largest change in ECAPA score measured
+  across identity-preserving perturbations of *one* render - 85-95% crops,
+  +/-1 dB, dither at -60 dBFS - on 2026-07-30 (commit dee1ace, sd 0.0055),
+  four days before the benchmark produced its first result. It measures the
+  encoder's sensitivity to edits that should not matter. It does not measure
+  re-scoring repeatability (re-scoring identical audio reproduces every cell
+  here), seed-to-seed generation variance, or clip-to-clip variance, and
+  nobody has tested whether a listener hears a difference of that size.
 
-0.0205 is this encoder's spread on re-scoring, an instrument floor. It is not a
-threshold of human perception: nobody has listened to a pair 0.02 apart and
-reported whether they can hear it. Both comparisons are printed - against zero
-and against that floor - so a reader can apply their own bar.
+The speaker-level interval rule was adopted on 2026-09-18, after these results
+had been seen. It is a correction, not a pre-registration.
 
-A note on what the inputs are. ``benchmark.py`` writes every per-cell
-similarity rounded to four decimals, and a run's mean is the mean of those
-rounded values, so everything here is computed from four-decimal numbers. And
-the encoder is loaded with ``run_opts={"device": "cpu"}`` in
-``evaluation/similarity.py``, so ``--device cuda`` never reaches the scoring
-path: scores do not depend on which accelerator rendered the audio.
+Inputs are what ``benchmark.py`` writes: per-cell similarities rounded to four
+decimals. Two scores equal at four decimals can differ by up to 1e-4 before
+rounding.
 
-    .venv/bin/python scripts/compare_runs.py omnivoice higgs moss baseline
+    .venv/bin/python scripts/compare_runs.py omnivoice higgs fish baseline
 """
 
 from __future__ import annotations
@@ -48,175 +52,286 @@ import json
 import math
 import statistics
 import sys
+from dataclasses import dataclass, field
 from itertools import combinations
 from pathlib import Path
 
 RESULTS = Path(__file__).resolve().parents[1] / "eval" / "results"
 
-#: The encoder's own noise on repeated scoring, pre-registered in FINDINGS.
-NOISE = 0.0205
+#: See the module docstring for what this is and, as importantly, what it is not.
+PRACTICAL_REFERENCE = 0.0205
 
-#: Two-sided 95% t critical values by degrees of freedom.
-T95 = {
-    1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365,
-    8: 2.306, 9: 2.262, 10: 2.228, 11: 2.201, 12: 2.179, 13: 2.160, 14: 2.145,
-    15: 2.131, 16: 2.120, 17: 2.110, 18: 2.101, 19: 2.093, 20: 2.086,
-}
+#: Fewest complete speakers an interval is printed for. A policy, not a law:
+#: a t interval is defined from two, but with so few independent units it says
+#: more about the two speakers than about the engines.
+MIN_SPEAKERS = 5
+
+SIMILARITY = "held_out_similarity"
+CER = "character_error_rate"
 
 
-def load(label: str) -> dict:
-    path = RESULTS / f"{label}.json"
+class DuplicateKeyError(ValueError):
+    """A run lists the same (speaker, sentence, seed) twice."""
+
+
+def t_quantile(df: int, level: float = 0.95) -> float:
+    """Exact two-sided t quantile. No table and no normal fallback."""
+    from scipy.stats import t
+
+    return float(t.ppf(0.5 + level / 2, df))
+
+
+def load(label: str, root: Path = RESULTS) -> dict:
+    path = root / f"{label}.json"
     if not path.is_file():
         raise SystemExit(f"no results for {label} at {path}")
     return json.loads(path.read_text())
 
 
-def cells(data: dict, field: str) -> dict[tuple, float]:
-    return {
-        (row["speaker"], row["sentence"], row["seed"]): row[field]
-        for row in data["rows"]
-        if row.get(field) is not None
-    }
+@dataclass
+class Cells:
+    """One run's values for one field, with everything that went wrong."""
+
+    values: dict[tuple, float] = field(default_factory=dict)
+    missing: list[tuple] = field(default_factory=list)
+    failed: list[tuple] = field(default_factory=list)
+    non_finite: list[tuple] = field(default_factory=list)
+    design: set[tuple] = field(default_factory=set)
 
 
-def interval(values: list[float]) -> tuple[float, float, float]:
-    """Mean and 95% t interval of a sample."""
+def cells(data: dict, name: str) -> Cells:
+    """Read one field from every row, refusing duplicates and keeping the losses."""
+    out = Cells()
+    for row in data["rows"]:
+        key = (row["speaker"], row["sentence"], row.get("seed"))
+        if key in out.design:
+            raise DuplicateKeyError(f"{data.get('label', '?')}: {key} appears twice")
+        out.design.add(key)
+        value = row.get(name)
+        if row.get("error"):
+            out.failed.append(key)
+        elif value is None:
+            out.missing.append(key)
+        elif not math.isfinite(float(value)):
+            out.non_finite.append(key)
+        else:
+            out.values[key] = float(value)
+    return out
+
+
+def interval(values: list[float], level: float = 0.95) -> tuple[float, float, float] | None:
+    """Mean and t interval, or None when there is nothing an interval could honestly say."""
     n = len(values)
-    mean = statistics.mean(values)
     if n < 2:
-        return mean, mean, mean
-    half = T95.get(n - 1, 1.96) * statistics.stdev(values) / math.sqrt(n)
+        return None
+    spread = statistics.stdev(values)
+    if spread == 0:
+        return None
+    mean = statistics.mean(values)
+    half = t_quantile(n - 1, level) * spread / math.sqrt(n)
     return mean, mean - half, mean + half
 
 
-def compare(left: dict, right: dict, field: str) -> dict | None:
-    a, b = cells(left, field), cells(right, field)
-    shared = sorted(set(a) & set(b))
-    if len(shared) < 6:
-        return None
+@dataclass
+class Pair:
+    left: str
+    right: str
+    design_cells: int
+    paired_cells: int
+    speakers_total: int
+    speakers_complete: list[str]
+    speakers_excluded: dict[str, str]
+    per_speaker: dict[str, float]
+    mean: float | None = None
+    low: float | None = None
+    high: float | None = None
+    sd: float | None = None
+    note: str = ""
 
-    diffs = [a[k] - b[k] for k in shared]
-    by_speaker: dict[str, list[float]] = {}
-    for key in shared:
-        by_speaker.setdefault(key[0], []).append(a[key] - b[key])
-    per_speaker = [statistics.mean(v) for v in by_speaker.values()]
 
-    cell_mean = statistics.mean(diffs)
-    cell_se = statistics.stdev(diffs) / math.sqrt(len(diffs))
-    mean, low, high = interval(per_speaker)
+def compare(left_label: str, left: dict, right_label: str, right: dict, name: str,
+            min_speakers: int = MIN_SPEAKERS) -> Pair:
+    a, b = cells(left, name), cells(right, name)
+    design = a.design | b.design
+    speakers = sorted({key[0] for key in design})
+
+    problems: dict[tuple, str] = {}
+    for label, run in ((left_label, a), (right_label, b)):
+        for key in run.failed:
+            problems.setdefault(key, f"{label} failed")
+        for key in run.missing:
+            problems.setdefault(key, f"{label} has no value")
+        for key in run.non_finite:
+            problems.setdefault(key, f"{label} non-finite")
+        for key in design - run.design:
+            problems.setdefault(key, f"{label} lacks the cell")
+
+    per_speaker: dict[str, float] = {}
+    excluded: dict[str, str] = {}
+    paired = 0
+    for speaker in speakers:
+        keys = sorted(k for k in design if k[0] == speaker)
+        bad = [problems[k] for k in keys if k in problems]
+        if bad:
+            excluded[speaker] = f"{len(bad)} of {len(keys)} cells unusable ({bad[0]})"
+            continue
+        diffs = [a.values[k] - b.values[k] for k in keys]
+        per_speaker[speaker] = statistics.mean(diffs)
+        paired += len(diffs)
+
+    result = Pair(left_label, right_label, len(design), paired, len(speakers),
+                  sorted(per_speaker), excluded, per_speaker)
+    values = list(per_speaker.values())
+    if len(values) < min_speakers:
+        result.note = f"no interval: {len(values)} complete speakers, {min_speakers} needed"
+        if values:
+            result.mean = statistics.mean(values)
+        return result
+    stats = interval(values)
+    result.mean = statistics.mean(values)
+    result.sd = statistics.stdev(values)
+    if stats is None:
+        result.note = "no interval: speakers do not vary, so the interval would have zero width"
+        return result
+    _, result.low, result.high = stats
+    return result
+
+
+def describe(pair: Pair, reference: float) -> str:
+    """Where the interval sits, in words that make no claim beyond it."""
+    if pair.low is None or pair.high is None:
+        return pair.note
+    clear_zero = pair.low > 0 or pair.high < 0
+    clear_reference = pair.low > reference or pair.high < -reference
+    if not clear_zero:
+        return "interval includes 0"
+    if reference and clear_reference:
+        return f"interval clear of 0 and of +/-{reference:g}"
+    if reference:
+        return f"interval clear of 0, overlaps +/-{reference:g}"
+    return "interval clear of 0"
+
+
+def _provenance(root: Path = RESULTS) -> dict:
+    path = root / "_provenance.json"
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text()).get("runs", {})
+
+
+def scoring_environment(data: dict, root: Path = RESULTS) -> str | None:
+    """Where a run was *scored*, or None when nothing on record says.
+
+    Newer files carry the environment ``benchmark.py`` recorded. Older ones are
+    looked up in ``eval/results/_provenance.json``, which maps each label to a
+    Mac or to one specific Kaggle kernel session with the evidence for it. The
+    device alone is not enough: every Kaggle kernel says ``cuda``, and each one
+    is a separate install. A run found in neither place has no environment, and
+    nothing that needs one - a CER comparison - is judged for it.
+    """
+    recorded = data.get("scoring_environment")
+    if recorded and recorded.get("id"):
+        return str(recorded["id"])
+    entry = _provenance(root).get(str(data.get("label")))
+    return entry["environment"] if entry else None
+
+
+def scale_control(reference: dict, control: dict) -> dict:
+    """Compare every cell of a re-scoring against the original, by key.
+
+    Equal means prove nothing: opposite differences cancel. So keys are matched
+    and each cell is compared, and anything unmatched is reported.
+    """
+    a, b = cells(reference, SIMILARITY), cells(control, SIMILARITY)
+    only_reference = sorted(a.design - b.design)
+    only_control = sorted(b.design - a.design)
+    shared = sorted(set(a.values) & set(b.values))
+    differences = {k: b.values[k] - a.values[k] for k in shared}
+    unequal = {k: d for k, d in differences.items() if d != 0}
     return {
-        "cells": len(diffs),
-        "cell_mean": cell_mean,
-        "cell_t": cell_mean / cell_se if cell_se else math.inf,
-        "speakers": len(per_speaker),
-        "mean": mean,
-        "low": low,
-        "high": high,
-        "speakers_favouring": sum(1 for d in per_speaker if d > 0),
+        "shared": len(shared),
+        "only_reference": only_reference,
+        "only_control": only_control,
+        "unusable": len(a.design) - len(a.values) + len(b.design) - len(b.values),
+        "unequal": unequal,
+        "max_abs": max((abs(d) for d in differences.values()), default=0.0),
     }
 
 
-def verdict(stat: dict, noise: float) -> str:
-    excludes_zero = stat["low"] > 0 or stat["high"] < 0
-    beyond_noise = stat["low"] > noise or stat["high"] < -noise
-    if excludes_zero and beyond_noise:
-        return "resolved"
-    if excludes_zero:
-        return "direction only"
-    return "not separable"
+def _source(data: dict) -> str:
+    replay = (data.get("config") or {}).get("replay_from")
+    return f"renders of {replay}" if replay else str(data.get("engine"))
 
 
-def bars(stat: dict, noise: float) -> str:
-    """The two questions kept apart: is it non-zero, and is it above the floor."""
-    zero = "yes" if (stat["low"] > 0 or stat["high"] < 0) else "no "
-    floor = "yes" if (stat["low"] > noise or stat["high"] < -noise) else "no "
-    return f"non-zero {zero}  above {noise:.4f} {floor}"
-
-
-def table(runs: dict[str, dict], field: str, noise: float, scale: float, unit: str) -> None:
-    print(f"  {'comparison':34s} {'cells':>8s} {'t':>5s} | {'speakers':>9s} "
-          f"{'95% interval':>20s}  verdict")
-    for left, right in combinations(runs, 2):
-        stat = compare(runs[left], runs[right], field)
-        if stat is None:
-            print(f"  {left + ' - ' + right:34s}   too few shared cells")
-            continue
-        print(
-            f"  {left + ' - ' + right:34s} {stat['cell_mean'] * scale:+8.3f} "
-            f"{abs(stat['cell_t']):5.1f} | {stat['mean'] * scale:+9.3f} "
-            f"[{stat['low'] * scale:+7.3f},{stat['high'] * scale:+7.3f}]  "
-            f"{verdict(stat, noise):15s}"
-            f" {bars(stat, noise)}"
-            f"  {stat['speakers_favouring']}/{stat['speakers']} speakers"
-        )
-    print(f"  (differences in {unit}; the interval is over speakers, not cells)")
-
-
-def main() -> int:
-    labels = sys.argv[1:]
+def main(argv: list[str]) -> int:
+    labels = argv[1:]
     if not labels:
         raise SystemExit(__doc__)
     runs = {label: load(label) for label in labels}
 
     print("\nRuns")
-    print("=" * 96)
-    print(f"  {'label':26s} {'engine':12s} {'held-out':>9s} {'ref':>7s} {'CER':>7s} "
-          f"{'renders':>8s} {'fails':>6s} {'no CER':>7s}")
+    print("=" * 100)
     for label, data in runs.items():
         s = data["summary"]
-        print(
-            f"  {label:26s} {str(data.get('engine')):12s} "
-            f"{s['held_out_mean']:9.4f}" if s.get("held_out_mean") is not None else
-            f"  {label:26s} {str(data.get('engine')):12s} {'-':>9s}",
-            end="",
-        )
-        cer = f"{s['cer_mean'] * 100:6.1f}%" if s.get("cer_mean") is not None else "      -"
-        ref = f"{s['reference_mean']:7.3f}" if s.get("reference_mean") is not None else "      -"
-        print(f" {ref} {cer} {s['renders']:8d} {s['failures']:6d} {s.get('untranscribed', 0):7d}")
+        sim, cer = cells(data, SIMILARITY), cells(data, CER)
+        held = f"{s['held_out_mean']:.4f}" if s.get("held_out_mean") is not None else "-"
+        mean_cer = f"{s['cer_mean'] * 100:.1f}%" if s.get("cer_mean") is not None else "-"
+        print(f"  {label:26s} {_source(data):22s} held-out {held:>7s}  CER {mean_cer:>6s}  "
+              f"cells {len(sim.design):2d}  failed {len(sim.failed)}  "
+              f"no similarity {len(sim.missing) + len(sim.non_finite)}  "
+              f"no CER {len(cer.missing) + len(cer.non_finite)}")
+        print(f"  {'':26s} scored in {scoring_environment(data) or 'an environment nothing records'}")
 
-    print("\nHeld-out speaker similarity")
-    print("=" * 96)
-    table(runs, "held_out_similarity", NOISE, 1.0, "cosine")
+    print("\nHeld-out speaker similarity - 95% t interval over speakers")
+    print("=" * 100)
+    for left, right in combinations(runs, 2):
+        pair = compare(left, runs[left], right, runs[right], SIMILARITY)
+        _print_pair(pair, 1.0, PRACTICAL_REFERENCE)
 
-    print("\nCharacter error rate - lower is better, so a positive difference is worse")
-    print("=" * 96)
-    # No pre-registered instrument noise for CER, so the only bar is the interval.
-    table(runs, "character_error_rate", 0.0, 100.0, "percentage points")
-
-    print("\nShare of each speaker's own ceiling")
-    print("=" * 96)
-    print("  A speaker's own recordings score 0.595 to 0.781 against each other, so a raw")
-    print("  mean mixes cloning quality with how consistent that speaker's corpus is. This")
-    print("  normalises it. It is a ratio of cosines, not a percentage of human likeness.")
-    for label, data in runs.items():
-        ceilings = data["calibration"]["per_speaker_ceiling"]
-        shares = [
-            row["held_out"] / ceilings[speaker]
-            for speaker, row in data["per_speaker"].items()
-            if ceilings.get(speaker) and row.get("held_out") is not None
-        ]
-        if shares:
-            mean, low, high = interval(shares)
-            print(f"  {label:26s} {mean * 100:5.1f}%  [{low * 100:.1f}, {high * 100:.1f}]"
-                  f"  over {len(shares)} speakers")
+    print("\nCharacter error rate - positive means the first run is worse")
+    print("=" * 100)
+    print("  FINDINGS section 9: CER may only be compared between runs scored in the")
+    print("  same environment. Pairs scored in different places are shown, not judged.")
+    for left, right in combinations(runs, 2):
+        pair = compare(left, runs[left], right, runs[right], CER)
+        place = scoring_environment(runs[left])
+        same_place = place is not None and place == scoring_environment(runs[right])
+        _print_pair(pair, 100.0, 0.0, judged=same_place)
 
     controls = sorted(p.stem for p in RESULTS.glob("baseline-*-env.json"))
-    if controls:
-        reference = load("baseline")["summary"]["held_out_mean"]
-        print("\nScale controls - the same renders re-scored in another environment")
-        print("=" * 96)
-        print("  Per-cell scores are written rounded to four decimals, so an identical mean")
-        print("  says the rounded cells matched - agreement within 5e-5 a cell, not a claim")
-        print("  about the embedder's raw output. The encoder runs on CPU on every machine.")
+    if controls and (RESULTS / "baseline.json").is_file():
+        reference = load("baseline")
+        print("\nScale controls - the baseline renders re-scored elsewhere, cell by cell")
+        print("=" * 100)
         for name in controls:
-            value = load(name)["summary"]["held_out_mean"]
-            drift = value - reference
-            state = "same to 4 dp in every cell" if value == reference else f"{drift:+.10f}"
-            print(f"  {name:26s} {value!r}   {state}")
-        print(f"  {'baseline (this machine)':26s} {reference!r}")
+            check = scale_control(reference, load(name))
+            if check["only_reference"] or check["only_control"] or check["unusable"]:
+                state = (f"keys differ: {len(check['only_reference'])} only in baseline, "
+                         f"{len(check['only_control'])} only here, {check['unusable']} unusable")
+            elif check["unequal"]:
+                state = (f"{len(check['unequal'])} of {check['shared']} cells differ, "
+                         f"largest {check['max_abs']:.4f}")
+            else:
+                state = f"all {check['shared']} cells equal at 4 dp (raw scores within 1e-4)"
+            print(f"  {name:26s} {state}")
     print()
     return 0
 
 
+def _print_pair(pair: Pair, scale: float, reference: float, judged: bool = True) -> None:
+    head = f"  {pair.left + ' - ' + pair.right:34s}"
+    coverage = (f"{len(pair.speakers_complete)}/{pair.speakers_total} speakers, "
+                f"{pair.paired_cells}/{pair.design_cells} cells")
+    if pair.low is None:
+        mean = "" if pair.mean is None else f"mean {pair.mean * scale:+.3f}  "
+        print(f"{head} {mean}{pair.note}  ({coverage})")
+    else:
+        verdict = describe(pair, reference) if judged else "not the same scoring environment - not judged"
+        print(f"{head} {pair.mean * scale:+7.3f} [{pair.low * scale:+7.3f}, {pair.high * scale:+7.3f}]"
+              f"  sd {pair.sd * scale:.3f}  {verdict}  ({coverage})")
+    for speaker, reason in pair.speakers_excluded.items():
+        print(f"  {'':34s}   left out: {speaker} - {reason}")
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv))

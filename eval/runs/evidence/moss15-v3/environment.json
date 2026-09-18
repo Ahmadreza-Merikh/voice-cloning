@@ -1,0 +1,111 @@
+{
+  "python": "3.12.13",
+  "torch_cuda": "12.8",
+  "cudnn": 91002,
+  "gpus": [
+    {
+      "name": "Tesla T4",
+      "capability": [
+        7,
+        5
+      ]
+    },
+    {
+      "name": "Tesla T4",
+      "capability": [
+        7,
+        5
+      ]
+    }
+  ],
+  "nvidia_smi": "Tesla T4, 580.159.04, 15360 MiB\nTesla T4, 580.159.04, 15360 MiB",
+  "official_stack": {
+    "torch": {
+      "official": "2.9.1+cu128",
+      "installed": "2.9.1+cu128",
+      "matches": true,
+      "pinned_here": true
+    },
+    "torchaudio": {
+      "official": "2.9.1+cu128",
+      "installed": "2.9.1+cu128",
+      "matches": true,
+      "pinned_here": true
+    },
+    "torchcodec": {
+      "official": "0.8.1",
+      "installed": "0.10.0+cu128",
+      "matches": false,
+      "pinned_here": false
+    },
+    "transformers": {
+      "official": "5.0.0",
+      "installed": "5.0.0",
+      "matches": true,
+      "pinned_here": true
+    },
+    "accelerate": {
+      "official": ">=1.10.1",
+      "installed": "1.13.0",
+      "matches": true,
+      "pinned_here": true
+    },
+    "safetensors": {
+      "official": "0.6.2",
+      "installed": "0.6.2",
+      "matches": true,
+      "pinned_here": true
+    },
+    "numpy": {
+      "official": "2.1.0",
+      "installed": "2.0.2",
+      "matches": false,
+      "pinned_here": false
+    },
+    "tqdm": {
+      "official": "4.67.1",
+      "installed": "4.67.3",
+      "matches": false,
+      "pinned_here": false
+    },
+    "einops": {
+      "official": "0.8.1",
+      "installed": "0.8.2",
+      "matches": false,
+      "pinned_here": false
+    },
+    "scipy": {
+      "official": "1.16.2",
+      "installed": "1.16.3",
+      "matches": false,
+      "pinned_here": false
+    },
+    "librosa": {
+      "official": "0.11.0",
+      "installed": "0.11.0",
+      "matches": true,
+      "pinned_here": false
+    },
+    "tiktoken": {
+      "official": "0.12.0",
+      "installed": "0.12.0",
+      "matches": true,
+      "pinned_here": false
+    }
+  },
+  "other_packages": {
+    "tokenizers": "0.22.2",
+    "huggingface-hub": "1.11.0",
+    "soundfile": "0.13.1",
+    "speechbrain": "1.1.1",
+    "faster-whisper": "1.2.1",
+    "ctranslate2": "4.8.2",
+    "jiwer": "4.0.0",
+    "torchvision": "0.24.1+cu128",
+    "ipykernel": "6.17.1",
+    "jupyter-client": "7.4.9",
+    "nbclient": "0.5.13",
+    "nbconvert": "6.4.5",
+    "papermill": "2.7.0"
+  }
+}

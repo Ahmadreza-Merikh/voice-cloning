@@ -6,16 +6,27 @@ starts until the step before it has shown it works:
 
 1. the official stack installs: transformers 5.0.0 on the image's torch, which
    must be the pinned 2.9.1+cu128 - checked, not assumed
-2. the pinned model (be7766a6) and codec (f6e20e54) download
-3. one render through a driver that knows only the worker protocol, with load
+2. the runner is checked on this notebook's own display with a model-free job
+   shaped like the one that stalled (scripts/runner_check.py); nothing is
+   downloaded unless it passes
+3. the pinned model (be7766a6) and codec (f6e20e54) download
+4. one render through a driver that knows only the worker protocol, with load
    time, render time and memory on each card recorded, and the audio inspected
    - 48 kHz, two channels, finite, not a constant
-4. the same cell through the engine and the scorer
-5. the baseline renders re-scored here, compared cell by cell
-6. only if the scored cell came back: the 27-cell development benchmark
+5. the same cell through the engine and the scorer
+6. the baseline renders re-scored here, compared cell by cell
+7. only if every gate above passed and the measured cost fits: the 27-cell
+   development benchmark
 
 Precision is the card's: bf16 on CUDA, which a T4 runs emulated. If it cannot,
-the run stops at step 3 and the log says why; it is never switched to fp16.
+the run stops at step 4 and the log says why; it is never switched to fp16.
+
+Every command's output goes to its own file under /kaggle/working/logs, and
+the notebook shows a bounded view of it: the earlier runner coupled the two,
+and a stalled notebook display stopped the worker (see kernel_gates.py and
+eval/runs/persian-voice-moss15-probe-v2.json). For the same reason no cell
+lets a subprocess write to the notebook's raw stdout - output is captured and
+printed.
 
     .venv/bin/python kaggle/build_dataset.py            # the kernel mounts this
     .venv/bin/python kaggle/build_moss15_kernel.py
@@ -41,8 +52,10 @@ MODEL_REVISION = "be7766a6735b98bd793f7c79fb720b4d0f5d13b8"
 CODEC = "OpenMOSS-Team/MOSS-Audio-Tokenizer-v2"
 CODEC_REVISION = "f6e20e543b33d2c252a7ef71bdf8aa71e5ff9169"
 
-#: v1 spent its whole hour hung inside codec loading. Load plus one render
-#: needs far less; the stack dumps every five minutes say where time goes.
+#: v1 and v2 went silent a second into loading and used their whole budgets -
+#: most likely behind a stalled display, which the probe measured but they,
+#: keeping no log file, could not show. Load plus one render needs far less;
+#: the monitor says where time goes.
 WORKER_TIMEOUT = 2700
 BENCH_TIMEOUT = 3600
 FULL_TIMEOUT = 4 * 3600
@@ -69,6 +82,14 @@ from pathlib import Path
 
 import torch
 
+
+def captured(command):
+    # Output is captured and printed - never written straight to the notebook's
+    # raw stdout, which is what stalled before.
+    result = subprocess.run(command, capture_output=True, text=True)
+    return result.returncode, (result.stdout + result.stderr).strip()
+
+
 # An earlier kernel's transformers install pulled a torchvision built for
 # another torch, and transformers' lazy import of PreTrainedModel died on it.
 # If that happens here, torchvision goes - nothing in this run loads a vision
@@ -77,7 +98,7 @@ probe = subprocess.run([sys.executable, "-c", "from transformers import PreTrain
                        text=True, capture_output=True)
 if probe.returncode != 0 and "torchvision" in probe.stderr:
     print("transformers cannot import beside this torchvision - removing torchvision")
-    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "-q", "torchvision"])
+    print(captured([sys.executable, "-m", "pip", "uninstall", "-y", "-q", "torchvision"])[1])
     probe = subprocess.run([sys.executable, "-c", "from transformers import PreTrainedModel"],
                            text=True, capture_output=True)
 assert probe.returncode == 0, probe.stderr[-2000:]
@@ -122,31 +143,48 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["HF_DEACTIVATE_ASYNC_LOAD"] = "1"
 
 
-# Every stage asks the gates before it starts, and every command runs in its own
-# process group so a timeout ends the worker a driver started, not just the
-# driver. See scripts/kernel_gates.py.
+# Every stage asks the gates before it starts; every command runs in its own
+# process group with its output in its own log. See scripts/kernel_gates.py.
 sys.path.insert(0, str(REPO / "scripts"))
 from kernel_gates import (Gates, bench_verdict, budget_verdict, control_verdict,  # noqa: E402
-                          run_bounded, worker_verdict)
+                          report_group, run_bounded, worker_verdict)
 
 GATES = Gates()
+RUNS = {{}}
+LOGS = Path("/kaggle/working/logs")
+LOGS.mkdir(exist_ok=True)
 CAPACITY = {{f"cuda:{{i}}": torch.cuda.get_device_properties(i).total_memory / 2**30
             for i in range(torch.cuda.device_count())}}
+'''
+
+RUNNER = '''\
+# The job that stalled the last probe, without a model: a fake worker through the
+# real worker's stdout claim and protocol, 3,000 lines and 20,000 progress
+# updates, on this notebook's own display. Nothing is downloaded unless it passes.
+from runner_check import check, diagnostics  # noqa: E402
+
+ok, reason, run = check(run_bounded, Path("/kaggle/working/runner_check"), REPO / "scripts/moss15_worker.py")
+RUNS["runner_check"] = run.record()
+print(run.summary())
+seen, line = diagnostics(report_group)
+print("descriptor report:", "works" if seen else "DOES NOT WORK", "-", line)
+GATES.record("runner", ok, reason)
 '''
 
 DOWNLOAD = f'''\
 from huggingface_hub import snapshot_download
 
-try:
-    start = time.time()
-    MODEL_DIR = Path(snapshot_download(repo_id="{MODEL}", revision="{MODEL_REVISION}"))
-    CODEC_DIR = Path(snapshot_download(repo_id="{CODEC}", revision="{CODEC_REVISION}"))
-    sizes = {{d.name: sum(p.stat().st_size for p in d.rglob("*") if p.is_file()) / 2**30
-             for d in (MODEL_DIR, CODEC_DIR)}}
-    GATES.record("download", True, f"{{(time.time() - start) / 60:.1f}} min, " +
-                 ", ".join(f"{{n}} {{s:.2f}} GiB" for n, s in sizes.items()))
-except Exception as exc:
-    GATES.record("download", False, f"{{type(exc).__name__}}: {{exc}}")
+if not GATES.skip("download", ("runner",)):
+    try:
+        start = time.time()
+        MODEL_DIR = Path(snapshot_download(repo_id="{MODEL}", revision="{MODEL_REVISION}"))
+        CODEC_DIR = Path(snapshot_download(repo_id="{CODEC}", revision="{CODEC_REVISION}"))
+        sizes = {{d.name: sum(p.stat().st_size for p in d.rglob("*") if p.is_file()) / 2**30
+                 for d in (MODEL_DIR, CODEC_DIR)}}
+        GATES.record("download", True, f"{{(time.time() - start) / 60:.1f}} min, " +
+                     ", ".join(f"{{n}} {{s:.2f}} GiB" for n, s in sizes.items()))
+    except Exception as exc:
+        GATES.record("download", False, f"{{type(exc).__name__}}: {{exc}}")
 '''
 
 DRIVER = '''\
@@ -208,12 +246,14 @@ SMOKE = Path("/kaggle/working/moss15_smoke.json")
 WORKER = f'''\
 FACTS = {{}}
 if not GATES.skip("worker", ("download",)):
-    code, seconds, timed_out = run_bounded(
+    run = run_bounded(
         [sys.executable, "/kaggle/working/drive_moss15.py", str(MODEL_DIR), str(CODEC_DIR),
          str(REFERENCE), SENTENCE, str(RENDER), str(REPO)],
-        timeout={WORKER_TIMEOUT}, monitor_every=120, tee=Path("/kaggle/working/worker_stage.log"))
-    subprocess.run(["nvidia-smi", "--query-gpu=index,memory.used,memory.total", "--format=csv"])
-    ok, reason, FACTS = worker_verdict(code, timed_out, RENDER, SMOKE, expect_rate=48000, expect_channels=2)
+        timeout={WORKER_TIMEOUT}, monitor_every=120, log=LOGS / "worker.log")
+    RUNS["worker"] = run.record()
+    print(run.summary())
+    print(captured(["nvidia-smi", "--query-gpu=index,memory.used,memory.total", "--format=csv"])[1])
+    ok, reason, FACTS = worker_verdict(run, RENDER, SMOKE, expect_rate=48000, expect_channels=2)
     GATES.record("worker", ok, reason)
     if FACTS:
         print("load s:", round(FACTS.get("load_seconds", 0), 1),
@@ -224,28 +264,32 @@ if not GATES.skip("worker", ("download",)):
 
 BENCH = f'''\
 if not GATES.skip("bench", ("worker",)):
-    code, BENCH_SECONDS, timed_out = run_bounded(
+    run = run_bounded(
         [sys.executable, "scripts/benchmark.py", "--label", "moss15-smoke", "--engine", "moss15",
          "--device", "cuda", "--speakers", "cv02", "--sentences", "s1"],
-        timeout={BENCH_TIMEOUT}, cwd=str(REPO))
-    ok, reason = bench_verdict(code, timed_out, REPO / "eval/results/moss15-smoke.json")
+        timeout={BENCH_TIMEOUT}, cwd=str(REPO), monitor_every=300, log=LOGS / "bench.log")
+    RUNS["bench"] = run.record()
+    print(run.summary())
+    ok, reason = bench_verdict(run, REPO / "eval/results/moss15-smoke.json")
     GATES.record("bench", ok, reason)
 '''
 
 CONTROL = '''\
 if not GATES.skip("control", ("bench",)):
-    code, seconds, timed_out = run_bounded(
+    run = run_bounded(
         [sys.executable, "scripts/benchmark.py", "--label", "baseline-moss15-env",
          "--score-only", "--replay-from", "baseline", "--device", "cuda"],
-        timeout=3600, cwd=str(REPO))
+        timeout=3600, cwd=str(REPO), monitor_every=300, log=LOGS / "control.log")
+    RUNS["control"] = run.record()
+    print(run.summary())
     check = None
-    if code == 0 and not timed_out and (REPO / "eval/results/baseline-moss15-env.json").is_file():
+    if run.ok and (REPO / "eval/results/baseline-moss15-env.json").is_file():
         import compare_runs
 
         results = REPO / "eval/results"
         check = compare_runs.scale_control(compare_runs.load("baseline", results),
                                            compare_runs.load("baseline-moss15-env", results))
-    ok, reason = control_verdict(code, timed_out, check)
+    ok, reason = control_verdict(run, check)
     GATES.record("control", ok, reason)
 '''
 
@@ -266,14 +310,16 @@ if not GATES.skip("budget", ("worker", "bench", "control")):
     GATES.record("budget", ok, reason)
 
 if not GATES.skip("full", ("budget",)):
-    code, seconds, timed_out = run_bounded(
+    run = run_bounded(
         [sys.executable, "scripts/benchmark.py", "--label", "moss15", "--engine", "moss15", "--device", "cuda"],
-        timeout={FULL_TIMEOUT}, cwd=str(REPO))
+        timeout={FULL_TIMEOUT}, cwd=str(REPO), monitor_every=600, log=LOGS / "full.log")
+    RUNS["full"] = run.record()
+    print(run.summary())
     path = REPO / "eval/results/moss15.json"
     summary = json.loads(path.read_text())["summary"] if path.is_file() else {{}}
-    complete = (not timed_out and code == 0 and summary.get("renders") == 27
+    complete = (run.ok and summary.get("renders") == 27
                 and not summary.get("failures") and not summary.get("untranscribed"))
-    GATES.record("full", complete, json.dumps(summary) if summary else f"exit {{code}}, no results file")
+    GATES.record("full", complete, json.dumps(summary) if summary else f"{{run.outcome}}, no results file")
 '''
 
 COLLECT = '''\
@@ -295,6 +341,7 @@ for extra in (SMOKE,):
     if extra.is_file():
         shutil.copy2(extra, destination / extra.name)
 (destination / "gates.json").write_text(json.dumps(GATES.summary(), indent=2))
+(destination / "runs.json").write_text(json.dumps(RUNS, indent=2))
 print("gates:", json.dumps(GATES.summary(), indent=1))
 print("saved:", len(list(renders.glob("*.wav"))), "harness renders,",
       len(list(Path("/kaggle/working/moss15_native").glob("*.wav"))) if native.is_dir() else 0, "native")
@@ -307,7 +354,7 @@ def cell(source: str) -> dict:
 
 
 def main() -> int:
-    sources = [SETUP, ENVIRONMENT, DOWNLOAD, DRIVER, WORKER, BENCH, CONTROL, FULL, COLLECT]
+    sources = [SETUP, ENVIRONMENT, RUNNER, DOWNLOAD, DRIVER, WORKER, BENCH, CONTROL, FULL, COLLECT]
     for index, source in enumerate(sources):
         compile("".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),
                 f"<cell {index}>", "exec")

@@ -54,8 +54,8 @@ TREES = (
 
 #: Single files, and the scripts a kernel actually invokes.
 FILES = ("pyproject.toml",)
-SCRIPTS = ("benchmark.py", "omnivoice_worker.py", "chatterbox_worker.py",
-           "fish_worker.py", "higgs_worker.py")
+SCRIPTS = ("benchmark.py", "compare_runs.py", "omnivoice_worker.py", "chatterbox_worker.py",
+           "fish_worker.py", "higgs_worker.py", "moss15_worker.py")
 
 PROVENANCE = """\
 # Provenance
@@ -116,8 +116,8 @@ def main() -> int:
         print(f"  scripts/{name}")
     print()
     print("push it with:")
-    print(f"  KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle datasets version"
-          f" -p kaggle/dataset -m 'your message' --dir-mode zip")
+    print("  KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle datasets version"
+          " -p kaggle/dataset -m 'your message' --dir-mode zip")
     return 0
 
 

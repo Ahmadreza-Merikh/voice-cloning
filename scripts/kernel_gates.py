@@ -60,25 +60,90 @@ class Gates:
 
 
 def run_bounded(command: list[str], timeout: float | None = None, cwd: str | None = None,
-                grace: float = 30.0) -> tuple[int, float, bool]:
+                grace: float = 30.0, drain: bool = True, monitor_every: float | None = None,
+                tee: Path | None = None) -> tuple[int, float, bool]:
     """Run a command in its own process group; on timeout, end the whole group.
 
     Returns (exit code, seconds, timed_out). A timed-out command reports -1.
+
+    ``drain`` (the default) gives the child a pipe that this process reads
+    continuously and echoes, instead of letting it write straight into the
+    notebook's own stderr. Two MOSS v1.5 runs on a T4 went silent a second into
+    a long progress bar and stayed silent for the whole budget - not even a
+    GIL-free stack-dump thread got a line out - which is what a writer blocked
+    on a full, undrained pipe looks like. Draining makes that impossible; it
+    changes nothing the child computes. ``drain=False`` keeps the old behaviour
+    for the probe that tests exactly this.
+
+    ``monitor_every`` prints, at that interval, each group member's state and
+    the kernel function it is waiting in, and the machine's free memory - so a
+    silent process can be told apart as blocked on a write, on I/O, or
+    starved of memory. ``tee`` also keeps everything the child printed.
     """
+    import threading
+
     print("$", " ".join(str(part) for part in command), flush=True)
     start = time.time()
-    process = subprocess.Popen(command, cwd=cwd, text=True, start_new_session=True)
+    process = subprocess.Popen(command, cwd=cwd, start_new_session=True,
+                               stdout=subprocess.PIPE if drain else None,
+                               stderr=subprocess.STDOUT if drain else None)
+    reader = None
+    if drain:
+        def pump() -> None:
+            sink = tee.open("ab") if tee else None
+            try:
+                while True:
+                    chunk = os.read(process.stdout.fileno(), 65536)
+                    if not chunk:
+                        break
+                    if sink:
+                        sink.write(chunk)
+                    # Carriage returns become newlines so a progress bar reads
+                    # as lines in a log instead of one unbounded line.
+                    os.write(1, chunk.replace(b"\r", b"\n"))
+            finally:
+                if sink:
+                    sink.close()
+
+        reader = threading.Thread(target=pump, daemon=True)
+        reader.start()
+
     timed_out = False
-    try:
-        code = process.wait(timeout=timeout)
-    except subprocess.TimeoutExpired:
-        timed_out = True
-        _end_group(process, grace)
-        code = -1
+    deadline = None if timeout is None else start + timeout
+    while True:
+        wait = 5.0 if monitor_every is None else monitor_every
+        if deadline is not None:
+            wait = min(wait, max(0.0, deadline - time.time()))
+        try:
+            code = process.wait(timeout=wait)
+            break
+        except subprocess.TimeoutExpired:
+            if deadline is not None and time.time() >= deadline:
+                timed_out = True
+                if monitor_every is not None:
+                    report_group(process.pid)
+                _end_group(process, grace)
+                code = -1
+                break
+            if monitor_every is not None:
+                report_group(process.pid)
+    if reader is not None:
+        reader.join(timeout=10)
     elapsed = time.time() - start
     state = f"TIMED OUT after {timeout}s - process group ended" if timed_out else f"exit {code}"
     print(f"{state} in {elapsed / 60:.1f} min", flush=True)
     return code, elapsed, timed_out
+
+
+def report_group(group: int) -> None:
+    """Each member's state and wait channel, and free memory. Linux; best effort elsewhere."""
+    listing = subprocess.run(["ps", "-o", "pid,stat,wchan:32,rss,etime,args", "-g", str(group)],
+                             capture_output=True, text=True)
+    memory = subprocess.run(["free", "-m"], capture_output=True, text=True)
+    print(f"--- group {group} at {time.strftime('%H:%M:%S')}", flush=True)
+    for text in (listing.stdout, memory.stdout):
+        for line in text.splitlines():
+            print("   ", line[:200], flush=True)
 
 
 def _group_alive(group: int) -> bool:

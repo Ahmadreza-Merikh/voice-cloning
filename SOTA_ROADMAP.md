@@ -67,27 +67,53 @@ change leave quality unchanged.
 ### 3.1 How big the test has to be
 
 **[measured]** The speaker-level standard deviation of paired similarity
-differences is about 0.048 across five engine pairs - estimated from nine
-speakers, so its own 95% interval is roughly [0.032, 0.092]. Test speakers
-needed for 80% power, two-sided alpha 0.05, exact noncentral t:
+differences - OmniVoice against each of the five other engines measured on all
+27 cells - pools to 0.050, and because nine speakers estimate it loosely its
+95% interval is 0.034-0.096 (`scripts/power_design.py`, output in
+`eval/manifests/power_design_v1.json`; the five pairs share their speakers, so
+the interval uses one pair's 8 degrees of freedom).
 
-| true difference | spread 0.048 | spread 0.092 (pilot's upper bound) |
-|---|---|---|
-| 0.04 | 14 | 44 |
-| 0.03 | 23 | 76 |
-| 0.02 | 48 | 168 |
+A superiority claim carries two numbers that must be kept apart:
 
-With three primary comparisons and a Bonferroni split (alpha 0.0167 each), 0.03
-needs 30 to 102. Eighty percent power is a planning figure, not a guarantee: it
-is the chance of an interval excluding zero *if* the true difference and the
-spread are as assumed.
+* the **margin** m that the null hypothesis is stated against, H0: Δ ≤ m.
+  m = 0 asks whether the candidate is better at all; m = 0.0205 whether it
+  clears the practical reference line;
+* the **true effect** δ that the design is sized for - the difference assumed
+  to exist when asking how often the interval's lower end would clear m.
 
-**Proposal.** Declare one primary comparison before building the test set -
-for example "the chosen candidate against OmniVoice, one-sided, margin 0.03" -
-and size the test for it at about 30 speakers, which covers the pilot spread up
-to roughly 0.055. Every other comparison is exploratory, reported with a Holm
-correction and labelled as such. If the test set's own spread comes out higher,
-say so and report the interval; do not add speakers after looking.
+Power depends on δ - m. This section's earlier proposal, "one-sided, margin
+0.03", sized from the row for a true difference of 0.03, mixed the two: with
+δ = m the chance of success equals alpha whatever the number of speakers.
+
+Speakers for 80% power, one-sided alpha 0.025 - the lower end of a two-sided 95%
+interval - by exact noncentral t:
+
+| margin m | true effect δ | spread 0.050 | spread 0.096 (upper end) |
+|---|---|---|---|
+| 0 | 0.03 | 24 | 82 |
+| 0 | 0.05 | 10 | 31 |
+| 0.0205 | 0.04 | 54 | 191 |
+| 0.0205 | 0.05 | 25 | 85 |
+| 0.03 | 0.03 | impossible | impossible |
+| 0.03 | 0.06 | 24 | 82 |
+
+Eighty percent is a planning figure, not a guarantee: it is the chance of
+success *if* the true difference and the spread are as assumed.
+
+**Declared on 2026-09-19, before any test render.** The primary comparison is
+the Persian adaptation of OmniVoice minus OmniVoice as published, on held-out
+similarity, paired per speaker: H0 Δ ≤ 0 (m = 0), one-sided alpha 0.025,
+planned for a true effect of δ = 0.03. The test set has 30 speakers (§3.2),
+which gives 89% power at spread 0.050 and 38% at 0.096. Secondary, reported
+and labelled as such: whether the lower end also clears m = 0.0205 (88% power
+only if δ = 0.05 and the spread is 0.050). CER is a guard, not a target: the
+adapted model's CER against the published model's, scored in one session, is
+reported with its interval, and a CER interval above zero counts against the
+adaptation whatever its similarity. Every other comparison is exploratory,
+with a Holm correction. The spread between a model and its own adaptation may
+not match the spread between different engines; if the test's own spread is
+higher, the interval is reported as it is and no speakers are added after
+looking.
 
 **[measured]** Adding speakers is not free. Each new speaker needs new renders
 from every engine under test. Measured on a T4, including scoring: OmniVoice 6

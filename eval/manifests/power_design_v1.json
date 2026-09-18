@@ -1,0 +1,239 @@
+{
+  "method": "exact noncentral t, one-sided, paired speaker-level means",
+  "alpha_one_sided": 0.025,
+  "target_power": 0.8,
+  "spread": {
+    "pairs": {
+      "omnivoice - baseline": 0.05,
+      "omnivoice - finetuned-bestof4": 0.0418,
+      "omnivoice - moss": 0.0577,
+      "omnivoice - fish": 0.046,
+      "omnivoice - higgs": 0.0526
+    },
+    "pooled_sd": 0.0499,
+    "speakers": 9,
+    "interval_df": 8,
+    "interval_95": [
+      0.0337,
+      0.0956
+    ],
+    "note": "The pairs share their nine speakers, so they are not independent estimates; the interval uses the degrees of freedom of one pair."
+  },
+  "table": [
+    {
+      "margin": 0.0,
+      "true_effect": 0.02,
+      "speakers_at_sd_0.0499": 51,
+      "speakers_at_sd_0.0956": 182
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.03,
+      "speakers_at_sd_0.0499": 24,
+      "speakers_at_sd_0.0956": 82
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.04,
+      "speakers_at_sd_0.0499": 15,
+      "speakers_at_sd_0.0956": 47
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.05,
+      "speakers_at_sd_0.0499": 10,
+      "speakers_at_sd_0.0956": 31
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.06,
+      "speakers_at_sd_0.0499": 8,
+      "speakers_at_sd_0.0956": 22
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.08,
+      "speakers_at_sd_0.0499": 6,
+      "speakers_at_sd_0.0956": 14
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.02,
+      "speakers_at_sd_0.0499": null,
+      "speakers_at_sd_0.0956": null
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.03,
+      "speakers_at_sd_0.0499": 219,
+      "speakers_at_sd_0.0956": 797
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.04,
+      "speakers_at_sd_0.0499": 54,
+      "speakers_at_sd_0.0956": 191
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.05,
+      "speakers_at_sd_0.0499": 25,
+      "speakers_at_sd_0.0956": 85
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.06,
+      "speakers_at_sd_0.0499": 15,
+      "speakers_at_sd_0.0956": 48
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.08,
+      "speakers_at_sd_0.0499": 8,
+      "speakers_at_sd_0.0956": 23
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.02,
+      "speakers_at_sd_0.0499": null,
+      "speakers_at_sd_0.0956": null
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.03,
+      "speakers_at_sd_0.0499": null,
+      "speakers_at_sd_0.0956": null
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.04,
+      "speakers_at_sd_0.0499": 198,
+      "speakers_at_sd_0.0956": 720
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.05,
+      "speakers_at_sd_0.0499": 51,
+      "speakers_at_sd_0.0956": 182
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.06,
+      "speakers_at_sd_0.0499": 24,
+      "speakers_at_sd_0.0956": 82
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.08,
+      "speakers_at_sd_0.0499": 10,
+      "speakers_at_sd_0.0956": 31
+    }
+  ],
+  "power_at_speakers": [
+    {
+      "margin": 0.0,
+      "true_effect": 0.02,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.564,
+      "power_at_sd_0.0956": 0.197
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.03,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.889,
+      "power_at_sd_0.0956": 0.383
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.04,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.989,
+      "power_at_sd_0.0956": 0.601
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.05,
+      "speakers": 30,
+      "power_at_sd_0.0499": 1.0,
+      "power_at_sd_0.0956": 0.791
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.06,
+      "speakers": 30,
+      "power_at_sd_0.0499": 1.0,
+      "power_at_sd_0.0956": 0.913
+    },
+    {
+      "margin": 0.0,
+      "true_effect": 0.08,
+      "speakers": 30,
+      "power_at_sd_0.0499": 1.0,
+      "power_at_sd_0.0956": 0.993
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.03,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.171,
+      "power_at_sd_0.0956": 0.076
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.04,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.544,
+      "power_at_sd_0.0956": 0.19
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.05,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.879,
+      "power_at_sd_0.0956": 0.372
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.06,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.987,
+      "power_at_sd_0.0956": 0.59
+    },
+    {
+      "margin": 0.0205,
+      "true_effect": 0.08,
+      "speakers": 30,
+      "power_at_sd_0.0499": 1.0,
+      "power_at_sd_0.0956": 0.909
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.04,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.184,
+      "power_at_sd_0.0956": 0.08
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.05,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.564,
+      "power_at_sd_0.0956": 0.197
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.06,
+      "speakers": 30,
+      "power_at_sd_0.0499": 0.889,
+      "power_at_sd_0.0956": 0.383
+    },
+    {
+      "margin": 0.03,
+      "true_effect": 0.08,
+      "speakers": 30,
+      "power_at_sd_0.0499": 1.0,
+      "power_at_sd_0.0956": 0.791
+    }
+  ]
+}

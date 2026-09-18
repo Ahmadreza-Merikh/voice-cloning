@@ -141,10 +141,10 @@ down until listening has actually happened.
 | base | licences **[source]** | measured | official fine-tuning path | keep or drop |
 |---|---|---|---|---|
 | OmniVoice | code Apache-2.0, weights CC-BY-NC | **[measured]** 0.583 | yes: `examples/run_finetune.sh`, JSONL `{id, audio_path, text, language_id}`, 5,000 steps at lr 5e-5 | keep if non-commercial is acceptable |
-| MOSS-TTS-Local-Transformer-v1.5 | model, codec and code all Apache-2.0 (below) | **[measured]** 0.507 at the official recipe; CER +7.7 over the baseline in its session | not checked | below OmniVoice and v1.0 here; its "continuation" mode, with the reference transcript, is untested |
+| MOSS-TTS-Local-Transformer-v1.5 | model, codec and code all Apache-2.0 (below) | **[measured]** 0.507 at the official recipe; CER +7.7 over the baseline in its session | not checked | below OmniVoice and v1.0 on similarity here; its "continuation" mode, with the reference transcript, is untested - kept in reserve, not run for the licence alone |
 | MOSS-TTS-Local-Transformer v1.0 | model Apache-2.0; codec licence not checked | **[measured]** 0.559, CER +3.7 | not checked | superseded; kept as a reference point |
 | F5-TTS continued | base CC-BY-NC | **[measured]** 0.546 | this project has one | control, not destination |
-| Fish S2 Pro | research only | **[measured]** 0.537, CER +6.4 | out of scope | drop - worst Persian CER measured and the narrowest licence |
+| Fish S2 Pro | research only | **[measured]** 0.537, CER +6.4 | out of scope | drop - CER +6.4 over its session's baseline, and the narrowest licence |
 | Higgs TTS 3 | research only | **[measured]**, ported fp16 only | out of scope | drop for training; re-measure only through an official path |
 
 "Unrestricted" is a claim about every component, so it is only made where
@@ -277,7 +277,8 @@ next to its numbers.
    No GPU.
 2. ~~Smoke-test MOSS v1.5 on a T4 at the official recipe, then the 27-cell
    development benchmark.~~ Done on 2026-09-18 (kernel v3 and v4, all gates
-   passed): 0.507 with the official tag, not above the baseline. Open: its
+   passed): 0.507 with the official tag, no detectable difference from the
+   baseline (-0.013 [-0.053, +0.027]). Open: its
    "continuation" mode with the reference transcript - one variable, with the
    official app's prompt construction.
 3. Run the multi-reference conditions on the development set for the engines

@@ -1,0 +1,19 @@
+{
+  "kernel": "marsmanam/persian-voice-moss15",
+  "version": 2,
+  "date": "2026-09-18",
+  "session": "kaggle:persian-voice-moss15-v2",
+  "changes_from_v1": "stack dumps every 300 s via faulthandler, timestamped phases, worker budget 45 min",
+  "gates": {
+    "download": "PASS 1.3 min",
+    "worker": "FAIL timed out after 2700 s",
+    "bench": "skipped",
+    "control": "skipped",
+    "budget": "skipped",
+    "full": "skipped"
+  },
+  "what_happened": "The phase line confirmed async loading was off. Codec weight loading printed progress to 148 of 2094 within a second, then nothing at all for 45 minutes - including none of the stack dumps faulthandler should have written every five minutes. Both GPUs at 105 MiB when the group was ended.",
+  "reading": "faulthandler's watchdog is a C thread that dumps without the GIL, so a Python-level deadlock would still have produced dumps. Silence from every thread means the process could not write at all, or could not run at all. The one MOSS run that ever completed (v1.0) ran under a watcher that read and echoed its output; both hung T4 runs, and v1.0's two hung runs, wrote straight to the kernel's inherited stderr while printing a long progress bar. Hypothesis: the worker blocks writing to an undrained pipe.",
+  "cause": "hypothesis only - see the CPU load probe",
+  "lost": "nothing measured; about 50 minutes of T4 x2 quota"
+}

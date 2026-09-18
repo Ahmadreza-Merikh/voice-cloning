@@ -152,3 +152,25 @@ def test_a_timeout_ends_the_drivers_children_too(tmp_path: Path) -> None:
         time.sleep(0.1)
     else:
         pytest.fail(f"child {child} of the timed-out driver is still alive")
+
+
+def test_a_chatty_child_is_drained_and_its_output_kept(tmp_path: Path) -> None:
+    # Two megabytes of carriage-return progress and no newline: what a long
+    # weight-loading bar writes. A drained pipe cannot back up, so this ends.
+    script = tmp_path / "chatty.py"
+    script.write_text(
+        "import sys\n"
+        "for i in range(20000):\n"
+        "    sys.stderr.write(f'\\rLoading weights: {i}/20000 ' + 'x' * 80)\n"
+        "sys.stderr.write('\\ndone\\n')\n"
+    )
+    tee = tmp_path / "tee.log"
+    code, seconds, timed_out = gates.run_bounded([sys.executable, str(script)], timeout=60, tee=tee)
+    assert (code, timed_out) == (0, False)
+    kept = tee.read_bytes()
+    assert kept.endswith(b"done\n") and len(kept) > 2_000_000
+
+
+def test_the_undrained_mode_still_runs(tmp_path: Path) -> None:
+    code, seconds, timed_out = gates.run_bounded([sys.executable, "-c", "print('ok')"], timeout=30, drain=False)
+    assert (code, timed_out) == (0, False)

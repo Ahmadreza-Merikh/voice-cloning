@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-18, MOSS v1.5 v1/v2 hung in codec loading; CPU probe did not reproduce; T4-image probe running.
+Last updated: 2026-09-18 18:40, T4-image probe still RUNNING past every budget - probably stuck; see Blockers.
 
 ## Stage
 
@@ -43,7 +43,7 @@ inside one scoring environment (`eval/results/_provenance.json` for older files,
 | `marsmanam/persian-voice-moss15` v1 | complete: worker gate timed out in codec loading, all later stages skipped | no - recorded in `eval/runs/persian-voice-moss15-v1.json` |
 | `marsmanam/persian-voice-moss15` v2 | complete: worker gate timed out again, no stack dump ever printed | no - `eval/runs/persian-voice-moss15-v2.json` |
 | `marsmanam/persian-voice-moss15-probe` v1 | complete, CPU image: codec loaded in 20 s drained, 13 s inherited - hang not reproduced | no - `eval/runs/persian-voice-moss15-probe-v1.json` |
-| `marsmanam/persian-voice-moss15-probe` **v2** | **pushed 2026-09-18, T4 image, ten-minute budgets, worker's full load path** | **no - read `probe.json` first** |
+| `marsmanam/persian-voice-moss15-probe` **v2** | **pushed ~16:27, still RUNNING at 18:35 against budgets totalling < 1 h; logs unreadable while running** | **no - see Blockers; never re-push while it runs** |
 | dataset `marsmanam/persian-voice-eval` | current: gates, float-WAV v1.5 worker, compare_runs | verified by download before the push |
 
 The v1.5 kernel writes `results/gates.json` whatever happens: each stage's
@@ -103,6 +103,16 @@ enforces it, so a hung worker is only bounded by the kernel's process-group
 timeout, not by the engine.
 
 ## Blockers and standing limits
+
+**The T4-image probe appears stuck and may hold GPU quota until Kaggle's
+session limit.** Most likely cause: the runner in its dataset waited without a
+limit after SIGKILL (fixed in `312b757`), and something it tried to end did not
+die - consistent with a process stuck below Python on the CUDA image. Stopping
+it needs the user: from the notebook page on Kaggle ("Stop session"), or by
+deleting the kernel, which is irreversible and is not done without explicit
+permission. Once it ends, its log should include the process states and wait
+channels printed at the timeout.
+
 
 No technical blocker known. No new spend, GPU purchase, acceptance of legal
 terms (e.g. ParsVoice), upload of the user's private audio, heavy local

@@ -236,6 +236,15 @@ class OmniVoiceConfig:
     position_temperature: float = 5.0
     class_temperature: float = 0.0
     timeout_seconds: int = 900
+    #: On a 16 GB Mac the worker and the speech recogniser do not fit together:
+    #: measured on 2026-09-17, a render that had to transcribe its reference
+    #: reached warning memory pressure and was stopped, while one given the
+    #: transcript peaked at 3.4 GB with none. With the guard on, nothing that
+    #: would load the recogniser beside OmniVoice is started: the reference
+    #: transcript must be supplied, and best-of-N and speech-to-speech, which
+    #: transcribe, are refused. The benchmark turns it off - it transcribes
+    #: every render to score it, on machines with room for both.
+    memory_guard: bool = True
 
 
 @dataclass
@@ -341,7 +350,7 @@ class SeedVCConfig:
 
 @dataclass
 class EnginesConfig:
-    tts: str = "f5"
+    tts: str = "omnivoice"
     vc: str = "cascade"
     f5: F5Config = field(default_factory=F5Config)
     moss: MossConfig = field(default_factory=MossConfig)

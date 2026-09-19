@@ -45,6 +45,8 @@ Usage
     .venv/bin/python scripts/benchmark.py --label nfe64 --engine-option nfe_step=64
     .venv/bin/python scripts/benchmark.py --label asr-text --ref-transcript asr
     .venv/bin/python scripts/benchmark.py --compare baseline nfe64
+    .venv/bin/python scripts/benchmark.py --label t --corpus-dir DIR \\
+        --sentences-file eval/manifests/test_texts_v1.json --seeds 42 43
 """
 
 from __future__ import annotations
@@ -320,6 +322,10 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         # e.g. giving an engine text in a language it can pronounce, to
         # separate its speaker transfer from its reading of Persian.
         sentences = [("custom", args.sentence_text)]
+    elif args.sentences_file:
+        # A written set is used whole; --max-sentences trims only the built-in one.
+        sentences = [s for s in load_sentences(args.sentences_file)
+                     if not args.sentences or s[0] in set(args.sentences)]
     else:
         sentences = [s for s in SENTENCES if not args.sentences or s[0] in set(args.sentences)]
         sentences = sentences[: args.max_sentences]
@@ -405,11 +411,19 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         held_audio = {e["file"]: load_audio(str(e["path"])) for e in held_out}
         reference_audio = load_audio(str(reference["path"]))
         reference_text = None if args.ref_transcript == "asr" else reference["transcript"]
+        window = None if args.score_only else prepared_window(
+            studio, reference["path"], reference_audio.duration, preprocess_overrides)
+        if window and not window.get("whole_clip") and reference_text is not None:
+            # The transcript was written for the whole clip; a cut window no longer says all of it.
+            print(f"  note: {speaker}'s reference is used from {window['window'][0]:.2f} s to "
+                  f"{window['window'][1]:.2f} s of {reference_audio.duration:.2f} s, with the whole clip's "
+                  "transcript", flush=True)
         references.append({
             "speaker": speaker, "file": reference["file"], "sha256": sha256_file(reference["path"]),
             "duration": reference.get("duration"),
             "transcript_given": reference_text if reference_text is not None
             else "transcribed by the recogniser inside the run",
+            "prepared": window,
         })
 
         for key, sentence in sentences:
@@ -530,6 +544,39 @@ def write_recipe(args, config, engine_options, preprocess_overrides, cells, refe
         ),
     )
     print(f"  recipe:  {written}")
+
+
+def load_sentences(path: Path) -> list[tuple[str, str]]:
+    """Texts written by ``scripts/build_test_texts.py``, checked against the hash stored with them."""
+    import hashlib
+
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    texts = data["texts"]
+    digest = hashlib.sha256(json.dumps(texts, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+    if digest != data.get("sha256_of_texts"):
+        raise SystemExit(f"{path}: the texts do not match the sha256 stored with them")
+    return [(t["key"], t["text"]) for t in texts]
+
+
+def prepared_window(studio: Any, path: Path, duration: float, overrides: dict[str, Any]) -> dict[str, Any]:
+    """Which stretch of the reference clip the engine is actually given.
+
+    The Studio caches the prepared reference under the same key synthesis
+    uses, so this reads what the renders get rather than preparing it twice.
+    A window shorter than the clip means a transcript written for the whole
+    clip describes speech the prompt may no longer contain.
+    """
+    try:
+        prepared = studio.prepare_reference(str(path), overrides=overrides or None)
+    except Exception as exc:  # noqa: BLE001 - the renders will fail and say why
+        return {"error": f"{type(exc).__name__}: {exc}"}
+    start, end = prepared.window_start, prepared.window_end
+    return {
+        "window": [round(start, 3), round(end, 3)],
+        "prepared_seconds": round(prepared.audio.duration, 3),
+        "whole_clip": start <= 0.05 and end >= duration - 0.05,
+        "steps": list(prepared.steps),
+    }
 
 
 def _score_existing(studio: Any, path: Path, expected: str) -> Any:
@@ -680,6 +727,7 @@ def summarise(
             "replay_from": args.replay_from,
             "seeds": seeds,
             "sentences": [k for k, _ in sentences],
+            "sentences_file": str(args.sentences_file) if getattr(args, "sentences_file", None) else None,
             "device": args.device or "auto",
             "speakers": sorted(corpus),
             "similarity_backend": embedder.backend,
@@ -829,6 +877,13 @@ def main() -> int:
         default=None,
         help="Synthesise this text instead of the standard set. CER is then only "
              "meaningful if the engine is meant to read it.",
+    )
+    parser.add_argument(
+        "--sentences-file",
+        type=Path,
+        default=None,
+        help="Render every text of this file (eval/manifests/test_texts_v1.json) instead of the "
+             "built-in set; its stored sha256 is checked first.",
     )
     parser.add_argument("--speakers", nargs="+", default=None)
     parser.add_argument("--limit-speakers", type=int, default=None)

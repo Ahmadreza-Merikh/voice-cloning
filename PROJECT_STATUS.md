@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-19 11:04 +0330 (07:34 UTC).
+Last updated: 2026-09-19 11:25 +0330 (07:55 UTC).
 
 **Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` version 1,
 pushed 01:13:52 UTC, RUNNING at 01:14:21 - session a of the full OmniVoice
@@ -35,8 +35,8 @@ independent data, with the test decided before any training (SOTA_ROADMAP §3,
 
 ## Last healthy commit
 
-`32ddfd9` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
-gives 351 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
+`0346c86` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
+gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 `ruff check src scripts tests` clean.
 
 ## The adaptation, where it stands
@@ -175,6 +175,9 @@ FINDINGS §8); CER is the recogniser's reading - nobody has listened.
     would have failed after its downloads; staged now, with a "code" gate and a
     test that follows every OmniVoice notebook's scripts to the staged list
 19. `32ddfd9` the export path checked on a tiny model
+20. `0346c86` the OmniVoice engine waits for its worker with the configured
+    deadline and starts a new worker after a hang or a crash - before, one hung
+    render would have lost a whole test-set run, and one crash every later cell
 
 Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
 `87c33e2` `587af3d` `cdc4b36` `a390618` `09b6373` `7d1c9f9`; second review
@@ -208,7 +211,8 @@ Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
 
 ## Open
 
-* engines accept `timeout_seconds` but `_read_reply` never enforces it
+* Fish, Higgs and Chatterbox accept `timeout_seconds` but their `_read_reply`
+  never enforces it (OmniVoice does since `0346c86`; offered as a separate task)
 * the Studio keeps a supplied transcript when the reference window cuts a
   clip over 11.5 s (it re-transcribes only for an engine's own limit) - a user
   with a long reference and a typed transcript gets a mismatched prompt. Left

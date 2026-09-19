@@ -4,11 +4,23 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-20 00:20 +0330 (2026-09-19 20:50 UTC).
+Last updated: 2026-09-20 00:30 +0330 (2026-09-19 21:00 UTC).
 
-**Nothing is running remotely.** Waiting for the user to say how much GPU
-quota is left this week before session a v2 is pushed (promised 2026-09-19).
-The CPU-only download probe (`persian-voice-fetch-probe` v1, 20:23-20:31 UTC,
+**Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` **v2**,
+pushed 2026-09-19 20:54:15 UTC, RUNNING - the first training session of the
+adaptation, on a T4 pair: it writes and tokenises train and valid, then trains
+from the base and stops itself at the last checkpoint that fits 11.25 h from
+the notebook's start (about 08:10 UTC on 2026-09-20). Budget declared before
+the push: the user read 17 GPU-hours left this week off Kaggle's page, this
+session takes at most 11.25 h of wall clock, so session b waits for the weekly
+reset (`eval/runs/persian-voice-omnivoice-adapt.json` ->
+`budget_declared_before_the_push.quota_before_session_a_v2`). Do not re-push it
+and do not cancel it; read its status, and its output only after it ends.
+
+What v1 taught this version: every network step now runs through
+`scripts/fetch_inputs.py` under `run_bounded` (60 minutes for the whole
+download stage, 60 s per request, 3 attempts), so a stall ends the stage and
+leaves a gate record instead of holding the session. The CPU-only download probe (`persian-voice-fetch-probe` v1, 20:23-20:31 UTC,
 no GPU quota) fetched session a's whole plan, about 21 GiB with every check, on
 the first attempt both ways - Xet in 2.6 minutes, plain HTTP in 4.5
 (`eval/runs/persian-voice-fetch-probe-v1.json`); the GPU sessions now fetch
@@ -23,9 +35,9 @@ written after that. Nobody here cancelled it. The cell ran four
 notebook's own process, so a stall held the T4 pair - probably until Kaggle's
 12-hour limit - for nothing (outcome and evidence:
 `eval/runs/persian-voice-omnivoice-adapt.json`,
-`eval/runs/evidence/omnivoice-train-a-v1/`). It is not re-pushed until the
-downloads are bounded and tested without a GPU, and the user has said how much
-GPU quota is left this week.
+`eval/runs/evidence/omnivoice-train-a-v1/`). Both conditions it was held
+for - bounded downloads, tested without a GPU, and a known quota - were met
+before v2 went out.
 
 Dataset `persian-voice-eval` is at the version staged from `b103fa6`
 (2026-09-19 20:45 UTC), verified by download: 251 files byte-identical, the
@@ -137,9 +149,9 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 ## Next concrete steps
 
 0. Done: every network step bounded (`0ac7811`), downloads tested on a
-   CPU-only session (`b103fa6`), dataset re-staged. Left: the user says how
-   much GPU quota is left; then push `kaggle/omnivoice-train-a` as v2 (about
-   10.5 GPU-hours) with its budget written first, or wait for the weekly reset.
+   CPU-only session (`b103fa6`), dataset re-staged, budget declared (`0c83842`),
+   session a pushed as v2 at 20:54:15 UTC. Left: read its status now and then,
+   read its output after it ends, and record the outcome either way.
 1. When session a ends: read its gates (`session/gates.json` in its output);
    if `train` passed, push `kaggle/omnivoice-train-b` (it mounts a's tokens and
    checkpoint); then c the same way. If a session fails a gate, read why before

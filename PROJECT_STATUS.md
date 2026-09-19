@@ -4,19 +4,20 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-19 11:09 +0330 (07:39 UTC).
+Last updated: 2026-09-20 00:15 +0330 (2026-09-19 20:45 UTC).
 
-**Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` version 1,
-pushed 01:13:52 UTC, RUNNING at 01:14:21 - session a of the full OmniVoice
-adaptation: it writes and tokenises the whole train and valid split, then
-trains from the published weights until the last official checkpoint that fits
-11.25 hours from the notebook's start (plan, budget and the reading of the
-result, written before the push: `eval/runs/persian-voice-omnivoice-adapt.json`).
-Expected to end around 11:40 UTC at about step 1,500. Kaggle shows no output
-until a session ends; a session that ends within the first hour has failed a
-gate. Still RUNNING at 07:32 UTC, 6 h 18 min in - past the point where a
-failed data gate would have ended it, which suggests (does not show) that the
-data stage passed. Do not resubmit or stop it; read its state first.
+**Nothing is running remotely.** Session a of the full OmniVoice adaptation
+(`marsmanam/persian-voice-omnivoice-train-a` v1, pushed 2026-09-19 01:13:52
+UTC) ended as CANCEL_ACKNOWLEDGED, first read at 18:10 UTC, with nothing
+trained: its log stops at 138 s, as the download cell began, and nothing was
+written after that. Nobody here cancelled it. The cell ran four
+`snapshot_download` calls (about 21 GiB) and a `urlopen` with no timeout in the
+notebook's own process, so a stall held the T4 pair - probably until Kaggle's
+12-hour limit - for nothing (outcome and evidence:
+`eval/runs/persian-voice-omnivoice-adapt.json`,
+`eval/runs/evidence/omnivoice-train-a-v1/`). It is not re-pushed until the
+downloads are bounded and tested without a GPU, and the user has said how much
+GPU quota is left this week.
 
 Dataset `persian-voice-eval` is at the version staged from `007af09`, verified
 by download; every session mounts it. It is re-staged with this round's code
@@ -65,7 +66,8 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
   trains - 13.98 s a step, 12.3 GiB of 14.56 - and on one GPU the checkpointed
   path gave the same first loss and first-step gradients as the official one
   to every printed digit. Budget: about 23-26 GPU-hours in three sessions
-* **full run**: session a running (above); b and c are built
+* **full run**: session a v1 stalled in its downloads and was cancelled
+  (above); b and c are built
   (`kaggle/omnivoice-train-b`, `-c`) and are pushed only after the previous
   session's output exists
 * **the float16 export path** [measured, tiny model]: the probe stopped before
@@ -116,7 +118,7 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 
 | kernel | state | re-run? |
 |---|---|---|
-| `persian-voice-omnivoice-train-a` v1 | **RUNNING** since 01:14 UTC (still at 07:21) | no - wait for it |
+| `persian-voice-omnivoice-train-a` v1 | CANCEL_ACKNOWLEDGED (read 18:10 UTC); log ends at 138 s in the download cell | not as it is - its downloads have no time limit |
 | `persian-voice-omnivoice-probe` v2 | complete, about 14 min: fits with memory-only changes | no - `eval/runs/persian-voice-omnivoice-probe-v2.json`, evidence in `eval/runs/evidence/omnivoice-probe-v2/` |
 | `persian-voice-omnivoice-probe` v1 | complete, about 12 min: official recipe out of memory; fallback skipped by a bug | no - `...-probe-v1.json`, evidence in `.../omnivoice-probe-v1/` |
 | `persian-voice-moss15` v1-v4, `-moss15-probe` v1-v2 | complete | no - `eval/runs/persian-voice-moss15-*.json` |
@@ -124,6 +126,9 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 
 ## Next concrete steps
 
+0. Before any GPU session: bound every network step (a stall cost session a
+   v1 its whole run), test the downloads on a CPU-only session, which spends
+   no GPU quota, and learn from the user how much GPU quota is left.
 1. When session a ends: read its gates (`session/gates.json` in its output);
    if `train` passed, push `kaggle/omnivoice-train-b` (it mounts a's tokens and
    checkpoint); then c the same way. If a session fails a gate, read why before
@@ -208,6 +213,12 @@ Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
 `79fec9d` `56a963e` `c13ab5c` `7944081` `0f71c71` `69c17a8`.
 
 ## Corrections (kept as history, not erased)
+
+* 2026-09-19: this file said session a being RUNNING past its first hour
+  "suggests (does not show) that the data stage passed". It had not started:
+  the session was stalled in its download cell from 138 s. A running status
+  says nothing about progress when a cell prints nothing - which is why the
+  downloads now report as they go and are bounded
 
 * 2026-09-19: the split's test reference rule (the longest clip) would have
   given 13 of the 28 Neyshekar test speakers a reference the pipeline cuts

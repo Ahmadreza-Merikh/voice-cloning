@@ -56,6 +56,13 @@ def engine(config, tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     settings = config.engines.omnivoice
     monkeypatch.setattr(settings, "python", sys.executable)
     monkeypatch.setattr(settings, "timeout_seconds", 2)
+    # What the Mac has free right now is not what these tests are about.
+    from voiceclone import memory
+
+    monkeypatch.setattr(memory, "pressure_level", lambda: 1)
+    monkeypatch.setattr(memory, "available_gb", lambda: 64.0)
+    # Nor whether this machine holds a float16 copy of the weights.
+    monkeypatch.setattr(omnivoice_tts, "cached_revision", lambda model_id: None)
     made = omnivoice_tts.OmniVoiceEngine(config, DeviceSpec(torch.device("cpu"), torch.float32, False))
     yield made
     made.unload()

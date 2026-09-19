@@ -58,6 +58,11 @@ class TestThePressureLevel:
         assert watch.triggered is None and watch._thread is None
 
 
+def test_the_default_threshold_is_the_measured_estimate(config: AppConfig) -> None:
+    assert config.engines.omnivoice.min_available_gb == 6.0
+    assert config.runtime.stop_on_memory_pressure is True
+
+
 def test_the_studio_starts_nothing_at_warning(config: AppConfig, monkeypatch) -> None:
     monkeypatch.setattr(memory, "pressure_level", lambda: 2)
     studio = Studio(config)
@@ -99,6 +104,9 @@ def engine(config, tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(omnivoice_tts, "_worker_script", lambda: script)
     monkeypatch.setattr(omnivoice_tts, "cached_revision", lambda model_id: None)
     monkeypatch.setattr(config.engines.omnivoice, "python", sys.executable)
+    # A calm, roomy machine unless a test says otherwise: what this Mac has free now must not decide.
+    monkeypatch.setattr(memory, "pressure_level", lambda: 1)
+    monkeypatch.setattr(memory, "available_gb", lambda: 64.0)
     made = omnivoice_tts.OmniVoiceEngine(config, DeviceSpec(torch.device("cpu"), torch.float32, False))
     yield made
     made.unload()

@@ -19,9 +19,13 @@ adds is what a Kaggle session needs and a record of what happened:
 ``--memory``
     ``official`` by default. ``checkpointing`` recomputes each LLM layer's
     activations in the backward pass; ``bucket-view`` lets DDP's gradient
-    buckets share storage with the gradients. Both change memory, not what is
-    computed; they are used only when the official configuration does not fit,
-    and the record says which ran.
+    buckets share storage with the gradients; ``single-tensor`` has AdamW update
+    one parameter at a time instead of all at once, which avoids a
+    model-sized temporary. Joined with ``+``. All three change memory, not
+    what is computed; they are used only when the official configuration does
+    not fit, and the record says which ran. The first optimizer step's
+    gradients are fingerprinted (their norm after clipping, and the sums of a
+    few tensors) so two runs can be checked to have computed the same thing.
 ``--set key=value``
     Only for settings that do not change training: the checkpoint to resume
     from, the local path of the pinned base model, and how many checkpoints to
@@ -46,7 +50,7 @@ from pathlib import Path
 
 #: Settings a session may change because they do not touch what is computed.
 SAFE_OVERRIDES = {"resume_from_checkpoint", "init_from_checkpoint", "keep_last_n_checkpoints"}
-MEMORY_MODES = {"official", "checkpointing", "bucket-view", "checkpointing+bucket-view"}
+MEMORY_TECHNIQUES = {"checkpointing", "bucket-view", "single-tensor"}
 
 
 class StopSession(Exception):
@@ -85,6 +89,7 @@ class Meter:
         self.losses: list[float] = []
         self.eval_losses: list[float] = []
         self.stop_after: int | None = None
+        self.first_gradients: dict | None = None
 
     def forward_hook(self, module, args, output) -> None:
         loss = getattr(output, "loss", None)
@@ -93,6 +98,23 @@ class Meter:
         if loss is not None:
             value = float(loss.detach().float().item())
             (self.losses if module.training else self.eval_losses).append(value)
+
+    def gradient_hook(self, optimizer, args, kwargs) -> None:
+        """Before the first update: the gradients the step is about to apply."""
+        if self.first_gradients is not None:
+            return
+        grads = [p.grad for group in optimizer.param_groups for p in group["params"] if p.grad is not None]
+        if not grads:
+            return
+        norm = self.torch.linalg.vector_norm(
+            self.torch.stack([self.torch.linalg.vector_norm(g.float()) for g in grads])
+        )
+        picked = grads[:3] + grads[-3:]
+        self.first_gradients = {
+            "tensors": len(grads),
+            "norm_after_clipping": float(norm),
+            "sums_of_first_and_last_three": [float(g.float().sum()) for g in picked],
+        }
 
     def step_hook(self, optimizer, args, kwargs) -> None:
         now = time.time()
@@ -113,6 +135,7 @@ class Meter:
             "peak_reserved_gib": round(self.torch.cuda.max_memory_reserved(self.device) / 2**30, 3),
             "train_losses": [round(v, 5) for v in self.losses],
             "eval_losses": [round(v, 5) for v in self.eval_losses],
+            "first_step_gradients": self.first_gradients,
         }
 
 
@@ -148,11 +171,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--session-seconds", type=float)
     parser.add_argument("--export-every", type=int)
     parser.add_argument("--audio-tokenizer", type=Path, help="Copied beside each export")
-    parser.add_argument("--memory", default="official", choices=sorted(MEMORY_MODES))
+    parser.add_argument("--memory", default="official",
+                        help=f"official, or any of {sorted(MEMORY_TECHNIQUES)} joined with +")
     parser.add_argument("--evaluate-once", action="store_true",
                         help="After stopping, run the official evaluation pass once and time it")
     parser.add_argument("--record", type=Path, help="JSON record; one file per process, suffixed .rankN")
     args = parser.parse_args(argv)
+    techniques = set() if args.memory == "official" else set(args.memory.split("+"))
+    if techniques - MEMORY_TECHNIQUES:
+        raise SystemExit(f"--memory: unknown {sorted(techniques - MEMORY_TECHNIQUES)}")
 
     import omnivoice.training.trainer as official_trainer
     import torch
@@ -168,13 +195,13 @@ def main(argv: list[str] | None = None) -> int:
     for key, value in parse_overrides(args.set).items():
         setattr(config, key, value)
 
-    if "bucket-view" in args.memory:
+    if "bucket-view" in techniques:
         official_trainer.DistributedDataParallelKwargs = functools.partial(
             DistributedDataParallelKwargs, gradient_as_bucket_view=True
         )
 
     model, tokenizer = build_model_and_tokenizer(config)
-    if "checkpointing" in args.memory:
+    if "checkpointing" in techniques:
         model.llm.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
     train_loader, eval_loader = build_dataloaders(config, tokenizer)
 
@@ -204,11 +231,20 @@ def main(argv: list[str] | None = None) -> int:
             if int(stop.item()):
                 raise StopSession(f"stopped at checkpoint-{step}: the next save would not fit the session")
 
-    trainer = Budgeted(model=model, config=config, train_dataloader=train_loader,
-                       eval_dataloader=eval_loader, tokenizer=tokenizer)
+    official_adamw = torch.optim.AdamW
+    if "single-tensor" in techniques:
+        # The trainer builds its optimizer through this name; the update rule is
+        # the same, applied one tensor at a time.
+        torch.optim.AdamW = functools.partial(official_adamw, foreach=False)
+    try:
+        trainer = Budgeted(model=model, config=config, train_dataloader=train_loader,
+                           eval_dataloader=eval_loader, tokenizer=tokenizer)
+    finally:
+        torch.optim.AdamW = official_adamw
     meter = Meter(trainer.accelerator.device)
     meter.stop_after = args.stop_after_steps
     trainer.accelerator.unwrap_model(trainer.model).register_forward_hook(meter.forward_hook)
+    trainer.optimizer.optimizer.register_step_pre_hook(meter.gradient_hook)
     trainer.optimizer.optimizer.register_step_post_hook(meter.step_hook)
     torch.cuda.reset_peak_memory_stats(trainer.accelerator.device)
 

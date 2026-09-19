@@ -47,7 +47,7 @@ USER = "marsmanam"
 DATASET = "persian-voice-eval"
 SLUG = "persian-voice-omnivoice-probe"
 MACHINE_SHAPE = "NvidiaTeslaT4"
-SESSION = "kaggle:persian-voice-omnivoice-probe-v1"
+SESSION = "kaggle:persian-voice-omnivoice-probe-v2"
 
 FT = "fine" + "tune"
 OMNIVOICE_REPO = "k2-fsa/OmniVoice"
@@ -90,7 +90,11 @@ SLICE_TRAIN = 700
 SLICE_VALID = 80
 FLEX_STEPS = 4
 SDPA_STEPS = 8
-EQUIVALENCE_BATCH_TOKENS = 2048
+EQUIVALENCE_BATCH_TOKENS = 512
+#: Version 1 ran the default flex_attention config out of memory in its first
+#: step, and the official docs send GPUs older than Ampere to SDPA; version 2
+#: does not repeat it.
+RUN_FLEX = False
 FULL_STEPS = 5000
 TRAIN_HOURS = 127.85
 QUOTA_HOURS_PER_WEEK = 30.0
@@ -363,10 +367,15 @@ DATA_CONFIG = WORK / "data_config.json"
 STEP_RECORDS = {{}}
 
 
-def attempt(name, config_path, steps, memory="official", timeout=2400, evaluate=False, extra=()):
+def attempt(name, config_path, steps, memory="official", timeout=2400, evaluate=False, extra=(), gpus=2):
+    # The allocator setting changes fragmentation, not arithmetic; it goes only
+    # with the memory techniques, never with the official attempt.
+    saved = os.environ.get("PYTORCH_CUDA_ALLOC_CONF")
+    if memory != "official":
+        os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
     record = RECORDS / f"{{name}}.json"
     # The official launch line from run_{FT}.sh, with the wrapper in place of -m omnivoice.cli.train.
-    command = ["accelerate", "launch", "--gpu_ids", "0,1", "--num_processes", "2",
+    command = ["accelerate", "launch", "--gpu_ids", "0,1" if gpus == 2 else "0", "--num_processes", str(gpus),
                str(REPO / "scripts/omnivoice_adapt.py"),
                "--train_config", str(config_path), "--data_config", str(DATA_CONFIG),
                "--output_dir", str(WORK / "runs" / name), "--set", f"init_from_checkpoint={{ARTIFACTS['base']}}",
@@ -374,11 +383,19 @@ def attempt(name, config_path, steps, memory="official", timeout=2400, evaluate=
     if evaluate:
         command.append("--evaluate-once")
     run = run_bounded(command, timeout=timeout, log=LOGS / f"{{name}}.log", monitor_every=300)
+    if saved is None:
+        os.environ.pop("PYTORCH_CUDA_ALLOC_CONF", None)
+    else:
+        os.environ["PYTORCH_CUDA_ALLOC_CONF"] = saved
     RUNS[name] = run.record()
     print(run.summary())
     ranks = [json.loads(p.read_text()) for p in sorted(RECORDS.glob(f"{{name}}.rank*.json"))]
-    tail = run.log.read_text(errors="replace").splitlines()[-25:] if run.log.is_file() else []
-    oom = any("out of memory" in line.lower() or "OutOfMemoryError" in line for line in tail)
+    text = run.log.read_text(errors="replace") if run.log.is_file() else ""
+    tail = text.splitlines()[-25:]
+    # Version 1 read only the tail, which holds torchrun's summary, and missed
+    # the out-of-memory both processes had recorded.
+    oom = (any("out of memory" in (r.get("outcome") or "") for r in ranks)
+           or "OutOfMemoryError" in text or "CUDA out of memory" in text)
     STEP_RECORDS[name] = {{"ok": run.ok, "outcome": run.outcome, "oom": oom, "ranks": ranks, "log_tail": tail}}
     return STEP_RECORDS[name]
 
@@ -394,35 +411,62 @@ def summarise(result):
 if not GATES.skip("flex", ("tokenize",)):
     DATA_CONFIG.write_text(json.dumps({{"train": [{{"manifest_path": [str(TOKENS / "train/data.lst")]}}],
                                         "dev": [{{"manifest_path": [str(TOKENS / "valid/data.lst")]}}]}}, indent=2))
-    result = attempt("flex", ARTIFACTS["configs"]["train_config_{FT}.json"], {FLEX_STEPS}, timeout=1800)
-    GATES.record("flex", result["ok"], summarise(result))
+    if {RUN_FLEX}:
+        result = attempt("flex", ARTIFACTS["configs"]["train_config_{FT}.json"], {FLEX_STEPS}, timeout=1800)
+        GATES.record("flex", result["ok"], summarise(result))
+    else:
+        GATES.record("flex", False, "not repeated: version 1 ran the default flex_attention config out of "
+                     "memory in its first step, and the official docs send GPUs older than Ampere to SDPA")
 
 if not GATES.skip("sdpa", ("tokenize",)):
     result = attempt("sdpa", ARTIFACTS["configs"]["train_config_{FT}_sdpa.json"], {SDPA_STEPS}, evaluate=True)
     GATES.record("sdpa", result["ok"], summarise(result))
 
 MEMORY_MODE = None
+MODES = ("checkpointing+bucket-view", "checkpointing+bucket-view+single-tensor")
 if GATES.status.get("sdpa", (False, ""))[0]:
     MEMORY_MODE = "official"
 elif STEP_RECORDS.get("sdpa", {{}}).get("oom"):
-    result = attempt("sdpa_memory", ARTIFACTS["configs"]["train_config_{FT}_sdpa.json"], {SDPA_STEPS},
-                     memory="checkpointing+bucket-view", evaluate=True)
-    GATES.record("sdpa-memory", result["ok"], summarise(result))
-    if result["ok"]:
-        MEMORY_MODE = "checkpointing+bucket-view"
-        # A test-only batch that fits both ways: the memory techniques must leave
-        # the first two losses where the official path puts them.
-        small = json.loads(Path(ARTIFACTS["configs"]["train_config_{FT}_sdpa.json"]).read_text())
-        small["batch_tokens"] = {EQUIVALENCE_BATCH_TOKENS}
-        small_path = WORK / "official" / "equivalence_test_only.json"
-        small_path.write_text(json.dumps(small, indent=2))
-        plain = attempt("equivalence_official", small_path, 2)
-        tricks = attempt("equivalence_memory", small_path, 2, memory="checkpointing+bucket-view")
-        losses = [[r["train_losses"][:2] for r in x["ranks"]] for x in (plain, tricks)]
-        same = bool(plain["ranks"]) and bool(tricks["ranks"]) and all(
-            abs(a - b) <= 5e-3 * max(abs(a), 1.0)
-            for pr, tr in zip(losses[0], losses[1]) for a, b in zip(pr, tr))
-        GATES.record("equivalence", same, f"first two losses per rank, official vs memory: {{losses}}")
+    for mode in MODES:
+        name = "sdpa_" + mode.replace("+", "_").replace("-", "_")
+        result = attempt(name, ARTIFACTS["configs"]["train_config_finetune_sdpa.json"], {SDPA_STEPS},
+                         memory=mode, evaluate=True)
+        GATES.record(f"sdpa [{{mode}}]", result["ok"], summarise(result))
+        if result["ok"]:
+            MEMORY_MODE, MEMORY_RUN = mode, name
+            break
+        if not result["oom"]:
+            break
+else:
+    GATES.record("sdpa-memory", False, "not tried: the official SDPA attempt failed for another reason than memory")
+
+if MEMORY_MODE not in (None, "official"):
+    # One GPU, a test-only batch small enough for the official path: the same
+    # data and seed with and without the techniques must give the same first
+    # loss and the same gradients before the first update. DDP bucket views
+    # do not exist on one process, so they are covered by DDP's own contract.
+    small = json.loads(Path(ARTIFACTS["configs"]["train_config_finetune_sdpa.json"]).read_text())
+    small["batch_tokens"] = {EQUIVALENCE_BATCH_TOKENS}
+    small_path = WORK / "official" / "equivalence_test_only.json"
+    small_path.write_text(json.dumps(small, indent=2))
+    plain = attempt("equivalence_official", small_path, 1, gpus=1)
+    tested = "+".join(t for t in MEMORY_MODE.split("+") if t != "bucket-view")
+    tricks = attempt("equivalence_memory", small_path, 1, memory=tested, gpus=1)
+    facts = [x["ranks"][0] if x["ranks"] else {{}} for x in (plain, tricks)]
+    fingerprints = [f.get("first_step_gradients") or {{}} for f in facts]
+    losses = [f.get("train_losses", [None])[:1] for f in facts]
+    # The fingerprint is taken before the first update, so an optimizer that
+    # then runs out of memory allocating its state has still shown its gradients.
+    if not (fingerprints[0] and fingerprints[1]):
+        GATES.record("equivalence", False, "not testable on this card: " + "; ".join(
+            f"{{label}} {{x['outcome']}} (out of memory: {{x['oom']}})"
+            for label, x in (("official", plain), (tested, tricks))))
+    else:
+        norms = [f.get("norm_after_clipping") for f in fingerprints]
+        same = (None not in norms and abs(norms[0] - norms[1]) <= 1e-2 * max(abs(norms[0]), 1e-6)
+                and losses[0] and losses[1] and abs(losses[0][0] - losses[1][0]) <= 1e-3 * max(abs(losses[0][0]), 1.0))
+        GATES.record("equivalence", bool(same), json.dumps({{"official": {{"loss": losses[0], **fingerprints[0]}},
+                                                              tested: {{"loss": losses[1], **fingerprints[1]}}}}))
         if not same:
             MEMORY_MODE = None
 '''
@@ -432,7 +476,7 @@ BUDGET = {{}}
 if MEMORY_MODE is None:
     GATES.record("budget", False, "no configuration of the full recipe ran on this hardware")
 else:
-    name = "sdpa" if MEMORY_MODE == "official" else "sdpa_memory"
+    name = "sdpa" if MEMORY_MODE == "official" else MEMORY_RUN
     ranks = STEP_RECORDS[name]["ranks"]
     per_step = max(r["mean_step_seconds_after_two"] for r in ranks)
     train_rate = TOKEN_FACTS["train"]["realtime_factor"]

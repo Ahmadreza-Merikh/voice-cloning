@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-19 10:55 +0330 (07:25 UTC).
+Last updated: 2026-09-19 11:04 +0330 (07:34 UTC).
 
 **Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` version 1,
 pushed 01:13:52 UTC, RUNNING at 01:14:21 - session a of the full OmniVoice
@@ -14,7 +14,7 @@ trains from the published weights until the last official checkpoint that fits
 result, written before the push: `eval/runs/persian-voice-omnivoice-adapt.json`).
 Expected to end around 11:40 UTC at about step 1,500. Kaggle shows no output
 until a session ends; a session that ends within the first hour has failed a
-gate. Still RUNNING at 07:21 UTC, 6 h 07 min in - past the point where a
+gate. Still RUNNING at 07:32 UTC, 6 h 18 min in - past the point where a
 failed data gate would have ended it, which suggests (does not show) that the
 data stage passed. Do not resubmit or stop it; read its state first.
 
@@ -35,8 +35,8 @@ independent data, with the test decided before any training (SOTA_ROADMAP §3,
 
 ## Last healthy commit
 
-`2e13f0a` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
-gives 344 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
+`32ddfd9` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
+gives 351 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 `ruff check src scripts tests` clean.
 
 ## The adaptation, where it stands
@@ -68,6 +68,14 @@ gives 344 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 * **full run**: session a running (above); b and c are built
   (`kaggle/omnivoice-train-b`, `-c`) and are pushed only after the previous
   session's output exists
+* **the float16 export path** [measured, tiny model]: the probe stopped before
+  any save, so the export had never run; `scripts/check_omnivoice_export.py`
+  exports a 10.8M-parameter OmniVoice the way the sessions do and loads it with
+  `from_pretrained`: the published model's files, both tokenizers, all 26
+  tensors equal. On this Mac's torch 2.14 / transformers 5.17 (the OmniVoice
+  code is identical to the pinned commit's; Kaggle's pinned torch and
+  transformers are not what ran). Session a's first real export is at step
+  1,000
 * **sealed test** [built, not pushed]: `kaggle/omnivoice-test`
   (`kaggle/build_omnivoice_test_kernel.py`), planned and budgeted before any
   test clip was read (`eval/runs/persian-voice-omnivoice-test.json`): both test
@@ -163,6 +171,10 @@ FINDINGS §8); CER is the recogniser's reading - nobody has listened.
     training outputs carry older copies of the repository)
 16. `d667c6b` the sealed test session, built
 17. `2e13f0a` its pre-registration; roadmap, runbook and FINDINGS caveat
+18. `cbb447e` the dataset list lacked the test session's three scripts - it
+    would have failed after its downloads; staged now, with a "code" gate and a
+    test that follows every OmniVoice notebook's scripts to the staged list
+19. `32ddfd9` the export path checked on a tiny model
 
 Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
 `87c33e2` `587af3d` `cdc4b36` `a390618` `09b6373` `7d1c9f9`; second review

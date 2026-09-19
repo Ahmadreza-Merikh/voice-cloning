@@ -62,7 +62,14 @@ os.environ["VOICECLONE_CODE_COMMIT"] = (provenance.read_text().split("commit ")[
 PARQUET = {{"neyshekar": Path("/tmp/neyshekar-test"), "cv26": Path("/tmp/cv26")}}
 TEXTS = REPO / "eval/manifests/test_texts_v1.json"
 BASE = None
-if not GATES.skip("download", ("runner",)):
+# A dataset staged before this code existed would fail only after the downloads.
+NEEDED = ["scripts/prepare_test_corpus.py", "scripts/read_sealed_test.py", "scripts/build_adaptation_splits.py",
+          "eval/manifests/test_texts_v1.json"]
+missing = [name for name in NEEDED if not (REPO / name).is_file()]
+if "--sentences-file" not in (REPO / "scripts/benchmark.py").read_text():
+    missing.append("benchmark.py --sentences-file")
+GATES.record("code", not missing, f"missing from the dataset: {{missing}}" if missing else "the test code is present")
+if not GATES.skip("download", ("runner", "code")):
     try:
         start = time.time()
         BASE = Path(snapshot_download("{probe.BASE}", revision="{probe.BASE_REVISION}", local_dir="/tmp/omnivoice-base"))

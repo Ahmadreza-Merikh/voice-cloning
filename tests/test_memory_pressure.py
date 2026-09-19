@@ -202,3 +202,25 @@ class TestTheFloat16Copy:
         assert result.metadata["model"] == "k2-fsa/OmniVoice"
         assert result.metadata["revision"] == "abc123"
         assert str(cache / "omnivoice" / "float16" / "abc123") in result.metadata["weights"]
+
+
+class TestTheCheckItself:
+    def test_tensors_split_across_many_pieces_convert_and_verify(self, tmp_path: Path, monkeypatch) -> None:
+        # 16-byte pieces: four float32 values in, and the copy read back in eight-value pieces.
+        monkeypatch.setattr(float16, "PIECE_BYTES", 16)
+        record = float16.convert(snapshot(tmp_path), tmp_path / "out" / "abc123", "k2-fsa/OmniVoice", "abc123")
+        assert record["verified"] is True
+        assert record["bit_for_bit_against_the_cast_original"]["mismatched"] == []
+
+    def test_a_single_wrong_bit_is_caught(self, tmp_path: Path) -> None:
+        source = snapshot(tmp_path) / "model.safetensors"
+        copy = tmp_path / "copy.safetensors"
+        float16.write_float16(source, copy)
+        assert float16.verify(source, copy)["mismatched"] == []
+        with copy.open("rb") as handle:
+            header, start = float16.read_header(handle)
+        begin, _ = header["llm.w"]["data_offsets"]
+        data = bytearray(copy.read_bytes())
+        data[start + begin + 5] ^= 0x01
+        copy.write_bytes(bytes(data))
+        assert float16.verify(source, copy)["mismatched"] == ["llm.w"]

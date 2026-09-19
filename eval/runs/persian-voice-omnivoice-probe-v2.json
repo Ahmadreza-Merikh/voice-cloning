@@ -1,22 +1,39 @@
 {
   "kernel": "marsmanam/persian-voice-omnivoice-probe",
   "version": 2,
-  "status": "planned - written before the push",
+  "version_source": "the service's push response: 'Kernel version 2 successfully pushed'",
+  "status": "COMPLETE (kaggle kernels status, 01:06:47 UTC)",
+  "dataset": "marsmanam/persian-voice-eval, the version staged from 007af09, verified by download before the push",
+  "timeline_utc": {"pushed": "00:52:42", "running": "00:53:10", "complete_by": "01:06:47", "kernel_log_length_seconds": 798},
   "hypothesis": "Version 1 showed the official SDPA configuration runs out of memory on a T4 in its first forward pass at 8,192 tokens per GPU. The official recipe fits a T4 pair unchanged in its arithmetic if the LLM's activations are recomputed in the backward pass (gradient checkpointing) and DDP's gradient buckets share the gradients' storage - and, failing that, with AdamW applying the same update one tensor at a time. The test: the SDPA configuration with those techniques runs 8 optimizer steps on both GPUs; and on one GPU at a test-only 512-token batch, the first loss and the gradients before the first update match the official path's.",
-  "changes_from_v1": [
-    "out-of-memory is read from the per-process records and the whole log, not the log's last 25 lines (the v1 bug that skipped the fallback)",
-    "flex_attention is not repeated (v1: out of memory in the first step; the official docs send GPUs older than Ampere to SDPA)",
-    "memory techniques: gradient checkpointing (non-reentrant) on the LLM, DDP gradient_as_bucket_view, and if needed AdamW with foreach=False; PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True goes with them, never with the official attempt",
-    "the equivalence check runs on one GPU at 512 tokens and compares the first loss and a fingerprint of the first step's gradients (their norm after clipping and the sums of six tensors), taken before the update"
-  ],
-  "budget_declared_before_the_push": {
-    "accelerator": "GPU T4 x2 (free quota)",
-    "expected_minutes": "about 20-25: install 6, downloads 1, data 1, tokenising 6, the official SDPA control 1, each memory attempt about 3-5, the equivalence runs 2-3",
-    "hard_limits": "the same per-command timeouts as v1"
+  "budget_declared_before_the_push": {"accelerator": "GPU T4 x2 (free quota)", "expected_minutes": "about 20-25", "used": "about 14 minutes"},
+  "environment": "as v1: every pinned package matched (torch 2.8.0+cu128, torchaudio 2.8.0+cu128, transformers 5.3.0, accelerate 1.13.0, webdataset 1.0.2, safetensors 0.7.0, tokenizers 0.22.2, huggingface-hub 1.7.2); numpy 2.0.2 against the lock's 2.4.3, not pinned; omnivoice 0.2.1 from git at 08be0b4c; evidence/omnivoice-probe-v2/environment.json",
+  "gates": {
+    "runner": "PASS - 1,853,785 bytes through the protocol path in 0.3 s, 104,594 shown",
+    "download": "PASS - 0.8 min; tokenizer hashes agree; the three official configs match their git blob ids",
+    "data": "PASS - the same slice as v1: train 700 + 700, valid 3 + 80",
+    "tokenize": "PASS - 1,400 samples, 7,654.6 s of audio in 214 s (36x real time including start-up), 0 failures",
+    "flex": "not repeated (v1: out of memory in the first step)",
+    "sdpa": "FAIL, as in v1 - the control: out of memory in the first step on both GPUs, 14.2 GiB reserved of 14.56",
+    "sdpa [checkpointing+bucket-view]": "PASS - 8 optimizer steps on both GPUs; step times 14.78, 14.11, 14.14, 14.13, 13.93, 14.05, 13.68, 13.97 s (13.98 s mean after two warm-up steps); peak 11.9 GiB allocated, 12.3 GiB reserved of 14.56; training losses 4.16-4.58; one official evaluation pass over the 83-clip valid slice took 4.4 s (eval loss 4.336)",
+    "equivalence": "PASS - on one GPU at a test-only 512-token batch, the official path and gradient checkpointing gave the same first loss (4.24785) and the same first-step gradient fingerprint to every printed digit: 312 gradient tensors, norm after clipping 0.99999982 in both, the sums of the first three and last three tensors identical (0.0346650705, -0.0040196613, 0.0097201820, -0.0083111366, -0.5718547106, 0.0050498247)",
+    "budget": "PASS - see below"
   },
-  "reading": {
-    "a memory mode runs 8 steps and the equivalence holds": "the recipe runs on a T4 pair with memory-only changes; its measured seconds per step, times 5,000, plus tokenising and evaluation, is the full run's cost, compared with the free quota before anything long is sent",
-    "a memory mode runs but the equivalence fails": "the techniques changed something; no long run on them",
-    "nothing fits": "the full recipe needs a GPU with more memory; the report gives the evidence and the command, with nothing reduced"
-  }
+  "measured": {
+    "fits": "OmniVoice's official SDPA recipe - 8,192 tokens per GPU, bf16 autocast, AdamW, lr 1e-5 - trains on a Kaggle T4 pair once gradient checkpointing and DDP bucket views are on; single-tensor AdamW was not needed",
+    "unchanged": "the checkpointed path computed the same loss and the same gradients as the official path in the test above. DDP bucket views exist only with two processes, so the one-GPU test does not cover them; they are an aliasing of the gradient buffers that DDP documents as not changing the reduction",
+    "cost": "13.98 s per optimizer step; 5,000 steps = 19.4 h of training"
+  },
+  "budget": {
+    "training_hours": 19.42,
+    "tokenising_hours": 3.57,
+    "evaluation_hours": 0.34,
+    "total_hours": 23.33,
+    "sessions": "at least 3 of up to 12 hours, because a checkpoint every 500 steps (1.94 h) is where a session can stop",
+    "weekly_quota_hours": "about 30",
+    "basis": "5,000 x 13.98 s; tokenising 127.85 h at 36x real time; ten official evaluations of the 3.68 h valid split at the slice's rate. Checkpoint saves and start-up are extra"
+  },
+  "not_tested": "whether step time holds over the whole training split (batch shapes vary with clip length); whether the memory peak stays under the card on the longest batches; the tokeniser's rate at full scale",
+  "next": "the full run, in chained sessions, with the reading fixed in SOTA_ROADMAP.md section 8 before it starts",
+  "lost": "nothing but about 14 minutes of T4 x2"
 }

@@ -1,0 +1,38 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.3s; 104594 shown"
+  },
+  "download": {
+    "passed": true,
+    "reason": "0.8 min; tokenizer hashes agree; 3 official configs match their blob ids"
+  },
+  "data": {
+    "passed": true,
+    "reason": "{\"train\": {\"train/cv26\": 700, \"train/neyshekar\": 700}, \"valid\": {\"valid/cv26\": 3, \"valid/neyshekar\": 80}}"
+  },
+  "tokenize": {
+    "passed": true,
+    "reason": "{\"train\": {\"shards\": 33, \"samples\": 1400, \"audio_seconds\": 7654.6, \"failed\": 0, \"wall_seconds\": 214.0, \"realtime_factor\": 35.8}, \"valid\": {\"shards\": 42, \"samples\": 83, \"audio_seconds\": 484.3, \"failed\": 0, \"wall_seconds\": 143.3, \"realtime_factor\": 3.4}, \"example\": {\"member\": \"neyshekar-68.npy\", \"shape\": [8, 92], \"dtype\": \"int16\", \"max\": 1023, \"min\": 1}}"
+  },
+  "flex": {
+    "passed": false,
+    "reason": "not repeated: version 1 ran the default flex_attention config out of memory in its first step, and the official docs send GPUs older than Ampere to SDPA"
+  },
+  "sdpa": {
+    "passed": false,
+    "reason": "rank 0: 0 steps, None s/step, peak None GiB allocated / 14.209 reserved of 14.56, losses []; rank 1: 0 steps, None s/step, peak None GiB allocated / 14.197 reserved of 14.56, losses []"
+  },
+  "sdpa [checkpointing+bucket-view]": {
+    "passed": true,
+    "reason": "rank 0: 8 steps, 13.982 s/step, peak 11.891 GiB allocated / 12.311 reserved of 14.56, losses [4.45931, 4.40005, 4.48002, 4.41215]; rank 1: 8 steps, 13.982 s/step, peak 11.969 GiB allocated / 12.271 reserved of 14.56, losses [4.27437, 4.50456, 4.57438, 4.30765]"
+  },
+  "equivalence": {
+    "passed": true,
+    "reason": "{\"official\": {\"loss\": [4.24785], \"tensors\": 312, \"norm_after_clipping\": 0.9999998211860657, \"sums_of_first_and_last_three\": [0.0346650704741478, -0.004019661340862513, 0.009720182046294212, -0.00831113662570715, -0.5718547105789185, 0.0050498247146606445]}, \"checkpointing\": {\"loss\": [4.24785], \"tensors\": 312, \"norm_after_clipping\": 0.9999998211860657, \"sums_of_first_and_last_three\": [0.0346650704741478, -0.004019661340862513, 0.009720182046294212, -0.00831113662570715, -0.5718547105789185, 0.0050498247146606445]}}"
+  },
+  "budget": {
+    "passed": true,
+    "reason": "{\"memory_mode\": \"checkpointing+bucket-view\", \"seconds_per_step\": 13.982, \"training_hours\": 19.42, \"tokenising_hours\": 3.57, \"evaluation_hours\": 0.34, \"total_hours\": 23.33, \"sessions_of_12h\": 3, \"weekly_quota_hours\": 30.0, \"peaks_gib\": {\"rank 0\": 12.311, \"rank 1\": 12.271}, \"capacity_gib\": 14.56}"
+  }
+}

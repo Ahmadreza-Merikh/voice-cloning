@@ -67,6 +67,10 @@ class RuntimeConfig:
     seed: int = 0
     num_threads: int = 0
     mps_fallback: bool = True
+    #: Start no render while the Mac reports memory pressure, and stop an
+    #: out-of-process engine the moment it does (``voiceclone.memory``).
+    #: Nowhere else is a level published, so elsewhere this does nothing.
+    stop_on_memory_pressure: bool = True
 
 
 @dataclass
@@ -245,6 +249,14 @@ class OmniVoiceConfig:
     #: transcribe, are refused. The benchmark turns it off - it transcribes
     #: every render to score it, on machines with room for both.
     memory_guard: bool = True
+    #: Load a verified float16 copy of the cached weights when one exists for
+    #: the same revision (``scripts/omnivoice_float16.py``). The worker runs in
+    #: float16 anyway and casts every weight on load, so the numbers are the
+    #: same; the file it reads is half the size.
+    float16_copy: bool = True
+    #: Refuse to start the worker with less memory than this available (GB).
+    #: 0 disables the check; the pressure watch still applies.
+    min_available_gb: float = 0.0
 
 
 @dataclass

@@ -1,0 +1,93 @@
+{
+  "runner_check": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 120,
+    "seconds": 0.4,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/runner_check/runner_check.log",
+    "output_bytes": 1853785,
+    "shown_bytes": 104590,
+    "display_blocked": false,
+    "problems": []
+  },
+  "data_train": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 1800,
+    "seconds": 2.6,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/data_train.log",
+    "output_bytes": 337,
+    "shown_bytes": 337,
+    "display_blocked": false,
+    "problems": []
+  },
+  "data_valid": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 1800,
+    "seconds": 1.9,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/data_valid.log",
+    "output_bytes": 329,
+    "shown_bytes": 329,
+    "display_blocked": false,
+    "problems": []
+  },
+  "tokenize_train": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 3600,
+    "seconds": 222.4,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/tokenize_train.log",
+    "output_bytes": 208506,
+    "shown_bytes": 3406,
+    "display_blocked": false,
+    "problems": []
+  },
+  "tokenize_valid": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 3600,
+    "seconds": 146.2,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/tokenize_valid.log",
+    "output_bytes": 16189,
+    "shown_bytes": 2163,
+    "display_blocked": false,
+    "problems": []
+  },
+  "flex": {
+    "outcome": "exited 1",
+    "exit_code": 1,
+    "timed_out": false,
+    "timeout": 1800,
+    "seconds": 73.2,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/flex.log",
+    "output_bytes": 28040,
+    "shown_bytes": 27900,
+    "display_blocked": false,
+    "problems": []
+  },
+  "sdpa": {
+    "outcome": "exited 1",
+    "exit_code": 1,
+    "timed_out": false,
+    "timeout": 2400,
+    "seconds": 30.4,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/sdpa.log",
+    "output_bytes": 17317,
+    "shown_bytes": 17256,
+    "display_blocked": false,
+    "problems": []
+  }
+}

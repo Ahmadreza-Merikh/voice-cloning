@@ -39,6 +39,18 @@ CONTROL_LABEL = "omnivoice-published-devctl"
 BASELINE_CONTROL = "baseline-omnidev-env"
 EXPORT_LABEL = "omnivoice-fa-{step}"
 
+FIND_REPO = 'found = sorted(INPUT.rglob("repo/scripts/omnivoice_adapt.py"))'
+# Every training session's output carries the copy of the repository it ran
+# with, and those are mounted here too; the code must be the dataset's.
+FIND_REPO_IN_DATASET = ('found = sorted(p for p in INPUT.rglob("repo/scripts/omnivoice_adapt.py") '
+                        f'if "{probe.DATASET}" in p.parts)')
+
+
+def environment(session: str) -> str:
+    source = probe.ENVIRONMENT.replace(probe.SESSION, session)
+    assert source.count(FIND_REPO) == 1, "the probe's repository lookup changed"
+    return source.replace(FIND_REPO, FIND_REPO_IN_DATASET)
+
 SETUP = probe.SETUP.rstrip("\n") + '''
 !pip -q install speechbrain faster-whisper jiwer pyloudnorm noisereduce num2words silero-vad onnxruntime 2>&1 | tail -3
 '''
@@ -142,8 +154,7 @@ print("gates:", json.dumps(GATES.summary(), indent=1))
 
 
 def main() -> int:
-    environment = probe.ENVIRONMENT.replace(probe.SESSION, SESSION)
-    cells = [SETUP, environment, probe.RUNNER, RUN, CHOOSE, COLLECT]
+    cells = [SETUP, environment(SESSION), probe.RUNNER, RUN, CHOOSE, COLLECT]
     for index, source in enumerate(cells):
         compile("".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),
                 f"<cell {index}>", "exec")

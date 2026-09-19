@@ -1,0 +1,15 @@
+{
+  "memory_mode": "checkpointing+bucket-view",
+  "seconds_per_step": 13.982,
+  "training_hours": 19.42,
+  "tokenising_hours": 3.57,
+  "evaluation_hours": 0.34,
+  "total_hours": 23.33,
+  "sessions_of_12h": 3,
+  "weekly_quota_hours": 30.0,
+  "peaks_gib": {
+    "rank 0": 12.311,
+    "rank 1": 12.271
+  },
+  "capacity_gib": 14.56
+}

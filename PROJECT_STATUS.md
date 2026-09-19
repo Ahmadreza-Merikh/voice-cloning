@@ -4,9 +4,17 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-20 00:15 +0330 (2026-09-19 20:45 UTC).
+Last updated: 2026-09-20 00:00 +0330 (2026-09-19 20:30 UTC).
 
-**Nothing is running remotely.** Session a of the full OmniVoice adaptation
+**Running remotely:** `marsmanam/persian-voice-fetch-probe` v1, pushed
+2026-09-19 20:23:11 UTC - CPU only, no accelerator, so no GPU quota: session
+a's whole download plan (about 21 GiB) through the new bounded
+`scripts/fetch_inputs.py`, once with Hugging Face's Xet client and once over
+plain HTTP, 30 minutes each at most (budget: about 65 minutes of a CPU
+session). Its result sets `FETCH_FLAGS` before any GPU session. Read its
+output (`fetch_probe/result.json`) when it ends; do not re-push it blindly.
+
+Session a of the full OmniVoice adaptation
 (`marsmanam/persian-voice-omnivoice-train-a` v1, pushed 2026-09-19 01:13:52
 UTC) ended as CANCEL_ACKNOWLEDGED, first read at 18:10 UTC, with nothing
 trained: its log stops at 138 s, as the download cell began, and nothing was
@@ -118,6 +126,7 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 
 | kernel | state | re-run? |
 |---|---|---|
+| `persian-voice-fetch-probe` v1 | **RUNNING** since 20:23 UTC (CPU only) | no - read `fetch_probe/result.json` |
 | `persian-voice-omnivoice-train-a` v1 | CANCEL_ACKNOWLEDGED (read 18:10 UTC); log ends at 138 s in the download cell | not as it is - its downloads have no time limit |
 | `persian-voice-omnivoice-probe` v2 | complete, about 14 min: fits with memory-only changes | no - `eval/runs/persian-voice-omnivoice-probe-v2.json`, evidence in `eval/runs/evidence/omnivoice-probe-v2/` |
 | `persian-voice-omnivoice-probe` v1 | complete, about 12 min: official recipe out of memory; fallback skipped by a bug | no - `...-probe-v1.json`, evidence in `.../omnivoice-probe-v1/` |

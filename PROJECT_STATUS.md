@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-19 05:27 +0330 (01:57 UTC).
+Last updated: 2026-09-19 10:55 +0330 (07:25 UTC).
 
 **Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` version 1,
 pushed 01:13:52 UTC, RUNNING at 01:14:21 - session a of the full OmniVoice
@@ -14,12 +14,15 @@ trains from the published weights until the last official checkpoint that fits
 result, written before the push: `eval/runs/persian-voice-omnivoice-adapt.json`).
 Expected to end around 11:40 UTC at about step 1,500. Kaggle shows no output
 until a session ends; a session that ends within the first hour has failed a
-gate. Still RUNNING at 01:56 UTC, 42 minutes in - past the point where a failed
-data gate would have ended it, which suggests (does not show) that the data
-stage passed. Do not resubmit or stop it; read its state first.
+gate. Still RUNNING at 07:21 UTC, 6 h 07 min in - past the point where a
+failed data gate would have ended it, which suggests (does not show) that the
+data stage passed. Do not resubmit or stop it; read its state first.
 
 Dataset `persian-voice-eval` is at the version staged from `007af09`, verified
-by download; every session mounts it.
+by download; every session mounts it. It is re-staged with this round's code
+only after training session c, so b and c mount the code a started with; the
+development and test sessions need the new code (the test session cannot run
+without it).
 
 ## Stage
 
@@ -32,8 +35,8 @@ independent data, with the test decided before any training (SOTA_ROADMAP §3,
 
 ## Last healthy commit
 
-`65e5f14` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
-gives 318 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
+`2e13f0a` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
+gives 344 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 `ruff check src scripts tests` clean.
 
 ## The adaptation, where it stands
@@ -65,12 +68,23 @@ gives 318 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 * **full run**: session a running (above); b and c are built
   (`kaggle/omnivoice-train-b`, `-c`) and are pushed only after the previous
   session's output exists
+* **sealed test** [built, not pushed]: `kaggle/omnivoice-test`
+  (`kaggle/build_omnivoice_test_kernel.py`), planned and budgeted before any
+  test clip was read (`eval/runs/persian-voice-omnivoice-test.json`): both test
+  sets written by `scripts/prepare_test_corpus.py`, twelve texts x seeds 42
+  and 43, published model then candidate in one session, read by
+  `scripts/read_sealed_test.py`; about 6 h of one T4 pair
+* **reference rule amended** [measured, metadata only]: the split's longest
+  clip would have been cut by the reference window (over 11.5 s) while keeping
+  the whole clip's transcript - 13 of the 28 Neyshekar references. The test
+  reference is now the longest clip of 6.5-11.4 s; still 28 Neyshekar
+  speakers, no Common Voice role changed (SOTA_ROADMAP §3.2)
 
 ## Remote jobs (live state read 2026-09-19 01:14 UTC)
 
 | kernel | state | re-run? |
 |---|---|---|
-| `persian-voice-omnivoice-train-a` v1 | **RUNNING** since 01:14 UTC | no - wait for it |
+| `persian-voice-omnivoice-train-a` v1 | **RUNNING** since 01:14 UTC (still at 07:21) | no - wait for it |
 | `persian-voice-omnivoice-probe` v2 | complete, about 14 min: fits with memory-only changes | no - `eval/runs/persian-voice-omnivoice-probe-v2.json`, evidence in `eval/runs/evidence/omnivoice-probe-v2/` |
 | `persian-voice-omnivoice-probe` v1 | complete, about 12 min: official recipe out of memory; fallback skipped by a bug | no - `...-probe-v1.json`, evidence in `.../omnivoice-probe-v1/` |
 | `persian-voice-moss15` v1-v4, `-moss15-probe` v1-v2 | complete | no - `eval/runs/persian-voice-moss15-*.json` |
@@ -85,9 +99,11 @@ gives 318 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 2. After c: one development-set session - the five float16 exports and the
    published model scored in the same kernel - and the choice by the reading
    fixed in SOTA_ROADMAP §8.
-3. The one test comparison: the candidate and the published model on both
-   sealed test sets, rendering the twelve sentences of
-   `eval/manifests/test_texts_v1.json` (written and checked 2026-09-19).
+3. Before the development session: re-stage the dataset
+   (`kaggle/build_dataset.py`) with this round's code, and verify it by
+   download, as for `007af09`.
+4. The one test comparison: push `kaggle/omnivoice-test` after the choice
+   (built; plan, reading and budget recorded before any test clip was read).
 
 MOSS v1.5's "continuation" mode stays in reserve; it is not run for the
 licence alone.
@@ -139,6 +155,15 @@ FINDINGS §8); CER is the recogniser's reading - nobody has listened.
     (built, not pushed)
 11. `cfa3e1a`, `f1990a0` the twelve test sentences, checked against all 68,532
     distinct texts of the split, the development transcripts and the benchmark
+12. `cb083f2` the benchmark renders a written text file whole and records the
+    window each reference went through
+13. `6d12038` the sealed test sets as corpora: references the pipeline keeps
+    whole, the split's reserve rule recomputed and checked against the split
+14. `7dafc14` the test's reading as code, pinned by tests on made-up results
+15. `4683028` the development session takes its code from the dataset only (the
+    training outputs carry older copies of the repository)
+16. `d667c6b` the sealed test session, built
+17. `2e13f0a` its pre-registration; roadmap, runbook and FINDINGS caveat
 
 Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
 `87c33e2` `587af3d` `cdc4b36` `a390618` `09b6373` `7d1c9f9`; second review
@@ -146,6 +171,10 @@ Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
 
 ## Corrections (kept as history, not erased)
 
+* 2026-09-19: the split's test reference rule (the longest clip) would have
+  given 13 of the 28 Neyshekar test speakers a reference the pipeline cuts
+  while keeping its whole transcript; amended before any test clip was read
+  (`6d12038`, `2e13f0a`)
 * 2026-09-19: the MOSS v1.5 records said the tag "was not" v3's problem, that
   one render "is unintelligible", that v1.5 "mispronounces", that the
   recogniser "behaved identically" across sessions, and FINDINGS said all three
@@ -169,6 +198,11 @@ Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
 ## Open
 
 * engines accept `timeout_seconds` but `_read_reply` never enforces it
+* the Studio keeps a supplied transcript when the reference window cuts a
+  clip over 11.5 s (it re-transcribes only for an engine's own limit) - a user
+  with a long reference and a typed transcript gets a mismatched prompt. Left
+  as it is until the sealed test has run, so the development inputs do not
+  change mid-comparison; benchmark runs now record the window
 * `build_eval_corpus.py` still selects development speakers with the judging
   ECAPA (documented; the new splits do not)
 * the multi-reference pilot supports only 4 of 9 speakers; the listening test

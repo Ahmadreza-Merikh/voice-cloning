@@ -62,6 +62,14 @@
    "gpu_time_spent": "the T4 pair was held from 01:14 UTC until the session ended - at least the 7 h 41 min to the last RUNNING read, probably Kaggle's 12-hour limit - for nothing",
    "evidence": "eval/runs/evidence/omnivoice-train-a-v1/",
    "recorded": "2026-09-19, after the fact"
+  },
+  "session_a_v2": {
+   "kernel": "marsmanam/persian-voice-omnivoice-train-a, version 2",
+   "pushed": "2026-09-19 20:54:15 UTC; status read RUNNING at 20:54:15",
+   "built_from": "b103fa6, rebuilt before the push and byte-identical to the committed notebook",
+   "what_changed_since_v1": "the download cell is scripts/fetch_inputs.py under run_bounded (stage 60 min, request 60 s, 3 attempts, plain HTTP), so a stall ends the stage with a gate record instead of holding the T4 pair",
+   "expected_end": "the notebook stops itself 11.25 h after its start, about 2026-09-20 08:10 UTC",
+   "read_when_it_ends": "gates, RUNS, the checkpoint and the exports in the kernel output"
   }
  }
 }

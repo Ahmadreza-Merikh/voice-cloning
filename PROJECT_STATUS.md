@@ -96,12 +96,11 @@ gives 344 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
    if `train` passed, push `kaggle/omnivoice-train-b` (it mounts a's tokens and
    checkpoint); then c the same way. If a session fails a gate, read why before
    anything is pushed again.
-2. After c: one development-set session - the five float16 exports and the
-   published model scored in the same kernel - and the choice by the reading
-   fixed in SOTA_ROADMAP §8.
-3. Before the development session: re-stage the dataset
-   (`kaggle/build_dataset.py`) with this round's code, and verify it by
-   download, as for `007af09`.
+2. When c has ended: re-stage the dataset (`kaggle/build_dataset.py`) with
+   this round's code and verify it by download, as for `007af09`.
+3. Then one development-set session (`kaggle/omnivoice-dev`) - the five
+   float16 exports and the published model scored in the same kernel - and
+   the choice by the reading fixed in SOTA_ROADMAP §8.
 4. The one test comparison: push `kaggle/omnivoice-test` after the choice
    (built; plan, reading and budget recorded before any test clip was read).
 

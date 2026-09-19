@@ -4,36 +4,90 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-19 04:27 +0330 (00:57 UTC). **Running remotely:**
-`marsmanam/persian-voice-omnivoice-probe` **version 2**, pushed 00:52:42 UTC,
-RUNNING at 00:53:10 - one question: do gradient checkpointing and DDP bucket
-views (memory only, arithmetic unchanged) make OmniVoice's official SDPA
-recipe fit a T4 pair, at what seconds per step, and do they leave the first
-loss and first-step gradients unchanged (plan and budget, written before the
-push: `eval/runs/persian-voice-omnivoice-probe-v2.json`). Version 1 is
-complete: the official recipe runs out of memory on a T4 in its first forward
-pass (`eval/runs/persian-voice-omnivoice-probe-v1.json`). Do not resubmit or
-stop version 2; read its state first. Dataset `persian-voice-eval` is at the
-version staged from `007af09`, verified by download.
+Last updated: 2026-09-19 04:50 +0330 (01:20 UTC).
+
+**Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` version 1,
+pushed 01:13:52 UTC, RUNNING at 01:14:21 - session a of the full OmniVoice
+adaptation: it writes and tokenises the whole train and valid split, then
+trains from the published weights until the last official checkpoint that fits
+11.25 hours from the notebook's start (plan, budget and the reading of the
+result, written before the push: `eval/runs/persian-voice-omnivoice-adapt.json`).
+Expected to end around 11:40 UTC at about step 1,500. Kaggle shows no output
+until a session ends; a session that ends within the first hour has failed a
+gate. Do not resubmit or stop it; read its state first.
+
+Dataset `persian-voice-eval` is at the version staged from `007af09`, verified
+by download; every session mounts it.
 
 ## Stage
 
 The user's goal as of 2026-09-19: research and the best quality first; the
-commercial question no longer blocks. Current work: adapting OmniVoice - the
-highest identity score on the development set, not a proven SOTA - to Persian
-by its official recipe, on independent data (SOTA_ROADMAP §3, §5, §8).
-
-Before that: development-set measurement. MOSS-TTS-Local-Transformer-v1.5 is measured at its
-official recipe (v4, tag "Persian (Farsi)"): every gate passed, and it is not
-above the F5 baseline, below OmniVoice and below MOSS v1.0. The tag string made
-no detectable difference against v3 ("Persian"). No SOTA claim; the
-independent review has accepted none.
+commercial question no longer blocks. The work: adapt OmniVoice - the highest
+identity score on the development set, not a proven SOTA, and very probably
+trained on eight of its nine speakers - to Persian by its official recipe, on
+independent data, with the test decided before any training (SOTA_ROADMAP §3,
+§5, §8). No improvement is claimed until the sealed test comparison exists.
 
 ## Last healthy commit
 
-`7d1c9f9` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
-gives 293 passed, 1 skipped (the skip needs Linux `/proc`; the same check ran
-on Kaggle in v3 and v4 and worked); `ruff check src scripts tests` clean.
+`65e5f14` (before this file's commit). Tree clean; `.venv/bin/python -m pytest`
+gives 318 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
+`ruff check src scripts tests` clean.
+
+## The adaptation, where it stands
+
+* **recipe** [source]: `k2-fsa/OmniVoice` at `08be0b4c`; the config the
+  official script runs has lr **1e-5** (the examples README's 5e-5 is stale
+  since `a65149e0`, 2026-04-22), 5,000 steps, 8,192 tokens per GPU on two GPUs,
+  bf16; SDPA config for GPUs older than Ampere; runtime from `uv.lock`; base
+  `c5fdb5cc`; tokenizer `528e871c`, sha256 equal to the copy the base bundles
+* **data** [measured]: `eval/manifests/adaptation_splits_v1.jsonl.gz`, drawn
+  from metadata only - no audio, no encoder. Train 87,499 clips, 127.85 h,
+  3,835 speakers (Common Voice 26 cleaned 41.70 h + Neyshekar v6 86.16 h);
+  valid 2,251 clips, 3.68 h; development speakers excluded; no speaker in two
+  splits; no shared normalised text. Test sets sealed: primary the 28 usable
+  Neyshekar test speakers (not on OmniVoice's published training list),
+  secondary 30 Common Voice ones (15/15 by self-reported gender)
+* **power** [measured]: margin and true effect now separate; primary H0 Δ ≤ 0
+  at one-sided alpha 0.025, planned for δ = 0.03: 87% power at the pilot's
+  spread (0.050), 36% at its upper end (0.096)
+  (`eval/manifests/power_design_v1.json`)
+* **probe v1** [measured]: the official recipe does not fit a T4 - both
+  configs run out of memory at once, SDPA in its first forward pass with 14 GiB
+  allocated. The out-of-memory fallback never ran because of a bug in the
+  notebook (it read only the last 25 lines of the launcher's log)
+* **probe v2** [measured]: with gradient checkpointing and DDP bucket views it
+  trains - 13.98 s a step, 12.3 GiB of 14.56 - and on one GPU the checkpointed
+  path gave the same first loss and first-step gradients as the official one
+  to every printed digit. Budget: about 23-26 GPU-hours in three sessions
+* **full run**: session a running (above); b and c are built
+  (`kaggle/omnivoice-train-b`, `-c`) and are pushed only after the previous
+  session's output exists
+
+## Remote jobs (live state read 2026-09-19 01:14 UTC)
+
+| kernel | state | re-run? |
+|---|---|---|
+| `persian-voice-omnivoice-train-a` v1 | **RUNNING** since 01:14 UTC | no - wait for it |
+| `persian-voice-omnivoice-probe` v2 | complete, about 14 min: fits with memory-only changes | no - `eval/runs/persian-voice-omnivoice-probe-v2.json`, evidence in `eval/runs/evidence/omnivoice-probe-v2/` |
+| `persian-voice-omnivoice-probe` v1 | complete, about 12 min: official recipe out of memory; fallback skipped by a bug | no - `...-probe-v1.json`, evidence in `.../omnivoice-probe-v1/` |
+| `persian-voice-moss15` v1-v4, `-moss15-probe` v1-v2 | complete | no - `eval/runs/persian-voice-moss15-*.json` |
+| `persian-voice-fish-smoke` v5, `-higgs-smoke` v2, `-eval-run`, `-moss-run` | complete | no - results pulled |
+
+## Next concrete steps
+
+1. When session a ends: read its gates (`session/gates.json` in its output);
+   if `train` passed, push `kaggle/omnivoice-train-b` (it mounts a's tokens and
+   checkpoint); then c the same way. If a session fails a gate, read why before
+   anything is pushed again.
+2. After c: one development-set session - the five float16 exports and the
+   published model scored in the same kernel - and the choice by the reading
+   fixed in SOTA_ROADMAP §8.
+3. Write the twelve test texts per speaker (§3.3) and check them against every
+   training text; then the one test comparison.
+
+MOSS v1.5's "continuation" mode stays in reserve; it is not run for the
+licence alone.
 
 ## Measured (development set: 9 speakers x 3 sentences, seed 42)
 
@@ -44,132 +98,81 @@ on Kaggle in v3 and v4 and worked); `ruff check src scripts tests` clean.
 | `finetuned-bestof4` | F5 continued | 0.5462 | 2.2% | Mac |
 | `fish` | Fish S2 Pro (fp16, `--half`) | 0.5368 | 9.5% | kaggle fish v5 |
 | `higgs` | Higgs TTS 3 port (fp16) | 0.5312 | 2.9% | kaggle higgs v2 |
-| `moss15` | MOSS v1.5 (bf16 on T4), tag "Persian" - not the official string | 0.5244 | 9.0% | kaggle moss15 v3 |
-| `moss15-fa` | MOSS v1.5, official recipe, tag "Persian (Farsi)" | 0.5066 | 10.9% | kaggle moss15 v4 |
+| `moss15` | MOSS v1.5, tag "Persian" | 0.5244 | 9.0% | kaggle moss15 v3 |
+| `moss15-fa` | MOSS v1.5, official recipe | 0.5066 | 10.9% | kaggle moss15 v4 |
 | `baseline` | F5 as found | 0.5196 | 2.9% | Mac |
 
-`scripts/compare_runs.py` gives the speaker-level intervals; CER is judged only
-inside one scoring environment (`eval/results/_provenance.json` for older files,
-`scoring_environment` in new ones). Only OmniVoice - baseline clears both 0 and
-the 0.0205 reference line: +0.064 [+0.025, +0.102] - and OmniVoice - MOSS v1.5
-(official), +0.077 [+0.032, +0.122]. MOSS v1.5 (official) - baseline: -0.013
-[-0.053, +0.027]; - MOSS v1.0: -0.052 [-0.095, -0.009]; CER +7.7 points
-[+2.8, +12.7] over the baseline scored in its own session. Tag effect (v4 -
-v3): similarity -0.018 [-0.046, +0.010], CER +1.9 [-3.4, +7.2], both include 0
-(the two sessions' baseline controls match in every CER cell and transcript).
+Every file above has a recipe beside it (`<label>.recipe.json`) - model and
+codec revisions, settings, reference clips' sha256, session, results sha256 -
+reconstructed for these older files with each field's source named. Intervals
+by `scripts/compare_runs.py`, speaker-level. OmniVoice - baseline +0.064
+[+0.025, +0.102] and OmniVoice - MOSS v1.5 +0.077 [+0.032, +0.122] clear 0 and
+0.0205. MOSS v1.5 - baseline -0.013 [-0.053, +0.027]: no detectable difference.
+CER only inside one scoring environment: MOSS v1.0 - OmniVoice +3.7 [+1.4,
++6.0] on this Mac (same recogniser settings and packages, documented in
+FINDINGS §8); CER is the recogniser's reading - nobody has listened.
 
-## Remote jobs (live state read 2026-09-18 23:54 +0330)
+## This round (fourth review), each its own commit
 
-| kernel | state | re-run? |
-|---|---|---|
-| `persian-voice-fish-smoke` v5, `-higgs-smoke` v2, `-eval-run`, `-moss-run` | complete | no - results pulled |
-| `persian-voice-moss15` v1 | complete: worker gate timed out, silent a second into the codec's progress bar | no - `eval/runs/persian-voice-moss15-v1.json` |
-| `persian-voice-moss15` v2 | complete: same, and no faulthandler dump ever appeared | no - `eval/runs/persian-voice-moss15-v2.json` |
-| `persian-voice-moss15-probe` v1 | complete, CPU image: codec loaded both ways | no - `...-probe-v1.json` |
-| `persian-voice-moss15-probe` v2 | complete, 1428 s (14:41-15:05 UTC): the worker was blocked behind the runner's display write | no - `...-probe-v2.json` + `eval/runs/evidence/moss15-probe-v2/` |
-| `persian-voice-moss15` v3 | complete, ~18 min: all seven gates passed, 27/27 cells | no - `eval/runs/persian-voice-moss15-v3.json`, evidence in `eval/runs/evidence/moss15-v3/` |
-| `persian-voice-moss15` v4 | complete, ~17 min: all seven gates passed, 27/27 cells; only the tag changed from v3 | no - `eval/runs/persian-voice-moss15-v4.json`, evidence in `eval/runs/evidence/moss15-v4/` |
-| dataset `persian-voice-eval` | **v13** (19:55 UTC), code at `cdc4b36`; all 55 code and config files verified identical by download | - |
+1. `259a4c1` claims cut back to what the intervals and the recogniser support;
+   the "same recogniser" basis for Mac CER documented; new caveat that
+   OmniVoice very probably trained on eight of the nine development speakers
+2. `7f8a116` power design with margin and true effect separate
+   (`scripts/power_design.py`); primary comparison declared
+3. `7191293` public Persian data surveyed; Neyshekar found; two-source split
+   by speaker, without an encoder (`scripts/build_adaptation_splits.py`)
+4. `60e9004` OmniVoice's official recipe pinned; the lr discrepancy resolved
+   from the repository's history
+5. `1732d58`, `d7a549c` the probe and its data writer; Kaggle unpacks `.gz`
+   inside datasets, so the split file is checked by content hash
+6. `17c8de0` every benchmark run writes its recipe beside its results, once;
+   OmniVoice and F5 report the revision and checkpoint they loaded
+7. `c7baf98`, `007af09`, `4c11444` probe v1 and v2 recorded; memory-only
+   techniques with a gradient-fingerprint check; the runbook
+   (`docs/OMNIVOICE-ADAPTATION.md`)
+8. `592c64d` recipes reconstructed for the seventeen quoted results
+9. `65e5f14` the full run's sessions, with plan and budget before the push
 
-v1, v2 and both probes mounted dataset v11 (code at `f21ca87`), whose runner
-had the display write inside its read loop; v3 mounted v12 (`89dc14e`).
-
-## What probe v2 established (details and every number: `eval/runs/persian-voice-moss15-probe-v2.json`, recomputed by `kaggle/analyse_probe_v2.py`)
-
-* **measured**: the runner's tee holds 187,498 bytes of the worker stage; the
-  notebook showed 123,075 of them. The 64,423 in between - less than one 64 KiB
-  read, starting exactly where the display stops - is the chunk the reader was
-  stuck writing to the notebook's raw stdout. The worker sat in `pipe_write` in
-  all 20 reports (RSS unchanged), the driver in `pipe_read`, ~29 GB free.
-  print() output kept arriving the whole time
-* **reproduced without a model**: the old reader deadlocks the same way
-  against a display nobody reads; the new runner passes the same job
-* **not established**: why the notebook's raw stdout stopped taking data in
-  that stage after carrying 640 KB earlier
-* **inference only**: v1 and v2 of the main kernel stalled the same way - they
-  kept no tee to show it
+Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
+`87c33e2` `587af3d` `cdc4b36` `a390618` `09b6373` `7d1c9f9`; second review
+`79fec9d` `56a963e` `c13ab5c` `7944081` `0f71c71` `69c17a8`.
 
 ## Corrections (kept as history, not erased)
 
-* The status of 18:35 +0330 called probe v2 "still RUNNING past every budget -
-  probably stuck", and the report said "more than 2 h, since about 16:27".
-  Wrong: it had run 24 minutes, inside its budgets, and was finishing. It was
-  never stopped or deleted.
-* `312b757` (bounded waits) was motivated by "a process survived SIGKILL". Probe
-  v2 shows no such thing: the group died on SIGTERM. The bounded wait stays as
-  correct engineering; it explains nothing here.
-* The probe builder assumed its T4 image had torch 2.9.1+cu128; it had
-  2.10.0+cu128. The main kernel's v1/v2 image did have 2.9.1.
-* The old runner's last line said "process group ended" whatever had happened;
-  a timeout was reported as exit -1.
-
-## This round (third review), each its own commit
-
-1. `90f2f9c` probe v2 recorded: service version and `probe.json`, run time vs
-   push time, real environment, the tee-vs-display analysis, evidence files
-   and the script that recomputes them; the probe builder marked historical
-2. `4341b0f` runner: the reader writes only to an unbuffered log file; the
-   display has its own thread, a bounded queue that drops, collapsed progress
-   bars, a byte limit plus the last 40 lines; the waiting thread never writes
-   to the display. `Run` separates timeout / exit code / signal; the group's
-   state is what happened, and members a finished command left behind are
-   ended. On Linux the monitor names the descriptor a blocked process waits
-   on. `scripts/runner_check.py` runs the stalled job, model-free, on the
-   notebook's own display before anything downloads. Every notebook
-   subprocess has its output captured
-3. `89dc14e` MOSS v1.5's official runtime (pyproject at `934d6826`): torch
-   2.9.1+cu128, torchaudio 2.9.1+cu128, transformers 5.0.0, safetensors 0.6.2
-   installed from PyTorch's cu128 index and checked - the run stops on any
-   difference; the pyproject's other pins keep the image's versions, and
-   `environment.json` lists every package against its official version
-4. `87c33e2` the tokenizer's "incorrect regex pattern" warning is a false
-   alarm for MOSS v1.5 (transformers 5.0.0 fires it for any local tokenizer
-   whose config lacks `transformers_version`); the suggested regex leaves all
-   nine Persian test sentences identical and changes only mixed-case Latin
-   words, so the official behaviour stays (`scripts/check_moss15_tokenizer.py`)
-5. `587af3d` v3 recorded: all gates passed; results, evidence and the per-cell
-   errors (mostly the first word of the sentence mispronounced or dropped)
-6. `cdc4b36` the official Persian tag, "Persian (Farsi)" (card table and the
-   official v1.5 app at `934d6826`); session 4 changes only that, with its
-   reading stated in the builder before the run
-7. `a390618` README: Fish's CER against the same-session baseline
-8. `09b6373` v4 recorded and read as fixed in advance: the tag made no
-   detectable difference
-9. `7d1c9f9` MOSS v1.5 written into FINDINGS (§8, with the statistics table),
-   README (a row of its own; v1.0's "only unrestricted licence" and "two
-   candidates unmeasured" corrected) and the roadmap
-
-Earlier rounds, for reference: second review `79fec9d` `56a963e` `c13ab5c`
-`7944081` `0f71c71` `69c17a8`; gates `d5fca50`; listening test `1a60672`
-`0795bbb`; v1.5 native archive `81cc65f`; FINDINGS on 16-bit PCM `ef8ea3b`.
-
-## Next concrete step
-
-Nothing is running. The next single variable, if MOSS v1.5 stays in play, is
-its second official cloning mode: "continuation", which takes the reference
-clip's transcript (the official app's `continuation_clone`; the server docs say
-it gives better speaker similarity). The transformers processor has no field
-for it, so read the official app's `streaming` module at `934d6826` first and
-build the prompt exactly as it does; state the reading before the run; one
-session, gated like v3/v4, about 20 minutes of T4 x2.
-
-Whether to spend on that, or go straight to the test set with the candidates
-already measured, depends on the user's commercial / non-commercial answer:
-MOSS v1.5 is the only candidate here with every component checked Apache-2.0,
-and it is currently the weakest on this development set.
+* 2026-09-19: the MOSS v1.5 records said the tag "was not" v3's problem, that
+  one render "is unintelligible", that v1.5 "mispronounces", that the
+  recogniser "behaved identically" across sessions, and FINDINGS said all three
+  failed MOSS attempts were the runner's fault. Corrected (`259a4c1`): no
+  detectable effect is not no effect; transcripts are not listening; identical
+  controls cover their 27 inputs; the runner cause is documented for probe v2
+  and inferred for v1 and v2
+* 2026-09-19: the roadmap planned "one-sided, margin 0.03" from the row for a
+  true 0.03 - a design that cannot succeed (`7f8a116`)
+* 2026-09-19: the roadmap gave OmniVoice's adaptation lr as 5e-5, copied from a
+  stale README table; the executed config says 1e-5 (`60e9004`)
+* 2026-09-19: probe v1's notebook missed its own out-of-memory and skipped the
+  fallback; fixed and re-run as v2
+* 2026-09-18: the status of 18:35 +0330 called MOSS probe v2 "stuck for more
+  than 2 h"; it had run 24 minutes and was finishing
+* `312b757` (bounded waits) was motivated by "a process survived SIGKILL";
+  MOSS probe v2 showed the group died on SIGTERM
+* the MOSS probe builder assumed torch 2.9.1 on its image; it had 2.10.0
+* the old runner's last line said "process group ended" whatever happened
 
 ## Open
 
 * engines accept `timeout_seconds` but `_read_reply` never enforces it
-* `build_eval_corpus.py` still selects speakers with the judging ECAPA
-  (documented, not fixed)
+* `build_eval_corpus.py` still selects development speakers with the judging
+  ECAPA (documented; the new splits do not)
 * the multi-reference pilot supports only 4 of 9 speakers; the listening test
   is built but has had no listeners
-* for the user: commercial or non-commercial use; ParsVoice access (its terms
-  are the user's to accept); who could listen
+* for the user: ParsVoice and `Thomcles/Persian-Farsi-Speech` are gated - their
+  terms are the user's to accept, and neither is needed to start; who could
+  listen
 
 ## Standing limits
 
-No new spend, GPU purchase, acceptance of legal terms (e.g. ParsVoice), upload
-of the user's private audio, heavy local training/inference, or git push
-without the user. Routine fixes and bounded runs in the free quota are allowed.
+No new spend, GPU purchase, acceptance of legal terms, upload of the user's
+private audio, heavy local training or inference, or git push without the
+user. Routine fixes and runs in the free quota are allowed; every long run's
+budget is written down before it is pushed.

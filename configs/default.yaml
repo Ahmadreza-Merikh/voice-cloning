@@ -128,7 +128,12 @@ text:
     min_chars: 24
 
 engines:
-  tts: f5                    # f5 | moss
+  # OmniVoice: the highest held-out similarity measured here (0.583 against
+  # 0.546 for the best F5 configuration, FINDINGS §8), CER not detectably
+  # different. On a 16 GB Mac it needs the reference transcript typed in (see
+  # memory_guard below); the app falls back to F5 where OmniVoice is not
+  # installed.
+  tts: omnivoice             # omnivoice | f5 | moss | fish | higgs | chatterbox | moss15
   vc: cascade                # cascade | seedvc
 
   f5:
@@ -234,6 +239,13 @@ engines:
     position_temperature: 5.0
     class_temperature: 0.0
     timeout_seconds: 900
+    # The worker and the speech recogniser do not fit together on a 16 GB Mac:
+    # measured, a render that had to transcribe its reference reached warning
+    # memory pressure, one given the transcript peaked at 3.4 GB with none.
+    # With this on, nothing that loads the recogniser beside OmniVoice starts:
+    # the reference transcript must be supplied, and best-of-N and
+    # speech-to-speech are refused. Turn it off on a machine with room for both.
+    memory_guard: true
 
   fish:
     # Fish Audio S2 Pro (arXiv 2603.08823): dual-autoregressive TTS, a 4B slow

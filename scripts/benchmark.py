@@ -347,13 +347,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     if args.asr_floor_only:
         return {"asr_floor": recogniser_floor}
 
-    config = AppConfig.load()
-    if args.device:
-        config.runtime.device = args.device
-    config.evaluation.enabled = True
-    config.evaluation.speaker_similarity = False  # scored here, uniformly
-    config.evaluation.transcribe_check = True
-    config.evaluation.candidates = args.candidates
+    config = harness_config(args)
 
     def parse_options(items: list[str] | None) -> dict[str, Any]:
         parsed: dict[str, Any] = {}
@@ -516,6 +510,27 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     write_recipe(args, config, engine_options, preprocess_overrides, cells, references, sentences,
                  seeds, environment)
     return payload
+
+
+def harness_config(args: argparse.Namespace) -> Any:
+    """The configuration every render of a run is made and scored with.
+
+    The harness transcribes every render to score it, so the recogniser sits
+    beside the engine by design and the app's memory guard does not apply: it
+    would refuse ``--ref-transcript asr`` and ``--candidates``, which are
+    measurements this harness exists to make, on machines with room for both.
+    """
+    from voiceclone.config import AppConfig
+
+    config = AppConfig.load()
+    if args.device:
+        config.runtime.device = args.device
+    config.evaluation.enabled = True
+    config.evaluation.speaker_similarity = False  # scored here, uniformly
+    config.evaluation.transcribe_check = True
+    config.evaluation.candidates = args.candidates
+    config.engines.omnivoice.memory_guard = False
+    return config
 
 
 def write_recipe(args, config, engine_options, preprocess_overrides, cells, references, sentences,

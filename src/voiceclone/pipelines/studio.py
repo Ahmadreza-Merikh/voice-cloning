@@ -30,6 +30,13 @@ from .results import CloneResult, QualityScores
 
 log = get_logger("studio")
 
+#: What a memory-guarded engine's refusals tell the user to do instead.
+_GUARD_HINT = (
+    "On a 16 GB Mac this engine and the speech recogniser do not fit in memory together, so "
+    "nothing here transcribes beside it. Type exactly what the reference recording says, or "
+    "pick F5-TTS, which transcribes it for you."
+)
+
 ReferenceInput = str | Path | Audio | tuple[int, np.ndarray]
 
 
@@ -159,6 +166,23 @@ class Studio:
             self._asr = ASREngine(self.config, self.device)
         return self._asr
 
+    def memory_guarded(self, engine: str | None = None) -> bool:
+        """Whether nothing may load the speech recogniser beside this engine.
+
+        OmniVoice's worker and the recogniser do not fit together on a 16 GB
+        Mac (``OmniVoiceConfig.memory_guard``, measured). A guarded engine gets
+        its reference transcript from the caller, renders one take, and is not
+        used for speech-to-speech, since each of those transcribes.
+        """
+        section = getattr(self.config.engines, (engine or self.config.engines.tts).lower(), None)
+        return bool(getattr(section, "memory_guard", False))
+
+    def release_recogniser(self) -> None:
+        """Unload the speech recogniser if it is loaded; its next use loads it again."""
+        if self._asr is not None:
+            self._asr.unload()
+            self._asr = None
+
     def release(self, keep: str | None = None) -> None:
         """Unload engines to free memory, optionally keeping one loaded."""
         for key, engine in list(self._tts_engines.items()):
@@ -280,6 +304,19 @@ class Studio:
         engine_name = (engine or self.config.engines.tts).lower()
         tts = self.tts_engine(engine_name)
 
+        # -- nothing that would load the recogniser beside a guarded engine --
+        guarded = self.memory_guarded(engine_name)
+        if guarded and not (reference_text or "").strip():
+            raise SynthesisError(
+                f"{tts.display_name} needs the reference transcript typed in.",
+                hint=_GUARD_HINT,
+            )
+        if guarded and int(self.config.evaluation.candidates if candidates is None else candidates) > 1:
+            raise SynthesisError(
+                f"{tts.display_name} renders one take here: best-of-N ranks takes by transcribing them.",
+                hint=_GUARD_HINT,
+            )
+
         # -- reference -----------------------------------------------------
         report(0.02, "Analysing reference audio")
         with _stopwatch(timings, "reference"):
@@ -312,6 +349,11 @@ class Studio:
                 f"{original:.1f}s clip was cut to {fitted.duration:.1f}s"
             )
             if (reference_text or "").strip():
+                if guarded:
+                    raise SynthesisError(
+                        f"{tts.display_name} would need the cut reference transcribed again.",
+                        hint=f"Use a reference of at most {limit:.0f} s. {_GUARD_HINT}",
+                    )
                 # The transcript supplied was written for the longer clip.
                 reference_text = None
                 note += " and transcribed again to match"
@@ -647,6 +689,14 @@ class Studio:
         use_phonemes: bool | None = None,
     ) -> CloneResult:
         timings: dict[str, float] = {}
+
+        if self.memory_guarded(engine):
+            name = self.tts_engine(engine).display_name
+            raise SynthesisError(
+                f"{name} is not used for speech-to-speech here: it would transcribe the source and "
+                "the reference beside the model.",
+                hint=f"Use F5-TTS for speech-to-speech, or type the text on the text-to-speech tab. {_GUARD_HINT}",
+            )
 
         transcript = (source_text or "").strip()
         if not transcript:

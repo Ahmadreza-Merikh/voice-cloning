@@ -22,7 +22,8 @@ from voiceclone.text.pipeline import TextPipeline
 class TestConfig:
     def test_defaults_load(self, config: AppConfig) -> None:
         assert config.audio.sample_rate == 24000
-        assert config.engines.tts in {"f5", "moss"}
+        assert config.engines.tts == "omnivoice"
+        assert config.engines.omnivoice.memory_guard is True
 
     def test_nested_types_are_coerced(self, config: AppConfig) -> None:
         assert isinstance(config.engines.f5.nfe_step, int)

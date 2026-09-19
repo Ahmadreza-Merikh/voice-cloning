@@ -34,8 +34,11 @@ from __future__ import annotations
 
 import json
 import os
+import queue
 import subprocess
 import tempfile
+import threading
+import time
 from pathlib import Path
 from typing import Any
 
@@ -114,6 +117,7 @@ class OmniVoiceEngine(TTSEngine):
     def __init__(self, config: AppConfig, device: DeviceSpec) -> None:
         super().__init__(config, device)
         self._process: subprocess.Popen[str] | None = None
+        self._lines: queue.Queue[str | None] = queue.Queue()
         self._tempdir: tempfile.TemporaryDirectory[str] | None = None
         self._sample_rate = 24000
         self._loaded_device = "unknown"
@@ -163,6 +167,7 @@ class OmniVoiceEngine(TTSEngine):
             )
         except OSError as exc:
             raise EngineNotAvailableError(f"Could not start the OmniVoice worker: {exc}") from exc
+        self._lines = self._forward(self._process)
 
         ready = self._read_reply(_STARTUP_TIMEOUT)
         if not ready.get("ready"):
@@ -192,16 +197,48 @@ class OmniVoiceEngine(TTSEngine):
             self._sample_rate,
         )
 
+    @staticmethod
+    def _forward(process: subprocess.Popen[str]) -> queue.Queue[str | None]:
+        """Read the worker's stdout on a thread, so a reply can be waited for with a deadline."""
+        lines: queue.Queue[str | None] = queue.Queue()
+
+        def forward() -> None:
+            assert process.stdout is not None
+            for line in process.stdout:
+                lines.put(line)
+            lines.put(None)
+
+        threading.Thread(target=forward, name="omnivoice-worker-stdout", daemon=True).start()
+        return lines
+
     def _read_reply(self, timeout: float) -> dict[str, Any]:
-        """Read the worker's next JSON line, stepping over anything that is not."""
-        assert self._process is not None and self._process.stdout is not None
+        """Read the worker's next JSON line within ``timeout`` seconds, stepping over anything that is not.
+
+        A worker that stops answering, or exits, is shut down and the engine
+        marked unloaded, so the next call starts a new one. Before, a hung
+        worker blocked its caller for good, and a dead one failed every later
+        call on a closed pipe.
+        """
+        assert self._process is not None
+        deadline = time.monotonic() + timeout
         while True:
-            line = self._process.stdout.readline()
-            if not line:
-                code = self._process.poll()
+            try:
+                line = self._lines.get(timeout=max(0.0, deadline - time.monotonic()))
+            except queue.Empty:
+                self.unload()
+                raise SynthesisError(
+                    f"The OmniVoice worker did not reply within {timeout:.0f} s and was stopped.",
+                    hint="The next request starts a new worker.",
+                ) from None
+            if line is None:
+                try:
+                    code = self._process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    code = None
+                self.unload()
                 raise SynthesisError(
                     f"The OmniVoice worker exited (code {code}).",
-                    hint="Its traceback was written to this console.",
+                    hint="Its traceback was written to this console; the next request starts a new worker.",
                 )
             stripped = line.strip()
             if not stripped:

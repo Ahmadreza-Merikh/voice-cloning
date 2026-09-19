@@ -51,18 +51,42 @@ def environment(session: str) -> str:
     assert source.count(FIND_REPO) == 1, "the probe's repository lookup changed"
     return source.replace(FIND_REPO, FIND_REPO_IN_DATASET)
 
+FETCH = '''\
+def fetch(plan, minutes, flags=()):
+    """scripts/fetch_inputs.py under run_bounded: every request timed out, the stage bounded."""
+    plan_path, report_path = RECORDS / "fetch_plan.json", RECORDS / "fetch.json"
+    plan_path.write_text(json.dumps(plan))
+    run = run_bounded([sys.executable, str(REPO / "scripts/fetch_inputs.py"), "--plan", str(plan_path),
+                       "--report", str(report_path), *flags], timeout=minutes * 60, log=LOGS / "fetch.log",
+                      monitor_every=300)
+    RUNS["fetch"] = run.record()
+    print(run.summary())
+    report = json.loads(report_path.read_text()) if report_path.is_file() else {}
+    fetched = {step["name"]: {k: step.get(k) for k in ("gib", "seconds", "tries", "failed_check")}
+               for step in report.get("steps", [])}
+    return run.ok and report.get("ok") is True, fetched
+'''
+
+#: The base alone, about 3 GiB; decided flags come from the CPU-only fetch probe.
+FETCH_MINUTES = 20
+FETCH_FLAGS: list[str] = []
+BASE_PLAN = {"snapshots": [{"name": "base", "repo": probe.BASE, "revision": probe.BASE_REVISION,
+                            "local_dir": "/tmp/omnivoice-base",
+                            "sha256": {"audio_tokenizer/model.safetensors": probe.TOKENIZER_SHA256}}]}
+
 SETUP = probe.SETUP.rstrip("\n") + '''
 !pip -q install speechbrain faster-whisper jiwer pyloudnorm noisereduce num2words silero-vad onnxruntime 2>&1 | tail -3
 '''
 
-RUN = f'''\
-from huggingface_hub import snapshot_download
-
+RUN = FETCH + f'''
 os.environ["VOICECLONE_OMNIVOICE_PYTHON"] = sys.executable
 provenance = found[0].parents[2] / "PROVENANCE.md"
 os.environ["VOICECLONE_CODE_COMMIT"] = (provenance.read_text().split("commit ")[-1].strip(" .\\n")
                                         if provenance.is_file() else "the dataset's PROVENANCE.md was not found")
-BASE = Path(snapshot_download("{probe.BASE}", revision="{probe.BASE_REVISION}", local_dir="/tmp/omnivoice-base"))
+BASE = Path("/tmp/omnivoice-base")
+if not GATES.skip("download", ("runner",)):
+    fetched_ok, fetched = fetch({BASE_PLAN!r}, {FETCH_MINUTES}, {FETCH_FLAGS!r})
+    GATES.record("download", fetched_ok, json.dumps(fetched))
 EXPORTS = sorted({{p.name: p for p in INPUT.rglob("export-*-float16") if p.is_dir()}}.values(),
                  key=lambda p: int(p.name.split("-")[1]))
 print("exports:", [str(p) for p in EXPORTS])
@@ -91,7 +115,7 @@ def bench(label, *arguments, model=None):
 
 
 SCORES = {{}}
-if not GATES.skip("control", ("runner",)):
+if not GATES.skip("control", ("runner", "download")):
     ok, summary = bench("{BASELINE_CONTROL}", "--score-only", "--replay-from", "baseline")
     GATES.record("scale-control", ok, json.dumps(summary))
     ok, summary = bench("{CONTROL_LABEL}", "--engine", "omnivoice", model=BASE)

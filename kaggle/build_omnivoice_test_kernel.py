@@ -52,9 +52,19 @@ SETS = {"ney": ("neyshekar", "primary", 28), "cv": ("cv26", "secondary", 30)}
 SESSION_BUDGET_HOURS = 11.25
 RUN_TIMEOUT_HOURS = 3.0
 
-DOWNLOAD = f'''\
-from huggingface_hub import snapshot_download
+#: Base, Neyshekar's test shards and Common Voice: about 11 GiB.
+FETCH_MINUTES = 40
+TEST_PLAN = {"snapshots": [
+    {"name": "base", "repo": probe.BASE, "revision": probe.BASE_REVISION, "local_dir": "/tmp/omnivoice-base",
+     "sha256": {"audio_tokenizer/model.safetensors": probe.TOKENIZER_SHA256}},
+    # Neyshekar's test split is the primary test set; only its test shards are fetched.
+    {"name": "neyshekar test", "repo": probe.NEY_REPO, "repo_type": "dataset", "revision": probe.NEY_REVISION,
+     "allow_patterns": ["data/test-*"], "local_dir": "/tmp/neyshekar-test", "forbid": ["train-*", "validation-*"]},
+    {"name": "common voice 26", "repo": probe.CV_REPO, "repo_type": "dataset", "revision": probe.CV_REVISION,
+     "allow_patterns": ["data/*"], "local_dir": "/tmp/cv26"},
+]}
 
+DOWNLOAD = dev.FETCH + f'''
 os.environ["VOICECLONE_OMNIVOICE_PYTHON"] = sys.executable
 provenance = found[0].parents[2] / "PROVENANCE.md"
 os.environ["VOICECLONE_CODE_COMMIT"] = (provenance.read_text().split("commit ")[-1].strip(" .\\n")
@@ -70,19 +80,10 @@ if "--sentences-file" not in (REPO / "scripts/benchmark.py").read_text():
     missing.append("benchmark.py --sentences-file")
 GATES.record("code", not missing, f"missing from the dataset: {{missing}}" if missing else "the test code is present")
 if not GATES.skip("download", ("runner", "code")):
-    try:
-        start = time.time()
-        BASE = Path(snapshot_download("{probe.BASE}", revision="{probe.BASE_REVISION}", local_dir="/tmp/omnivoice-base"))
-        # Neyshekar's test split is the primary test set; only its test shards are fetched.
-        snapshot_download("{probe.NEY_REPO}", repo_type="dataset", revision="{probe.NEY_REVISION}",
-                          allow_patterns=["data/test-*"], local_dir=str(PARQUET["neyshekar"]))
-        snapshot_download("{probe.CV_REPO}", repo_type="dataset", revision="{probe.CV_REVISION}",
-                          allow_patterns=["data/*"], local_dir=str(PARQUET["cv26"]))
-        shards = sorted(p.name for p in PARQUET["neyshekar"].rglob("*.parquet"))
-        assert shards and all(name.startswith("test-") for name in shards), shards
-        GATES.record("download", True, f"{{(time.time() - start) / 60:.1f}} min; neyshekar {{shards}}")
-    except Exception as exc:  # noqa: BLE001 - the gate records it
-        GATES.record("download", False, f"{{type(exc).__name__}}: {{exc}}")
+    fetched_ok, fetched = fetch({TEST_PLAN!r}, {FETCH_MINUTES}, {dev.FETCH_FLAGS!r})
+    if fetched_ok:
+        BASE = Path("/tmp/omnivoice-base")
+    GATES.record("download", fetched_ok, json.dumps(fetched))
 '''
 
 CORPORA = f'''\

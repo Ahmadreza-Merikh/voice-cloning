@@ -53,67 +53,74 @@ EXPORT_EVERY = 1000
 
 CV_FILES = "data/*"
 NEY_FILES = ("data/train-*", "data/validation-*")
+#: The download stage's budget. Session a fetches about 21 GiB (base 3.04,
+#: tokenizer 0.75, Common Voice 6.94, Neyshekar train and valid 10.22): at even
+#: 20 MiB/s that is 18 minutes, so 60 bounds it with room for retries.
+FETCH_MINUTES = {"a": 60, "resume": 20}
+#: Extra flags for scripts/fetch_inputs.py; decided by the CPU-only fetch probe.
+FETCH_FLAGS: list[str] = []
+
+
+def fetch_plan(session: str) -> dict:
+    """What a session downloads: the official SDPA config, the base, and for ``a`` the data."""
+    configs = {name: blob for name, blob in probe.CONFIGS.items() if name.endswith("_sdpa.json")}
+    plan = {
+        "urls": [{"name": Path(name).name, "git_blob_prefix": blob, "path": f"/tmp/adapt/official/{Path(name).name}",
+                  "url": f"https://raw.githubusercontent.com/{probe.OMNIVOICE_REPO}/{probe.OMNIVOICE_COMMIT}/{name}"}
+                 for name, blob in configs.items()],
+        "snapshots": [{"name": "base", "repo": probe.BASE, "revision": probe.BASE_REVISION,
+                       "local_dir": "/tmp/omnivoice-base",
+                       "sha256": {"audio_tokenizer/model.safetensors": probe.TOKENIZER_SHA256}}],
+    }
+    if session == "a":
+        plan["snapshots"] += [
+            {"name": "audio tokenizer", "repo": probe.TOKENIZER, "revision": probe.TOKENIZER_REVISION,
+             "local_dir": "/tmp/higgs-audio-v2-tokenizer", "sha256": {"model.safetensors": probe.TOKENIZER_SHA256}},
+            {"name": "common voice 26", "repo": probe.CV_REPO, "repo_type": "dataset", "revision": probe.CV_REVISION,
+             "allow_patterns": [CV_FILES], "local_dir": "/tmp/cv26"},
+            # Neyshekar's test shards are never fetched: its test speakers are the
+            # sealed primary test set. Common Voice test clips share shards with
+            # training clips, and the data writer refuses them by name.
+            {"name": "neyshekar train and valid", "repo": probe.NEY_REPO, "repo_type": "dataset",
+             "revision": probe.NEY_REVISION, "allow_patterns": list(NEY_FILES), "local_dir": "/tmp/neyshekar",
+             "forbid": ["test-*.parquet"]},
+        ]
+    return plan
 
 
 def download(session: str) -> str:
-    source = f'''\
-from huggingface_hub import hf_hub_download, snapshot_download
+    """The download cell: scripts/fetch_inputs.py under run_bounded, so a stall ends the stage.
 
-BLOBS = {{name: blob for name, blob in {probe.CONFIGS!r}.items() if name.endswith("_sdpa.json")}}
-
-
-def blob_id(data):
-    return hashlib.sha1(b"blob " + str(len(data)).encode() + b"\\0" + data).hexdigest()
-
-
-def sha256(path):
-    digest = hashlib.sha256()
-    with open(path, "rb") as handle:
-        for block in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
+    Session a v1 ran these downloads in the notebook's own process with no
+    time limit, stalled 138 s in, and held its T4 pair for the rest of the
+    session (eval/runs/persian-voice-omnivoice-adapt.json).
+    """
+    plan = fetch_plan(session)
+    config_name = plan["urls"][0]["path"]
+    minutes = FETCH_MINUTES["a" if session == "a" else "resume"]
+    return f'''\
+CV_DIR, NEY_DIR = Path("/tmp/cv26"), Path("/tmp/neyshekar")
 ARTIFACTS = {{}}
 if not GATES.skip("download", ("runner",)):
-    try:
-        start = time.time()
-        BASE = Path(snapshot_download("{probe.BASE}", revision="{probe.BASE_REVISION}", local_dir="/tmp/omnivoice-base"))
-        assert sha256(BASE / "audio_tokenizer/model.safetensors") == "{probe.TOKENIZER_SHA256}"
-        CONFIG = None
-        for name, blob in BLOBS.items():
-            with urllib.request.urlopen(f"https://raw.githubusercontent.com/{probe.OMNIVOICE_REPO}/{probe.OMNIVOICE_COMMIT}/{{name}}") as response:
-                data = response.read()
-            assert blob_id(data).startswith(blob), (name, blob_id(data))
-            CONFIG = WORK / "official" / Path(name).name
-            CONFIG.parent.mkdir(parents=True, exist_ok=True)
-            CONFIG.write_bytes(data)
-        ARTIFACTS = {{"base": str(BASE), "config": str(CONFIG)}}
+    start = time.time()
+    plan_path, report_path = RECORDS / "fetch_plan.json", RECORDS / "fetch.json"
+    plan_path.write_text({json.dumps(json.dumps(plan))})
+    run = run_bounded([sys.executable, str(REPO / "scripts/fetch_inputs.py"), "--plan", str(plan_path),
+                       "--report", str(report_path), *{FETCH_FLAGS!r}],
+                      timeout={minutes} * 60, log=LOGS / "fetch.log", monitor_every=300)
+    RUNS["fetch"] = run.record()
+    print(run.summary())
+    report = json.loads(report_path.read_text()) if report_path.is_file() else {{}}
+    fetched = {{step["name"]: {{k: step.get(k) for k in ("gib", "seconds", "tries", "failed_check")}}
+               for step in report.get("steps", [])}}
+    if run.ok and report.get("ok") is True:
+        ARTIFACTS = {{"base": "/tmp/omnivoice-base", "config": "{config_name}", "fetched": fetched}}
+        if Path("/tmp/higgs-audio-v2-tokenizer").is_dir():
+            ARTIFACTS["tokenizer"] = "/tmp/higgs-audio-v2-tokenizer"
+        GATES.record("download", True, f"{{(time.time() - start) / 60:.1f}} min; {{json.dumps(ARTIFACTS)}}")
+    else:
+        GATES.record("download", False, f"{{run.summary()}}; fetched so far: {{json.dumps(fetched)}}")
 '''
-    if session == "a":
-        source += f'''\
-        TOKENIZER = Path(snapshot_download("{probe.TOKENIZER}", revision="{probe.TOKENIZER_REVISION}",
-                                           local_dir="/tmp/higgs-audio-v2-tokenizer"))
-        assert sha256(TOKENIZER / "model.safetensors") == "{probe.TOKENIZER_SHA256}"
-        CV_DIR, NEY_DIR = Path("/tmp/cv26"), Path("/tmp/neyshekar")
-        # Neyshekar's test shards are never fetched: its test speakers are the
-        # sealed primary test set. Common Voice test clips share shards with
-        # training clips, and the data writer refuses them by name.
-        snapshot_download("{probe.CV_REPO}", repo_type="dataset", revision="{probe.CV_REVISION}",
-                          allow_patterns=["{CV_FILES}"], local_dir=str(CV_DIR))
-        snapshot_download("{probe.NEY_REPO}", repo_type="dataset", revision="{probe.NEY_REVISION}",
-                          allow_patterns={list(NEY_FILES)!r}, local_dir=str(NEY_DIR))
-        assert not list(NEY_DIR.rglob("test-*.parquet")), "a sealed test shard was downloaded"
-        ARTIFACTS["tokenizer"] = str(TOKENIZER)
-        ARTIFACTS["parquet_gib"] = round(sum(p.stat().st_size for p in (*CV_DIR.rglob("*.parquet"),
-                                                                        *NEY_DIR.rglob("*.parquet"))) / 2**30, 2)
-'''
-    source += '''\
-        GATES.record("download", True, f"{(time.time() - start) / 60:.1f} min; {json.dumps(ARTIFACTS)}")
-    except Exception as exc:  # noqa: BLE001 - the gate records it
-        GATES.record("download", False, f"{type(exc).__name__}: {exc}")
-'''
-    return source
 
 
 DATA = '''\

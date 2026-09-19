@@ -30,6 +30,13 @@ runtime:
   # Apple Silicon: allow ops without an MPS kernel to fall back to CPU
   # instead of raising. Costs a little speed, avoids hard crashes.
   mps_fallback: true
+  # macOS publishes a system-wide memory-pressure level. With this on, no
+  # render starts while it is at warning, and an out-of-process engine
+  # (OmniVoice) is stopped the moment it gets there, with a message, instead
+  # of letting a 16 GB Mac with no swap thrash. Measured on 2026-09-19: an
+  # OmniVoice load took this machine to warning with other apps open.
+  # Elsewhere no level exists and this does nothing.
+  stop_on_memory_pressure: true
 
 audio:
   # Working sample rate of the synthesis graph. F5-TTS/Vocos operate at 24 kHz;
@@ -246,6 +253,14 @@ engines:
     # the reference transcript must be supplied, and best-of-N and
     # speech-to-speech are refused. Turn it off on a machine with room for both.
     memory_guard: true
+    # Load a verified float16 copy of the cached weights where one exists for
+    # the same revision (scripts/omnivoice_float16.py): the worker casts every
+    # weight to float16 on load anyway, so the numbers are identical and the
+    # file read is half the size.
+    float16_copy: true
+    # Refuse to start the worker with less than this much memory available
+    # (GB); 0 disables the check. The pressure watch applies either way.
+    min_available_gb: 0.0
 
   fish:
     # Fish Audio S2 Pro (arXiv 2603.08823): dual-autoregressive TTS, a 4B slow

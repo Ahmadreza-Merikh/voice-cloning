@@ -17,6 +17,7 @@ from typing import Any
 
 import numpy as np
 
+from .. import memory
 from ..audio.io import Audio, load_audio, save_audio
 from ..audio.postprocess import join_chunks, master, strip_reference_leakage
 from ..audio.preprocess import PreprocessResult, preprocess_reference, preprocess_source_audio
@@ -177,6 +178,21 @@ class Studio:
         section = getattr(self.config.engines, (engine or self.config.engines.tts).lower(), None)
         return bool(getattr(section, "memory_guard", False))
 
+    def refuse_under_pressure(self) -> None:
+        """Start nothing new while the Mac already reports memory pressure.
+
+        ``runtime.stop_on_memory_pressure``; where no level is published this
+        never refuses.
+        """
+        if not self.config.runtime.stop_on_memory_pressure:
+            return
+        level = memory.pressure_level()
+        if level is not None and level >= memory.WARNING:
+            raise SynthesisError(
+                f"The Mac's memory pressure is at {memory.describe(level)}, so nothing new was started.",
+                hint="Close some apps - browsers, other AI apps - and try again once it is back to normal.",
+            )
+
     def release_recogniser(self) -> None:
         """Unload the speech recogniser if it is loaded; its next use loads it again."""
         if self._asr is not None:
@@ -301,6 +317,7 @@ class Studio:
         timings: dict[str, float] = {}
         warnings: list[str] = []
 
+        self.refuse_under_pressure()
         engine_name = (engine or self.config.engines.tts).lower()
         tts = self.tts_engine(engine_name)
 
@@ -641,6 +658,7 @@ class Studio:
         transforms the source waveform directly and has nothing to pick
         between, so the value is ignored rather than silently costing N runs.
         """
+        self.refuse_under_pressure()
         strategy = (mode or self.config.engines.vc).lower()
         report = progress if isinstance(progress, ProgressReporter) else ProgressReporter(progress)
 

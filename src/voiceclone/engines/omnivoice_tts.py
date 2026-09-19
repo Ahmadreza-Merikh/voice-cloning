@@ -32,6 +32,7 @@ Setup
 
 from __future__ import annotations
 
+import contextlib
 import json
 import os
 import queue
@@ -44,6 +45,7 @@ from typing import Any
 
 import numpy as np
 
+from .. import memory
 from ..audio.io import Audio, load_audio, save_audio
 from ..config import AppConfig
 from ..device import DeviceSpec, seed_everything
@@ -62,6 +64,12 @@ _VENV_CANDIDATES = (
 
 #: The first start may include fetching 3.3 GB of weights.
 _STARTUP_TIMEOUT = 1800.0
+
+#: What a start refused, or a worker stopped, for memory tells the user to do.
+_PRESSURE_HINT = (
+    "Close some apps - browsers, other AI apps - and try again, or pick F5-TTS. On this 16 GB Mac "
+    "with no swap, OmniVoice loading beside other open apps reached warning pressure (2026-09-19)."
+)
 
 #: Generation settings forwarded to the worker, overridable per call.
 GENERATION_FIELDS = (
@@ -95,6 +103,41 @@ def find_omnivoice_python(configured: str | None = None) -> str | None:
 
 def _worker_script() -> Path:
     return Path(__file__).resolve().parents[3] / "scripts" / "omnivoice_worker.py"
+
+
+def cached_revision(model_id: str) -> str | None:
+    """The revision of ``model_id`` in the local Hugging Face cache, without going online."""
+    try:
+        from huggingface_hub import snapshot_download
+
+        return Path(snapshot_download(model_id, local_files_only=True)).name
+    except Exception:  # noqa: BLE001 - not cached, or no hub library: no copy applies
+        return None
+
+
+def float16_copy(model_id: str, root: Path, revision: str | None = None) -> tuple[Path, dict[str, Any]] | None:
+    """A verified float16 copy of the cached ``model_id``, made for exactly its cached revision.
+
+    ``scripts/omnivoice_float16.py`` writes the copy and its ``SOURCE.json``;
+    anything short of a record that names this model and revision and says
+    every tensor was verified is ignored, so a stale or partial copy is never
+    loaded in place of the published weights.
+    """
+    if os.path.isdir(model_id):
+        return None
+    revision = revision or cached_revision(model_id)
+    if not revision:
+        return None
+    copy = root / revision
+    try:
+        record = json.loads((copy / "SOURCE.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    if record.get("model_id") != model_id or record.get("revision") != revision or record.get("verified") is not True:
+        return None
+    if not (copy / "model.safetensors").is_file():
+        return None
+    return copy, record
 
 
 @register_tts
@@ -143,12 +186,21 @@ class OmniVoiceEngine(TTSEngine):
         if python is None:
             _, reason = self.is_available()
             raise EngineNotAvailableError("OmniVoice environment not found.", hint=reason)
+        if self.config.runtime.stop_on_memory_pressure:
+            self._refuse_to_start(settings.min_available_gb)
+
+        model = str(settings.model_id)
+        copy = None
+        if settings.float16_copy and str(settings.dtype) == "float16":
+            copy = float16_copy(model, Path(self.config.paths.cache_dir).expanduser() / "omnivoice" / "float16")
+        if copy is not None:
+            log.info("Loading the verified float16 copy of %s at %s", model, copy[0])
 
         command = [
             python,
             str(_worker_script()),
             "--model",
-            str(settings.model_id),
+            str(copy[0]) if copy else model,
             "--device",
             str(self.device.device),
             "--dtype",
@@ -180,6 +232,10 @@ class OmniVoiceEngine(TTSEngine):
         self._loaded_device = str(ready.get("device", "unknown"))
         self._loaded_dtype = str(ready.get("dtype", "unknown"))
         self._loaded_model = {"model": ready.get("model"), "revision": ready.get("revision")}
+        if copy is not None:
+            # The worker sees a local path; the weights are this model at this revision.
+            self._loaded_model = {"model": model, "revision": copy[1]["revision"],
+                                  "weights": f"verified float16 copy, {copy[0]}"}
         self._tempdir = tempfile.TemporaryDirectory(prefix="voiceclone_omnivoice_")
         if self._loaded_device != str(self.device.device) or self._loaded_dtype != settings.dtype:
             log.warning(
@@ -211,42 +267,83 @@ class OmniVoiceEngine(TTSEngine):
         threading.Thread(target=forward, name="omnivoice-worker-stdout", daemon=True).start()
         return lines
 
+    @staticmethod
+    def _refuse_to_start(min_available_gb: float) -> None:
+        """Do not start the worker into memory pressure, or with less memory than it needs."""
+        level = memory.pressure_level()
+        if level is None:
+            return
+        if level >= memory.WARNING:
+            raise SynthesisError(
+                f"OmniVoice was not started: the Mac's memory pressure is at {memory.describe(level)}.",
+                hint=_PRESSURE_HINT,
+            )
+        available = memory.available_gb()
+        if min_available_gb and available is not None and available < min_available_gb:
+            raise SynthesisError(
+                f"OmniVoice was not started: it needs about {min_available_gb:.1f} GB of memory and "
+                f"the Mac has {available:.1f} GB available.",
+                hint=_PRESSURE_HINT,
+            )
+
     def _read_reply(self, timeout: float) -> dict[str, Any]:
         """Read the worker's next JSON line within ``timeout`` seconds, stepping over anything that is not.
 
         A worker that stops answering, or exits, is shut down and the engine
         marked unloaded, so the next call starts a new one. Before, a hung
         worker blocked its caller for good, and a dead one failed every later
-        call on a closed pipe.
+        call on a closed pipe. While it loads or renders, the Mac's memory
+        pressure is watched, and the worker is stopped the moment it reaches
+        warning (``runtime.stop_on_memory_pressure``).
         """
         assert self._process is not None
+        process = self._process
+
+        def stop(level: int) -> None:
+            log.warning("Memory pressure reached %s - stopping the OmniVoice worker", memory.describe(level))
+            process.kill()
+
+        watch = memory.PressureWatch(stop)
+        guarding = self.config.runtime.stop_on_memory_pressure
         deadline = time.monotonic() + timeout
-        while True:
-            try:
-                line = self._lines.get(timeout=max(0.0, deadline - time.monotonic()))
-            except queue.Empty:
-                self.unload()
-                raise SynthesisError(
-                    f"The OmniVoice worker did not reply within {timeout:.0f} s and was stopped.",
-                    hint="The next request starts a new worker.",
-                ) from None
-            if line is None:
+        reply: dict[str, Any] | None = None
+        with watch if guarding else contextlib.nullcontext():
+            while reply is None:
                 try:
-                    code = self._process.wait(timeout=5)
-                except subprocess.TimeoutExpired:
-                    code = None
-                self.unload()
-                raise SynthesisError(
-                    f"The OmniVoice worker exited (code {code}).",
-                    hint="Its traceback was written to this console; the next request starts a new worker.",
-                )
-            stripped = line.strip()
-            if not stripped:
-                continue
-            try:
-                return dict(json.loads(stripped))
-            except json.JSONDecodeError:
-                log.debug("Ignoring non-protocol output from the worker: %r", stripped[:200])
+                    line = self._lines.get(timeout=max(0.0, deadline - time.monotonic()))
+                except queue.Empty:
+                    self.unload()
+                    raise SynthesisError(
+                        f"The OmniVoice worker did not reply within {timeout:.0f} s and was stopped.",
+                        hint="The next request starts a new worker.",
+                    ) from None
+                if line is None:
+                    try:
+                        code = process.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        code = None
+                    self.unload()
+                    if watch.triggered is not None:
+                        raise SynthesisError(
+                            "OmniVoice was stopped: the Mac's memory pressure reached "
+                            f"{memory.describe(watch.triggered)} while it was working.",
+                            hint=_PRESSURE_HINT,
+                        )
+                    raise SynthesisError(
+                        f"The OmniVoice worker exited (code {code}).",
+                        hint="Its traceback was written to this console; the next request starts a new worker.",
+                    )
+                stripped = line.strip()
+                if not stripped:
+                    continue
+                try:
+                    reply = dict(json.loads(stripped))
+                except json.JSONDecodeError:
+                    log.debug("Ignoring non-protocol output from the worker: %r", stripped[:200])
+        if watch.triggered is not None:
+            # Stopped just as it answered: the answer stands, the worker is gone.
+            self.unload()
+        return reply
 
     def _stop(self) -> None:
         if self._process is None:

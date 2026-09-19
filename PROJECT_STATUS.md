@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-19 11:25 +0330 (07:55 UTC).
+Last updated: 2026-09-19 11:09 +0330 (07:39 UTC).
 
 **Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` version 1,
 pushed 01:13:52 UTC, RUNNING at 01:14:21 - session a of the full OmniVoice

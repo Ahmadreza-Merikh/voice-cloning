@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-19 04:50 +0330 (01:20 UTC).
+Last updated: 2026-09-19 05:27 +0330 (01:57 UTC).
 
 **Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` version 1,
 pushed 01:13:52 UTC, RUNNING at 01:14:21 - session a of the full OmniVoice
@@ -14,7 +14,9 @@ trains from the published weights until the last official checkpoint that fits
 result, written before the push: `eval/runs/persian-voice-omnivoice-adapt.json`).
 Expected to end around 11:40 UTC at about step 1,500. Kaggle shows no output
 until a session ends; a session that ends within the first hour has failed a
-gate. Do not resubmit or stop it; read its state first.
+gate. Still RUNNING at 01:56 UTC, 42 minutes in - past the point where a failed
+data gate would have ended it, which suggests (does not show) that the data
+stage passed. Do not resubmit or stop it; read its state first.
 
 Dataset `persian-voice-eval` is at the version staged from `007af09`, verified
 by download; every session mounts it.
@@ -83,8 +85,9 @@ gives 318 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 2. After c: one development-set session - the five float16 exports and the
    published model scored in the same kernel - and the choice by the reading
    fixed in SOTA_ROADMAP §8.
-3. Write the twelve test texts per speaker (§3.3) and check them against every
-   training text; then the one test comparison.
+3. The one test comparison: the candidate and the published model on both
+   sealed test sets, rendering the twelve sentences of
+   `eval/manifests/test_texts_v1.json` (written and checked 2026-09-19).
 
 MOSS v1.5's "continuation" mode stays in reserve; it is not run for the
 licence alone.
@@ -132,6 +135,10 @@ FINDINGS §8); CER is the recogniser's reading - nobody has listened.
    (`docs/OMNIVOICE-ADAPTATION.md`)
 8. `592c64d` recipes reconstructed for the seventeen quoted results
 9. `65e5f14` the full run's sessions, with plan and budget before the push
+10. `29abd0b` the development-set session that will choose among the exports
+    (built, not pushed)
+11. `cfa3e1a`, `f1990a0` the twelve test sentences, checked against all 68,532
+    distinct texts of the split, the development transcripts and the benchmark
 
 Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
 `87c33e2` `587af3d` `cdc4b36` `a390618` `09b6373` `7d1c9f9`; second review

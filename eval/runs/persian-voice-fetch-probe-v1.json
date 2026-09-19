@@ -1,0 +1,86 @@
+{
+  "run": "CPU-only download probe before the next GPU session",
+  "kernel": "marsmanam/persian-voice-fetch-probe, version 1 (kaggle/build_fetch_probe_kernel.py, 1da16c3)",
+  "when": "2026-09-19, pushed 20:23:11 UTC, COMPLETE by 20:31:38 UTC",
+  "why": "session a v1 stalled in an unbounded download cell and held a T4 pair until cancelled",
+  "machine": "CPU only, no accelerator: no GPU quota",
+  "versions": {
+    "huggingface-hub": "1.7.2",
+    "hf-xet": "1.4.3",
+    "requests": "2.32.4",
+    "httpx": "0.28.1"
+  },
+  "disk_free_gib": 1024.7,
+  "plan": "build_omnivoice_train_kernel.fetch_plan('a'): the SDPA config, base, audio tokenizer, Common Voice 26 data/*, Neyshekar train and valid (about 21 GiB), every check on",
+  "measured": {
+    "xet": {
+      "minutes": 2.62,
+      "ok": true,
+      "timed_out": false,
+      "steps": {
+        "train_config_finetune_sdpa.json": {
+          "gib": null,
+          "seconds": null,
+          "mib_per_second": null
+        },
+        "base": {
+          "gib": 3.043,
+          "seconds": 14.4,
+          "mib_per_second": 216.1
+        },
+        "audio tokenizer": {
+          "gib": 0.75,
+          "seconds": 12.1,
+          "mib_per_second": 63.4
+        },
+        "common voice 26": {
+          "gib": 6.942,
+          "seconds": 54.8,
+          "mib_per_second": 129.7
+        },
+        "neyshekar train and valid": {
+          "gib": 10.218,
+          "seconds": 69.7,
+          "mib_per_second": 150.0
+        }
+      },
+      "attempts_needed": 1
+    },
+    "http": {
+      "minutes": 4.54,
+      "ok": true,
+      "timed_out": false,
+      "steps": {
+        "train_config_finetune_sdpa.json": {
+          "gib": null,
+          "seconds": null,
+          "mib_per_second": null
+        },
+        "base": {
+          "gib": 3.043,
+          "seconds": 47.9,
+          "mib_per_second": 65.1
+        },
+        "audio tokenizer": {
+          "gib": 0.75,
+          "seconds": 15.6,
+          "mib_per_second": 49.2
+        },
+        "common voice 26": {
+          "gib": 6.942,
+          "seconds": 76.9,
+          "mib_per_second": 92.4
+        },
+        "neyshekar train and valid": {
+          "gib": 10.218,
+          "seconds": 130.1,
+          "mib_per_second": 80.4
+        }
+      },
+      "attempts_needed": 1
+    }
+  },
+  "reading": "both modes fetched everything on the first attempt with every check passing: Xet in 2.6 minutes, plain HTTP in 4.5. The stall of session a v1 did not recur; its cause stays unknown",
+  "decision": "the GPU sessions fetch over plain HTTP (--no-xet): two minutes slower, but its per-request timeout (HF_HUB_DOWNLOAD_TIMEOUT, 60 s) is the one huggingface_hub documents, so a stall is retried within a minute instead of waiting for the stage's 60-minute bound",
+  "evidence": "eval/runs/evidence/fetch-probe-v1/"
+}

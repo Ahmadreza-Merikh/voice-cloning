@@ -332,7 +332,11 @@ Then, in the app:
   analysis is unloaded before an OmniVoice render, but unloading returns only
   1.3 of its 1.9 GB (measured), so after using F5's transcription in the same
   session, restarting the app is the safe way back to OmniVoice. Keep browsers
-  light either way.
+  light either way. **The guard is not enough on its own:** on 2026-09-19, with
+  other apps holding 5.1 GB in the memory compressor and no swap, a guarded
+  render - transcript typed, no recogniser loaded - reached warning pressure
+  while OmniVoice's weights were loading (available memory fell to 3.2 GB) and
+  was stopped. Whether it fits depends on what else is open.
 - The **Maximum quality** preset (64 ODE steps) measured no better than the
   default: held-out 0.517 against 0.520, inside the encoder's noise. It costs time
   and buys nothing measurable here.

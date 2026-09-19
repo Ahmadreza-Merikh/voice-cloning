@@ -1,0 +1,17 @@
+{
+  "id": "marsmanam/persian-voice-omnivoice-train-a",
+  "title": "persian-voice-omnivoice-train-a",
+  "code_file": "persian-voice-omnivoice-train-a.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "enable_internet": true,
+  "dataset_sources": [
+    "marsmanam/persian-voice-eval"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

@@ -1,0 +1,30 @@
+{
+  "run": "OmniVoice adapted to Persian by its official recipe, on Kaggle T4 pairs",
+  "status": "planned - written before session a is pushed",
+  "recipe": {
+    "source": "k2-fsa/OmniVoice 08be0b4ccbac3e13e374e86fbfead4b4cac343e2, examples/config/train_config_finetune_sdpa.json (git blob 4b0a543e23be), fetched and checked in every session",
+    "values": "lr 1e-5, AdamW weight decay 0.01, cosine schedule with 1% warmup, 5,000 steps, 8,192 tokens per GPU on two GPUs, no gradient accumulation, gradient norm clip 1.0, bf16 mixed precision, language_ratio 0.8, prompt ratio 0-0.3, mask ratio 0-1, condition drop 0.1, codebook weights [8,8,6,6,4,4,2,2], seed 42, evaluation and checkpoint every 500 steps",
+    "base": "k2-fsa/OmniVoice c5fdb5ccb189668d56333f77ba2629f4cd7535f4",
+    "tokenizer": "eustlb/higgs-audio-v2-tokenizer 528e871c2a26c4f0f7773b9754e2e1acae20899d (sha256 fe7c5e87...)",
+    "data": "eval/manifests/adaptation_splits_v1.jsonl.gz: train 87,499 clips, 127.85 h, 3,835 speakers (Common Voice 26 cleaned + Neyshekar v6); valid 2,251 clips, 3.68 h; language_id fa",
+    "changes_on_this_hardware": [
+      "gradient checkpointing on the LLM and DDP gradient_as_bucket_view - memory only; probe v2 showed the same first loss and first-step gradients as the official path",
+      "PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True - allocator fragmentation, not arithmetic",
+      "base and tokenizer loaded from local snapshots of their pinned revisions",
+      "keep_last_n_checkpoints 1 and a float16 export every 1,000 steps - retention, not training",
+      "sessions stop after an official checkpoint and resume through the official resume_from_checkpoint, which restarts the data order at the first epoch"
+    ]
+  },
+  "sessions": {
+    "a": {"kernel": "marsmanam/persian-voice-omnivoice-train-a", "does": "writes and tokenises train and valid (never a test clip; Neyshekar's test shards are not even downloaded), then trains from the base until a checkpoint is the last that fits 11.25 hours from the notebook's start", "expected": "about 4 h of data and tokenising, then about 1,500 steps; about 10.5 GPU-hours"},
+    "b": {"kernel": "marsmanam/persian-voice-omnivoice-train-b", "does": "resumes from a's checkpoint", "expected": "about 2,500 more steps; about 10.5 GPU-hours"},
+    "c": {"kernel": "marsmanam/persian-voice-omnivoice-train-c", "does": "resumes from b's checkpoint and finishes at 5,000", "expected": "about 4 GPU-hours"},
+    "then": "one development-set session scoring the five float16 exports and the published model in the same kernel, about 1 GPU-hour"
+  },
+  "budget_declared_before_the_push": {
+    "total": "about 25-26 GPU-hours of T4 x2: 19.4 h of training at probe v2's 13.98 s a step, 3.6 h of tokenising at 36x real time, evaluations, start-ups, saves, and the time lost stopping at a checkpoint rather than at the session's end",
+    "quota": "about 30 GPU-hours a week. The API does not report what is left or when the week turns over; this week's earlier kernels (the MOSS v1.5 runs of 2026-09-18, Fish and Higgs of 2026-09-17, the two probes) used some of it. If a session cannot start or is cut short for quota, the last checkpoint stands and the next session resumes from it after the reset",
+    "stops": "each session stops by itself 11.25 h after its notebook starts, with at least 10 minutes' margin before its 12-hour limit; no session starts training with less than 2.3 hours left"
+  },
+  "reading_fixed_before_the_run": "SOTA_ROADMAP.md section 8: the exports at 1,000-5,000 steps are scored on the development set beside the published model in one session; the one with the highest held-out similarity whose CER interval against the published model does not lie above zero is the candidate; only that candidate and the published model are then scored, once, on the sealed test sets (primary: the 28 usable Neyshekar test speakers; secondary: the 30 Common Voice ones), H0 delta <= 0, one-sided alpha 0.025. The training losses are not a quality result, and no improvement is claimed before the test comparison"
+}

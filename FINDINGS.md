@@ -862,7 +862,13 @@ OmniVoice (-0.5 [-1.5, +0.5]) have intervals that include zero. The CER
 columns above mix environments: MOSS's 6.5% was scored on this Mac from the
 Kaggle renders (`moss-local`, because no recogniser fit beside MOSS on the
 card), and against the Mac-scored baseline it is +3.7 points [+1.7, +5.6].
-`eval/results/_provenance.json` records where every run was scored and why.
+`eval/results/_provenance.json` records where every run was scored and why,
+and `eval/results/<label>.recipe.json` what produced it: model and codec
+revisions, settings, precision, the reference clips' sha256, the session and
+the results file's own sha256. For the files quoted here, which predate
+2026-09-19, the recipes are reconstructed (`scripts/reconstruct_recipes.py`),
+every field naming its source and anything unknown written as unknown; runs
+since then write their own, once.
 
 ### MOSS-TTS v1.5, at its official recipe
 

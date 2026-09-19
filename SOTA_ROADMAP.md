@@ -119,7 +119,11 @@ adaptation whatever its similarity. Every other comparison is exploratory,
 with a Holm correction. The spread between a model and its own adaptation may
 not match the spread between different engines; if the test's own spread is
 higher, the interval is reported as it is and no speakers are added after
-looking.
+looking. (Completed the same day, still before any test clip was read or
+rendered: every test speaker renders the twelve texts at seeds 42 and 43, 672
+cells per model on the primary set and 720 on the secondary; the reading is
+code, `scripts/read_sealed_test.py`, and the plan with its budget is
+`eval/runs/persian-voice-omnivoice-test.json`.)
 
 **[measured]** Adding speakers is not free. Each new speaker needs new renders
 from every engine under test. Measured on a T4, including scoring: OmniVoice 6
@@ -169,6 +173,24 @@ text contains or is contained in a benchmark sentence. What this cannot rule
 out: one person behind two accounts, or recording on both platforms. And the
 Common Voice test speakers are very probably in OmniVoice's own training data
 (FINDINGS §9), which is why Neyshekar's are primary.
+
+**[measured] The reference role, amended 2026-09-19 before any test clip was
+read or rendered.** The split made each test speaker's longest clip the
+reference. The reference pipeline keeps a clip whole only up to 11.5 s (the
+10 s target times 1.15, `audio/preprocess.py`); a longer one is cut to a window
+while the transcript given for the whole clip is kept, so the engine would be
+told words its prompt may no longer contain. Thirteen of the 28 Neyshekar
+references were longer than that, three of them over 20 s; every Common Voice
+test reference is under 9.1 s. So the reference is now the speaker's longest
+clip of 6.5-11.4 s, and the four longest of the rest (at least 3.5 s) are held
+out - decided on durations alone, by `scripts/prepare_test_corpus.py`. The same
+28 Neyshekar speakers stay usable, 13 of them with a different reference and
+held-out clips; no Common Voice speaker's roles change. The development set is
+measured under the old rule: its one reference over 11.5 s (`mana`, 11.89 s)
+is prepared by the current code from 0.06 s to 11.49 s (measured on this Mac on
+2026-09-19), the whole speech run the voice-activity detector found; whether
+the 0.4 s cut from its end held speech has not been checked by ear, and older
+runs' preparation was not re-checked.
 
 ### 3.3 Texts
 
@@ -471,7 +493,9 @@ sealed test sets (§3.1). No improvement is claimed before that has happened.
    (§3.3).
 6. The OmniVoice adaptation (§8): the probe, then - if it fits - the full run
    in sessions, then the development-set choice among its exports.
-7. Score each final candidate on the sealed test sets once.
+7. Score each final candidate on the sealed test sets once. The session is
+   built (`kaggle/build_omnivoice_test_kernel.py`) and waits for the
+   development-set choice.
 
 ## 10. Open questions for the user
 

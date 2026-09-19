@@ -142,3 +142,30 @@ similarity whose CER interval against the published model does not lie above
 zero is the candidate. Only then are the candidate and the published model
 scored, once, on the sealed test sets, and only that comparison can say
 whether the adaptation helped.
+
+The test session is built and runs once, after the choice
+(`eval/runs/persian-voice-omnivoice-test.json` holds its plan and budget,
+written before any test clip was read):
+
+```
+.venv/bin/python kaggle/build_omnivoice_test_kernel.py
+KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle kernels push -p kaggle/omnivoice-test
+```
+
+It writes both test sets with `scripts/prepare_test_corpus.py` (references
+the pipeline keeps whole: the longest clip of 6.5-11.4 s), renders the twelve
+texts of `eval/manifests/test_texts_v1.json` at seeds 42 and 43 with the
+published model and the candidate, and reads the result with
+`scripts/read_sealed_test.py`. On other hardware the same steps run as
+
+```
+.venv/bin/python scripts/prepare_test_corpus.py --splits eval/manifests/adaptation_splits_v1.jsonl.gz \
+    --source neyshekar --parquet-dir <neyshekar test shards> --out /tmp/test-ney
+VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID=<model> .venv/bin/python scripts/benchmark.py \
+    --label <label> --engine omnivoice --corpus-dir /tmp/test-ney \
+    --sentences-file eval/manifests/test_texts_v1.json --seeds 42 43 --device cuda
+.venv/bin/python scripts/read_sealed_test.py --candidate <label> --published <label> --role primary
+```
+
+The dataset is re-staged with this code only after training session c, so the
+training sessions mount the code they started with.

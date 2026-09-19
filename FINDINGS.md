@@ -1016,6 +1016,16 @@ includes zero in this table is therefore weak evidence of no difference.
   which is not on OmniVoice's list. Of the 3,791 speakers in the Common Voice
   26 subset this project uses, only 4 are absent from v22, so no test set drawn
   from it can avoid the problem.
+- **A reference longer than 11.5 s is cut, and its transcript is not.**
+  `audio/preprocess.py` prepares a clip longer than 1.15 times the 10 s target
+  by choosing a window, while the benchmark keeps giving the transcript written
+  for the whole clip; the Studio re-transcribes only when an engine's own limit
+  cuts the clip (F5's 12 s). On the development set this touches one reference:
+  `mana` (11.89 s) is prepared by the current code from 0.06 s to 11.49 s, the
+  whole speech run the voice-activity detector found, so no word is known to be
+  missing - but the 0.4 s cut from its end has not been checked by ear. The
+  sealed test avoids the case by rule (SOTA_ROADMAP §3.2), and every benchmark
+  run since `cb083f2` records the window each reference went through.
 - **"Different recording session" was an assumption and has been withdrawn.**
   Common Voice publishes no session field. Earlier versions of this project
   labelled every clip its own session and carried a same-session band of 0.800

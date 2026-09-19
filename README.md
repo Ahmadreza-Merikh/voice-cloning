@@ -336,7 +336,19 @@ Then, in the app:
   other apps holding 5.1 GB in the memory compressor and no swap, a guarded
   render - transcript typed, no recogniser loaded - reached warning pressure
   while OmniVoice's weights were loading (available memory fell to 3.2 GB) and
-  was stopped. Whether it fits depends on what else is open.
+  was stopped. Whether it fits depends on what else is open. Two things were
+  added the same day. The app reads macOS's own memory-pressure level: it
+  starts nothing at warning, will not start OmniVoice with less than 6 GB
+  available (`engines.omnivoice.min_available_gb`, an estimate - warning came
+  each time available memory fell to 3.05-3.37 GB), and stops the worker the
+  moment warning arrives, with a message saying what to close. And the worker
+  loads a verified float16 copy of the weights, 1.2 GB instead of 2.45 GB
+  (`scripts/omnivoice_float16.py`: every tensor bit for bit the float32
+  original cast to float16, which is what the worker does on load anyway).
+  Measured after both: the load completed without pressure; with 4.4 GB
+  available at the start, the render itself reached warning two seconds in and
+  the app stopped it. With 6 GB free, whether a render completes has not been
+  measured yet. Close heavy apps first.
 - The **Maximum quality** preset (64 ODE steps) measured no better than the
   default: held-out 0.517 against 0.520, inside the encoder's noise. It costs time
   and buys nothing measurable here.

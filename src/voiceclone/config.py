@@ -255,8 +255,11 @@ class OmniVoiceConfig:
     #: same; the file it reads is half the size.
     float16_copy: bool = True
     #: Refuse to start the worker with less memory than this available (GB).
-    #: 0 disables the check; the pressure watch still applies.
-    min_available_gb: float = 0.0
+    #: An estimate from three measurements on this Mac on 2026-09-19: warning
+    #: pressure arrived when available memory fell to 3.05-3.37 GB, and the
+    #: worker reached 1.9 GB and still rising when it was stopped mid-render
+    #: (2.9 GB end to end on 2026-09-17). 0 disables it; the watch still applies.
+    min_available_gb: float = 6.0
 
 
 @dataclass

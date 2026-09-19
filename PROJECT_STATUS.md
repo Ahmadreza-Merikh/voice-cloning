@@ -86,7 +86,11 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
   clip would have been cut by the reference window (over 11.5 s) while keeping
   the whole clip's transcript - 13 of the 28 Neyshekar references. The test
   reference is now the longest clip of 6.5-11.4 s; still 28 Neyshekar
-  speakers, no Common Voice role changed (SOTA_ROADMAP §3.2)
+  speakers, no Common Voice role changed (SOTA_ROADMAP §3.2). A Neyshekar test
+  speaker has no reserve, so a clip failing the 50 ms duration check would drop
+  them; Neyshekar's listed durations are multiples of 60 ms, but all 780 of its
+  clips in probe v2 passed that check, and session a's data summary will show
+  it for all 56,000
 
 ## Remote jobs (live state read 2026-09-19 01:14 UTC)
 

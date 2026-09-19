@@ -4,13 +4,17 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-19 01:21 +0330 (21:51 UTC). **Running remotely:**
-`marsmanam/persian-voice-omnivoice-probe` version 1, pushed 21:50:12 UTC,
-RUNNING at 21:50:35 - the limited test of OmniVoice's official adaptation
-recipe on a T4 pair (plan and budget, written before the push:
-`eval/runs/persian-voice-omnivoice-probe-v1.json`). Do not resubmit or stop it;
-read its state first. Dataset `persian-voice-eval` is at the version staged
-from `d7a549c`, verified by download.
+Last updated: 2026-09-19 04:27 +0330 (00:57 UTC). **Running remotely:**
+`marsmanam/persian-voice-omnivoice-probe` **version 2**, pushed 00:52:42 UTC,
+RUNNING at 00:53:10 - one question: do gradient checkpointing and DDP bucket
+views (memory only, arithmetic unchanged) make OmniVoice's official SDPA
+recipe fit a T4 pair, at what seconds per step, and do they leave the first
+loss and first-step gradients unchanged (plan and budget, written before the
+push: `eval/runs/persian-voice-omnivoice-probe-v2.json`). Version 1 is
+complete: the official recipe runs out of memory on a T4 in its first forward
+pass (`eval/runs/persian-voice-omnivoice-probe-v1.json`). Do not resubmit or
+stop version 2; read its state first. Dataset `persian-voice-eval` is at the
+version staged from `007af09`, verified by download.
 
 ## Stage
 

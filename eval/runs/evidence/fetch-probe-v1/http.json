@@ -1,0 +1,83 @@
+{
+  "started": "2026-09-19 20:26:12 +0000",
+  "steps": [
+    {
+      "name": "train_config_finetune_sdpa.json",
+      "kind": "url",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 0.1
+        }
+      ],
+      "bytes": 1054,
+      "git_blob": "4b0a543e23bed4fe95c5467ef6cb5eea9ba95585"
+    },
+    {
+      "name": "base",
+      "kind": "snapshot",
+      "repo": "k2-fsa/OmniVoice",
+      "revision": "c5fdb5ccb189668d56333f77ba2629f4cd7535f4",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 47.9
+        }
+      ],
+      "bytes": 3267471643,
+      "gib": 3.043,
+      "seconds": 47.9,
+      "mib_per_second": 65.1
+    },
+    {
+      "name": "audio tokenizer",
+      "kind": "snapshot",
+      "repo": "eustlb/higgs-audio-v2-tokenizer",
+      "revision": "528e871c2a26c4f0f7773b9754e2e1acae20899d",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 15.6
+        }
+      ],
+      "bytes": 805675588,
+      "gib": 0.75,
+      "seconds": 15.6,
+      "mib_per_second": 49.2
+    },
+    {
+      "name": "common voice 26",
+      "kind": "snapshot",
+      "repo": "pymmdrza/Common-Voice-Speech-26.0-Persian-Clean",
+      "revision": "142e9bb40b56d9491faa0ec0987ee8d408bd9c05",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 76.9
+        }
+      ],
+      "bytes": 7454216798,
+      "gib": 6.942,
+      "seconds": 76.9,
+      "mib_per_second": 92.4
+    },
+    {
+      "name": "neyshekar train and valid",
+      "kind": "snapshot",
+      "repo": "shekar-ai/neyshekar",
+      "revision": "30696ada746a66bb3047c984744b5ecfd60fe4e9",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 130.1
+        }
+      ],
+      "bytes": 10971270305,
+      "gib": 10.218,
+      "seconds": 130.1,
+      "mib_per_second": 80.4
+    }
+  ],
+  "ok": true,
+  "finished": "2026-09-19 20:30:44 +0000"
+}

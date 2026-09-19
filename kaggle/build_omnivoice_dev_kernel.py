@@ -69,7 +69,9 @@ def fetch(plan, minutes, flags=()):
 
 #: The base alone, about 3 GiB; decided flags come from the CPU-only fetch probe.
 FETCH_MINUTES = 20
-FETCH_FLAGS: list[str] = []
+#: Plain HTTP: the CPU-only probe (eval/runs/persian-voice-fetch-probe-v1.json) fetched everything
+#: both ways, Xet in 2.6 min and HTTP in 4.5; HTTP's per-request timeout is the documented one.
+FETCH_FLAGS: list[str] = ["--no-xet"]
 BASE_PLAN = {"snapshots": [{"name": "base", "repo": probe.BASE, "revision": probe.BASE_REVISION,
                             "local_dir": "/tmp/omnivoice-base",
                             "sha256": {"audio_tokenizer/model.safetensors": probe.TOKENIZER_SHA256}}]}

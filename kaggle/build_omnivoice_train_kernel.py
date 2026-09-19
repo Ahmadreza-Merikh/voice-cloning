@@ -58,7 +58,9 @@ NEY_FILES = ("data/train-*", "data/validation-*")
 #: 20 MiB/s that is 18 minutes, so 60 bounds it with room for retries.
 FETCH_MINUTES = {"a": 60, "resume": 20}
 #: Extra flags for scripts/fetch_inputs.py; decided by the CPU-only fetch probe.
-FETCH_FLAGS: list[str] = []
+#: Plain HTTP: the CPU-only probe (eval/runs/persian-voice-fetch-probe-v1.json) fetched everything
+#: both ways, Xet in 2.6 min and HTTP in 4.5; HTTP's per-request timeout is the documented one.
+FETCH_FLAGS: list[str] = ["--no-xet"]
 
 
 def fetch_plan(session: str) -> dict:

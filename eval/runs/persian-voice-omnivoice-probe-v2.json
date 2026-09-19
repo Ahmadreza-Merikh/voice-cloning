@@ -1,0 +1,22 @@
+{
+  "kernel": "marsmanam/persian-voice-omnivoice-probe",
+  "version": 2,
+  "status": "planned - written before the push",
+  "hypothesis": "Version 1 showed the official SDPA configuration runs out of memory on a T4 in its first forward pass at 8,192 tokens per GPU. The official recipe fits a T4 pair unchanged in its arithmetic if the LLM's activations are recomputed in the backward pass (gradient checkpointing) and DDP's gradient buckets share the gradients' storage - and, failing that, with AdamW applying the same update one tensor at a time. The test: the SDPA configuration with those techniques runs 8 optimizer steps on both GPUs; and on one GPU at a test-only 512-token batch, the first loss and the gradients before the first update match the official path's.",
+  "changes_from_v1": [
+    "out-of-memory is read from the per-process records and the whole log, not the log's last 25 lines (the v1 bug that skipped the fallback)",
+    "flex_attention is not repeated (v1: out of memory in the first step; the official docs send GPUs older than Ampere to SDPA)",
+    "memory techniques: gradient checkpointing (non-reentrant) on the LLM, DDP gradient_as_bucket_view, and if needed AdamW with foreach=False; PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True goes with them, never with the official attempt",
+    "the equivalence check runs on one GPU at 512 tokens and compares the first loss and a fingerprint of the first step's gradients (their norm after clipping and the sums of six tensors), taken before the update"
+  ],
+  "budget_declared_before_the_push": {
+    "accelerator": "GPU T4 x2 (free quota)",
+    "expected_minutes": "about 20-25: install 6, downloads 1, data 1, tokenising 6, the official SDPA control 1, each memory attempt about 3-5, the equivalence runs 2-3",
+    "hard_limits": "the same per-command timeouts as v1"
+  },
+  "reading": {
+    "a memory mode runs 8 steps and the equivalence holds": "the recipe runs on a T4 pair with memory-only changes; its measured seconds per step, times 5,000, plus tokenising and evaluation, is the full run's cost, compared with the free quota before anything long is sent",
+    "a memory mode runs but the equivalence fails": "the techniques changed something; no long run on them",
+    "nothing fits": "the full recipe needs a GPU with more memory; the report gives the evidence and the command, with nothing reduced"
+  }
+}

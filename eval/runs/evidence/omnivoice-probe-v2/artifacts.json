@@ -1,0 +1,13 @@
+{
+  "base": "/tmp/omnivoice-base",
+  "tokenizer": "/tmp/higgs-audio-v2-tokenizer",
+  "tokenizer_sha256": {
+    "tokenizer": "fe7c5e8785e0a05833e1bfc3e002ec7f55af21e306b2e7154a448c1f54ccfb0d",
+    "bundled_with_base": "fe7c5e8785e0a05833e1bfc3e002ec7f55af21e306b2e7154a448c1f54ccfb0d"
+  },
+  "configs": {
+    "train_config_finetune.json": "/tmp/adapt/official/train_config_finetune.json",
+    "train_config_finetune_sdpa.json": "/tmp/adapt/official/train_config_finetune_sdpa.json",
+    "data_config_finetune.json": "/tmp/adapt/official/data_config_finetune.json"
+  }
+}

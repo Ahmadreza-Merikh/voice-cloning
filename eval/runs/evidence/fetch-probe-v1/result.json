@@ -1,0 +1,153 @@
+{
+  "versions": {
+    "huggingface-hub": "1.7.2",
+    "hf-xet": "1.4.3",
+    "requests": "2.32.4",
+    "httpx": "0.28.1"
+  },
+  "disk_free_gib": 1024.7,
+  "plan": [
+    "base",
+    "audio tokenizer",
+    "common voice 26",
+    "neyshekar train and valid"
+  ],
+  "runs": {
+    "xet": {
+      "exit": 0,
+      "timed_out": false,
+      "minutes": 2.62,
+      "ok": true,
+      "steps": {
+        "train_config_finetune_sdpa.json": {
+          "gib": null,
+          "seconds": null,
+          "mib_per_second": null,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 0.3
+            }
+          ],
+          "failed_check": null
+        },
+        "base": {
+          "gib": 3.043,
+          "seconds": 14.4,
+          "mib_per_second": 216.1,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 14.4
+            }
+          ],
+          "failed_check": null
+        },
+        "audio tokenizer": {
+          "gib": 0.75,
+          "seconds": 12.1,
+          "mib_per_second": 63.4,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 12.1
+            }
+          ],
+          "failed_check": null
+        },
+        "common voice 26": {
+          "gib": 6.942,
+          "seconds": 54.8,
+          "mib_per_second": 129.7,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 54.8
+            }
+          ],
+          "failed_check": null
+        },
+        "neyshekar train and valid": {
+          "gib": 10.218,
+          "seconds": 69.7,
+          "mib_per_second": 150.0,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 69.7
+            }
+          ],
+          "failed_check": null
+        }
+      }
+    },
+    "http": {
+      "exit": 0,
+      "timed_out": false,
+      "minutes": 4.54,
+      "ok": true,
+      "steps": {
+        "train_config_finetune_sdpa.json": {
+          "gib": null,
+          "seconds": null,
+          "mib_per_second": null,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 0.1
+            }
+          ],
+          "failed_check": null
+        },
+        "base": {
+          "gib": 3.043,
+          "seconds": 47.9,
+          "mib_per_second": 65.1,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 47.9
+            }
+          ],
+          "failed_check": null
+        },
+        "audio tokenizer": {
+          "gib": 0.75,
+          "seconds": 15.6,
+          "mib_per_second": 49.2,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 15.6
+            }
+          ],
+          "failed_check": null
+        },
+        "common voice 26": {
+          "gib": 6.942,
+          "seconds": 76.9,
+          "mib_per_second": 92.4,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 76.9
+            }
+          ],
+          "failed_check": null
+        },
+        "neyshekar train and valid": {
+          "gib": 10.218,
+          "seconds": 130.1,
+          "mib_per_second": 80.4,
+          "tries": [
+            {
+              "attempt": 1,
+              "seconds": 130.1
+            }
+          ],
+          "failed_check": null
+        }
+      }
+    }
+  }
+}

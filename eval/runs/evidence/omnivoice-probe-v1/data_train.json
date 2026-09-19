@@ -1,0 +1,20 @@
+{
+  "written": {
+    "train/cv26": 700,
+    "train/neyshekar": 700
+  },
+  "hours": {
+    "train/cv26": 1.008,
+    "train/neyshekar": 1.119
+  },
+  "left_out": {},
+  "left_out_examples": {},
+  "not_found": {
+    "cv26": 32448,
+    "neyshekar": 53651
+  },
+  "limit": 700,
+  "jsonl": {
+    "train": "/tmp/adapt/data/train/train.jsonl"
+  }
+}

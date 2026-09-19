@@ -1,27 +1,44 @@
 {
   "kernel": "marsmanam/persian-voice-omnivoice-probe",
   "version": 1,
-  "status": "planned - written before the push",
+  "version_source": "the service's push response: 'Kernel version 1 successfully pushed'",
+  "status": "COMPLETE (kaggle kernels status, read 2026-09-19 00:42 UTC; the API refused every call from 21:53 to at least 21:57 UTC with an authentication error, for both credential files, and answered again by 00:42)",
+  "dataset": "marsmanam/persian-voice-eval, the version staged from d7a549c, verified by download before the push (scripts and the split file's sha256)",
+  "timeline_utc": {
+    "pushed": "21:50:12",
+    "running": "21:50:35",
+    "kernel_log_length_seconds": 686,
+    "note": "run length from the kernel log's own clock: about 11.5 minutes from the first cell's output to the last"
+  },
   "purpose": "The limited remote test before any long run: does OmniVoice's official adaptation recipe (k2-fsa/OmniVoice 08be0b4c, SOTA_ROADMAP.md section 8) install, tokenise and train on a Kaggle T4 pair at its full size, and at what memory and speed. Nothing it trains is kept; its losses are not a quality result.",
   "budget_declared_before_the_push": {
     "accelerator": "GPU T4 x2 (free quota)",
-    "expected_hours": "about 1 to 1.5: install 6 min, downloads 5 min, data slice 3 min, tokenising 5 min, flex attempt up to 30 min, SDPA 10 min, the memory fallback and equivalence check up to 30 min only if needed",
-    "hard_limits": "each command has its own timeout (data 30 min each, tokenising 60 min each, flex 30 min, SDPA 40 min); Kaggle's own session limit is 12 h",
-    "quota_context": "about 30 GPU-hours a week; this week's measured use so far is the MOSS v1.5 runs of 2026-09-18 (probe v2 24 min, v3 about 18 min, v4 about 17 min) and the Fish and Higgs kernels of 2026-09-17"
+    "expected_hours": "about 1 to 1.5",
+    "used": "about 12 minutes of T4 x2"
   },
-  "pinned": {
-    "code": "k2-fsa/OmniVoice 08be0b4ccbac3e13e374e86fbfead4b4cac343e2, installed from git with --no-deps",
-    "runtime": "OmniVoice's uv.lock: torch 2.8.0+cu128, torchaudio 2.8.0+cu128, transformers 5.3.0, accelerate 1.13.0, webdataset 1.0.2, safetensors 0.7.0, tokenizers 0.22.2, huggingface-hub 1.7.2 - checked, the run stops on any difference",
-    "base": "k2-fsa/OmniVoice c5fdb5ccb189668d56333f77ba2629f4cd7535f4",
-    "tokenizer": "eustlb/higgs-audio-v2-tokenizer 528e871c2a26c4f0f7773b9754e2e1acae20899d, sha256 fe7c5e87... checked against the copy bundled with the base",
-    "configs": "train_config_finetune.json, train_config_finetune_sdpa.json and data_config_finetune.json fetched at the commit and checked against their git blob ids",
-    "data": "one parquet shard each of pymmdrza/Common-Voice-Speech-26.0-Persian-Clean @ 142e9bb4 and shekar-ai/neyshekar @ 30696ada; train and valid clips only, from eval/manifests/adaptation_splits_v1.jsonl.gz"
+  "environment": {
+    "source": "evidence/omnivoice-probe-v1/environment.json",
+    "pinned_and_matching": "torch 2.8.0+cu128, torchaudio 2.8.0+cu128, transformers 5.3.0, accelerate 1.13.0, webdataset 1.0.2, safetensors 0.7.0, tokenizers 0.22.2, huggingface-hub 1.7.2; also tensorboardX 2.6.4, soundfile 0.13.1, librosa 0.11.0, pydub 0.25.1, triton 3.4.0",
+    "differs_from_the_lock": "numpy 2.0.2 (the image's; the lock has 2.4.3) - not pinned here",
+    "omnivoice": "0.2.1 from git at 08be0b4ccbac3e13e374e86fbfead4b4cac343e2 (direct_url.json)",
+    "platform": "python 3.12.13, CUDA 12.8, cuDNN 91002, driver 580.159.04, 2 x Tesla T4 (compute 7.5, 14.56 GiB each as torch reports it); torch.cuda.is_bf16_supported() True, which counts emulation"
   },
-  "gates": ["runner", "download", "data", "tokenize", "flex", "sdpa", "sdpa-memory (only if sdpa runs out of memory)", "equivalence (only with sdpa-memory)", "budget"],
-  "what_decides_next": {
-    "sdpa passes": "the full recipe fits a T4 pair as published; its measured seconds per step give the full run's cost",
-    "sdpa runs out of memory, sdpa-memory and equivalence pass": "the full recipe runs with gradient checkpointing and DDP bucket views, both recorded as memory-only changes",
-    "nothing fits, or the budget exceeds the free quota": "no long run; the report gives the evidence and the full-recipe command for bf16-capable hardware, nothing reduced",
-    "flex": "expected to fail on Turing per the official docs; recorded either way"
-  }
+  "gates": {
+    "runner": "PASS - 1,853,785 bytes through the protocol path in 0.4 s, 104,590 shown",
+    "download": "PASS - 1.0 min; the tokenizer's model.safetensors and the copy bundled with the base have the same sha256; the three official configs match their git blob ids",
+    "data": "PASS - train slice 700 Common Voice + 700 Neyshekar clips, valid slice 3 + 80; none left out; no test clip read",
+    "tokenize": "PASS - official extract_audio_tokens: 1,400 training samples, 7,654.6 s of audio in 222 s wall (34x real time including start-up; 33 shards), 0 failures; valid 83 samples; a token array is int16 [8, T], values 0-1021",
+    "flex": "FAIL - out of memory in the first step on both GPUs: 'Tried to allocate 4.00 GiB ... 13.12 GiB is allocated by PyTorch' of 14.56",
+    "sdpa": "FAIL - out of memory in the first forward pass, inside SDPA attention (trainer.py line 291, before any backward, before the optimizer's state exists): 'Tried to allocate 116.00 MiB ... 13.99 GiB is allocated by PyTorch'",
+    "sdpa-memory": "NOT RUN - a bug in this notebook: it looked for 'out of memory' in the last 25 lines of the launcher's log, which hold only torchrun's summary; the per-process records it had just written said 'out of memory' on both ranks",
+    "budget": "FAIL - no configuration of the full recipe ran"
+  },
+  "measured": {
+    "official_recipe_on_T4": "Neither official configuration fits a 15 GB T4 at 8,192 tokens per GPU: SDPA runs out of memory in the first forward pass with 14 GiB already allocated, before gradients or optimizer state exist. So the activations of one 8,192-token forward pass through the 28-layer, 612M-parameter model are most of the card on their own",
+    "config_loaded": "the official SDPA config unchanged: lr 1e-05, 5,000 steps, 8,192 tokens, bf16, warmup 1%, language_ratio 0.8 (the trainer's own 'Loaded Config' line in logs/sdpa.log)",
+    "tokeniser_throughput": "34x real time for a 2.1 h slice, start-up included - so tokenising the 127.9 h training split takes about 4 hours at that rate, less once start-up is amortised; not yet measured at scale"
+  },
+  "not_established": "whether gradient checkpointing and DDP bucket views - memory techniques that leave the arithmetic unchanged - make the official SDPA configuration fit, what a step then costs, and whether the losses match the official path",
+  "next": "version 2 with that one question: the notebook's out-of-memory detection reads the per-process records; the flex attempt is not repeated (it ran out of memory here, and the official docs send pre-Ampere GPUs to SDPA); the SDPA official attempt is repeated as the control, then checkpointing + bucket views, then the equivalence check at a test-only batch small enough for the official path",
+  "lost": "nothing but about 12 minutes of T4 x2"
 }

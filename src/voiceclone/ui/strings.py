@@ -21,7 +21,15 @@ STRINGS: dict[str, dict[str, str]] = {
         "reference": "Reference voice",
         "reference_help": "8-12 seconds of clean, continuous speech from one speaker clones best.",
         "reference_text": "Reference transcript",
-        "reference_text_help": "Leave empty to transcribe automatically. An accurate transcript improves quality.",
+        "reference_text_help": (
+            "Type exactly what the reference says - OmniVoice needs it. F5-TTS transcribes it "
+            "for you if left empty. An accurate transcript improves quality."
+        ),
+        "guard_transcript": (
+            "OmniVoice is selected, so the transcript is not filled in automatically: the speech "
+            "recogniser and OmniVoice do not fit in a 16 GB Mac's memory together. Type what the "
+            "reference says."
+        ),
         "analyse": "Analyse reference",
         "quality_report": "Reference quality",
         # text
@@ -87,7 +95,14 @@ STRINGS: dict[str, dict[str, str]] = {
         "reference": "صدای مرجع",
         "reference_help": "هشت تا دوازده ثانیه گفتار تمیز و پیوسته از یک گوینده بهترین نتیجه را می‌دهد.",
         "reference_text": "متن صدای مرجع",
-        "reference_text_help": "خالی بگذارید تا خودکار رونویسی شود. متن دقیق کیفیت را بهتر می‌کند.",
+        "reference_text_help": (
+            "دقیقاً همان چیزی را بنویسید که در صدای مرجع گفته می‌شود؛ OmniVoice به آن نیاز دارد. "
+            "با F5-TTS اگر خالی بماند، خودکار رونویسی می‌شود. متن دقیق کیفیت را بهتر می‌کند."
+        ),
+        "guard_transcript": (
+            "OmniVoice انتخاب شده، پس متن خودکار پر نمی‌شود: مدل تشخیص گفتار و OmniVoice با هم "
+            "در حافظهٔ مک ۱۶ گیگی جا نمی‌شوند. متن صدای مرجع را خودتان بنویسید."
+        ),
         "analyse": "تحلیل صدای مرجع",
         "quality_report": "کیفیت صدای مرجع",
         "text": "متن برای خواندن",

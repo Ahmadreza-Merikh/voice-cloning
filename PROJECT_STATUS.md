@@ -4,15 +4,15 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-20 00:00 +0330 (2026-09-19 20:30 UTC).
+Last updated: 2026-09-20 00:20 +0330 (2026-09-19 20:50 UTC).
 
-**Running remotely:** `marsmanam/persian-voice-fetch-probe` v1, pushed
-2026-09-19 20:23:11 UTC - CPU only, no accelerator, so no GPU quota: session
-a's whole download plan (about 21 GiB) through the new bounded
-`scripts/fetch_inputs.py`, once with Hugging Face's Xet client and once over
-plain HTTP, 30 minutes each at most (budget: about 65 minutes of a CPU
-session). Its result sets `FETCH_FLAGS` before any GPU session. Read its
-output (`fetch_probe/result.json`) when it ends; do not re-push it blindly.
+**Nothing is running remotely.** Waiting for the user to say how much GPU
+quota is left this week before session a v2 is pushed (promised 2026-09-19).
+The CPU-only download probe (`persian-voice-fetch-probe` v1, 20:23-20:31 UTC,
+no GPU quota) fetched session a's whole plan, about 21 GiB with every check, on
+the first attempt both ways - Xet in 2.6 minutes, plain HTTP in 4.5
+(`eval/runs/persian-voice-fetch-probe-v1.json`); the GPU sessions now fetch
+over plain HTTP, bounded.
 
 Session a of the full OmniVoice adaptation
 (`marsmanam/persian-voice-omnivoice-train-a` v1, pushed 2026-09-19 01:13:52
@@ -27,11 +27,12 @@ notebook's own process, so a stall held the T4 pair - probably until Kaggle's
 downloads are bounded and tested without a GPU, and the user has said how much
 GPU quota is left this week.
 
-Dataset `persian-voice-eval` is at the version staged from `007af09`, verified
-by download; every session mounts it. It is re-staged with this round's code
-only after training session c, so b and c mount the code a started with; the
-development and test sessions need the new code (the test session cannot run
-without it).
+Dataset `persian-voice-eval` is at the version staged from `b103fa6`
+(2026-09-19 20:45 UTC), verified by download: 251 files byte-identical, the
+split file unpacked by Kaggle with identical content. The training code in it
+(`omnivoice_adapt.py`, `prepare_adaptation_data.py`, the split, the gates) is
+unchanged since `007af09`; new are the bounded downloads and the development
+and test sessions' code.
 
 ## Stage
 
@@ -126,7 +127,7 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 
 | kernel | state | re-run? |
 |---|---|---|
-| `persian-voice-fetch-probe` v1 | **RUNNING** since 20:23 UTC (CPU only) | no - read `fetch_probe/result.json` |
+| `persian-voice-fetch-probe` v1 | complete in 8 min, CPU only: both download modes fetched all 21 GiB | no - `eval/runs/persian-voice-fetch-probe-v1.json` |
 | `persian-voice-omnivoice-train-a` v1 | CANCEL_ACKNOWLEDGED (read 18:10 UTC); log ends at 138 s in the download cell | not as it is - its downloads have no time limit |
 | `persian-voice-omnivoice-probe` v2 | complete, about 14 min: fits with memory-only changes | no - `eval/runs/persian-voice-omnivoice-probe-v2.json`, evidence in `eval/runs/evidence/omnivoice-probe-v2/` |
 | `persian-voice-omnivoice-probe` v1 | complete, about 12 min: official recipe out of memory; fallback skipped by a bug | no - `...-probe-v1.json`, evidence in `.../omnivoice-probe-v1/` |
@@ -135,9 +136,10 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 
 ## Next concrete steps
 
-0. Before any GPU session: bound every network step (a stall cost session a
-   v1 its whole run), test the downloads on a CPU-only session, which spends
-   no GPU quota, and learn from the user how much GPU quota is left.
+0. Done: every network step bounded (`0ac7811`), downloads tested on a
+   CPU-only session (`b103fa6`), dataset re-staged. Left: the user says how
+   much GPU quota is left; then push `kaggle/omnivoice-train-a` as v2 (about
+   10.5 GPU-hours) with its budget written first, or wait for the weekly reset.
 1. When session a ends: read its gates (`session/gates.json` in its output);
    if `train` passed, push `kaggle/omnivoice-train-b` (it mounts a's tokens and
    checkpoint); then c the same way. If a session fails a gate, read why before

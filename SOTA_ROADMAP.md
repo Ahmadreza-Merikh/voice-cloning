@@ -179,6 +179,14 @@ each category: formal written, conversational, numbers/dates/prices, proper
 nouns and borrowed words, homographs and ezafe, and very short (< 5 words) or
 long (> 25 words). None may appear in any prompt or in any development text.
 
+**[measured]** Written on 2026-09-19 (`scripts/build_test_texts.py`, output
+`eval/manifests/test_texts_v1.json`): twelve sentences composed for this
+project, 3 to 33 words. None equals, or shares a stretch of at least 20
+letters and half its length with, any of the 68,532 distinct normalised texts
+in the adaptation split - training, valid and test clips alike - or the
+development transcripts or benchmark sentences. Every test speaker renders all
+twelve, so the comparison stays paired.
+
 ### 3.4 Listening
 
 **[hypothesis]** Cosine similarity is not a perceptual scale; whether a 0.03
@@ -458,9 +466,9 @@ sealed test sets (§3.1). No improvement is claimed before that has happened.
    set research and the best quality as the goal for now, so the commercial
    question no longer blocks.
 5. ~~Build the independent test set~~: drawn 2026-09-19 (§3.2), 28 usable
-   Neyshekar speakers primary, 30 Common Voice secondary, both sealed. Still to
-   write: the twelve test texts per speaker (§3.3), checked against every
-   training text.
+   Neyshekar speakers primary, 30 Common Voice secondary, both sealed; the
+   twelve test sentences written and checked against every training text
+   (§3.3).
 6. The OmniVoice adaptation (§8): the probe, then - if it fits - the full run
    in sessions, then the development-set choice among its exports.
 7. Score each final candidate on the sealed test sets once.

@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "purpose": "the sentences every sealed test speaker renders (SOTA_ROADMAP section 3.3)",
+  "written_for_this_project": true,
+  "texts": [
+    {
+      "key": "t01",
+      "category": "formal",
+      "text": "کمیتهٔ علمی همایش پس از بررسی مقاله‌ها، فهرست نهایی سخنرانان را در پایگاه اینترنتی خود منتشر کرد.",
+      "words": 17
+    },
+    {
+      "key": "t02",
+      "category": "formal",
+      "text": "بر اساس گزارش سازمان هواشناسی، بارش‌های پاییزی امسال در بیشتر استان‌ها کمتر از میانگین بلندمدت بوده است.",
+      "words": 17
+    },
+    {
+      "key": "t03",
+      "category": "conversational",
+      "text": "ببین، اگه فردا یه کم زودتر بیای، با هم می‌ریم نون تازه می‌خریم.",
+      "words": 13
+    },
+    {
+      "key": "t04",
+      "category": "conversational",
+      "text": "راستش حوصلهٔ سینما رو ندارم، بیا امشب تو خونه یه فیلم ببینیم.",
+      "words": 12
+    },
+    {
+      "key": "t05",
+      "category": "numbers",
+      "text": "جلسهٔ بعدی روز سه‌شنبه ۱۴ آبان ۱۴۰۵ ساعت ۹:۳۰ صبح برگزار می‌شود.",
+      "words": 12
+    },
+    {
+      "key": "t06",
+      "category": "numbers",
+      "text": "قیمت هر کیلو پنیر از ۱۸۵ هزار تومان به ۲۱۲ هزار و ۵۰۰ تومان رسید.",
+      "words": 15
+    },
+    {
+      "key": "t07",
+      "category": "names_and_loanwords",
+      "text": "سارا برای دیدن نمایشگاه آثار فرشچیان از شیراز به اصفهان رفت.",
+      "words": 11
+    },
+    {
+      "key": "t08",
+      "category": "names_and_loanwords",
+      "text": "او اپلیکیشن تازه‌ای روی موبایلش نصب کرد تا بلیت کنسرت را آنلاین بخرد.",
+      "words": 13
+    },
+    {
+      "key": "t09",
+      "category": "homographs_and_ezafe",
+      "text": "پس از پایان مسابقهٔ کشتی، ورزشکاران با کشتی به جزیره برگشتند.",
+      "words": 11
+    },
+    {
+      "key": "t10",
+      "category": "homographs_and_ezafe",
+      "text": "دختر همسایهٔ روبه‌رویی ما کتاب تازهٔ نویسندهٔ محبوبش را امانت گرفت.",
+      "words": 11
+    },
+    {
+      "key": "t11",
+      "category": "very_short",
+      "text": "باران بند آمد.",
+      "words": 3
+    },
+    {
+      "key": "t12",
+      "category": "long",
+      "text": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تأخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند.",
+      "words": 33
+    }
+  ],
+  "checked_against": {
+    "adaptation_split_texts": "adaptation_splits_v1.jsonl.gz",
+    "distinct_texts_checked": 68532,
+    "rule": "CER normalisation, then equality, or containment either way of at least 20 letters and half the longer text; none found"
+  },
+  "sha256_of_texts": "407865440732c9e56ad3310d478cebc5057821ac5f6bdcf205c88518ed7f6ead"
+}

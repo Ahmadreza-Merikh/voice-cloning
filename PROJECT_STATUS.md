@@ -92,6 +92,26 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
   clips in probe v2 passed that check, and session a's data summary will show
   it for all 56,000
 
+## The app on this Mac (2026-09-19, the user's request)
+
+* OmniVoice is the default engine (`2c0b429`), behind `memory_guard`: the
+  reference transcript must be typed (a saved voice brings its own); best-of-N
+  and speech-to-speech, which transcribe, are refused; the app falls back to F5
+  where OmniVoice is not installed, and the speech-to-speech tab starts on F5
+* [measured] the guard alone was not enough: a guarded render reached warning
+  memory pressure while the weights loaded (5.1 GB already compressed, no swap)
+* `c084be2`, `04fda8f`: macOS's pressure level is read (`voiceclone.memory`);
+  nothing starts at warning; OmniVoice is not started below 6 GB available (an
+  estimate from three warnings at 3.05-3.37 GB available) and its worker is
+  killed the moment warning arrives; the worker loads a verified float16 copy
+  (bit for bit, 1.2 GB; made on this Mac in 5.3 s at 0.59 GB resident, record
+  in `~/.cache/persian-voice-cloning/omnivoice/float16/<revision>/SOURCE.json`)
+* [measured] after both: the load completed without pressure; with 4.4 GB
+  available the render reached warning two seconds in and the app stopped it
+  cleanly. A complete render with 6 GB free is not measured yet - it needs the
+  user to close apps. F5 runs in-process: it is refused at warning, but a load
+  already under way cannot be stopped the same way
+
 ## Remote jobs (live state read 2026-09-19 01:14 UTC)
 
 | kernel | state | re-run? |

@@ -259,8 +259,11 @@ engines:
     # file read is half the size.
     float16_copy: true
     # Refuse to start the worker with less than this much memory available
-    # (GB); 0 disables the check. The pressure watch applies either way.
-    min_available_gb: 0.0
+    # (GB); 0 disables the check. An estimate from this Mac on 2026-09-19:
+    # warning pressure arrived when available memory fell to 3.05-3.37 GB
+    # (three times), and the worker needs about 2-3 GB on top. The pressure
+    # watch applies either way.
+    min_available_gb: 6.0
 
   fish:
     # Fish Audio S2 Pro (arXiv 2603.08823): dual-autoregressive TTS, a 4B slow

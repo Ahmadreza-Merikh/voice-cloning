@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-20 22:35 +0330 (2026-09-20 19:05 UTC).
+Last updated: 2026-09-20 23:55 +0330 (2026-09-20 20:25 UTC).
 
 **Running remotely:** `marsmanam/persian-voice-omnivoice-train-b` v1, pushed
 2026-09-20 16:05:47 UTC, RUNNING - it mounts session a's tokens and
@@ -66,6 +66,27 @@ and test sessions' code.
   (0.45 GiB, no GPU, faster than real time on a CPU) and it is the first engine
   here that can synthesise from Homo-GE2PE phonemes
 * record: `eval/runs/persian-voice-pocket-tts-v1.json`, FINDINGS §10
+
+## The sealed test gained two arms (2026-09-20, registered before any render)
+
+* as first written the test compares the adaptation against the model it
+  started from and answers nothing else - and the development set that chose
+  that base is very probably contaminated (8 of 9 speakers are Common Voice)
+* so `407ffa5` registers **F5-TTS Persian** and **Pocket-TTS Farsi v2** as
+  pre-registered *secondary* arms on the same sealed corpora, same twelve
+  texts, same seeds, same reference and held-out clips. The primary comparison
+  and its reading are untouched
+* they run in their own session (`kaggle/build_omnivoice_arms_kernel.py`,
+  slug `persian-voice-omnivoice-arms`), because the test session's interpreter
+  carries OmniVoice's pinned stack and installing `f5-tts` or `pocket-tts`
+  beside it would change the environment the primary comparison is measured in
+* read on **held-out similarity only**: similarity reproduced across machines
+  in every test here, CER did not, so CER is compared between the two arms and
+  never against the test session
+* budget: about 2-2.5 GPU-hours, after the primary test, after the reset
+* what it buys: if an arm beats the adapted model on speakers nobody has seen,
+  the project says so - which is the one thing the test as written could not
+  have revealed
 
 ## Stage
 

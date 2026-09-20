@@ -1,6 +1,6 @@
 {
  "run": "OmniVoice adapted to Persian by its official recipe, on Kaggle T4 pairs",
- "status": "session a v1 cancelled after stalling in its download stage; nothing trained. Session a v2 pushed 2026-09-20 with every network step bounded - see outcomes",
+ "status": "session a v2 complete: 2,000 of 5,000 steps trained and checkpointed; session b waits for GPU quota - see outcomes",
  "recipe": {
   "source": "k2-fsa/OmniVoice 08be0b4ccbac3e13e374e86fbfead4b4cac343e2, examples/config/train_config_finetune_sdpa.json (git blob 4b0a543e23be), fetched and checked in every session",
   "values": "lr 1e-5, AdamW weight decay 0.01, cosine schedule with 1% warmup, 5,000 steps, 8,192 tokens per GPU on two GPUs, no gradient accumulation, gradient norm clip 1.0, bf16 mixed precision, language_ratio 0.8, prompt ratio 0-0.3, mask ratio 0-1, condition drop 0.1, codebook weights [8,8,6,6,4,4,2,2], seed 42, evaluation and checkpoint every 500 steps",
@@ -69,7 +69,29 @@
    "built_from": "b103fa6, rebuilt before the push and byte-identical to the committed notebook",
    "what_changed_since_v1": "the download cell is scripts/fetch_inputs.py under run_bounded (stage 60 min, request 60 s, 3 attempts, plain HTTP), so a stall ends the stage with a gate record instead of holding the T4 pair",
    "expected_end": "the notebook stops itself 11.25 h after its start, about 2026-09-20 08:10 UTC",
-   "read_when_it_ends": "gates, RUNS, the checkpoint and the exports in the kernel output"
+   "read_when_it_ends": "gates, RUNS, the checkpoint and the exports in the kernel output",
+   "ended": "COMPLETE. 2026-09-20: the notebook stopped itself at checkpoint-2000, 'the next save would not fit the session'",
+   "gates": "runner, download, data, tokenize, train - all passed",
+   "download": "4.2 min, every step on the first attempt (base 3.04 GiB in 20.2 s, tokenizer 0.75 in 5.7, Common Voice 6.94 in 65.0, Neyshekar train and valid 10.22 in 157.2). This is what v1 stalled on for a whole session",
+   "data": "train 87,499 clips / 127.85 h (Common Voice 33,148 / 41.7 h, Neyshekar 54,351 / 86.2 h); valid 2,251 clips / 3.68 h; nothing left out; no Neyshekar test shard was downloaded",
+   "tokenize": "88 train shards, 0 failures, 79 min at 97x real time; 33 valid shards at 45.5x",
+   "training": {
+    "steps": "2,000 of the recipe's 5,000, in 8.69 h on a T4 pair",
+    "mean_step_seconds": 15.547,
+    "note": "the budget assumed 13.98 s a step from probe v2; the real rate is 11% slower",
+    "peak_reserved_gib": [
+     13.365,
+     13.449
+    ],
+    "of_capacity_gib": 14.56,
+    "saves": "every 500 steps (33-54 s each), keeping the last one; exports at 1,000 and 2,000",
+    "kept": "checkpoint-2000 with optimizer state, export-1000-float16, export-2000-float16",
+    "train_loss": "[measured] mean of the first 100 steps 4.367, of steps 900-1000 4.288, of the last 100 4.212",
+    "eval_loss": "[measured] 144 per-batch validation losses recorded across the session, means 4.263 over the first 100 and 4.280 over the last 100 - no fall yet",
+    "reading": "[hypothesis] 2,000 steps at lr 1e-5 is 40% of the recipe and the loss curve is consistent with early adaptation, but nothing here shows the model is better at Persian. Only the sealed test answers that, after step 5,000"
+   },
+   "quota_after": "[measured, Kaggle's own API] 22.50 h used of 30, 7.50 h left, resets 2026-09-26 00:00 UTC. So this session cost about 9.5 h of quota against the 11.25 h it was allowed",
+   "evidence": "eval/runs/evidence/omnivoice-train-a-v2/"
   }
  }
 }

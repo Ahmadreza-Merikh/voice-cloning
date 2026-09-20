@@ -1,0 +1,93 @@
+{
+  "runner_check": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 120,
+    "seconds": 0.3,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/runner_check/runner_check.log",
+    "output_bytes": 1853785,
+    "shown_bytes": 104592,
+    "display_blocked": false,
+    "problems": []
+  },
+  "fetch": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 3600,
+    "seconds": 253.1,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/fetch.log",
+    "output_bytes": 3143,
+    "shown_bytes": 1795,
+    "display_blocked": false,
+    "problems": []
+  },
+  "data_train": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 14400,
+    "seconds": 118.3,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/data_train.log",
+    "output_bytes": 336,
+    "shown_bytes": 336,
+    "display_blocked": false,
+    "problems": []
+  },
+  "data_valid": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 14400,
+    "seconds": 75.9,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/data_valid.log",
+    "output_bytes": 330,
+    "shown_bytes": 330,
+    "display_blocked": false,
+    "problems": []
+  },
+  "tokenize_train": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 28800,
+    "seconds": 4736.2,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/tokenize_train.log",
+    "output_bytes": 13279409,
+    "shown_bytes": 37902,
+    "display_blocked": false,
+    "problems": []
+  },
+  "tokenize_valid": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 28800,
+    "seconds": 290.6,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/tokenize_valid.log",
+    "output_bytes": 339624,
+    "shown_bytes": 3114,
+    "display_blocked": false,
+    "problems": []
+  },
+  "train": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 34997.45372581482,
+    "seconds": 31314.5,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/train.log",
+    "output_bytes": 410665,
+    "shown_bytes": 104131,
+    "display_blocked": false,
+    "problems": []
+  }
+}

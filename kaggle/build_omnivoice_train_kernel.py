@@ -20,7 +20,13 @@ Each session keeps its latest full checkpoint (for the next session) and a
 float16 export every 1,000 steps (for choosing on the development set), and a
 record of every step's time, memory and loss. Nothing here scores anything.
 
+A session can also be given less than a full Kaggle slot, for when the week's
+quota is nearly spent: ``--hours=6.5`` only changes how far *this* session
+gets before it stops at a checkpoint. The recipe - steps, learning rate,
+batch, precision - is the same either way, and the next session resumes.
+
     .venv/bin/python kaggle/build_omnivoice_train_kernel.py a
+    .venv/bin/python kaggle/build_omnivoice_train_kernel.py --hours=6.5 b
     KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle kernels push -p kaggle/omnivoice-train-a
 """
 
@@ -45,6 +51,7 @@ SLUG = "persian-voice-omnivoice-train-{}"
 
 MEMORY_MODE = "checkpointing+bucket-view"
 #: A Kaggle session may run 12 hours; the run stops by itself well before.
+#: ``--hours`` lowers it for one build, to fit what is left of the week's quota.
 SESSION_BUDGET_HOURS = 11.25
 #: Below this there is no room for even one official checkpoint (500 steps at
 #: the probe's 13.98 s, with a margin), so the session keeps what it has.
@@ -218,14 +225,14 @@ if not GATES.skip("mounted", ("download",)):
 '''
 
 
-def train(session: str) -> str:
+def train(session: str, hours: float) -> str:
     needs = '("tokenize",)' if session == "a" else '("mounted",)'
     resume = "" if session == "a" else '\n        "--set", f"resume_from_checkpoint={RESUME}",'
     return f'''\
 RUN_DIR = Path("/tmp/run")
 TRAIN_FACTS = {{}}
 if not GATES.skip("train", {needs}):
-    remaining = NOTEBOOK_START + {SESSION_BUDGET_HOURS} * 3600 - time.time()
+    remaining = NOTEBOOK_START + {hours} * 3600 - time.time()
     if remaining < {MINIMUM_TRAINING_HOURS} * 3600:
         GATES.record("train", False, f"not started: {{remaining / 3600:.2f}} h left, less than one checkpoint needs")
     else:
@@ -282,13 +289,13 @@ print("gates:", json.dumps(GATES.summary(), indent=1))
 '''
 
 
-def build(session: str) -> Path:
+def build(session: str, hours: float = SESSION_BUDGET_HOURS) -> Path:
     slug = SLUG.format(session)
     environment = probe.ENVIRONMENT.replace(probe.SESSION, f"kaggle:{slug}-v1")
     environment = environment.replace("import hashlib\n", "import hashlib\nimport time as _clock\nNOTEBOOK_START = _clock.time()\n", 1)
     cells = [probe.SETUP, environment, probe.RUNNER, download(session)]
     cells += [DATA, TOKENIZE] if session == "a" else [MOUNTED]
-    cells += [train(session), COLLECT]
+    cells += [train(session, hours), COLLECT]
     for index, source in enumerate(cells):
         compile("".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),
                 f"<{slug} cell {index}>", "exec")
@@ -307,16 +314,23 @@ def build(session: str) -> Path:
                 "dataset_sources": [f"{USER}/{DATASET}"], "competition_sources": [],
                 "kernel_sources": sorted(set(sources)), "model_sources": []}
     (out / "kernel-metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {path} ({len(cells)} cells, all compile); sources {metadata['kernel_sources']}")
+    print(f"wrote {path} ({len(cells)} cells, all compile); {hours} h budget; "
+          f"sources {metadata['kernel_sources']}")
     return path
 
 
 def main(argv: list[str]) -> int:
-    wanted = argv or list(SESSIONS)
-    for session in wanted:
+    hours = SESSION_BUDGET_HOURS
+    rest = [arg for arg in argv if not arg.startswith("--hours=")]
+    for arg in argv:
+        if arg.startswith("--hours="):
+            hours = float(arg.split("=", 1)[1])
+    if hours > SESSION_BUDGET_HOURS:
+        raise SystemExit(f"{hours} h is over a Kaggle session's own limit")
+    for session in rest or list(SESSIONS):
         if session not in SESSIONS:
             raise SystemExit(f"unknown session {session!r}; one of {sorted(SESSIONS)}")
-        build(session)
+        build(session, hours)
     return 0
 
 

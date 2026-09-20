@@ -43,6 +43,15 @@
    "this_session_costs": "at most 11.25 h of wall clock (the notebook stops itself there), about 10.5 of them on the T4 pair",
    "leaves": "about 5.75 h, which is under session b's 10.5, so b waits for the weekly reset",
    "counting": "[hypothesis] Kaggle charges the session's wall clock once, not once per card; the docs page does not say, and 13 h used this week against v1's 7.7-12 h on a T4 pair fits counting once. If it charges twice, the session is cut near 8.5 h instead of stopping itself at 11.25; the cell writes checkpoints as it goes and session b resumes from the last one, and v1 showed Kaggle keeps what /kaggle/working held when a run is cut"
+  },
+  "quota_before_session_b": {
+   "declared": "2026-09-20, before the push",
+   "left_this_week": "[measured, Kaggle's API] 7.50 GPU-hours of 30, resetting 2026-09-26 00:00 UTC",
+   "this_session_costs": "at most 6.5 h of wall clock - the notebook is built with --hours=6.5, so it stops itself at the last checkpoint that fits, inside the quota, and its output is written before the session ends",
+   "why_not_the_usual_11.25": "only 7.5 h are left and unused quota expires on the 26th. The recipe is untouched - same 5,000 steps, lr, batch and precision; this session simply reaches a lower step number and session c resumes from it",
+   "expected": "about 15 min of setup (b mounts a's tokens, so nothing is tokenised again), then about 6 h of training at 15.55 s a step: roughly 1,390 steps, reaching about 3,400 of 5,000",
+   "after_this": "about 1 h of quota left this week; the rest - about 1,600 steps, the development session and the sealed test - runs after the reset, with 30 h to spend",
+   "decided_by": "the user, asked with both options and their costs, 2026-09-20"
   }
  },
  "reading_fixed_before_the_run": "SOTA_ROADMAP.md section 8: the exports at 1,000-5,000 steps are scored on the development set beside the published model in one session; the one with the highest held-out similarity whose CER interval against the published model does not lie above zero is the candidate; only that candidate and the published model are then scored, once, on the sealed test sets (primary: the 28 usable Neyshekar test speakers; secondary: the 30 Common Voice ones), H0 delta <= 0, one-sided alpha 0.025. The training losses are not a quality result, and no improvement is claimed before the test comparison",

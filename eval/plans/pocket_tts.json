@@ -1,0 +1,9 @@
+{"snapshots": [
+  {"name": "pocket-tts-farsi-v2", "repo": "mehdi-hf/pocket-tts-farsi-v2",
+   "revision": "e87097ed98edb8bd9c9bcabe9b575a51a466d0e4",
+   "allow_patterns": ["*.yaml", "*.safetensors", "*.py", "*.model", "README.md"],
+   "local_dir": "~/.cache/persian-voice-cloning/pocket/model"},
+  {"name": "homo-ge2pe", "repo": "mehdi-hf/Homo-GE2PE-Persian-HF",
+   "revision": "e314087bc761e323d127ee7899cb34f7c7d697cd",
+   "local_dir": "~/.cache/persian-voice-cloning/pocket/g2p"}
+]}

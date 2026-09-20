@@ -180,6 +180,36 @@ engines:
     repetition_penalty: 1.1
     max_new_tokens: 4096
 
+  pocket:
+    # Pocket-TTS Farsi v2: the only Persian-SPECIFIC model measured here.
+    # 109.5M parameters distilled from Kyutai's pocket-tts, trained on 973 h
+    # from 2,978 speakers - 7.6x the 128 h of this project's own adaptation -
+    # and fast on a CPU. Its authors report median per-item WER 0.333,
+    # speaker similarity 0.859 and UTMOS 3.11 on 300 held-out Common Voice
+    # pairs; none of those numbers is comparable with this project's, which is
+    # why the engine is here rather than the claim.
+    #
+    # It reads ROMANISED PHONEMES. Persian script renders as silence with no
+    # error, so the worker phonemises with the G2P its card names
+    # (Homo-GE2PE - the same family as the Persian G2P research bridged to in
+    # text/g2p.py). Both revisions are pinned; fetch with
+    # `scripts/fetch_inputs.py --plan eval/plans/pocket_tts.json`.
+    #
+    # Licence: model CC-BY-NC-4.0, G2P MIT. Needs its own environment:
+    #   uv venv --python python3.11 ~/.cache/persian-voice-cloning/pocket/.venv
+    #   VIRTUAL_ENV=... uv pip install \
+    #     "pocket-tts @ git+https://github.com/mallahyari/pocket-tts@main" transformers soundfile
+    python: auto
+    model_dir: ~/.cache/persian-voice-cloning/pocket/model
+    g2p_dir: ~/.cache/persian-voice-cloning/pocket/g2p
+    revision: e87097ed98edb8bd9c9bcabe9b575a51a466d0e4
+    g2p_revision: e314087bc761e323d127ee7899cb34f7c7d697cd
+    # The card's safe chunk budget: its training utterances averaged about 11
+    # tokens, 9-16 is the clean band, and at 21 generations stop terminating.
+    max_tokens: 18
+    retries: 1
+    timeout_seconds: 600.0
+
   chatterbox:
     # Chatterbox splits the job F5 does in one model: a voice encoder and
     # S3Gen carry speaker identity and never see Persian text, while T3 - a

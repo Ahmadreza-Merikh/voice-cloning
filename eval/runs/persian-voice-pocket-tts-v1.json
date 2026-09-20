@@ -1,0 +1,38 @@
+{
+ "run": "Pocket-TTS Farsi v2 scored on this project's development set, by the same protocol as every other engine",
+ "why": "A Persian-specific cloning model appeared on 2026-09-14 (mehdi-hf/pocket-tts-farsi-v2, announced 2026-09-19 and packaged as nimaone/persian_tts): 109.5 M parameters trained on 973 h of Persian from 2,978 speakers - 7.6 times this project's own 128 h adaptation - reading romanised phonemes through Homo-GE2PE and running on a CPU. Its authors report speaker similarity 0.859 and median per-item WER 0.333 on 300 held-out Common Voice pairs. Those are their encoder, their reference and their test set, so they answer nothing about this project's question. This run answers it.",
+ "what_was_run": {
+  "engine": "pocket, added in ff8101e, by the model card's own recipe: normalise with the normalize_fa.py shipped beside the weights, phonemise with mehdi-hf/Homo-GE2PE-Persian-HF (num_beams 5), apply the card's symbol table, strip the ezafe mark before the model, split into sentences first, chunk budget 18 tokens, retry a generation that passes the card's duration cap",
+  "revisions": {"model": "e87097ed98edb8bd9c9bcabe9b575a51a466d0e4", "g2p": "e314087bc761e323d127ee7899cb34f7c7d697cd"},
+  "corpus": "eval/corpus, 9 speakers (8 Common Voice, 1 studio), sentences s1-s3, seed 42, 27 renders",
+  "scoring": "speechbrain ECAPA against held-out recordings of the same speaker, this Mac, 2026-09-20",
+  "comparison": "the stored OmniVoice renders of the same 27 cells re-scored in this same session (label omnivoice-rescored), so similarity and CER are like-for-like"
+ },
+ "measured": {
+  "pocket": {"held_out": 0.333, "sd": 0.196, "to_the_prompt": 0.410, "cer": "8.9% (median 5.7%)",
+             "wer": "33.2%", "not_transcribed": "2 of 27", "scale_position": "33.2%"},
+  "omnivoice_rescored": {"held_out": 0.583, "sd": 0.075, "to_the_prompt": 0.741, "cer": "2.8% (median 2.2%)",
+                         "wer": "24.8%", "scale_position": "81.2%"},
+  "paired": "-0.2503 over the same 27 cells, 7.6 standard errors from zero, worse in 26 of 27",
+  "scale": "0.132 floor, 0.689 human ceiling, 0.508 the highest different-speaker pair on this corpus",
+  "reading": "0.333 sits below that 0.508: on this corpus these renders are not reliably distinguishable from a different speaker's"
+ },
+ "the_integration_was_checked_before_the_result_was_believed": {
+  "prompt_length": "the prompt is a prefix this model continues from and its training utterances averaged 3.8 s, so the 11.4 s window could have been the handicap. Measured on 4 speakers x 3 sentences: 4 s gives 0.412, 6 s gives 0.388, the whole window gives 0.381 for the same four. Better, and nowhere near the gap",
+  "their_own_samples": "[the decisive check] the three samples mehdi-hf ships with the weights, rendered by the authors from their own ~5 s prompts, score 0.321, 0.368 and 0.346 against those prompts on this project's ECAPA - below the 0.410-0.500 this integration gets. Whatever is being measured here, it is not a fault in the wiring",
+  "flags": "the model was loaded from the card's own model.yaml and reports capitalize_first_letter, append_terminal_punctuation and pad_with_spaces_for_short_inputs all false - the three that otherwise delete or corrupt the first word",
+  "intelligibility": "the recogniser reads the renders as the intended sentences (CER 2-14% per render), so nothing is generating noise"
+ },
+ "what_this_does_not_say": [
+  "Nothing here compares with the authors' 0.859: a different encoder against a different reference on a different set. Their number is not reproduced or disputed, it is simply not on this scale",
+  "Nobody has listened to any of these renders. This is one encoder's opinion about identity, not a judgement of how they sound",
+  "CER is compared only inside this one scoring session, as this project's rule requires",
+  "Eight of the nine development speakers are Common Voice, which both models were very probably trained on. That caveat cuts both ways and is exactly why the sealed test exists",
+  "This is the development set. It decides what gets carried forward, not what is true"
+ ],
+ "where_it_is_better": "cost. 0.45 GiB of weights, loads in about 4 s, renders about 2 s of speech per 1.4 s of CPU - no GPU, no 6 GB of free memory, no separate 3 GB engine. Against the corpus's own 7.8% recogniser floor its 8.9% CER is roughly the intelligibility of real speech",
+ "consequence": "OmniVoice stays the engine this project adapts. Pocket-TTS stays registered as an engine and a measured reference point, and is the only engine here that synthesises from Homo-GE2PE phonemes - the family of the Persian G2P research beside this project",
+ "evidence": ["eval/results/pocket.json", "eval/results/pocket-prompt4.json", "eval/results/pocket-prompt6.json",
+              "eval/results/omnivoice-rescored.json", "eval/runs/evidence/pocket-tts-v1/"],
+ "recorded": "2026-09-20"
+}

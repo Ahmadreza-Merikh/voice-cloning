@@ -1,6 +1,6 @@
 {
  "run": "OmniVoice adapted to Persian by its official recipe, on Kaggle T4 pairs",
- "status": "session a v2 complete: 2,000 of 5,000 steps trained and checkpointed; session b running from 2026-09-20 16:05:47 UTC with a 6.5 h budget",
+ "status": "sessions a and b complete: 3,000 of 5,000 steps trained; session c waits for the weekly quota reset on 2026-09-26",
  "recipe": {
   "source": "k2-fsa/OmniVoice 08be0b4ccbac3e13e374e86fbfead4b4cac343e2, examples/config/train_config_finetune_sdpa.json (git blob 4b0a543e23be), fetched and checked in every session",
   "values": "lr 1e-5, AdamW weight decay 0.01, cosine schedule with 1% warmup, 5,000 steps, 8,192 tokens per GPU on two GPUs, no gradient accumulation, gradient norm clip 1.0, bf16 mixed precision, language_ratio 0.8, prompt ratio 0-0.3, mask ratio 0-1, condition drop 0.1, codebook weights [8,8,6,6,4,4,2,2], seed 42, evaluation and checkpoint every 500 steps",
@@ -108,7 +108,26 @@
    "built_with": "--hours=6.5, to fit the 7.50 GPU-hours left this week; recipe unchanged",
    "mounts": "session a's tokens (88 train shards, 33 valid, confirmed present in its output) and checkpoint-2000, resumed through the official resume_from_checkpoint",
    "expected": "about 1,390 steps at 15.547 s, reaching about 3,400 of 5,000",
-   "read_when_it_ends": "gates, RUNS, the checkpoint and the exports in the kernel output"
+   "read_when_it_ends": "gates, RUNS, the checkpoint and the exports in the kernel output",
+   "ended": "COMPLETE, 2026-09-20. The notebook stopped itself at checkpoint-3000, 'the next save would not fit the session'",
+   "gates": "runner, download, mounted, train - all passed",
+   "mounted": "session a's 88 train and 33 valid token shards and checkpoint-2000, through the official resume_from_checkpoint; nothing was tokenised again and the download took 0.8 min",
+   "training": {
+    "steps": "1,000 more, 2,000 -> 3,000 of the recipe's 5,000, in 4.61 h",
+    "mean_step_seconds": 16.367,
+    "note": "5% slower than session a's 15.547, which is why 1,000 steps landed where about 1,390 were expected: the session stops at the last checkpoint that fits, and 3,500 did not",
+    "kept": "checkpoint-3000 with optimizer state, export-3000-float16",
+    "train_loss": "[measured] mean of the first 100 steps of this session 4.220, of the last 100 4.268",
+    "eval_loss": "[measured] 72 validation batches, 4.323 over the first 50 and 4.294 over the last 50",
+    "reading": "[measured] across a and b the loss has stopped falling: a went 4.367 -> 4.212 over its 2,000 steps, b sat at 4.22-4.27 over its 1,000. Nothing in the curve says the model is still learning, and nothing in it says the model is better at Persian either - the development session scores every export against the published weights, and that is what answers it"
+   },
+   "cost": "about 4.7 GPU-hours of the 6.5 h budget it was built with",
+   "evidence": "eval/runs/evidence/omnivoice-train-b-v1/"
+  },
+  "session_c_planned": {
+   "needs": "2,000 steps at the measured 16.4 s, about 9.1 h of training plus start-up: the usual 11.25 h budget, built with no --hours override",
+   "when": "after the weekly reset, 2026-09-26 00:00 UTC (2.82 GPU-hours are left before it)",
+   "then": "the development session (about 1 h), the sealed test (about 6 h), the arms session (about 2.5 h)"
   }
  }
 }

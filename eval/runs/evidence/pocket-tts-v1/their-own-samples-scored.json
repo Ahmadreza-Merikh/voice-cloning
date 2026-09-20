@@ -1,0 +1,20 @@
+{
+ "hello": {
+  "prompt_seconds": 4.3,
+  "render_seconds": 5.46,
+  "similarity_to_prompt": 0.321,
+  "backend": "ecapa-tdnn"
+ },
+ "short_sentence": {
+  "prompt_seconds": 4.94,
+  "render_seconds": 4.96,
+  "similarity_to_prompt": 0.368,
+  "backend": "ecapa-tdnn"
+ },
+ "news_paragraph": {
+  "prompt_seconds": 5.14,
+  "render_seconds": 9.12,
+  "similarity_to_prompt": 0.346,
+  "backend": "ecapa-tdnn"
+ }
+}

@@ -1,0 +1,159 @@
+{
+  "corpus": {
+    "manifest": "manifest.json",
+    "sha256": "d09aeb03f2ab2e4b205c3e8819526d8de1e1949ecd7f602eea91f794680846f9"
+  },
+  "label": "pocket-prompt6",
+  "recipe_version": 1,
+  "references": {
+    "clips": [
+      {
+        "duration": 9.888,
+        "file": "cv02_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.374,
+          "steps": [
+            "Decoded 9.9s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~37 dB SNR)",
+            "Trimmed 2.51s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.888
+          ]
+        },
+        "sha256": "1a3c481efaa17bc3ce2523a89f3a4af786153c18dda2c2d1e9fe48375434ab4c",
+        "speaker": "cv02",
+        "transcript_given": "چیزی که مساله را سختتر هم میکند آنکه، اغلب تنها گواه آنچه بر ما رفتهاست، خاطرات ما هستند"
+      },
+      {
+        "duration": 9.216,
+        "file": "cv08_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.824,
+          "steps": [
+            "Decoded 9.2s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~52 dB SNR)",
+            "Trimmed 1.39s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.216
+          ]
+        },
+        "sha256": "f86e9387e27107b24d88ea1520e03ef4ba39124de64daceac43abba4fb18d4ae",
+        "speaker": "cv08",
+        "transcript_given": "اینکه از خودم گذشتم به خاطربچه هام، برای خودم چیزی نخریدم اماهمیشه واسه بچه هام هزینه کردم"
+      },
+      {
+        "duration": 9.216,
+        "file": "cv09_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.672,
+          "steps": [
+            "Decoded 9.2s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~223 dB SNR)",
+            "Trimmed 2.54s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.216
+          ]
+        },
+        "sha256": "5fc2084e5a24c4fe50f956ba2691c96ba1c42b7896c36a8436a57b9ef75ba1ed",
+        "speaker": "cv09",
+        "transcript_given": "آنان به عنوان ملوان در ترابرهای اقیانوس آرام خدمت میکردند."
+      },
+      {
+        "duration": 11.886,
+        "file": "mana_000.wav",
+        "prepared": {
+          "prepared_seconds": 11.424,
+          "steps": [
+            "Decoded 11.9s @ 44100 Hz",
+            "Resampled 44100 Hz -> 24000 Hz",
+            "Removed DC offset (+0.0001)",
+            "Filtered: high-pass 55 Hz",
+            "Denoised with noisereduce",
+            "Selected 11.4s window at 0.1s - continuous speech run (11.4s, SNR ~29 dB)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": false,
+          "window": [
+            0.064,
+            11.488
+          ]
+        },
+        "sha256": "8d805f6107e075dba9fe229c4533216d54bd62adba026bee0991974cea553e2d",
+        "speaker": "mana",
+        "transcript_given": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم."
+      }
+    ],
+    "index": 0,
+    "transcript": "corpus"
+  },
+  "render": {
+    "candidates_per_cell": 1,
+    "engine": "pocket",
+    "options_overridden": {
+      "prompt_seconds": 6
+    },
+    "preprocess_overridden": {},
+    "replayed_from": null,
+    "reported_by_every_render": {},
+    "reported_per_cell": [],
+    "settings": {
+      "g2p_dir": "~/.cache/persian-voice-cloning/pocket/g2p",
+      "g2p_revision": "e314087bc761e323d127ee7899cb34f7c7d697cd",
+      "max_tokens": 18,
+      "model_dir": "~/.cache/persian-voice-cloning/pocket/model",
+      "prompt_seconds": null,
+      "python": "auto",
+      "retries": 1,
+      "revision": "e87097ed98edb8bd9c9bcabe9b575a51a466d0e4",
+      "timeout_seconds": 600.0
+    }
+  },
+  "results_file": "pocket-prompt6.json",
+  "results_sha256": "adda71c1696a955e66ac876783d12ba83c43e9f33d09d7f1f3b550c82856cfb5",
+  "seeds": [
+    42
+  ],
+  "sentences": {
+    "s1": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+    "s2": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+    "s3": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید."
+  },
+  "session": {
+    "code_commit": "fa62dae2a354a3c729ef79b851ef7e94e6b23554+uncommitted changes",
+    "scoring_environment": {
+      "id": "Darwin-arm64:f5784ba011",
+      "packages": {
+        "ctranslate2": "4.8.1",
+        "faster-whisper": "1.2.1",
+        "jiwer": null,
+        "numpy": "2.4.6",
+        "speechbrain": "1.1.0",
+        "torch": "2.13.0",
+        "torchaudio": "2.11.0",
+        "transformers": "5.14.1"
+      },
+      "platform": "macOS-27.0",
+      "python": "3.11.13",
+      "recogniser": "faster-whisper/large-v3-turbo (cpu/int8)",
+      "similarity": "speechbrain-ecapa",
+      "similarity_device": "cpu"
+    }
+  }
+}

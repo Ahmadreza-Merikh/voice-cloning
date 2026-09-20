@@ -144,7 +144,7 @@ Check what your machine can actually run at any time:
 |---|---|---|---|---|---|
 | **F5-TTS** (`f5`) | community finetune | no (grapheme) | 5.4 GB | fast | Used where OmniVoice is not installed, and for speech-to-speech. ~330 M params, comfortable on CPU/MPS. Measured: held-out 0.520 stock, 0.546 continued on 2739 speakers with best-of-4; CER 2.2%, a figure whose small differences are within recogniser noise (FINDINGS §9). |
 | **Chatterbox** (`chatterbox`) | community T3 finetune | no (grapheme) | ~3.5 GB | medium | Speaker path is language-agnostic — the part Persian data is *not* needed for. Own venv (torch 2.6). |
-| **OmniVoice** (`omnivoice`) | official (1 of 600+) | no (grapheme) | 3.3 GB | medium | **Default** since 2026-09-19; on a 16 GB Mac it needs the reference transcript typed in (below). k2-fsa. Code Apache-2.0, **weights CC-BY-NC**. **Strongest identity transfer measured here: held-out 0.583**; over the best F5 configuration +0.037, 95% interval [+0.005, +0.069] across nine speakers - a direction, not a size. Own venv. |
+| **OmniVoice** (`omnivoice`) | official (1 of 600+) | no (grapheme) | 3.3 GB | medium | **Default** since 2026-09-19; on a 16 GB Mac it runs behind a memory guard (below). k2-fsa. Code Apache-2.0, **weights CC-BY-NC**. **Strongest identity transfer measured here: held-out 0.583**; over the best F5 configuration +0.037, 95% interval [+0.005, +0.069] across nine speakers - a direction, not a size. Own venv. |
 | **MOSS-TTS** (`moss`) | official (1 of 31 languages) | accepts IPA, but not usefully for Persian | 6.1 GB | slower | Model Apache-2.0 (its codec's licence was not checked). 3.06B params, pinned to transformers 5.0.x (own environment). Measured: held-out 0.559, not shown to differ from the best F5 or from OmniVoice; CER 6.5% against OmniVoice's 2.8%, +3.7 points [+1.4, +6.0], both Kaggle renders re-scored on this Mac two minutes apart with the same recogniser settings and packages (what that rests on: FINDINGS §8). This is the older variant; v1.5 is the next row. |
 | **MOSS-TTS v1.5** (`moss15`) | official, as "Persian (Farsi)" (1 of 31) | no | 9.1 GB + 8.5 GB codec | medium | Model, codec and code all Apache-2.0 at the pinned revisions. Runs out of process on its official stack (torch 2.9.1, transformers 5.0.0); on T4s it needs two cards, the codec on the second. Measured at the official recipe: held-out 0.507, no detectable difference from the F5 baseline in either direction (-0.013 [-0.053, +0.027]) and below OmniVoice (-0.077 [-0.122, -0.032]); CER +7.7 points over the baseline scored in the same session (FINDINGS §8). |
 | **Fish S2 Pro** (`fish`) | third tier of 80+ | no | 11 GB | slow | Fish Audio Research License, non-commercial. Measured on a T4 in fp16: held-out 0.537, and CER 9.5% - against the F5 baseline re-scored in the same session, +6.4 points [+4.2, +8.6], worse for all nine speakers (CER is only compared inside one scoring environment, FINDINGS §9). Needs a CUDA card; own venv. |
@@ -324,15 +324,21 @@ Then, in the app:
   the transcript supplied peaked at 3.4 GB and never raised memory pressure,
   while the same render with the transcript left empty - so the recogniser had
   to load - reached warning pressure and was stopped. So OmniVoice runs behind a
-  memory guard (`engines.omnivoice.memory_guard`): **type what the reference
-  says** (a saved voice brings the transcript it was saved with); "Analyse" and
-  saving a voice leave the transcript to you instead of transcribing; best-of-N
-  and speech-to-speech, which transcribe, are refused and point to F5, which
-  starts the speech-to-speech tab. A recogniser still loaded from an F5
-  analysis is unloaded before an OmniVoice render, but unloading returns only
-  1.3 of its 1.9 GB (measured), so after using F5's transcription in the same
-  session, restarting the app is the safe way back to OmniVoice. Keep browsers
-  light either way. **The guard is not enough on its own:** on 2026-09-19, with
+  memory guard (`engines.omnivoice.memory_guard`), whose rule is *one at a
+  time*, not *type it yourself*: the reference is transcribed first - by
+  "Analyse", by saving a voice, or by the render itself - and the recogniser is
+  released before OmniVoice loads. Measured on 2026-09-20
+  (`scripts/measure_recogniser_release.py`,
+  `eval/runs/evidence/recogniser-release/`): loading faster-whisper
+  `large-v3-turbo` and transcribing takes 1.3 GB and releasing gives 1.3 GB
+  back, twice in a row, the process returning to 0.9 GB each time; the 0.6 GB
+  above its 0.3 GB start is the runtime the first transcription imports, not a
+  leak, so a second cycle costs nothing further and there is no need to restart
+  the app. What is still refused is best-of-N, which transcribes each take
+  *while* the engine holds memory. Typing the transcript yourself is still
+  worth it where you know the words: it skips the 6-9 s transcription and an
+  exact transcript is what the engine conditions on. Keep browsers light either
+  way. **The guard is not enough on its own:** on 2026-09-19, with
   other apps holding 5.1 GB in the memory compressor and no swap, a guarded
   render - transcript typed, no recogniser loaded - reached warning pressure
   while OmniVoice's weights were loading (available memory fell to 3.2 GB) and

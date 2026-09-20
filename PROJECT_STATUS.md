@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-20 00:30 +0330 (2026-09-19 21:00 UTC).
+Last updated: 2026-09-20 01:25 +0330 (2026-09-19 21:55 UTC).
 
 **Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` **v2**,
 pushed 2026-09-19 20:54:15 UTC, RUNNING - the first training session of the
@@ -118,9 +118,8 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 ## The app on this Mac (2026-09-19, the user's request)
 
 * OmniVoice is the default engine (`2c0b429`), behind `memory_guard`: the
-  reference transcript must be typed (a saved voice brings its own); best-of-N
-  and speech-to-speech, which transcribe, are refused; the app falls back to F5
-  where OmniVoice is not installed, and the speech-to-speech tab starts on F5
+  recogniser and the engine are never loaded together; the app falls back to F5
+  where OmniVoice is not installed
 * [measured] the guard alone was not enough: a guarded render reached warning
   memory pressure while the weights loaded (5.1 GB already compressed, no swap)
 * `c084be2`, `04fda8f`: macOS's pressure level is read (`voiceclone.memory`);
@@ -134,6 +133,17 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
   cleanly. A complete render with 6 GB free is not measured yet - it needs the
   user to close apps. F5 runs in-process: it is refused at warning, but a load
   already under way cannot be stopped the same way
+* `eeb0483` (2026-09-20, the user's request): the transcript no longer has to
+  be typed. The reference is transcribed *before* the engine loads and the
+  recogniser is released first, which the measurement behind it
+  (`scripts/measure_recogniser_release.py`,
+  `eval/runs/evidence/recogniser-release/measurement.json`) shows gives back
+  the 1.3 GB it took - twice in a row, the process returning to 0.9 GB, with
+  the 0.6 GB over its 0.3 GB start being imported runtime, not a leak. The
+  speech-to-speech cascade is allowed again on the same rule (both
+  transcriptions happen before the load); best-of-N is still refused, because
+  it transcribes each take while the engine holds memory. Typing the transcript
+  still skips the 6-9 s transcription
 
 ## Remote jobs (live state read 2026-09-19 01:14 UTC)
 

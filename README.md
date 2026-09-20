@@ -353,8 +353,12 @@ Then, in the app:
   original cast to float16, which is what the worker does on load anyway).
   Measured after both: the load completed without pressure; with 4.4 GB
   available at the start, the render itself reached warning two seconds in and
-  the app stopped it. With 6 GB free, whether a render completes has not been
-  measured yet. Close heavy apps first.
+  the app stopped it. With 8.2 GB free it completes: measured 2026-09-20, a 3 s
+  sentence rendered end to end - reference 1.1 s, transcription 7.2 s, load
+  5.3 s, synthesis 13.8 s - with no pressure warning at any point and 6.5 GB
+  still available at the end
+  (`eval/runs/evidence/recogniser-release/omnivoice-render-on-the-mac.json`).
+  Nobody has listened to it. Close heavy apps first.
 - The **Maximum quality** preset (64 ODE steps) measured no better than the
   default: held-out 0.517 against 0.520, inside the encoder's noise. It costs time
   and buys nothing measurable here.

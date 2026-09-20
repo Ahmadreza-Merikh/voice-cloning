@@ -28,6 +28,7 @@ WORKERS = {
     "fish": "fish_worker.py",
     "higgs": "higgs_worker.py",
     "moss15": "moss15_worker.py",
+    "pocket": "pocket_worker.py",
 }
 
 

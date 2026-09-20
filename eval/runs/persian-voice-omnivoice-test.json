@@ -1,64 +1,87 @@
 {
-  "run": "the sealed test of the Persian adaptation of OmniVoice",
-  "status": "planned - written 2026-09-19, before any test clip was read or rendered, while training session a runs",
-  "kernel": "marsmanam/persian-voice-omnivoice-test, built by kaggle/build_omnivoice_test_kernel.py (d667c6b); not pushed",
-  "runs_after": "the development-set session (kaggle/omnivoice-dev) has chosen an export by the rule of SOTA_ROADMAP section 8, and the dataset has been re-staged with this code",
-  "comparison": "the chosen float16 export minus k2-fsa/OmniVoice at c5fdb5cc, both through this repository's OmniVoice engine at its configured settings, rendered and scored in one session; the weights are the only difference",
-  "sets": {
-    "primary": {
-      "source": "Neyshekar v6 (shekar-ai/neyshekar at 30696ada), its official test split",
-      "speakers_planned": 28,
-      "why_primary": "not on OmniVoice's published list of training data"
-    },
-    "secondary": {
-      "source": "Common Voice 26 cleaned (pymmdrza mirror at 142e9bb4), the 30 test speakers of the split, 15 per self-reported gender",
-      "speakers_planned": 30,
-      "why_secondary": "OmniVoice has very probably trained on these speakers (FINDINGS section 9)"
-    }
+ "run": "the sealed test of the Persian adaptation of OmniVoice",
+ "status": "pre-registered and waiting for the adaptation to finish; amended 2026-09-20 to render F5 and Pocket-TTS on the same sealed corpora as pre-registered secondary arms",
+ "kernel": "marsmanam/persian-voice-omnivoice-test, built by kaggle/build_omnivoice_test_kernel.py (d667c6b); not pushed",
+ "runs_after": "the development-set session (kaggle/omnivoice-dev) has chosen an export by the rule of SOTA_ROADMAP section 8, and the dataset has been re-staged with this code",
+ "comparison": "the chosen float16 export minus k2-fsa/OmniVoice at c5fdb5cc, both through this repository's OmniVoice engine at its configured settings, rendered and scored in one session; the weights are the only difference",
+ "sets": {
+  "primary": {
+   "source": "Neyshekar v6 (shekar-ai/neyshekar at 30696ada), its official test split",
+   "speakers_planned": 28,
+   "why_primary": "not on OmniVoice's published list of training data"
   },
-  "roles": {
-    "rule": "reference: the speaker's longest clip of 6.5-11.4 s; held out: the four longest of the rest of at least 3.5 s",
-    "amended": "2026-09-19, before any test clip was read or rendered, on durations alone",
-    "why": "the split made the longest clip the reference, but the reference pipeline cuts a clip over 11.5 s to a window and keeps the transcript given for the whole clip; 13 of the 28 Neyshekar references were longer (3 over 20 s)",
-    "effect": "the same 28 Neyshekar speakers are usable; 13 of them get a different reference and held-out clips; no Common Voice speaker's roles change",
-    "code": "scripts/prepare_test_corpus.py (6d12038)"
-  },
-  "texts": {
-    "file": "eval/manifests/test_texts_v1.json",
-    "count": 12,
-    "sha256_of_texts": "407865440732c9e56ad3310d478cebc5057821ac5f6bdcf205c88518ed7f6ead",
-    "every_speaker_renders_all": true
-  },
-  "seeds": [
-    42,
-    43
-  ],
-  "reference_transcripts": "the source's own transcript of the reference clip",
-  "cells_per_model": {
-    "primary": 672,
-    "secondary": 720
-  },
-  "reading_fixed_before_the_run": {
-    "code": "scripts/read_sealed_test.py (7dafc14)",
-    "primary": "on the primary set, held-out similarity, candidate minus published, paired per speaker: H0 difference <= 0, one-sided alpha 0.025 - rejected only if the lower end of the two-sided 95% t interval over speakers is above 0; planned for a true difference of 0.03 (87% power at spread 0.050, 36% at 0.096)",
-    "secondary": [
-      "whether that lower end also clears 0.0205",
-      "the same comparison on the Common Voice set, labelled secondary"
-    ],
-    "guard": "CER, candidate minus published, with its interval; an interval above zero counts against the adaptation whatever its similarity",
-    "exploratory": "per text category, Holm-corrected; not a claim",
-    "judged_only_if": "both runs were scored in the same environment (one session)",
-    "no_improvement_is_claimed_otherwise": true
-  },
-  "failures": {
-    "mechanical_before_rendering": "a clip missing, unreadable, not mono, of the wrong rate or more than 50 ms from the split's duration: a Common Voice speaker is replaced by the next reserve speaker of the same gender in the split builder's draw order (the split's rule); a Neyshekar speaker is left out; both listed",
-    "during_rendering": "a speaker with any failed or unscored cell for either model is left out of that pair and listed (compare_runs)",
-    "no_speaker_is_added_after_looking": true,
-    "a_higher_spread_than_planned": "reported as it is; nothing is re-run to narrow the interval"
-  },
-  "budget_declared_before_the_push": {
-    "estimate": "about 6 hours of one T4 x2 session: 2 x (672 + 720) = 2,784 renders at the 6 s a cell measured for OmniVoice on a T4 including scoring (4.6 h), plus downloads, writing the corpora and the recogniser floor",
-    "bounds": "each render run stops at 3 h or at what is left of an 11.25-hour session, whichever is first",
-    "quota": "after the three training sessions and the development session, which use most of a week's 30 hours, so it runs after the weekly reset; the API does not report what is left"
+  "secondary": {
+   "source": "Common Voice 26 cleaned (pymmdrza mirror at 142e9bb4), the 30 test speakers of the split, 15 per self-reported gender",
+   "speakers_planned": 30,
+   "why_secondary": "OmniVoice has very probably trained on these speakers (FINDINGS section 9)"
   }
+ },
+ "roles": {
+  "rule": "reference: the speaker's longest clip of 6.5-11.4 s; held out: the four longest of the rest of at least 3.5 s",
+  "amended": "2026-09-19, before any test clip was read or rendered, on durations alone",
+  "why": "the split made the longest clip the reference, but the reference pipeline cuts a clip over 11.5 s to a window and keeps the transcript given for the whole clip; 13 of the 28 Neyshekar references were longer (3 over 20 s)",
+  "effect": "the same 28 Neyshekar speakers are usable; 13 of them get a different reference and held-out clips; no Common Voice speaker's roles change",
+  "code": "scripts/prepare_test_corpus.py (6d12038)"
+ },
+ "texts": {
+  "file": "eval/manifests/test_texts_v1.json",
+  "count": 12,
+  "sha256_of_texts": "407865440732c9e56ad3310d478cebc5057821ac5f6bdcf205c88518ed7f6ead",
+  "every_speaker_renders_all": true
+ },
+ "seeds": [
+  42,
+  43
+ ],
+ "reference_transcripts": "the source's own transcript of the reference clip",
+ "cells_per_model": {
+  "primary": 672,
+  "secondary": 720
+ },
+ "reading_fixed_before_the_run": {
+  "code": "scripts/read_sealed_test.py (7dafc14)",
+  "primary": "on the primary set, held-out similarity, candidate minus published, paired per speaker: H0 difference <= 0, one-sided alpha 0.025 - rejected only if the lower end of the two-sided 95% t interval over speakers is above 0; planned for a true difference of 0.03 (87% power at spread 0.050, 36% at 0.096)",
+  "secondary": [
+   "whether that lower end also clears 0.0205",
+   "the same comparison on the Common Voice set, labelled secondary"
+  ],
+  "guard": "CER, candidate minus published, with its interval; an interval above zero counts against the adaptation whatever its similarity",
+  "exploratory": "per text category, Holm-corrected; not a claim",
+  "judged_only_if": "both runs were scored in the same environment (one session)",
+  "no_improvement_is_claimed_otherwise": true
+ },
+ "failures": {
+  "mechanical_before_rendering": "a clip missing, unreadable, not mono, of the wrong rate or more than 50 ms from the split's duration: a Common Voice speaker is replaced by the next reserve speaker of the same gender in the split builder's draw order (the split's rule); a Neyshekar speaker is left out; both listed",
+  "during_rendering": "a speaker with any failed or unscored cell for either model is left out of that pair and listed (compare_runs)",
+  "no_speaker_is_added_after_looking": true,
+  "a_higher_spread_than_planned": "reported as it is; nothing is re-run to narrow the interval"
+ },
+ "budget_declared_before_the_push": {
+  "estimate": "about 6 hours of one T4 x2 session: 2 x (672 + 720) = 2,784 renders at the 6 s a cell measured for OmniVoice on a T4 including scoring (4.6 h), plus downloads, writing the corpora and the recogniser floor",
+  "bounds": "each render run stops at 3 h or at what is left of an 11.25-hour session, whichever is first",
+  "quota": "after the three training sessions and the development session, which use most of a week's 30 hours, so it runs after the weekly reset; the API does not report what is left"
+ },
+ "amendment_2026_09_20_other_engines_on_the_same_test": {
+  "registered": "2026-09-20, before any test clip has been rendered by anything and before session c exists. Nothing of the primary comparison changes: it is still the chosen float16 export minus k2-fsa/OmniVoice at c5fdb5cc, read exactly as fixed above",
+  "why": "as registered, the test answers 'did the adaptation help on unseen speakers' and nothing else. It cannot answer 'was OmniVoice the right base', because the development set that chose it is very probably contaminated - eight of its nine speakers are Common Voice, which OmniVoice has very probably trained on (FINDINGS section 9). A critique the user brought on 2026-09-20 pressed exactly there, and it is right: without another engine on unseen speakers, a whole adaptation could be spent defending a base that only ever won on speakers it had seen",
+  "arms_added": {
+   "f5": "F5-TTS Persian at the configured settings - the best-measured alternative on the development set (0.546 against OmniVoice's 0.583), and the engine this project started from",
+   "pocket": "Pocket-TTS Farsi v2 at the recipe of its own card (ff8101e) - trained on 973 h of Persian from 2,978 speakers, and measured on the development set at 0.333 (eval/runs/persian-voice-pocket-tts-v1.json)"
+  },
+  "what_they_are_rendered_on": "the same sealed corpora, the same 12 texts, the same seeds 42 and 43, the same reference and held-out clips - prepare_test_corpus.py is deterministic from the manifest, so the cells are the same cells",
+  "where_they_run": "a separate Kaggle session (kaggle/omnivoice-arms). They cannot share the test session: its interpreter carries OmniVoice's pinned stack from uv.lock, and installing f5-tts or pocket-tts into it could change the very environment the primary comparison is measured in",
+  "how_they_are_read": {
+   "status": "secondary and pre-registered; it can never promote or demote the primary result",
+   "measure": "held-out speaker similarity only, paired per speaker, candidate minus arm, with the same two-sided 95% t interval over speakers",
+   "why_similarity_only": "similarity reproduced exactly across machines in every test here, CER did not (FINDINGS section 9). So CER is compared between f5 and pocket, which share the arms session, and never against the primary session's numbers",
+   "what_would_be_concluded": [
+    "candidate above both arms, interval clear of zero: the base choice survives contact with unseen speakers",
+    "an arm above the candidate, interval clear of zero: the adaptation is not the strongest thing measured here and the project says so, whatever the primary result says about the adaptation itself",
+    "intervals overlapping zero: nothing is claimed about the base, and it is recorded as unresolved"
+   ],
+   "not_claimed": "nothing here is a naturalness or listening judgement, and no arm's own published numbers are on this scale"
+  },
+  "budget": "about 2 to 2.5 GPU-hours for 2 x (672 + 720) renders plus scoring, after the weekly reset on 2026-09-26. Pocket costs no extra session: it renders on the same machine in its own environment",
+  "order": "the primary test session runs first and is read first; the arms session runs after it, on the same corpora, and is read only beside it"
+ }
 }

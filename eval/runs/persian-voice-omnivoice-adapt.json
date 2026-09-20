@@ -52,6 +52,19 @@
    "expected": "about 15 min of setup (b mounts a's tokens, so nothing is tokenised again), then about 6 h of training at 15.55 s a step: roughly 1,390 steps, reaching about 3,400 of 5,000",
    "after_this": "about 1 h of quota left this week; the rest - about 1,600 steps, the development session and the sealed test - runs after the reset, with 30 h to spend",
    "decided_by": "the user, asked with both options and their costs, 2026-09-20"
+  },
+  "quota_before_the_early_development_session": {
+   "declared": "2026-09-20, before the push",
+   "left_this_week": "[measured, kaggle quota] 2.82 GPU-hours of 30, resetting 2026-09-26 00:00 UTC",
+   "this_session_costs": "well under an hour: a 3 GiB download, then 4 x 27 renders (the published model and the exports at 1,000, 2,000 and 3,000) at the 6 s a cell OmniVoice measured on a T4, plus one replay-scored control",
+   "why_now_rather_than_after_c": [
+    "the quota expires on the 26th and 2.82 h cannot start session c, which needs about 9.5",
+    "[measured] the loss stopped falling after step 2,000, so whether any export beats the published model is the question that decides whether session c is worth nine GPU-hours",
+    "three exports give the shape of the curve across steps, not one number",
+    "this notebook has never run. Session a v1 died on an untested path and cost a whole session; running it now, on quota that would otherwise expire, tests download, mounting, rendering, scoring and the choice rule before it is asked to do that after nine hours of training"
+   ],
+   "what_it_does_not_decide": "the candidate. The choice rule stays what it was fixed as, and the run that applies it is the one after session c, with every export. This one is exploratory and is recorded as exploratory",
+   "touches_the_sealed_test": "no. Development speakers only; nothing reads a test clip"
   }
  },
  "reading_fixed_before_the_run": "SOTA_ROADMAP.md section 8: the exports at 1,000-5,000 steps are scored on the development set beside the published model in one session; the one with the highest held-out similarity whose CER interval against the published model does not lie above zero is the candidate; only that candidate and the published model are then scored, once, on the sealed test sets (primary: the 28 usable Neyshekar test speakers; secondary: the 30 Common Voice ones), H0 delta <= 0, one-sided alpha 0.025. The training losses are not a quality result, and no improvement is claimed before the test comparison",

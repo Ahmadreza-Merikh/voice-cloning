@@ -4,15 +4,29 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-20 23:55 +0330 (2026-09-20 20:25 UTC).
+Last updated: 2026-09-21 02:00 +0330 (2026-09-20 22:30 UTC).
 
-**Running remotely:** `marsmanam/persian-voice-omnivoice-train-b` v1, pushed
-2026-09-20 16:05:47 UTC, RUNNING - it mounts session a's tokens and
-`checkpoint-2000` and resumes the official recipe. Built with `--hours=6.5`
-(not the usual 11.25) because 7.5 GPU-hours are left this week and unused
-quota expires: the recipe is untouched, the session simply stops at a lower
-step and c resumes. Expected about 1,390 more steps, reaching about 3,400 of
-5,000. Do not re-push or cancel it; read its output only after it ends.
+**Nothing is running remotely.** Sessions a and b are complete and
+**3,000 of the recipe's 5,000 steps are trained**. Session b (pushed
+2026-09-20 16:05:47 UTC with a 6.5 h budget) mounted a's tokens and
+`checkpoint-2000`, resumed through the official `resume_from_checkpoint`,
+trained 1,000 steps in 4.61 h at 16.367 s a step and stopped itself at
+`checkpoint-3000` because the next save would not have fitted; it kept that
+checkpoint and `export-3000-float16` and cost about 4.7 GPU-hours. Its
+downloads took 0.8 minutes and nothing was tokenised again.
+
+[measured] **The loss has stopped falling.** Session a went 4.367 to 4.212
+over its 2,000 steps; session b sat between 4.220 and 4.268 over its 1,000,
+and validation moved 4.323 to 4.294. Nothing in that curve says the model is
+still learning - and nothing in it says the model is better at Persian either.
+The development session, which scores every export against the published
+weights, is what answers that; if no export beats the base, the base is what
+goes to the sealed test and the project says the adaptation did not work.
+
+**Next:** the weekly quota resets 2026-09-26 00:00 UTC with 2.82 GPU-hours
+left before it. Then session c with the usual 11.25 h budget (2,000 steps at
+16.4 s is about 9.1 h of training; build it with no `--hours` override), then
+the development session, the sealed test, and the arms session.
 
 **Session a v2 is complete** (pushed 2026-09-19 20:54:15 UTC, 11.25 h budget):
 every gate passed and 2,000 of the recipe's 5,000 steps are trained and

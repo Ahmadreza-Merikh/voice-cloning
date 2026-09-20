@@ -364,6 +364,33 @@ class SeedVCConfig:
 
 
 @dataclass
+class PocketConfig:
+    """Pocket-TTS Farsi v2, driven out-of-process in its own virtualenv.
+
+    The only Persian-specific model measured here: 973 h from 2,978 speakers,
+    109.5 M parameters, CPU-speed. It reads romanised phonemes, so the worker
+    phonemises with the G2P its card names - Persian script would render as
+    silence with no error.
+    """
+
+    python: str | None = "auto"
+    model_dir: str = "~/.cache/persian-voice-cloning/pocket/model"
+    g2p_dir: str = "~/.cache/persian-voice-cloning/pocket/g2p"
+    #: Pinned, so a re-fetch cannot quietly change what was measured.
+    revision: str = "e87097ed98edb8bd9c9bcabe9b575a51a466d0e4"
+    g2p_revision: str = "e314087bc761e323d127ee7899cb34f7c7d697cd"
+    #: The card's safe chunk budget; at 21 tokens and above generations stop
+    #: terminating, and its training utterances averaged about 11.
+    max_tokens: int = 18
+    #: Retries for a generation that runs past the card's duration cap.
+    retries: int = 1
+    #: Seconds of the reference handed over as the voice prompt; null gives the
+    #: whole prepared window. Set from measurement, not from the default.
+    prompt_seconds: float | None = None
+    timeout_seconds: float = 600.0
+
+
+@dataclass
 class EnginesConfig:
     tts: str = "omnivoice"
     vc: str = "cascade"
@@ -374,6 +401,7 @@ class EnginesConfig:
     fish: FishS2Config = field(default_factory=FishS2Config)
     higgs: HiggsConfig = field(default_factory=HiggsConfig)
     moss15: Moss15Config = field(default_factory=Moss15Config)
+    pocket: PocketConfig = field(default_factory=PocketConfig)
     asr: ASRConfig = field(default_factory=ASRConfig)
     seedvc: SeedVCConfig = field(default_factory=SeedVCConfig)
 

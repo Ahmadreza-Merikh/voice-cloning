@@ -88,19 +88,13 @@ class VoiceCloneUI:
         section = getattr(self.config.engines, (engine or "").lower(), None)
         return bool(getattr(section, "memory_guard", False))
 
-    def _default_engine(self, *, speech_to_speech: bool = False) -> str:
-        """The configured engine where it can run, otherwise F5.
-
-        Speech-to-speech transcribes, which a memory-guarded engine refuses, so
-        that tab starts on F5 whenever the configured engine is guarded.
-        """
+    def _default_engine(self) -> str:
+        """The configured engine where it can run, otherwise F5."""
         from ..engines import list_tts_engines
 
         wanted = self.config.engines.tts
         engine = list_tts_engines().get(wanted)
         if engine is None or not engine.is_available()[0]:
-            return "f5"
-        if speech_to_speech and self._guarded(wanted):
             return "f5"
         return wanted
 
@@ -165,9 +159,9 @@ class VoiceCloneUI:
     ) -> tuple[Any, str, str, Any]:
         """Preprocess the reference, show its quality report, fill the transcript.
 
-        With a memory-guarded engine selected the transcript is left as it is:
-        filling it would load the recogniser, which that engine cannot share
-        memory with.
+        With a memory-guarded engine selected the transcript is still filled -
+        the recogniser runs here, where the engine is not loaded, and is
+        released before it can be.
         """
         reference = self._resolve_reference(mode, uploaded, saved_slug)
         report = ProgressReporter.from_gradio(progress)
@@ -185,10 +179,6 @@ class VoiceCloneUI:
 
         after = result.report_after
         summary = result.summary()
-        if self._guarded(engine):
-            report(1.0, "Done")
-            summary += f"\n\n{self.strings['guard_transcript']}"
-            return to_gradio(result.audio), summary, quality_badge(after.score, after.verdict), gr.update()
 
         report(0.7, "Transcribing")
         transcript = ""
@@ -196,6 +186,11 @@ class VoiceCloneUI:
             transcript = self.studio.transcribe_reference(result.audio)
         except Exception as exc:  # ASR is optional at this stage
             log.info("Reference transcription unavailable: %s", exc)
+        finally:
+            if self._guarded(engine):
+                # Out of memory before the engine can be loaded; measurement
+                # shows this gives its 1.3 GB back.
+                self.studio.release_recogniser()
 
         report(1.0, "Done")
         if transcript:
@@ -232,11 +227,10 @@ class VoiceCloneUI:
 
         reference = self._resolve_reference(mode, uploaded, saved_slug)
         studio = self.studio
-        # A saved voice keeps the transcript it was saved with.
+        # A saved voice keeps the transcript it was saved with. With none, the
+        # Studio transcribes the reference and drops the recogniser before a
+        # guarded engine loads.
         typed = (reference_text or "").strip() or self._saved_transcript(mode, saved_slug)
-        if self._guarded(engine):
-            # Left loaded by an earlier F5 analysis or save, it would share memory with the engine.
-            studio.release_recogniser()
 
         try:
             result = studio.synthesize(
@@ -352,16 +346,15 @@ class VoiceCloneUI:
             raise gr.Error(str(exc)) from exc
 
         resolved_transcript = (transcript or "").strip()
-        if not resolved_transcript and self._guarded(self.config.engines.tts):
-            # The default engine cannot share memory with the recogniser; the
-            # transcript typed here is what it will be given later.
-            gr.Warning(self.strings["guard_transcript"])
-        elif not resolved_transcript:
+        if not resolved_transcript:
             report(0.6, "Transcribing")
             try:
                 resolved_transcript = self.studio.transcribe_reference(processed.audio)
             except Exception as exc:
                 log.info("Could not transcribe while saving: %s", exc)
+            finally:
+                if self._guarded(self.config.engines.tts):
+                    self.studio.release_recogniser()
 
         report(0.9, "Saving")
         profile = self.library.save(
@@ -654,7 +647,7 @@ class VoiceCloneUI:
                     with gr.Row():
                         s2s_engine = gr.Dropdown(
                             choices=self._engine_choices(),
-                            value=self._default_engine(speech_to_speech=True),
+                            value=self._default_engine(),
                             label=strings["engine"],
                         )
                         s2s_preset = gr.Dropdown(

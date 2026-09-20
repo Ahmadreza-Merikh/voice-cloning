@@ -1,11 +1,16 @@
-"""OmniVoice is the default, and nothing loads the recogniser beside it.
+"""OmniVoice is the default, and the recogniser is never loaded beside it.
 
 Measured on this 16 GB Mac (2026-09-17): an OmniVoice render given its
 reference transcript peaked at 3.4 GB with no memory pressure, while one that
-had to transcribe the reference reached warning pressure and was stopped. So a
-memory-guarded engine is given its transcript by the caller, renders one take,
-and is not used for speech-to-speech - each of those would transcribe. No model
-is loaded here: stand-ins record what they were asked to do.
+transcribed *while the engine was loaded* reached warning pressure and was
+stopped. Measured again (2026-09-20,
+`eval/runs/evidence/recogniser-release/`): releasing the recogniser gives back
+the 1.3 GB faster-whisper took, twice in a row, with the process returning to
+0.9 GB both times. So the rule is not "type it yourself" but "one at a time":
+the reference is transcribed first, the recogniser is released, and only then
+does a guarded engine load. What is still refused is best-of-N, which
+transcribes each take while the engine holds memory. No model is loaded here:
+stand-ins record what they were asked to do.
 """
 
 from __future__ import annotations
@@ -36,13 +41,14 @@ ROOT = Path(__file__).resolve().parents[1]
 class Engine:
     display_name = "OmniVoice (stand-in)"
 
-    def __init__(self, output: Audio) -> None:
+    def __init__(self, output: Audio, log: list[str]) -> None:
         self.capabilities = EngineCapabilities(requires_reference_text=True)
         self.output = output
+        self.log = log
         self.calls: list[str | None] = []
 
     def load(self) -> None:
-        pass
+        self.log.append("loaded")
 
     def synthesize(self, text: str, reference: Audio, *, reference_text: str | None = None,
                    speed: float = 1.0, seed: int | None = None, **kwargs: Any) -> SynthesisResult:
@@ -50,8 +56,29 @@ class Engine:
         return SynthesisResult(audio=self.output, engine="omnivoice", seed=seed or 0, metadata={})
 
 
+class Recogniser:
+    """Stands in for a loaded ASREngine, and says when it is unloaded."""
+
+    def __init__(self, log: list[str], text: str = "متن مبدأ") -> None:
+        self.log = log
+        self.text = text
+
+    def transcribe(self, audio: Audio, **kwargs: Any) -> Any:
+        self.log.append("source transcribed")
+        from voiceclone.engines.asr import Transcript
+
+        return Transcript(text=self.text)
+
+    def unload(self) -> None:
+        self.log.append("released")
+
+
 @pytest.fixture
-def quiet(config: AppConfig) -> AppConfig:
+def quiet(config: AppConfig, monkeypatch) -> AppConfig:
+    from voiceclone import memory
+
+    # The machine's own pressure must not decide what these tests see.
+    monkeypatch.setattr(memory, "pressure_level", lambda: 1)
     return config.copy_with(**{"evaluation.enabled": False, "evaluation.candidates": 1})
 
 
@@ -66,6 +93,8 @@ def studio_with(config: AppConfig, engine: Engine, reference: Audio, log: list[s
 
     def transcribe(audio: Audio, *, language: str | None = None) -> str:
         log.append("transcribed")
+        # What the real call leaves behind: a loaded recogniser.
+        studio._asr = Recogniser(log)
         return "رونوشت خودکار"
 
     studio.prepare_reference = prepare
@@ -91,59 +120,61 @@ class TestTheDefault:
 
 
 class TestTheStudio:
-    def test_no_transcript_is_refused_before_anything_is_prepared(
+    def test_the_reference_is_transcribed_and_the_recogniser_released_before_the_engine_loads(
         self, quiet: AppConfig, speech_audio: Audio
     ) -> None:
-        engine, log = Engine(speech_audio), []
+        log: list[str] = []
+        engine = Engine(speech_audio, log)
         studio = studio_with(quiet, engine, speech_audio, log)
-        with pytest.raises(SynthesisError, match="needs the reference transcript typed in"):
-            studio.synthesize("سلام", "unused.wav", engine="omnivoice")
-        assert log == [] and engine.calls == []
+        studio.synthesize("سلام", "unused.wav", engine="omnivoice")
+        assert log == ["prepared", "transcribed", "released", "loaded"]
+        assert engine.calls == ["رونوشت خودکار"] and studio._asr is None
 
-    def test_a_typed_transcript_renders_and_nothing_is_transcribed(
+    def test_a_typed_transcript_is_used_and_a_leftover_recogniser_still_goes_first(
         self, quiet: AppConfig, speech_audio: Audio
     ) -> None:
-        engine, log = Engine(speech_audio), []
+        log: list[str] = []
+        engine = Engine(speech_audio, log)
         studio = studio_with(quiet, engine, speech_audio, log)
+        studio._asr = Recogniser(log)  # left loaded by an earlier F5 render
         studio.synthesize("سلام", "unused.wav", engine="omnivoice", reference_text="متن مرجع")
+        assert log == ["prepared", "released", "loaded"]
         assert engine.calls == ["متن مرجع"]
-        assert "transcribed" not in log
 
     def test_best_of_n_is_refused(self, quiet: AppConfig, speech_audio: Audio) -> None:
-        engine, log = Engine(speech_audio), []
+        log: list[str] = []
+        engine = Engine(speech_audio, log)
         studio = studio_with(quiet, engine, speech_audio, log)
         with pytest.raises(SynthesisError, match="one take"):
             studio.synthesize("سلام", "unused.wav", engine="omnivoice", reference_text="متن", candidates=2)
-        assert engine.calls == []
+        assert engine.calls == [] and log == []
 
-    def test_with_the_guard_off_it_transcribes_as_before(self, quiet: AppConfig, speech_audio: Audio) -> None:
-        engine, log = Engine(speech_audio), []
-        studio = studio_with(quiet.copy_with(**{"engines.omnivoice.memory_guard": False}), engine, speech_audio, log)
+    def test_with_the_guard_off_the_recogniser_stays_loaded(self, quiet: AppConfig, speech_audio: Audio) -> None:
+        log: list[str] = []
+        engine = Engine(speech_audio, log)
+        studio = studio_with(quiet.copy_with(**{"engines.omnivoice.memory_guard": False}), engine,
+                             speech_audio, log)
         studio.synthesize("سلام", "unused.wav", engine="omnivoice")
-        assert "transcribed" in log
-        assert engine.calls == ["رونوشت خودکار"]
+        assert log == ["prepared", "transcribed", "loaded"]
+        assert engine.calls == ["رونوشت خودکار"] and studio._asr is not None
 
-    def test_speech_to_speech_is_refused_before_the_source_is_transcribed(
+    def test_speech_to_speech_transcribes_both_before_the_engine_loads(
         self, quiet: AppConfig, speech_audio: Audio
     ) -> None:
-        engine, log = Engine(speech_audio), []
+        log: list[str] = []
+        engine = Engine(speech_audio, log)
         studio = studio_with(quiet, engine, speech_audio, log)
-        with pytest.raises(SynthesisError, match="speech-to-speech"):
-            studio.convert(speech_audio, speech_audio, mode="cascade", engine="omnivoice")
-        assert studio._asr is None and engine.calls == []
+        studio._asr = Recogniser(log)
+        studio.convert(speech_audio, speech_audio, mode="cascade", engine="omnivoice")
+        assert log == ["source transcribed", "prepared", "transcribed", "released", "loaded"]
+        assert engine.calls == ["رونوشت خودکار"] and studio._asr is None
 
     def test_releasing_the_recogniser_unloads_it(self, quiet: AppConfig) -> None:
-        class Recogniser:
-            unloaded = False
-
-            def unload(self) -> None:
-                self.unloaded = True
-
+        log: list[str] = []
         studio = Studio(quiet)
-        recogniser = Recogniser()
-        studio._asr = recogniser
+        studio._asr = Recogniser(log)
         studio.release_recogniser()
-        assert recogniser.unloaded and studio._asr is None
+        assert log == ["released"] and studio._asr is None
 
 
 class FakeStudio:
@@ -178,44 +209,43 @@ class TestTheApp:
     def test_it_starts_on_omnivoice_where_omnivoice_runs(self, ui: VoiceCloneUI, monkeypatch) -> None:
         monkeypatch.setattr(list_tts_engines()["omnivoice"], "is_available", classmethod(lambda cls: (True, "")))
         assert ui._default_engine() == "omnivoice"
-        assert ui._default_engine(speech_to_speech=True) == "f5"
 
     def test_it_falls_back_to_f5_where_omnivoice_is_not_installed(self, ui: VoiceCloneUI, monkeypatch) -> None:
         monkeypatch.setattr(list_tts_engines()["omnivoice"], "is_available",
                             classmethod(lambda cls: (False, "no environment")))
         assert ui._default_engine() == "f5"
 
-    def test_analysis_leaves_the_transcript_to_the_user_with_omnivoice(
+    def test_analysis_fills_the_transcript_and_then_releases_with_omnivoice(
         self, ui: VoiceCloneUI, speech_audio: Audio
     ) -> None:
-        *_, summary, _, transcript = ui.on_analyse(REFERENCE_UPLOAD, "ref.wav", None, "auto", False, True, True,
-                                                   "omnivoice", progress=None)
-        assert "transcribed" not in ui.studio.events
-        assert transcript == gr.update()
-        assert ui.strings["guard_transcript"] in summary
+        *_, transcript = ui.on_analyse(REFERENCE_UPLOAD, "ref.wav", None, "auto", False, True, True,
+                                       "omnivoice", progress=None)
+        assert transcript == "رونوشت خودکار"
+        assert ui.studio.events == ["transcribed", "released"]
 
-    def test_analysis_still_transcribes_for_f5(self, ui: VoiceCloneUI) -> None:
+    def test_analysis_keeps_the_recogniser_for_f5(self, ui: VoiceCloneUI) -> None:
         *_, transcript = ui.on_analyse(REFERENCE_UPLOAD, "ref.wav", None, "auto", False, True, True, "f5",
                                        progress=None)
         assert transcript == "رونوشت خودکار"
+        assert ui.studio.events == ["transcribed"]
 
-    def test_a_saved_voice_brings_its_transcript_and_the_recogniser_is_released_first(
+    def test_a_saved_voice_brings_its_transcript_and_nothing_transcribes(
         self, ui: VoiceCloneUI, speech_audio: Audio
     ) -> None:
         slug = ui.library.save("Narrator", speech_audio, transcript="متن ذخیره‌شده").slug
         with pytest.raises(gr.Error):
             ui.on_generate_tts("سلام", REFERENCE_SAVED, None, slug, "", "omnivoice", DEFAULT_PRESET,
                                1.0, 0, 1, False, "auto", False, True, True, progress=None)
-        assert ui.studio.events == ["released", ("synthesize", "omnivoice", "متن ذخیره‌شده")]
+        assert ui.studio.events == [("synthesize", "omnivoice", "متن ذخیره‌شده")]
 
-    def test_saving_a_voice_does_not_transcribe_while_the_default_is_guarded(
+    def test_saving_a_voice_transcribes_and_releases_under_a_guarded_default(
         self, ui: VoiceCloneUI, speech_audio: Audio, monkeypatch
     ) -> None:
         monkeypatch.setattr(ui, "_resolve_reference", lambda *args: speech_audio)
         ui.on_save_voice("Narrator", REFERENCE_UPLOAD, "ref.wav", None, "", "", "auto", False, True, True,
                          progress=None)
-        assert "transcribed" not in ui.studio.events
-        assert ui.library.list()[0].transcript == ""
+        assert ui.studio.events == ["transcribed", "released"]
+        assert ui.library.list()[0].transcript == "رونوشت خودکار"
 
 
 class TestTheCommandLine:
@@ -234,8 +264,8 @@ class TestTheCommandLine:
             cli.command_s2s(args)
         return seen
 
-    def test_speech_to_speech_starts_on_f5_under_a_guarded_default(self, monkeypatch) -> None:
-        assert self.run(["s2s", "source.wav", "-r", "ref.wav"], monkeypatch)["engine"] == "f5"
+    def test_speech_to_speech_uses_the_configured_engine(self, monkeypatch) -> None:
+        assert self.run(["s2s", "source.wav", "-r", "ref.wav"], monkeypatch)["engine"] == "omnivoice"
 
     def test_an_engine_asked_for_is_still_used(self, monkeypatch) -> None:
-        assert self.run(["s2s", "source.wav", "-r", "ref.wav", "-e", "omnivoice"], monkeypatch)["engine"] == "omnivoice"
+        assert self.run(["s2s", "source.wav", "-r", "ref.wav", "-e", "f5"], monkeypatch)["engine"] == "f5"

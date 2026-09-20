@@ -44,7 +44,7 @@ def build_parser() -> argparse.ArgumentParser:
         sub.add_argument("-r", "--reference", required=reference_required, help="Reference voice audio")
         sub.add_argument("-o", "--output", default=None, help="Output audio path")
         sub.add_argument("-e", "--engine", default=None,
-                         help="TTS engine (default: the config's, omnivoice; F5 for speech-to-speech)")
+                         help="TTS engine (default: the config's, omnivoice)")
         sub.add_argument("--speed", type=float, default=1.0)
         sub.add_argument("--seed", type=int, default=0, help="0 = random")
         sub.add_argument(
@@ -174,8 +174,7 @@ def command_s2s(args: argparse.Namespace) -> int:
 
     config = _build_config(args)
     studio = Studio(config)
-    # Speech-to-speech transcribes, which a memory-guarded default refuses.
-    engine = (args.engine or ("f5" if studio.memory_guarded() else config.engines.tts)).lower()
+    engine = (args.engine or config.engines.tts).lower()
 
     result = studio.convert(
         args.source,

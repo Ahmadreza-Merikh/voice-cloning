@@ -33,9 +33,9 @@ log = get_logger("studio")
 
 #: What a memory-guarded engine's refusals tell the user to do instead.
 _GUARD_HINT = (
-    "On a 16 GB Mac this engine and the speech recogniser do not fit in memory together, so "
-    "nothing here transcribes beside it. Type exactly what the reference recording says, or "
-    "pick F5-TTS, which transcribes it for you."
+    "On a 16 GB Mac this engine and the speech recogniser do not fit in memory together, so the "
+    "recogniser runs before the engine and is released before it loads. Anything that would "
+    "transcribe while the engine holds memory is refused here; F5-TTS has no such limit."
 )
 
 ReferenceInput = str | Path | Audio | tuple[int, np.ndarray]
@@ -322,12 +322,11 @@ class Studio:
         tts = self.tts_engine(engine_name)
 
         # -- nothing that would load the recogniser beside a guarded engine --
+        # A missing transcript is not one of those things: the recogniser runs
+        # before the engine is loaded and is released again below, which
+        # measurement shows gives its 1.3 GB back
+        # (eval/runs/evidence/recogniser-release/).
         guarded = self.memory_guarded(engine_name)
-        if guarded and not (reference_text or "").strip():
-            raise SynthesisError(
-                f"{tts.display_name} needs the reference transcript typed in.",
-                hint=_GUARD_HINT,
-            )
         if guarded and int(self.config.evaluation.candidates if candidates is None else candidates) > 1:
             raise SynthesisError(
                 f"{tts.display_name} renders one take here: best-of-N ranks takes by transcribing them.",
@@ -366,18 +365,13 @@ class Studio:
                 f"{original:.1f}s clip was cut to {fitted.duration:.1f}s"
             )
             if (reference_text or "").strip():
-                if guarded:
-                    raise SynthesisError(
-                        f"{tts.display_name} would need the cut reference transcribed again.",
-                        hint=f"Use a reference of at most {limit:.0f} s. {_GUARD_HINT}",
-                    )
                 # The transcript supplied was written for the longer clip.
                 reference_text = None
                 note += " and transcribed again to match"
             warnings.append(note + ".")
             log.info(note)
 
-        # -- reference transcript (F5-TTS needs one) -----------------------
+        # -- reference transcript (the in-context engines need one) --------
         resolved_reference_text = (reference_text or "").strip()
         if tts.capabilities.requires_reference_text and not resolved_reference_text:
             report(0.08, "Transcribing reference audio")
@@ -389,6 +383,9 @@ class Studio:
                         f"Could not transcribe the reference clip: {exc}",
                         hint="Type the reference transcript manually, or install faster-whisper.",
                     ) from exc
+                finally:
+                    if guarded:
+                        self.release_recogniser()
             if not resolved_reference_text:
                 raise SynthesisError(
                     "The reference transcript came back empty.",
@@ -420,6 +417,9 @@ class Studio:
 
         # -- synthesis -----------------------------------------------------
         report(0.15, f"Loading {tts.display_name}")
+        if guarded:
+            # An earlier F5 render in this process may have left it loaded.
+            self.release_recogniser()
         with _stopwatch(timings, "load"):
             tts.load()
 
@@ -708,14 +708,8 @@ class Studio:
     ) -> CloneResult:
         timings: dict[str, float] = {}
 
-        if self.memory_guarded(engine):
-            name = self.tts_engine(engine).display_name
-            raise SynthesisError(
-                f"{name} is not used for speech-to-speech here: it would transcribe the source and "
-                "the reference beside the model.",
-                hint=f"Use F5-TTS for speech-to-speech, or type the text on the text-to-speech tab. {_GUARD_HINT}",
-            )
-
+        # Both transcriptions happen here, before synthesize() loads the
+        # engine and releases the recogniser, so the two never overlap.
         transcript = (source_text or "").strip()
         if not transcript:
             progress(0.05, "Transcribing source audio")

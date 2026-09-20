@@ -4,40 +4,38 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-20 01:25 +0330 (2026-09-19 21:55 UTC).
+Last updated: 2026-09-20 19:40 +0330 (2026-09-20 16:10 UTC).
 
-**Running remotely:** `marsmanam/persian-voice-omnivoice-train-a` **v2**,
-pushed 2026-09-19 20:54:15 UTC, RUNNING - the first training session of the
-adaptation, on a T4 pair: it writes and tokenises train and valid, then trains
-from the base and stops itself at the last checkpoint that fits 11.25 h from
-the notebook's start (about 08:10 UTC on 2026-09-20). Budget declared before
-the push: the user read 17 GPU-hours left this week off Kaggle's page, this
-session takes at most 11.25 h of wall clock, so session b waits for the weekly
-reset (`eval/runs/persian-voice-omnivoice-adapt.json` ->
-`budget_declared_before_the_push.quota_before_session_a_v2`). Do not re-push it
-and do not cancel it; read its status, and its output only after it ends.
+**Running remotely:** `marsmanam/persian-voice-omnivoice-train-b` v1, pushed
+2026-09-20 16:05:47 UTC, RUNNING - it mounts session a's tokens and
+`checkpoint-2000` and resumes the official recipe. Built with `--hours=6.5`
+(not the usual 11.25) because 7.5 GPU-hours are left this week and unused
+quota expires: the recipe is untouched, the session simply stops at a lower
+step and c resumes. Expected about 1,390 more steps, reaching about 3,400 of
+5,000. Do not re-push or cancel it; read its output only after it ends.
 
-What v1 taught this version: every network step now runs through
-`scripts/fetch_inputs.py` under `run_bounded` (60 minutes for the whole
-download stage, 60 s per request, 3 attempts), so a stall ends the stage and
-leaves a gate record instead of holding the session. The CPU-only download probe (`persian-voice-fetch-probe` v1, 20:23-20:31 UTC,
-no GPU quota) fetched session a's whole plan, about 21 GiB with every check, on
-the first attempt both ways - Xet in 2.6 minutes, plain HTTP in 4.5
-(`eval/runs/persian-voice-fetch-probe-v1.json`); the GPU sessions now fetch
-over plain HTTP, bounded.
-
-Session a of the full OmniVoice adaptation
-(`marsmanam/persian-voice-omnivoice-train-a` v1, pushed 2026-09-19 01:13:52
-UTC) ended as CANCEL_ACKNOWLEDGED, first read at 18:10 UTC, with nothing
-trained: its log stops at 138 s, as the download cell began, and nothing was
-written after that. Nobody here cancelled it. The cell ran four
-`snapshot_download` calls (about 21 GiB) and a `urlopen` with no timeout in the
-notebook's own process, so a stall held the T4 pair - probably until Kaggle's
-12-hour limit - for nothing (outcome and evidence:
+**Session a v2 is complete** (pushed 2026-09-19 20:54:15 UTC, 11.25 h budget):
+every gate passed and 2,000 of the recipe's 5,000 steps are trained and
+checkpointed. Downloads took 4.2 minutes, every step on the first attempt -
+the stall that cost v1 a whole session did not recur. Data: 87,499 train clips
+/ 127.85 h and 2,251 valid, nothing left out, no Neyshekar test shard
+downloaded. Tokenising: 88 shards, 0 failures, 79 min at 97x real time.
+Training: 8.69 h on the T4 pair at 15.547 s a step (11% slower than the
+13.98 s the budget assumed), peak 13.4 GiB of 14.56, saves every 500 steps,
+`checkpoint-2000` plus `export-1000-float16` and `export-2000-float16` kept,
+11.1 GiB of output. [measured] train loss: mean 4.367 over the first 100 steps,
+4.212 over the last 100; validation loss flat (4.263 -> 4.280 over 144 recorded
+batches). [hypothesis] that is consistent with early adaptation at lr 1e-5 and
+40% of the recipe; nothing here shows the model is better at Persian - only the
+sealed test answers that, after step 5,000. Record and evidence:
 `eval/runs/persian-voice-omnivoice-adapt.json`,
-`eval/runs/evidence/omnivoice-train-a-v1/`). Both conditions it was held
-for - bounded downloads, tested without a GPU, and a known quota - were met
-before v2 went out.
+`eval/runs/evidence/omnivoice-train-a-v2/`.
+
+**GPU quota** [measured, Kaggle's own `kaggle quota`, 2026-09-20]: 22.50 h used
+of 30, 7.50 h left, resets **2026-09-26 00:00 UTC**. The API does report it
+after all - `KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle quota` - so the
+user no longer has to read it off the site. The OAuth token expired on the
+20th; `kaggle auth login --force` is what renews it, and only the user runs it.
 
 Dataset `persian-voice-eval` is at the version staged from `b103fa6`
 (2026-09-19 20:45 UTC), verified by download: 251 files byte-identical, the
@@ -157,7 +155,9 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 | kernel | state | re-run? |
 |---|---|---|
 | `persian-voice-fetch-probe` v1 | complete in 8 min, CPU only: both download modes fetched all 21 GiB | no - `eval/runs/persian-voice-fetch-probe-v1.json` |
-| `persian-voice-omnivoice-train-a` v1 | CANCEL_ACKNOWLEDGED (read 18:10 UTC); log ends at 138 s in the download cell | not as it is - its downloads have no time limit |
+| `persian-voice-omnivoice-train-b` v1 | **RUNNING** since 2026-09-20 16:05 UTC, 6.5 h budget | no - read its output when it ends |
+| `persian-voice-omnivoice-train-a` v2 | complete: 2,000/5,000 steps, `checkpoint-2000` kept | no - `eval/runs/evidence/omnivoice-train-a-v2/` |
+| `persian-voice-omnivoice-train-a` v1 | CANCEL_ACKNOWLEDGED (read 18:10 UTC); log ends at 138 s in the download cell | no - superseded by v2 |
 | `persian-voice-omnivoice-probe` v2 | complete, about 14 min: fits with memory-only changes | no - `eval/runs/persian-voice-omnivoice-probe-v2.json`, evidence in `eval/runs/evidence/omnivoice-probe-v2/` |
 | `persian-voice-omnivoice-probe` v1 | complete, about 12 min: official recipe out of memory; fallback skipped by a bug | no - `...-probe-v1.json`, evidence in `.../omnivoice-probe-v1/` |
 | `persian-voice-moss15` v1-v4, `-moss15-probe` v1-v2 | complete | no - `eval/runs/persian-voice-moss15-*.json` |
@@ -165,10 +165,11 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
 
 ## Next concrete steps
 
-0. Done: every network step bounded (`0ac7811`), downloads tested on a
-   CPU-only session (`b103fa6`), dataset re-staged, budget declared (`0c83842`),
-   session a pushed as v2 at 20:54:15 UTC. Left: read its status now and then,
-   read its output after it ends, and record the outcome either way.
+0. Done: session a v2 trained 2,000 steps and session b is running with the
+   6.5 h that were left this week. Left: read b's output when it ends, record
+   it, and after the quota resets on 2026-09-26 build session c with the usual
+   11.25 h (`--hours` only lowers one build; the default is unchanged) to
+   finish at step 5,000, then the development session, then the sealed test.
 1. When session a ends: read its gates (`session/gates.json` in its output);
    if `train` passed, push `kaggle/omnivoice-train-b` (it mounts a's tokens and
    checkpoint); then c the same way. If a session fails a gate, read why before

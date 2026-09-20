@@ -1,0 +1,20 @@
+{
+  "written": {
+    "valid/cv26": 365,
+    "valid/neyshekar": 1886
+  },
+  "hours": {
+    "valid/cv26": 0.53,
+    "valid/neyshekar": 3.145
+  },
+  "left_out": {},
+  "left_out_examples": {},
+  "not_found": {
+    "cv26": 0,
+    "neyshekar": 0
+  },
+  "limit": null,
+  "jsonl": {
+    "valid": "/tmp/adapt/data/valid/valid.jsonl"
+  }
+}

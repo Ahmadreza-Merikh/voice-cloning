@@ -1,0 +1,22 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.3s; 104592 shown"
+  },
+  "download": {
+    "passed": true,
+    "reason": "4.2 min; {\"base\": \"/tmp/omnivoice-base\", \"config\": \"/tmp/adapt/official/train_config_finetune_sdpa.json\", \"fetched\": {\"train_config_finetune_sdpa.json\": {\"gib\": null, \"seconds\": null, \"tries\": [{\"attempt\": 1, \"seconds\": 0.2}], \"failed_check\": null}, \"base\": {\"gib\": 3.043, \"seconds\": 20.2, \"tries\": [{\"attempt\": 1, \"seconds\": 20.2}], \"failed_check\": null}, \"audio tokenizer\": {\"gib\": 0.75, \"seconds\": 5.7, \"tries\": [{\"attempt\": 1, \"seconds\": 5.7}], \"failed_check\": null}, \"common voice 26\": {\"gib\": 6.942, \"seconds\": 65.0, \"tries\": [{\"attempt\": 1, \"seconds\": 65.0}], \"failed_check\": null}, \"neyshekar train and valid\": {\"gib\": 10.218, \"seconds\": 157.2, \"tries\": [{\"attempt\": 1, \"seconds\": 157.2}], \"failed_check\": null}}, \"tokenizer\": \"/tmp/higgs-audio-v2-tokenizer\"}"
+  },
+  "data": {
+    "passed": true,
+    "reason": "{\"train\": {\"written\": {\"train/cv26\": 33148, \"train/neyshekar\": 54351}, \"hours\": {\"train/cv26\": 41.695, \"train/neyshekar\": 86.155}, \"left_out\": {}}, \"valid\": {\"written\": {\"valid/cv26\": 365, \"valid/neyshekar\": 1886}, \"hours\": {\"valid/cv26\": 0.53, \"valid/neyshekar\": 3.145}, \"left_out\": {}}}"
+  },
+  "tokenize": {
+    "passed": true,
+    "reason": "{\"train\": {\"shards\": 88, \"samples\": 87499, \"audio_hours\": 127.85, \"failed\": 0, \"wall_seconds\": 4736.2, \"realtime_factor\": 97.2}, \"valid\": {\"shards\": 33, \"samples\": 2251, \"audio_hours\": 3.675, \"failed\": 0, \"wall_seconds\": 290.6, \"realtime_factor\": 45.5}}"
+  },
+  "train": {
+    "passed": true,
+    "reason": "{\"outcome\": [\"stopped at checkpoint-2000: the next save would not fit the session\", \"stopped at checkpoint-2000: the next save would not fit the session\"], \"global_step\": [2000, 2000], \"checkpoints\": [\"checkpoint-2000\"], \"exports\": [\"export-1000-float16\", \"export-2000-float16\"], \"mean_step_seconds\": [15.547, 15.547], \"peak_reserved_gib\": [13.365, 13.449]}"
+  }
+}

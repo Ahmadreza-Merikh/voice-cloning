@@ -1,0 +1,49 @@
+{
+  "started": "2026-09-20 21:29:06 +0330",
+  "steps": [
+    {
+      "name": "pocket-tts-farsi-v2",
+      "kind": "snapshot",
+      "repo": "mehdi-hf/pocket-tts-farsi-v2",
+      "revision": "e87097ed98edb8bd9c9bcabe9b575a51a466d0e4",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 32.0,
+          "error": "ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)"
+        },
+        {
+          "attempt": 2,
+          "seconds": 32.2,
+          "error": "ConnectError: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)"
+        },
+        {
+          "attempt": 3,
+          "seconds": 163.5
+        }
+      ],
+      "bytes": 438368284,
+      "gib": 0.408,
+      "seconds": 267.7,
+      "mib_per_second": 1.6
+    },
+    {
+      "name": "homo-ge2pe",
+      "kind": "snapshot",
+      "repo": "mehdi-hf/Homo-GE2PE-Persian-HF",
+      "revision": "e314087bc761e323d127ee7899cb34f7c7d697cd",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 13.2
+        }
+      ],
+      "bytes": 33113307,
+      "gib": 0.031,
+      "seconds": 13.2,
+      "mib_per_second": 2.4
+    }
+  ],
+  "ok": true,
+  "finished": "2026-09-20 21:33:47 +0330"
+}

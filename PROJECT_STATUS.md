@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-20 19:40 +0330 (2026-09-20 16:10 UTC).
+Last updated: 2026-09-20 22:35 +0330 (2026-09-20 19:05 UTC).
 
 **Running remotely:** `marsmanam/persian-voice-omnivoice-train-b` v1, pushed
 2026-09-20 16:05:47 UTC, RUNNING - it mounts session a's tokens and
@@ -43,6 +43,29 @@ split file unpacked by Kaggle with identical content. The training code in it
 (`omnivoice_adapt.py`, `prepare_adaptation_data.py`, the split, the gates) is
 unchanged since `007af09`; new are the bounded downloads and the development
 and test sessions' code.
+
+## A Persian-specific model appeared, and was measured (2026-09-20)
+
+* `mehdi-hf/pocket-tts-farsi-v2`, announced on the 19th and packaged as
+  `nimaone/persian_tts`: 109.5 M parameters, **973 h of Persian from 2,978
+  speakers**, phoneme input through Homo-GE2PE, CPU-speed, CC-BY-NC
+* added as the `pocket` engine by its own card's recipe (`ff8101e`) and scored
+  on the development set beside the stored OmniVoice renders re-scored in the
+  same session
+* [measured] held-out similarity **0.333** against OmniVoice's **0.583**;
+  paired over the same 27 cells **-0.250**, 7.6 standard errors from zero,
+  worse in 26 of 27, and below this corpus's 0.508 different-speaker line. CER
+  8.9% against OmniVoice's 2.8%, with 2 of 27 renders the recogniser could not
+  read at all
+* the integration was checked before the result was believed: prompt lengths of
+  4 s and 6 s change little (0.412 / 0.388 against 0.381), and **the authors'
+  own released samples score 0.321-0.368 against their own prompts on this
+  project's ECAPA** - below what this integration gets, so the wiring is not
+  the cause
+* so OmniVoice stays the model being adapted. What Pocket-TTS wins is cost
+  (0.45 GiB, no GPU, faster than real time on a CPU) and it is the first engine
+  here that can synthesise from Homo-GE2PE phonemes
+* record: `eval/runs/persian-voice-pocket-tts-v1.json`, FINDINGS §10
 
 ## Stage
 

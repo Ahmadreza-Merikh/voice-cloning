@@ -149,6 +149,7 @@ Check what your machine can actually run at any time:
 | **MOSS-TTS v1.5** (`moss15`) | official, as "Persian (Farsi)" (1 of 31) | no | 9.1 GB + 8.5 GB codec | medium | Model, codec and code all Apache-2.0 at the pinned revisions. Runs out of process on its official stack (torch 2.9.1, transformers 5.0.0); on T4s it needs two cards, the codec on the second. Measured at the official recipe: held-out 0.507, no detectable difference from the F5 baseline in either direction (-0.013 [-0.053, +0.027]) and below OmniVoice (-0.077 [-0.122, -0.032]); CER +7.7 points over the baseline scored in the same session (FINDINGS §8). |
 | **Fish S2 Pro** (`fish`) | third tier of 80+ | no | 11 GB | slow | Fish Audio Research License, non-commercial. Measured on a T4 in fp16: held-out 0.537, and CER 9.5% - against the F5 baseline re-scored in the same session, +6.4 points [+4.2, +8.6], worse for all nine speakers (CER is only compared inside one scoring environment, FINDINGS §9). Needs a CUDA card; own venv. |
 | **Higgs TTS 3** (`higgs`) | claimed top tier of 102 | no | 10 GB | medium | Boson research/non-commercial licence. Measured on a T4 in fp16 through a transformers port whose weights hash identical to Boson's: held-out 0.531, CER 2.9%. Needs a CUDA card; own venv. |
+| **Pocket-TTS Farsi v2** (`pocket`) | official, Persian-only | phonemes (its own G2P) | 0.45 GB | fast (CPU) | The only Persian-*specific* model here: 973 h from 2,978 speakers, 109.5 M params, CPU-speed, CC-BY-NC. Reads romanised phonemes - Persian script renders as silence. Measured here: held-out **0.333**, -0.250 against OmniVoice over the same 27 cells and below the different-speaker line, while its CER (8.9%) is about the corpus's own. Its authors' 0.859 is a different encoder on a different set (FINDINGS §10). Own venv. |
 | **Seed-VC** (`seedvc`) | language-agnostic | n/a | ~1 GB | medium | Acoustic voice conversion for speech-to-speech. |
 
 **Which should I use?**
@@ -169,6 +170,11 @@ Check what your machine can actually run at any time:
   here as the other way at the same axis: its voice encoder and S3Gen carry
   identity and never see Persian text, so only T3 — the 0.5B text-to-token
   model — is language-specific.
+- A **CPU-only machine, or no GPU at all** → **Pocket-TTS Farsi** is the
+  only engine here that clones a voice in real time on a CPU with 0.45 GB
+  of weights. Measurement puts its identity transfer well below OmniVoice
+  and F5 (FINDINGS §10); its intelligibility is about that of the corpus's
+  own recordings.
 - You want the *source recording's* delivery preserved → **Seed-VC**.
 
 The earlier claim here that MOSS beat F5 on similarity (0.819 vs 0.730) was

@@ -1105,3 +1105,78 @@ includes zero in this table is therefore weak evidence of no difference.
   rule is therefore narrower than "CER is noisy". CER may be compared between
   runs scored on the *same* machine, and never across machines. Similarity may
   be compared anywhere — it reproduced exactly in every test of both kinds.
+
+---
+
+## 10. The Persian-specific model, measured rather than argued about
+
+On 19 September 2026 a Persian TTS with voice cloning was announced that runs
+offline on a CPU (`nimaone/persian_tts`). The packaging is not the interesting
+part: underneath it is
+[`mehdi-hf/pocket-tts-farsi-v2`](https://huggingface.co/mehdi-hf/pocket-tts-farsi-v2),
+109.5 M parameters distilled from Kyutai's pocket-tts and trained on **973
+hours of Persian from 2,978 speakers** — 7.6 times the 128 hours this project
+is adapting OmniVoice on — reading romanised phonemes through Homo-GE2PE
+rather than Persian script. Its authors report, on 300 held-out Common Voice
+pairs, speaker similarity **0.859**, median per-item WER 0.333 and UTMOS 3.11,
+and their run report is unusually careful: seed spread, a warning that mean WER
+cannot rank checkpoints, and an instruction not to compare against their own v1
+number because it was measured on contaminated data.
+
+None of that answers the question this project asks, because it is a different
+encoder against a different reference on a different set. So the model was
+added as an engine (`ff8101e`, by its own card's recipe) and scored here.
+
+**Development set, 9 speakers × 3 sentences × seed 42, both scored in the same
+session on this Mac** — the OmniVoice renders are the stored ones re-scored, so
+similarity and CER are like-for-like:
+
+| | held-out similarity | to the prompt | CER | WER | not transcribed |
+|---|---|---|---|---|---|
+| OmniVoice (base) | **0.583** ± 0.075 | 0.741 | **2.8%** | 24.8% | 0 |
+| Pocket-TTS Farsi v2 | 0.333 ± 0.196 | 0.410 | 8.9% | 33.2% | 2 of 27 |
+
+Paired over the same 27 cells: **−0.2503**, 7.6 standard errors from zero,
+worse in 26 of them. On this corpus 0.333 is *below* the highest
+different-speaker pair (0.508) — these renders are not reliably distinguishable
+from a different person's, while the corpus's own recordings reach 0.689.
+
+### The integration was doubted before the result was believed
+
+Three checks, because a negative result about someone else's model is worth
+less than the effort of trying to break it:
+
+1. **Prompt length.** This model continues from a prompt rather than embedding
+   it once, and its training utterances averaged 3.8 s, so the 11.4 s reference
+   could have been the handicap. On 4 speakers: 4 s gives 0.412, 6 s gives
+   0.388, the whole window 0.381. Better, and nowhere near the gap.
+2. **Its own released samples.** The three demos shipped beside the weights,
+   rendered by the authors from their own ~5 s prompts, score **0.321, 0.368
+   and 0.346** against those prompts on this project's ECAPA — *below* the
+   0.410–0.500 this integration gets. Whatever the gap is, it is not the wiring.
+3. **The card's three flags.** Loaded from the shipped `model.yaml`, the model
+   reports `capitalize_first_letter`, `append_terminal_punctuation` and
+   `pad_with_spaces_for_short_inputs` all false — the settings whose absence
+   silently deletes or corrupts the first word of every chunk.
+
+The renders are intelligible: the recogniser reads them back as the intended
+sentences at 2–14% CER per render, against a 7.8% floor on the corpus's own
+human speech. What is low is identity transfer, on this encoder.
+
+### What it is better at
+
+Cost, by a distance. 0.45 GiB of weights, about 4 s to load, and roughly 2 s of
+speech per 1.4 s of CPU — no GPU, no 6 GB of free memory, no second 3 GB
+environment. It is also the only engine here that synthesises from Homo-GE2PE
+output, the family of the Persian G2P work beside this project; §9's note that
+nothing here can read that G2P's phonemes is no longer true.
+
+### What this does not say
+
+Their 0.859 is neither reproduced nor disputed here — it is not on this scale.
+Nobody has listened to any of these renders. CER is compared only inside this
+one session. And eight of the nine development speakers are Common Voice, which
+both models were very probably trained on: that caveat cuts both ways, and is
+why the sealed test exists. Record:
+`eval/runs/persian-voice-pocket-tts-v1.json`.
+

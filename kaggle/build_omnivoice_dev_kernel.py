@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -34,7 +35,11 @@ spec.loader.exec_module(probe)
 
 SLUG = "persian-voice-omnivoice-dev"
 SESSION = f"kaggle:{SLUG}-v1"
-SOURCES = [f"{probe.USER}/persian-voice-omnivoice-train-{s}" for s in ("a", "b", "c")]
+#: The training sessions whose exports are scored. ``--sessions=a,b`` runs it
+#: early, on what exists, which is also the only way this notebook gets tested
+#: before the session it is meant to follow has cost nine GPU-hours.
+SESSIONS = ("a", "b", "c")
+SOURCES = [f"{probe.USER}/persian-voice-omnivoice-train-{s}" for s in SESSIONS]
 CONTROL_LABEL = "omnivoice-published-devctl"
 BASELINE_CONTROL = "baseline-omnidev-env"
 EXPORT_LABEL = "omnivoice-fa-{step}"
@@ -179,7 +184,12 @@ print("gates:", json.dumps(GATES.summary(), indent=1))
 '''
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    sessions = SESSIONS
+    for argument in argv or []:
+        if argument.startswith("--sessions="):
+            sessions = tuple(part.strip() for part in argument.split("=", 1)[1].split(",") if part.strip())
+    sources = [f"{probe.USER}/persian-voice-omnivoice-train-{s}" for s in sessions]
     cells = [SETUP, environment(SESSION), probe.RUNNER, RUN, CHOOSE, COLLECT]
     for index, source in enumerate(cells):
         compile("".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),
@@ -196,11 +206,11 @@ def main() -> int:
                 "kernel_type": "notebook", "is_private": True, "enable_gpu": True,
                 "machine_shape": probe.MACHINE_SHAPE, "enable_internet": True,
                 "dataset_sources": [f"{probe.USER}/{probe.DATASET}"], "competition_sources": [],
-                "kernel_sources": SOURCES, "model_sources": []}
+                "kernel_sources": sources, "model_sources": []}
     (out / "kernel-metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {path} ({len(cells)} cells, all compile)")
+    print(f"wrote {path} ({len(cells)} cells, all compile); sources {sources}")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv[1:]))

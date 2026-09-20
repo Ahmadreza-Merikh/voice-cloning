@@ -1,0 +1,40 @@
+{
+ "measured": "2026-09-20 08:44 +0330, this MacBook Pro M1 Pro, 16 GB",
+ "what": "the first complete OmniVoice render on this Mac, through the new path: the reference is transcribed, the recogniser is released, and only then does the engine load",
+ "command": "voiceclone tts 'سلام، این یک تست کوتاه است.' -r eval/corpus/mana_000.wav",
+ "available_gb": {
+  "before": 8.16,
+  "after": 6.53,
+  "note": "the user had closed apps; the pre-flight needs 6.0"
+ },
+ "pressure": {
+  "before": "normal",
+  "after": "normal",
+  "during": "no warning; the render was never stopped"
+ },
+ "seconds": {
+  "reference": 1.1,
+  "asr": 7.2,
+  "text": 0.0,
+  "load": 5.3,
+  "synthesis": 13.8,
+  "evaluation": 4.3
+ },
+ "engine": "OmniVoice, verified float16 copy, mps, 24000 Hz, out of process",
+ "similarity_to_the_prompt": 0.66,
+ "similarity_means": "closeness to the conditioning clip, which shares its channel - not identity transfer",
+ "the_recognisers_transcript": "مدیریت شهری دوره پنجام را در پاسخگوی به این سآل کلیدی بررسی کرده و در تحلیلی کتاه به عمل کرد شورای پنجام شهر تهران بپردازیم.",
+ "what_that_shows": "faster-whisper wrote پنجام for پنجم, سآل for سؤال and کتاه for کوتاه. The engine conditions on this text, so typing the transcript is still the better input where the words are known",
+ "second_run": {
+  "note": "an identical earlier render at 08:43 also completed",
+  "seconds": {
+   "reference": 1.0,
+   "asr": 7.7,
+   "text": 0.0,
+   "load": 6.4,
+   "synthesis": 15.0,
+   "evaluation": 4.3
+  }
+ },
+ "not_measured": "nobody has listened to the render; nothing here is a judgement of pronunciation"
+}

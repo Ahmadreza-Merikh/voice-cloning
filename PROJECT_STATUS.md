@@ -130,8 +130,7 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
   in `~/.cache/persian-voice-cloning/omnivoice/float16/<revision>/SOURCE.json`)
 * [measured] after both: the load completed without pressure; with 4.4 GB
   available the render reached warning two seconds in and the app stopped it
-  cleanly. A complete render with 6 GB free is not measured yet - it needs the
-  user to close apps. F5 runs in-process: it is refused at warning, but a load
+  cleanly. F5 runs in-process: it is refused at warning, but a load
   already under way cannot be stopped the same way
 * `eeb0483` (2026-09-20, the user's request): the transcript no longer has to
   be typed. The reference is transcribed *before* the engine loads and the
@@ -144,6 +143,14 @@ gives 354 passed, 1 skipped (the skip needs Linux `/proc`, and ran on Kaggle);
   transcriptions happen before the load); best-of-N is still refused, because
   it transcribes each take while the engine holds memory. Typing the transcript
   still skips the 6-9 s transcription
+* [measured] 2026-09-20 08:44, with the user's apps closed and 8.16 GB
+  available: the first **complete** OmniVoice render on this Mac, through that
+  new path - reference 1.1 s, transcription 7.2 s, load 5.3 s, synthesis 13.8 s,
+  evaluation 4.3 s, no pressure warning at any point, 6.53 GB available at the
+  end (`eval/runs/evidence/recogniser-release/omnivoice-render-on-the-mac.json`,
+  log beside it). Nobody has listened to the render. The recogniser's own
+  transcript of the reference had three wrong words, which is the argument for
+  typing it where the words are known
 
 ## Remote jobs (live state read 2026-09-19 01:14 UTC)
 

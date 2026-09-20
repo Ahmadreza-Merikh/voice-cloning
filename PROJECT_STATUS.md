@@ -4,9 +4,22 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-21 02:00 +0330 (2026-09-20 22:30 UTC).
+Last updated: 2026-09-21 02:05 +0330 (2026-09-20 22:35 UTC).
 
-**Nothing is running remotely.** Sessions a and b are complete and
+**Running remotely:** `marsmanam/persian-voice-omnivoice-dev` v1, pushed
+2026-09-20 22:32:08 UTC - the development session, run **early** on what
+exists: it scores the exports at steps 1,000, 2,000 and 3,000 against the
+published model on the nine development speakers, with the F5 baseline
+re-scored as the scale control. It spends the 2.82 GPU-hours that would
+otherwise expire on the 26th and cannot start session c. It decides nothing -
+the candidate is chosen by the run after session c, with every export, by the
+rule fixed before any of this - and it touches no test clip. What it answers
+tonight: whether the adaptation is doing anything at all, now that the loss has
+stopped falling, and whether this notebook works before nine GPU-hours are
+spent ahead of it (budget: `eval/runs/persian-voice-omnivoice-adapt.json` ->
+`quota_before_the_early_development_session`).
+
+Sessions a and b are complete and
 **3,000 of the recipe's 5,000 steps are trained**. Session b (pushed
 2026-09-20 16:05:47 UTC with a 6.5 h budget) mounted a's tokens and
 `checkpoint-2000`, resumed through the official `resume_from_checkpoint`,

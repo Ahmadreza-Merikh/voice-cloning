@@ -387,14 +387,17 @@ engines:
     compute_type: auto       # auto | int8 | float16 | float32
     language: fa
     beam_size: 5
-    # Preprocess already trimmed the clip. Whisper's own VAD on top of that
-    # drops onsets and tails, so transcripts came back short. Off by default.
-    vad_filter: false
-    no_speech_threshold: 0.5
-    # Decoder context for Persian orthography, not a transcript of the clip.
-    # Empty disables it. The scoring recogniser pins the historical empty
-    # prompt so FINDINGS CER stays comparable (see engines/asr.py SCORING_ASR).
-    initial_prompt: "گفتار فارسی."
+    # Whisper invents text over silence. Off on this corpus raised mean CER
+    # from 7.8% to 11.9% (one clip came back in Icelandic). Completeness is
+    # extra VAD padding, not disabling the gate.
+    vad_filter: true
+    no_speech_threshold: 0.6
+    initial_prompt: ""
+    # faster-whisper stock. Extra pad was measured on this corpus at 8.16%
+    # CER against 7.80% stock and is not the default.
+    vad_threshold: 0.5
+    vad_min_silence_ms: 2000
+    vad_speech_pad_ms: 400
 
   seedvc:
     # True acoustic voice conversion: keeps the source prosody/emotion and

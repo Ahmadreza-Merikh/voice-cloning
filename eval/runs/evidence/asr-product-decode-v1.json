@@ -1,0 +1,464 @@
+{
+  "model": "large-v3-turbo",
+  "vad_filter": false,
+  "no_speech_threshold": 0.5,
+  "initial_prompt": "گفتار فارسی.",
+  "backend": "",
+  "clips": 45,
+  "seconds": 139.9,
+  "cer_mean": 0.1193,
+  "wer_mean": 0.4101,
+  "words_dropped": 14,
+  "rows": [
+    {
+      "file": "cv02_000.wav",
+      "seconds": 9.9,
+      "cer": 0.2029,
+      "wer": 0.6111,
+      "reference_words": 18,
+      "heard_words": 21,
+      "words_dropped": 0,
+      "heard": "چیزی که مسئله رو سخت دارم بکنه اونه که اغلب تنها گواه اون چه بر ما رفته هست خاطرات ما هستند."
+    },
+    {
+      "file": "cv02_001.wav",
+      "seconds": 6.7,
+      "cer": 0.0556,
+      "wer": 0.25,
+      "reference_words": 8,
+      "heard_words": 9,
+      "words_dropped": 0,
+      "heard": "و چیزی که ما فهمیدیم واقعا قافلگیری کننده بود."
+    },
+    {
+      "file": "cv02_002.wav",
+      "seconds": 6.4,
+      "cer": 0.1176,
+      "wer": 0.4,
+      "reference_words": 10,
+      "heard_words": 10,
+      "words_dropped": 0,
+      "heard": "همه ایش دوست دارم حرف بزنم. حرفتونم خیلی پر شده."
+    },
+    {
+      "file": "cv02_003.wav",
+      "seconds": 5.8,
+      "cer": 0.119,
+      "wer": 0.5,
+      "reference_words": 10,
+      "heard_words": 9,
+      "words_dropped": 1,
+      "heard": "بازی دوستانه مفید را با کشوری دیگه برگذار کردیم."
+    },
+    {
+      "file": "cv02_004.wav",
+      "seconds": 5.2,
+      "cer": 0.0435,
+      "wer": 0.5,
+      "reference_words": 6,
+      "heard_words": 5,
+      "words_dropped": 1,
+      "heard": "من نمیخوام الان جوابمون بدین."
+    },
+    {
+      "file": "cv03_000.wav",
+      "seconds": 9.8,
+      "cer": 0.0156,
+      "wer": 0.05,
+      "reference_words": 20,
+      "heard_words": 20,
+      "words_dropped": 0,
+      "heard": "از قیافه جم هم به نظر میرسه که همه حالشون خوب باشه و فعلا نیازی به دست به آب ندارن."
+    },
+    {
+      "file": "cv03_001.wav",
+      "seconds": 7.7,
+      "cer": 0.1042,
+      "wer": 0.4615,
+      "reference_words": 13,
+      "heard_words": 14,
+      "words_dropped": 0,
+      "heard": "با یک مصاحبه بعد می توان جزیاد را فراموش کرد یا به خاطر آورد."
+    },
+    {
+      "file": "cv03_002.wav",
+      "seconds": 7.5,
+      "cer": 0.0702,
+      "wer": 0.5625,
+      "reference_words": 16,
+      "heard_words": 18,
+      "words_dropped": 0,
+      "heard": "و این اتفاق نه فقط وقتی بی ادبی را تجربه می کنیم یا شهادان هستیم روخ می دهد."
+    },
+    {
+      "file": "cv03_003.wav",
+      "seconds": 6.4,
+      "cer": 0.4375,
+      "wer": 0.6,
+      "reference_words": 5,
+      "heard_words": 5,
+      "words_dropped": 0,
+      "heard": "شوپه شوغان من رو دیدی."
+    },
+    {
+      "file": "cv03_004.wav",
+      "seconds": 6.4,
+      "cer": 0.0385,
+      "wer": 0.2857,
+      "reference_words": 8,
+      "heard_words": 6,
+      "words_dropped": 2,
+      "heard": "هراسان وارد میشهد قلمه. قلمه چیه?"
+    },
+    {
+      "file": "cv04_000.wav",
+      "seconds": 9.6,
+      "cer": 0.0274,
+      "wer": 0.1905,
+      "reference_words": 21,
+      "heard_words": 20,
+      "words_dropped": 1,
+      "heard": "همه برندگان نهایی یک جام، یک پچ و جوایزی دریافت می کنن که توسط کس بکارهای محلی اهدا شده اند."
+    },
+    {
+      "file": "cv04_001.wav",
+      "seconds": 7.8,
+      "cer": 0.0,
+      "wer": 0.125,
+      "reference_words": 16,
+      "heard_words": 17,
+      "words_dropped": 0,
+      "heard": "گونه های ماهی موجود در این منطقه تخم های چسبنده ای را در علف ها می گذارند."
+    },
+    {
+      "file": "cv04_002.wav",
+      "seconds": 7.5,
+      "cer": 0.0185,
+      "wer": 0.0714,
+      "reference_words": 14,
+      "heard_words": 14,
+      "words_dropped": 0,
+      "heard": "این قوانیم در این قانون اساسی قدیمی ارجاع شده است اما شامل نمی شوند."
+    },
+    {
+      "file": "cv04_003.wav",
+      "seconds": 7.3,
+      "cer": 0.0469,
+      "wer": 0.15,
+      "reference_words": 20,
+      "heard_words": 20,
+      "words_dropped": 0,
+      "heard": "با این وجود انها به نوبه خود او را دوست دارند. زیرا او به نوبه خود انها را دوست دارند."
+    },
+    {
+      "file": "cv04_004.wav",
+      "seconds": 6.3,
+      "cer": 0.0244,
+      "wer": 0.2727,
+      "reference_words": 11,
+      "heard_words": 12,
+      "words_dropped": 0,
+      "heard": "پاج بعدی به صورت مبدل به عنوان کلاه قدرت ظاهر می شود."
+    },
+    {
+      "file": "cv07_000.wav",
+      "seconds": 9.2,
+      "cer": 0.0154,
+      "wer": 0.1579,
+      "reference_words": 20,
+      "heard_words": 18,
+      "words_dropped": 2,
+      "heard": "بازی مثل نیمه اول تند نبود. ملایمتر بود. فشار هم کمتر بود روی ایران ولی این کافی نبود."
+    },
+    {
+      "file": "cv07_001.wav",
+      "seconds": 6.0,
+      "cer": 0.1,
+      "wer": 0.8889,
+      "reference_words": 9,
+      "heard_words": 7,
+      "words_dropped": 2,
+      "heard": "نما در اخلاقش را میدونم. نراحت میشه."
+    },
+    {
+      "file": "cv07_002.wav",
+      "seconds": 4.5,
+      "cer": 0.3125,
+      "wer": 0.6,
+      "reference_words": 5,
+      "heard_words": 4,
+      "words_dropped": 1,
+      "heard": "مرم تو آینده تستان."
+    },
+    {
+      "file": "cv07_003.wav",
+      "seconds": 4.3,
+      "cer": 0.0,
+      "wer": 0.5,
+      "reference_words": 4,
+      "heard_words": 5,
+      "words_dropped": 0,
+      "heard": "ببین تو اشتباه نمی کنی."
+    },
+    {
+      "file": "cv07_004.wav",
+      "seconds": 4.0,
+      "cer": 0.1538,
+      "wer": 1.0,
+      "reference_words": 3,
+      "heard_words": 4,
+      "words_dropped": 0,
+      "heard": "اتفار با دی افتاد."
+    },
+    {
+      "file": "cv08_000.wav",
+      "seconds": 9.2,
+      "cer": 0.0548,
+      "wer": 0.5294,
+      "reference_words": 17,
+      "heard_words": 20,
+      "words_dropped": 0,
+      "heard": "این که از خودم گذشتم به خاطر بچه هم برای خودم چیزی نخریدم اما همیشه بسه بچه هم هزینه کردم."
+    },
+    {
+      "file": "cv08_001.wav",
+      "seconds": 7.7,
+      "cer": 0.0508,
+      "wer": 0.3333,
+      "reference_words": 15,
+      "heard_words": 17,
+      "words_dropped": 0,
+      "heard": "ولی در این اتاقه به خصوص احساس یک تازه کار در بین نابقه های تکنولوژی را داشتم."
+    },
+    {
+      "file": "cv08_002.wav",
+      "seconds": 5.4,
+      "cer": 0.125,
+      "wer": 0.6,
+      "reference_words": 10,
+      "heard_words": 13,
+      "words_dropped": 0,
+      "heard": "بدون آن که باز سوالی کرده باشم با عصبانی ها چی رو کرد؟"
+    },
+    {
+      "file": "cv08_003.wav",
+      "seconds": 4.1,
+      "cer": 1.4667,
+      "wer": 1.25,
+      "reference_words": 5,
+      "heard_words": 5,
+      "words_dropped": 0,
+      "heard": "Þú þarar þar við heimgúpti."
+    },
+    {
+      "file": "cv08_004.wav",
+      "seconds": 3.9,
+      "cer": 0.3103,
+      "wer": 1.0,
+      "reference_words": 6,
+      "heard_words": 7,
+      "words_dropped": 0,
+      "heard": "حالا خوب فارس نهانداختیم تا اشباز خونه."
+    },
+    {
+      "file": "cv09_000.wav",
+      "seconds": 9.2,
+      "cer": 0.0208,
+      "wer": 0.3,
+      "reference_words": 10,
+      "heard_words": 11,
+      "words_dropped": 0,
+      "heard": "آنان به عنوان ملوان در ترابرهای اوقیانوس آرام خدمت می کردند."
+    },
+    {
+      "file": "cv09_001.wav",
+      "seconds": 8.5,
+      "cer": 0.0286,
+      "wer": 0.2,
+      "reference_words": 10,
+      "heard_words": 10,
+      "words_dropped": 0,
+      "heard": "خب راست تشرا بخواهی تو نباید این حرف را میزدی."
+    },
+    {
+      "file": "cv09_002.wav",
+      "seconds": 6.8,
+      "cer": 0.027,
+      "wer": 0.3333,
+      "reference_words": 9,
+      "heard_words": 9,
+      "words_dropped": 0,
+      "heard": "آنها چوبها را به قطعات هفت بوتی الوار می‌کردند."
+    },
+    {
+      "file": "cv09_003.wav",
+      "seconds": 5.9,
+      "cer": 0.0556,
+      "wer": 0.2857,
+      "reference_words": 7,
+      "heard_words": 7,
+      "words_dropped": 0,
+      "heard": "اگر کشت شوی بازماندیگانت خسارت خواهند گرفت."
+    },
+    {
+      "file": "cv09_004.wav",
+      "seconds": 5.9,
+      "cer": 0.0513,
+      "wer": 0.3333,
+      "reference_words": 9,
+      "heard_words": 10,
+      "words_dropped": 0,
+      "heard": "او عالمترین شخصی بود که من تا کنون ملاقات کردم."
+    },
+    {
+      "file": "cv10_000.wav",
+      "seconds": 9.1,
+      "cer": 0.0741,
+      "wer": 0.2857,
+      "reference_words": 7,
+      "heard_words": 6,
+      "words_dropped": 1,
+      "heard": "دیشتوری به زبان استونی وجود دارد؟"
+    },
+    {
+      "file": "cv10_001.wav",
+      "seconds": 5.6,
+      "cer": 0.1842,
+      "wer": 0.3,
+      "reference_words": 10,
+      "heard_words": 11,
+      "words_dropped": 0,
+      "heard": "ممکن است یک فرم سارنامی کمرو که دیگر به من بدهید؟"
+    },
+    {
+      "file": "cv10_002.wav",
+      "seconds": 5.2,
+      "cer": 0.0,
+      "wer": 0.2222,
+      "reference_words": 9,
+      "heard_words": 8,
+      "words_dropped": 1,
+      "heard": "آیا این را برای من در ماشین میگذاری؟"
+    },
+    {
+      "file": "cv10_003.wav",
+      "seconds": 4.9,
+      "cer": 0.027,
+      "wer": 0.2,
+      "reference_words": 10,
+      "heard_words": 10,
+      "words_dropped": 0,
+      "heard": "امکان دارد لطفاً یه اتاق بزرگتر به من نشان دهید؟"
+    },
+    {
+      "file": "cv10_004.wav",
+      "seconds": 4.7,
+      "cer": 0.1724,
+      "wer": 0.375,
+      "reference_words": 8,
+      "heard_words": 8,
+      "words_dropped": 0,
+      "heard": "برای بهتری صوب در گروکسل کجا می روید؟"
+    },
+    {
+      "file": "cv11_000.wav",
+      "seconds": 8.9,
+      "cer": 0.0784,
+      "wer": 0.6,
+      "reference_words": 10,
+      "heard_words": 12,
+      "words_dropped": 0,
+      "heard": "نایرو میمون با ساکی سمو و ناکارو شهرهای مهم کنیا محسوب میشوند."
+    },
+    {
+      "file": "cv11_001.wav",
+      "seconds": 8.9,
+      "cer": 0.0392,
+      "wer": 0.3333,
+      "reference_words": 9,
+      "heard_words": 10,
+      "words_dropped": 0,
+      "heard": "افکار عمومی دارای کنجکاوی سیری نپذیری برای کسب دانستانی هاست."
+    },
+    {
+      "file": "cv11_002.wav",
+      "seconds": 7.9,
+      "cer": 0.0233,
+      "wer": 0.3333,
+      "reference_words": 9,
+      "heard_words": 10,
+      "words_dropped": 0,
+      "heard": "سیخ های شیشلیک را روی حرارت ملایم کباپز قرار میدهیم."
+    },
+    {
+      "file": "cv11_003.wav",
+      "seconds": 7.1,
+      "cer": 0.28,
+      "wer": 0.8571,
+      "reference_words": 7,
+      "heard_words": 6,
+      "words_dropped": 1,
+      "heard": "امیختار از پسته. مسل بولور روشانه."
+    },
+    {
+      "file": "cv11_004.wav",
+      "seconds": 6.7,
+      "cer": 0.129,
+      "wer": 0.5714,
+      "reference_words": 7,
+      "heard_words": 6,
+      "words_dropped": 1,
+      "heard": "ضرورت اقلیم مشخصتن بخران عصر ماست."
+    },
+    {
+      "file": "mana_000.wav",
+      "seconds": 11.9,
+      "cer": 0.1132,
+      "wer": 0.32,
+      "reference_words": 25,
+      "heard_words": 25,
+      "words_dropped": 0,
+      "heard": "مدیریت شهری دوره پنجام را در پاسخگوی به این سآل کلیدی بررسی کرده و در تحلیلی کتاه به عمل کرد شورای پنجام شهر تهران بپردازیم."
+    },
+    {
+      "file": "mana_001.wav",
+      "seconds": 11.8,
+      "cer": 0.0678,
+      "wer": 0.2414,
+      "reference_words": 28,
+      "heard_words": 30,
+      "words_dropped": 0,
+      "heard": "به طور خلاصه این مطالعه به این نتیجه رسیده که آسیب بینایی آملی تحدید کننده برای سلامت روان افراد به شمار می روید. با در نظر گرفتن تعدد زیادی پجروهش،"
+    },
+    {
+      "file": "mana_002.wav",
+      "seconds": 11.6,
+      "cer": 0.0179,
+      "wer": 0.1481,
+      "reference_words": 25,
+      "heard_words": 25,
+      "words_dropped": 0,
+      "heard": "برعکس اگر به روابط اجتماعی زیادی نیاز داشته باشید و برای دوستی و انجام فعالیتها پیش قدم نشوید، احساس انزوا و احتمالاً افسردگی خواهید کرد."
+    },
+    {
+      "file": "mana_003.wav",
+      "seconds": 11.6,
+      "cer": 0.0377,
+      "wer": 0.12,
+      "reference_words": 24,
+      "heard_words": 25,
+      "words_dropped": 0,
+      "heard": "به اصنات برای نابینایان است و تا زمانی که این امکانات فراهم نشود در صورت حصف تکلیف همراه داشتن معتمد جالش های دیگری برای نابینایان"
+    },
+    {
+      "file": "mana_004.wav",
+      "seconds": 11.4,
+      "cer": 0.028,
+      "wer": 0.2069,
+      "reference_words": 26,
+      "heard_words": 27,
+      "words_dropped": 0,
+      "heard": "لیست تمامی مؤسسات و انجامنهای غیردولتی سراسر کشور را که در حوضه افراد نابینا و کمبینا فعال هستند جمع وری و در سایت خود منتشر کرده است."
+    }
+  ]
+}

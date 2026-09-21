@@ -1,0 +1,296 @@
+{
+ "clips": 12,
+ "model": "large-v3-turbo",
+ "results": {
+  "vad=True": {
+   "seconds": 41.7,
+   "cer_mean": 0.0931,
+   "wer_mean": 0.3745,
+   "words_dropped": 4,
+   "worst": [
+    {
+     "file": "cv03_003.wav",
+     "seconds": 6.4,
+     "cer": 0.25,
+     "wer": 0.6,
+     "reference_words": 5,
+     "heard_words": 5,
+     "heard": "چوبه چوگانه من رو دیدی؟"
+    },
+    {
+     "file": "cv02_000.wav",
+     "seconds": 9.9,
+     "cer": 0.2029,
+     "wer": 0.5556,
+     "reference_words": 18,
+     "heard_words": 21,
+     "heard": "چیزی که مسئله را سخت دارم بکنه اونه که اغلب تنها گواه اون چه بر ما رفته از خاطرات ما هستند."
+    },
+    {
+     "file": "cv02_002.wav",
+     "seconds": 6.4,
+     "cer": 0.1176,
+     "wer": 0.4,
+     "reference_words": 10,
+     "heard_words": 10,
+     "heard": "همه ایش دوست دارم حرف بزنم. حرفتونم خیلی پر شده."
+    }
+   ],
+   "rows": [
+    {
+     "file": "cv02_000.wav",
+     "seconds": 9.9,
+     "cer": 0.2029,
+     "wer": 0.5556,
+     "reference_words": 18,
+     "heard_words": 21,
+     "heard": "چیزی که مسئله را سخت دارم بکنه اونه که اغلب تنها گواه اون چه بر ما رفته از خاطرات ما هستند."
+    },
+    {
+     "file": "cv02_001.wav",
+     "seconds": 6.7,
+     "cer": 0.0278,
+     "wer": 0.25,
+     "reference_words": 8,
+     "heard_words": 9,
+     "heard": "و چیزی که ما فهمیدیم واقعا قافلگیر کننده بود"
+    },
+    {
+     "file": "cv02_002.wav",
+     "seconds": 6.4,
+     "cer": 0.1176,
+     "wer": 0.4,
+     "reference_words": 10,
+     "heard_words": 10,
+     "heard": "همه ایش دوست دارم حرف بزنم. حرفتونم خیلی پر شده."
+    },
+    {
+     "file": "cv02_003.wav",
+     "seconds": 5.8,
+     "cer": 0.0952,
+     "wer": 0.3,
+     "reference_words": 10,
+     "heard_words": 9,
+     "heard": "بازی دوستانه مفیدی را با کشور دیگه برگزار کردیم"
+    },
+    {
+     "file": "cv02_004.wav",
+     "seconds": 5.2,
+     "cer": 0.0435,
+     "wer": 0.5,
+     "reference_words": 6,
+     "heard_words": 5,
+     "heard": "من نمیخوام الان جوابمون بدین"
+    },
+    {
+     "file": "cv03_000.wav",
+     "seconds": 9.8,
+     "cer": 0.0469,
+     "wer": 0.2,
+     "reference_words": 20,
+     "heard_words": 21,
+     "heard": "از قیافه جم هم به نظر می رسه که همه حالشون خوب باشه و فیلن نیازی به دست به آب ندارن."
+    },
+    {
+     "file": "cv03_001.wav",
+     "seconds": 7.7,
+     "cer": 0.1042,
+     "wer": 0.3077,
+     "reference_words": 13,
+     "heard_words": 13,
+     "heard": "با یک مصاحبه بعد میتوان جزیاد را فراموش کرد یا به خاطر آورد."
+    },
+    {
+     "file": "cv03_002.wav",
+     "seconds": 7.5,
+     "cer": 0.0702,
+     "wer": 0.625,
+     "reference_words": 16,
+     "heard_words": 17,
+     "heard": "و این اتفاق نفقط وقتی بی ادبی را تجربه می کنیم یا شهادان هستیم رخ می دهد."
+    },
+    {
+     "file": "cv03_003.wav",
+     "seconds": 6.4,
+     "cer": 0.25,
+     "wer": 0.6,
+     "reference_words": 5,
+     "heard_words": 5,
+     "heard": "چوبه چوگانه من رو دیدی؟"
+    },
+    {
+     "file": "cv03_004.wav",
+     "seconds": 6.4,
+     "cer": 0.0385,
+     "wer": 0.2857,
+     "reference_words": 8,
+     "heard_words": 6,
+     "heard": "هراسان وارد میشهد قلمه قلمه چیه"
+    },
+    {
+     "file": "cv04_000.wav",
+     "seconds": 9.6,
+     "cer": 0.0274,
+     "wer": 0.0952,
+     "reference_words": 21,
+     "heard_words": 21,
+     "heard": "همه برندگان نهایی یک جام، یک پچ و جوایزی دریافت می کنن که توسط کسب و کارهای محلی احدا شده اند."
+    },
+    {
+     "file": "cv04_001.wav",
+     "seconds": 7.8,
+     "cer": -1,
+     "wer": 0.125,
+     "reference_words": 16,
+     "heard_words": 17,
+     "heard": "گونه های ماهی موجود در این منطقه تخم های چسبنده ای را در علف ها می گذارند."
+    }
+   ]
+  },
+  "vad=False": {
+   "seconds": 40.8,
+   "cer_mean": 0.1276,
+   "wer_mean": 0.4335,
+   "words_dropped": 5,
+   "worst": [
+    {
+     "file": "cv03_003.wav",
+     "seconds": 6.4,
+     "cer": 0.5,
+     "wer": 0.6,
+     "reference_words": 5,
+     "heard_words": 5,
+     "heard": "شوپه شوغانه من رو دیدی."
+    },
+    {
+     "file": "cv02_000.wav",
+     "seconds": 9.9,
+     "cer": 0.2174,
+     "wer": 0.6111,
+     "reference_words": 18,
+     "heard_words": 22,
+     "heard": "چیزی که مسئله را سخت دارم بکنه اونه که اغلب تنها گواه ها اون چه بر ما رفته هست خاطرات ما هستند."
+    },
+    {
+     "file": "cv02_003.wav",
+     "seconds": 5.8,
+     "cer": 0.119,
+     "wer": 0.5,
+     "reference_words": 10,
+     "heard_words": 9,
+     "heard": "بازی دوستانه مفید را با کشوری دیگه برگذار کردیم"
+    }
+   ],
+   "rows": [
+    {
+     "file": "cv02_000.wav",
+     "seconds": 9.9,
+     "cer": 0.2174,
+     "wer": 0.6111,
+     "reference_words": 18,
+     "heard_words": 22,
+     "heard": "چیزی که مسئله را سخت دارم بکنه اونه که اغلب تنها گواه ها اون چه بر ما رفته هست خاطرات ما هستند."
+    },
+    {
+     "file": "cv02_001.wav",
+     "seconds": 6.7,
+     "cer": 0.0556,
+     "wer": 0.25,
+     "reference_words": 8,
+     "heard_words": 9,
+     "heard": "و چیزی که ما فهمیدیم واقعا قافلگیری کننده بود"
+    },
+    {
+     "file": "cv02_002.wav",
+     "seconds": 6.4,
+     "cer": 0.1176,
+     "wer": 0.4,
+     "reference_words": 10,
+     "heard_words": 10,
+     "heard": "همه ایش دوست دارم حرف بزنم حرفتونم خیلی پر شده"
+    },
+    {
+     "file": "cv02_003.wav",
+     "seconds": 5.8,
+     "cer": 0.119,
+     "wer": 0.5,
+     "reference_words": 10,
+     "heard_words": 9,
+     "heard": "بازی دوستانه مفید را با کشوری دیگه برگذار کردیم"
+    },
+    {
+     "file": "cv02_004.wav",
+     "seconds": 5.2,
+     "cer": 0.0435,
+     "wer": 0.5,
+     "reference_words": 6,
+     "heard_words": 5,
+     "heard": "من نمیخوام الان جوابمون بدین"
+    },
+    {
+     "file": "cv03_000.wav",
+     "seconds": 9.8,
+     "cer": 0.0156,
+     "wer": 0.15,
+     "reference_words": 20,
+     "heard_words": 21,
+     "heard": "از قیافه جم هم به نظر می رسه که همه حالشون خوب باشه و فعلا نیازی به دست به آب ندارن."
+    },
+    {
+     "file": "cv03_001.wav",
+     "seconds": 7.7,
+     "cer": 0.1042,
+     "wer": 0.3077,
+     "reference_words": 13,
+     "heard_words": 13,
+     "heard": "با یک مصاحبه بعد میتوان جزیاد را فراموش کرد یا به خاطر آورد."
+    },
+    {
+     "file": "cv03_002.wav",
+     "seconds": 7.5,
+     "cer": 0.0877,
+     "wer": 0.6875,
+     "reference_words": 16,
+     "heard_words": 17,
+     "heard": "و این اتفاق نفقط وقتی بی ادبی را تجربه می کنیم یا شهادان هستیم روخ می دهد."
+    },
+    {
+     "file": "cv03_003.wav",
+     "seconds": 6.4,
+     "cer": 0.5,
+     "wer": 0.6,
+     "reference_words": 5,
+     "heard_words": 5,
+     "heard": "شوپه شوغانه من رو دیدی."
+    },
+    {
+     "file": "cv03_004.wav",
+     "seconds": 6.4,
+     "cer": 0.1154,
+     "wer": 0.5714,
+     "reference_words": 8,
+     "heard_words": 6,
+     "heard": "هراسان وارد میشهد کلمه کلمه چیه"
+    },
+    {
+     "file": "cv04_000.wav",
+     "seconds": 9.6,
+     "cer": 0.0274,
+     "wer": 0.1905,
+     "reference_words": 21,
+     "heard_words": 20,
+     "heard": "همه برندگان نهایی یک جام، یک پچ و جوایزی دریافت می کنن که توسط کس بکارهای محلی اهدا شده اند."
+    },
+    {
+     "file": "cv04_001.wav",
+     "seconds": 7.8,
+     "cer": -1,
+     "wer": 0.125,
+     "reference_words": 16,
+     "heard_words": 17,
+     "heard": "گونه های ماهی موجود در این منطقه تخم های چسبنده ای را در علف ها می گذارند."
+    }
+   ]
+  }
+ }
+}

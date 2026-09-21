@@ -1,0 +1,18 @@
+{
+ "run": "what the reference recogniser's settings are worth, measured after a user reported incomplete transcription",
+ "why": "On 2026-09-21 the user reported two things from using the app: the reference transcript came back incomplete, and a rendered sentence was read with an ezafe nobody wrote. This run answers the first, on this Mac, against transcripts the corpus already carries",
+ "what_was_measured": "12 development clips with their corpus transcripts, transcribed by voiceclone's own ASR engine at the configured settings; CER and WER computed with this project's own normalisation (whitespace dropped, harakat folded)",
+ "results": {
+  "vad_filter_on": {"cer": 0.0931, "wer": 0.3745, "words_short": 4, "seconds": 41.1, "note": "the configured default"},
+  "vad_filter_off": {"cer": 0.1276, "wer": 0.4335, "words_short": 5,
+                     "note": "the first suspect, and the wrong one: turning it off is 3.5 CER points worse"},
+  "large_v3_turbo": {"cer": 0.0931, "wer": 0.3745, "seconds": 41.1, "note": "the configured model"},
+  "large_v3": {"cer": 0.0921, "wer": 0.3769, "seconds": 3158.3,
+               "note": "0.1 CER points, inside the noise of 12 clips, for 77 times the time on this Mac"}
+ },
+ "decision": "nothing changes. faster-whisper large-v3-turbo with the VAD filter on is both the most accurate and, by a factor of 77, the fastest of the three settings tried",
+ "the_real_cause_of_incomplete": "the preprocessing keeps a window of about 11 s - what the engine is conditioned on - and the transcript describes that window, not the uploaded file. On a 30 s upload that reads exactly like a transcription that stopped early. It is deliberate: a transcript of the whole file would not match the audio the engine hears, which is the failure this project already fixed once. What was missing was saying so, and `a40801f` now prints which seconds the transcript covers, next to the transcript",
+ "what_is_left": "about 9% CER on crowd-recorded Persian is this recogniser's practical ceiling here, not a setting. The transcript box is editable and the engine conditions on what it holds, so correcting a word by hand is the one thing that reliably improves a render",
+ "evidence": "eval/runs/evidence/asr-settings-v1/",
+ "recorded": "2026-09-21"
+}

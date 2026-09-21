@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from ..audio.io import Audio, save_audio
-from ..config import AppConfig
+from ..config import AppConfig, ASRConfig
 from ..device import DeviceSpec
 from ..errors import DependencyMissingError, VoiceCloneError
 from ..logging_utils import get_logger
@@ -37,6 +37,19 @@ _TRANSFORMERS_MODELS = {
     "medium": "openai/whisper-medium",
     "small": "openai/whisper-small",
     "base": "openai/whisper-base",
+}
+
+#: Files a CTranslate2 Whisper conversion needs beside ``model.bin``.
+_CT2_COPY_FILES = ["tokenizer.json", "preprocessor_config.json"]
+
+#: The recogniser FINDINGS.md CER was measured with. Benchmarks that write a
+#: CER must use this block, not the Studio's product defaults, or the number
+#: is not the same measurement.
+SCORING_ASR: dict[str, object] = {
+    "model": "large-v3-turbo",
+    "vad_filter": True,
+    "no_speech_threshold": 0.6,
+    "initial_prompt": "",
 }
 
 
@@ -93,6 +106,45 @@ class Transcript:
 
     def __str__(self) -> str:  # pragma: no cover - display only
         return self.text
+
+
+def faster_whisper_decode_options(
+    settings: ASRConfig, language: str | None, *, with_timestamps: bool = False
+) -> dict[str, Any]:
+    """Keyword arguments for ``WhisperModel.transcribe``.
+
+    Split out so the decode policy can be tested without loading a model.
+    ``condition_on_previous_text`` stays off: Whisper otherwise invents a
+    continuation over silence.
+    """
+    options: dict[str, Any] = {
+        "language": language,
+        "beam_size": int(settings.beam_size),
+        "vad_filter": bool(settings.vad_filter),
+        "word_timestamps": with_timestamps,
+        "condition_on_previous_text": False,
+        "no_speech_threshold": float(settings.no_speech_threshold),
+    }
+    prompt = (settings.initial_prompt or "").strip()
+    if prompt:
+        options["initial_prompt"] = prompt
+    return options
+
+
+def ct2_cache_dir(cache_root: Path, model: str) -> Path:
+    """Where a one-time CTranslate2 conversion of ``model`` is stored."""
+    slug = model.replace("/", "--")
+    return Path(cache_root) / "whisper" / f"{slug}-ct2"
+
+
+def is_ct2_model(path: Path) -> bool:
+    """True when ``path`` looks like a converted faster-whisper checkpoint."""
+    return path.is_dir() and (path / "model.bin").is_file() and (path / "config.json").is_file()
+
+
+def apply_scoring_asr(config: AppConfig) -> AppConfig:
+    """Pin the historical recogniser so a new CER is comparable with FINDINGS."""
+    return config.copy_with(**{f"engines.asr.{key}": value for key, value in SCORING_ASR.items()})
 
 
 class ASREngine:
@@ -155,8 +207,9 @@ class ASREngine:
             compute_type = settings.compute_type
 
         try:
+            resolved = self._resolve_faster_whisper_model(settings.model)
             self._model = WhisperModel(
-                settings.model,
+                resolved,
                 device=device,
                 compute_type=compute_type,
                 download_root=str(self.config.paths.ensure("cache_dir") / "whisper"),
@@ -168,6 +221,47 @@ class ASREngine:
             log.warning("faster-whisper could not load '%s'; trying Transformers.", settings.model, exc_info=True)
             self._model = None
             return False
+
+    def _resolve_faster_whisper_model(self, model: str) -> str:
+        """A path or id faster-whisper can load.
+
+        Short names (``large-v3-turbo``) are fetched by the library. A Hub id
+        that is already CTranslate2 loads as-is. A Transformers Whisper
+        checkpoint is converted once into ``cache_dir/whisper/<id>-ct2``.
+        """
+        if "/" not in model:
+            return model
+
+        cached = ct2_cache_dir(self.config.paths.ensure("cache_dir"), model)
+        if is_ct2_model(cached):
+            log.info("ASR using cached CTranslate2 conversion at %s", cached)
+            return str(cached)
+
+        converted = self._convert_to_ct2(model, cached)
+        if converted is not None:
+            return converted
+        return model
+
+    def _convert_to_ct2(self, model_id: str, output_dir: Path) -> str | None:
+        """Convert a Transformers Whisper checkpoint. Returns the path or None."""
+        try:
+            from ctranslate2.converters import TransformersConverter
+        except ImportError:
+            log.info("ctranslate2 converters unavailable; not converting %s", model_id)
+            return None
+
+        log.info("Converting %s to CTranslate2 (once) at %s", model_id, output_dir)
+        try:
+            output_dir.parent.mkdir(parents=True, exist_ok=True)
+            converter = TransformersConverter(model_id, copy_files=_CT2_COPY_FILES)
+            converter.convert(str(output_dir), quantization="int8", force=False)
+        except Exception:
+            log.warning("CTranslate2 conversion of %s failed.", model_id, exc_info=True)
+            return None
+        if is_ct2_model(output_dir):
+            return str(output_dir)
+        log.warning("CTranslate2 conversion of %s produced no model.bin.", model_id)
+        return None
 
     def _load_transformers(self) -> bool:
         try:
@@ -230,15 +324,11 @@ class ASREngine:
         self, audio: Audio, language: str | None, with_timestamps: bool
     ) -> Transcript:
         settings = self.config.engines.asr
+        # ``audio`` is resampled to 16 kHz above; faster-whisper assumes that
+        # rate for a numpy buffer and has no sampling_rate argument.
         segments, info = self._model.transcribe(
             audio.samples,
-            language=language,
-            beam_size=int(settings.beam_size),
-            vad_filter=bool(settings.vad_filter),
-            word_timestamps=with_timestamps,
-            # Whisper invents text over silence; these keep it honest.
-            condition_on_previous_text=False,
-            no_speech_threshold=0.6,
+            **faster_whisper_decode_options(settings, language, with_timestamps=with_timestamps),
         )
 
         parts: list[str] = []
@@ -298,4 +388,14 @@ def write_temp_wav(audio: Audio, directory: Path | None = None) -> Path:
     return save_audio(audio.to_mono().resample(ASR_SAMPLE_RATE), target)
 
 
-__all__ = ["ASR_SAMPLE_RATE", "ASREngine", "Transcript", "write_temp_wav"]
+__all__ = [
+    "ASR_SAMPLE_RATE",
+    "ASREngine",
+    "SCORING_ASR",
+    "Transcript",
+    "apply_scoring_asr",
+    "ct2_cache_dir",
+    "faster_whisper_decode_options",
+    "is_ct2_model",
+    "write_temp_wav",
+]

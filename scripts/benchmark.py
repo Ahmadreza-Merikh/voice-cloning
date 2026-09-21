@@ -262,11 +262,14 @@ def asr_floor(corpus: dict[str, list[dict[str, Any]]], config: Any) -> dict[str,
     project is uncalibrated.
     """
     from voiceclone.audio.io import load_audio
+    from voiceclone.engines.asr import apply_scoring_asr
     from voiceclone.evaluation.similarity import character_error_rate, word_error_rate
     from voiceclone.pipelines import Studio
 
     _rule("Recogniser floor - Whisper against real human speech")
-    studio = Studio(config)
+    # The floor is only useful next to a render CER if both used the same
+    # recogniser. Product Studio defaults may move; FINDINGS.md does not.
+    studio = Studio(apply_scoring_asr(config))
     cers: list[float] = []
     wers: list[float] = []
     for speaker, entries in sorted(corpus.items()):
@@ -521,6 +524,7 @@ def harness_config(args: argparse.Namespace) -> Any:
     measurements this harness exists to make, on machines with room for both.
     """
     from voiceclone.config import AppConfig
+    from voiceclone.engines.asr import apply_scoring_asr
 
     config = AppConfig.load()
     if args.device:
@@ -530,7 +534,9 @@ def harness_config(args: argparse.Namespace) -> Any:
     config.evaluation.transcribe_check = True
     config.evaluation.candidates = args.candidates
     config.engines.omnivoice.memory_guard = False
-    return config
+    # Product ASR defaults (VAD off, Persian prompt, maybe a fine-tune) are
+    # not the measurement in FINDINGS.md. Pin the historical block.
+    return apply_scoring_asr(config)
 
 
 def write_recipe(args, config, engine_options, preprocess_overrides, cells, references, sentences,

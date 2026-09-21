@@ -24,6 +24,8 @@ class TestConfig:
         assert config.audio.sample_rate == 24000
         assert config.engines.tts == "omnivoice"
         assert config.engines.omnivoice.memory_guard is True
+        assert config.engines.asr.vad_filter is False
+        assert config.engines.asr.no_speech_threshold == 0.5
 
     def test_nested_types_are_coerced(self, config: AppConfig) -> None:
         assert isinstance(config.engines.f5.nfe_step, int)

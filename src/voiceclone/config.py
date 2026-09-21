@@ -181,7 +181,16 @@ class ASRConfig:
     compute_type: str = "auto"
     language: str = "fa"
     beam_size: int = 5
-    vad_filter: bool = True
+    #: Preprocess already trims silence. A second Silero VAD inside Whisper
+    #: drops onsets and tails, which is why reference transcripts came back
+    #: short. Leave this off unless the clip was not preprocessed.
+    vad_filter: bool = False
+    #: Whisper's default 0.6 treats quiet syllables as silence.
+    no_speech_threshold: float = 0.5
+    #: Decoder context, not a transcript. Empty disables it. The scoring
+    #: recogniser (``SCORING_ASR``) keeps this empty so CER stays comparable
+    #: with FINDINGS.md.
+    initial_prompt: str = "گفتار فارسی."
 
 
 @dataclass

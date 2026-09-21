@@ -28,13 +28,15 @@ sys.modules["benchmark_asr_under_test"] = benchmark
 spec.loader.exec_module(benchmark)
 
 
-def test_studio_decode_does_not_run_a_second_vad() -> None:
+def test_studio_decode_keeps_vad_on() -> None:
     options = faster_whisper_decode_options(ASRConfig(), "fa")
-    assert options["vad_filter"] is False
-    assert options["no_speech_threshold"] == 0.5
-    assert options["initial_prompt"] == "گفتار فارسی."
+    assert options["vad_filter"] is True
+    assert options["no_speech_threshold"] == 0.6
+    assert "initial_prompt" not in options
     assert options["condition_on_previous_text"] is False
     assert options["language"] == "fa"
+    assert options["vad_parameters"]["speech_pad_ms"] == 400
+    assert options["vad_parameters"]["threshold"] == 0.5
 
 
 def test_empty_prompt_is_omitted() -> None:
@@ -48,18 +50,26 @@ def test_scoring_block_is_the_historical_measurement() -> None:
         "vad_filter": True,
         "no_speech_threshold": 0.6,
         "initial_prompt": "",
+        "vad_threshold": 0.5,
+        "vad_min_silence_ms": 2000,
+        "vad_speech_pad_ms": 400,
     }
     options = faster_whisper_decode_options(
         ASRConfig(
             vad_filter=True,
             no_speech_threshold=0.6,
             initial_prompt="",
+            vad_threshold=0.5,
+            vad_min_silence_ms=2000,
+            vad_speech_pad_ms=400,
         ),
         "fa",
     )
     assert options["vad_filter"] is True
     assert options["no_speech_threshold"] == 0.6
     assert "initial_prompt" not in options
+    assert options["vad_parameters"]["speech_pad_ms"] == 400
+    assert options["vad_parameters"]["threshold"] == 0.5
 
 
 def test_apply_scoring_asr_overrides_product_defaults() -> None:
@@ -68,6 +78,8 @@ def test_apply_scoring_asr_overrides_product_defaults() -> None:
     assert config.engines.asr.vad_filter is True
     assert config.engines.asr.no_speech_threshold == 0.6
     assert config.engines.asr.initial_prompt == ""
+    assert config.engines.asr.vad_speech_pad_ms == 400
+    assert config.engines.asr.vad_threshold == 0.5
 
 
 def test_benchmark_harness_pins_the_scoring_recogniser() -> None:
@@ -76,6 +88,7 @@ def test_benchmark_harness_pins_the_scoring_recogniser() -> None:
     assert config.engines.asr.vad_filter is True
     assert config.engines.asr.no_speech_threshold == 0.6
     assert config.engines.asr.initial_prompt == ""
+    assert config.engines.asr.vad_speech_pad_ms == 400
     assert config.engines.omnivoice.memory_guard is False
 
 

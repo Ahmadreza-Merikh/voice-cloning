@@ -33,6 +33,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--scoring", action="store_true", help="Pin the FINDINGS.md recogniser")
     parser.add_argument("--limit", type=int, default=0, help="First N clips only (0 = all)")
     parser.add_argument("--report", type=Path, default=None, help="Write JSON here")
+    parser.add_argument("--vad-filter", dest="vad_filter", action=argparse.BooleanOptionalAction, default=None)
+    parser.add_argument("--prompt", default=None, help="Override initial_prompt")
     args = parser.parse_args(argv)
 
     from voiceclone.audio.io import load_audio
@@ -46,6 +48,10 @@ def main(argv: list[str] | None = None) -> int:
         config = apply_scoring_asr(config)
     if args.model:
         config = config.copy_with(**{"engines.asr.model": args.model})
+    if args.vad_filter is not None:
+        config = config.copy_with(**{"engines.asr.vad_filter": args.vad_filter})
+    if args.prompt is not None:
+        config = config.copy_with(**{"engines.asr.initial_prompt": args.prompt})
 
     manifest = json.loads((CORPUS / "manifest.json").read_text(encoding="utf-8"))
     entries = [e for e in manifest["entries"] if e.get("transcript")]
@@ -89,6 +95,8 @@ def main(argv: list[str] | None = None) -> int:
         "vad_filter": config.engines.asr.vad_filter,
         "no_speech_threshold": config.engines.asr.no_speech_threshold,
         "initial_prompt": config.engines.asr.initial_prompt,
+        "vad_threshold": config.engines.asr.vad_threshold,
+        "vad_speech_pad_ms": config.engines.asr.vad_speech_pad_ms,
         "backend": engine.backend,
         "clips": len(good),
         "seconds": round(time.time() - started, 1),

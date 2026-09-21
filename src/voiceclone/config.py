@@ -181,16 +181,19 @@ class ASRConfig:
     compute_type: str = "auto"
     language: str = "fa"
     beam_size: int = 5
-    #: Preprocess already trims silence. A second Silero VAD inside Whisper
-    #: drops onsets and tails, which is why reference transcripts came back
-    #: short. Leave this off unless the clip was not preprocessed.
-    vad_filter: bool = False
-    #: Whisper's default 0.6 treats quiet syllables as silence.
-    no_speech_threshold: float = 0.5
-    #: Decoder context, not a transcript. Empty disables it. The scoring
-    #: recogniser (``SCORING_ASR``) keeps this empty so CER stays comparable
-    #: with FINDINGS.md.
-    initial_prompt: str = "گفتار فارسی."
+    #: Whisper invents text over silence. Turning this off on this corpus
+    #: raised mean CER from 7.8% to 11.9% (one clip came back in Icelandic).
+    #: Completeness is the VAD *padding*, not disabling the gate.
+    vad_filter: bool = True
+    no_speech_threshold: float = 0.6
+    #: Decoder context, not a transcript. Empty disables it. A Persian
+    #: prompt on this corpus did not help and is left off.
+    initial_prompt: str = ""
+    #: Silero VAD inside faster-whisper. Stock values; extra pad was measured
+    #: on this corpus (8.16% CER against 7.80% stock) and is not the default.
+    vad_threshold: float = 0.5
+    vad_min_silence_ms: int = 2000
+    vad_speech_pad_ms: int = 400
 
 
 @dataclass

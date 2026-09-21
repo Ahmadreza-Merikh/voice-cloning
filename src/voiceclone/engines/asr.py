@@ -14,6 +14,7 @@ a Transformers fallback so the feature works with what f5-tts already pulls in.
 from __future__ import annotations
 
 import importlib.util
+import shutil
 import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -50,6 +51,9 @@ SCORING_ASR: dict[str, object] = {
     "vad_filter": True,
     "no_speech_threshold": 0.6,
     "initial_prompt": "",
+    "vad_threshold": 0.5,
+    "vad_min_silence_ms": 2000,
+    "vad_speech_pad_ms": 400,
 }
 
 
@@ -125,6 +129,12 @@ def faster_whisper_decode_options(
         "condition_on_previous_text": False,
         "no_speech_threshold": float(settings.no_speech_threshold),
     }
+    if options["vad_filter"]:
+        options["vad_parameters"] = {
+            "threshold": float(settings.vad_threshold),
+            "min_silence_duration_ms": int(settings.vad_min_silence_ms),
+            "speech_pad_ms": int(settings.vad_speech_pad_ms),
+        }
     prompt = (settings.initial_prompt or "").strip()
     if prompt:
         options["initial_prompt"] = prompt
@@ -240,7 +250,12 @@ class ASREngine:
         converted = self._convert_to_ct2(model, cached)
         if converted is not None:
             return converted
-        return model
+        # Do not hand a Transformers snapshot to WhisperModel: it looks for
+        # model.bin, fails, and the traceback is a worse fallback than going
+        # straight to the Transformers pipeline.
+        raise VoiceCloneError(
+            f"{model} is not a CTranslate2 Whisper checkpoint and conversion failed"
+        )
 
     def _convert_to_ct2(self, model_id: str, output_dir: Path) -> str | None:
         """Convert a Transformers Whisper checkpoint. Returns the path or None."""
@@ -257,10 +272,14 @@ class ASREngine:
             converter.convert(str(output_dir), quantization="int8", force=False)
         except Exception:
             log.warning("CTranslate2 conversion of %s failed.", model_id, exc_info=True)
+            if output_dir.exists() and not is_ct2_model(output_dir):
+                shutil.rmtree(output_dir, ignore_errors=True)
             return None
         if is_ct2_model(output_dir):
             return str(output_dir)
         log.warning("CTranslate2 conversion of %s produced no model.bin.", model_id)
+        if output_dir.exists():
+            shutil.rmtree(output_dir, ignore_errors=True)
         return None
 
     def _load_transformers(self) -> bool:

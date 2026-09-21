@@ -22,6 +22,8 @@ from voiceclone.text.numbers_fa import (
     ordinal_to_words,
     to_ascii_digits,
 )
+from voiceclone.text.pipeline import TextPipeline
+from voiceclone.text.prosody_fa import break_vocative_clauses
 
 
 class TestCharacterUnification:
@@ -190,6 +192,40 @@ class TestEzafeMarks:
     def test_plain_normalisation_leaves_it_alone(self) -> None:
         # Only the G2P front end has this quirk; the engines see the original.
         assert "ِ" in normalize("گلِ زیبای باغ")
+
+
+class TestVocativeClauseBreak:
+    """A greeting + pronoun is a new clause, not ezafe.
+
+    Graphemic engines (OmniVoice, F5) otherwise speak ``سلامِ من`` for
+    ``سلام من اذیت می‌کنم``. Real noun-phrase ezafe is not a vocative.
+    """
+
+    def test_reported_sentence_gains_a_comma(self) -> None:
+        assert break_vocative_clauses("سلام من اذیت می‌کنم") == "سلام، من اذیت می‌کنم"
+
+    def test_noun_phrase_ezafe_is_untouched(self) -> None:
+        assert break_vocative_clauses("کتاب من روی میز است") == "کتاب من روی میز است"
+        assert break_vocative_clauses("گل باغ امروز شکفت") == "گل باغ امروز شکفت"
+
+    def test_already_punctuated_is_untouched(self) -> None:
+        assert break_vocative_clauses("سلام. من می‌روم") == "سلام. من می‌روم"
+        assert break_vocative_clauses("سلام، من می‌روم") == "سلام، من می‌روم"
+
+    def test_multiword_greeting(self) -> None:
+        assert break_vocative_clauses("صبح بخیر من بیدار شدم") == "صبح بخیر، من بیدار شدم"
+        assert break_vocative_clauses("سلام علیکم شما خوبید") == "سلام علیکم، شما خوبید"
+
+    def test_other_pronouns(self) -> None:
+        assert break_vocative_clauses("درود تو آمدی") == "درود، تو آمدی"
+        assert break_vocative_clauses("بله ما رفتیم") == "بله، ما رفتیم"
+
+    def test_pipeline_applies_it(self) -> None:
+        from voiceclone.config import TextConfig
+
+        prepared = TextPipeline(TextConfig()).prepare("سلام من اذیت می‌کنم", engine_name="omnivoice")
+        assert prepared.normalized.startswith("سلام، من")
+        assert any("ezafe" in note for note in prepared.notes)
 
 
 class TestLanguageDetection:

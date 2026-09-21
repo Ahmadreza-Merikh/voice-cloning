@@ -6,6 +6,7 @@ from .lang import detect_language, has_persian, is_mixed_script
 from .normalize_fa import NormalizationOptions, normalize, normalize_for_g2p
 from .numbers_fa import expand_numbers, number_to_words, ordinal_to_words
 from .pipeline import PreparedText, TextPipeline
+from .prosody_fa import break_vocative_clauses
 
 __all__ = [
     "G2PResult",
@@ -14,6 +15,7 @@ __all__ = [
     "PreparedText",
     "TextChunk",
     "TextPipeline",
+    "break_vocative_clauses",
     "chunk_text",
     "detect_language",
     "estimate_duration",

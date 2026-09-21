@@ -26,6 +26,10 @@ STRINGS: dict[str, dict[str, str]] = {
             "loads. Correcting it word for word improves quality - the engine reads this text "
             "and the clip together."
         ),
+        "transcript_is_window": (
+            "This is the transcript of the {kept}s window kept from your {whole}s recording, starting at "
+            "{start}s - that window is what the engine is given, so the text has to match it, not the whole file."
+        ),
         "analyse": "Analyse reference",
         "quality_report": "Reference quality",
         # text
@@ -94,6 +98,10 @@ STRINGS: dict[str, dict[str, str]] = {
         "reference_text_help": (
             "متن صدای مرجع. اگر خالی بماند، پیش از بارگذاری موتور خودکار نوشته می‌شود. "
             "اگر کلمه‌به‌کلمه درستش کنید کیفیت بهتر می‌شود؛ موتور این متن و صدا را با هم می‌خواند."
+        ),
+        "transcript_is_window": (
+            "این متنِ همان {kept} ثانیه‌ای است که از فایل {whole} ثانیه‌ای شما نگه داشته شد (از ثانیهٔ {start}). "
+            "موتور هم فقط همین تکه را می‌گیرد، پس متن باید با همین بخش بخواند، نه با کل فایل."
         ),
         "analyse": "تحلیل صدای مرجع",
         "quality_report": "کیفیت صدای مرجع",

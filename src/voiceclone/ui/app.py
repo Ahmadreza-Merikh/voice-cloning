@@ -195,6 +195,14 @@ class VoiceCloneUI:
         report(1.0, "Done")
         if transcript:
             summary += f"\n\nTranscript: {transcript}"
+            # The engine is conditioned on the window, not the upload, so the
+            # transcript covers the window too - which reads as a truncated
+            # transcription unless it is said plainly.
+            kept = after.duration
+            if result.window_start is not None and result.report_before.duration - kept > 0.25:
+                summary += "\n" + self.strings["transcript_is_window"].format(
+                    start=f"{result.window_start:.1f}", kept=f"{kept:.1f}",
+                    whole=f"{result.report_before.duration:.1f}")
 
         return (
             to_gradio(result.audio),

@@ -156,7 +156,7 @@ class F5Config:
     vocab: str = "hf://Lumos675/F5_TTS_Persian/vocab.txt"
     fallback_checkpoint: str = "hf://SWivid/F5-TTS/F5TTS_v1_Base/model_1250000.safetensors"
     vocoder: str = "vocos"
-    nfe_step: int = 48
+    nfe_step: int = 64
     cfg_strength: float = 2.0
     sway_sampling_coef: float = -1.0
     speed: float = 1.0
@@ -166,8 +166,9 @@ class F5Config:
 @dataclass
 class MossConfig:
     model_id: str = "OpenMOSS-Team/MOSS-TTS-Local-Transformer"
-    #: Below upstream's 1.0 - see configs/default.yaml for the measurements.
-    temperature: float = 0.8
+    #: Below upstream's 1.0. 0.6 is the single-take intelligibility setting
+    #: (see configs/default.yaml); 0.8 was for best-of-N variation.
+    temperature: float = 0.6
     top_p: float = 0.95
     top_k: int = 50
     repetition_penalty: float = 1.1
@@ -366,7 +367,7 @@ class Moss15Config:
 class SeedVCConfig:
     repo_path: str | None = "auto"
     python: str | None = "auto"
-    diffusion_steps: int = 50
+    diffusion_steps: int = 75
     length_adjust: float = 1.0
     inference_cfg_rate: float = 0.7
     f0_condition: bool = False

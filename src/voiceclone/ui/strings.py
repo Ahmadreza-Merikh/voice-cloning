@@ -188,7 +188,7 @@ QUALITY_PRESETS: dict[str, dict[str, Any]] = {
     },
 }
 
-DEFAULT_PRESET = "High quality (recommended)"
+DEFAULT_PRESET = "Maximum quality (slowest)"
 
 SAMPLE_TEXTS: list[str] = [
     "سلام، حال شما چطور است؟ امیدوارم روز خوبی داشته باشید.",

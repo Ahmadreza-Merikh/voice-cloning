@@ -24,6 +24,9 @@ class TestConfig:
         assert config.audio.sample_rate == 24000
         assert config.engines.tts == "omnivoice"
         assert config.engines.omnivoice.memory_guard is True
+        assert config.engines.f5.nfe_step == 64
+        assert config.engines.moss.temperature == 0.6
+        assert config.engines.seedvc.diffusion_steps == 75
         assert config.engines.asr.vad_filter is True
         assert config.engines.asr.vad_speech_pad_ms == 400
 

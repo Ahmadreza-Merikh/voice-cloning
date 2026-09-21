@@ -152,9 +152,11 @@ engines:
     # Fall back to the multilingual base model if the Persian one is absent.
     fallback_checkpoint: hf://SWivid/F5-TTS/F5TTS_v1_Base/model_1250000.safetensors
     vocoder: vocos           # vocos | bigvgan
-    # Quality knobs. nfe_step is the flow-matching ODE budget: higher = better
-    # and slower. 32 is the upstream default; we prefer 48 for fidelity.
-    nfe_step: 48
+    # Quality knobs. nfe_step is the flow-matching ODE budget: higher = slower.
+    # 32 is upstream; 48 was the working default; 64 is the UI "Maximum quality"
+    # preset. On this project's F5 sweep, 64 vs 48 did not move identity, and
+    # is kept as the quality-first budget rather than a measured gain.
+    nfe_step: 64
     cfg_strength: 2.0
     sway_sampling_coef: -1.0
     speed: 1.0
@@ -172,9 +174,9 @@ engines:
     # scoring every take by round-trip WER:
     #     temp 1.0 -> 24.5% mean WER      temp 0.8 -> 15.6%      temp 0.6 -> 11.1%
     # Speaker similarity barely moves across that range (0.777 / 0.793 /
-    # 0.780), so the whole effect is intelligibility. 0.8 keeps some variation
-    # for best-of-n selection; drop to 0.6 for a single-take workflow.
-    temperature: 0.8
+    # 0.780), so the whole effect is intelligibility. 0.6 is the single-take
+    # setting (best-of-N is off: OmniVoice cannot rank takes on this 16 GB Mac).
+    temperature: 0.6
     top_p: 0.95
     top_k: 50
     repetition_penalty: 1.1
@@ -406,7 +408,7 @@ engines:
     # in its own interpreter. Point `python` at that env's binary.
     repo_path: auto          # auto => look for ~/seed-vc
     python: auto             # auto => <repo>/.venv/bin/python, else sys.executable
-    diffusion_steps: 50      # quality-first (upstream default is 30)
+    diffusion_steps: 75      # UI "Maximum quality" budget (upstream default is 30)
     length_adjust: 1.0
     inference_cfg_rate: 0.7
     f0_condition: false      # enable for singing / strongly pitched material

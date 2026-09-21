@@ -1,0 +1,36 @@
+{
+ "run": "the development session, run early on the exports that exist after sessions a and b",
+ "status": "complete 2026-09-21; exploratory - it chooses nothing",
+ "kernel": "marsmanam/persian-voice-omnivoice-dev, version 1, pushed 2026-09-20 22:32:08 UTC, about 17 minutes of a T4 pair",
+ "why_early": [
+  "2.82 GPU-hours were left before the 2026-09-26 reset and cannot start session c, which needs about 9.5",
+  "[measured] the training loss stopped falling after step 2,000, so whether any export beats the published model is what decides whether session c is worth nine GPU-hours",
+  "this notebook had never run: session a v1 died on an untested path and cost a whole session"
+ ],
+ "what_was_scored": "nine development speakers, three sentences, seed 42, the manifest's first reference clip - the protocol every engine here is scored by - with the published weights and the exports at steps 1,000, 2,000 and 3,000, all rendered and scored in this one session",
+ "measured": {
+  "scale_control": "the stored F5 baseline renders, re-scored here: 0.5196 against the 0.520 measured on the Mac. The scale reproduces, so these numbers sit on the same axis as every earlier one",
+  "published_omnivoice": 0.5837,
+  "exports": {
+   "1000": {"held_out": 0.6083, "minus_published": 0.0245, "interval": [0.0029, 0.0462],
+            "cer_minus_published": [-0.0005, -0.0202, 0.0192]},
+   "2000": {"held_out": 0.5919, "minus_published": 0.0082, "interval": [-0.0132, 0.0296],
+            "cer_minus_published": [-0.0025, -0.0136, 0.0087]},
+   "3000": {"held_out": 0.6004, "minus_published": 0.0167, "interval": [0.0012, 0.0321],
+            "cer_minus_published": [-0.0040, -0.0160, 0.0081]}
+  },
+  "candidate_by_the_fixed_rule": "step 1,000 - highest held-out similarity among exports whose CER interval against the published model does not lie above zero"
+ },
+ "reading": {
+  "the_adaptation_does_something": "all three exports score above the published model, and two of the three intervals exclude zero. That is the first evidence in this project that the adaptation moves identity transfer at all",
+  "how_much": "small. Step 1,000's +0.0245 clears the encoder's 0.0205 single-render noise line; step 3,000's +0.0167 does not. The intervals are wide enough that the exports are not distinguishable from each other",
+  "more_steps_did_not_help": "[measured] the best export is the earliest one, and the ranking 1,000 > 3,000 > 2,000 is not a curve, it is three points inside each other's intervals. Nothing here says training further improves anything - which matches the loss curve flattening after step 2,000",
+  "pronunciation_held": "every CER interval includes zero and every mean is slightly negative: the adaptation did not cost intelligibility",
+  "what_it_cannot_say": "eight of the nine development speakers are Common Voice, which OmniVoice has very probably trained on, and the adaptation's training data is Common Voice and Neyshekar. An uplift here can be domain familiarity rather than better cloning. The sealed test on Neyshekar's unseen speakers is what answers it, and nothing here touched a test clip"
+ },
+ "decides_nothing": "the candidate is chosen by the development session that runs after session c, over every export, by the same rule. This run is recorded as exploratory and its choice is not carried forward",
+ "also_established": "the development notebook works end to end - download, mounting the exports, rendering, scoring, the scale control and the choice rule - before nine GPU-hours are spent ahead of it",
+ "cost": "0.31 GPU-hours of the 2.82 that would have expired on 2026-09-26",
+ "evidence": "eval/runs/evidence/omnivoice-dev-early-v1/",
+ "recorded": "2026-09-21"
+}

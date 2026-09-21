@@ -4,22 +4,36 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-21 02:05 +0330 (2026-09-20 22:35 UTC).
+Last updated: 2026-09-21 09:40 +0330 (2026-09-21 06:10 UTC).
 
-**Running remotely:** `marsmanam/persian-voice-omnivoice-dev` v1, pushed
-2026-09-20 22:32:08 UTC - the development session, run **early** on what
-exists: it scores the exports at steps 1,000, 2,000 and 3,000 against the
-published model on the nine development speakers, with the F5 baseline
-re-scored as the scale control. It spends the 2.82 GPU-hours that would
-otherwise expire on the 26th and cannot start session c. It decides nothing -
-the candidate is chosen by the run after session c, with every export, by the
-rule fixed before any of this - and it touches no test clip. What it answers
-tonight: whether the adaptation is doing anything at all, now that the loss has
-stopped falling, and whether this notebook works before nine GPU-hours are
-spent ahead of it (budget: `eval/runs/persian-voice-omnivoice-adapt.json` ->
-`quota_before_the_early_development_session`).
+**Nothing is running remotely.** The early development session
+(`persian-voice-omnivoice-dev` v1, 2026-09-20 22:32 UTC, 17 minutes, 0.31
+GPU-hours) is complete, and it is the first evidence here that **the
+adaptation moves identity transfer at all**:
 
-Sessions a and b are complete and
+| | held-out | minus published | 95% interval |
+|---|---|---|---|
+| F5 baseline, re-scored as the scale control | 0.5196 | - | (0.520 on the Mac: the scale reproduces) |
+| OmniVoice published | 0.5837 | - | - |
+| export 1,000 | **0.6083** | +0.0245 | [+0.0029, +0.0462] |
+| export 2,000 | 0.5919 | +0.0082 | [-0.0132, +0.0296] |
+| export 3,000 | 0.6004 | +0.0167 | [+0.0012, +0.0321] |
+
+[measured] All three are above the published model and two intervals exclude
+zero; every CER interval includes zero with a slightly negative mean, so
+nothing was paid in intelligibility. **But the best export is the earliest**,
+the three sit inside each other's intervals, and only step 1,000's uplift
+clears the encoder's 0.0205 noise line - so nothing here says training further
+helps, which matches the loss flattening after step 2,000. And the development
+set is the contaminated one: an uplift on Common Voice speakers can be domain
+familiarity rather than better cloning. The sealed test answers that. This run
+**chooses nothing** - the candidate is picked after session c, over every
+export, by the same fixed rule (`eval/runs/persian-voice-omnivoice-dev-early-v1.json`).
+
+It also established that the development notebook works end to end before nine
+GPU-hours are spent ahead of it.
+
+Sessions a and b are complete andSessions a and b are complete and
 **3,000 of the recipe's 5,000 steps are trained**. Session b (pushed
 2026-09-20 16:05:47 UTC with a 6.5 h budget) mounted a's tokens and
 `checkpoint-2000`, resumed through the official `resume_from_checkpoint`,

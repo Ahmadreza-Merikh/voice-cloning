@@ -1,0 +1,93 @@
+{
+  "runner_check": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 120,
+    "seconds": 0.3,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/runner_check/runner_check.log",
+    "output_bytes": 1853785,
+    "shown_bytes": 104590,
+    "display_blocked": false,
+    "problems": []
+  },
+  "fetch": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 1200,
+    "seconds": 23.5,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/fetch.log",
+    "output_bytes": 736,
+    "shown_bytes": 493,
+    "display_blocked": false,
+    "problems": []
+  },
+  "baseline-omnidev-env": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 5400,
+    "seconds": 105.3,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/baseline-omnidev-env.log",
+    "output_bytes": 6899,
+    "shown_bytes": 6899,
+    "display_blocked": false,
+    "problems": []
+  },
+  "omnivoice-published-devctl": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 5400,
+    "seconds": 201.9,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/omnivoice-published-devctl.log",
+    "output_bytes": 36944,
+    "shown_bytes": 36261,
+    "display_blocked": false,
+    "problems": []
+  },
+  "omnivoice-fa-1000": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 5400,
+    "seconds": 216.2,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/omnivoice-fa-1000.log",
+    "output_bytes": 40656,
+    "shown_bytes": 35641,
+    "display_blocked": false,
+    "problems": []
+  },
+  "omnivoice-fa-2000": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 5400,
+    "seconds": 218.8,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/omnivoice-fa-2000.log",
+    "output_bytes": 40725,
+    "shown_bytes": 35641,
+    "display_blocked": false,
+    "problems": []
+  },
+  "omnivoice-fa-3000": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 5400,
+    "seconds": 213.0,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/omnivoice-fa-3000.log",
+    "output_bytes": 40525,
+    "shown_bytes": 35554,
+    "display_blocked": false,
+    "problems": []
+  }
+}

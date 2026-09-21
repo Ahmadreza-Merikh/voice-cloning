@@ -1,0 +1,69 @@
+{
+  "rule": "highest held-out similarity among exports whose CER interval against the published model does not lie above zero (SOTA_ROADMAP section 8, fixed before the run)",
+  "rows": [
+    {
+      "step": 1000,
+      "label": "omnivoice-fa-1000",
+      "held_out": 0.6082777777777778,
+      "similarity_minus_published": [
+        0.02454074074074073,
+        0.0029131794442416627,
+        0.0461683020372398
+      ],
+      "cer_minus_published": [
+        -0.0005058583869953379,
+        -0.02024145417520053,
+        0.019229737401209857
+      ],
+      "cer_interval_above_zero": false
+    },
+    {
+      "step": 2000,
+      "label": "omnivoice-fa-2000",
+      "held_out": 0.591937037037037,
+      "similarity_minus_published": [
+        0.008200000000000004,
+        -0.01316905613862115,
+        0.02956905613862116
+      ],
+      "cer_minus_published": [
+        -0.0024636670631502677,
+        -0.013580862523560656,
+        0.008653528397260121
+      ],
+      "cer_interval_above_zero": false
+    },
+    {
+      "step": 3000,
+      "label": "omnivoice-fa-3000",
+      "held_out": 0.6003962962962963,
+      "similarity_minus_published": [
+        0.016659259259259252,
+        0.0011715954289540174,
+        0.03214692308956449
+      ],
+      "cer_minus_published": [
+        -0.003951164157882504,
+        -0.01603975639486493,
+        0.008137428079099923
+      ],
+      "cer_interval_above_zero": false
+    }
+  ],
+  "candidate": {
+    "step": 1000,
+    "label": "omnivoice-fa-1000",
+    "held_out": 0.6082777777777778,
+    "similarity_minus_published": [
+      0.02454074074074073,
+      0.0029131794442416627,
+      0.0461683020372398
+    ],
+    "cer_minus_published": [
+      -0.0005058583869953379,
+      -0.02024145417520053,
+      0.019229737401209857
+    ],
+    "cer_interval_above_zero": false
+  }
+}

@@ -24,6 +24,7 @@ from .chunker import TextChunk, chunk_text, estimate_duration
 from .g2p import PersianG2P, get_g2p
 from .lang import detect_language, is_mixed_script
 from .normalize_fa import NormalizationOptions, normalize
+from .prosody_fa import break_vocative_clauses
 
 log = get_logger("text.pipeline")
 
@@ -146,6 +147,19 @@ class TextPipeline:
 
         if not normalized:
             return PreparedText(original, "", detected, [], False, "disabled", ["Nothing left after normalisation"])
+
+        # -- vocative / clause boundary ------------------------------------
+        # Unmarked "سلام من …" is read as ezafe (سلامِ من) by grapheme engines.
+        # A comma is a clause boundary; ezafe cannot cross it. Noun-phrase
+        # ezafe (کتاب من) is not a vocative and is left alone.
+        if detected == "fa":
+            with_breaks = break_vocative_clauses(normalized)
+            if with_breaks != normalized:
+                notes.append(
+                    "Inserted a pause after a greeting so it is not read as ezafe "
+                    "(سلام من → سلام، من)."
+                )
+                normalized = with_breaks
 
         # -- chunking ------------------------------------------------------
         chunks = chunk_text(

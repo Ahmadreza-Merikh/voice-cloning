@@ -6,7 +6,9 @@ Groups, added as the layers land:
   unknown-symbol report, stress, punctuation, and the flat/compact modes;
 * :class:`TestRawPathPreserved` - ``omnivoice``/``f5`` still receive exactly
   what they received before this module existed;
-* engine registration, capability, config and build-script tests follow.
+* engine registration, capability, config and build-script tests follow;
+* :class:`TestABHarness` - the A/B/C harness: sentence assembly, job
+  building, the phoneme capture, and the manifest plumbing.
 """
 
 from __future__ import annotations
@@ -187,7 +189,7 @@ class TestNormalizer:
 
 class TestNormalizerRegistry:
     def test_only_the_fine_tune_is_canonical(self) -> None:
-        assert CANONICAL_ENGINES == {"omnivoice_ipa"}
+        assert {"omnivoice_ipa"} == CANONICAL_ENGINES
         assert normalizer_for("omnivoice_ipa") is normalize_ge2pe_ipa_for_omnivoice
         assert normalizer_for("OmniVoice_IPA") is normalize_ge2pe_ipa_for_omnivoice
 
@@ -672,3 +674,472 @@ class TestBuildScript:
         path.write_bytes(b"the diff, hypothetically")
         expected = _hashlib.sha256(b"the diff, hypothetically").hexdigest()
         assert _load_build_script().sha256_of(path) == expected
+
+
+def _load_ab_script():
+    """The A/B harness as a module (importing it must render nothing)."""
+    import importlib.util
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location(
+        "ab_omnivoice_ipa_under_test", root / "scripts" / "ab_omnivoice_ipa.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    # Register before executing, same as the build script: Sentence/Job are
+    # @dataclass under `from __future__ import annotations` and resolve
+    # their string annotations through sys.modules.
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+@pytest.fixture()
+def ab_script():
+    return _load_ab_script()
+
+
+class _DriftingG2P:
+    """A G2P whose replay disagrees with what prepare was fed.
+
+    The first call (prepare) is the pinned truth; the second (capture's
+    replay) returns different phones, which must surface as a drift flag
+    rather than be smoothed over.
+    """
+
+    backend = "fake (drifts)"
+    status = "fake"
+
+    def __init__(self) -> None:
+        self.calls = 0
+
+    def phonemize(self, text: str) -> G2PResult:
+        self.calls += 1
+        if self.calls == 1:
+            words, compact = [("از", "æ z")], ["@/z"]
+        else:
+            words, compact = [("از", "b z")], ["bz"]
+        phonemes = " ".join(phones for _, phones in words)
+        return G2PResult(text, phonemes, words, self.backend, compact)
+
+
+class _StubStudio:
+    """Studio-shaped double: records the call contract, writes dummy wavs."""
+
+    def __init__(self) -> None:
+        self.calls: list[dict] = []
+
+    def synthesize(self, text, reference, **kwargs):  # noqa: ANN001, ANN201
+        self.calls.append({"text": text, "reference": reference, **kwargs})
+        out = Path(kwargs["output_path"])
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(b"RIFF....")
+        prepared = SimpleNamespace(
+            used_phonemes=kwargs["use_phonemes"],
+            chunks=[SimpleNamespace(synth_text=text)],
+            notes=["canonicalised"],
+        )
+        return SimpleNamespace(
+            output_path=out,
+            duration=1.5,
+            text=prepared,
+            warnings=["a warning"],
+            timings={"total": 1.5},
+        )
+
+
+class TestABHarness:
+    """``scripts/ab_omnivoice_ipa.py``: what the comparison is made of.
+
+    Every test here runs without an engine, a worker, or a network call -
+    the harness must be fully describable before anything renders.
+    """
+
+    # -- fixtures ---------------------------------------------------------
+    @staticmethod
+    def _sealed() -> dict:
+        # Distinct on purpose: proves t09-t12 are read from the manifest,
+        # not re-typed into the harness.
+        return {
+            "texts": [
+                {"key": key, "category": "cat", "text": f"متن {key} از مانیفست"}
+                for key in ("t09", "t10", "t11", "t12")
+            ]
+        }
+
+    @staticmethod
+    def _corpus() -> dict:
+        return {
+            "entries": [
+                {"speaker": "mana", "role": "reference", "file": "mana_000.wav",
+                 "transcript": "متن مرجع", "duration": 11.8},
+                {"speaker": "mana", "role": "held_out", "file": "mana_001.wav",
+                 "transcript": "یک جمله بلند واقعی از گفت‌وگوی مرجع"},
+            ]
+        }
+
+    def _sentences(self, ab_script) -> list:
+        return ab_script.build_sentences(self._sealed(), self._corpus())
+
+    @staticmethod
+    def _real_manifests() -> tuple[dict, dict]:
+        root = Path(__file__).resolve().parents[1]
+        sealed = json.loads(
+            (root / "eval" / "manifests" / "test_texts_v1.json").read_text(encoding="utf-8")
+        )
+        corpus = json.loads(
+            (root / "eval" / "corpus" / "manifest.json").read_text(encoding="utf-8")
+        )
+        return sealed, corpus
+
+    # -- sentence assembly ------------------------------------------------
+    def test_sentences_merge_three_sources_in_order(self, ab_script) -> None:
+        sentences = self._sentences(ab_script)
+        assert [s.id for s in sentences] == [
+            "s01", "s02", "s03", "s04", "s05", "s06", "s07", "s08", "s09",
+            "t09", "t10", "t11", "t12", "r01",
+        ]
+        by_id = {s.id: s for s in sentences}
+        # Sealed texts come from the manifest: the fixture text is unique to it.
+        assert by_id["t11"].text == "متن t11 از مانیفست"
+        assert by_id["t11"].source == "sealed"
+        assert by_id["s01"].source == "probe"
+        # r01 is the speaker's first held-out transcript, not the reference.
+        assert by_id["r01"].text == "یک جمله بلند واقعی از گفت‌وگوی مرجع"
+        assert by_id["r01"].source == "corpus"
+
+    def test_missing_sealed_key_exits_rather_than_shrinking_the_set(self, ab_script) -> None:
+        sealed = {"texts": self._sealed()["texts"][:2]}  # t09, t10 only
+        with pytest.raises(SystemExit, match="sealed manifest is missing t11, t12"):
+            ab_script.build_sentences(sealed, self._corpus())
+
+    def test_no_variant_set_is_enforced_not_documented(
+        self, ab_script, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        # s01 loses its diacritised twin: the default run would silently
+        # skip B, so build_sentences must refuse instead.
+        reduced = {k: v for k, v in ab_script.DIACRITIZED.items() if k != "s01"}
+        monkeypatch.setattr(ab_script, "DIACRITIZED", reduced)
+        with pytest.raises(SystemExit, match="disagree with NO_VARIANT"):
+            self._sentences(ab_script)
+
+    def test_probe_texts_carry_no_vowel_marks(self, ab_script) -> None:
+        # Harakat only - `DIACRITICS` would also match the ezafe hamza in
+        # «هفتهٔ», which is ordinary orthography, not a vowel mark.
+        harakat = set("ًٌٍَُِّْٰ")
+        for key, _, text in ab_script.PROBES:
+            assert not harakat & set(text), f"{key} leaked a vowel mark"
+
+    def test_variant_tables_agree_with_the_sentence_universe(self, ab_script) -> None:
+        sealed, corpus = self._real_manifests()
+        sentences = ab_script.build_sentences(sealed, corpus, speaker="mana")
+        ids = {s.id for s in sentences}
+        assert set(ab_script.DIACRITIZED) <= ids  # no stray, never-used key
+        unmarked = {s.id for s in sentences if not s.diacritized}
+        assert unmarked == set(ab_script.NO_VARIANT) & ids == {"s09", "t12", "r01"}
+
+    def test_variants_differ_from_plains_but_say_the_same_words(self, ab_script) -> None:
+        # Condition B must speak *the same words* - only marked. CER strips
+        # the marks, so A and B end up score-identical by construction.
+        from voiceclone.evaluation.similarity import normalize_for_cer
+
+        sealed, corpus = self._real_manifests()
+        by_id = {
+            s.id: s for s in ab_script.build_sentences(sealed, corpus, speaker="mana")
+        }
+        harakat = set("ًٌٍَُِّْٰ")
+        for key, variant in ab_script.DIACRITIZED.items():
+            plain = by_id[key].text
+            assert variant != plain, key
+            assert harakat & set(variant), f"{key} variant carries no marks"
+            assert normalize_for_cer(variant) == normalize_for_cer(plain), key
+
+    def test_select_sentences_filters_and_rejects_unknown_ids(self, ab_script) -> None:
+        sentences = self._sentences(ab_script)
+        picked = ab_script.select_sentences(sentences, "s01, t11")
+        assert [s.id for s in picked] == ["s01", "t11"]  # manifest order kept
+        assert ab_script.select_sentences(sentences, None) == sentences
+        with pytest.raises(SystemExit, match="unknown sentence id"):
+            ab_script.select_sentences(sentences, "s99")
+
+    def test_reference_and_held_out_lookup(self, ab_script) -> None:
+        corpus = self._corpus()
+        assert ab_script.reference_entry(corpus, "mana")["file"] == "mana_000.wav"
+        held = ab_script.held_out_entries(corpus, "mana")
+        assert [e["file"] for e in held] == ["mana_001.wav"]
+        with pytest.raises(SystemExit, match="no reference clip"):
+            ab_script.reference_entry(corpus, "nobody")
+
+    # -- jobs -------------------------------------------------------------
+    def test_build_jobs_makes_three_conditions_per_sentence(self, ab_script) -> None:
+        sentences = self._sentences(ab_script)
+        jobs = ab_script.build_jobs(sentences, seed=7)
+        assert len(jobs) == 3 * len(sentences)
+        assert len({j.wav_name for j in jobs}) == len(jobs)  # no clobbering
+
+        by_id = {s.id: s for s in sentences}
+        marked = by_id["s01"]
+        a, b, c = (j for j in jobs if j.id == "s01")
+        assert (a.condition, a.engine, a.use_phonemes, a.input_text, a.seed) == (
+            "A", "omnivoice", False, marked.text, 7
+        )
+        assert b.input_text == marked.diacritized and b.skipped is None
+        assert (c.condition, c.engine, c.use_phonemes, c.input_text) == (
+            "C", "omnivoice_ipa", True, marked.text
+        )
+        # An unmarked sentence still gets all three jobs: B is recorded, kept.
+        skip_b = next(j for j in jobs if j.id == "s09" and j.condition == "B")
+        assert skip_b.skipped == "no diacritised variant written for this sentence"
+        assert skip_b.input_text == ""
+
+    def test_jobs_follow_the_declared_condition_tables(self, ab_script) -> None:
+        # ENGINE_FOR/PHONEMES_FOR are the single source; a hardcoded drift
+        # between them and the built jobs would silently change the test.
+        jobs = ab_script.build_jobs(self._sentences(ab_script))
+        for job in jobs:
+            assert job.engine == ab_script.ENGINE_FOR[job.condition]
+            assert job.use_phonemes == ab_script.PHONEMES_FOR[job.condition]
+        assert ab_script.CONDITIONS == ("A", "B", "C")
+        assert ab_script.PHONEMES_FOR == {"A": False, "B": False, "C": True}
+
+    def test_grouping_releases_between_engines(self, ab_script) -> None:
+        jobs = ab_script.build_jobs(self._sentences(ab_script))
+        groups = ab_script.group_jobs_by_engine(jobs)
+        # First-seen order: every A/B render finishes (and is released)
+        # before the fine-tune's worker would start.
+        assert list(groups) == ["omnivoice", "omnivoice_ipa"]
+        assert len(groups["omnivoice"]) == 28  # 14 A + 14 B (3 of them skips)
+        assert len(groups["omnivoice_ipa"]) == 14
+        assert sum(len(g) for g in groups.values()) == len(jobs)
+
+    def test_expected_text_scores_each_condition_on_its_own_input(self, ab_script) -> None:
+        by_id = {s.id: s for s in self._sentences(ab_script)}
+        marked, unmarked = by_id["s01"], by_id["s09"]
+        assert ab_script.expected_text(marked, "A") == marked.text
+        assert ab_script.expected_text(marked, "B") == marked.diacritized
+        assert ab_script.expected_text(marked, "C") == marked.text
+        assert ab_script.expected_text(unmarked, "B") == unmarked.text
+
+    # -- G2P / normaliser capture ----------------------------------------
+    def test_capture_records_raw_stream_and_canonical_ipa(self, ab_script) -> None:
+        pipeline = TextPipeline(AppConfig.load().text)
+        pipeline._g2p = _FakeG2P([("از", "æ z")], ["@/z"])
+        capture = ab_script.capture_ipa("از", pipeline)
+
+        assert capture["used_phonemes"] is True
+        chunk = capture["chunks"][0]
+        assert chunk["chunk_text"] == "از"
+        assert chunk["raw_ge2pe_compact"] == "@/z"           # what GE2PE said
+        assert chunk["raw_ge2pe_words"] == ["از\tæ z"]
+        assert chunk["canonical_ipa"] == "ʔˈaz"               # what C is fed
+        assert chunk["matches_pipeline"] is True
+        norm = chunk["normalization"]
+        assert norm["source"] == "compact"
+        assert ("@", "ʔ") in {(c["source"], c["target"]) for c in norm["changes"]}
+        assert norm["unknown"] == []
+
+    def test_capture_flags_a_replay_that_disagrees_with_prepare(self, ab_script) -> None:
+        pipeline = TextPipeline(AppConfig.load().text)
+        pipeline._g2p = _DriftingG2P()
+        chunk = ab_script.capture_ipa("از", pipeline)["chunks"][0]
+        # Both strings are kept: the manifest can show what diverged.
+        assert chunk["canonical_ipa"] == "ʔˈaz"
+        assert chunk["normalization"]["text"] == "bz"
+        assert chunk["matches_pipeline"] is False
+
+    def test_capture_reports_disabled_g2p_instead_of_phantom_phonemes(self, ab_script) -> None:
+        config = AppConfig.load().copy_with(**{"text.g2p.enabled": False})
+        pipeline = TextPipeline(config.text)
+        capture = ab_script.capture_ipa("از", pipeline)
+        assert capture["used_phonemes"] is False  # main() aborts on this
+        assert capture["chunks"][0]["error"] == "g2p unavailable"
+        assert capture["chunks"][0].get("canonical_ipa", "") == ""
+
+    # -- config, leak check, manifest -------------------------------------
+    def test_render_config_turns_off_only_evaluation(self, ab_script, config) -> None:
+        before = config.evaluation.enabled
+        render_cfg = ab_script.render_config(config)
+        assert render_cfg.evaluation.enabled is False
+        assert config.evaluation.enabled is before  # copy_with, not a mutation
+        assert render_cfg.engines.tts == config.engines.tts == "omnivoice"
+        assert render_cfg.text.g2p.apply_to_engines == ["omnivoice_ipa"]
+        assert render_cfg.engines.omnivoice.num_step == config.engines.omnivoice.num_step
+        assert render_cfg.evaluation.transcribe_check == config.evaluation.transcribe_check
+
+    @pytest.mark.parametrize(
+        ("a", "b", "expected"),
+        [
+            ("", "متن", False),
+            ("متن", "متن", True),
+            # 20 letters inside 40: at least 20 and at least half -> hit.
+            ("x" * 20, "y" * 10 + "x" * 20 + "y" * 10, True),
+            # 19 letters: under the floor, however well contained.
+            ("x" * 19, "y" * 10 + "x" * 19 + "y" * 9, False),
+            # 30 of 100 letters: contained, but less than half the longer.
+            ("x" * 30, "y" * 70 + "x" * 30, False),
+            ("الف", "ببب", False),
+        ],
+    )
+    def test_overlap_rule(self, ab_script, a: str, b: str, expected: bool) -> None:
+        assert ab_script.overlaps(a, b) is expected
+
+    def test_probe_leak_check_reports_hits_and_checks_only_probes(
+        self, ab_script, tmp_path: Path
+    ) -> None:
+        import gzip
+
+        probe_text = ab_script.PROBES[0][2]
+        sentences = [
+            ab_script.Sentence("s01", "probe", probe_text, None, "probe"),
+            # Same text, but sealed: must NOT be reported - only probes are
+            # new sentences that could have leaked into training.
+            ab_script.Sentence("t09", "sealed", probe_text, None, "sealed"),
+        ]
+        splits = tmp_path / "splits.jsonl.gz"
+        records = [
+            {"text": probe_text, "split": "train", "clip": "c1.wav"},
+            {"text": "a completely unrelated english sentence for the split",
+             "split": "valid", "clip": "c2.wav"},
+        ]
+        with gzip.open(splits, "wt", encoding="utf-8") as handle:
+            for record in records:
+                handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+        report = ab_script.check_probe_overlap(
+            sentences, splits_path=splits, include_extra_sources=False
+        )
+        assert report["available"] is True
+        assert report["checked"] == 2
+        assert report["probes_checked"] == 1
+        assert report["overlaps"] == ["s01 overlaps train clip c1.wav"]
+
+    def test_probe_leak_check_survives_a_missing_split(self, ab_script, tmp_path: Path) -> None:
+        report = ab_script.check_probe_overlap(
+            [], splits_path=tmp_path / "absent.jsonl.gz", include_extra_sources=False
+        )
+        assert report["available"] is False
+        assert "not found" in report["reason"]
+        assert report["overlaps"] == []
+
+    def test_write_manifest_is_atomic_and_keeps_persian_readable(
+        self, ab_script, tmp_path: Path
+    ) -> None:
+        path = tmp_path / "nested" / "manifest.json"
+        data = {"renders": [{"input_text": "او گل قرمز را از گل باغچه بیرون کشید."}],
+                "events": []}
+        ab_script.write_manifest(path, data)
+        raw = path.read_text(encoding="utf-8")
+        assert json.loads(raw) == data
+        assert "گل" in raw  # not \uXXXX-escaped, and no .tmp left behind
+        assert not path.with_suffix(path.suffix + ".tmp").exists()
+
+    def test_render_entry_records_a_skip_without_a_wav(self, ab_script) -> None:
+        skip = ab_script.Job(
+            "s09", "B", "omnivoice", False, "",
+            42, "no diacritised variant written for this sentence",
+        )
+        entry = ab_script.render_entry(skip, reference_file="mana_000.wav")
+        assert entry["wav"] is None
+        assert entry["input_text"] is None  # empty string is not an input
+        assert "no diacritised variant" in entry["skipped"]
+        assert entry["reference"] == "mana_000.wav" and entry["seed"] == 42
+
+        render = ab_script.Job("s01", "C", "omnivoice_ipa", True, "ʔˈaz", 42)
+        entry = ab_script.render_entry(render, reference_file="mana_000.wav")
+        assert entry["input_text"] == "ʔˈaz"
+        assert entry["use_phonemes_requested"] is True
+        assert entry["skipped"] is None
+
+    def test_settings_fields_exist_on_both_engine_configs(self, ab_script) -> None:
+        # The manifest promises these fields for both engines; a rename in
+        # either config would otherwise surface as a KeyError at render time.
+        from voiceclone.config import OmniVoiceConfig, OmniVoiceIPAConfig
+
+        for field in ab_script._SETTINGS_FIELDS:
+            assert hasattr(OmniVoiceConfig(), field), field
+            assert hasattr(OmniVoiceIPAConfig(), field), field
+
+    # -- CLI --------------------------------------------------------------
+    def test_parse_args_defaults_and_flags(self, ab_script) -> None:
+        args = ab_script.parse_args([])
+        assert (args.seed, args.speaker, args.cer, args.only) == (42, "mana", False, None)
+        assert args.out.endswith("omnivoice-ipa-ab-v1")
+
+        args = ab_script.parse_args(["--only", "s01,t10", "--cer", "--seed", "7"])
+        assert (args.only, args.cer, args.seed) == ("s01,t10", True, 7)
+
+    # -- rendering contract (stub studio, no engine) ----------------------
+    def test_render_group_renders_skips_and_persists_each_step(
+        self, ab_script, tmp_path: Path
+    ) -> None:
+        sentences = ab_script.select_sentences(self._sentences(ab_script), "s01,s09")
+        jobs = ab_script.build_jobs(sentences, seed=42)
+        studio = _StubStudio()
+        manifest, manifest_path = {"renders": [], "events": []}, tmp_path / "manifest.json"
+        reference = tmp_path / "ref.wav"
+        reference.write_bytes(b"RIFF")
+
+        ab_script.render_group(
+            studio, jobs,
+            out_dir=tmp_path, reference_path=reference,
+            reference_text="متن مرجع", reference_file="mana_000.wav",
+            manifest=manifest, manifest_path=manifest_path,
+        )
+
+        # 6 jobs, one recorded skip -> 5 renders, all else held identical.
+        assert len(jobs) == 6 and sum(1 for j in jobs if j.skipped) == 1
+        assert len(studio.calls) == 5
+        assert [c["engine"] for c in studio.calls] == [
+            "omnivoice", "omnivoice", "omnivoice_ipa", "omnivoice", "omnivoice_ipa",
+        ]
+        assert [c["use_phonemes"] for c in studio.calls] == [
+            False, False, True, False, True,
+        ]
+        for call in studio.calls:
+            assert call["seed"] == 42 and call["candidates"] == 1
+            assert call["reference_text"] == "متن مرجع"
+            assert call["reference"] == str(reference)
+
+        rendered = [j for j in jobs if not j.skipped]
+        for job, call in zip(rendered, studio.calls, strict=True):
+            assert Path(call["output_path"]) == tmp_path / "wavs" / job.wav_name
+            assert Path(call["output_path"]).is_file()
+
+        on_disk = json.loads(manifest_path.read_text(encoding="utf-8"))
+        assert len(on_disk["renders"]) == len(jobs)  # skip persisted too
+        skipped = [e for e in on_disk["renders"] if e.get("skipped")]
+        assert len(skipped) == 1 and skipped[0]["wav"] is None
+        entry = next(e for e in on_disk["renders"] if e["condition"] == "C")
+        assert entry["used_phonemes"] is True and entry["duration_s"] == 1.5
+        assert entry["fed_texts"] and entry["warnings"] == ["a warning"]
+
+    def test_score_cer_runs_after_unload_and_ignores_skips(
+        self, ab_script, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        import voiceclone.audio.io as audio_io
+
+        monkeypatch.setattr(audio_io, "load_audio", lambda path: ("loaded", path))
+        sentence = ab_script.Sentence("s01", "probe", "متن آزمایشی", None, "probe")
+        studio = SimpleNamespace(
+            asr=SimpleNamespace(
+                transcribe=lambda audio: SimpleNamespace(text=sentence.text)
+            )
+        )
+        wav = tmp_path / "s01_A.wav"
+        wav.write_bytes(b"RIFF")
+        manifest = {
+            "events": [],
+            "renders": [
+                {"id": "s01", "condition": "A", "wav": str(wav)},
+                {"id": "s01", "condition": "B", "wav": None, "skipped": "no variant"},
+            ],
+        }
+        path = tmp_path / "manifest.json"
+        ab_script.score_cer(studio, manifest, [sentence], manifest_path=path)
+
+        assert manifest["events"][0] == {"event": "cer_started", "engines_unloaded": True}
+        assert manifest["renders"][0]["cer"] == 0.0  # identical words
+        assert manifest["renders"][0]["asr_text"] == sentence.text
+        assert "cer" not in manifest["renders"][1]  # skipped: no wav, untouched
+        on_disk = json.loads(path.read_text(encoding="utf-8"))
+        assert on_disk["renders"][0]["cer"] == 0.0

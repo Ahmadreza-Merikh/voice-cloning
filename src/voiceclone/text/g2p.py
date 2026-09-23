@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import os
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 
@@ -113,6 +113,12 @@ class G2PResult:
     phonemes: str
     words: list[tuple[str, str]]
     backend: str
+    #: The compact romanisation each word came from, parallel to ``words``.
+    #: Empty for flat output. The canonical IPA normaliser reads this: the
+    #: alef-onset marker (`@`) survives only here - ``compact_word_to_ipa``
+    #: drops it - and it is the only signal of the word-initial glottal stop
+    #: the canonical convention writes (از -> ʔaz, not az).
+    compact_words: list[str] = field(default_factory=list)
 
     @property
     def has_ezafe(self) -> bool:
@@ -320,15 +326,17 @@ class PersianG2P:
         # output (کتاب من -> "ketabe m/n"), so no second injection pass here:
         # adding one turns گلِ into "golee".
         words: list[tuple[str, str]] = []
+        compact_kept: list[str] = []
         for index, compact in enumerate(compact_words):
             ipa = compact_word_to_ipa(compact)
             if not ipa:
                 continue
             orth = source_words[index] if index < len(source_words) else ""
             words.append((orth, ipa))
+            compact_kept.append(compact)
 
         phonemes = " ".join(ipa for _, ipa in words)
-        return G2PResult(source, phonemes, words, self.backend)
+        return G2PResult(source, phonemes, words, self.backend, compact_kept)
 
     def _phonemize_flat(self, source: str, prepared: str) -> G2PResult:
         """Flat fallback: correct phones, word boundaries approximated."""

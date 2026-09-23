@@ -184,7 +184,7 @@ class TextPipeline:
                 backend = "disabled in config"
                 notes.append("G2P disabled; the engine will read raw Persian script.")
             else:
-                used_phonemes = self._apply_g2p(chunks, notes)
+                used_phonemes = self._apply_g2p(chunks, notes, engine_name)
                 backend = engine.backend if used_phonemes else engine.status
         elif wants_phonemes and detected != "fa":
             backend = "skipped (non-Persian text)"
@@ -209,15 +209,26 @@ class TextPipeline:
         )
         return prepared
 
-    def _apply_g2p(self, chunks: list[TextChunk], notes: list[str]) -> bool:
-        """Phonemise each chunk in place. Returns True if any chunk got IPA."""
+    def _apply_g2p(self, chunks: list[TextChunk], notes: list[str], engine_name: str = "") -> bool:
+        """Phonemise each chunk in place. Returns True if any chunk got IPA.
+
+        ``engine_name`` selects the canonical normaliser: for the IPA
+        fine-tune (``omnivoice_ipa``) the GE2PE output is converted into that
+        model's convention; for every other engine it passes through exactly
+        as it did before.
+        """
         engine = self.g2p
         if engine is None:
             return False
 
         from .g2p import words_to_ipa
+        from .ipa_normalize import normalizer_for
 
+        normalize = normalizer_for(engine_name)
         succeeded = 0
+        changed = 0
+        unknown: set[str] = set()
+
         for chunk in chunks:
             try:
                 result = engine.phonemize(chunk.text)
@@ -228,8 +239,20 @@ class TextPipeline:
             if not result.phonemes:
                 continue
 
+            rendered = None
+            if normalize is not None and result.words:
+                normalized = normalize(result.words, compact_words=result.compact_words)
+                if normalized.text:
+                    rendered = normalized.text
+                    changed += sum(item.count for item in normalized.changes)
+                    unknown.update(normalized.unknown)
+
             # Word-aligned output keeps phrasing; flat output is still usable.
-            chunk.phonemes = words_to_ipa(result.words) if result.words else result.phonemes.replace(" ", "")
+            if rendered is None:
+                rendered = (
+                    words_to_ipa(result.words) if result.words else result.phonemes.replace(" ", "")
+                )
+            chunk.phonemes = rendered
             succeeded += 1
 
         if not succeeded:
@@ -240,6 +263,17 @@ class TextPipeline:
             notes.append(f"G2P applied to {succeeded}/{len(chunks)} chunks.")
         else:
             notes.append("Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.")
+
+        if normalize is not None and succeeded:
+            if changed:
+                notes.append(
+                    f"IPA canonicalised for {engine_name}: {changed} symbol change(s) "
+                    f"({engine.backend} output -> the convention the fine-tune was trained on)."
+                )
+            if unknown:
+                notes.append(
+                    f"Unknown IPA symbol(s) kept and reported: {', '.join(sorted(unknown))}."
+                )
         return True
 
     # -- helpers -----------------------------------------------------------

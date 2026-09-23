@@ -127,9 +127,11 @@ class G2PConfig:
     repo_path: str | None = "auto"
     inject_ezafe: bool = True
     output: str = "ipa"
-    #: Empty: no engine here reads Persian IPA better than Persian script.
-    #: See configs/default.yaml for the measurement.
-    apply_to_engines: list[str] = field(default_factory=list)
+    #: Engines that read Persian IPA natively. Only ``omnivoice_ipa``: the
+    #: fine-tune whose weights were continued on canonical Persian IPA.
+    #: Grapheme tokenizers (F5) and MOSS's English/pinyin phoneme channel are
+    #: deliberately absent - see configs/default.yaml for both measurements.
+    apply_to_engines: list[str] = field(default_factory=lambda: ["omnivoice_ipa"])
 
 
 @dataclass
@@ -276,6 +278,31 @@ class OmniVoiceConfig:
 
 
 @dataclass
+class OmniVoiceIPAConfig(OmniVoiceConfig):
+    """The IPA fine-tune of OmniVoice - an experimental second path.
+
+    Same worker, same generation defaults, same memory guard as
+    ``omnivoice``: a comparison of the two must differ only in the weights and
+    in what the text pipeline hands over. ``model_dir`` is where
+    ``scripts/build_omnivoice_ipa.py`` folds the published diff into the base
+    weights (a relative path resolves against ``paths.cache_dir``). The diff
+    is CC-BY-NC-4.0 - non-commercial - while the base stays Apache-2.0; the
+    provenance of the merged weights is written next to them in
+    ``IPA_ADAPTATION.json``.
+
+    ``model_id`` names where the *diff* came from and is provenance only: the
+    worker is always given ``model_dir``, never this id.
+    """
+
+    model_id: str = "christopherthompson81/omnivoice-ipa-onnx"
+    #: Merged (base + diff) weights, built once by scripts/build_omnivoice_ipa.py.
+    model_dir: str = "omnivoice-ipa"
+    #: The merged weights are a local float32 directory: there is no hub
+    #: snapshot here for the float16 copy machinery to mirror.
+    float16_copy: bool = False
+
+
+@dataclass
 class FishS2Config:
     """Fish Audio S2 Pro, driven out-of-process in its own virtualenv.
 
@@ -411,6 +438,7 @@ class EnginesConfig:
     moss: MossConfig = field(default_factory=MossConfig)
     chatterbox: ChatterboxConfig = field(default_factory=ChatterboxConfig)
     omnivoice: OmniVoiceConfig = field(default_factory=OmniVoiceConfig)
+    omnivoice_ipa: OmniVoiceIPAConfig = field(default_factory=OmniVoiceIPAConfig)
     fish: FishS2Config = field(default_factory=FishS2Config)
     higgs: HiggsConfig = field(default_factory=HiggsConfig)
     moss15: Moss15Config = field(default_factory=Moss15Config)

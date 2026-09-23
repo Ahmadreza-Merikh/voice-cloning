@@ -47,7 +47,7 @@ import numpy as np
 
 from .. import memory
 from ..audio.io import Audio, load_audio, save_audio
-from ..config import AppConfig
+from ..config import AppConfig, OmniVoiceConfig
 from ..device import DeviceSpec, seed_everything
 from ..errors import EngineNotAvailableError, SynthesisError
 from ..logging_utils import get_logger
@@ -179,9 +179,22 @@ class OmniVoiceEngine(TTSEngine):
             return False, f"Worker script missing: {_worker_script()}"
         return True, ""
 
+    # -- hooks for derived engines (omnivoice_ipa) --------------------------
+    def _settings(self) -> OmniVoiceConfig:
+        """Generation, dtype and guard settings for this engine.
+
+        A subclass points its own config section here; nothing else in this
+        class knows about the difference.
+        """
+        return self.config.engines.omnivoice
+
+    def _model_source(self, settings: OmniVoiceConfig) -> str:
+        """What the worker loads: a hub id, or a local directory of weights."""
+        return str(settings.model_id)
+
     # -- loading -----------------------------------------------------------
     def _load(self) -> None:
-        settings = self.config.engines.omnivoice
+        settings = self._settings()
         python = find_omnivoice_python(settings.python)
         if python is None:
             _, reason = self.is_available()
@@ -189,7 +202,7 @@ class OmniVoiceEngine(TTSEngine):
         if self.config.runtime.stop_on_memory_pressure:
             self._refuse_to_start(settings.min_available_gb)
 
-        model = str(settings.model_id)
+        model = self._model_source(settings)
         copy = None
         if settings.float16_copy and str(settings.dtype) == "float16":
             copy = float16_copy(model, Path(self.config.paths.cache_dir).expanduser() / "omnivoice" / "float16")
@@ -382,7 +395,7 @@ class OmniVoiceEngine(TTSEngine):
         if not text or not text.strip():
             raise SynthesisError("Nothing to synthesise (empty text).")
 
-        settings = self.config.engines.omnivoice
+        settings = self._settings()
         used_seed = seed_everything(seed)
         work = Path(self._tempdir.name) if self._tempdir else Path(tempfile.gettempdir())
         reference_path = save_audio(reference.to_mono(), work / "reference.wav", bit_depth=32)

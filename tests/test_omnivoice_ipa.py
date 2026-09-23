@@ -15,6 +15,7 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 
+import numpy as np
 import pytest
 
 from voiceclone.config import AppConfig
@@ -27,6 +28,29 @@ from voiceclone.text.ipa_normalize import (
     normalizer_for,
 )
 from voiceclone.text.pipeline import TextPipeline
+
+
+def _load_build_script():
+    """The build script as a module (no onnx/network needed to import it)."""
+    import importlib.util
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location(
+        "build_omnivoice_ipa_under_test", root / "scripts" / "build_omnivoice_ipa.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    # Register before executing: dataclasses resolves string annotations
+    # (from `from __future__ import annotations`) through sys.modules, and
+    # @dataclass on ModulePlan raises without it.
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+@pytest.fixture()
+def build_script():
+    return _load_build_script()
 
 
 class TestNormalizer:
@@ -463,3 +487,188 @@ class TestPhonemeFlagWarning:
         result = SynthesisResult(audio=None, engine="x", seed=0, metadata={})
         result.metadata["is_phonemes"] = True
         assert result.metadata["is_phonemes"] is True
+
+
+class TestBuildScript:
+    """The fold: math, safetensors plumbing, and the contracts between them.
+
+    Everything here runs without onnx, without a network and without the
+    2.45 GB file - the script is written so its correctness can be pinned by
+    small fixtures, and the real build re-checks itself against the base.
+    """
+
+    def test_provenance_constant_matches_the_engine(self) -> None:
+        from voiceclone.engines.omnivoice_ipa import PROVENANCE_NAME as engine_marker
+
+        assert _load_build_script().PROVENANCE_NAME == engine_marker == "IPA_ADAPTATION.json"
+
+    def test_default_out_matches_the_engine_default_dir(self) -> None:
+        from voiceclone.engines.omnivoice_ipa import default_model_dir
+
+        script = _load_build_script()
+        assert Path(script.DEFAULT_OUT).expanduser() == default_model_dir()
+
+    def test_imports_nothing_from_the_project(self) -> None:
+        # The build must run in a bare interpreter: numpy + onnx only.
+        # (Mentions of the project's paths in comments are fine - imports are not.)
+        root = Path(__file__).resolve().parents[1]
+        source = (root / "scripts" / "build_omnivoice_ipa.py").read_text(encoding="utf-8")
+        assert "from voiceclone" not in source
+        assert "import voiceclone" not in source
+        assert "from .." not in source
+
+    def test_parse_safetensors_header(self, tmp_path: Path) -> None:
+        import struct
+
+        header = json.dumps(
+            {"w": {"dtype": "F32", "shape": [2, 3], "data_offsets": [0, 24]}}
+        ).encode("utf-8")
+        path = tmp_path / "t.safetensors"
+        path.write_bytes(struct.pack("<Q", len(header)) + header + b"\x00" * 24)
+        offset, parsed = _load_build_script().parse_safetensors_header(path)
+        assert offset == 8 + len(header)
+        assert parsed["w"]["shape"] == [2, 3]
+
+    def test_fold_direct_orientation_is_exact(self) -> None:
+        script = _load_build_script()
+        rng = np.random.default_rng(0)
+        weight = rng.normal(size=(8, 4)).astype(np.float32)
+        a = rng.normal(size=(2, 4)).astype(np.float32)  # (rank, in)
+        b = rng.normal(size=(8, 2)).astype(np.float32)  # (out, rank)
+        expected = weight + 2.5 * (b @ a)
+        returned = script.fold_lora_delta(weight, a, b, 2.5)
+        assert returned is weight
+        assert np.allclose(weight, expected, atol=1e-6)
+
+    def test_fold_transposed_storage_lands_the_same_way(self) -> None:
+        script = _load_build_script()
+        rng = np.random.default_rng(1)
+        weight = rng.normal(size=(8, 4)).astype(np.float32)
+        a = rng.normal(size=(4, 2)).astype(np.float32)  # (in, rank)
+        b = rng.normal(size=(2, 8)).astype(np.float32)  # (rank, out)
+        expected = weight + 1.5 * ((a @ b).T)
+        script.fold_lora_delta(weight, a, b, 1.5)
+        assert np.allclose(weight, expected, atol=1e-6)
+
+    def test_fold_refuses_shapes_it_cannot_explain(self) -> None:
+        script = _load_build_script()
+        weight = np.zeros((8, 4), dtype=np.float32)
+        a = np.zeros((3, 5), dtype=np.float32)
+        b = np.zeros((7, 6), dtype=np.float32)
+        with pytest.raises(ValueError, match="no orientation"):
+            script.fold_lora_delta(weight, a, b, 2.0)
+
+    def test_fold_refuses_non_float32_weights(self) -> None:
+        script = _load_build_script()
+        weight = np.zeros((4, 4), dtype=np.float16)
+        a = np.zeros((2, 4), dtype=np.float32)
+        b = np.zeros((4, 2), dtype=np.float32)
+        with pytest.raises(ValueError, match="dtype"):
+            script.fold_lora_delta(weight, a, b, 2.0)
+
+    def test_apply_embed_rows_selects_without_accumulating(self) -> None:
+        script = _load_build_script()
+        table = np.zeros((10, 4), dtype=np.float32)
+        idx = np.array([1, 5, 9], dtype=np.int32)
+        rows = np.ones((3, 4), dtype=np.float16)
+        script.apply_embed_rows(table, idx, rows)
+        assert np.all(table[[1, 5, 9]] == 1.0)
+        assert np.all(table[[0, 2, 3, 4]] == 0.0)  # untouched: no scatter-add
+
+    def test_apply_embed_rows_rejects_out_of_range_indices(self) -> None:
+        script = _load_build_script()
+        table = np.zeros((10, 4), dtype=np.float32)
+        with pytest.raises(ValueError, match="out of range"):
+            script.apply_embed_rows(table, np.array([3, 99]), np.ones((2, 4), np.float16))
+
+    def test_apply_embed_rows_rejects_shape_mismatch(self) -> None:
+        script = _load_build_script()
+        table = np.zeros((10, 4), dtype=np.float32)
+        with pytest.raises(ValueError, match="do not fit"):
+            script.apply_embed_rows(table, np.array([1, 2, 3]), np.ones((2, 4), np.float16))
+
+    def test_plan_modules_pairs_factors(self) -> None:
+        script = _load_build_script()
+        arrays = {
+            "llm.layers.0.self_attn.q_proj.lora_A": np.zeros((2, 4), np.float32),
+            "llm.layers.0.self_attn.q_proj.lora_B": np.zeros((8, 2), np.float32),
+            "llm.layers.1.mlp.down_proj.lora_A": np.zeros((2, 8), np.float32),
+            "llm.layers.1.mlp.down_proj.lora_B": np.zeros((4, 2), np.float32),
+            "embed_rows": np.zeros((3, 4), np.float16),
+            "embed_idx": np.array([1, 2, 3], np.int32),
+        }
+        plans = script.plan_modules(arrays)
+        assert [p.weight_key for p in plans] == [
+            "llm.layers.0.self_attn.q_proj.weight",
+            "llm.layers.1.mlp.down_proj.weight",
+        ]
+        assert plans[0].a_name.endswith(".lora_A") and plans[0].b_name.endswith(".lora_B")
+
+    def test_plan_modules_refuses_an_unpaired_factor(self) -> None:
+        script = _load_build_script()
+        with pytest.raises(SystemExit, match="unpaired"):
+            script.plan_modules({"x.lora_A": np.zeros((2, 2), np.float32)})
+
+    @staticmethod
+    def _matching_header() -> dict:
+        return {
+            "llm.x.weight": {"dtype": "F32", "shape": [8, 4], "data_offsets": [0, 128]},
+            "llm.embed_tokens.weight": {
+                "dtype": "F32",
+                "shape": [10, 4],
+                "data_offsets": [128, 288],
+            },
+        }
+
+    @staticmethod
+    def _matching_arrays() -> dict:
+        return {
+            "llm.x.lora_A": np.zeros((2, 4), np.float32),
+            "llm.x.lora_B": np.zeros((8, 2), np.float32),
+            "embed_rows": np.zeros((3, 4), np.float16),
+            "embed_idx": np.array([1, 5, 9], np.int32),
+        }
+
+    def test_validate_targets_accepts_a_matching_diff(self, build_script) -> None:
+        arrays = self._matching_arrays()
+        plans = build_script.plan_modules(arrays)
+        assert build_script.validate_targets(self._matching_header(), plans, arrays) == [
+            "llm.x.weight"
+        ]
+
+    def test_validate_targets_rejects_a_missing_weight(self, build_script) -> None:
+        arrays = self._matching_arrays()
+        header = {
+            "llm.embed_tokens.weight": {
+                "dtype": "F32",
+                "shape": [10, 4],
+                "data_offsets": [0, 160],
+            }
+        }
+        with pytest.raises(SystemExit, match="not in the base weights"):
+            build_script.validate_targets(header, build_script.plan_modules(arrays), arrays)
+
+    def test_validate_targets_rejects_an_index_outside_the_table(self, build_script) -> None:
+        arrays = self._matching_arrays()
+        arrays["embed_idx"] = np.array([1, 5, 99], np.int32)  # table has 10 rows
+        with pytest.raises(SystemExit, match="embed_idx range"):
+            build_script.validate_targets(
+                self._matching_header(), build_script.plan_modules(arrays), arrays
+            )
+
+    def test_validate_targets_rejects_a_shape_mismatch(self, build_script) -> None:
+        arrays = self._matching_arrays()
+        arrays["llm.x.lora_A"] = np.zeros((3, 5), np.float32)  # matches neither side
+        arrays["llm.x.lora_B"] = np.zeros((7, 6), np.float32)
+        with pytest.raises(SystemExit, match="no orientation"):
+            build_script.validate_targets(
+                self._matching_header(), build_script.plan_modules(arrays), arrays
+            )
+
+    def test_sha256_matches_hashlib(self, tmp_path: Path) -> None:
+        import hashlib as _hashlib
+
+        path = tmp_path / "blob"
+        path.write_bytes(b"the diff, hypothetically")
+        expected = _hashlib.sha256(b"the diff, hypothetically").hexdigest()
+        assert _load_build_script().sha256_of(path) == expected

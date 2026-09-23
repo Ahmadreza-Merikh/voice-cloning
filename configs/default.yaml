@@ -106,25 +106,30 @@ text:
     # well-known locations; set explicitly to be safe.
     repo_path: auto
     inject_ezafe: true
-    # `ipa`    -> emit IPA, consumed by engines with phoneme input (MOSS-TTS)
+    # `ipa`    -> emit IPA, normalised into the canonical convention below
     # `native` -> keep the G2P's own romanisation
     # `off`    -> pass graphemes straight through
     output: ipa
     # Engines whose tokenizer is grapheme-only still benefit from
     # normalisation but must not receive phonemes.
     #
-    # Empty on purpose. MOSS is the only engine here that *accepts* IPA, and
-    # its phoneme channel is trained on English (CMUdict) and Chinese pinyin -
-    # upstream's own examples are all English. Persian IPA is out of
-    # distribution and it collapses: the same sentence that renders in 7.3s
-    # from Persian script came back as 1.3s of nonsense from IPA, 100% WER
-    # against 40%. Measured on an M1 Pro, MOSS-TTS-Local, Mana reference.
+    # Only omnivoice_ipa is listed. Its weights were continued on canonical
+    # Persian IPA (christopherthompson81/omnivoice-ipa-onnx, built by
+    # scripts/build_omnivoice_ipa.py), so IPA in that convention is its
+    # native input; the text pipeline converts Homo-GE2PE's output for it
+    # (src/voiceclone/text/ipa_normalize.py).
     #
-    # So the G2P earns its keep for analysis, homograph inspection and the
-    # WER metric - but nothing in this project can currently synthesise from
-    # its output. Add an engine here only once it is measured to read Persian
-    # phonemes better than Persian script.
-    apply_to_engines: []
+    # Deliberately absent, both measured:
+    #   MOSS - its phoneme channel is trained on English (CMUdict) and Chinese
+    #   pinyin; upstream's own examples are all English. Persian IPA is out of
+    #   distribution and it collapses: the same sentence that renders in 7.3s
+    #   from Persian script came back as 1.3s of nonsense from IPA, 100% WER
+    #   against 40%. Measured on an M1 Pro, MOSS-TTS-Local, Mana reference.
+    #   F5 and the rest - grapheme tokenizers; IPA would be out-of-vocabulary
+    #   noise for them.
+    # Add an engine here only once it is measured to read Persian phonemes
+    # better than Persian script.
+    apply_to_engines: [omnivoice_ipa]
 
   chunk:
     # Long text is split on sentence boundaries and synthesised in pieces so
@@ -140,7 +145,7 @@ engines:
   # different. On a 16 GB Mac it needs the reference transcript typed in (see
   # memory_guard below); the app falls back to F5 where OmniVoice is not
   # installed.
-  tts: omnivoice             # omnivoice | f5 | moss | fish | higgs | chatterbox | moss15
+  tts: omnivoice             # omnivoice | omnivoice_ipa | f5 | moss | fish | higgs | chatterbox | moss15
   vc: cascade                # cascade | seedvc
 
   f5:
@@ -296,6 +301,22 @@ engines:
     # (three times), and the worker needs about 2-3 GB on top. The pressure
     # watch applies either way.
     min_available_gb: 6.0
+
+  omnivoice_ipa:
+    # EXPERIMENT: OmniVoice continued on canonical Persian IPA
+    # (christopherthompson81/omnivoice-ipa-onnx, CC-BY-NC-4.0 - the base above
+    # stays Apache-2.0). The published diff is folded into a local copy of the
+    # base weights once, then select it with --engine omnivoice_ipa:
+    #     <python> scripts/build_omnivoice_ipa.py
+    # Provenance of the merged weights is written beside them in
+    # IPA_ADAPTATION.json.
+    #
+    # Everything else - worker, virtualenv, generation defaults,
+    # memory_guard - is inherited from `omnivoice` above, so a render under
+    # this engine differs from one under `omnivoice` only in the weights and
+    # in the phonemes text.g2p hands over (apply_to_engines above).
+    model_dir: omnivoice-ipa      # relative to paths.cache_dir
+    float16_copy: false           # a local directory: nothing to mirror
 
   fish:
     # Fish Audio S2 Pro (arXiv 2603.08823): dual-autoregressive TTS, a 4B slow

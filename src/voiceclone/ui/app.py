@@ -607,8 +607,10 @@ class VoiceCloneUI:
                         )
 
                     # Off by default. Ticking this passes an explicit preference
-                    # that overrides text.g2p.apply_to_engines, and no engine here
-                    # reads Persian IPA better than Persian script.
+                    # that overrides text.g2p.apply_to_engines. Leave it unticked
+                    # unless the selected engine reads IPA natively - currently
+                    # only omnivoice_ipa, the IPA fine-tune experiment; every
+                    # other engine here reads Persian script better.
                     tts_phonemes = gr.Checkbox(
                         value=False,
                         label=strings["use_phonemes"],

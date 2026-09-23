@@ -28,6 +28,7 @@ from .fish_tts import FishS2Engine  # noqa: F401  (registers "fish")
 from .higgs_tts import HiggsTTSEngine  # noqa: F401  (registers "higgs")
 from .moss15_tts import Moss15Engine  # noqa: F401  (registers "moss15")
 from .moss_tts import MossTTSEngine  # noqa: F401  (registers "moss")
+from .omnivoice_ipa import OmniVoiceIPAEngine  # noqa: F401  (registers "omnivoice_ipa")
 from .omnivoice_tts import OmniVoiceEngine  # noqa: F401  (registers "omnivoice")
 from .pocket_tts import PocketTTSEngine  # noqa: F401  (registers "pocket")
 from .vc_seedvc import SeedVCEngine  # noqa: F401  (registers "seedvc")
@@ -43,6 +44,7 @@ __all__ = [
     "Moss15Engine",
     "MossTTSEngine",
     "OmniVoiceEngine",
+    "OmniVoiceIPAEngine",
     "PocketTTSEngine",
     "SeedVCEngine",
     "SynthesisResult",

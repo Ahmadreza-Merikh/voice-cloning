@@ -12,10 +12,13 @@ Groups, added as the layers land:
 from __future__ import annotations
 
 import json
+from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 from voiceclone.config import AppConfig
+from voiceclone.errors import EngineNotAvailableError
 from voiceclone.text.g2p import G2PResult, words_to_ipa
 from voiceclone.text.ipa_normalize import (
     CANONICAL_ENGINES,
@@ -227,10 +230,236 @@ class TestRawPathPreserved:
         assert prepared.chunks[0].phonemes == "ʔˈaz"
         assert any("canonicalised" in note for note in prepared.notes)
 
-    def test_grapheme_routing_untouched_without_explicit_request(self) -> None:
-        # No explicit preference: the config decides, and it lists only the
-        # fine-tune. (omnivoice/f5 therefore never enter the normaliser.)
-        pipeline = self._pipeline(_FakeG2P([("از", "æ z")], ["@/z"]))
+class TestGraphemeRoutingUntouchedWithoutExplicitRequest:
+    def test_f5_gets_no_phonemes_from_config(self) -> None:
+        # The config lists only the fine-tune; f5 stays on script.
+        pipeline = TextPipeline(AppConfig.load().text)
+        pipeline._g2p = _FakeG2P([("از", "æ z")], ["@/z"])
         prepared = pipeline.prepare("از", engine_name="f5")
         assert not prepared.used_phonemes
         assert prepared.chunks[0].phonemes == ""
+
+
+class TestConfig:
+    def test_default_engine_unchanged(self, config: AppConfig) -> None:
+        assert config.engines.tts == "omnivoice"
+        assert config.engines.vc == "cascade"
+
+    def test_apply_to_engines_lists_only_the_fine_tune(self, config: AppConfig) -> None:
+        assert config.text.g2p.apply_to_engines == ["omnivoice_ipa"]
+
+    def test_dataclass_default_matches_the_yaml(self) -> None:
+        # A config built without the YAML must route the same way.
+        from voiceclone.config import G2PConfig
+
+        assert G2PConfig().apply_to_engines == ["omnivoice_ipa"]
+
+    def test_fine_tune_section_exists_with_expected_values(self, config: AppConfig) -> None:
+        from voiceclone.config import OmniVoiceIPAConfig
+
+        settings = config.engines.omnivoice_ipa
+        assert isinstance(settings, OmniVoiceIPAConfig)
+        assert isinstance(settings, type(config.engines.omnivoice))  # a subclass
+        assert settings.model_dir == "omnivoice-ipa"
+        assert settings.float16_copy is False
+        # provenance: where the diff came from, not what the worker loads
+        assert settings.model_id == "christopherthompson81/omnivoice-ipa-onnx"
+
+    @pytest.mark.parametrize(
+        "field",
+        [
+            "python",
+            "language",
+            "dtype",
+            "num_step",
+            "guidance_scale",
+            "t_shift",
+            "denoise",
+            "postprocess_output",
+            "layer_penalty_factor",
+            "position_temperature",
+            "class_temperature",
+            "timeout_seconds",
+            "memory_guard",
+            "min_available_gb",
+        ],
+    )
+    def test_generation_defaults_identical_to_omnivoice(
+        self, config: AppConfig, field: str
+    ) -> None:
+        # An A/B comparison may differ only in weights and input text.
+        parent = getattr(config.engines.omnivoice, field)
+        child = getattr(config.engines.omnivoice_ipa, field)
+        assert child == parent, field
+
+    def test_should_use_phonemes_follows_the_engine_name(self, config: AppConfig) -> None:
+        from voiceclone.text.pipeline import TextPipeline
+
+        pipeline = TextPipeline(config.text)
+        assert pipeline.should_use_phonemes("omnivoice_ipa") is True
+        for engine in ("omnivoice", "f5", "moss", "chatterbox", "pocket"):
+            assert pipeline.should_use_phonemes(engine) is False, engine
+
+
+class TestEngineRegistration:
+    def test_registered_under_its_own_name(self) -> None:
+        from voiceclone.engines import list_tts_engines
+
+        engines = list_tts_engines()
+        assert "omnivoice_ipa" in engines
+        assert engines["omnivoice_ipa"].name == "omnivoice_ipa"
+
+    def test_accepts_phonemes_is_the_only_capability_that_changed(self) -> None:
+        from voiceclone.engines import list_tts_engines
+
+        engines = list_tts_engines()
+        parent = engines["omnivoice"].capabilities
+        child = engines["omnivoice_ipa"].capabilities
+        assert child.accepts_phonemes is True
+        assert parent.accepts_phonemes is False  # unchanged
+        assert engines["f5"].capabilities.accepts_phonemes is False
+        assert engines["moss"].capabilities.accepts_phonemes is True  # unchanged
+        # everything else identical: the comparison must not drift on it
+        for field in (
+            "requires_reference_text",
+            "native_persian",
+            "supports_speed",
+            "supports_seed",
+            "approx_download_gb",
+            "max_reference_seconds",
+        ):
+            assert getattr(child, field) == getattr(parent, field), field
+
+    def test_get_engine_builds_one(self, config: AppConfig) -> None:
+        from voiceclone.device import get_device_spec
+        from voiceclone.engines import get_tts_engine
+
+        engine = get_tts_engine("omnivoice_ipa", config, get_device_spec("cpu"))
+        assert engine.name == "omnivoice_ipa"
+        assert engine.capabilities.accepts_phonemes is True
+
+
+class TestModelPaths:
+    def test_default_dir_is_under_the_cache(self) -> None:
+        from voiceclone.engines.omnivoice_ipa import default_model_dir
+
+        assert default_model_dir().name == "omnivoice-ipa"
+        assert "persian-voice-cloning" in str(default_model_dir())
+
+    def test_relative_model_dir_resolves_under_cache_dir(self) -> None:
+        from voiceclone.engines.omnivoice_ipa import ipa_model_dir
+
+        # Fresh load: the session `config` fixture must not be mutated here.
+        config = AppConfig.load()
+        config.engines.omnivoice_ipa.model_dir = "somewhere-else"
+        resolved = ipa_model_dir(config)
+        assert resolved.name == "somewhere-else"
+        assert str(resolved).startswith(str(config.paths.cache_dir).replace("~", str(Path.home())))
+
+    def test_absolute_model_dir_wins_over_cache_dir(self) -> None:
+        from voiceclone.engines.omnivoice_ipa import ipa_model_dir
+
+        config = AppConfig.load()
+        config.engines.omnivoice_ipa.model_dir = "/tmp/custom-ipa-weights"
+        assert str(ipa_model_dir(config)) == "/tmp/custom-ipa-weights"
+
+
+class TestEngineAvailability:
+    """The weights are not installed: report it, never crash on it."""
+
+    @staticmethod
+    def _with_env_ok(monkeypatch: pytest.MonkeyPatch) -> None:
+        # Availability of the *weights* is what is under test; the venv check
+        # is the parent's and must not decide these answers.
+        from voiceclone.engines.omnivoice_tts import OmniVoiceEngine
+
+        monkeypatch.setattr(
+            OmniVoiceEngine, "is_available", classmethod(lambda cls: (True, ""))
+        )
+
+    def test_missing_weights_report_unavailable_with_the_build_command(
+        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    ) -> None:
+        from voiceclone.engines import omnivoice_ipa
+
+        self._with_env_ok(monkeypatch)
+        monkeypatch.setattr(omnivoice_ipa, "_candidate_model_dirs", lambda: [tmp_path / "nowhere"])
+        available, reason = omnivoice_ipa.OmniVoiceIPAEngine.is_available()
+        assert available is False
+        assert "build_omnivoice_ipa" in reason
+        assert "IPA-adapted" in reason or "not built" in reason
+
+    def test_built_weights_are_available(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        from voiceclone.engines import omnivoice_ipa
+
+        self._with_env_ok(monkeypatch)
+        (tmp_path / omnivoice_ipa.PROVENANCE_NAME).write_text("{}", encoding="utf-8")
+        monkeypatch.setattr(omnivoice_ipa, "_candidate_model_dirs", lambda: [tmp_path])
+        assert omnivoice_ipa.OmniVoiceIPAEngine.is_available() == (True, "")
+
+    def test_missing_weights_raise_before_any_worker_starts(
+        self, tmp_path: Path
+    ) -> None:
+        # Instance-level guard: the configured directory (may be a custom one
+        # the classmethod cannot see) is checked before the process spawns.
+        from voiceclone.engines.omnivoice_ipa import OmniVoiceIPAEngine
+
+        config = AppConfig.load()
+        config.engines.omnivoice_ipa.model_dir = str(tmp_path / "not-built")
+        stub = SimpleNamespace(config=config)
+
+        with pytest.raises(EngineNotAvailableError) as excinfo:
+            OmniVoiceIPAEngine._require_weights(stub)  # type: ignore[arg-type]
+        assert "build_omnivoice_ipa" in f"{excinfo.value} {excinfo.value.hint or ''}"
+        # no subprocess, no torch load - the guard ran first
+
+    def test_model_source_is_the_configured_directory(self) -> None:
+        from voiceclone.engines.omnivoice_ipa import OmniVoiceIPAEngine, ipa_model_dir
+
+        config = AppConfig.load()
+        config.engines.omnivoice_ipa.model_dir = str(Path("/tmp/some-dir"))
+        stub = SimpleNamespace(config=config)
+
+        settings = OmniVoiceIPAEngine._settings(stub)  # type: ignore[arg-type]
+        source = OmniVoiceIPAEngine._model_source(stub, settings)  # type: ignore[arg-type]
+        assert source == str(ipa_model_dir(config))
+        # never the diff repo: the worker would find no model files there
+        assert "omnivoice-ipa-onnx" not in source
+
+
+class TestPhonemeFlagWarning:
+    def test_metadata_records_whether_ipa_was_sent(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        # The parent synthesize is replaced: this tests the wrapper's contract
+        # (flag propagated, raw-text warning) without a worker process.
+        from voiceclone.device import get_device_spec
+        from voiceclone.engines.base import SynthesisResult
+        from voiceclone.engines.omnivoice_ipa import OmniVoiceIPAEngine
+        from voiceclone.engines.omnivoice_tts import OmniVoiceEngine
+
+        captured: dict[str, object] = {}
+
+        def fake_synthesize(self, text, reference, **kwargs):  # noqa: ANN001
+            captured.update(kwargs)
+            captured["text"] = text
+            return SynthesisResult(
+                audio=None, engine="omnivoice_ipa", seed=0, metadata={}
+            )
+
+        monkeypatch.setattr(OmniVoiceEngine, "synthesize", fake_synthesize)
+        engine = OmniVoiceIPAEngine(AppConfig.load(), get_device_spec("cpu"))
+
+        result = engine.synthesize("ʔˈaz", None, is_phonemes=True)
+        assert result.metadata["is_phonemes"] is True
+        assert captured["is_phonemes"] is True
+
+        result = engine.synthesize("از", None)  # raw text: warned, recorded
+        assert result.metadata["is_phonemes"] is False
+
+    def test_synthesis_result_metadata_is_mutable_enough(self) -> None:
+        from voiceclone.engines.base import SynthesisResult
+
+        result = SynthesisResult(audio=None, engine="x", seed=0, metadata={})
+        result.metadata["is_phonemes"] = True
+        assert result.metadata["is_phonemes"] is True

@@ -295,7 +295,6 @@ class TestConfig:
         "field",
         [
             "python",
-            "language",
             "dtype",
             "num_step",
             "guidance_scale",
@@ -313,10 +312,25 @@ class TestConfig:
     def test_generation_defaults_identical_to_omnivoice(
         self, config: AppConfig, field: str
     ) -> None:
-        # An A/B comparison may differ only in weights and input text.
+        # An A/B comparison may differ only in weights, input text and the
+        # fine-tune card's language tag (the dedicated test below).
         parent = getattr(config.engines.omnivoice, field)
         child = getattr(config.engines.omnivoice_ipa, field)
         assert child == parent, field
+
+    def test_ipa_path_is_language_agnostic_per_the_fine_tune_card(
+        self, config: AppConfig
+    ) -> None:
+        # The single documented divergence from the base engine: the published
+        # card conditions the fine-tune on <|lang_start|>None<|lang_end|> and
+        # says "the IPA stream carries everything". It never trained with the
+        # base ``fa`` tag next to IPA text, so the IPA path must not send one;
+        # the base engine keeps upstream's named-language default untouched.
+        assert config.engines.omnivoice.language == "fa"
+        assert config.engines.omnivoice_ipa.language is None
+        # The worker's wire format is a string; upstream's _resolve_language
+        # maps the literal "None" to language-agnostic mode.
+        assert str(config.engines.omnivoice_ipa.language) == "None"
 
     def test_should_use_phonemes_follows_the_engine_name(self, config: AppConfig) -> None:
         from voiceclone.text.pipeline import TextPipeline

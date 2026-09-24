@@ -297,6 +297,16 @@ class OmniVoiceIPAConfig(OmniVoiceConfig):
     model_id: str = "christopherthompson81/omnivoice-ipa-onnx"
     #: Merged (base + diff) weights, built once by scripts/build_omnivoice_ipa.py.
     model_dir: str = "omnivoice-ipa"
+    #: The one documented divergence from the base engine's settings: the
+    #: published fine-tune card conditions the model language-agnostically
+    #: (``<|lang_start|>None<|lang_end|>``) and says "the IPA stream carries
+    #: everything" - it never trained with the base ``fa`` tag next to IPA
+    #: text, so sending that tag injects an accent prior out of distribution
+    #: for these weights. ``None`` reaches the worker as the literal
+    #: ``"None"``, which upstream's ``_resolve_language`` maps to
+    #: language-agnostic mode. The base ``omnivoice`` engine keeps upstream's
+    #: named-language default; only this path drops the tag.
+    language: str | None = None
     #: The merged weights are a local float32 directory: there is no hub
     #: snapshot here for the float16 copy machinery to mirror.
     float16_copy: bool = False

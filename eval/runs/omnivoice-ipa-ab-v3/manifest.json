@@ -1,0 +1,2664 @@
+{
+  "version": 1,
+  "purpose": "A/B/C listening test of the OmniVoice IPA fine-tune",
+  "hypothesis": "the IPA fine-tune reads Persian with acceptable pronunciation and voice cloning, compared against OmniVoice on raw and diacritised script",
+  "created": "2026-09-24T10:41:37+00:00",
+  "settings": {
+    "seed": 42,
+    "speed": 1.0,
+    "candidates": 1,
+    "evaluation_enabled": false,
+    "cer_after_unload": false,
+    "generation": {
+      "omnivoice": {
+        "python": "auto",
+        "language": "fa",
+        "dtype": "float16",
+        "num_step": 32,
+        "guidance_scale": 2.0,
+        "t_shift": 0.1,
+        "denoise": true,
+        "postprocess_output": true,
+        "layer_penalty_factor": 5.0,
+        "position_temperature": 5.0,
+        "class_temperature": 0.0,
+        "timeout_seconds": 900,
+        "memory_guard": true,
+        "min_available_gb": 6.0
+      },
+      "omnivoice_ipa": {
+        "python": "auto",
+        "language": null,
+        "dtype": "float16",
+        "num_step": 32,
+        "guidance_scale": 2.0,
+        "t_shift": 0.1,
+        "denoise": true,
+        "postprocess_output": true,
+        "layer_penalty_factor": 5.0,
+        "position_temperature": 5.0,
+        "class_temperature": 0.0,
+        "timeout_seconds": 900,
+        "memory_guard": true,
+        "min_available_gb": 6.0
+      },
+      "omnivoice_ipa_model_dir": "omnivoice-ipa",
+      "omnivoice_model_id": "k2-fsa/OmniVoice",
+      "g2p_apply_to_engines": [
+        "omnivoice_ipa"
+      ]
+    }
+  },
+  "reference": {
+    "speaker": "mana",
+    "file": "mana_000.wav",
+    "transcript": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم.",
+    "duration_s": 11.886
+  },
+  "held_out": [
+    {
+      "file": "mana_001.wav",
+      "transcript": "به طور خلاصه این مطالعه به این نتیجه رسیده که آسیب بینایی، عاملی تهدیدکننده برای سلامت روانی افراد به شمار می‌رود. با در نظر گرفتن تعداد زیادی پژوهش،"
+    },
+    {
+      "file": "mana_002.wav",
+      "transcript": "شد. برعکس، اگر به روابط اجتماعی زیادی نیاز داشته باشید و برای دوستی و انجام فعالیت‌ها پیش‌قدم نشوید، احساس انزوا و احتمالا افسردگی خواهید کرد."
+    },
+    {
+      "file": "mana_003.wav",
+      "transcript": "به اسناد برای نابینایان است و تا زمانی که این امکانات فراهم نشود، در صورت حذف تکلیف همراه داشتن معتمد، چالش‌های دیگری برای نابینایان"
+    },
+    {
+      "file": "mana_004.wav",
+      "transcript": "لیست تمامی مؤسسات و انجمن‌های غیردولتی سراسر کشور را که در حوزه افراد نابینا و کم‌بینا فعال هستند، جمع‌آوری و در سایت خود منتشر کرده است."
+    }
+  ],
+  "fine_tune": {
+    "builder": "scripts/build_omnivoice_ipa.py",
+    "created": "2026-09-23T16:39:10+00:00",
+    "base_repo": "k2-fsa/OmniVoice",
+    "base_source": "/Users/ahmadrezamerikh/.cache/huggingface/hub/models--k2-fsa--OmniVoice/snapshots/c5fdb5ccb189668d56333f77ba2629f4cd7535f4",
+    "base_revision": "c5fdb5ccb189668d56333f77ba2629f4cd7535f4",
+    "diff_repo": "christopherthompson81/omnivoice-ipa-onnx",
+    "diff_file": "ipa_diff.onnx",
+    "diff_source": "/private/var/folders/yx/rvvky3ld0_vbkvcy4z4v1xvc0000gn/T/opencode/ipa_model/ipa_diff.onnx",
+    "diff_sha256": "31d743997ccf5b2173785ac998f4bb3c579dbc98ce5e01f7d92e5335cb0a4e28",
+    "lora_scale": 2.0,
+    "embed_threshold": 0.001,
+    "modules_folded": 196,
+    "embed_rows_written": 5790,
+    "weight_targets": 196,
+    "method": "W += lora_scale * (B @ A); llm.embed_tokens.weight[embed_idx] = embed_rows",
+    "verification": "verified 3 folded modules against base + delta (out of 196), plus 10 embedding rows",
+    "licences": {
+      "base": "Apache-2.0",
+      "fine_tune": "CC-BY-NC-4.0"
+    }
+  },
+  "sealed_texts": {
+    "path": "eval/manifests/test_texts_v1.json",
+    "sha256_of_texts": "407865440732c9e56ad3310d478cebc5057821ac5f6bdcf205c88518ed7f6ead"
+  },
+  "probe_leakage_check": {
+    "available": true,
+    "checked": 68532,
+    "probes_checked": 9,
+    "rule": "CER normalisation, then equality, or containment either way of at least 20 letters and half the longer text",
+    "overlaps": []
+  },
+  "conditions": {
+    "A": "omnivoice + raw Persian script",
+    "B": "omnivoice + diacritised script (skipped where no variant)",
+    "C": "omnivoice_ipa + canonical Persian IPA (GE2PE -> normaliser); the G2P reads the diacritised twin where one exists"
+  },
+  "sentences": [
+    {
+      "id": "s01",
+      "category": "homograph_ghol_gil",
+      "source": "probe",
+      "text": "او گل قرمز را از گل باغچه بیرون کشید.",
+      "diacritized": "او گُل قرمز را از گِل باغچه بیرون کشید.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 15 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "او گُل قرمز را از گِل باغچه بیرون کشید.",
+            "canonical_ipa": "ʔˈuː ɡolˈe qeɾmˈez ɾˈaː ʔˈaz ɡelˈe baːqt͡ʃˈe biːɾˈuːn keʃˈiːd .",
+            "raw_ge2pe_compact": "@u gole qermez ra @/z gele baqce birun ke$id",
+            "raw_ge2pe_words": [
+              "او\tu",
+              "گُل\tg o l e",
+              "قرمز\tq e r m e z",
+              "را\tr ɒ",
+              "از\tæ z",
+              "گِل\tg e l e",
+              "باغچه\tb ɒ q tʃ e",
+              "بیرون\tb i r u n",
+              "کشید.\tk e ʃ i d"
+            ],
+            "normalization": {
+              "text": "ʔˈuː ɡolˈe qeɾmˈez ɾˈaː ʔˈaz ɡelˈe baːqt͡ʃˈe biːɾˈuːn keʃˈiːd .",
+              "words": [
+                "ʔˈuː",
+                "ɡolˈe",
+                "qeɾmˈez",
+                "ɾˈaː",
+                "ʔˈaz",
+                "ɡelˈe",
+                "baːqt͡ʃˈe",
+                "biːɾˈuːn",
+                "keʃˈiːd ."
+              ],
+              "changes": [
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 3
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 2
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 2
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 2
+                },
+                {
+                  "source": "u",
+                  "target": "uː",
+                  "count": 2
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 2
+                },
+                {
+                  "source": "tʃ",
+                  "target": "t͡ʃ",
+                  "count": 1
+                },
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "Punctuation restored from orthography: .."
+              ],
+              "stats": {
+                "punct_restored": 1,
+                "stress_inserted": 9
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "s02",
+      "category": "homograph_mard_murd",
+      "source": "probe",
+      "text": "پیرمرد گفت این مرد هفتهٔ پیش مرده است.",
+      "diacritized": "پیرمَرد گفت این مَرد هفتهٔ پیش مُرده است.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 15 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "پیرمَرد گفت این مَرد هفتهٔ پیش مُرده است.",
+            "canonical_ipa": "piːɾeamˈaɾd ɡˈoft ʔˈiːn maɾdˈe haftejˈe pˈiːʃ moɾdˈe ʔˈast .",
+            "raw_ge2pe_compact": "pire/m/rd goft @in m/rde h/fteye pi$ morde @/st",
+            "raw_ge2pe_words": [
+              "پیرمَرد\tp i r e æ m æ r d",
+              "گفت\tg o f t",
+              "این\ti n",
+              "مَرد\tm æ r d e",
+              "هفتهٔ\th æ f t e j e",
+              "پیش\tp i ʃ",
+              "مُرده\tm o r d e",
+              "است.\tæ s t"
+            ],
+            "normalization": {
+              "text": "piːɾeamˈaɾd ɡˈoft ʔˈiːn maɾdˈe haftejˈe pˈiːʃ moɾdˈe ʔˈast .",
+              "words": [
+                "piːɾeamˈaɾd",
+                "ɡˈoft",
+                "ʔˈiːn",
+                "maɾdˈe",
+                "haftejˈe",
+                "pˈiːʃ",
+                "moɾdˈe",
+                "ʔˈast ."
+              ],
+              "changes": [
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 5
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 4
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 3
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 2
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "Punctuation restored from orthography: .."
+              ],
+              "stats": {
+                "punct_restored": 1,
+                "stress_inserted": 8
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "s03",
+      "category": "ezafe_chain",
+      "source": "probe",
+      "text": "کتاب خوب برادرم روی میز اتاق است.",
+      "diacritized": "کتابِ خوبِ برادرم رویِ میزِ اتاق است.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 15 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "کتابِ خوبِ برادرم رویِ میزِ اتاق است.",
+            "canonical_ipa": "ketaːbˈe xuːbˈe baɾaːdaɾˈam ɾuːjˈe miːzˈe ʔotˈaːq ʔˈast .",
+            "raw_ge2pe_compact": "ketabe xube b/rad/r/m ruye mize @otaq @/st",
+            "raw_ge2pe_words": [
+              "کتاب\tk e t ɒ b e",
+              "خوب\tx u b e",
+              "برادرم\tb æ r ɒ d æ r æ m",
+              "روی\tr u j e",
+              "میز\tm i z e",
+              "اتاق\to t ɒ q",
+              "است.\tæ s t"
+            ],
+            "normalization": {
+              "text": "ketaːbˈe xuːbˈe baɾaːdaɾˈam ɾuːjˈe miːzˈe ʔotˈaːq ʔˈast .",
+              "words": [
+                "ketaːbˈe",
+                "xuːbˈe",
+                "baɾaːdaɾˈam",
+                "ɾuːjˈe",
+                "miːzˈe",
+                "ʔotˈaːq",
+                "ʔˈast ."
+              ],
+              "changes": [
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 4
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 3
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 3
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 2
+                },
+                {
+                  "source": "u",
+                  "target": "uː",
+                  "count": 2
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "Punctuation restored from orthography: .."
+              ],
+              "stats": {
+                "punct_restored": 1,
+                "stress_inserted": 7
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "s04",
+      "category": "homograph_rooye",
+      "source": "probe",
+      "text": "لیوان آب را روی میز بگذار و روی صورتت آب بکش.",
+      "diacritized": "لیوانِ آب را رویِ میز بگذار و رویِ صورتت آب بکش.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 21 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "لیوانِ آب را رویِ میز بگذار و رویِ صورتت آب بکش.",
+            "canonical_ipa": "liːvˈaːn ʔˈaːb ɾˈaː ɾuːjˈe mˈiːz beɡozˈaːɾ vˈa ɾuːjˈe suːɾatˈat ʔˈaːb bekˈeʃ .",
+            "raw_ge2pe_compact": "livan @ab ra ruye miz begozar v/ ruye sur/t/t @ab beke$",
+            "raw_ge2pe_words": [
+              "لیوان\tl i v ɒ n",
+              "آب\tɒ b",
+              "را\tr ɒ",
+              "روی\tr u j e",
+              "میز\tm i z",
+              "بگذار\tb e g o z ɒ r",
+              "و\tv æ",
+              "روی\tr u j e",
+              "صورتت\ts u r æ t æ t",
+              "آب\tɒ b",
+              "بکش.\tb e k e ʃ"
+            ],
+            "normalization": {
+              "text": "liːvˈaːn ʔˈaːb ɾˈaː ɾuːjˈe mˈiːz beɡozˈaːɾ vˈa ɾuːjˈe suːɾatˈat ʔˈaːb bekˈeʃ .",
+              "words": [
+                "liːvˈaːn",
+                "ʔˈaːb",
+                "ɾˈaː",
+                "ɾuːjˈe",
+                "mˈiːz",
+                "beɡozˈaːɾ",
+                "vˈa",
+                "ɾuːjˈe",
+                "suːɾatˈat",
+                "ʔˈaːb",
+                "bekˈeʃ ."
+              ],
+              "changes": [
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 5
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 5
+                },
+                {
+                  "source": "u",
+                  "target": "uː",
+                  "count": 3
+                },
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 3
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 2
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 2
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "Punctuation restored from orthography: .."
+              ],
+              "stats": {
+                "punct_restored": 1,
+                "stress_inserted": 11
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "s05",
+      "category": "consonants_kha_qha_gha",
+      "source": "probe",
+      "text": "قلعهٔ قدیمی بالای تپهٔ خاکی، هنگام غروب دیدنی بود.",
+      "diacritized": "قَلعهٔ قدیمی بالای تَپهٔ خاکی، هِنگام غُروب دیدنی بود.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 24 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "قَلعهٔ قدیمی بالای تَپهٔ خاکی، هِنگام غُروب دیدنی بود.",
+            "canonical_ipa": "qalʔejˈe qadiːmiːjˈe baːlaːjˈe tapejˈe xaːkˈiː , henɡaːmˈe qoɾuːbˈe diːdanˈiː bˈuːd .",
+            "raw_ge2pe_compact": "q/l@eye q/dimiye1 balaye1 t/peye1 xaki hengame1 qorube1 did/ni bud",
+            "raw_ge2pe_words": [
+              "قَلعهٔ\tq æ l e j e",
+              "قدیمی\tq æ d i m i j e",
+              "بالای\tb ɒ l ɒ j e",
+              "تَپهٔ\tt æ p e j e",
+              "خاکی،\tx ɒ k i",
+              "هِنگام\th e n g ɒ m e",
+              "غُروب\tq o r u b e",
+              "دیدنی\td i d æ n i",
+              "بود.\tb u d"
+            ],
+            "normalization": {
+              "text": "qalʔejˈe qadiːmiːjˈe baːlaːjˈe tapejˈe xaːkˈiː , henɡaːmˈe qoɾuːbˈe diːdanˈiː bˈuːd .",
+              "words": [
+                "qalʔejˈe",
+                "qadiːmiːjˈe",
+                "baːlaːjˈe",
+                "tapejˈe",
+                "xaːkˈiː ,",
+                "henɡaːmˈe",
+                "qoɾuːbˈe",
+                "diːdanˈiː",
+                "bˈuːd ."
+              ],
+              "changes": [
+                {
+                  "source": "1",
+                  "target": "",
+                  "count": 5
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 5
+                },
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 4
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 4
+                },
+                {
+                  "source": "u",
+                  "target": "uː",
+                  "count": 2
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 1
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 1
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 1
+                },
+                {
+                  "source": "،",
+                  "target": ",",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "GE2PE's stress digit (1) removed; the canonical word-final rule applied instead.",
+                "Punctuation restored from orthography: , .."
+              ],
+              "stats": {
+                "punct_restored": 2,
+                "stress_inserted": 9,
+                "stress_digit_removed": 5
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "s06",
+      "category": "consonants_zhe_ch_sh",
+      "source": "probe",
+      "text": "ژاله زیر چراغ، چترش را در باران شدید بست.",
+      "diacritized": "ژاله زیر چَراغ، چَترش را در بارانِ شَدید بست.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 23 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "ژاله زیر چَراغ، چَترش را در بارانِ شَدید بست.",
+            "canonical_ipa": "ʒaːlˈe ziːɾˈe t͡ʃeɾaːqˈe , t͡ʃatɾˈeʃ ɾˈaː dˈaɾ baːɾaːnˈe ʃadˈiːd bˈast .",
+            "raw_ge2pe_compact": ";ale zire1 ceraqe1 c/tre$ ra d/r barane1 $/did b/st",
+            "raw_ge2pe_words": [
+              "ژاله\tʒ ɒ l e",
+              "زیر\tz i r e",
+              "چَراغ،\ttʃ e r ɒ q e",
+              "چَترش\ttʃ æ t r e ʃ",
+              "را\tr ɒ",
+              "در\td æ r",
+              "باران\tb ɒ r ɒ n e",
+              "شَدید\tʃ æ d i d",
+              "بست.\tb æ s t"
+            ],
+            "normalization": {
+              "text": "ʒaːlˈe ziːɾˈe t͡ʃeɾaːqˈe , t͡ʃatɾˈeʃ ɾˈaː dˈaɾ baːɾaːnˈe ʃadˈiːd bˈast .",
+              "words": [
+                "ʒaːlˈe",
+                "ziːɾˈe",
+                "t͡ʃeɾaːqˈe ,",
+                "t͡ʃatɾˈeʃ",
+                "ɾˈaː",
+                "dˈaɾ",
+                "baːɾaːnˈe",
+                "ʃadˈiːd",
+                "bˈast ."
+              ],
+              "changes": [
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 6
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 5
+                },
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 4
+                },
+                {
+                  "source": "1",
+                  "target": "",
+                  "count": 3
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 2
+                },
+                {
+                  "source": "tʃ",
+                  "target": "t͡ʃ",
+                  "count": 2
+                },
+                {
+                  "source": "،",
+                  "target": ",",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "GE2PE's stress digit (1) removed; the canonical word-final rule applied instead.",
+                "Punctuation restored from orthography: , .."
+              ],
+              "stats": {
+                "punct_restored": 2,
+                "stress_inserted": 9,
+                "stress_digit_removed": 3
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "s07",
+      "category": "clusters",
+      "source": "probe",
+      "text": "مسؤول استقبال استاد از سرسرای دانشگاه ایستاد.",
+      "diacritized": "مَسؤول اِستقبالِ استاد از سَرسَرای دانشگاه ایستاد.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 20 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "مَسؤول اِستقبالِ استاد از سَرسَرای دانشگاه ایستاد.",
+            "canonical_ipa": "masʔuːlˈe ʔesteqbaːlˈe ʔostˈaːd ʔˈaz saɾsaɾaːjˈe daːneʃɡˈaː ʔiːstˈaːd .",
+            "raw_ge2pe_compact": "m/s@ule @esteqbale @ostad @/z s/rs/raye dane$ga @istad",
+            "raw_ge2pe_words": [
+              "مَسؤول\tm æ s u l e",
+              "اِستقبال\te s t e q b ɒ l e",
+              "استاد\to s t ɒ d",
+              "از\tæ z",
+              "سَرسَرای\ts æ r s æ r ɒ j e",
+              "دانشگاه\td ɒ n e ʃ g ɒ",
+              "ایستاد.\ti s t ɒ d"
+            ],
+            "normalization": {
+              "text": "masʔuːlˈe ʔesteqbaːlˈe ʔostˈaːd ʔˈaz saɾsaɾaːjˈe daːneʃɡˈaː ʔiːstˈaːd .",
+              "words": [
+                "masʔuːlˈe",
+                "ʔesteqbaːlˈe",
+                "ʔostˈaːd",
+                "ʔˈaz",
+                "saɾsaɾaːjˈe",
+                "daːneʃɡˈaː",
+                "ʔiːstˈaːd ."
+              ],
+              "changes": [
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 6
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 5
+                },
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 4
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 2
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 1
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 1
+                },
+                {
+                  "source": "u",
+                  "target": "uː",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "Punctuation restored from orthography: .."
+              ],
+              "stats": {
+                "punct_restored": 1,
+                "stress_inserted": 7
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "s08",
+      "category": "colloquial",
+      "source": "probe",
+      "text": "برو بابا، این حرفا پیش من خریدار نداره، بشین ببین چی میگم.",
+      "diacritized": "بُرو بابا، این حِرفا پیشِ من خُریدار نَداره، بِشین بِبین چی میگم.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 28 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "بُرو بابا، این حِرفا پیشِ من خُریدار نَداره، بِشین بِبین چی میگم.",
+            "canonical_ipa": "boɾˈo baːbˈaː , ʔˈiːn haɾfˈaː piːʃˈe mˈan xaɾiːdˈaːɾ nadaːɾˈe , beʃˈiːn bebˈiːn t͡ʃˈiː miːɡˈam .",
+            "raw_ge2pe_compact": "boro baba @in h/rfa pi$e1 m/n x/ridar n/dare be$in bebin ci mig/m",
+            "raw_ge2pe_words": [
+              "بُرو\tb o r o",
+              "بابا،\tb ɒ b ɒ",
+              "این\ti n",
+              "حِرفا\th æ r f ɒ",
+              "پیش\tp i ʃ e",
+              "من\tm æ n",
+              "خُریدار\tx æ r i d ɒ r",
+              "نَداره،\tn æ d ɒ r e",
+              "بِشین\tb e ʃ i n",
+              "بِبین\tb e b i n",
+              "چی\ttʃ i",
+              "میگم.\tm i g æ m"
+            ],
+            "normalization": {
+              "text": "boɾˈo baːbˈaː , ʔˈiːn haɾfˈaː piːʃˈe mˈan xaɾiːdˈaːɾ nadaːɾˈe , beʃˈiːn bebˈiːn t͡ʃˈiː miːɡˈam .",
+              "words": [
+                "boɾˈo",
+                "baːbˈaː ,",
+                "ʔˈiːn",
+                "haɾfˈaː",
+                "piːʃˈe",
+                "mˈan",
+                "xaɾiːdˈaːɾ",
+                "nadaːɾˈe ,",
+                "beʃˈiːn",
+                "bebˈiːn",
+                "t͡ʃˈiː",
+                "miːɡˈam ."
+              ],
+              "changes": [
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 7
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 5
+                },
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 5
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 5
+                },
+                {
+                  "source": "،",
+                  "target": ",",
+                  "count": 2
+                },
+                {
+                  "source": "1",
+                  "target": "",
+                  "count": 1
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 1
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 1
+                },
+                {
+                  "source": "tʃ",
+                  "target": "t͡ʃ",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "GE2PE's stress digit (1) removed; the canonical word-final rule applied instead.",
+                "Punctuation restored from orthography: , .."
+              ],
+              "stats": {
+                "punct_restored": 3,
+                "stress_inserted": 12,
+                "stress_digit_removed": 1
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "s09",
+      "category": "long",
+      "source": "probe",
+      "text": "وقتی مترو از ایستگاه ترمینال جنوب رد شد، خانمی که کنار پنجره نشسته بود کتابش را بست، کیفش را برداشت و به سمت در رفت، بیآنکه متوجه شود ایستگاه بعدی همان مقصدی است که نیم ساعت پیش از آن آمده بود.",
+      "diacritized": null,
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 85 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "وقتی مترو از ایستگاه ترمینال جنوب رد شد، خانمی که کنار پنجره نشسته بود کتابش را بست، کیفش را برداشت و به سمت در رفت، بیآنکه متوجه شود ایستگاه بعدی همان مقصدی است که نیم ساعت پیش از آن آمده بود.",
+            "canonical_ipa": "vaqtˈiː metɾˈo ʔˈaz ʔiːstɡaːhˈe teɾmiːnaːlˈe d͡ʒonˈuːb ɾˈad ʃˈod , xaːnomˈiː kˈe kenaːɾejˈe pand͡ʒaɾˈe neʃastˈe bˈuːd ketaːbˈaʃ ɾˈaː bˈast , kiːfˈaʃ ɾˈaː baɾdˈaːʃt vˈa bˈe samtˈe dˈaɾ ɾˈaft , biːaːnkˈe motevad͡ʒd͡ʒˈeh ʃavˈad ʔiːstɡaːhˈe baʔdˈiː hamˈaːn maqsadˈiː ʔˈast kˈe niːmsaːʔˈat piːʃˈaz ʔˈaːn ʔaːmadˈe bˈuːd",
+            "raw_ge2pe_compact": "v/qti metro @/z @istgahe1 terminale1 jonub r/d $od xanomi ke kenareye1 p/nj/re ne$/ste bud ketab/$ ra b/st kif/$ ra b/rda$t v/ be s/mte1 d/r r/ft bianke motev/jjeh $/v/d @istgahe1 b/@di h/man m/qs/di @/st ke nimsa@/t pi$/z @an @am/de bud",
+            "raw_ge2pe_words": [
+              "وقتی\tv æ q t i",
+              "مترو\tm e t r o",
+              "از\tæ z",
+              "ایستگاه\ti s t g ɒ h e",
+              "ترمینال\tt e r m i n ɒ l e",
+              "جنوب\tdʒ o n u b",
+              "رد\tr æ d",
+              "شد،\tʃ o d",
+              "خانمی\tx ɒ n o m i",
+              "که\tk e",
+              "کنار\tk e n ɒ r e j e",
+              "پنجره\tp æ n dʒ æ r e",
+              "نشسته\tn e ʃ æ s t e",
+              "بود\tb u d",
+              "کتابش\tk e t ɒ b æ ʃ",
+              "را\tr ɒ",
+              "بست،\tb æ s t",
+              "کیفش\tk i f æ ʃ",
+              "را\tr ɒ",
+              "برداشت\tb æ r d ɒ ʃ t",
+              "و\tv æ",
+              "به\tb e",
+              "سمت\ts æ m t e",
+              "در\td æ r",
+              "رفت،\tr æ f t",
+              "بیآنکه\tb i ɒ n k e",
+              "متوجه\tm o t e v æ dʒ dʒ e h",
+              "شود\tʃ æ v æ d",
+              "ایستگاه\ti s t g ɒ h e",
+              "بعدی\tb æ d i",
+              "همان\th æ m ɒ n",
+              "مقصدی\tm æ q s æ d i",
+              "است\tæ s t",
+              "که\tk e",
+              "نیم\tn i m s ɒ æ t",
+              "ساعت\tp i ʃ æ z",
+              "پیش\tɒ n",
+              "از\tɒ m æ d e",
+              "آن\tb u d"
+            ],
+            "normalization": {
+              "text": "vaqtˈiː metɾˈo ʔˈaz ʔiːstɡaːhˈe teɾmiːnaːlˈe d͡ʒonˈuːb ɾˈad ʃˈod , xaːnomˈiː kˈe kenaːɾejˈe pand͡ʒaɾˈe neʃastˈe bˈuːd ketaːbˈaʃ ɾˈaː bˈast , kiːfˈaʃ ɾˈaː baɾdˈaːʃt vˈa bˈe samtˈe dˈaɾ ɾˈaft , biːaːnkˈe motevad͡ʒd͡ʒˈeh ʃavˈad ʔiːstɡaːhˈe baʔdˈiː hamˈaːn maqsadˈiː ʔˈast kˈe niːmsaːʔˈat piːʃˈaz ʔˈaːn ʔaːmadˈe bˈuːd",
+              "words": [
+                "vaqtˈiː",
+                "metɾˈo",
+                "ʔˈaz",
+                "ʔiːstɡaːhˈe",
+                "teɾmiːnaːlˈe",
+                "d͡ʒonˈuːb",
+                "ɾˈad",
+                "ʃˈod ,",
+                "xaːnomˈiː",
+                "kˈe",
+                "kenaːɾejˈe",
+                "pand͡ʒaɾˈe",
+                "neʃastˈe",
+                "bˈuːd",
+                "ketaːbˈaʃ",
+                "ɾˈaː",
+                "bˈast ,",
+                "kiːfˈaʃ",
+                "ɾˈaː",
+                "baɾdˈaːʃt",
+                "vˈa",
+                "bˈe",
+                "samtˈe",
+                "dˈaɾ",
+                "ɾˈaft ,",
+                "biːaːnkˈe",
+                "motevad͡ʒd͡ʒˈeh",
+                "ʃavˈad",
+                "ʔiːstɡaːhˈe",
+                "baʔdˈiː",
+                "hamˈaːn",
+                "maqsadˈiː",
+                "ʔˈast",
+                "kˈe",
+                "niːmsaːʔˈat",
+                "piːʃˈaz",
+                "ʔˈaːn",
+                "ʔaːmadˈe",
+                "bˈuːd"
+              ],
+              "changes": [
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 25
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 14
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 11
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 10
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 8
+                },
+                {
+                  "source": "1",
+                  "target": "",
+                  "count": 5
+                },
+                {
+                  "source": "dʒ",
+                  "target": "d͡ʒ",
+                  "count": 4
+                },
+                {
+                  "source": "u",
+                  "target": "uː",
+                  "count": 3
+                },
+                {
+                  "source": "،",
+                  "target": ",",
+                  "count": 3
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 2
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "GE2PE's stress digit (1) removed; the canonical word-final rule applied instead.",
+                "Punctuation restored from orthography: ,."
+              ],
+              "stats": {
+                "punct_restored": 3,
+                "stress_inserted": 39,
+                "stress_digit_removed": 5
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "t09",
+      "category": "homographs_and_ezafe",
+      "source": "sealed",
+      "text": "پس از پایان مسابقهٔ کشتی، ورزشکاران با کشتی به جزیره برگشتند.",
+      "diacritized": "پس از پایان مُسابقهٔ کُشتی، وَرزشکاران با کِشتی به جَزیره برگشتند.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 26 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "پس از پایان مُسابقهٔ کُشتی، وَرزشکاران با کِشتی به جَزیره برگشتند.",
+            "canonical_ipa": "pˈas ʔˈaz paːjaːnˈe mosaːbeqejˈe koʃtˈiː , vaɾzeʃkaːɾˈaːn bˈaː koʃtˈiː bˈe d͡ʒaziːɾˈe baɾɡaʃtˈand .",
+            "raw_ge2pe_compact": "p/s @/z payane1 mosabeqeye1 ko$ti v/rze$karan ba ko$ti be j/zire b/rg/$t/nd",
+            "raw_ge2pe_words": [
+              "پس\tp æ s",
+              "از\tæ z",
+              "پایان\tp ɒ j ɒ n e",
+              "مُسابقهٔ\tm o s ɒ b e q e j e",
+              "کُشتی،\tk o ʃ t i",
+              "وَرزشکاران\tv æ r z e ʃ k ɒ r ɒ n",
+              "با\tb ɒ",
+              "کِشتی\tk o ʃ t i",
+              "به\tb e",
+              "جَزیره\tdʒ æ z i r e",
+              "برگشتند.\tb æ r g æ ʃ t æ n d"
+            ],
+            "normalization": {
+              "text": "pˈas ʔˈaz paːjaːnˈe mosaːbeqejˈe koʃtˈiː , vaɾzeʃkaːɾˈaːn bˈaː koʃtˈiː bˈe d͡ʒaziːɾˈe baɾɡaʃtˈand .",
+              "words": [
+                "pˈas",
+                "ʔˈaz",
+                "paːjaːnˈe",
+                "mosaːbeqejˈe",
+                "koʃtˈiː ,",
+                "vaɾzeʃkaːɾˈaːn",
+                "bˈaː",
+                "koʃtˈiː",
+                "bˈe",
+                "d͡ʒaziːɾˈe",
+                "baɾɡaʃtˈand ."
+              ],
+              "changes": [
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 7
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 6
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 4
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 3
+                },
+                {
+                  "source": "1",
+                  "target": "",
+                  "count": 2
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 1
+                },
+                {
+                  "source": "dʒ",
+                  "target": "d͡ʒ",
+                  "count": 1
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 1
+                },
+                {
+                  "source": "،",
+                  "target": ",",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "GE2PE's stress digit (1) removed; the canonical word-final rule applied instead.",
+                "Punctuation restored from orthography: , .."
+              ],
+              "stats": {
+                "punct_restored": 2,
+                "stress_inserted": 11,
+                "stress_digit_removed": 2
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "t10",
+      "category": "homographs_and_ezafe",
+      "source": "sealed",
+      "text": "دختر همسایهٔ روبه‌رویی ما کتاب تازهٔ نویسندهٔ محبوبش را امانت گرفت.",
+      "diacritized": "دخترِ همسایهٔ روبه‌رویی ما کتابِ تازهٔ نویسندهٔ مَحبوبش را اِمانت گرفت.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 25 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "دخترِ همسایهٔ روبه‌رویی ما کتابِ تازهٔ نویسندهٔ مَحبوبش را اِمانت گرفت.",
+            "canonical_ipa": "doxtaɾˈe hamsaːjejˈe ɾuːbahɾuːjˈiː mˈaː ketaːbˈe taːzejˈe neviːsandejˈe mahbuːbˈaʃ ɾˈaː ʔemaːnˈat ɡeɾˈeft .",
+            "raw_ge2pe_compact": "doxt/re h/msayeye rub/hruyi ma ketabe tazeye nevis/ndeye m/hbub/$ ra @eman/t gereft",
+            "raw_ge2pe_words": [
+              "دختر\td o x t æ r e",
+              "همسایهٔ\th æ m s ɒ j e j e",
+              "روبه‌رویی\tr u b æ h r u j i",
+              "ما\tm ɒ",
+              "کتاب\tk e t ɒ b e",
+              "تازهٔ\tt ɒ z e j e",
+              "نویسندهٔ\tn e v i s æ n d e j e",
+              "مَحبوبش\tm æ h b u b æ ʃ",
+              "را\tr ɒ",
+              "اِمانت\te m ɒ n æ t",
+              "گرفت.\tg e r e f t"
+            ],
+            "normalization": {
+              "text": "doxtaɾˈe hamsaːjejˈe ɾuːbahɾuːjˈiː mˈaː ketaːbˈe taːzejˈe neviːsandejˈe mahbuːbˈaʃ ɾˈaː ʔemaːnˈat ɡeɾˈeft .",
+              "words": [
+                "doxtaɾˈe",
+                "hamsaːjejˈe",
+                "ɾuːbahɾuːjˈiː",
+                "mˈaː",
+                "ketaːbˈe",
+                "taːzejˈe",
+                "neviːsandejˈe",
+                "mahbuːbˈaʃ",
+                "ɾˈaː",
+                "ʔemaːnˈat",
+                "ɡeɾˈeft ."
+              ],
+              "changes": [
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 7
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 6
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 5
+                },
+                {
+                  "source": "u",
+                  "target": "uː",
+                  "count": 3
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 2
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 1
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "Punctuation restored from orthography: .."
+              ],
+              "stats": {
+                "punct_restored": 1,
+                "stress_inserted": 11
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "t11",
+      "category": "very_short",
+      "source": "sealed",
+      "text": "باران بند آمد.",
+      "diacritized": "بارانِ بَند آمد.",
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 7 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "بارانِ بَند آمد.",
+            "canonical_ipa": "baːɾˈaːn bˈand ʔaːmˈad .",
+            "raw_ge2pe_compact": "baran b/nd @am/d",
+            "raw_ge2pe_words": [
+              "باران\tb ɒ r ɒ n",
+              "بَند\tb æ n d",
+              "آمد.\tɒ m æ d"
+            ],
+            "normalization": {
+              "text": "baːɾˈaːn bˈand ʔaːmˈad .",
+              "words": [
+                "baːɾˈaːn",
+                "bˈand",
+                "ʔaːmˈad ."
+              ],
+              "changes": [
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 3
+                },
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 2
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 1
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "Punctuation restored from orthography: .."
+              ],
+              "stats": {
+                "punct_restored": 1,
+                "stress_inserted": 3
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "t12",
+      "category": "long",
+      "source": "sealed",
+      "text": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تأخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند.",
+      "diacritized": null,
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Text normalised (characters, spacing, numbers).",
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 72 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تاخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند.",
+            "canonical_ipa": "vaqtˈiː bˈe ʔiːstɡaːhˈe qatˈaːɾ ɾasiːdˈiːm , diːdˈiːm kˈe qataːɾˈe ʃabaːnˈe bedaliːlˈe baɾfˈe sanɡˈiːn vˈa basteʃodanˈe d͡ʒaːddehaːjˈe kuːhestaːnˈiː dastkˈam sˈe saːʔˈat taʔxˈiːɾ daːɾˈad vˈa mosafeɾaːnˈe xastˈe dˈaɾ saːlˈon ʔentezˈaːɾ neʃasteˈand vˈa t͡ʃˈaːj miːnuːʃˈand",
+            "raw_ge2pe_compact": "v/qti be @istgahe1 q/tar r/sidim didim ke q/tare1 $/bane bed/lile1 b/rfe1 s/ngin v/ b/ste$od/ne jaddehaye kuhestani d/stk/m se sa@/t t/@xir dar/d v/ mos/ferane x/ste d/r salon @entezar nesh/ste/nd v/ cay minu$/nd",
+            "raw_ge2pe_words": [
+              "وقتی\tv æ q t i",
+              "به\tb e",
+              "ایستگاه\ti s t g ɒ h e",
+              "قطار\tq æ t ɒ r",
+              "رسیدیم،\tr æ s i d i m",
+              "دیدیم\td i d i m",
+              "که\tk e",
+              "قطار\tq æ t ɒ r e",
+              "شبانه\tʃ æ b ɒ n e",
+              "به\tb e d æ l i l e",
+              "دلیل\tb æ r f e",
+              "برف\ts æ n g i n",
+              "سنگین\tv æ",
+              "و\tb æ s t e ʃ o d æ n e",
+              "بسته\tdʒ ɒ d d e h ɒ j e",
+              "شدن\tk u h e s t ɒ n i",
+              "جاده‌های\td æ s t k æ m",
+              "کوهستانی\ts e",
+              "دست‌کم\ts ɒ æ t",
+              "سه\tt æ x i r",
+              "ساعت\td ɒ r æ d",
+              "تاخیر\tv æ",
+              "دارد\tm o s æ f e r ɒ n e",
+              "و\tx æ s t e",
+              "مسافران\td æ r",
+              "خسته\ts ɒ l o n",
+              "در\te n t e z ɒ r",
+              "سالن\tn e ʃ æ s t e æ n d",
+              "انتظار\tv æ",
+              "نشسته‌اند\ttʃ ɒ j",
+              "و\tm i n u ʃ æ n d"
+            ],
+            "normalization": {
+              "text": "vaqtˈiː bˈe ʔiːstɡaːhˈe qatˈaːɾ ɾasiːdˈiːm , diːdˈiːm kˈe qataːɾˈe ʃabaːnˈe bedaliːlˈe baɾfˈe sanɡˈiːn vˈa basteʃodanˈe d͡ʒaːddehaːjˈe kuːhestaːnˈiː dastkˈam sˈe saːʔˈat taʔxˈiːɾ daːɾˈad vˈa mosafeɾaːnˈe xastˈe dˈaɾ saːlˈon ʔentezˈaːɾ neʃasteˈand vˈa t͡ʃˈaːj miːnuːʃˈand",
+              "words": [
+                "vaqtˈiː",
+                "bˈe",
+                "ʔiːstɡaːhˈe",
+                "qatˈaːɾ",
+                "ɾasiːdˈiːm ,",
+                "diːdˈiːm",
+                "kˈe",
+                "qataːɾˈe",
+                "ʃabaːnˈe",
+                "bedaliːlˈe",
+                "baɾfˈe",
+                "sanɡˈiːn",
+                "vˈa",
+                "basteʃodanˈe",
+                "d͡ʒaːddehaːjˈe",
+                "kuːhestaːnˈiː",
+                "dastkˈam",
+                "sˈe",
+                "saːʔˈat",
+                "taʔxˈiːɾ",
+                "daːɾˈad",
+                "vˈa",
+                "mosafeɾaːnˈe",
+                "xastˈe",
+                "dˈaɾ",
+                "saːlˈon",
+                "ʔentezˈaːɾ",
+                "neʃasteˈand",
+                "vˈa",
+                "t͡ʃˈaːj",
+                "miːnuːʃˈand"
+              ],
+              "changes": [
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 24
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 13
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 11
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 9
+                },
+                {
+                  "source": "1",
+                  "target": "",
+                  "count": 4
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 4
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 2
+                },
+                {
+                  "source": "u",
+                  "target": "uː",
+                  "count": 2
+                },
+                {
+                  "source": "dʒ",
+                  "target": "d͡ʒ",
+                  "count": 1
+                },
+                {
+                  "source": "tʃ",
+                  "target": "t͡ʃ",
+                  "count": 1
+                },
+                {
+                  "source": "،",
+                  "target": ",",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "GE2PE's stress digit (1) removed; the canonical word-final rule applied instead.",
+                "Punctuation restored from orthography: ,."
+              ],
+              "stats": {
+                "punct_restored": 1,
+                "stress_inserted": 31,
+                "stress_digit_removed": 4
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "r01",
+      "category": "corpus_long",
+      "source": "corpus",
+      "text": "به طور خلاصه این مطالعه به این نتیجه رسیده که آسیب بینایی، عاملی تهدیدکننده برای سلامت روانی افراد به شمار می‌رود. با در نظر گرفتن تعداد زیادی پژوهش،",
+      "diacritized": null,
+      "ipa": {
+        "used_phonemes": true,
+        "g2p_backend": "homo-ge2pe",
+        "notes": [
+          "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+          "IPA canonicalised for omnivoice_ipa: 68 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+        ],
+        "chunks": [
+          {
+            "chunk_text": "به طور خلاصه این مطالعه به این نتیجه رسیده که آسیب بینایی، عاملی تهدیدکننده برای سلامت روانی افراد به شمار می‌رود. با در نظر گرفتن تعداد زیادی پژوهش،",
+            "canonical_ipa": "betuːɾˈe xolaːsˈe ʔˈiːn motaːleʔˈe beˈiːn natiːd͡ʒˈe ɾesiːdˈe kˈe ʔaːsiːbˈe biːnaːjiːjˈe ʔaːmeliːjˈe tahdiːdkonandˈe , baɾaːjˈe salaːmatˈe ɾavaːniːjˈe ʔafɾˈaːd beʃomˈaːɾ miːɾavˈad bˈaː dˈaɾ nazˈaɾ . ɡeɾeftanˈe teʔdaːdˈe ziːjaːdˈiː paʒuːhˈeʃ",
+            "raw_ge2pe_compact": "beture xolase @in motale@e bein n/tije reside ke @asibe1 binayiye1 @ameliye1 t/hdidkon/nde b/raye s/lam/te1 r/vaniye1 @/frad be$omar mir/v/d ba d/r n/z/r gereft/ne1 te@dade ziyadi p/;uhe$",
+            "raw_ge2pe_words": [
+              "به\tb e t u r e",
+              "طور\tx o l ɒ s e",
+              "خلاصه\ti n",
+              "این\tm o t ɒ l e e",
+              "مطالعه\tb e i n",
+              "به\tn æ t i dʒ e",
+              "این\tr e s i d e",
+              "نتیجه\tk e",
+              "رسیده\tɒ s i b e",
+              "که\tb i n ɒ j i j e",
+              "آسیب\tɒ m e l i j e",
+              "بینایی،\tt æ h d i d k o n æ n d e",
+              "عاملی\tb æ r ɒ j e",
+              "تهدیدکننده\ts æ l ɒ m æ t e",
+              "برای\tr æ v ɒ n i j e",
+              "سلامت\tæ f r ɒ d",
+              "روانی\tb e ʃ o m ɒ r",
+              "افراد\tm i r æ v æ d",
+              "به\tb ɒ",
+              "شمار\td æ r",
+              "می‌رود.\tn æ z æ r",
+              "با\tg e r e f t æ n e",
+              "در\tt e d ɒ d e",
+              "نظر\tz i j ɒ d i",
+              "گرفتن\tp æ ʒ u h e ʃ"
+            ],
+            "normalization": {
+              "text": "betuːɾˈe xolaːsˈe ʔˈiːn motaːleʔˈe beˈiːn natiːd͡ʒˈe ɾesiːdˈe kˈe ʔaːsiːbˈe biːnaːjiːjˈe ʔaːmeliːjˈe tahdiːdkonandˈe , baɾaːjˈe salaːmatˈe ɾavaːniːjˈe ʔafɾˈaːd beʃomˈaːɾ miːɾavˈad bˈaː dˈaɾ nazˈaɾ . ɡeɾeftanˈe teʔdaːdˈe ziːjaːdˈiː paʒuːhˈeʃ",
+              "words": [
+                "betuːɾˈe",
+                "xolaːsˈe",
+                "ʔˈiːn",
+                "motaːleʔˈe",
+                "beˈiːn",
+                "natiːd͡ʒˈe",
+                "ɾesiːdˈe",
+                "kˈe",
+                "ʔaːsiːbˈe",
+                "biːnaːjiːjˈe",
+                "ʔaːmeliːjˈe",
+                "tahdiːdkonandˈe ,",
+                "baɾaːjˈe",
+                "salaːmatˈe",
+                "ɾavaːniːjˈe",
+                "ʔafɾˈaːd",
+                "beʃomˈaːɾ",
+                "miːɾavˈad",
+                "bˈaː",
+                "dˈaɾ",
+                "nazˈaɾ .",
+                "ɡeɾeftanˈe",
+                "teʔdaːdˈe",
+                "ziːjaːdˈiː",
+                "paʒuːhˈeʃ"
+              ],
+              "changes": [
+                {
+                  "source": "æ",
+                  "target": "a",
+                  "count": 15
+                },
+                {
+                  "source": "i",
+                  "target": "iː",
+                  "count": 13
+                },
+                {
+                  "source": "ɒ",
+                  "target": "aː",
+                  "count": 13
+                },
+                {
+                  "source": "r",
+                  "target": "ɾ",
+                  "count": 10
+                },
+                {
+                  "source": "1",
+                  "target": "",
+                  "count": 6
+                },
+                {
+                  "source": "@",
+                  "target": "ʔ",
+                  "count": 6
+                },
+                {
+                  "source": "u",
+                  "target": "uː",
+                  "count": 2
+                },
+                {
+                  "source": "dʒ",
+                  "target": "d͡ʒ",
+                  "count": 1
+                },
+                {
+                  "source": "g",
+                  "target": "ɡ",
+                  "count": 1
+                },
+                {
+                  "source": "،",
+                  "target": ",",
+                  "count": 1
+                }
+              ],
+              "unknown": [],
+              "notes": [
+                "GE2PE's stress digit (1) removed; the canonical word-final rule applied instead.",
+                "Punctuation restored from orthography: , .."
+              ],
+              "stats": {
+                "punct_restored": 2,
+                "stress_inserted": 25,
+                "stress_digit_removed": 6
+              },
+              "source": "compact"
+            },
+            "matches_pipeline": true
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "event": "phonemes_captured_before_any_engine",
+      "sentences": 14
+    },
+    {
+      "event": "released",
+      "engine": "omnivoice"
+    },
+    {
+      "event": "released",
+      "engine": "omnivoice_ipa"
+    }
+  ],
+  "renders": [
+    {
+      "id": "s01",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "او گل قرمز را از گل باغچه بیرون کشید.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s01_A.wav",
+      "skipped": null,
+      "duration_s": 3.002,
+      "used_phonemes": false,
+      "fed_texts": [
+        "او گل قرمز را از گل باغچه بیرون کشید."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.347,
+        "text": 0.0,
+        "load": 6.105,
+        "synthesis": 16.265
+      }
+    },
+    {
+      "id": "s01",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "او گُل قرمز را از گِل باغچه بیرون کشید.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s01_B.wav",
+      "skipped": null,
+      "duration_s": 2.711,
+      "used_phonemes": false,
+      "fed_texts": [
+        "او گُل قرمز را از گِل باغچه بیرون کشید."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 13.664
+      }
+    },
+    {
+      "id": "s02",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "پیرمرد گفت این مرد هفتهٔ پیش مرده است.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s02_A.wav",
+      "skipped": null,
+      "duration_s": 2.999,
+      "used_phonemes": false,
+      "fed_texts": [
+        "پیرمرد گفت این مرد هفتهٔ پیش مرده است."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 12.799
+      }
+    },
+    {
+      "id": "s02",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "پیرمَرد گفت این مَرد هفتهٔ پیش مُرده است.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s02_B.wav",
+      "skipped": null,
+      "duration_s": 2.776,
+      "used_phonemes": false,
+      "fed_texts": [
+        "پیرمَرد گفت این مَرد هفتهٔ پیش مُرده است."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 12.811
+      }
+    },
+    {
+      "id": "s03",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "کتاب خوب برادرم روی میز اتاق است.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s03_A.wav",
+      "skipped": null,
+      "duration_s": 2.727,
+      "used_phonemes": false,
+      "fed_texts": [
+        "کتاب خوب برادرم روی میز اتاق است."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 12.496
+      }
+    },
+    {
+      "id": "s03",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "کتابِ خوبِ برادرم رویِ میزِ اتاق است.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s03_B.wav",
+      "skipped": null,
+      "duration_s": 2.663,
+      "used_phonemes": false,
+      "fed_texts": [
+        "کتابِ خوبِ برادرم رویِ میزِ اتاق است."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 12.575
+      }
+    },
+    {
+      "id": "s04",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "لیوان آب را روی میز بگذار و روی صورتت آب بکش.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s04_A.wav",
+      "skipped": null,
+      "duration_s": 3.404,
+      "used_phonemes": false,
+      "fed_texts": [
+        "لیوان آب را روی میز بگذار و روی صورتت آب بکش."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 13.304
+      }
+    },
+    {
+      "id": "s04",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "لیوانِ آب را رویِ میز بگذار و رویِ صورتت آب بکش.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s04_B.wav",
+      "skipped": null,
+      "duration_s": 3.392,
+      "used_phonemes": false,
+      "fed_texts": [
+        "لیوانِ آب را رویِ میز بگذار و رویِ صورتت آب بکش."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 13.491
+      }
+    },
+    {
+      "id": "s05",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "قلعهٔ قدیمی بالای تپهٔ خاکی، هنگام غروب دیدنی بود.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s05_A.wav",
+      "skipped": null,
+      "duration_s": 3.839,
+      "used_phonemes": false,
+      "fed_texts": [
+        "قلعهٔ قدیمی بالای تپهٔ خاکی، هنگام غروب دیدنی بود."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 13.689
+      }
+    },
+    {
+      "id": "s05",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "قَلعهٔ قدیمی بالای تَپهٔ خاکی، هِنگام غُروب دیدنی بود.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s05_B.wav",
+      "skipped": null,
+      "duration_s": 3.867,
+      "used_phonemes": false,
+      "fed_texts": [
+        "قَلعهٔ قدیمی بالای تَپهٔ خاکی، هِنگام غُروب دیدنی بود."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 13.891
+      }
+    },
+    {
+      "id": "s06",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "ژاله زیر چراغ، چترش را در باران شدید بست.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s06_A.wav",
+      "skipped": null,
+      "duration_s": 3.097,
+      "used_phonemes": false,
+      "fed_texts": [
+        "ژاله زیر چراغ، چترش را در باران شدید بست."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 13.079
+      }
+    },
+    {
+      "id": "s06",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "ژاله زیر چَراغ، چَترش را در بارانِ شَدید بست.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s06_B.wav",
+      "skipped": null,
+      "duration_s": 3.137,
+      "used_phonemes": false,
+      "fed_texts": [
+        "ژاله زیر چَراغ، چَترش را در بارانِ شَدید بست."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 13.847
+      }
+    },
+    {
+      "id": "s07",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "مسؤول استقبال استاد از سرسرای دانشگاه ایستاد.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s07_A.wav",
+      "skipped": null,
+      "duration_s": 3.735,
+      "used_phonemes": false,
+      "fed_texts": [
+        "مسؤول استقبال استاد از سرسرای دانشگاه ایستاد."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 13.678
+      }
+    },
+    {
+      "id": "s07",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "مَسؤول اِستقبالِ استاد از سَرسَرای دانشگاه ایستاد.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s07_B.wav",
+      "skipped": null,
+      "duration_s": 3.738,
+      "used_phonemes": false,
+      "fed_texts": [
+        "مَسؤول اِستقبالِ استاد از سَرسَرای دانشگاه ایستاد."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 13.508
+      }
+    },
+    {
+      "id": "s08",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "برو بابا، این حرفا پیش من خریدار نداره، بشین ببین چی میگم.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s08_A.wav",
+      "skipped": null,
+      "duration_s": 4.388,
+      "used_phonemes": false,
+      "fed_texts": [
+        "برو بابا، این حرفا پیش من خریدار نداره، بشین ببین چی میگم."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 14.456
+      }
+    },
+    {
+      "id": "s08",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "بُرو بابا، این حِرفا پیشِ من خُریدار نَداره، بِشین بِبین چی میگم.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s08_B.wav",
+      "skipped": null,
+      "duration_s": 4.385,
+      "used_phonemes": false,
+      "fed_texts": [
+        "بُرو بابا، این حِرفا پیشِ من خُریدار نَداره، بِشین بِبین چی میگم."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 15.095
+      }
+    },
+    {
+      "id": "s09",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "وقتی مترو از ایستگاه ترمینال جنوب رد شد، خانمی که کنار پنجره نشسته بود کتابش را بست، کیفش را برداشت و به سمت در رفت، بیآنکه متوجه شود ایستگاه بعدی همان مقصدی است که نیم ساعت پیش از آن آمده بود.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s09_A.wav",
+      "skipped": null,
+      "duration_s": 15.617,
+      "used_phonemes": false,
+      "fed_texts": [
+        "وقتی مترو از ایستگاه ترمینال جنوب رد شد، خانمی که کنار پنجره نشسته بود کتابش را بست، کیفش را برداشت و به سمت در رفت، بیآنکه متوجه شود ایستگاه بعدی همان مقصدی است که نیم ساعت پیش از آن آمده بود."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 26.533
+      }
+    },
+    {
+      "id": "s09",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": null,
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": null,
+      "skipped": "no diacritised variant written for this sentence"
+    },
+    {
+      "id": "t09",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "پس از پایان مسابقهٔ کشتی، ورزشکاران با کشتی به جزیره برگشتند.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t09_A.wav",
+      "skipped": null,
+      "duration_s": 4.894,
+      "used_phonemes": false,
+      "fed_texts": [
+        "پس از پایان مسابقهٔ کشتی، ورزشکاران با کشتی به جزیره برگشتند."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 15.206
+      }
+    },
+    {
+      "id": "t09",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "پس از پایان مُسابقهٔ کُشتی، وَرزشکاران با کِشتی به جَزیره برگشتند.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t09_B.wav",
+      "skipped": null,
+      "duration_s": 5.039,
+      "used_phonemes": false,
+      "fed_texts": [
+        "پس از پایان مُسابقهٔ کُشتی، وَرزشکاران با کِشتی به جَزیره برگشتند."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 15.462
+      }
+    },
+    {
+      "id": "t10",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "دختر همسایهٔ روبه‌رویی ما کتاب تازهٔ نویسندهٔ محبوبش را امانت گرفت.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t10_A.wav",
+      "skipped": null,
+      "duration_s": 5.396,
+      "used_phonemes": false,
+      "fed_texts": [
+        "دختر همسایهٔ روبه‌رویی ما کتاب تازهٔ نویسندهٔ محبوبش را امانت گرفت."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 15.992
+      }
+    },
+    {
+      "id": "t10",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "دخترِ همسایهٔ روبه‌رویی ما کتابِ تازهٔ نویسندهٔ مَحبوبش را اِمانت گرفت.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t10_B.wav",
+      "skipped": null,
+      "duration_s": 5.376,
+      "used_phonemes": false,
+      "fed_texts": [
+        "دخترِ همسایهٔ روبه‌رویی ما کتابِ تازهٔ نویسندهٔ مَحبوبش را اِمانت گرفت."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 16.001
+      }
+    },
+    {
+      "id": "t11",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "باران بند آمد.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t11_A.wav",
+      "skipped": null,
+      "duration_s": 1.366,
+      "used_phonemes": false,
+      "fed_texts": [
+        "باران بند آمد."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 11.714
+      }
+    },
+    {
+      "id": "t11",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": "بارانِ بَند آمد.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t11_B.wav",
+      "skipped": null,
+      "duration_s": 1.375,
+      "used_phonemes": false,
+      "fed_texts": [
+        "بارانِ بَند آمد."
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 12.13
+      }
+    },
+    {
+      "id": "t12",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تأخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند.",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t12_A.wav",
+      "skipped": null,
+      "duration_s": 15.1,
+      "used_phonemes": false,
+      "fed_texts": [
+        "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تاخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند."
+      ],
+      "notes": [
+        "Text normalised (characters, spacing, numbers)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 25.818
+      }
+    },
+    {
+      "id": "t12",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": null,
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": null,
+      "skipped": "no diacritised variant written for this sentence"
+    },
+    {
+      "id": "r01",
+      "condition": "A",
+      "engine": "omnivoice",
+      "input_text": "به طور خلاصه این مطالعه به این نتیجه رسیده که آسیب بینایی، عاملی تهدیدکننده برای سلامت روانی افراد به شمار می‌رود. با در نظر گرفتن تعداد زیادی پژوهش،",
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/r01_A.wav",
+      "skipped": null,
+      "duration_s": 12.722,
+      "used_phonemes": false,
+      "fed_texts": [
+        "به طور خلاصه این مطالعه به این نتیجه رسیده که آسیب بینایی، عاملی تهدیدکننده برای سلامت روانی افراد به شمار می‌رود. با در نظر گرفتن تعداد زیادی پژوهش،"
+      ],
+      "notes": [],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.0,
+        "load": 0.0,
+        "synthesis": 23.313
+      }
+    },
+    {
+      "id": "r01",
+      "condition": "B",
+      "engine": "omnivoice",
+      "input_text": null,
+      "use_phonemes_requested": false,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": null,
+      "skipped": "no diacritised variant written for this sentence"
+    },
+    {
+      "id": "s01",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "او گُل قرمز را از گِل باغچه بیرون کشید.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s01_C.wav",
+      "skipped": null,
+      "duration_s": 2.924,
+      "used_phonemes": true,
+      "fed_texts": [
+        "ʔˈuː ɡolˈe qeɾmˈez ɾˈaː ʔˈaz ɡelˈe baːqt͡ʃˈe biːɾˈuːn keʃˈiːd ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 15 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.158,
+        "load": 5.853,
+        "synthesis": 15.897
+      }
+    },
+    {
+      "id": "s02",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "پیرمَرد گفت این مَرد هفتهٔ پیش مُرده است.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s02_C.wav",
+      "skipped": null,
+      "duration_s": 2.925,
+      "used_phonemes": true,
+      "fed_texts": [
+        "piːɾeamˈaɾd ɡˈoft ʔˈiːn maɾdˈe haftejˈe pˈiːʃ moɾdˈe ʔˈast ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 15 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.204,
+        "load": 0.0,
+        "synthesis": 14.818
+      }
+    },
+    {
+      "id": "s03",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "کتابِ خوبِ برادرم رویِ میزِ اتاق است.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s03_C.wav",
+      "skipped": null,
+      "duration_s": 3.316,
+      "used_phonemes": true,
+      "fed_texts": [
+        "ketaːbˈe xuːbˈe baɾaːdaɾˈam ɾuːjˈe miːzˈe ʔotˈaːq ʔˈast ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 15 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.148,
+        "load": 0.0,
+        "synthesis": 14.196
+      }
+    },
+    {
+      "id": "s04",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "لیوانِ آب را رویِ میز بگذار و رویِ صورتت آب بکش.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s04_C.wav",
+      "skipped": null,
+      "duration_s": 3.931,
+      "used_phonemes": true,
+      "fed_texts": [
+        "liːvˈaːn ʔˈaːb ɾˈaː ɾuːjˈe mˈiːz beɡozˈaːɾ vˈa ɾuːjˈe suːɾatˈat ʔˈaːb bekˈeʃ ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 21 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.169,
+        "load": 0.0,
+        "synthesis": 15.336
+      }
+    },
+    {
+      "id": "s05",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "قَلعهٔ قدیمی بالای تَپهٔ خاکی، هِنگام غُروب دیدنی بود.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s05_C.wav",
+      "skipped": null,
+      "duration_s": 4.337,
+      "used_phonemes": true,
+      "fed_texts": [
+        "qalʔejˈe qadiːmiːjˈe baːlaːjˈe tapejˈe xaːkˈiː , henɡaːmˈe qoɾuːbˈe diːdanˈiː bˈuːd ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 24 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.184,
+        "load": 0.0,
+        "synthesis": 15.376
+      }
+    },
+    {
+      "id": "s06",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "ژاله زیر چَراغ، چَترش را در بارانِ شَدید بست.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s06_C.wav",
+      "skipped": null,
+      "duration_s": 3.539,
+      "used_phonemes": true,
+      "fed_texts": [
+        "ʒaːlˈe ziːɾˈe t͡ʃeɾaːqˈe , t͡ʃatɾˈeʃ ɾˈaː dˈaɾ baːɾaːnˈe ʃadˈiːd bˈast ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 23 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.16,
+        "load": 0.0,
+        "synthesis": 14.741
+      }
+    },
+    {
+      "id": "s07",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "مَسؤول اِستقبالِ استاد از سَرسَرای دانشگاه ایستاد.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s07_C.wav",
+      "skipped": null,
+      "duration_s": 3.823,
+      "used_phonemes": true,
+      "fed_texts": [
+        "masʔuːlˈe ʔesteqbaːlˈe ʔostˈaːd ʔˈaz saɾsaɾaːjˈe daːneʃɡˈaː ʔiːstˈaːd ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 20 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.161,
+        "load": 0.0,
+        "synthesis": 14.75
+      }
+    },
+    {
+      "id": "s08",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "بُرو بابا، این حِرفا پیشِ من خُریدار نَداره، بِشین بِبین چی میگم.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s08_C.wav",
+      "skipped": null,
+      "duration_s": 4.868,
+      "used_phonemes": true,
+      "fed_texts": [
+        "boɾˈo baːbˈaː , ʔˈiːn haɾfˈaː piːʃˈe mˈan xaɾiːdˈaːɾ nadaːɾˈe , beʃˈiːn bebˈiːn t͡ʃˈiː miːɡˈam ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 28 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.199,
+        "load": 0.0,
+        "synthesis": 16.215
+      }
+    },
+    {
+      "id": "s09",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "وقتی مترو از ایستگاه ترمینال جنوب رد شد، خانمی که کنار پنجره نشسته بود کتابش را بست، کیفش را برداشت و به سمت در رفت، بیآنکه متوجه شود ایستگاه بعدی همان مقصدی است که نیم ساعت پیش از آن آمده بود.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/s09_C.wav",
+      "skipped": null,
+      "duration_s": 18.482,
+      "used_phonemes": true,
+      "fed_texts": [
+        "vaqtˈiː metɾˈo ʔˈaz ʔiːstɡaːhˈe teɾmiːnaːlˈe d͡ʒonˈuːb ɾˈad ʃˈod , xaːnomˈiː kˈe kenaːɾejˈe pand͡ʒaɾˈe neʃastˈe bˈuːd ketaːbˈaʃ ɾˈaː bˈast , kiːfˈaʃ ɾˈaː baɾdˈaːʃt vˈa bˈe samtˈe dˈaɾ ɾˈaft , biːaːnkˈe motevad͡ʒd͡ʒˈeh ʃavˈad ʔiːstɡaːhˈe baʔdˈiː hamˈaːn maqsadˈiː ʔˈast kˈe niːmsaːʔˈat piːʃˈaz ʔˈaːn ʔaːmadˈe bˈuːd"
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 85 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.946,
+        "load": 0.0,
+        "synthesis": 31.121
+      }
+    },
+    {
+      "id": "t09",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "پس از پایان مُسابقهٔ کُشتی، وَرزشکاران با کِشتی به جَزیره برگشتند.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t09_C.wav",
+      "skipped": null,
+      "duration_s": 5.077,
+      "used_phonemes": true,
+      "fed_texts": [
+        "pˈas ʔˈaz paːjaːnˈe mosaːbeqejˈe koʃtˈiː , vaɾzeʃkaːɾˈaːn bˈaː koʃtˈiː bˈe d͡ʒaziːɾˈe baɾɡaʃtˈand ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 26 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.214,
+        "load": 0.0,
+        "synthesis": 16.429
+      }
+    },
+    {
+      "id": "t10",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "دخترِ همسایهٔ روبه‌رویی ما کتابِ تازهٔ نویسندهٔ مَحبوبش را اِمانت گرفت.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t10_C.wav",
+      "skipped": null,
+      "duration_s": 5.83,
+      "used_phonemes": true,
+      "fed_texts": [
+        "doxtaɾˈe hamsaːjejˈe ɾuːbahɾuːjˈiː mˈaː ketaːbˈe taːzejˈe neviːsandejˈe mahbuːbˈaʃ ɾˈaː ʔemaːnˈat ɡeɾˈeft ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 25 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.267,
+        "load": 0.0,
+        "synthesis": 17.162
+      }
+    },
+    {
+      "id": "t11",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "بارانِ بَند آمد.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t11_C.wav",
+      "skipped": null,
+      "duration_s": 1.527,
+      "used_phonemes": true,
+      "fed_texts": [
+        "baːɾˈaːn bˈand ʔaːmˈad ."
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 7 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.061,
+        "load": 0.0,
+        "synthesis": 12.039
+      }
+    },
+    {
+      "id": "t12",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تأخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند.",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/t12_C.wav",
+      "skipped": null,
+      "duration_s": 16.217,
+      "used_phonemes": true,
+      "fed_texts": [
+        "vaqtˈiː bˈe ʔiːstɡaːhˈe qatˈaːɾ ɾasiːdˈiːm , diːdˈiːm kˈe qataːɾˈe ʃabaːnˈe bedaliːlˈe baɾfˈe sanɡˈiːn vˈa basteʃodanˈe d͡ʒaːddehaːjˈe kuːhestaːnˈiː dastkˈam sˈe saːʔˈat taʔxˈiːɾ daːɾˈad vˈa mosafeɾaːnˈe xastˈe dˈaɾ saːlˈon ʔentezˈaːɾ neʃasteˈand vˈa t͡ʃˈaːj miːnuːʃˈand"
+      ],
+      "notes": [
+        "Text normalised (characters, spacing, numbers).",
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 72 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.001,
+        "text": 0.795,
+        "load": 0.0,
+        "synthesis": 28.22
+      }
+    },
+    {
+      "id": "r01",
+      "condition": "C",
+      "engine": "omnivoice_ipa",
+      "input_text": "به طور خلاصه این مطالعه به این نتیجه رسیده که آسیب بینایی، عاملی تهدیدکننده برای سلامت روانی افراد به شمار می‌رود. با در نظر گرفتن تعداد زیادی پژوهش،",
+      "use_phonemes_requested": true,
+      "seed": 42,
+      "reference": "mana_000.wav",
+      "wav": "eval/runs/omnivoice-ipa-ab-v3/wavs/r01_C.wav",
+      "skipped": null,
+      "duration_s": 13.746,
+      "used_phonemes": true,
+      "fed_texts": [
+        "betuːɾˈe xolaːsˈe ʔˈiːn motaːleʔˈe beˈiːn natiːd͡ʒˈe ɾesiːdˈe kˈe ʔaːsiːbˈe biːnaːjiːjˈe ʔaːmeliːjˈe tahdiːdkonandˈe , baɾaːjˈe salaːmatˈe ɾavaːniːjˈe ʔafɾˈaːd beʃomˈaːɾ miːɾavˈad bˈaː dˈaɾ nazˈaɾ . ɡeɾeftanˈe teʔdaːdˈe ziːjaːdˈiː paʒuːhˈeʃ"
+      ],
+      "notes": [
+        "Persian phonemes (IPA) generated - short vowels, ezafe and homographs resolved.",
+        "IPA canonicalised for omnivoice_ipa: 68 symbol change(s) (homo-ge2pe output -> the convention the fine-tune was trained on)."
+      ],
+      "warnings": [],
+      "timings": {
+        "reference": 0.0,
+        "text": 0.687,
+        "load": 0.0,
+        "synthesis": 26.291
+      }
+    }
+  ]
+}

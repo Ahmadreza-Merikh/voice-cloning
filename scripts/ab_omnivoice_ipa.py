@@ -9,7 +9,11 @@ differing only where the condition says they differ:
   B  ``omnivoice``      + diacritised script      (where a variant exists;
                                                    otherwise recorded as skip)
   C  ``omnivoice_ipa``  + canonical Persian IPA   (Homo-GE2PE -> the
-                                                   normaliser -> the fine-tune)
+                                                   normaliser -> the fine-tune;
+                                                   the G2P reads the
+                                                   diacritised twin where one
+                                                   exists - it wants diacritics
+                                                   to disambiguate homographs)
 
 Sentences: nine purpose-written ambiguity probes (s01-s09: homographs,
 ezafe chains, خ/ق/غ vs ژ/چ/ش, clusters, colloquial, long), the four
@@ -31,7 +35,7 @@ the speaker encoder or the recogniser in beside a 2 GB worker, and the
 listening test - not a metric - is what decides. ``--cer`` transcribes
 each saved wav *after* every engine is unloaded; CER then compares
 against the condition's own input (diacritics are stripped by
-``normalize_for_cer``, so A and B score on identical words).
+``normalize_for_cer``, so every condition scores on identical words).
 
 Manifest (``<out>/manifest.json``), one record per render: input text,
 engine, requested/received phoneme channel, seed, reference voice, wav
@@ -250,6 +254,12 @@ def build_jobs(sentences: Sequence[Sentence], *, seed: int = DEFAULT_SEED) -> li
                     text, skip = sentence.diacritized, None
                 else:
                     text, skip = "", "no diacritised variant written for this sentence"
+            elif condition == "C":
+                # The G2P wants diacritics: harakat settles homographs that
+                # plain script cannot ("از گل باغچه" has two readings; the
+                # twin says گِل). C reads the twin where one exists and the
+                # plain text where no twin was written (s09/t12/r01).
+                text, skip = sentence.diacritized or sentence.text, None
             else:
                 text, skip = sentence.text, None
             jobs.append(Job(sentence.id, condition, engine, phonemes, text, seed, skip))
@@ -271,11 +281,12 @@ def group_jobs_by_engine(jobs: Sequence[Job]) -> dict[str, list[Job]]:
 def expected_text(sentence: Sentence, condition: str) -> str:
     """What condition ``condition`` actually said (what CER compares to).
 
-    For B that is the diacritised input; ``normalize_for_cer`` strips the
-    marks before scoring, so A and B are scored on identical words.
+    For B and C that is the diacritised input where one exists;
+    ``normalize_for_cer`` strips the marks before scoring, so every
+    condition is scored on identical words.
     """
-    if condition == "B" and sentence.diacritized:
-        return sentence.diacritized
+    if condition in ("B", "C"):
+        return sentence.diacritized or sentence.text
     return sentence.text
 
 
@@ -610,7 +621,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     from voiceclone.text.pipeline import TextPipeline
 
     pipeline = TextPipeline(config.text)
-    captures = {sentence.id: capture_ipa(sentence.text, pipeline) for sentence in sentences}
+    # Exactly the text condition C is rendered with: capture and render must
+    # describe the same phonemes, or the manifest would document input the
+    # engine never saw.
+    c_inputs = {job.id: job.input_text for job in jobs if job.condition == "C"}
+    captures = {sid: capture_ipa(text, pipeline) for sid, text in c_inputs.items()}
     broken = [key for key, cap in captures.items() if not cap["used_phonemes"]]
     if broken:
         raise SystemExit(
@@ -686,7 +701,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         "conditions": {
             "A": f"{ENGINE_A} + raw Persian script",
             "B": f"{ENGINE_A} + diacritised script (skipped where no variant)",
-            "C": f"{ENGINE_C} + canonical Persian IPA (GE2PE -> normaliser)",
+            "C": (
+                f"{ENGINE_C} + canonical Persian IPA (GE2PE -> normaliser); "
+                "the G2P reads the diacritised twin where one exists"
+            ),
         },
         "sentences": [
             {**sentence.to_dict(), "ipa": captures[sentence.id]}

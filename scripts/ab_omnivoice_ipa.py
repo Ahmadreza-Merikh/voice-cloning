@@ -122,7 +122,8 @@ DIACRITIZED: dict[str, str] = {
 }
 
 #: The generation fields recorded for both engines so a reader can see the
-#: A/B/C difference is weights and input text and nothing else.
+#: A/B/C difference is weights, input text, and the language tag the fine-tune
+#: card requires (language-agnostic for C, named for A/B) - and nothing else.
 _SETTINGS_FIELDS = (
     "python", "language", "dtype", "num_step", "guidance_scale", "t_shift",
     "denoise", "postprocess_output", "layer_penalty_factor",

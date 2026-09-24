@@ -899,8 +899,12 @@ class TestABHarness:
         )
         assert b.input_text == marked.diacritized and b.skipped is None
         assert (c.condition, c.engine, c.use_phonemes, c.input_text) == (
-            "C", "omnivoice_ipa", True, marked.text
+            "C", "omnivoice_ipa", True, marked.diacritized
         )
+        # The G2P reads the diacritised twin where one exists - and the plain
+        # text where no twin was written, so s09/t12/r01 keep their own input.
+        c_plain = next(j for j in jobs if j.id == "s09" and j.condition == "C")
+        assert c_plain.input_text == by_id["s09"].text
         # An unmarked sentence still gets all three jobs: B is recorded, kept.
         skip_b = next(j for j in jobs if j.id == "s09" and j.condition == "B")
         assert skip_b.skipped == "no diacritised variant written for this sentence"
@@ -931,8 +935,9 @@ class TestABHarness:
         marked, unmarked = by_id["s01"], by_id["s09"]
         assert ab_script.expected_text(marked, "A") == marked.text
         assert ab_script.expected_text(marked, "B") == marked.diacritized
-        assert ab_script.expected_text(marked, "C") == marked.text
+        assert ab_script.expected_text(marked, "C") == marked.diacritized
         assert ab_script.expected_text(unmarked, "B") == unmarked.text
+        assert ab_script.expected_text(unmarked, "C") == unmarked.text
 
     # -- G2P / normaliser capture ----------------------------------------
     def test_capture_records_raw_stream_and_canonical_ipa(self, ab_script) -> None:

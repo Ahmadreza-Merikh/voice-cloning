@@ -52,7 +52,8 @@ def module(name: str, file: str):
 probe = module("probe", "build_omnivoice_adapt_kernel.py")
 dev = module("dev", "build_omnivoice_dev_kernel.py")
 
-SLUG = "persian-voice-longcat-probe"
+#: Kaggle refuses a notebook whose title a dataset already uses, so the session and its dataset differ.
+SLUG = "persian-voice-longcat-probe-run"
 DATASET = "persian-voice-longcat-probe"
 SESSION = f"kaggle:{SLUG}-v1"
 #: Amended from 2.5 before the push: 2.51 GPU-hours were left this week (the plan's amendment).

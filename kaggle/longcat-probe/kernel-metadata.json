@@ -1,7 +1,7 @@
 {
-  "id": "marsmanam/persian-voice-longcat-probe",
-  "title": "persian-voice-longcat-probe",
-  "code_file": "persian-voice-longcat-probe.ipynb",
+  "id": "marsmanam/persian-voice-longcat-probe-run",
+  "title": "persian-voice-longcat-probe-run",
+  "code_file": "persian-voice-longcat-probe-run.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": true,

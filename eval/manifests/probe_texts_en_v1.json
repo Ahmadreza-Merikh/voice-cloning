@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "purpose": "the English sentences every LongCat probe speaker renders, with LongCat and OmniVoice",
+  "written_for_this_project": true,
+  "language": "en",
+  "texts": [
+    {
+      "key": "e01",
+      "category": "short",
+      "text": "Please close the window.",
+      "words": 4
+    },
+    {
+      "key": "e02",
+      "category": "question",
+      "text": "Could you call me back after lunch, when you have a minute?",
+      "words": 12
+    },
+    {
+      "key": "e03",
+      "category": "narrative",
+      "text": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "words": 15
+    },
+    {
+      "key": "e04",
+      "category": "list",
+      "text": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "words": 14
+    },
+    {
+      "key": "e05",
+      "category": "long",
+      "text": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "words": 23
+    },
+    {
+      "key": "e06",
+      "category": "descriptive",
+      "text": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "words": 18
+    }
+  ],
+  "sha256_of_texts": "6d7f7e3baea3c400647a69dcfeb459190a465079c2194a9167c987ef3b1b6459"
+}

@@ -1,6 +1,6 @@
 {
  "run": "the sealed test of the Persian adaptation of OmniVoice",
- "status": "pre-registered and waiting for the adaptation to finish; amended 2026-09-20 to render F5 and Pocket-TTS on the same sealed corpora as pre-registered secondary arms",
+ "status": "pre-registered and waiting for the adaptation to finish; amended 2026-09-20 to render F5 and Pocket-TTS on the same sealed corpora as pre-registered secondary arms; F5's registered settings pinned 2026-09-25",
  "kernel": "marsmanam/persian-voice-omnivoice-test, built by kaggle/build_omnivoice_test_kernel.py (d667c6b); not pushed",
  "runs_after": "the development-set session (kaggle/omnivoice-dev) has chosen an export by the rule of SOTA_ROADMAP section 8, and the dataset has been re-staged with this code",
  "comparison": "the chosen float16 export minus k2-fsa/OmniVoice at c5fdb5cc, both through this repository's OmniVoice engine at its configured settings, rendered and scored in one session; the weights are the only difference",
@@ -83,5 +83,13 @@
   },
   "budget": "about 2 to 2.5 GPU-hours for 2 x (672 + 720) renders plus scoring, after the weekly reset on 2026-09-26. Pocket costs no extra session: it renders on the same machine in its own environment",
   "order": "the primary test session runs first and is read first; the arms session runs after it, on the same corpora, and is read only beside it"
+ },
+ "amendment_2026_09_25_f5_settings_pinned": {
+  "registered": "2026-09-25, before any test clip has been rendered by anything and before session c has started. The primary comparison is untouched",
+  "what_moved": "the F5 arm was registered 'at the configured settings' on 2026-09-20, when F5's configured nfe_step was 48. On 2026-09-21 (6f3335d) the product default became 64, and the arms session reads its configuration from the dataset, so as built it would have rendered at 64",
+  "decision": "the arm renders the settings it was registered with: nfe_step 48, cfg_strength 2.0, sway -1.0, speed 1.0, vocos, cross-fade 0.15. They are pinned in kaggle/build_omnivoice_arms_kernel.py (F5_SETTINGS) and written into its configure gate",
+  "why_48": "FINDINGS section 3 measured 64 against 48 on the development set: 0.517 against 0.520 held-out, CER 3.1% against 2.9%, inside noise. So 64 is not the stronger setting, and every F5 number in this project was measured at 48",
+  "checked_the_same_day": "nothing else the development, test or arms sessions read has moved since registration: OmniVoice's settings are unchanged; the scoring recogniser is pinned to the historical block (large-v3-turbo, VAD on, faster-whisper's own VAD values); the text steps added since (the vocative break, English-text handling, IPA for omnivoice_ipa only) leave all 12 test texts and the 3 development sentences byte-identical for omnivoice, f5 and pocket",
+  "correction": "arms_added.f5 above quotes 0.546 as F5's development-set score. That was the project's own continued checkpoint with best-of-4; the arm renders the published Lumos675 checkpoint, which scored 0.520 there. Kept as written, corrected here"
  }
 }

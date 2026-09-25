@@ -4,9 +4,19 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-25 17:20 +0330 (2026-09-25 13:50 UTC).
+Last updated: 2026-09-25 17:38 +0330 (2026-09-25 14:08 UTC).
 
-## The LongCat probe (2026-09-25): built, waiting for a Kaggle login
+## The LongCat probe (2026-09-25): RUNNING
+
+**Pushed 2026-09-25 14:03:41 UTC** as `marsmanam/persian-voice-longcat-probe-run`
+v1, on dataset `persian-voice-longcat-probe` (staged from `a996118`, created
+13:58 UTC, its 270 files checked against the staged copy by name and size).
+The user renewed the Kaggle login; `kaggle quota` then read 27.49 of 30
+GPU-hours used, 2.51 left until 2026-09-26 00:00 UTC, so the session bound was
+amended to 2.0 h after the installs before anything was pushed (`f9fd44b`).
+The first push was refused, 409: the notebook's title was the dataset's; it
+is `-run` now (`7305f4d`), and nothing ran before that. Read its output when
+it ends (`kaggle kernels output`); nothing is visible while it runs.
 
 The user asked whether LongCat-AudioDiT-1B should replace OmniVoice as the
 model adapted to Persian, or be joined with "the best Persian TTS". Checked
@@ -26,21 +36,14 @@ engine and worker (upstream's inference.py; checked end to end on a tiny random
 model on this Mac, where moving the transformer to another device gave
 bit-identical audio), the probe corpus, texts, reader and the kernel
 (`kaggle/build_longcat_probe_kernel.py`). The kernel mounts its **own** dataset,
-`persian-voice-longcat-probe` (staged from `cf62d2d`), so `persian-voice-eval`
+`persian-voice-longcat-probe`, so `persian-voice-eval`
 stays as the pending sessions verified it.
-
-**Blocked on:** the Kaggle OAuth refresh token is dead (403); only the user can
-run `KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle auth login --force`.
-Then: `kaggle datasets create -p kaggle/dataset-persian-voice-longcat-probe
---dir-mode zip`, wait for it to be ready, `kaggle kernels push -p
-kaggle/longcat-probe`. Budget: about 1.6 GPU-hours, bounded at 2.5; about 2.8
-were left before the 2026-09-26 00:00 UTC reset.
 
 Unrelated, found on the way: `ruff check src scripts tests` fails on HEAD in
 files from the IPA work of 2026-09-23 (`build_omnivoice_ipa.py`,
 `omnivoice_ipa.py`, `ipa_normalize.py`); left as found.
 
-**Nothing is running remotely.** The early development session
+**Nothing of the adaptation is running remotely.** The early development session
 (`persian-voice-omnivoice-dev` v1, 2026-09-20 22:32 UTC, 17 minutes, 0.31
 GPU-hours) is complete, and it is the first evidence here that **the
 adaptation moves identity transfer at all**:

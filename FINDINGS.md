@@ -1180,3 +1180,66 @@ both models were very probably trained on: that caveat cuts both ways, and is
 why the sealed test exists. Record:
 `eval/runs/persian-voice-pocket-tts-v1.json`.
 
+
+## 11. LongCat-AudioDiT, measured before anyone trains it on Persian
+
+On 25 September 2026 the user asked whether LongCat-AudioDiT-1B, "the best
+voice-cloning engine in the world", should replace OmniVoice as the model
+this project adapts, or be joined with the best Persian TTS. Checked live that
+day (SOTA_ROADMAP section 4): it reads Chinese and English only, ships no
+training code, and its lead is the 3.5B's WavLM similarity on Seed-TTS-eval,
+which other scorers and noisy prompts do not reproduce. An adaptation would
+mean writing its training recipe and teaching it a language from nothing, so
+before that, one question was measured: given a Persian speaker's clip and
+text both models read - English - whose render is closer to that speaker's
+other recordings?
+
+**Design, fixed before any render** (`eval/runs/persian-voice-longcat-probe.json`):
+Neyshekar's 25 usable valid speakers (not the development set, not the sealed
+tests, not on OmniVoice's training list), six English sentences, seed 42,
+OmniVoice (published, `language=en`) against LongCat-1B at upstream's
+settings (fp32, the README's 16-step APG call) and the 3.5B with its
+transformer on the second T4, all in one session and one interpreter. The bar:
+LongCat-1B's whole 95% interval over speakers above 0.0205.
+
+| run | held-out | against its prompt | CER |
+|---|---|---|---|
+| OmniVoice, English | 0.521 | 0.659 | 0.1% |
+| **LongCat-1B, English** | **0.589** | 0.740 | 3.5% |
+| LongCat-3.5B, English | 0.597 | 0.747 | 2.3% |
+| OmniVoice, Persian (2 sentences, exploratory) | 0.601 | 0.738 | 2.2% |
+| LongCat-1B, Persian (2 sentences, exploratory) | 0.607 | 0.784 | 81.6% |
+
+This corpus's scale: different speakers 0.172, the same speaker 0.710.
+
+**The pre-registered reading.** LongCat-1B minus OmniVoice: **+0.068 [+0.055,
++0.080]**, higher for all 25 speakers (the smallest margin +0.015) and in 135
+of 150 cells, both arms' renders the requested English (one LongCat render of
+150 above WER 0.5). By the rule, LongCat clears the line: **an adaptation is
+worth costing.** The 3.5B adds nothing that matters: +0.008 [-0.001, +0.017]
+over the 1B. LongCat reads English a little worse (WER +3.8 points [+1.7,
++5.9]) and cannot read Persian at all untrained (CER 81.6% against 2.2%).
+
+The explanation proposed on the same day - that its Seed-TTS-eval lead is the
+prompt recording copied, which this project's held-out metric would not
+reward - **is not supported**: LongCat's prompt-minus-held-out gap exceeds
+OmniVoice's by +0.014 [-0.001, +0.029]. Its lead is about as large against
+the speaker's other clips as against the prompt.
+
+**What qualifies it - found after the result, so it decides nothing.**
+OmniVoice reading *Persian* on the same speakers scores 0.601, higher than its
+own English for all 25 of them (+0.080 [+0.059, +0.100]), and LongCat-1B
+reading English is level with it (-0.012 [-0.030, +0.006]). LongCat's
+unintelligible Persian lands there too (+0.006 [-0.008, +0.020]). So the
+English margin is about the size of OmniVoice's own English penalty: on the
+language this project needs, OmniVoice already stands where LongCat stands in
+English. The bar a Persian LongCat would have to clear is OmniVoice's Persian,
+0.601 on these speakers, not its English. Whether the penalty is the `en`
+language tag (passed per OmniVoice's card) or the language itself is untested,
+and the Persian runs used two sentences against six.
+
+**What this does not say.** How LongCat would clone once it reads Persian - an
+adaptation can move identity, and nothing here predicts which way. Whether any
+of these differences is audible: nobody has listened. Record:
+`eval/runs/persian-voice-longcat-probe.json`, evidence in
+`eval/runs/evidence/longcat-probe-v1/`.

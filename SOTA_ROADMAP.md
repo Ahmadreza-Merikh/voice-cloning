@@ -233,7 +233,7 @@ down until listening has actually happened.
 | F5-TTS continued | base CC-BY-NC | **[measured]** 0.546 | this project has one | control, not destination |
 | Fish S2 Pro | research only | **[measured]** 0.537, CER +6.4 | out of scope | drop - CER +6.4 over its session's baseline, and the narrowest licence |
 | Higgs TTS 3 | research only | **[measured]**, ported fp16 only | out of scope | drop for training; re-measure only through an official path |
-| LongCat-AudioDiT 1B / 3.5B | MIT, weights and code | not on Persian - it reads Chinese and English only; the English-text probe below is pre-registered | none: no training code | probe first; adapt only if it clears the practical line against OmniVoice |
+| LongCat-AudioDiT 1B / 3.5B | MIT, weights and code | **[measured]** English probe: held-out 0.589 (1B), 0.597 (3.5B) against OmniVoice's 0.521 in English, +0.068 [+0.055, +0.080]; OmniVoice reading Persian scores 0.601 on the same speakers (FINDINGS section 11) | none: no training code | worth costing by the pre-registered rule, with the 1B; the bar for a Persian LongCat is OmniVoice's Persian, not its English |
 
 **[source] LongCat-AudioDiT, checked live on 2026-09-25** because the user
 asked whether it - "the best voice-cloning engine in the world" - should
@@ -543,10 +543,13 @@ sealed test sets (§3.1). No improvement is claimed before that has happened.
 7. Score each final candidate on the sealed test sets once. The session is
    built (`kaggle/build_omnivoice_test_kernel.py`) and waits for the
    development-set choice.
-8. The LongCat probe (§4), independent of 6 and 7: one session of about 1.6
-   GPU-hours, bounded at 2.5, on its own dataset so the adaptation's sessions
-   read nothing new. It decides whether a LongCat adaptation is worth costing;
-   it changes nothing in the OmniVoice plan.
+8. ~~The LongCat probe (§4)~~, run 2026-09-25 (1.9 GPU-hours, every gate
+   passed): LongCat-1B clears the line in English, +0.068 [+0.055, +0.080], so
+   an adaptation is worth costing; found after the result, OmniVoice reading
+   Persian is already level with LongCat reading English (FINDINGS section 11).
+   Nothing in the OmniVoice plan changes. Costing a LongCat adaptation is the
+   user's call: it needs its training recipe written and a Persian bar of
+   0.601 on these speakers, not 0.521.
 
 ## 10. Open questions for the user
 

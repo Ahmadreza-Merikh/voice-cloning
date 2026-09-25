@@ -4,7 +4,41 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-21 09:40 +0330 (2026-09-21 06:10 UTC).
+Last updated: 2026-09-25 18:10 +0330 (2026-09-25 14:40 UTC).
+
+## The LongCat probe (2026-09-25): built, waiting for a Kaggle login
+
+The user asked whether LongCat-AudioDiT-1B should replace OmniVoice as the
+model adapted to Persian, or be joined with "the best Persian TTS". Checked
+live (SOTA_ROADMAP section 4): Chinese and English only, no training code,
+and its SOTA claim is the 3.5B's WavLM similarity, which other scorers and
+noisy prompts do not reproduce; no benchmark covers Persian, and a Persian TTS
+has no seam into LongCat. So one measurement decides it, pre-registered in
+`eval/runs/persian-voice-longcat-probe.json`: OmniVoice against LongCat-1B
+(primary) and -3.5B (secondary) on English text, Neyshekar's 25 valid
+speakers, held-out similarity, read by `scripts/read_longcat_probe.py`; an
+adaptation is costed only if LongCat-1B's whole interval is above 0.0205.
+Nothing in the OmniVoice plan changes.
+
+Built and committed (`5c7d40b`..`cf62d2d`): the English-text fix in the text
+pipeline (it wrote "،" and Persian number words into English), the `longcat`
+engine and worker (upstream's inference.py; checked end to end on a tiny random
+model on this Mac, where moving the transformer to another device gave
+bit-identical audio), the probe corpus, texts, reader and the kernel
+(`kaggle/build_longcat_probe_kernel.py`). The kernel mounts its **own** dataset,
+`persian-voice-longcat-probe` (staged from `cf62d2d`), so `persian-voice-eval`
+stays as the pending sessions verified it.
+
+**Blocked on:** the Kaggle OAuth refresh token is dead (403); only the user can
+run `KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle auth login --force`.
+Then: `kaggle datasets create -p kaggle/dataset-persian-voice-longcat-probe
+--dir-mode zip`, wait for it to be ready, `kaggle kernels push -p
+kaggle/longcat-probe`. Budget: about 1.6 GPU-hours, bounded at 2.5; about 2.8
+were left before the 2026-09-26 00:00 UTC reset.
+
+Unrelated, found on the way: `ruff check src scripts tests` fails on HEAD in
+files from the IPA work of 2026-09-23 (`build_omnivoice_ipa.py`,
+`omnivoice_ipa.py`, `ipa_normalize.py`); left as found.
 
 **Nothing is running remotely.** The early development session
 (`persian-voice-omnivoice-dev` v1, 2026-09-20 22:32 UTC, 17 minutes, 0.31

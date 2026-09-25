@@ -2,7 +2,7 @@
   "run": "the LongCat probe: does LongCat-AudioDiT carry a Persian speaker's voice better than OmniVoice, when both read text they know?",
   "status": "pre-registered 2026-09-25, before any render; kernel built, not pushed",
   "why": "On 2026-09-25 the user asked whether LongCat-AudioDiT-1B, 'the best voice-cloning engine in the world', should be adapted to Persian instead of OmniVoice, or joined with the best Persian TTS. Checked live that day (SOTA_ROADMAP section 4): it reads Chinese and English only, ships no training code, and its lead is the 3.5B's WavLM similarity on Seed-TTS-eval, which other scorers and noisy prompts do not reproduce. Teaching it Persian would mean writing its training recipe, a language learned from nothing, and A100-class hardware for fp32 - so before any of that, this probe measures the one thing that would justify it: whether its identity transfer beats OmniVoice's on voices like the ones this project clones.",
-  "kernel": "marsmanam/persian-voice-longcat-probe, built by kaggle/build_longcat_probe_kernel.py",
+  "kernel": "marsmanam/persian-voice-longcat-probe-run, built by kaggle/build_longcat_probe_kernel.py (Kaggle refused the dataset's own name for the notebook: 409, title already in use by a dataset)",
   "dataset": "marsmanam/persian-voice-longcat-probe: this repository staged by kaggle/build_dataset.py --dataset persian-voice-longcat-probe, so persian-voice-eval - which the adaptation's pending sessions read - is not re-staged by this",
   "speakers": {
     "source": "Neyshekar v6 (shekar-ai/neyshekar at 30696ada), its official validation split",

@@ -19,7 +19,7 @@ kernel = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(kernel)
 
 PLAN = json.loads((ROOT / "eval" / "runs" / "persian-voice-longcat-probe.json").read_text(encoding="utf-8"))
-NOTEBOOK = ROOT / "kaggle" / "longcat-probe" / "persian-voice-longcat-probe.ipynb"
+NOTEBOOK = ROOT / "kaggle" / "longcat-probe" / "persian-voice-longcat-probe-run.ipynb"
 
 
 def test_the_pins_are_the_pre_registered_ones() -> None:

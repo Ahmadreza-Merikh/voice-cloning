@@ -4,19 +4,31 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-25 17:38 +0330 (2026-09-25 14:08 UTC).
+Last updated: 2026-09-25 19:44 +0330 (2026-09-25 16:14 UTC).
 
-## The LongCat probe (2026-09-25): RUNNING
+## The LongCat probe (2026-09-25): complete
 
-**Pushed 2026-09-25 14:03:41 UTC** as `marsmanam/persian-voice-longcat-probe-run`
-v1, on dataset `persian-voice-longcat-probe` (staged from `a996118`, created
-13:58 UTC, its 270 files checked against the staged copy by name and size).
-The user renewed the Kaggle login; `kaggle quota` then read 27.49 of 30
-GPU-hours used, 2.51 left until 2026-09-26 00:00 UTC, so the session bound was
-amended to 2.0 h after the installs before anything was pushed (`f9fd44b`).
-The first push was refused, 409: the notebook's title was the dataset's; it
-is `-run` now (`7305f4d`), and nothing ran before that. Read its output when
-it ends (`kaggle kernels output`); nothing is visible while it runs.
+`marsmanam/persian-voice-longcat-probe-run` v1 ran 14:03-15:55 UTC (about 1.9
+of the week's last 2.51 GPU-hours), every gate passed, all 650 cells rendered.
+[measured] **By the rule fixed before the run, LongCat-1B clears the line**:
+held-out similarity minus OmniVoice's, both reading English from Persian
+speakers' references, +0.068 [+0.055, +0.080], all 25 speakers - so an
+adaptation is worth costing. The 3.5B adds +0.008 [-0.001, +0.017] over the
+1B. The prompt-copying explanation of its lead is not supported (+0.014
+[-0.001, +0.029]). It cannot read Persian untrained (CER 81.6%).
+
+[measured, post hoc - decides nothing] OmniVoice reading **Persian** on the
+same speakers scores 0.601: +0.080 over its own English, and level with
+LongCat-1B's English (-0.012 [-0.030, +0.006]). So the bar for a Persian
+LongCat is OmniVoice's Persian, not its English; whether OmniVoice's English
+penalty is its `en` tag is untested. FINDINGS section 11; record
+`eval/runs/persian-voice-longcat-probe.json`; evidence
+`eval/runs/evidence/longcat-probe-v1/`; renders in
+`remote/longcat-probe-v1/renders` (not in git). Nobody has listened.
+
+**Next, the user's call:** whether to cost a LongCat-1B adaptation (training
+code written from its flow-matching loss, fp32 recipe, and a pilot whose bar is
+0.601 in Persian). The OmniVoice plan is unchanged: session c after the reset.
 
 The user asked whether LongCat-AudioDiT-1B should replace OmniVoice as the
 model adapted to Persian, or be joined with "the best Persian TTS". Checked

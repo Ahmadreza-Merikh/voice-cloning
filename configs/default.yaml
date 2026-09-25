@@ -217,6 +217,32 @@ engines:
     retries: 1
     timeout_seconds: 600.0
 
+  longcat:
+    # LongCat-AudioDiT (Meituan, arXiv 2603.29339, MIT): a diffusion
+    # transformer in a waveform VAE's latent space, 1B and 3.5B. Its 3.5B
+    # has the highest WavLM similarity on Seed-TTS-eval; the same eval scored
+    # with ERes2Net, or given noisy prompts, puts it behind three others
+    # (arXiv 2607.23938). CHINESE AND ENGLISH ONLY - its training data and its
+    # maintainers' answer - so it is measured here with English text against
+    # OmniVoice, never used for Persian.
+    #
+    # Official inference is fp32 on CUDA; the engine refuses anything else.
+    # Not a package: the kernel fetches audiodit/ and utils.py at commit
+    # 12c76b51 and google/umt5-base's tokenizer, and runs them in the
+    # interpreter OmniVoice's stack is installed in (transformers 5.3.0).
+    python: auto
+    model_dir: ~/.cache/persian-voice-cloning/longcat/model
+    code_dir: ~/.cache/persian-voice-cloning/longcat/code
+    tokenizer_dir: ~/.cache/persian-voice-cloning/longcat/umt5-base
+    # The README's voice-cloning call (the maintainers' answer to issue #3).
+    nfe: 16
+    guidance_strength: 4.0
+    guidance_method: apg
+    # Empty keeps everything on one device, as upstream does. The 3.5B's fp32
+    # transformer goes on the second GPU of a T4 pair: placement, not precision.
+    transformer_device: ""
+    timeout_seconds: 900.0
+
   chatterbox:
     # Chatterbox splits the job F5 does in one model: a voice encoder and
     # S3Gen carry speaker identity and never see Persian text, while T3 - a

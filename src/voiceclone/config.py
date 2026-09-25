@@ -441,6 +441,40 @@ class PocketConfig:
 
 
 @dataclass
+class LongCatConfig:
+    """LongCat-AudioDiT (Meituan), driven out-of-process by its own inference code.
+
+    Chinese and English only - its maintainers' answer and the whole of its
+    training data - so it is here to be measured, not to read Persian: the
+    probe hands it English text and Persian speakers' references to see
+    whether its identity transfer beats OmniVoice's before anyone trains it on
+    Persian. Its official inference is CUDA, fp32, so the engine refuses to
+    start anywhere else.
+    """
+
+    python: str | None = "auto"
+    #: A local snapshot of meituan-longcat/LongCat-AudioDiT-1B or -3.5B.
+    model_dir: str = "~/.cache/persian-voice-cloning/longcat/model"
+    #: The pinned files of github.com/meituan-longcat/LongCat-AudioDiT:
+    #: ``audiodit/`` and ``utils.py``. It is not a package.
+    code_dir: str = "~/.cache/persian-voice-cloning/longcat/code"
+    #: google/umt5-base's tokenizer. The model's config names the hub id,
+    #: which would reach the network on every load.
+    tokenizer_dir: str = "~/.cache/persian-voice-cloning/longcat/umt5-base"
+    #: The README's voice-cloning call, which the maintainers point to when
+    #: asked for settings (issue #3): 16 steps, strength 4.0, APG.
+    nfe: int = 16
+    guidance_strength: float = 4.0
+    guidance_method: str = "apg"
+    #: Where the transformer runs. Empty keeps the official single device.
+    #: The 3.5B's fp32 weights do not fit one 15 GB T4 beside its text
+    #: encoder, so a session puts the transformer on the second GPU - where
+    #: it runs, not how it computes.
+    transformer_device: str = ""
+    timeout_seconds: float = 900.0
+
+
+@dataclass
 class EnginesConfig:
     tts: str = "omnivoice"
     vc: str = "cascade"
@@ -453,6 +487,7 @@ class EnginesConfig:
     higgs: HiggsConfig = field(default_factory=HiggsConfig)
     moss15: Moss15Config = field(default_factory=Moss15Config)
     pocket: PocketConfig = field(default_factory=PocketConfig)
+    longcat: LongCatConfig = field(default_factory=LongCatConfig)
     asr: ASRConfig = field(default_factory=ASRConfig)
     seedvc: SeedVCConfig = field(default_factory=SeedVCConfig)
 

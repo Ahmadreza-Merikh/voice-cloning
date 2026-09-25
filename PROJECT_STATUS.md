@@ -9,7 +9,7 @@ Last updated: 2026-09-25 19:44 +0330 (2026-09-25 16:14 UTC).
 ## The LongCat probe (2026-09-25): complete
 
 `marsmanam/persian-voice-longcat-probe-run` v1 ran 14:03-15:55 UTC (about 1.9
-of the week's last 2.51 GPU-hours), every gate passed, all 650 cells rendered.
+of the week's last 2.51 GPU-hours), every gate passed, all 550 cells rendered (3 x 150 English, 2 x 50 Persian).
 [measured] **By the rule fixed before the run, LongCat-1B clears the line**:
 held-out similarity minus OmniVoice's, both reading English from Persian
 speakers' references, +0.068 [+0.055, +0.080], all 25 speakers - so an

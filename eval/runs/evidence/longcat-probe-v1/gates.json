@@ -1,0 +1,38 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.4s; 104588 shown"
+  },
+  "code": {
+    "passed": true,
+    "reason": "the probe's code is present"
+  },
+  "download": {
+    "passed": true,
+    "reason": "{\"longcat code audiodit/__init__.py\": {\"gib\": null, \"seconds\": null, \"tries\": [{\"attempt\": 1, \"seconds\": 0.1}], \"failed_check\": null}, \"longcat code audiodit/configuration_audiodit.py\": {\"gib\": null, \"seconds\": null, \"tries\": [{\"attempt\": 1, \"seconds\": 0.1}], \"failed_check\": null}, \"longcat code audiodit/modeling_audiodit.py\": {\"gib\": null, \"seconds\": null, \"tries\": [{\"attempt\": 1, \"seconds\": 0.1}], \"failed_check\": null}, \"longcat code utils.py\": {\"gib\": null, \"seconds\": null, \"tries\": [{\"attempt\": 1, \"seconds\": 0.1}], \"failed_check\": null}, \"omnivoice base\": {\"gib\": 3.043, \"seconds\": 19.3, \"tries\": [{\"attempt\": 1, \"seconds\": 19.3}], \"failed_check\": null}, \"longcat 1b\": {\"gib\": 5.29, \"seconds\": 64.2, \"tries\": [{\"attempt\": 1, \"seconds\": 64.2}], \"failed_check\": null}, \"longcat 3.5b\": {\"gib\": 14.283, \"seconds\": 282.1, \"tries\": [{\"attempt\": 1, \"seconds\": 282.1}], \"failed_check\": null}, \"umt5 tokenizer\": {\"gib\": 0.02, \"seconds\": 0.8, \"tries\": [{\"attempt\": 1, \"seconds\": 0.8}], \"failed_check\": null}, \"neyshekar valid\": {\"gib\": 0.338, \"seconds\": 13.1, \"tries\": [{\"attempt\": 1, \"seconds\": 13.1}], \"failed_check\": null}}"
+  },
+  "corpus": {
+    "passed": true,
+    "reason": "25 speakers; left out: [{'speaker': 'ney-70652', 'reason': 'no clip of 6.5-11.4 s with 4 more to hold out'}]"
+  },
+  "configure": {
+    "passed": true,
+    "reason": "{\"/tmp/omnivoice-base/config.json\": true, \"/tmp/longcat-1b/model.safetensors\": true, \"/tmp/longcat-3.5b/model.safetensors\": true, \"/tmp/longcat-code/audiodit/modeling_audiodit.py\": true, \"/tmp/longcat-code/utils.py\": true, \"/tmp/umt5-base/spiece.model\": true}"
+  },
+  "primary": {
+    "passed": true,
+    "reason": "{\"omnivoice-probe-en\": {\"role\": \"primary\", \"complete\": true, \"held_out\": 0.5214553333333334, \"reference\": 0.658468, \"cer\": 0.0007650273224043716, \"renders\": 150, \"failures\": 0}, \"longcat-1b-probe-en\": {\"role\": \"primary\", \"complete\": true, \"held_out\": 0.5890633333333334, \"reference\": 0.7400846666666667, \"cer\": 0.0352133653064003, \"renders\": 150, \"failures\": 0}}"
+  },
+  "secondary": {
+    "passed": true,
+    "reason": "{\"longcat-3.5b-probe-en\": {\"role\": \"secondary\", \"complete\": true, \"held_out\": 0.5969393333333334, \"reference\": 0.7467866666666667, \"cer\": 0.023373035957878232, \"renders\": 150, \"failures\": 0}}"
+  },
+  "persian": {
+    "passed": true,
+    "reason": "{\"omnivoice-probe-fa\": {\"role\": \"persian\", \"complete\": true, \"held_out\": 0.600996, \"reference\": 0.73826, \"cer\": 0.022170542635658916, \"renders\": 50, \"failures\": 0}, \"longcat-1b-probe-fa\": {\"role\": \"persian\", \"complete\": true, \"held_out\": 0.607004, \"reference\": 0.783992, \"cer\": 0.8164134366925064, \"renders\": 50, \"failures\": 0}}"
+  },
+  "reading": {
+    "passed": true,
+    "reason": "{\"adaptation_worth_costing\": true, \"rule\": \"only if LongCat-1B's held-out similarity minus OmniVoice's has a 95% interval over speakers entirely above 0.0205, with both arms' renders the requested English\", \"secondary_3_5b_clears_the_line\": true}"
+  }
+}

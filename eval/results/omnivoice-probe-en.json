@@ -1,0 +1,3208 @@
+{
+  "label": "omnivoice-probe-en",
+  "engine": "omnivoice",
+  "created": "2026-09-25 14:29:40",
+  "duration_minutes": 11.4,
+  "config": {
+    "ref_transcript": "corpus",
+    "engine_option": [
+      "language=en"
+    ],
+    "preprocess_option": [],
+    "candidates": 1,
+    "reference_index": 0,
+    "score_only": false,
+    "replay_from": null,
+    "seeds": [
+      42
+    ],
+    "sentences": [
+      "e01",
+      "e02",
+      "e03",
+      "e04",
+      "e05",
+      "e06"
+    ],
+    "sentences_file": "eval/manifests/probe_texts_en_v1.json",
+    "device": "cuda",
+    "speakers": [
+      "nvl01",
+      "nvl02",
+      "nvl03",
+      "nvl04",
+      "nvl05",
+      "nvl06",
+      "nvl07",
+      "nvl08",
+      "nvl09",
+      "nvl10",
+      "nvl11",
+      "nvl12",
+      "nvl13",
+      "nvl14",
+      "nvl15",
+      "nvl16",
+      "nvl17",
+      "nvl18",
+      "nvl19",
+      "nvl20",
+      "nvl21",
+      "nvl22",
+      "nvl23",
+      "nvl24",
+      "nvl25"
+    ],
+    "similarity_backend": "speechbrain-ecapa"
+  },
+  "scoring_environment": {
+    "id": "kaggle:persian-voice-longcat-probe-run-v1",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "recogniser": "faster-whisper/large-v3-turbo (cuda/float16)",
+    "similarity": "speechbrain-ecapa",
+    "similarity_device": "cpu",
+    "packages": {
+      "torch": "2.8.0+cu128",
+      "torchaudio": "2.8.0+cu128",
+      "speechbrain": "1.1.1",
+      "faster-whisper": "1.2.1",
+      "ctranslate2": "4.8.2",
+      "transformers": "5.3.0",
+      "jiwer": "4.0.0",
+      "numpy": "2.0.2"
+    }
+  },
+  "calibration": {
+    "ceiling": 0.7098085153890648,
+    "floor": 0.17230089300428603,
+    "cross_max": 0.5526053244871483,
+    "same_pairs": 250,
+    "cross_pairs": 7500,
+    "per_speaker_ceiling": {
+      "nvl01": 0.8010763585147909,
+      "nvl02": 0.7607533094462825,
+      "nvl03": 0.6611590356729228,
+      "nvl04": 0.5270114866643488,
+      "nvl05": 0.6705631905153437,
+      "nvl06": 0.7418088993662549,
+      "nvl07": 0.6660085532128651,
+      "nvl08": 0.8122066706286163,
+      "nvl09": 0.41313233815674566,
+      "nvl10": 0.79321489677618,
+      "nvl11": 0.8149226886323683,
+      "nvl12": 0.7783553316012213,
+      "nvl13": 0.6378309222992824,
+      "nvl14": 0.678425161916554,
+      "nvl15": 0.7335968871479817,
+      "nvl16": 0.5894608634105929,
+      "nvl17": 0.8491690546798012,
+      "nvl18": 0.8033684919584693,
+      "nvl19": 0.7294700037324472,
+      "nvl20": 0.6466842851206306,
+      "nvl21": 0.6483061999824121,
+      "nvl22": 0.7952227530947249,
+      "nvl23": 0.7062432381999416,
+      "nvl24": 0.791525274635479,
+      "nvl25": 0.6956969893603611
+    }
+  },
+  "recogniser_floor": {
+    "cer_mean": 0.07800123509335873,
+    "wer_mean": 0.3740008247479986,
+    "cer_median": 0.046875,
+    "clips": 45,
+    "source": "cached: eval/results/_asr_floor.json, measured on another run"
+  },
+  "summary": {
+    "held_out_mean": 0.5214553333333334,
+    "held_out_sd": 0.10570503949220783,
+    "reference_mean": 0.658468,
+    "wer_mean": 0.0033816425120772944,
+    "cer_mean": 0.0007650273224043716,
+    "cer_median": 0.0,
+    "scale_position": 0.6461290930235886,
+    "renders": 150,
+    "failures": 0,
+    "untranscribed": 0
+  },
+  "per_speaker": {
+    "nvl01": {
+      "held_out": 0.5835833333333333,
+      "ceiling": 0.8010763585147909,
+      "gap": -0.21749302518145752,
+      "reference": 0.7270166666666666,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl02": {
+      "held_out": 0.6363,
+      "ceiling": 0.7607533094462825,
+      "gap": -0.12445330944628252,
+      "reference": 0.6707666666666666,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl03": {
+      "held_out": 0.5405833333333333,
+      "ceiling": 0.6611590356729228,
+      "gap": -0.12057570233958947,
+      "reference": 0.7265,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl04": {
+      "held_out": 0.3903333333333333,
+      "ceiling": 0.5270114866643488,
+      "gap": -0.13667815333101552,
+      "reference": 0.5940166666666666,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl05": {
+      "held_out": 0.5148666666666667,
+      "ceiling": 0.6705631905153437,
+      "gap": -0.15569652384867705,
+      "reference": 0.5640333333333334,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl06": {
+      "held_out": 0.51655,
+      "ceiling": 0.7418088993662549,
+      "gap": -0.22525889936625498,
+      "reference": 0.6319,
+      "wer": 0.011111111111111112,
+      "cer": 0.00273224043715847,
+      "renders": 6
+    },
+    "nvl07": {
+      "held_out": 0.4559333333333333,
+      "ceiling": 0.6660085532128651,
+      "gap": -0.21007521987953182,
+      "reference": 0.644,
+      "wer": 0.011111111111111112,
+      "cer": 0.00273224043715847,
+      "renders": 6
+    },
+    "nvl08": {
+      "held_out": 0.6415833333333333,
+      "ceiling": 0.8122066706286163,
+      "gap": -0.170623337295283,
+      "reference": 0.6957833333333333,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl09": {
+      "held_out": 0.26380000000000003,
+      "ceiling": 0.41313233815674566,
+      "gap": -0.14933233815674563,
+      "reference": 0.497,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl10": {
+      "held_out": 0.5621166666666666,
+      "ceiling": 0.79321489677618,
+      "gap": -0.23109823010951336,
+      "reference": 0.7027833333333333,
+      "wer": 0.014492753623188406,
+      "cer": 0.00273224043715847,
+      "renders": 6
+    },
+    "nvl11": {
+      "held_out": 0.50875,
+      "ceiling": 0.8149226886323683,
+      "gap": -0.30617268863236824,
+      "reference": 0.6212833333333333,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl12": {
+      "held_out": 0.5176666666666667,
+      "ceiling": 0.7783553316012213,
+      "gap": -0.26068866493455456,
+      "reference": 0.7376,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl13": {
+      "held_out": 0.4887666666666667,
+      "ceiling": 0.6378309222992824,
+      "gap": -0.14906425563261572,
+      "reference": 0.6832833333333334,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl14": {
+      "held_out": 0.46643333333333337,
+      "ceiling": 0.678425161916554,
+      "gap": -0.21199182858322063,
+      "reference": 0.6064,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl15": {
+      "held_out": 0.5915,
+      "ceiling": 0.7335968871479817,
+      "gap": -0.14209688714798163,
+      "reference": 0.6951833333333334,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl16": {
+      "held_out": 0.49755,
+      "ceiling": 0.5894608634105929,
+      "gap": -0.0919108634105929,
+      "reference": 0.71695,
+      "wer": 0.025603864734299518,
+      "cer": 0.00546448087431694,
+      "renders": 6
+    },
+    "nvl17": {
+      "held_out": 0.5421,
+      "ceiling": 0.8491690546798012,
+      "gap": -0.30706905467980117,
+      "reference": 0.7084166666666667,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl18": {
+      "held_out": 0.5368333333333334,
+      "ceiling": 0.8033684919584693,
+      "gap": -0.2665351586251359,
+      "reference": 0.6843666666666667,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl19": {
+      "held_out": 0.5153833333333333,
+      "ceiling": 0.7294700037324472,
+      "gap": -0.2140866703991139,
+      "reference": 0.6475,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl20": {
+      "held_out": 0.5300166666666667,
+      "ceiling": 0.6466842851206306,
+      "gap": -0.1166676184539639,
+      "reference": 0.7247666666666667,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl21": {
+      "held_out": 0.5341833333333333,
+      "ceiling": 0.6483061999824121,
+      "gap": -0.11412286664907878,
+      "reference": 0.5497333333333333,
+      "wer": 0.011111111111111112,
+      "cer": 0.00273224043715847,
+      "renders": 6
+    },
+    "nvl22": {
+      "held_out": 0.6753,
+      "ceiling": 0.7952227530947249,
+      "gap": -0.11992275309472489,
+      "reference": 0.7602166666666667,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl23": {
+      "held_out": 0.48323333333333335,
+      "ceiling": 0.7062432381999416,
+      "gap": -0.22300990486660827,
+      "reference": 0.6000833333333333,
+      "wer": 0.011111111111111112,
+      "cer": 0.00273224043715847,
+      "renders": 6
+    },
+    "nvl24": {
+      "held_out": 0.5921333333333333,
+      "ceiling": 0.791525274635479,
+      "gap": -0.19939194130214566,
+      "reference": 0.66225,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    },
+    "nvl25": {
+      "held_out": 0.4508833333333333,
+      "ceiling": 0.6956969893603611,
+      "gap": -0.24481365602702776,
+      "reference": 0.6098666666666667,
+      "wer": 0.0,
+      "cer": 0.0,
+      "renders": 6
+    }
+  },
+  "rows": [
+    {
+      "speaker": "nvl01",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4006,
+      "held_out_scores": [
+        0.3918,
+        0.3925,
+        0.445,
+        0.3731
+      ],
+      "reference_similarity": 0.5739,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl01_e01_seed42.wav",
+      "seconds": 1.76
+    },
+    {
+      "speaker": "nvl01",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.6266,
+      "held_out_scores": [
+        0.6056,
+        0.6448,
+        0.6555,
+        0.6004
+      ],
+      "reference_similarity": 0.7831,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl01_e02_seed42.wav",
+      "seconds": 3.26
+    },
+    {
+      "speaker": "nvl01",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.5715,
+      "held_out_scores": [
+        0.5723,
+        0.5908,
+        0.5366,
+        0.5864
+      ],
+      "reference_similarity": 0.6471,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl01_e03_seed42.wav",
+      "seconds": 4.31
+    },
+    {
+      "speaker": "nvl01",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.6462,
+      "held_out_scores": [
+        0.6447,
+        0.6822,
+        0.6253,
+        0.6326
+      ],
+      "reference_similarity": 0.7881,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl01_e04_seed42.wav",
+      "seconds": 3.86
+    },
+    {
+      "speaker": "nvl01",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.6282,
+      "held_out_scores": [
+        0.6235,
+        0.6458,
+        0.624,
+        0.6194
+      ],
+      "reference_similarity": 0.7771,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl01_e05_seed42.wav",
+      "seconds": 8.0
+    },
+    {
+      "speaker": "nvl01",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.6284,
+      "held_out_scores": [
+        0.6305,
+        0.6349,
+        0.6376,
+        0.6107
+      ],
+      "reference_similarity": 0.7928,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl01_e06_seed42.wav",
+      "seconds": 5.84
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.5861,
+      "held_out_scores": [
+        0.5721,
+        0.5691,
+        0.6227,
+        0.5805
+      ],
+      "reference_similarity": 0.5746,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl02_e01_seed42.wav",
+      "seconds": 1.36
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.55,
+      "held_out_scores": [
+        0.5297,
+        0.5538,
+        0.605,
+        0.5117
+      ],
+      "reference_similarity": 0.6566,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl02_e02_seed42.wav",
+      "seconds": 2.6
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.6385,
+      "held_out_scores": [
+        0.5998,
+        0.6502,
+        0.6657,
+        0.6384
+      ],
+      "reference_similarity": 0.6527,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl02_e03_seed42.wav",
+      "seconds": 4.01
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.6525,
+      "held_out_scores": [
+        0.6628,
+        0.6031,
+        0.7008,
+        0.6436
+      ],
+      "reference_similarity": 0.6938,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl02_e04_seed42.wav",
+      "seconds": 3.79
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.6377,
+      "held_out_scores": [
+        0.6225,
+        0.6526,
+        0.6676,
+        0.6082
+      ],
+      "reference_similarity": 0.7088,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl02_e05_seed42.wav",
+      "seconds": 8.23
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.753,
+      "held_out_scores": [
+        0.7619,
+        0.7065,
+        0.76,
+        0.7834
+      ],
+      "reference_similarity": 0.7381,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl02_e06_seed42.wav",
+      "seconds": 6.02
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4936,
+      "held_out_scores": [
+        0.6019,
+        0.4757,
+        0.5222,
+        0.3747
+      ],
+      "reference_similarity": 0.6662,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl03_e01_seed42.wav",
+      "seconds": 1.75
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5028,
+      "held_out_scores": [
+        0.542,
+        0.4788,
+        0.5289,
+        0.4614
+      ],
+      "reference_similarity": 0.7052,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl03_e02_seed42.wav",
+      "seconds": 3.4
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4931,
+      "held_out_scores": [
+        0.5934,
+        0.5232,
+        0.5052,
+        0.3507
+      ],
+      "reference_similarity": 0.6078,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl03_e03_seed42.wav",
+      "seconds": 4.6
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5767,
+      "held_out_scores": [
+        0.6309,
+        0.5373,
+        0.6242,
+        0.5145
+      ],
+      "reference_similarity": 0.7664,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl03_e04_seed42.wav",
+      "seconds": 4.21
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.556,
+      "held_out_scores": [
+        0.625,
+        0.4823,
+        0.6015,
+        0.5151
+      ],
+      "reference_similarity": 0.7864,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl03_e05_seed42.wav",
+      "seconds": 9.09
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.6213,
+      "held_out_scores": [
+        0.7336,
+        0.5966,
+        0.6508,
+        0.5043
+      ],
+      "reference_similarity": 0.827,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl03_e06_seed42.wav",
+      "seconds": 6.23
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.3234,
+      "held_out_scores": [
+        0.1769,
+        0.342,
+        0.3637,
+        0.4109
+      ],
+      "reference_similarity": 0.4326,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl04_e01_seed42.wav",
+      "seconds": 1.28
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.3545,
+      "held_out_scores": [
+        0.2116,
+        0.2932,
+        0.3199,
+        0.5933
+      ],
+      "reference_similarity": 0.635,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl04_e02_seed42.wav",
+      "seconds": 2.43
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.3761,
+      "held_out_scores": [
+        0.2748,
+        0.3973,
+        0.4146,
+        0.4177
+      ],
+      "reference_similarity": 0.5491,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl04_e03_seed42.wav",
+      "seconds": 3.69
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.4016,
+      "held_out_scores": [
+        0.2836,
+        0.3763,
+        0.3938,
+        0.5528
+      ],
+      "reference_similarity": 0.6392,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl04_e04_seed42.wav",
+      "seconds": 3.59
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.4752,
+      "held_out_scores": [
+        0.3511,
+        0.4626,
+        0.4976,
+        0.5893
+      ],
+      "reference_similarity": 0.6305,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl04_e05_seed42.wav",
+      "seconds": 7.77
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.4112,
+      "held_out_scores": [
+        0.2519,
+        0.3873,
+        0.4819,
+        0.5236
+      ],
+      "reference_similarity": 0.6777,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl04_e06_seed42.wav",
+      "seconds": 5.48
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4675,
+      "held_out_scores": [
+        0.4986,
+        0.4705,
+        0.3387,
+        0.562
+      ],
+      "reference_similarity": 0.5379,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl05_e01_seed42.wav",
+      "seconds": 1.66
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.4948,
+      "held_out_scores": [
+        0.4902,
+        0.5273,
+        0.4367,
+        0.5251
+      ],
+      "reference_similarity": 0.5704,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl05_e02_seed42.wav",
+      "seconds": 2.83
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4999,
+      "held_out_scores": [
+        0.4681,
+        0.4766,
+        0.519,
+        0.5359
+      ],
+      "reference_similarity": 0.4901,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl05_e03_seed42.wav",
+      "seconds": 4.09
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5614,
+      "held_out_scores": [
+        0.5557,
+        0.6018,
+        0.5113,
+        0.5769
+      ],
+      "reference_similarity": 0.6303,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl05_e04_seed42.wav",
+      "seconds": 4.04
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.5071,
+      "held_out_scores": [
+        0.4943,
+        0.4734,
+        0.4753,
+        0.5852
+      ],
+      "reference_similarity": 0.5369,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl05_e05_seed42.wav",
+      "seconds": 8.5
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5585,
+      "held_out_scores": [
+        0.5041,
+        0.5866,
+        0.5318,
+        0.6114
+      ],
+      "reference_similarity": 0.6186,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl05_e06_seed42.wav",
+      "seconds": 6.04
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.3992,
+      "held_out_scores": [
+        0.3892,
+        0.448,
+        0.4639,
+        0.2957
+      ],
+      "reference_similarity": 0.5435,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl06_e01_seed42.wav",
+      "seconds": 1.24
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5817,
+      "held_out_scores": [
+        0.5696,
+        0.6423,
+        0.6288,
+        0.486
+      ],
+      "reference_similarity": 0.6961,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl06_e02_seed42.wav",
+      "seconds": 2.6
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4702,
+      "held_out_scores": [
+        0.5074,
+        0.5244,
+        0.511,
+        0.3381
+      ],
+      "reference_similarity": 0.6113,
+      "word_error_rate": 0.06666666666666667,
+      "character_error_rate": 0.01639344262295082,
+      "transcription": "The old bridge was closed for repair, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl06_e03_seed42.wav",
+      "seconds": 3.7
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5349,
+      "held_out_scores": [
+        0.5928,
+        0.5635,
+        0.6106,
+        0.3728
+      ],
+      "reference_similarity": 0.6332,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl06_e04_seed42.wav",
+      "seconds": 3.41
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.5801,
+      "held_out_scores": [
+        0.5945,
+        0.6084,
+        0.6574,
+        0.4602
+      ],
+      "reference_similarity": 0.697,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl06_e05_seed42.wav",
+      "seconds": 7.69
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5332,
+      "held_out_scores": [
+        0.5433,
+        0.5824,
+        0.5803,
+        0.4269
+      ],
+      "reference_similarity": 0.6103,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl06_e06_seed42.wav",
+      "seconds": 5.56
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4152,
+      "held_out_scores": [
+        0.4147,
+        0.4105,
+        0.4338,
+        0.4017
+      ],
+      "reference_similarity": 0.5336,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl07_e01_seed42.wav",
+      "seconds": 1.38
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.3958,
+      "held_out_scores": [
+        0.4786,
+        0.4052,
+        0.3981,
+        0.3014
+      ],
+      "reference_similarity": 0.6382,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl07_e02_seed42.wav",
+      "seconds": 2.66
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4457,
+      "held_out_scores": [
+        0.4812,
+        0.4965,
+        0.4367,
+        0.3683
+      ],
+      "reference_similarity": 0.6056,
+      "word_error_rate": 0.06666666666666667,
+      "character_error_rate": 0.01639344262295082,
+      "transcription": "The old bridge was closed for repair, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl07_e03_seed42.wav",
+      "seconds": 3.87
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.509,
+      "held_out_scores": [
+        0.5693,
+        0.5332,
+        0.4661,
+        0.4673
+      ],
+      "reference_similarity": 0.6902,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl07_e04_seed42.wav",
+      "seconds": 3.89
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.5162,
+      "held_out_scores": [
+        0.5992,
+        0.5259,
+        0.4856,
+        0.4542
+      ],
+      "reference_similarity": 0.7277,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl07_e05_seed42.wav",
+      "seconds": 7.91
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.4537,
+      "held_out_scores": [
+        0.5826,
+        0.4634,
+        0.3688,
+        0.4002
+      ],
+      "reference_similarity": 0.6687,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl07_e06_seed42.wav",
+      "seconds": 5.77
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.6171,
+      "held_out_scores": [
+        0.6252,
+        0.5991,
+        0.5779,
+        0.666
+      ],
+      "reference_similarity": 0.665,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl08_e01_seed42.wav",
+      "seconds": 1.55
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.6287,
+      "held_out_scores": [
+        0.6675,
+        0.6156,
+        0.607,
+        0.6247
+      ],
+      "reference_similarity": 0.6007,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl08_e02_seed42.wav",
+      "seconds": 3.46
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.5991,
+      "held_out_scores": [
+        0.6383,
+        0.6205,
+        0.5704,
+        0.567
+      ],
+      "reference_similarity": 0.6688,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl08_e03_seed42.wav",
+      "seconds": 4.78
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.6334,
+      "held_out_scores": [
+        0.6638,
+        0.647,
+        0.6296,
+        0.5933
+      ],
+      "reference_similarity": 0.7138,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl08_e04_seed42.wav",
+      "seconds": 4.65
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.7078,
+      "held_out_scores": [
+        0.7446,
+        0.697,
+        0.7113,
+        0.6781
+      ],
+      "reference_similarity": 0.7761,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl08_e05_seed42.wav",
+      "seconds": 10.67
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.6634,
+      "held_out_scores": [
+        0.6904,
+        0.6553,
+        0.6533,
+        0.6547
+      ],
+      "reference_similarity": 0.7503,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl08_e06_seed42.wav",
+      "seconds": 7.8
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.2615,
+      "held_out_scores": [
+        0.3033,
+        0.0708,
+        0.3357,
+        0.3361
+      ],
+      "reference_similarity": 0.4978,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl09_e01_seed42.wav",
+      "seconds": 1.47
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.2019,
+      "held_out_scores": [
+        0.2359,
+        -0.0237,
+        0.3419,
+        0.2538
+      ],
+      "reference_similarity": 0.4218,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl09_e02_seed42.wav",
+      "seconds": 1.86
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.2418,
+      "held_out_scores": [
+        0.325,
+        0.0129,
+        0.3219,
+        0.3072
+      ],
+      "reference_similarity": 0.4402,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl09_e03_seed42.wav",
+      "seconds": 3.05
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.2776,
+      "held_out_scores": [
+        0.3278,
+        0.0688,
+        0.3522,
+        0.3615
+      ],
+      "reference_similarity": 0.478,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl09_e04_seed42.wav",
+      "seconds": 2.88
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.2958,
+      "held_out_scores": [
+        0.3434,
+        0.0858,
+        0.4115,
+        0.3427
+      ],
+      "reference_similarity": 0.5382,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl09_e05_seed42.wav",
+      "seconds": 6.56
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.3042,
+      "held_out_scores": [
+        0.3672,
+        0.0317,
+        0.4032,
+        0.4147
+      ],
+      "reference_similarity": 0.606,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl09_e06_seed42.wav",
+      "seconds": 4.61
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4224,
+      "held_out_scores": [
+        0.3295,
+        0.4488,
+        0.4415,
+        0.4699
+      ],
+      "reference_similarity": 0.5608,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl10_e01_seed42.wav",
+      "seconds": 1.05
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5807,
+      "held_out_scores": [
+        0.501,
+        0.5487,
+        0.6195,
+        0.6536
+      ],
+      "reference_similarity": 0.7661,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl10_e02_seed42.wav",
+      "seconds": 2.07
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.481,
+      "held_out_scores": [
+        0.4552,
+        0.4842,
+        0.4851,
+        0.4994
+      ],
+      "reference_similarity": 0.5603,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl10_e03_seed42.wav",
+      "seconds": 3.33
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.6224,
+      "held_out_scores": [
+        0.5759,
+        0.6411,
+        0.6307,
+        0.6419
+      ],
+      "reference_similarity": 0.7421,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl10_e04_seed42.wav",
+      "seconds": 3.04
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.6402,
+      "held_out_scores": [
+        0.5692,
+        0.6136,
+        0.6918,
+        0.6863
+      ],
+      "reference_similarity": 0.7965,
+      "word_error_rate": 0.08695652173913043,
+      "character_error_rate": 0.01639344262295082,
+      "transcription": "According to the morning report, heavy rain is expected in the Northern Valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl10_e05_seed42.wav",
+      "seconds": 7.04
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.626,
+      "held_out_scores": [
+        0.578,
+        0.5958,
+        0.6767,
+        0.6534
+      ],
+      "reference_similarity": 0.7909,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl10_e06_seed42.wav",
+      "seconds": 4.95
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.3321,
+      "held_out_scores": [
+        0.2704,
+        0.3972,
+        0.3323,
+        0.3287
+      ],
+      "reference_similarity": 0.4815,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl11_e01_seed42.wav",
+      "seconds": 1.29
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.469,
+      "held_out_scores": [
+        0.4173,
+        0.4732,
+        0.5118,
+        0.4738
+      ],
+      "reference_similarity": 0.5908,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl11_e02_seed42.wav",
+      "seconds": 2.25
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4636,
+      "held_out_scores": [
+        0.3998,
+        0.4595,
+        0.4658,
+        0.5294
+      ],
+      "reference_similarity": 0.5246,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl11_e03_seed42.wav",
+      "seconds": 3.87
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5963,
+      "held_out_scores": [
+        0.5818,
+        0.6086,
+        0.5936,
+        0.6012
+      ],
+      "reference_similarity": 0.6984,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl11_e04_seed42.wav",
+      "seconds": 3.59
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.6084,
+      "held_out_scores": [
+        0.5849,
+        0.6319,
+        0.6153,
+        0.6015
+      ],
+      "reference_similarity": 0.7393,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl11_e05_seed42.wav",
+      "seconds": 7.74
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5831,
+      "held_out_scores": [
+        0.5671,
+        0.6114,
+        0.5784,
+        0.5754
+      ],
+      "reference_similarity": 0.6931,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl11_e06_seed42.wav",
+      "seconds": 5.57
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4688,
+      "held_out_scores": [
+        0.4578,
+        0.5582,
+        0.4648,
+        0.3945
+      ],
+      "reference_similarity": 0.6839,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl12_e01_seed42.wav",
+      "seconds": 1.66
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5444,
+      "held_out_scores": [
+        0.5754,
+        0.581,
+        0.5105,
+        0.5108
+      ],
+      "reference_similarity": 0.7076,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl12_e02_seed42.wav",
+      "seconds": 3.13
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4026,
+      "held_out_scores": [
+        0.3965,
+        0.491,
+        0.3713,
+        0.3515
+      ],
+      "reference_similarity": 0.6572,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl12_e03_seed42.wav",
+      "seconds": 4.21
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5491,
+      "held_out_scores": [
+        0.5401,
+        0.6429,
+        0.4963,
+        0.5172
+      ],
+      "reference_similarity": 0.7151,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl12_e04_seed42.wav",
+      "seconds": 3.91
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.5653,
+      "held_out_scores": [
+        0.5363,
+        0.6663,
+        0.5355,
+        0.5231
+      ],
+      "reference_similarity": 0.8239,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl12_e05_seed42.wav",
+      "seconds": 8.16
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5758,
+      "held_out_scores": [
+        0.5721,
+        0.6963,
+        0.5568,
+        0.4781
+      ],
+      "reference_similarity": 0.8379,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl12_e06_seed42.wav",
+      "seconds": 6.15
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4377,
+      "held_out_scores": [
+        0.4942,
+        0.3093,
+        0.4661,
+        0.4814
+      ],
+      "reference_similarity": 0.5943,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl13_e01_seed42.wav",
+      "seconds": 1.81
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.4574,
+      "held_out_scores": [
+        0.528,
+        0.3102,
+        0.5246,
+        0.4667
+      ],
+      "reference_similarity": 0.6811,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl13_e02_seed42.wav",
+      "seconds": 3.45
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.5323,
+      "held_out_scores": [
+        0.5599,
+        0.456,
+        0.5598,
+        0.5535
+      ],
+      "reference_similarity": 0.6753,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl13_e03_seed42.wav",
+      "seconds": 4.14
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5242,
+      "held_out_scores": [
+        0.6501,
+        0.3435,
+        0.5662,
+        0.5372
+      ],
+      "reference_similarity": 0.7022,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl13_e04_seed42.wav",
+      "seconds": 3.72
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.4626,
+      "held_out_scores": [
+        0.5422,
+        0.267,
+        0.5668,
+        0.4743
+      ],
+      "reference_similarity": 0.6828,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl13_e05_seed42.wav",
+      "seconds": 8.52
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5184,
+      "held_out_scores": [
+        0.6015,
+        0.3467,
+        0.6303,
+        0.4948
+      ],
+      "reference_similarity": 0.764,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl13_e06_seed42.wav",
+      "seconds": 6.12
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.3482,
+      "held_out_scores": [
+        0.3598,
+        0.3841,
+        0.3192,
+        0.3297
+      ],
+      "reference_similarity": 0.5128,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl14_e01_seed42.wav",
+      "seconds": 1.46
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.4496,
+      "held_out_scores": [
+        0.5207,
+        0.5316,
+        0.4387,
+        0.3074
+      ],
+      "reference_similarity": 0.5541,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl14_e02_seed42.wav",
+      "seconds": 3.07
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4157,
+      "held_out_scores": [
+        0.4142,
+        0.5106,
+        0.4114,
+        0.3267
+      ],
+      "reference_similarity": 0.5725,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl14_e03_seed42.wav",
+      "seconds": 3.99
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5502,
+      "held_out_scores": [
+        0.6496,
+        0.6305,
+        0.5119,
+        0.4086
+      ],
+      "reference_similarity": 0.7088,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl14_e04_seed42.wav",
+      "seconds": 3.96
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.5243,
+      "held_out_scores": [
+        0.5759,
+        0.5948,
+        0.4916,
+        0.4348
+      ],
+      "reference_similarity": 0.6635,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl14_e05_seed42.wav",
+      "seconds": 8.75
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5106,
+      "held_out_scores": [
+        0.5875,
+        0.6005,
+        0.4667,
+        0.3879
+      ],
+      "reference_similarity": 0.6267,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl14_e06_seed42.wav",
+      "seconds": 6.4
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.5221,
+      "held_out_scores": [
+        0.4735,
+        0.5169,
+        0.528,
+        0.57
+      ],
+      "reference_similarity": 0.6135,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl15_e01_seed42.wav",
+      "seconds": 1.87
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5779,
+      "held_out_scores": [
+        0.6202,
+        0.5034,
+        0.56,
+        0.6279
+      ],
+      "reference_similarity": 0.6342,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl15_e02_seed42.wav",
+      "seconds": 3.46
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.566,
+      "held_out_scores": [
+        0.5755,
+        0.5068,
+        0.6424,
+        0.5395
+      ],
+      "reference_similarity": 0.6581,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl15_e03_seed42.wav",
+      "seconds": 4.41
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.624,
+      "held_out_scores": [
+        0.6256,
+        0.5923,
+        0.6659,
+        0.6122
+      ],
+      "reference_similarity": 0.7394,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl15_e04_seed42.wav",
+      "seconds": 4.01
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.625,
+      "held_out_scores": [
+        0.639,
+        0.5936,
+        0.6684,
+        0.5989
+      ],
+      "reference_similarity": 0.7682,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl15_e05_seed42.wav",
+      "seconds": 9.41
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.634,
+      "held_out_scores": [
+        0.6269,
+        0.6189,
+        0.6504,
+        0.6397
+      ],
+      "reference_similarity": 0.7577,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl15_e06_seed42.wav",
+      "seconds": 6.94
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4058,
+      "held_out_scores": [
+        0.4187,
+        0.3619,
+        0.4227,
+        0.42
+      ],
+      "reference_similarity": 0.633,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl16_e01_seed42.wav",
+      "seconds": 1.32
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.4357,
+      "held_out_scores": [
+        0.3549,
+        0.4779,
+        0.4384,
+        0.4716
+      ],
+      "reference_similarity": 0.6292,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl16_e02_seed42.wav",
+      "seconds": 2.73
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4504,
+      "held_out_scores": [
+        0.4933,
+        0.3428,
+        0.5473,
+        0.4181
+      ],
+      "reference_similarity": 0.6912,
+      "word_error_rate": 0.06666666666666667,
+      "character_error_rate": 0.01639344262295082,
+      "transcription": "The old bridge was closed for repair so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl16_e03_seed42.wav",
+      "seconds": 3.97
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5511,
+      "held_out_scores": [
+        0.5034,
+        0.499,
+        0.601,
+        0.6011
+      ],
+      "reference_similarity": 0.7238,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl16_e04_seed42.wav",
+      "seconds": 3.77
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.5737,
+      "held_out_scores": [
+        0.5492,
+        0.5551,
+        0.5997,
+        0.5908
+      ],
+      "reference_similarity": 0.7876,
+      "word_error_rate": 0.08695652173913043,
+      "character_error_rate": 0.01639344262295082,
+      "transcription": "According to the morning report, heavy rain is expected in the Northern Valleys tonight so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl16_e05_seed42.wav",
+      "seconds": 8.17
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5686,
+      "held_out_scores": [
+        0.5592,
+        0.5157,
+        0.6368,
+        0.5627
+      ],
+      "reference_similarity": 0.8369,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl16_e06_seed42.wav",
+      "seconds": 6.07
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.5227,
+      "held_out_scores": [
+        0.5465,
+        0.5388,
+        0.5035,
+        0.5019
+      ],
+      "reference_similarity": 0.6622,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl17_e01_seed42.wav",
+      "seconds": 1.39
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.3939,
+      "held_out_scores": [
+        0.404,
+        0.413,
+        0.3822,
+        0.3764
+      ],
+      "reference_similarity": 0.5907,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl17_e02_seed42.wav",
+      "seconds": 3.59
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.498,
+      "held_out_scores": [
+        0.4855,
+        0.4976,
+        0.5056,
+        0.5032
+      ],
+      "reference_similarity": 0.6903,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl17_e03_seed42.wav",
+      "seconds": 4.64
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5654,
+      "held_out_scores": [
+        0.5526,
+        0.562,
+        0.5707,
+        0.5765
+      ],
+      "reference_similarity": 0.7007,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl17_e04_seed42.wav",
+      "seconds": 3.75
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.6411,
+      "held_out_scores": [
+        0.6275,
+        0.6387,
+        0.6517,
+        0.6467
+      ],
+      "reference_similarity": 0.8078,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl17_e05_seed42.wav",
+      "seconds": 9.28
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.6315,
+      "held_out_scores": [
+        0.6174,
+        0.6196,
+        0.642,
+        0.6472
+      ],
+      "reference_similarity": 0.7988,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl17_e06_seed42.wav",
+      "seconds": 6.37
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4678,
+      "held_out_scores": [
+        0.4163,
+        0.5286,
+        0.4721,
+        0.4543
+      ],
+      "reference_similarity": 0.6119,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl18_e01_seed42.wav",
+      "seconds": 1.48
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5014,
+      "held_out_scores": [
+        0.4305,
+        0.5407,
+        0.5619,
+        0.4725
+      ],
+      "reference_similarity": 0.6207,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl18_e02_seed42.wav",
+      "seconds": 3.2
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4748,
+      "held_out_scores": [
+        0.4619,
+        0.5122,
+        0.4525,
+        0.4728
+      ],
+      "reference_similarity": 0.5968,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl18_e03_seed42.wav",
+      "seconds": 4.5
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.6124,
+      "held_out_scores": [
+        0.5718,
+        0.6625,
+        0.621,
+        0.5943
+      ],
+      "reference_similarity": 0.7808,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl18_e04_seed42.wav",
+      "seconds": 4.51
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.534,
+      "held_out_scores": [
+        0.4971,
+        0.5756,
+        0.5177,
+        0.5455
+      ],
+      "reference_similarity": 0.7222,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl18_e05_seed42.wav",
+      "seconds": 9.83
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.6306,
+      "held_out_scores": [
+        0.587,
+        0.7049,
+        0.6385,
+        0.5922
+      ],
+      "reference_similarity": 0.7738,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl18_e06_seed42.wav",
+      "seconds": 7.14
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.3329,
+      "held_out_scores": [
+        0.4051,
+        0.3367,
+        0.2747,
+        0.315
+      ],
+      "reference_similarity": 0.4423,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl19_e01_seed42.wav",
+      "seconds": 1.38
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.4878,
+      "held_out_scores": [
+        0.535,
+        0.5169,
+        0.455,
+        0.4441
+      ],
+      "reference_similarity": 0.5686,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl19_e02_seed42.wav",
+      "seconds": 3.43
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.5451,
+      "held_out_scores": [
+        0.5611,
+        0.5548,
+        0.5038,
+        0.5607
+      ],
+      "reference_similarity": 0.7224,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl19_e03_seed42.wav",
+      "seconds": 4.16
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5773,
+      "held_out_scores": [
+        0.6452,
+        0.6317,
+        0.5582,
+        0.4742
+      ],
+      "reference_similarity": 0.6476,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl19_e04_seed42.wav",
+      "seconds": 4.19
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.5848,
+      "held_out_scores": [
+        0.651,
+        0.6149,
+        0.5295,
+        0.5436
+      ],
+      "reference_similarity": 0.7025,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl19_e05_seed42.wav",
+      "seconds": 9.12
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5644,
+      "held_out_scores": [
+        0.5808,
+        0.5578,
+        0.5101,
+        0.6089
+      ],
+      "reference_similarity": 0.8016,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl19_e06_seed42.wav",
+      "seconds": 6.24
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.4562,
+      "held_out_scores": [
+        0.524,
+        0.3579,
+        0.4716,
+        0.4716
+      ],
+      "reference_similarity": 0.5586,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl20_e01_seed42.wav",
+      "seconds": 1.37
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.506,
+      "held_out_scores": [
+        0.6673,
+        0.3353,
+        0.5107,
+        0.5107
+      ],
+      "reference_similarity": 0.7265,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl20_e02_seed42.wav",
+      "seconds": 3.3
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.5472,
+      "held_out_scores": [
+        0.7025,
+        0.3505,
+        0.568,
+        0.568
+      ],
+      "reference_similarity": 0.7322,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl20_e03_seed42.wav",
+      "seconds": 5.05
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5382,
+      "held_out_scores": [
+        0.7038,
+        0.3787,
+        0.5351,
+        0.5351
+      ],
+      "reference_similarity": 0.8042,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl20_e04_seed42.wav",
+      "seconds": 4.16
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.5696,
+      "held_out_scores": [
+        0.7267,
+        0.3587,
+        0.5966,
+        0.5966
+      ],
+      "reference_similarity": 0.8043,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl20_e05_seed42.wav",
+      "seconds": 9.16
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5629,
+      "held_out_scores": [
+        0.6589,
+        0.3742,
+        0.6093,
+        0.6093
+      ],
+      "reference_similarity": 0.7228,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl20_e06_seed42.wav",
+      "seconds": 7.28
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.431,
+      "held_out_scores": [
+        0.3364,
+        0.4327,
+        0.4818,
+        0.4732
+      ],
+      "reference_similarity": 0.4413,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl21_e01_seed42.wav",
+      "seconds": 1.28
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.4763,
+      "held_out_scores": [
+        0.3709,
+        0.4727,
+        0.5507,
+        0.5111
+      ],
+      "reference_similarity": 0.4826,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl21_e02_seed42.wav",
+      "seconds": 2.59
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.5085,
+      "held_out_scores": [
+        0.3416,
+        0.5449,
+        0.6042,
+        0.5432
+      ],
+      "reference_similarity": 0.5517,
+      "word_error_rate": 0.06666666666666667,
+      "character_error_rate": 0.01639344262295082,
+      "transcription": "The old bridge was closed for repair so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl21_e03_seed42.wav",
+      "seconds": 3.77
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.6022,
+      "held_out_scores": [
+        0.4564,
+        0.6266,
+        0.6684,
+        0.6575
+      ],
+      "reference_similarity": 0.6208,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl21_e04_seed42.wav",
+      "seconds": 3.6
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.575,
+      "held_out_scores": [
+        0.4225,
+        0.5693,
+        0.6603,
+        0.6481
+      ],
+      "reference_similarity": 0.5628,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl21_e05_seed42.wav",
+      "seconds": 7.77
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.6121,
+      "held_out_scores": [
+        0.494,
+        0.6564,
+        0.6728,
+        0.625
+      ],
+      "reference_similarity": 0.6392,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl21_e06_seed42.wav",
+      "seconds": 5.64
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.6674,
+      "held_out_scores": [
+        0.6529,
+        0.6566,
+        0.6273,
+        0.7326
+      ],
+      "reference_similarity": 0.6927,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl22_e01_seed42.wav",
+      "seconds": 1.36
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5588,
+      "held_out_scores": [
+        0.5046,
+        0.6109,
+        0.5154,
+        0.6045
+      ],
+      "reference_similarity": 0.7586,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl22_e02_seed42.wav",
+      "seconds": 3.02
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.6613,
+      "held_out_scores": [
+        0.6147,
+        0.6882,
+        0.65,
+        0.6921
+      ],
+      "reference_similarity": 0.813,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl22_e03_seed42.wav",
+      "seconds": 4.22
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.6861,
+      "held_out_scores": [
+        0.662,
+        0.7133,
+        0.6296,
+        0.7395
+      ],
+      "reference_similarity": 0.6938,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl22_e04_seed42.wav",
+      "seconds": 3.87
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.7807,
+      "held_out_scores": [
+        0.7719,
+        0.794,
+        0.7224,
+        0.8346
+      ],
+      "reference_similarity": 0.7954,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl22_e05_seed42.wav",
+      "seconds": 8.55
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.6975,
+      "held_out_scores": [
+        0.6642,
+        0.7089,
+        0.6431,
+        0.7739
+      ],
+      "reference_similarity": 0.8078,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl22_e06_seed42.wav",
+      "seconds": 6.28
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.3237,
+      "held_out_scores": [
+        0.2816,
+        0.3096,
+        0.3342,
+        0.3692
+      ],
+      "reference_similarity": 0.3752,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl23_e01_seed42.wav",
+      "seconds": 0.99
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5097,
+      "held_out_scores": [
+        0.4924,
+        0.4391,
+        0.5678,
+        0.5397
+      ],
+      "reference_similarity": 0.6262,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl23_e02_seed42.wav",
+      "seconds": 2.12
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4885,
+      "held_out_scores": [
+        0.4119,
+        0.5575,
+        0.5032,
+        0.4815
+      ],
+      "reference_similarity": 0.6429,
+      "word_error_rate": 0.06666666666666667,
+      "character_error_rate": 0.01639344262295082,
+      "transcription": "The old bridge was closed for repair so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl23_e03_seed42.wav",
+      "seconds": 3.48
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5313,
+      "held_out_scores": [
+        0.4629,
+        0.5434,
+        0.5792,
+        0.5395
+      ],
+      "reference_similarity": 0.6068,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl23_e04_seed42.wav",
+      "seconds": 3.29
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.4891,
+      "held_out_scores": [
+        0.4398,
+        0.4648,
+        0.5259,
+        0.5258
+      ],
+      "reference_similarity": 0.6299,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl23_e05_seed42.wav",
+      "seconds": 7.18
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.5571,
+      "held_out_scores": [
+        0.4954,
+        0.5456,
+        0.6098,
+        0.5776
+      ],
+      "reference_similarity": 0.7195,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl23_e06_seed42.wav",
+      "seconds": 5.41
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.5066,
+      "held_out_scores": [
+        0.497,
+        0.6238,
+        0.4815,
+        0.4242
+      ],
+      "reference_similarity": 0.5177,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl24_e01_seed42.wav",
+      "seconds": 1.45
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5804,
+      "held_out_scores": [
+        0.5561,
+        0.6524,
+        0.5443,
+        0.5687
+      ],
+      "reference_similarity": 0.6508,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl24_e02_seed42.wav",
+      "seconds": 2.87
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.5958,
+      "held_out_scores": [
+        0.5227,
+        0.689,
+        0.576,
+        0.5952
+      ],
+      "reference_similarity": 0.658,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl24_e03_seed42.wav",
+      "seconds": 3.8
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.5841,
+      "held_out_scores": [
+        0.5277,
+        0.6949,
+        0.5417,
+        0.5722
+      ],
+      "reference_similarity": 0.6726,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl24_e04_seed42.wav",
+      "seconds": 3.44
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.6305,
+      "held_out_scores": [
+        0.5821,
+        0.7324,
+        0.5905,
+        0.6171
+      ],
+      "reference_similarity": 0.7344,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl24_e05_seed42.wav",
+      "seconds": 7.34
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.6554,
+      "held_out_scores": [
+        0.5833,
+        0.7705,
+        0.6241,
+        0.6435
+      ],
+      "reference_similarity": 0.74,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint, and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl24_e06_seed42.wav",
+      "seconds": 5.29
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "e01",
+      "seed": 42,
+      "held_out_similarity": 0.2113,
+      "held_out_scores": [
+        0.2445,
+        0.263,
+        0.191,
+        0.1469
+      ],
+      "reference_similarity": 0.3524,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Please close the window.",
+      "expected": "Please close the window.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl25_e01_seed42.wav",
+      "seconds": 1.33
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "e02",
+      "seed": 42,
+      "held_out_similarity": 0.5056,
+      "held_out_scores": [
+        0.4447,
+        0.523,
+        0.5734,
+        0.4814
+      ],
+      "reference_similarity": 0.649,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Could you call me back after lunch when you have a minute?",
+      "expected": "Could you call me back after lunch, when you have a minute?",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl25_e02_seed42.wav",
+      "seconds": 2.66
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "e03",
+      "seed": 42,
+      "held_out_similarity": 0.4407,
+      "held_out_scores": [
+        0.434,
+        0.4398,
+        0.5043,
+        0.3847
+      ],
+      "reference_similarity": 0.6234,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "expected": "The old bridge was closed for repairs, so we took the ferry across the river.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl25_e03_seed42.wav",
+      "seconds": 3.92
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "e04",
+      "seed": 42,
+      "held_out_similarity": 0.4102,
+      "held_out_scores": [
+        0.3918,
+        0.4664,
+        0.4304,
+        0.3522
+      ],
+      "reference_similarity": 0.6267,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "Remember to switch off the lights, lock the back door and feed the cat.",
+      "expected": "Remember to switch off the lights, lock the back door, and feed the cat.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl25_e04_seed42.wav",
+      "seconds": 3.9
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "e05",
+      "seed": 42,
+      "held_out_similarity": 0.5575,
+      "held_out_scores": [
+        0.522,
+        0.5645,
+        0.6246,
+        0.519
+      ],
+      "reference_similarity": 0.6854,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "expected": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl25_e05_seed42.wav",
+      "seconds": 7.91
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "e06",
+      "seed": 42,
+      "held_out_similarity": 0.58,
+      "held_out_scores": [
+        0.5675,
+        0.5949,
+        0.6494,
+        0.5081
+      ],
+      "reference_similarity": 0.7223,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "My grandmother kept a small garden behind the house where she grew tomatoes, mint and bright yellow flowers.",
+      "expected": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-en/nvl25_e06_seed42.wav",
+      "seconds": 5.86
+    }
+  ]
+}

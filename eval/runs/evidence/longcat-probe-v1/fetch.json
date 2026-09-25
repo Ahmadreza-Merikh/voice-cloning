@@ -1,0 +1,135 @@
+{
+  "started": "2026-09-25 14:06:29 +0000",
+  "steps": [
+    {
+      "name": "longcat code audiodit/__init__.py",
+      "kind": "url",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 0.1
+        }
+      ],
+      "bytes": 1062,
+      "git_blob": "3e02bb188c3729e3cb18f45226e73a7d43ec6a1f"
+    },
+    {
+      "name": "longcat code audiodit/configuration_audiodit.py",
+      "kind": "url",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 0.1
+        }
+      ],
+      "bytes": 9790,
+      "git_blob": "36f7aacb0d535fd9bf83d7c251626544a3e17ac0"
+    },
+    {
+      "name": "longcat code audiodit/modeling_audiodit.py",
+      "kind": "url",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 0.1
+        }
+      ],
+      "bytes": 48426,
+      "git_blob": "1333cc79ee449adbebe767772fe8fd16bb2d9c9f"
+    },
+    {
+      "name": "longcat code utils.py",
+      "kind": "url",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 0.1
+        }
+      ],
+      "bytes": 851,
+      "git_blob": "1e208da4d160de40f90adfeff5d82149618ac2b0"
+    },
+    {
+      "name": "omnivoice base",
+      "kind": "snapshot",
+      "repo": "k2-fsa/OmniVoice",
+      "revision": "c5fdb5ccb189668d56333f77ba2629f4cd7535f4",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 19.3
+        }
+      ],
+      "bytes": 3267471645,
+      "gib": 3.043,
+      "seconds": 19.3,
+      "mib_per_second": 161.4
+    },
+    {
+      "name": "longcat 1b",
+      "kind": "snapshot",
+      "repo": "meituan-longcat/LongCat-AudioDiT-1B",
+      "revision": "4f4c19434f2e3b991998d0ead6ab2cd056d947b7",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 64.2
+        }
+      ],
+      "bytes": 5679835206,
+      "gib": 5.29,
+      "seconds": 64.2,
+      "mib_per_second": 84.3
+    },
+    {
+      "name": "longcat 3.5b",
+      "kind": "snapshot",
+      "repo": "meituan-longcat/LongCat-AudioDiT-3.5B",
+      "revision": "5d3e6dc007872d756c3a69b44951598d7d9bdf6d",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 282.1
+        }
+      ],
+      "bytes": 15336106367,
+      "gib": 14.283,
+      "seconds": 282.1,
+      "mib_per_second": 51.8
+    },
+    {
+      "name": "umt5 tokenizer",
+      "kind": "snapshot",
+      "repo": "google/umt5-base",
+      "revision": "0de9394d54f8975e71838d309de1cb496c894ab9",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 0.8
+        }
+      ],
+      "bytes": 21416155,
+      "gib": 0.02,
+      "seconds": 0.8,
+      "mib_per_second": 25.2
+    },
+    {
+      "name": "neyshekar valid",
+      "kind": "snapshot",
+      "repo": "shekar-ai/neyshekar",
+      "revision": "30696ada746a66bb3047c984744b5ecfd60fe4e9",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 13.1
+        }
+      ],
+      "bytes": 362660454,
+      "gib": 0.338,
+      "seconds": 13.1,
+      "mib_per_second": 26.4
+    }
+  ],
+  "ok": true,
+  "finished": "2026-09-25 14:14:11 +0000"
+}

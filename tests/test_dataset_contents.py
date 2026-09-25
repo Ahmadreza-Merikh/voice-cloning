@@ -22,7 +22,7 @@ spec = importlib.util.spec_from_file_location("build_dataset_under_test", ROOT /
 build_dataset = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(build_dataset)
 
-NOTEBOOKS = sorted((ROOT / "kaggle").glob("omnivoice-*/*.ipynb"))
+NOTEBOOKS = sorted(p for pattern in ("omnivoice-*", "longcat-*") for p in (ROOT / "kaggle").glob(f"{pattern}/*.ipynb"))
 
 
 def local(name: str) -> bool:

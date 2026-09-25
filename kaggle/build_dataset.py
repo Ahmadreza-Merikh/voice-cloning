@@ -125,10 +125,11 @@ def main(argv: list[str] | None = None) -> int:
         shutil.copy2(ROOT / "scripts" / name, stage / "scripts" / name)
 
     (out_dir / "PROVENANCE.md").write_text(PROVENANCE.format(commit=commit()), encoding="utf-8")
-    (out_dir / "dataset-metadata.json").write_text(
-        json.dumps({"title": TITLES[args.dataset], "id": f"{USER}/{args.dataset}"}, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    metadata = {"title": TITLES[args.dataset], "id": f"{USER}/{args.dataset}"}
+    if args.dataset != DATASET:
+        # `datasets create` refuses metadata without a licence; PROVENANCE.md says what is inside.
+        metadata["licenses"] = [{"name": "other"}]
+    (out_dir / "dataset-metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
 
     staged = sorted(p for p in out_dir.rglob("*") if p.is_file())
     total = sum(p.stat().st_size for p in staged)

@@ -1,0 +1,659 @@
+{
+  "corpus": {
+    "manifest": "manifest.json",
+    "sha256": "2c4b90ec9226775c63050451168cdd58a0c17101717ffa0738b407c94252479f"
+  },
+  "label": "longcat-1b-probe-en",
+  "recipe_version": 1,
+  "references": {
+    "clips": [
+      {
+        "duration": 10.5,
+        "file": "nvl01_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.432,
+          "steps": [
+            "Decoded 10.5s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~224 dB SNR)",
+            "Trimmed 2.07s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.5
+          ]
+        },
+        "sha256": "7e19e7f6f3084f7d63f450204112c9cecbd1dd79dce8faafd1fe87ddfc875303",
+        "speaker": "nvl01",
+        "transcript_given": "او باور دارد که هنر می‌تواند زندگی جوانان را از یکنواختی خارج کند و اعتماد به نفس در آن‌ها ایجاد کند."
+      },
+      {
+        "duration": 11.34,
+        "file": "nvl02_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.24,
+          "steps": [
+            "Decoded 11.3s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~80 dB SNR)",
+            "Trimmed 1.10s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.34
+          ]
+        },
+        "sha256": "8328de10df3b9b8ec1157f2e333587e212fc7188cf0dde422e38c26644329a84",
+        "speaker": "nvl02",
+        "transcript_given": "این موضوع در صنایع نیروگاهی اهمیت زیادی دارد، زیرا نیروگاه‌ها برای دهه‌ها به تعمیر، قطعه، پایش و ارتقای تجهیزات نیاز دارند."
+      },
+      {
+        "duration": 10.24,
+        "file": "nvl03_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.016,
+          "steps": [
+            "Decoded 10.2s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoised with noisereduce",
+            "Trimmed 2.22s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.24
+          ]
+        },
+        "sha256": "6652c1ff82529daf72a17b072530fd7fec8c5b6f4565a891fa212457ff348f04",
+        "speaker": "nvl03",
+        "transcript_given": "مصرف مواد قندی در بانوان ۴ برابر آقایان است پس شانس ابتلا به دیابت در خانم‌ها بیشتر است."
+      },
+      {
+        "duration": 9.54,
+        "file": "nvl04_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.416,
+          "steps": [
+            "Decoded 9.5s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~71 dB SNR)",
+            "Trimmed 3.12s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.54
+          ]
+        },
+        "sha256": "775889b5e8252d2c591f2b4a92f7d61211585b66e9621fe5117a26c24a937ead",
+        "speaker": "nvl04",
+        "transcript_given": "انفجار شدید در یک خانه مسکونی در محله خلیج تهران باعث تخریب کامل ۳ خانه شد."
+      },
+      {
+        "duration": 9.06,
+        "file": "nvl05_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.784,
+          "steps": [
+            "Decoded 9.1s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~228 dB SNR)",
+            "Trimmed 2.28s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.06
+          ]
+        },
+        "sha256": "10a21c1bc97cdea659b00e8478f633ae490f049eff1c2b301d8b068792017510",
+        "speaker": "nvl05",
+        "transcript_given": "اندازه‌گیری منظم فشارخون برای تشخیص زودهنگام بیماری‌ها بسیار مهم است."
+      },
+      {
+        "duration": 9.66,
+        "file": "nvl06_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.592,
+          "steps": [
+            "Decoded 9.7s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~59 dB SNR)",
+            "Trimmed 1.07s of silence (3 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.66
+          ]
+        },
+        "sha256": "02d727864d1d95fed01d754b53709524d9a1d7075a30816b21ce2bdb310863b5",
+        "speaker": "nvl06",
+        "transcript_given": "آخرش می‌مونی خودت و یه بدن خسته و یه مشت خاطره که بعضی‌هاش واضح‌تر از دیروزه، بعضی‌هاش محوتر از خواب."
+      },
+      {
+        "duration": 10.56,
+        "file": "nvl07_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.328,
+          "steps": [
+            "Decoded 10.6s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~61 dB SNR)",
+            "Trimmed 3.23s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.56
+          ]
+        },
+        "sha256": "face63f23cbb4f2a6978671a59826fa823bb3cd30075074ace4e65ad072dc7a3",
+        "speaker": "nvl07",
+        "transcript_given": "یکی‌از مهم‌ترین چیزهایی که توی خوانندگی سطح اجرامون رو بالا می‌بره، با احساس خوندنه."
+      },
+      {
+        "duration": 9.96,
+        "file": "nvl08_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.544,
+          "steps": [
+            "Decoded 10.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~34 dB SNR)",
+            "Trimmed 3.42s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.96
+          ]
+        },
+        "sha256": "3ece542f7124dff5f20308508120ec81c66adca04dfd814b328669c262b7d86f",
+        "speaker": "nvl08",
+        "transcript_given": "بازاری‌ها در حال برنامه‌ریزی برای گسترش کسب و کار خود هستند."
+      },
+      {
+        "duration": 10.26,
+        "file": "nvl09_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.166,
+          "steps": [
+            "Decoded 10.3s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~51 dB SNR)",
+            "Trimmed 5.09s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.26
+          ]
+        },
+        "sha256": "7c79b3aef0a3ed61ed986c7a6992092cacd2b351f839f5cf30d9e8878f4bb44b",
+        "speaker": "nvl09",
+        "transcript_given": "دوستم گفت که تو اون پاساژ جدید یه کافه باحال باز شده، باید بریم ببینیم."
+      },
+      {
+        "duration": 9.002,
+        "file": "nvl10_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.728,
+          "steps": [
+            "Decoded 9.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~47 dB SNR)",
+            "Trimmed 3.27s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.002
+          ]
+        },
+        "sha256": "b26c278e1aee1b9455e3cd5bca47b18cee1e5813ca61a970bf4958b823b45a3d",
+        "speaker": "nvl10",
+        "transcript_given": "پلنگا وقتی میخوان برن شکار آهو به رفیقاشون می‌گن امروز بریم فست‌فود بزنیم!"
+      },
+      {
+        "duration": 10.98,
+        "file": "nvl11_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.368,
+          "steps": [
+            "Decoded 11.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~79 dB SNR)",
+            "Trimmed 2.61s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.98
+          ]
+        },
+        "sha256": "52111f7acb4634671a86e90b21499f33d3872ed5c5aa6766cb7161d06eaf0742",
+        "speaker": "nvl11",
+        "transcript_given": "به چند نفر این موضوع را گفتم و وقتی تعجب بعضی از آن‌ها را دیدم، به فکر فرورفتم که شاید کار عجیبی انجام می‌دهم."
+      },
+      {
+        "duration": 10.98,
+        "file": "nvl12_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.032,
+          "steps": [
+            "Decoded 11.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~86 dB SNR)",
+            "Trimmed 0.95s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.98
+          ]
+        },
+        "sha256": "1970403d8a8bd4def68198b4e44bf3750e828fb4917173943e86921fad08caa7",
+        "speaker": "nvl12",
+        "transcript_given": "شبکه‌های اجتماعی توانسته‌اند مرزهای جغرافیایی را از بین ببرند و فرصت‌های متنوعی برای تعامل و بیان نظرات ایجاد کنند."
+      },
+      {
+        "duration": 11.387,
+        "file": "nvl13_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.416,
+          "steps": [
+            "Decoded 11.4s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~36 dB SNR)",
+            "Trimmed 0.97s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.387
+          ]
+        },
+        "sha256": "95d093bc9f031c472bf22123cf432ba70e6f250293454cf59f7cc9fc3b186f9b",
+        "speaker": "nvl13",
+        "transcript_given": "این فرصت فوق‌العاده برای ورود به دنیای دیجیتال مارکتینگ و کسب درآمد بدون نیاز به تخصص خاص یا سرمایه‌گذاری اولیه است."
+      },
+      {
+        "duration": 11.157,
+        "file": "nvl14_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.438,
+          "steps": [
+            "Decoded 11.2s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~43 dB SNR)",
+            "Trimmed 1.72s of silence (3 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.157
+          ]
+        },
+        "sha256": "44d988214ddf193aa0e187ea3b0435aed74b8a54922b61b5cb2763f8a34c8f0e",
+        "speaker": "nvl14",
+        "transcript_given": "اگر نگاهی به همه کشورهای دموکراتیک بیندازید که در آنجا آزادی وجود دارد، لیبرالیسم را خواهید دید."
+      },
+      {
+        "duration": 8.46,
+        "file": "nvl15_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.448,
+          "steps": [
+            "Decoded 8.5s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~231 dB SNR)",
+            "Trimmed 2.01s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.46
+          ]
+        },
+        "sha256": "025ae6c90f4d93bca7df097a3ac3482df84e93b3827c2ca52eab32ab9d8ff046",
+        "speaker": "nvl15",
+        "transcript_given": "جاده بندر شهید رجایی پس از بارندگی و مشکلات تردد وسایل نقلیه."
+      },
+      {
+        "duration": 9.96,
+        "file": "nvl16_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.456,
+          "steps": [
+            "Decoded 10.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~39 dB SNR)",
+            "Trimmed 0.50s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.96
+          ]
+        },
+        "sha256": "de847daa4393e75cffbed65594b3e50e661ac121b7b6847ca801ee3221673cc0",
+        "speaker": "nvl16",
+        "transcript_given": "رفتارهای تکراری و کلیشه‌ای و اختلال در زبان و گفتار نیز از دیگر علائمی است که می‌توان در این افراد مشاهده کرد."
+      },
+      {
+        "duration": 10.987,
+        "file": "nvl17_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.195,
+          "steps": [
+            "Decoded 11.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~42 dB SNR)",
+            "Trimmed 0.79s of silence (4 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.987
+          ]
+        },
+        "sha256": "cd8bb0563b391455cdbc8b9f43e5ff994b7ae74ae377fcc03bea947d2ed67a6b",
+        "speaker": "nvl17",
+        "transcript_given": "به مناسبت سومین سالگرد بازداشت شهروند ایرانی آلمانی، در ایران تجمعی در مقابل پارلمان آلمان در برلین برگزار شد."
+      },
+      {
+        "duration": 11.113,
+        "file": "nvl18_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.144,
+          "steps": [
+            "Decoded 11.1s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoised with noisereduce",
+            "Trimmed 0.97s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.113
+          ]
+        },
+        "sha256": "9411afdc4a3785ee03a58ca92bff678b3710be0d3d83121747d28eae84e4ac51",
+        "speaker": "nvl18",
+        "transcript_given": "عرب‌های ایران عمدتا در استان خوزستان و بخش‌هایی از استان‌های بوشهر، هرمزگان و فارس سکونت دارند."
+      },
+      {
+        "duration": 10.14,
+        "file": "nvl19_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.912,
+          "steps": [
+            "Decoded 10.1s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0001)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~79 dB SNR)",
+            "Trimmed 1.23s of silence (3 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.14
+          ]
+        },
+        "sha256": "7bdc8fd4311f13f1e81c1d95c52781112b6955a5ad0e6050795657273a45a193",
+        "speaker": "nvl19",
+        "transcript_given": "اگر همیشه در موقعیت‌های تنش‌زا به صورت احساسی عمل کنیم، فرصت‌های تفکر منطقی را از دست می‌دهیم."
+      },
+      {
+        "duration": 10.86,
+        "file": "nvl20_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.26,
+          "steps": [
+            "Decoded 10.9s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~50 dB SNR)",
+            "Trimmed 0.60s of silence (4 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.86
+          ]
+        },
+        "sha256": "5db34d500e32eecd02045cfcc26b7a87841640a825ff815772fe84800e51d328",
+        "speaker": "nvl20",
+        "transcript_given": "صعود به کلیمانجارو، چالش بزرگی بود، اما مناظر بی‌نظیری که در طول مسیر دیدیم، خستگی را از تنمان بیرون کرد."
+      },
+      {
+        "duration": 10.68,
+        "file": "nvl21_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.28,
+          "steps": [
+            "Decoded 10.7s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~231 dB SNR)",
+            "Trimmed 3.40s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.68
+          ]
+        },
+        "sha256": "f749d148478a67df331d814807b1fd9d915486a04e96cada155d02c53f117ff7",
+        "speaker": "nvl21",
+        "transcript_given": "عید نوروز یکی‌از بزرگ‌ترین جشن‌های ایرانیان است که هر سال با آمدن بهار برگزار می‌شود."
+      },
+      {
+        "duration": 10.38,
+        "file": "nvl22_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.928,
+          "steps": [
+            "Decoded 10.4s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~70 dB SNR)",
+            "Trimmed 2.45s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.38
+          ]
+        },
+        "sha256": "3e08bea19b7627160ea4a13baee3f8c69a1011e083e7a306d32920f82255380c",
+        "speaker": "nvl22",
+        "transcript_given": "تعداد گویشوران زبان فارسی در کشورهای همسایه نیز به میزان قابل توجهی افزایش یافته است."
+      },
+      {
+        "duration": 9.13,
+        "file": "nvl23_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.224,
+          "steps": [
+            "Decoded 9.1s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~50 dB SNR)",
+            "Trimmed 2.91s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.13
+          ]
+        },
+        "sha256": "303c611cc098546a6f00ade2c590cdb6118592e4cf67b6fcfa131592338fdd47",
+        "speaker": "nvl23",
+        "transcript_given": "آدمای کارآفرین مرتب دنبال فرصتای جدید می‌گردن تا بتونن کسب و کارای موفق راه بندازن."
+      },
+      {
+        "duration": 10.98,
+        "file": "nvl24_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.116,
+          "steps": [
+            "Decoded 11.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~227 dB SNR)",
+            "Trimmed 1.86s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.98
+          ]
+        },
+        "sha256": "c1bd8e9d6bf8a1061674af65da502222a09beec6b357440251dcbead0bef54e1",
+        "speaker": "nvl24",
+        "transcript_given": "تلاش برای تقویت گفت‌وگو، آموزش چندزبانه در برخی مناطق و معرفی بهتر فرهنگ‌های محلی از راه‌های حفظ این میراث گرانبهاست."
+      },
+      {
+        "duration": 11.1,
+        "file": "nvl25_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.56,
+          "steps": [
+            "Decoded 11.1s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~72 dB SNR)",
+            "Trimmed 1.54s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.1
+          ]
+        },
+        "sha256": "e2c06a550de0cfe1011efef07bbd7b9e9c1ce074a96b5b7e00849f37ebb42e50",
+        "speaker": "nvl25",
+        "transcript_given": "برخی از آنان در وطن خود زیستند و برخی دیگر به غربت رفتند و در سرزمین‌های دوردست، فرهنگ و زبان فارسی را گسترش دادند."
+      }
+    ],
+    "index": 0,
+    "transcript": "corpus"
+  },
+  "render": {
+    "candidates_per_cell": 1,
+    "engine": "longcat",
+    "options_overridden": {},
+    "preprocess_overridden": {},
+    "replayed_from": null,
+    "reported_by_every_render": {},
+    "reported_per_cell": [],
+    "settings": {
+      "code_dir": "/tmp/longcat-code",
+      "guidance_method": "apg",
+      "guidance_strength": 4.0,
+      "model_dir": "/tmp/longcat-1b",
+      "nfe": 16,
+      "python": "auto",
+      "timeout_seconds": 900.0,
+      "tokenizer_dir": "/tmp/umt5-base",
+      "transformer_device": ""
+    }
+  },
+  "results_file": "longcat-1b-probe-en.json",
+  "results_sha256": "feb4c41e517f4bcad802f1a55b817fb7499b7df213b0c53a1484875af1706022",
+  "seeds": [
+    42
+  ],
+  "sentences": {
+    "e01": "Please close the window.",
+    "e02": "Could you call me back after lunch, when you have a minute?",
+    "e03": "The old bridge was closed for repairs, so we took the ferry across the river.",
+    "e04": "Remember to switch off the lights, lock the back door, and feed the cat.",
+    "e05": "According to the morning report, heavy rain is expected in the northern valleys tonight, so drivers should avoid the mountain roads until tomorrow.",
+    "e06": "My grandmother kept a small garden behind the house, where she grew tomatoes, mint and bright yellow flowers."
+  },
+  "session": {
+    "code_commit": "a996118",
+    "scoring_environment": {
+      "id": "kaggle:persian-voice-longcat-probe-run-v1",
+      "packages": {
+        "ctranslate2": "4.8.2",
+        "faster-whisper": "1.2.1",
+        "jiwer": "4.0.0",
+        "numpy": "2.0.2",
+        "speechbrain": "1.1.1",
+        "torch": "2.8.0+cu128",
+        "torchaudio": "2.8.0+cu128",
+        "transformers": "5.3.0"
+      },
+      "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+      "python": "3.12.13",
+      "recogniser": "faster-whisper/large-v3-turbo (cuda/float16)",
+      "similarity": "speechbrain-ecapa",
+      "similarity_device": "cpu"
+    }
+  }
+}

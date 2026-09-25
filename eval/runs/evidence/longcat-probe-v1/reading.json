@@ -1,0 +1,245 @@
+{
+  "question": "does LongCat-AudioDiT carry a Persian speaker's voice better than OmniVoice, when both read English?",
+  "primary": {
+    "role": "primary",
+    "left": "longcat-1b-probe-en",
+    "right": "omnivoice-probe-en",
+    "scoring_environment": "kaggle:persian-voice-longcat-probe-run-v1",
+    "held_out_similarity": {
+      "mean": 0.067608,
+      "low": 0.05491299815539992,
+      "high": 0.08030300184460008,
+      "sd": 0.03075490743737463,
+      "speakers": 25,
+      "speakers_total": 25,
+      "cells": 150,
+      "design_cells": 150,
+      "left_out": {},
+      "note": "",
+      "p_one_sided_above_0": 3.760753464669135e-11
+    },
+    "english_wer_percentage_points": {
+      "mean": 3.8016793190706237,
+      "low": 1.7330651319887591,
+      "high": 5.870293506152488,
+      "sd": 5.0114240727270145,
+      "speakers": 25,
+      "speakers_total": 25,
+      "cells": 150,
+      "design_cells": 150,
+      "left_out": {},
+      "note": ""
+    },
+    "means": {
+      "longcat-1b-probe-en": 0.5890633333333334,
+      "omnivoice-probe-en": 0.5214553333333334
+    },
+    "guard": {
+      "longcat-1b-probe-en": {
+        "renders": 150,
+        "not_the_text": 1,
+        "share": 0.006666666666666667,
+        "holds": true,
+        "examples": [
+          {
+            "cell": "nvl18/e01/42",
+            "why": "WER 0.75"
+          }
+        ]
+      },
+      "omnivoice-probe-en": {
+        "renders": 150,
+        "not_the_text": 0,
+        "share": 0.0,
+        "holds": true,
+        "examples": []
+      }
+    },
+    "clears_practical_line": true,
+    "verdict": "better by more than the practical line: the whole interval is above 0.0205, so an adaptation is worth costing"
+  },
+  "secondary": {
+    "role": "secondary - reported, not the decision",
+    "against_omnivoice": {
+      "left": "longcat-3.5b-probe-en",
+      "right": "omnivoice-probe-en",
+      "scoring_environment": "kaggle:persian-voice-longcat-probe-run-v1",
+      "held_out_similarity": {
+        "mean": 0.075484,
+        "low": 0.061799733346258476,
+        "high": 0.08916826665374152,
+        "sd": 0.03315150004985529,
+        "speakers": 25,
+        "speakers_total": 25,
+        "cells": 150,
+        "design_cells": 150,
+        "left_out": {},
+        "note": "",
+        "p_one_sided_above_0": 1.8432271531801677e-11
+      },
+      "english_wer_percentage_points": {
+        "mean": 2.408396595353117,
+        "low": 0.7114013439441551,
+        "high": 4.105391846762078,
+        "sd": 4.111140157175064,
+        "speakers": 25,
+        "speakers_total": 25,
+        "cells": 150,
+        "design_cells": 150,
+        "left_out": {},
+        "note": ""
+      },
+      "means": {
+        "longcat-3.5b-probe-en": 0.5969393333333334,
+        "omnivoice-probe-en": 0.5214553333333334
+      },
+      "guard": {
+        "longcat-3.5b-probe-en": {
+          "renders": 150,
+          "not_the_text": 1,
+          "share": 0.006666666666666667,
+          "holds": true,
+          "examples": [
+            {
+              "cell": "nvl19/e02/42",
+              "why": "WER 0.67"
+            }
+          ]
+        },
+        "omnivoice-probe-en": {
+          "renders": 150,
+          "not_the_text": 0,
+          "share": 0.0,
+          "holds": true,
+          "examples": []
+        }
+      },
+      "clears_practical_line": true,
+      "verdict": "better by more than the practical line: the whole interval is above 0.0205, so an adaptation is worth costing"
+    },
+    "against_the_1b": {
+      "left": "longcat-3.5b-probe-en",
+      "right": "longcat-1b-probe-en",
+      "scoring_environment": "kaggle:persian-voice-longcat-probe-run-v1",
+      "held_out_similarity": {
+        "mean": 0.007876000000000003,
+        "low": -0.0012451293079576795,
+        "high": 0.016997129307957687,
+        "sd": 0.022096844965003654,
+        "speakers": 25,
+        "speakers_total": 25,
+        "cells": 150,
+        "design_cells": 150,
+        "left_out": {},
+        "note": "",
+        "p_one_sided_above_0": 0.043690877234116236
+      },
+      "english_wer_percentage_points": {
+        "mean": -1.3932827237175065,
+        "low": -3.942202351857197,
+        "high": 1.1556369044221844,
+        "sd": 6.1750118817106046,
+        "speakers": 25,
+        "speakers_total": 25,
+        "cells": 150,
+        "design_cells": 150,
+        "left_out": {},
+        "note": ""
+      },
+      "means": {
+        "longcat-3.5b-probe-en": 0.5969393333333334,
+        "longcat-1b-probe-en": 0.5890633333333334
+      },
+      "guard": {
+        "longcat-3.5b-probe-en": {
+          "renders": 150,
+          "not_the_text": 1,
+          "share": 0.006666666666666667,
+          "holds": true,
+          "examples": [
+            {
+              "cell": "nvl19/e02/42",
+              "why": "WER 0.67"
+            }
+          ]
+        },
+        "longcat-1b-probe-en": {
+          "renders": 150,
+          "not_the_text": 1,
+          "share": 0.006666666666666667,
+          "holds": true,
+          "examples": [
+            {
+              "cell": "nvl18/e01/42",
+              "why": "WER 0.75"
+            }
+          ]
+        }
+      },
+      "clears_practical_line": false,
+      "verdict": "not better by the practical line: the whole interval is below 0.0205, so its cloning does not justify adapting it"
+    }
+  },
+  "exploratory_prompt_copying": {
+    "label": "exploratory - not a claim",
+    "mean_gap": {
+      "omnivoice-probe-en": 0.13701266666666667,
+      "longcat-1b-probe-en": 0.15102133333333334,
+      "longcat-3.5b-probe-en": 0.14984733333333333
+    },
+    "minus_omnivoice-probe-en": {
+      "longcat-1b-probe-en": {
+        "mean": 0.014008666666666671,
+        "low": -0.001410216700694392,
+        "high": 0.029427550034027736,
+        "sd": 0.03735378194943486,
+        "speakers": 25,
+        "speakers_total": 25,
+        "cells": 150,
+        "design_cells": 150,
+        "left_out": {},
+        "note": ""
+      },
+      "longcat-3.5b-probe-en": {
+        "mean": 0.012834666666666663,
+        "low": -0.0005324577691046446,
+        "high": 0.02620179110243797,
+        "sd": 0.032383191413310565,
+        "speakers": 25,
+        "speakers_total": 25,
+        "cells": 150,
+        "design_cells": 150,
+        "left_out": {},
+        "note": ""
+      }
+    }
+  },
+  "exploratory_persian": {
+    "label": "exploratory - LongCat was never trained on Persian",
+    "cer_mean": {
+      "omnivoice-probe-fa": 0.022170542635658916,
+      "longcat-1b-probe-fa": 0.8164134366925064
+    },
+    "untranscribed": {
+      "omnivoice-probe-fa": 0,
+      "longcat-1b-probe-fa": 0
+    },
+    "longcat-1b-probe-fa_minus_omnivoice-probe-fa_cer_percentage_points": {
+      "mean": 79.42428940568476,
+      "low": 75.24520786612625,
+      "high": 83.60337094524326,
+      "sd": 10.12424161064875,
+      "speakers": 25,
+      "speakers_total": 25,
+      "cells": 50,
+      "design_cells": 50,
+      "left_out": {},
+      "note": ""
+    }
+  },
+  "decision": {
+    "adaptation_worth_costing": true,
+    "rule": "only if LongCat-1B's held-out similarity minus OmniVoice's has a 95% interval over speakers entirely above 0.0205, with both arms' renders the requested English",
+    "secondary_3_5b_clears_the_line": true
+  }
+}

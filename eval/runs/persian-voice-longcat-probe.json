@@ -1,6 +1,6 @@
 {
   "run": "the LongCat probe: does LongCat-AudioDiT carry a Persian speaker's voice better than OmniVoice, when both read text they know?",
-  "status": "pre-registered 2026-09-25, before any render; kernel built, not pushed",
+  "status": "complete: pushed 2026-09-25 14:03:41 UTC, ended 15:55 UTC, about 1.9 h of the 2.0 h bound; every gate passed, all 650 cells rendered with no failure",
   "why": "On 2026-09-25 the user asked whether LongCat-AudioDiT-1B, 'the best voice-cloning engine in the world', should be adapted to Persian instead of OmniVoice, or joined with the best Persian TTS. Checked live that day (SOTA_ROADMAP section 4): it reads Chinese and English only, ships no training code, and its lead is the 3.5B's WavLM similarity on Seed-TTS-eval, which other scorers and noisy prompts do not reproduce. Teaching it Persian would mean writing its training recipe, a language learned from nothing, and A100-class hardware for fp32 - so before any of that, this probe measures the one thing that would justify it: whether its identity transfer beats OmniVoice's on voices like the ones this project clones.",
   "kernel": "marsmanam/persian-voice-longcat-probe-run, built by kaggle/build_longcat_probe_kernel.py (Kaggle refused the dataset's own name for the notebook: 409, title already in use by a dataset)",
   "dataset": "marsmanam/persian-voice-longcat-probe: this repository staged by kaggle/build_dataset.py --dataset persian-voice-longcat-probe, so persian-voice-eval - which the adaptation's pending sessions read - is not re-staged by this",
@@ -84,5 +84,59 @@
     "registered": "2026-09-25 13:55 UTC, before the dataset was created or anything was pushed or rendered",
     "why": "kaggle quota read live after the login: 27.49 of 30 GPU-hours used, 2.51 left until 2026-09-26 00:00 UTC. The installs run before the notebook's clock starts, so a 2.5 h bound could reach about 2.65 h, past the quota, and a session stopped for quota may keep none of its output",
     "change": "the session bound is 2.0 h after the installs (about 2.2 h in all). Nothing in the design or the reading changes; the primary pair still renders first, and a run the bound stops writes no results, which can cost the secondary or the Persian runs, never the primary pair before them"
+  },
+  "result": {
+    "pre_registered_reading": {
+      "primary": "LongCat-1B minus OmniVoice on held-out similarity, English text: +0.0676 [+0.0549, +0.0803], 25 of 25 speakers complete, LongCat higher for all 25 (the smallest margin +0.015) and in 135 of 150 cells; guards held - 1 of 150 LongCat renders above WER 0.5, none of OmniVoice's",
+      "verdict": "better by more than the practical line: the whole interval is above 0.0205, so an adaptation is worth costing",
+      "secondary": "LongCat-3.5B minus OmniVoice +0.0755 [+0.0618, +0.0892]; 3.5B minus 1B +0.0079 [-0.0012, +0.0170] - not better by the line, so the 1B carries what the 3.5B does",
+      "intelligibility": "English WER, LongCat-1B minus OmniVoice +3.8 points [+1.7, +5.9]; CER 3.5% against 0.1%",
+      "exploratory_prompt_copying": "prompt similarity minus held-out, LongCat-1B minus OmniVoice +0.014 [-0.001, +0.029]: LongCat is higher against its prompt by about as much as against the speaker's other clips, so the reading that its lead is the prompt recording copied is not supported",
+      "exploratory_persian": "LongCat-1B given Persian script: CER 81.6% against OmniVoice's 2.2% (+79.4 points [75.2, 83.6]); untrained, it cannot read Persian"
+    },
+    "means": {
+      "omnivoice-probe-en": {
+        "held_out": 0.5215,
+        "prompt": 0.6585,
+        "scale_position": 0.646,
+        "cer": 0.0008
+      },
+      "longcat-1b-probe-en": {
+        "held_out": 0.5891,
+        "prompt": 0.7401,
+        "scale_position": 0.772,
+        "cer": 0.0352
+      },
+      "longcat-3.5b-probe-en": {
+        "held_out": 0.5969,
+        "prompt": 0.7468,
+        "scale_position": 0.792,
+        "cer": 0.0234
+      },
+      "omnivoice-probe-fa": {
+        "held_out": 0.601,
+        "prompt": 0.7383,
+        "scale_position": 0.794,
+        "cer": 0.0222
+      },
+      "longcat-1b-probe-fa": {
+        "held_out": 0.607,
+        "prompt": 0.784,
+        "scale_position": 0.81,
+        "cer": 0.8164
+      },
+      "scale": "this corpus: different speakers 0.172, same speaker 0.710, highest different-speaker pair 0.553"
+    },
+    "post_hoc_not_pre_registered": {
+      "why": "the Persian runs were exploratory, two sentences against the English runs' six; these comparisons were made after the result was seen, so they qualify it and decide nothing",
+      "omnivoice_persian_minus_english": "+0.0795 [+0.0593, +0.0997], higher in Persian for 25 of 25 speakers: OmniVoice loses about 0.08 of held-out similarity when these Persian references are made to read English",
+      "longcat_1b_english_minus_omnivoice_persian": "-0.0119 [-0.0297, +0.0059]: OmniVoice reading Persian is where LongCat-1B is reading English",
+      "longcat_3_5b_english_minus_omnivoice_persian": "-0.0041 [-0.0214, +0.0133]",
+      "longcat_1b_unintelligible_persian_minus_omnivoice_persian": "+0.0060 [-0.0081, +0.0201], on the same two sentences",
+      "reading": "the English margin is about the size of OmniVoice's own English penalty. On the language this project needs, OmniVoice already stands where LongCat stands in English, so the bar a Persian LongCat would have to clear is OmniVoice's Persian (0.601 on these speakers), not its English (0.521). Whether OmniVoice's penalty is its language tag (en was passed, per its card) or the language itself is untested"
+    },
+    "cost": "one T4 x2 session, about 1.9 GPU-hours of the week's last 2.51; downloads 7.7 min, OmniVoice 15.5 + 8.2 min, LongCat-1B 21.3 + 9.6 min, LongCat-3.5B 44.8 min",
+    "evidence": "eval/runs/evidence/longcat-probe-v1/ (gates, reading, facts, runs, environment, fetch report, corpus roster and manifest, kernel log); results and recipes in eval/results/; renders under remote/longcat-probe-v1/renders (not in git)",
+    "nobody_has_listened": true
   }
 }

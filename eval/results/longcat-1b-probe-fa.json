@@ -1,0 +1,1302 @@
+{
+  "label": "longcat-1b-probe-fa",
+  "engine": "longcat",
+  "created": "2026-09-25 15:53:37",
+  "duration_minutes": 5.6,
+  "config": {
+    "ref_transcript": "corpus",
+    "engine_option": [],
+    "preprocess_option": [],
+    "candidates": 1,
+    "reference_index": 0,
+    "score_only": false,
+    "replay_from": null,
+    "seeds": [
+      42
+    ],
+    "sentences": [
+      "s1",
+      "s2"
+    ],
+    "sentences_file": null,
+    "device": "cuda",
+    "speakers": [
+      "nvl01",
+      "nvl02",
+      "nvl03",
+      "nvl04",
+      "nvl05",
+      "nvl06",
+      "nvl07",
+      "nvl08",
+      "nvl09",
+      "nvl10",
+      "nvl11",
+      "nvl12",
+      "nvl13",
+      "nvl14",
+      "nvl15",
+      "nvl16",
+      "nvl17",
+      "nvl18",
+      "nvl19",
+      "nvl20",
+      "nvl21",
+      "nvl22",
+      "nvl23",
+      "nvl24",
+      "nvl25"
+    ],
+    "similarity_backend": "speechbrain-ecapa"
+  },
+  "scoring_environment": {
+    "id": "kaggle:persian-voice-longcat-probe-run-v1",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "recogniser": "faster-whisper/large-v3-turbo (cuda/float16)",
+    "similarity": "speechbrain-ecapa",
+    "similarity_device": "cpu",
+    "packages": {
+      "torch": "2.8.0+cu128",
+      "torchaudio": "2.8.0+cu128",
+      "speechbrain": "1.1.1",
+      "faster-whisper": "1.2.1",
+      "ctranslate2": "4.8.2",
+      "transformers": "5.3.0",
+      "jiwer": "4.0.0",
+      "numpy": "2.0.2"
+    }
+  },
+  "calibration": {
+    "ceiling": 0.7098085153890648,
+    "floor": 0.17230089300428603,
+    "cross_max": 0.5526053244871483,
+    "same_pairs": 250,
+    "cross_pairs": 7500,
+    "per_speaker_ceiling": {
+      "nvl01": 0.8010763585147909,
+      "nvl02": 0.7607533094462825,
+      "nvl03": 0.6611590356729228,
+      "nvl04": 0.5270114866643488,
+      "nvl05": 0.6705631905153437,
+      "nvl06": 0.7418088993662549,
+      "nvl07": 0.6660085532128651,
+      "nvl08": 0.8122066706286163,
+      "nvl09": 0.41313233815674566,
+      "nvl10": 0.79321489677618,
+      "nvl11": 0.8149226886323683,
+      "nvl12": 0.7783553316012213,
+      "nvl13": 0.6378309222992824,
+      "nvl14": 0.678425161916554,
+      "nvl15": 0.7335968871479817,
+      "nvl16": 0.5894608634105929,
+      "nvl17": 0.8491690546798012,
+      "nvl18": 0.8033684919584693,
+      "nvl19": 0.7294700037324472,
+      "nvl20": 0.6466842851206306,
+      "nvl21": 0.6483061999824121,
+      "nvl22": 0.7952227530947249,
+      "nvl23": 0.7062432381999416,
+      "nvl24": 0.791525274635479,
+      "nvl25": 0.6956969893603611
+    }
+  },
+  "recogniser_floor": {
+    "cer_mean": 0.07800123509335873,
+    "wer_mean": 0.3740008247479986,
+    "cer_median": 0.046875,
+    "clips": 45,
+    "source": "cached: eval/results/_asr_floor.json, measured on another run"
+  },
+  "summary": {
+    "held_out_mean": 0.607004,
+    "held_out_sd": 0.08543598142731773,
+    "reference_mean": 0.783992,
+    "wer_mean": 1.1411965811965812,
+    "cer_mean": 0.8164134366925064,
+    "cer_median": 0.7777777777777778,
+    "scale_position": 0.810233311028458,
+    "renders": 50,
+    "failures": 0,
+    "untranscribed": 0
+  },
+  "per_speaker": {
+    "nvl01": {
+      "held_out": 0.64005,
+      "ceiling": 0.8010763585147909,
+      "gap": -0.16102635851479086,
+      "reference": 0.82825,
+      "wer": 1.1666666666666665,
+      "cer": 0.851421188630491,
+      "renders": 2
+    },
+    "nvl02": {
+      "held_out": 0.6937,
+      "ceiling": 0.7607533094462825,
+      "gap": -0.06705330944628252,
+      "reference": 0.6779999999999999,
+      "wer": 1.1111111111111112,
+      "cer": 0.8090439276485788,
+      "renders": 2
+    },
+    "nvl03": {
+      "held_out": 0.59705,
+      "ceiling": 0.6611590356729228,
+      "gap": -0.06410903567292281,
+      "reference": 0.7864500000000001,
+      "wer": 1.0555555555555556,
+      "cer": 0.7170542635658914,
+      "renders": 2
+    },
+    "nvl04": {
+      "held_out": 0.42845,
+      "ceiling": 0.5270114866643488,
+      "gap": -0.09856148666434883,
+      "reference": 0.70605,
+      "wer": 1.1111111111111112,
+      "cer": 1.1490956072351421,
+      "renders": 2
+    },
+    "nvl05": {
+      "held_out": 0.5433,
+      "ceiling": 0.6705631905153437,
+      "gap": -0.12726319051534374,
+      "reference": 0.62555,
+      "wer": 1.1837606837606838,
+      "cer": 0.8392764857881136,
+      "renders": 2
+    },
+    "nvl06": {
+      "held_out": 0.6101,
+      "ceiling": 0.7418088993662549,
+      "gap": -0.13170889936625496,
+      "reference": 0.78295,
+      "wer": 1.0555555555555556,
+      "cer": 0.8488372093023255,
+      "renders": 2
+    },
+    "nvl07": {
+      "held_out": 0.5687,
+      "ceiling": 0.6660085532128651,
+      "gap": -0.09730855321286513,
+      "reference": 0.7328,
+      "wer": 1.2777777777777777,
+      "cer": 0.7958656330749354,
+      "renders": 2
+    },
+    "nvl08": {
+      "held_out": 0.7212000000000001,
+      "ceiling": 0.8122066706286163,
+      "gap": -0.09100667062861623,
+      "reference": 0.8183,
+      "wer": 1.2222222222222223,
+      "cer": 0.8281653746770026,
+      "renders": 2
+    },
+    "nvl09": {
+      "held_out": 0.36319999999999997,
+      "ceiling": 0.41313233815674566,
+      "gap": -0.04993233815674569,
+      "reference": 0.61295,
+      "wer": 1.0726495726495728,
+      "cer": 0.7514211886304909,
+      "renders": 2
+    },
+    "nvl10": {
+      "held_out": 0.6574,
+      "ceiling": 0.79321489677618,
+      "gap": -0.13581489677617997,
+      "reference": 0.84295,
+      "wer": 1.2222222222222223,
+      "cer": 0.7493540051679586,
+      "renders": 2
+    },
+    "nvl11": {
+      "held_out": 0.7113499999999999,
+      "ceiling": 0.8149226886323683,
+      "gap": -0.10357268863236835,
+      "reference": 0.8036,
+      "wer": 1.1111111111111112,
+      "cer": 0.7974160206718346,
+      "renders": 2
+    },
+    "nvl12": {
+      "held_out": 0.58595,
+      "ceiling": 0.7783553316012213,
+      "gap": -0.1924053316012213,
+      "reference": 0.8402,
+      "wer": 1.1111111111111112,
+      "cer": 0.7963824289405685,
+      "renders": 2
+    },
+    "nvl13": {
+      "held_out": 0.6028500000000001,
+      "ceiling": 0.6378309222992824,
+      "gap": -0.03498092229928229,
+      "reference": 0.8216,
+      "wer": 1.2222222222222223,
+      "cer": 0.762015503875969,
+      "renders": 2
+    },
+    "nvl14": {
+      "held_out": 0.64995,
+      "ceiling": 0.678425161916554,
+      "gap": -0.02847516191655397,
+      "reference": 0.7936000000000001,
+      "wer": 1.1111111111111112,
+      "cer": 0.8175710594315245,
+      "renders": 2
+    },
+    "nvl15": {
+      "held_out": 0.6393500000000001,
+      "ceiling": 0.7335968871479817,
+      "gap": -0.09424688714798157,
+      "reference": 0.78595,
+      "wer": 1.2777777777777777,
+      "cer": 0.9540051679586563,
+      "renders": 2
+    },
+    "nvl16": {
+      "held_out": 0.53825,
+      "ceiling": 0.5894608634105929,
+      "gap": -0.05121086341059289,
+      "reference": 0.8569500000000001,
+      "wer": 1.1282051282051282,
+      "cer": 0.7837209302325582,
+      "renders": 2
+    },
+    "nvl17": {
+      "held_out": 0.69415,
+      "ceiling": 0.8491690546798012,
+      "gap": -0.15501905467980115,
+      "reference": 0.88305,
+      "wer": 1.1282051282051282,
+      "cer": 0.7377260981912145,
+      "renders": 2
+    },
+    "nvl18": {
+      "held_out": 0.6602,
+      "ceiling": 0.8033684919584693,
+      "gap": -0.14316849195846926,
+      "reference": 0.82405,
+      "wer": 1.1111111111111112,
+      "cer": 0.7297157622739019,
+      "renders": 2
+    },
+    "nvl19": {
+      "held_out": 0.6253500000000001,
+      "ceiling": 0.7294700037324472,
+      "gap": -0.10412000373244712,
+      "reference": 0.83075,
+      "wer": 1.0726495726495728,
+      "cer": 0.7736434108527132,
+      "renders": 2
+    },
+    "nvl20": {
+      "held_out": 0.5669,
+      "ceiling": 0.6466842851206306,
+      "gap": -0.07978428512063063,
+      "reference": 0.8515999999999999,
+      "wer": 1.0,
+      "cer": 0.9,
+      "renders": 2
+    },
+    "nvl21": {
+      "held_out": 0.58165,
+      "ceiling": 0.6483061999824121,
+      "gap": -0.06665619998241212,
+      "reference": 0.70625,
+      "wer": 1.1666666666666665,
+      "cer": 0.7392764857881138,
+      "renders": 2
+    },
+    "nvl22": {
+      "held_out": 0.6755,
+      "ceiling": 0.7952227530947249,
+      "gap": -0.11972275309472491,
+      "reference": 0.8236,
+      "wer": 1.0940170940170941,
+      "cer": 0.7736434108527132,
+      "renders": 2
+    },
+    "nvl23": {
+      "held_out": 0.6204,
+      "ceiling": 0.7062432381999416,
+      "gap": -0.08584323819994166,
+      "reference": 0.791,
+      "wer": 1.1837606837606838,
+      "cer": 0.7271317829457364,
+      "renders": 2
+    },
+    "nvl24": {
+      "held_out": 0.6556,
+      "ceiling": 0.791525274635479,
+      "gap": -0.135925274635479,
+      "reference": 0.78505,
+      "wer": 1.1666666666666665,
+      "cer": 1.0281653746770028,
+      "renders": 2
+    },
+    "nvl25": {
+      "held_out": 0.5445,
+      "ceiling": 0.6956969893603611,
+      "gap": -0.15119698936036108,
+      "reference": 0.7883,
+      "wer": 1.1666666666666665,
+      "cer": 0.7503875968992249,
+      "renders": 2
+    }
+  },
+  "rows": [
+    {
+      "speaker": "nvl01",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6477,
+      "held_out_scores": [
+        0.6413,
+        0.6718,
+        0.6525,
+        0.6253
+      ],
+      "reference_similarity": 0.8484,
+      "word_error_rate": 1.3333333333333333,
+      "character_error_rate": 0.8888888888888888,
+      "transcription": "جورا را این را پیٹاتیم تاورو خووونا اونه سیر ریگه اینا وقتمو.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl01_s1_seed42.wav",
+      "seconds": 4.34
+    },
+    {
+      "speaker": "nvl01",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6324,
+      "held_out_scores": [
+        0.641,
+        0.6398,
+        0.6433,
+        0.6054
+      ],
+      "reference_similarity": 0.8081,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.813953488372093,
+      "transcription": "اخواه دا و فرسا پاییگوینات چون منست گمریات روانولا.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl01_s2_seed42.wav",
+      "seconds": 4.26
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.7077,
+      "held_out_scores": [
+        0.6927,
+        0.711,
+        0.7191,
+        0.7079
+      ],
+      "reference_similarity": 0.7034,
+      "word_error_rate": 1.2222222222222223,
+      "character_error_rate": 0.7111111111111111,
+      "transcription": "جوی نویوارد دویو سهده رو بگیر این محاصر این یا خواهدیم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl02_s1_seed42.wav",
+      "seconds": 3.67
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6797,
+      "held_out_scores": [
+        0.6739,
+        0.6758,
+        0.7103,
+        0.6587
+      ],
+      "reference_similarity": 0.6526,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.9069767441860465,
+      "transcription": "آشه ها بیرار صورتین این سروازی همین خواهی بیاند رویل هست.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl02_s2_seed42.wav",
+      "seconds": 3.72
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5909,
+      "held_out_scores": [
+        0.7008,
+        0.5354,
+        0.6223,
+        0.5051
+      ],
+      "reference_similarity": 0.7828,
+      "word_error_rate": 1.1111111111111112,
+      "character_error_rate": 0.6666666666666666,
+      "transcription": "تردین قرباوی تا خواهر تا خواهر با مسیری جا نبادم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl03_s1_seed42.wav",
+      "seconds": 5.29
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6032,
+      "held_out_scores": [
+        0.6705,
+        0.594,
+        0.6559,
+        0.4925
+      ],
+      "reference_similarity": 0.7901,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.7674418604651163,
+      "transcription": "او سویلو فان ها سب و ریدان این هران در قو نیو ترابر نیو",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl03_s2_seed42.wav",
+      "seconds": 4.57
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.4503,
+      "held_out_scores": [
+        0.3411,
+        0.3733,
+        0.4824,
+        0.6042
+      ],
+      "reference_similarity": 0.7515,
+      "word_error_rate": 1.2222222222222223,
+      "character_error_rate": 1.0888888888888888,
+      "transcription": "Tugjöríkubatas og kvöðilegt um að styra því sín og hvað mér.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl04_s1_seed42.wav",
+      "seconds": 4.16
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.4066,
+      "held_out_scores": [
+        0.2223,
+        0.4189,
+        0.4598,
+        0.5255
+      ],
+      "reference_similarity": 0.6606,
+      "word_error_rate": 1.0,
+      "character_error_rate": 1.2093023255813953,
+      "transcription": "Og sagði hún vona svo bara í dunni sjálfna að skallinna grafiði.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl04_s2_seed42.wav",
+      "seconds": 3.61
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5732,
+      "held_out_scores": [
+        0.5364,
+        0.6372,
+        0.5547,
+        0.5646
+      ],
+      "reference_similarity": 0.6966,
+      "word_error_rate": 1.4444444444444444,
+      "character_error_rate": 0.9111111111111111,
+      "transcription": "تو دیدین مبادنی سور تا دو شنو نگه نرگه سیمنه اینجی نامه مباوتیم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl05_s1_seed42.wav",
+      "seconds": 4.85
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5134,
+      "held_out_scores": [
+        0.4482,
+        0.5365,
+        0.5689,
+        0.4999
+      ],
+      "reference_similarity": 0.5545,
+      "word_error_rate": 0.9230769230769231,
+      "character_error_rate": 0.7674418604651163,
+      "transcription": "او سرگوز فورا سما ریگ دینگرانگرنس که لوگانگرانگرنس",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl05_s2_seed42.wav",
+      "seconds": 4.2
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.589,
+      "held_out_scores": [
+        0.644,
+        0.5761,
+        0.6235,
+        0.5124
+      ],
+      "reference_similarity": 0.7483,
+      "word_error_rate": 1.1111111111111112,
+      "character_error_rate": 1.0,
+      "transcription": "ཚུང གིིང དུ བསྐུ ཀྱོང གིས འདུག ཏུ གིན གློང",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl06_s1_seed42.wav",
+      "seconds": 4.05
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6312,
+      "held_out_scores": [
+        0.6988,
+        0.6623,
+        0.659,
+        0.5046
+      ],
+      "reference_similarity": 0.8176,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.6976744186046512,
+      "transcription": "آسیا فراز کوبر بردین در سکلیو یا خهوینه",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl06_s2_seed42.wav",
+      "seconds": 3.86
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5452,
+      "held_out_scores": [
+        0.5492,
+        0.5514,
+        0.5111,
+        0.5693
+      ],
+      "reference_similarity": 0.7035,
+      "word_error_rate": 1.5555555555555556,
+      "character_error_rate": 0.7777777777777778,
+      "transcription": "توی یکی انتاری بعد این ساعت تو با دیوک اکستیر می نیجان و آهمیم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl07_s1_seed42.wav",
+      "seconds": 3.91
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5922,
+      "held_out_scores": [
+        0.6344,
+        0.6276,
+        0.4783,
+        0.6285
+      ],
+      "reference_similarity": 0.7621,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.813953488372093,
+      "transcription": "موسیقی توفا نصیب مارید بیندار نیز کنین یک خبره.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl07_s2_seed42.wav",
+      "seconds": 3.76
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.7285,
+      "held_out_scores": [
+        0.7744,
+        0.7163,
+        0.7164,
+        0.7068
+      ],
+      "reference_similarity": 0.8114,
+      "word_error_rate": 1.4444444444444444,
+      "character_error_rate": 0.8888888888888888,
+      "transcription": "جاری اینها و تبسیل کفت پبوره آن میوی سترون هج ان ماتا تیمه",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl08_s1_seed42.wav",
+      "seconds": 5.28
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.7139,
+      "held_out_scores": [
+        0.7266,
+        0.7118,
+        0.7188,
+        0.6986
+      ],
+      "reference_similarity": 0.8252,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.7674418604651163,
+      "transcription": "ها سو هفر آسوکا پریدونی سان نیس گو نیو خوامره ده",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl08_s2_seed42.wav",
+      "seconds": 4.94
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.3524,
+      "held_out_scores": [
+        0.4154,
+        0.1055,
+        0.4478,
+        0.4409
+      ],
+      "reference_similarity": 0.6209,
+      "word_error_rate": 1.2222222222222223,
+      "character_error_rate": 0.6888888888888889,
+      "transcription": "جوری بیگ بلا پیچه تو دلیب ترم و سری جیجن واتیم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl09_s1_seed42.wav",
+      "seconds": 3.3
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.374,
+      "held_out_scores": [
+        0.4383,
+        0.1051,
+        0.465,
+        0.4878
+      ],
+      "reference_similarity": 0.605,
+      "word_error_rate": 0.9230769230769231,
+      "character_error_rate": 0.813953488372093,
+      "transcription": "او سویتو هفراز سویبه بگیتونیم جرانساکا لینیه تشاویرنره",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl09_s2_seed42.wav",
+      "seconds": 3.13
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6505,
+      "held_out_scores": [
+        0.6157,
+        0.6354,
+        0.6843,
+        0.6664
+      ],
+      "reference_similarity": 0.8351,
+      "word_error_rate": 1.4444444444444444,
+      "character_error_rate": 0.7777777777777778,
+      "transcription": "تو نیر و بلاب دیار زوید که پیخه از اما سرابنه جنه افادنم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl10_s1_seed42.wav",
+      "seconds": 3.57
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6643,
+      "held_out_scores": [
+        0.6265,
+        0.6479,
+        0.6938,
+        0.689
+      ],
+      "reference_similarity": 0.8508,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.7209302325581395,
+      "transcription": "واسه توفر از صوب به دید انتقرست که لونو هزمی؟",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl10_s2_seed42.wav",
+      "seconds": 2.99
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.7287,
+      "held_out_scores": [
+        0.713,
+        0.7614,
+        0.7196,
+        0.7208
+      ],
+      "reference_similarity": 0.8049,
+      "word_error_rate": 1.2222222222222223,
+      "character_error_rate": 0.7111111111111111,
+      "transcription": "جورای این گوبتی کفه تابره را محاسته ری ای جنافه هم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl11_s1_seed42.wav",
+      "seconds": 3.99
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.694,
+      "held_out_scores": [
+        0.6728,
+        0.7117,
+        0.7192,
+        0.6721
+      ],
+      "reference_similarity": 0.8023,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.8837209302325582,
+      "transcription": "آفادا فور از هیکا به ریژون چم از یک ها دیونی افعید نهیم",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl11_s2_seed42.wav",
+      "seconds": 3.72
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6108,
+      "held_out_scores": [
+        0.6008,
+        0.7119,
+        0.5847,
+        0.5458
+      ],
+      "reference_similarity": 0.8755,
+      "word_error_rate": 1.2222222222222223,
+      "character_error_rate": 0.7555555555555555,
+      "transcription": "جاریم و بود حدیقا فرقا توی من مارس هستر ایجا فوجم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl12_s1_seed42.wav",
+      "seconds": 4.17
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5611,
+      "held_out_scores": [
+        0.5625,
+        0.6305,
+        0.526,
+        0.5252
+      ],
+      "reference_similarity": 0.8049,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.8372093023255814,
+      "transcription": "خوصا تو، ویبری جون ازادا بیسه که لیمون راه مامز",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl12_s2_seed42.wav",
+      "seconds": 3.98
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6215,
+      "held_out_scores": [
+        0.6718,
+        0.4786,
+        0.7133,
+        0.6225
+      ],
+      "reference_similarity": 0.8524,
+      "word_error_rate": 1.4444444444444444,
+      "character_error_rate": 0.7333333333333333,
+      "transcription": "دونین یه بیب تب تفوزه تو دیمه رو ها سری ویگن و فاتیم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl13_s1_seed42.wav",
+      "seconds": 4.5
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5842,
+      "held_out_scores": [
+        0.58,
+        0.5099,
+        0.7007,
+        0.5461
+      ],
+      "reference_similarity": 0.7908,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.7906976744186046,
+      "transcription": "آسا خوفان هست سوپ رویدریدون تر مندقانی ها چهویم نه",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl13_s2_seed42.wav",
+      "seconds": 4.26
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6774,
+      "held_out_scores": [
+        0.7953,
+        0.7507,
+        0.63,
+        0.5336
+      ],
+      "reference_similarity": 0.809,
+      "word_error_rate": 1.2222222222222223,
+      "character_error_rate": 0.8444444444444444,
+      "transcription": "جویه همپلت یا سوچ و جاتا فوزی و مثل بری جمعاتی",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl14_s1_seed42.wav",
+      "seconds": 4.37
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6225,
+      "held_out_scores": [
+        0.6792,
+        0.6775,
+        0.6551,
+        0.4779
+      ],
+      "reference_similarity": 0.7782,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.7906976744186046,
+      "transcription": "افشت ها ونرس ها پریدانه ها را ریزی کلیم رو لایبه نید.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl14_s2_seed42.wav",
+      "seconds": 3.91
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6298,
+      "held_out_scores": [
+        0.552,
+        0.6891,
+        0.6665,
+        0.6115
+      ],
+      "reference_similarity": 0.7899,
+      "word_error_rate": 1.5555555555555556,
+      "character_error_rate": 0.9777777777777777,
+      "transcription": "جویی رایی که باحتی اصول دازده پاک مول سیگون بانگوز تاوریگه دیگه نو باتاتیم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl15_s1_seed42.wav",
+      "seconds": 5.0
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6489,
+      "held_out_scores": [
+        0.5657,
+        0.6724,
+        0.7335,
+        0.6238
+      ],
+      "reference_similarity": 0.782,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.9302325581395349,
+      "transcription": "آسوه دارفانر سوپ اگر ایجارا نسرند ماز اسکالو یه تورنه ایر.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl15_s2_seed42.wav",
+      "seconds": 4.33
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5895,
+      "held_out_scores": [
+        0.5797,
+        0.5656,
+        0.5971,
+        0.6157
+      ],
+      "reference_similarity": 0.8625,
+      "word_error_rate": 1.3333333333333333,
+      "character_error_rate": 0.8,
+      "transcription": "تیوری این بود تپیو نهار تو پیلگه بان خواسته ری گیشن فاطمیم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl16_s1_seed42.wav",
+      "seconds": 4.66
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.487,
+      "held_out_scores": [
+        0.5317,
+        0.4626,
+        0.451,
+        0.5028
+      ],
+      "reference_similarity": 0.8514,
+      "word_error_rate": 0.9230769230769231,
+      "character_error_rate": 0.7674418604651163,
+      "transcription": "او سل بفرق شبه او مردینا نتالزه سب تلیو شبه او مردی",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl16_s2_seed42.wav",
+      "seconds": 4.4
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6867,
+      "held_out_scores": [
+        0.667,
+        0.689,
+        0.697,
+        0.6938
+      ],
+      "reference_similarity": 0.8742,
+      "word_error_rate": 1.3333333333333333,
+      "character_error_rate": 0.7777777777777778,
+      "transcription": "جوالی تموجبت ها سابلی در بعد ما می کشتشدین رو نگم و ممیم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl17_s1_seed42.wav",
+      "seconds": 4.36
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.7016,
+      "held_out_scores": [
+        0.6826,
+        0.7159,
+        0.7058,
+        0.7021
+      ],
+      "reference_similarity": 0.8919,
+      "word_error_rate": 0.9230769230769231,
+      "character_error_rate": 0.6976744186046512,
+      "transcription": "او سر تو گفرنا سرخور پر ایدا نند آلماس گرلی ملک راوید امی",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl17_s2_seed42.wav",
+      "seconds": 4.49
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6269,
+      "held_out_scores": [
+        0.5528,
+        0.6775,
+        0.6555,
+        0.6219
+      ],
+      "reference_similarity": 0.799,
+      "word_error_rate": 1.2222222222222223,
+      "character_error_rate": 0.6222222222222222,
+      "transcription": "دورین این را پتر اودک و کار با منسوسری ایران خواده هم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl18_s1_seed42.wav",
+      "seconds": 4.89
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6935,
+      "held_out_scores": [
+        0.6321,
+        0.7227,
+        0.7103,
+        0.7089
+      ],
+      "reference_similarity": 0.8491,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.8372093023255814,
+      "transcription": "اصوه ها فان از سپای بریژنان تمند در گلینا خویزنه ایم.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl18_s2_seed42.wav",
+      "seconds": 4.79
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.606,
+      "held_out_scores": [
+        0.6082,
+        0.6209,
+        0.5183,
+        0.6765
+      ],
+      "reference_similarity": 0.8361,
+      "word_error_rate": 1.2222222222222223,
+      "character_error_rate": 0.7333333333333333,
+      "transcription": "در نیده این آباد همساله تو بزن روما خاصی ریشن وفاگید.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl19_s1_seed42.wav",
+      "seconds": 4.38
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6447,
+      "held_out_scores": [
+        0.6452,
+        0.6647,
+        0.5598,
+        0.7091
+      ],
+      "reference_similarity": 0.8254,
+      "word_error_rate": 0.9230769230769231,
+      "character_error_rate": 0.813953488372093,
+      "transcription": "او سید ها فان تارسون برو ای تنین ادراس هلسکا فلینا ترافی می",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl19_s2_seed42.wav",
+      "seconds": 3.9
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5889,
+      "held_out_scores": [
+        0.7892,
+        0.4123,
+        0.5771,
+        0.5771
+      ],
+      "reference_similarity": 0.865,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.8,
+      "transcription": "جو یه اینگو بدک سارو توبوسی منخاصر گیندینو بعدیم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl20_s1_seed42.wav",
+      "seconds": 4.47
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5449,
+      "held_out_scores": [
+        0.7933,
+        0.3343,
+        0.5261,
+        0.5261
+      ],
+      "reference_similarity": 0.8382,
+      "word_error_rate": 1.0,
+      "character_error_rate": 1.0,
+      "transcription": "ཀ སྱི བའི བའི སྲུལ གཏོ སྒྲུན སྲིག སྒྱུ སྒྱུལ སྒྱུ གཏོན",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl20_s2_seed42.wav",
+      "seconds": 4.16
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6236,
+      "held_out_scores": [
+        0.5026,
+        0.6467,
+        0.7202,
+        0.6249
+      ],
+      "reference_similarity": 0.6962,
+      "word_error_rate": 1.3333333333333333,
+      "character_error_rate": 0.7111111111111111,
+      "transcription": "دوره نی زون باب بابیان سو سار کپلی بامی سیرین یهن الواتیم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl21_s1_seed42.wav",
+      "seconds": 4.31
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5397,
+      "held_out_scores": [
+        0.4325,
+        0.5805,
+        0.5955,
+        0.5503
+      ],
+      "reference_similarity": 0.7163,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.7674418604651163,
+      "transcription": "اصوصو فراسو پر ای بیدی نانتما سه درمیان درمیان درمان ای",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl21_s2_seed42.wav",
+      "seconds": 3.92
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6391,
+      "held_out_scores": [
+        0.6203,
+        0.6338,
+        0.5999,
+        0.7024
+      ],
+      "reference_similarity": 0.8111,
+      "word_error_rate": 1.1111111111111112,
+      "character_error_rate": 0.7333333333333333,
+      "transcription": "تورین ای لیپاته او در او در موید سیاری جنهادیم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl22_s1_seed42.wav",
+      "seconds": 4.38
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.7119,
+      "held_out_scores": [
+        0.6653,
+        0.7269,
+        0.6558,
+        0.7996
+      ],
+      "reference_similarity": 0.8361,
+      "word_error_rate": 1.0769230769230769,
+      "character_error_rate": 0.813953488372093,
+      "transcription": "ایسر خورد رفان کنسا ها پرید یه نید آغان امید هرمیلان شای رو بی",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl22_s2_seed42.wav",
+      "seconds": 4.3
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6476,
+      "held_out_scores": [
+        0.5645,
+        0.619,
+        0.7399,
+        0.6672
+      ],
+      "reference_similarity": 0.8133,
+      "word_error_rate": 1.4444444444444444,
+      "character_error_rate": 0.7333333333333333,
+      "transcription": "دیوری کنگو برای باق تاف هر توفلی لیه سیستان جینا و اید ما",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl23_s1_seed42.wav",
+      "seconds": 3.95
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5932,
+      "held_out_scores": [
+        0.4667,
+        0.591,
+        0.6639,
+        0.6513
+      ],
+      "reference_similarity": 0.7687,
+      "word_error_rate": 0.9230769230769231,
+      "character_error_rate": 0.7209302325581395,
+      "transcription": "او سی تو فراسو پر ریدی نوان ترالی سا کاف نوگ تسارین ای",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl23_s2_seed42.wav",
+      "seconds": 3.15
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6818,
+      "held_out_scores": [
+        0.6391,
+        0.8142,
+        0.6208,
+        0.653
+      ],
+      "reference_similarity": 0.8311,
+      "word_error_rate": 1.3333333333333333,
+      "character_error_rate": 1.288888888888889,
+      "transcription": "Duri, indigabd hafði á hafða og kaupið lérum við hefðsar yfir innakkom.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl24_s1_seed42.wav",
+      "seconds": 3.85
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6294,
+      "held_out_scores": [
+        0.6108,
+        0.6872,
+        0.5723,
+        0.6473
+      ],
+      "reference_similarity": 0.739,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.7674418604651163,
+      "transcription": "و سگوانا ها خواب ها مرداران سندنه دیست این لونه فرزیب نید.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl24_s2_seed42.wav",
+      "seconds": 3.47
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.524,
+      "held_out_scores": [
+        0.4935,
+        0.5311,
+        0.5592,
+        0.5121
+      ],
+      "reference_similarity": 0.8083,
+      "word_error_rate": 1.3333333333333333,
+      "character_error_rate": 0.7333333333333333,
+      "transcription": "دوله دربا پدیکه صوف تری تفکره و رزه استریه جن و تهم",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl25_s1_seed42.wav",
+      "seconds": 4.02
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.565,
+      "held_out_scores": [
+        0.5172,
+        0.592,
+        0.6078,
+        0.5429
+      ],
+      "reference_similarity": 0.7683,
+      "word_error_rate": 1.0,
+      "character_error_rate": 0.7674418604651163,
+      "transcription": "افراد فانس کنپری دانون سرمازیک دیون لین یا فرای منز",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/longcat-1b-probe-fa/nvl25_s2_seed42.wav",
+      "seconds": 3.39
+    }
+  ]
+}

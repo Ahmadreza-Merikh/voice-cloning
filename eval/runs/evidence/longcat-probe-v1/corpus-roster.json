@@ -1,0 +1,442 @@
+{
+  "source": "neyshekar",
+  "split": "valid",
+  "splits_sha256": "85be52bdeebf6d5e05e525b57ee2ad0433f5922eb2acc69e90de132e7ef3c186",
+  "role_rule": "reference: the longest clip of 6.5-11.4 s; held out: the 4 longest of the rest of at least 3.5 s",
+  "speakers": [
+    {
+      "label": "nvl01",
+      "speaker": "ney-15258",
+      "reference": "neyshekar-56025",
+      "reference_seconds": 10.5,
+      "held_out": [
+        "neyshekar-20810",
+        "neyshekar-4730",
+        "neyshekar-12421",
+        "neyshekar-26386"
+      ]
+    },
+    {
+      "label": "nvl02",
+      "speaker": "ney-16073",
+      "reference": "neyshekar-44525",
+      "reference_seconds": 11.34,
+      "held_out": [
+        "neyshekar-60861",
+        "neyshekar-2224",
+        "neyshekar-5130",
+        "neyshekar-6237"
+      ]
+    },
+    {
+      "label": "nvl03",
+      "speaker": "ney-26914",
+      "reference": "neyshekar-43874",
+      "reference_seconds": 10.24,
+      "held_out": [
+        "neyshekar-43058",
+        "neyshekar-39375",
+        "neyshekar-34673",
+        "neyshekar-10289"
+      ]
+    },
+    {
+      "label": "nvl04",
+      "speaker": "ney-35348",
+      "reference": "neyshekar-47894",
+      "reference_seconds": 9.54,
+      "held_out": [
+        "neyshekar-6714",
+        "neyshekar-4054",
+        "neyshekar-48953",
+        "neyshekar-13079"
+      ]
+    },
+    {
+      "label": "nvl05",
+      "speaker": "ney-37088",
+      "reference": "neyshekar-52976",
+      "reference_seconds": 9.06,
+      "held_out": [
+        "neyshekar-1182",
+        "neyshekar-24843",
+        "neyshekar-44211",
+        "neyshekar-57186"
+      ]
+    },
+    {
+      "label": "nvl06",
+      "speaker": "ney-39499",
+      "reference": "neyshekar-49761",
+      "reference_seconds": 9.66,
+      "held_out": [
+        "neyshekar-36690",
+        "neyshekar-7290",
+        "neyshekar-10729",
+        "neyshekar-15644"
+      ]
+    },
+    {
+      "label": "nvl07",
+      "speaker": "ney-43643",
+      "reference": "neyshekar-27193",
+      "reference_seconds": 10.56,
+      "held_out": [
+        "neyshekar-43899",
+        "neyshekar-13538",
+        "neyshekar-18622",
+        "neyshekar-10027"
+      ]
+    },
+    {
+      "label": "nvl08",
+      "speaker": "ney-44402",
+      "reference": "neyshekar-8321",
+      "reference_seconds": 9.96,
+      "held_out": [
+        "neyshekar-26595",
+        "neyshekar-6406",
+        "neyshekar-18219",
+        "neyshekar-37777"
+      ]
+    },
+    {
+      "label": "nvl09",
+      "speaker": "ney-60042",
+      "reference": "neyshekar-48631",
+      "reference_seconds": 10.26,
+      "held_out": [
+        "neyshekar-8551",
+        "neyshekar-51705",
+        "neyshekar-31980",
+        "neyshekar-50892"
+      ]
+    },
+    {
+      "label": "nvl10",
+      "speaker": "ney-61472",
+      "reference": "neyshekar-9665",
+      "reference_seconds": 9.002,
+      "held_out": [
+        "neyshekar-48001",
+        "neyshekar-37940",
+        "neyshekar-30737",
+        "neyshekar-16242"
+      ]
+    },
+    {
+      "label": "nvl11",
+      "speaker": "ney-61663",
+      "reference": "neyshekar-54601",
+      "reference_seconds": 10.98,
+      "held_out": [
+        "neyshekar-38469",
+        "neyshekar-13853",
+        "neyshekar-38940",
+        "neyshekar-24257"
+      ]
+    },
+    {
+      "label": "nvl12",
+      "speaker": "ney-63269",
+      "reference": "neyshekar-36935",
+      "reference_seconds": 10.98,
+      "held_out": [
+        "neyshekar-43129",
+        "neyshekar-62040",
+        "neyshekar-35067",
+        "neyshekar-51756"
+      ]
+    },
+    {
+      "label": "nvl13",
+      "speaker": "ney-63431",
+      "reference": "neyshekar-18070",
+      "reference_seconds": 11.387,
+      "held_out": [
+        "neyshekar-32057",
+        "neyshekar-4894",
+        "neyshekar-39155",
+        "neyshekar-50345"
+      ]
+    },
+    {
+      "label": "nvl14",
+      "speaker": "ney-63821",
+      "reference": "neyshekar-32675",
+      "reference_seconds": 11.157,
+      "held_out": [
+        "neyshekar-30984",
+        "neyshekar-35293",
+        "neyshekar-57016",
+        "neyshekar-41548"
+      ]
+    },
+    {
+      "label": "nvl15",
+      "speaker": "ney-64242",
+      "reference": "neyshekar-4651",
+      "reference_seconds": 8.46,
+      "held_out": [
+        "neyshekar-27956",
+        "neyshekar-9631",
+        "neyshekar-17125",
+        "neyshekar-1870"
+      ]
+    },
+    {
+      "label": "nvl16",
+      "speaker": "ney-65863",
+      "reference": "neyshekar-22247",
+      "reference_seconds": 9.96,
+      "held_out": [
+        "neyshekar-24458",
+        "neyshekar-30346",
+        "neyshekar-28941",
+        "neyshekar-47666"
+      ]
+    },
+    {
+      "label": "nvl17",
+      "speaker": "ney-68863",
+      "reference": "neyshekar-2018",
+      "reference_seconds": 10.987,
+      "held_out": [
+        "neyshekar-19417",
+        "neyshekar-57522",
+        "neyshekar-31916",
+        "neyshekar-37528"
+      ]
+    },
+    {
+      "label": "nvl18",
+      "speaker": "ney-68920",
+      "reference": "neyshekar-44760",
+      "reference_seconds": 11.113,
+      "held_out": [
+        "neyshekar-40281",
+        "neyshekar-41807",
+        "neyshekar-35924",
+        "neyshekar-4907"
+      ]
+    },
+    {
+      "label": "nvl19",
+      "speaker": "ney-74373",
+      "reference": "neyshekar-2972",
+      "reference_seconds": 10.14,
+      "held_out": [
+        "neyshekar-17370",
+        "neyshekar-58208",
+        "neyshekar-60691",
+        "neyshekar-1996"
+      ]
+    },
+    {
+      "label": "nvl20",
+      "speaker": "ney-74439",
+      "reference": "neyshekar-47464",
+      "reference_seconds": 10.86,
+      "held_out": [
+        "neyshekar-31937",
+        "neyshekar-45626",
+        "neyshekar-60999",
+        "neyshekar-6508"
+      ]
+    },
+    {
+      "label": "nvl21",
+      "speaker": "ney-78184",
+      "reference": "neyshekar-26834",
+      "reference_seconds": 10.68,
+      "held_out": [
+        "neyshekar-12596",
+        "neyshekar-17380",
+        "neyshekar-41329",
+        "neyshekar-11988"
+      ]
+    },
+    {
+      "label": "nvl22",
+      "speaker": "ney-86920",
+      "reference": "neyshekar-17955",
+      "reference_seconds": 10.38,
+      "held_out": [
+        "neyshekar-40353",
+        "neyshekar-48383",
+        "neyshekar-20088",
+        "neyshekar-1523"
+      ]
+    },
+    {
+      "label": "nvl23",
+      "speaker": "ney-91343",
+      "reference": "neyshekar-53320",
+      "reference_seconds": 9.13,
+      "held_out": [
+        "neyshekar-15160",
+        "neyshekar-23901",
+        "neyshekar-44160",
+        "neyshekar-62146"
+      ]
+    },
+    {
+      "label": "nvl24",
+      "speaker": "ney-98800",
+      "reference": "neyshekar-11267",
+      "reference_seconds": 10.98,
+      "held_out": [
+        "neyshekar-14412",
+        "neyshekar-7070",
+        "neyshekar-44454",
+        "neyshekar-9440"
+      ]
+    },
+    {
+      "label": "nvl25",
+      "speaker": "ney-99749",
+      "reference": "neyshekar-39069",
+      "reference_seconds": 11.1,
+      "held_out": [
+        "neyshekar-41246",
+        "neyshekar-31436",
+        "neyshekar-2723",
+        "neyshekar-39840"
+      ]
+    }
+  ],
+  "left_out": [
+    {
+      "speaker": "ney-70652",
+      "reason": "no clip of 6.5-11.4 s with 4 more to hold out"
+    }
+  ],
+  "files": {
+    "nvl01_000.wav": "7e19e7f6f3084f7d63f450204112c9cecbd1dd79dce8faafd1fe87ddfc875303",
+    "nvl01_001.wav": "2be339df64eec0e388e9a95e9a40f103b6cd871844f01df8dda505f11f0b0d93",
+    "nvl01_002.wav": "d484aa8f2b3ce82aae3277413b6978e31a37f762e6a33d412e3fdf05d03392e6",
+    "nvl01_003.wav": "96d08d3418ea7f9f36a54ef083cc664bf48668de3a97ec1755a110b755bff68d",
+    "nvl01_004.wav": "15b44bbd7177cf484c24466c512fe01c2cb8c45467513bd0b29fb79ae0d228bf",
+    "nvl02_000.wav": "8328de10df3b9b8ec1157f2e333587e212fc7188cf0dde422e38c26644329a84",
+    "nvl02_001.wav": "175a9adcc377fc0eb4aa090f7f28100365a0874dc7ed701035cfab266ce1a269",
+    "nvl02_002.wav": "e9d09f4683e7a462479276bed9e613c3defdc508a422dd7f73f09704c9c9d30f",
+    "nvl02_003.wav": "4dd340f676699cece31febf468da24628d31eb0bdbd9fb0af2c872e6473e55ab",
+    "nvl02_004.wav": "50e9f2fd097cd1df380a4c30ad651ba46c1d930d8f2ad764f276955898236a01",
+    "nvl03_000.wav": "6652c1ff82529daf72a17b072530fd7fec8c5b6f4565a891fa212457ff348f04",
+    "nvl03_001.wav": "375746b220054cc802d9b97121e2cd467feec0973a2ddb5ec6dea4298fdb3c64",
+    "nvl03_002.wav": "ba00096f1c69c87fc61e33089c76b6d00a7aae45715adaf466d3a3e3881a8590",
+    "nvl03_003.wav": "10d55da45c17d7ba4995a133125869c983c51023e8f8e59fb6c135e953b8cff5",
+    "nvl03_004.wav": "11abf98d53c03c9fba44fc4ab2524faea3007ae468b2b4f6901f5e59392fa8fd",
+    "nvl04_000.wav": "775889b5e8252d2c591f2b4a92f7d61211585b66e9621fe5117a26c24a937ead",
+    "nvl04_001.wav": "4c9f7c799109004f00e6915895c456435f2d74a8c788f14c0206def51506ee71",
+    "nvl04_002.wav": "1d402fb0dcd9eadc0a2bb262de53a7d09f8013e4f73bdf2e8a331d9118219095",
+    "nvl04_003.wav": "6648150a4289916b369693f614dcd3ae9157a86ceca713f90a91d4db7b4e3814",
+    "nvl04_004.wav": "6b8a4c92ef291050b28170802b35913574fa279d02144d781f8ec148fb781222",
+    "nvl05_000.wav": "10a21c1bc97cdea659b00e8478f633ae490f049eff1c2b301d8b068792017510",
+    "nvl05_001.wav": "8926dd69cbb93fd72dc7c311bdd330d02089b7ce14eae1bcc8f3b3330c8b4b2a",
+    "nvl05_002.wav": "cb934261e40cd4c683128bf5b299b5f80b5bc68dbd70237d3b554d086cb230d2",
+    "nvl05_003.wav": "69b8dca7df3e9fa7bc197382f7f927b7b3a6cbda62e6560181563c6fdedce575",
+    "nvl05_004.wav": "186fd3f08df2f64498466831a03b3fde3a7b14dacdeeac380edef169ba02d15b",
+    "nvl06_000.wav": "02d727864d1d95fed01d754b53709524d9a1d7075a30816b21ce2bdb310863b5",
+    "nvl06_001.wav": "9b4adb4fb8807f442171ae489e40de673b29f5b0893fe9730df9ff72b4db6224",
+    "nvl06_002.wav": "e5f35ca3f41ec4ff5b8c741d039882babe0568d96634dde30446eecba3635586",
+    "nvl06_003.wav": "a97c44ae7753ee604f280aa599a04576560353b97e6ab75980d9805da446e31a",
+    "nvl06_004.wav": "3f529c9eef81d7f157a326210d74634b2fb0e5f289b0c026d8db720fcbc14a8f",
+    "nvl07_000.wav": "face63f23cbb4f2a6978671a59826fa823bb3cd30075074ace4e65ad072dc7a3",
+    "nvl07_001.wav": "4fadada87f695199701540a7b2146060ca6168be5042b267260c787058c9c830",
+    "nvl07_002.wav": "c485cc8fadcb082dbf1bd634c3ead23769fd9ef2e43c02d634f0ea438ad2057b",
+    "nvl07_003.wav": "054cc759a1f872cb68b488128dd2db6db8c7b99098190881ed0d955968cde370",
+    "nvl07_004.wav": "8e175226ab9df25efd9628136267ce060f60d4917f3efe4e9216d73bd9025602",
+    "nvl08_000.wav": "3ece542f7124dff5f20308508120ec81c66adca04dfd814b328669c262b7d86f",
+    "nvl08_001.wav": "3e1f15283c667696222568bfd6954bd70bfa9670af678161cc4c15e867bc78d6",
+    "nvl08_002.wav": "b4de4953797f7078e494ac30fbcdae583b7023c163a86e305164e89e2d168e94",
+    "nvl08_003.wav": "c19c08482e2d6a4784e2d96aa06de9fdaa79a9111e47b25091bc5605035c608a",
+    "nvl08_004.wav": "6b669ae4fdf20a60561963f3105459a656614d3eed7d11684da701a974e7c4c2",
+    "nvl09_000.wav": "7c79b3aef0a3ed61ed986c7a6992092cacd2b351f839f5cf30d9e8878f4bb44b",
+    "nvl09_001.wav": "ba9691e68fa43d792498117f16fc32b4927fa4d365633d109575fdd229b10791",
+    "nvl09_002.wav": "7062a5a165d96c2ca05f42b23cfe7ab5fba45c7f334e1897596a7bb253bcbbd7",
+    "nvl09_003.wav": "84628932e30f0b5e3bb8e11151767aa8623ede746a20686113de88c47425ae9a",
+    "nvl09_004.wav": "f615f364b70dc19c643c52bb61d047471ce377a538c9c0565e858791bb39c38f",
+    "nvl10_000.wav": "b26c278e1aee1b9455e3cd5bca47b18cee1e5813ca61a970bf4958b823b45a3d",
+    "nvl10_001.wav": "c5a5fca8546ccb5ae2e823a734fc144a9f36b7e18d186a27b235adc48d801040",
+    "nvl10_002.wav": "1729ebb73f33b760501019a8819a4de9b37a04a085fb79b7eb3ea0a937e5c028",
+    "nvl10_003.wav": "ea9e2c4ae45bf0ff5c090dc3f0ccbb6e21305a77d78bd441fb3469adef60a0f2",
+    "nvl10_004.wav": "48633cf1c1edc546aadd6801d190bf906dcfdc7a97d6c8f7696742a4fa8d72ac",
+    "nvl11_000.wav": "52111f7acb4634671a86e90b21499f33d3872ed5c5aa6766cb7161d06eaf0742",
+    "nvl11_001.wav": "2f0b0489c6bca85dcb17bbb958849b035db7cf5f51266e7eff3cad349b4730ff",
+    "nvl11_002.wav": "e04eaf267e163ffce93ecb7b6657bd743d652e6cee4e1fa2099e7c59928d4720",
+    "nvl11_003.wav": "450486e717478d70685f867dafe0dde6d1f8bfb4b39084a331bcd89c0b87b4e4",
+    "nvl11_004.wav": "8e4e94c6d5a525e5cee942a914e15ddf3c44a2e2ef6739a640beb46ec8b582a2",
+    "nvl12_000.wav": "1970403d8a8bd4def68198b4e44bf3750e828fb4917173943e86921fad08caa7",
+    "nvl12_001.wav": "a9c256b4a72f3aa5391d3f873404502317138d970a4e1b0c2758630b7205b4b7",
+    "nvl12_002.wav": "ff239a1563198dfc2ea7f7c5570df0b575dd40dbf7be5b15b636e047d2abb1e0",
+    "nvl12_003.wav": "50a874e6f55f7796f89d0232b0de4b2dde223fc5f84e2ffd92259b53604ce487",
+    "nvl12_004.wav": "386937a7ea52647f0973a25f5a850849de0662148941a1a8eba9dca54afb00b3",
+    "nvl13_000.wav": "95d093bc9f031c472bf22123cf432ba70e6f250293454cf59f7cc9fc3b186f9b",
+    "nvl13_001.wav": "e3c2704e324a8eeaae5c28f46e5c5d7f49a42e7b6f4b75214c5d0283a9231590",
+    "nvl13_002.wav": "48cc5a5aa01865111d5e67faf05ba64756604b9b5065f814fc79cf55b62bcf84",
+    "nvl13_003.wav": "9ebf90b7b592071a1db6280a907309508121ae71c7973ac400808d2e6089904e",
+    "nvl13_004.wav": "702f1dffde145bbf1fa9c71f3a572b0a858f7943b85ffd50a7a3a6edab110ca4",
+    "nvl14_000.wav": "44d988214ddf193aa0e187ea3b0435aed74b8a54922b61b5cb2763f8a34c8f0e",
+    "nvl14_001.wav": "2f9c613c87e6c333f74114e90383a34275e85972cfd61acae50f7e785a338e58",
+    "nvl14_002.wav": "734e09104d5fcdbc6dba7835a2c076645d733f9d4e16320cedeca8d319931ea3",
+    "nvl14_003.wav": "c7b17422f39a82ef296b785a4b841f56c5cfea3617914fb2cadb2abdf5477327",
+    "nvl14_004.wav": "63a0a276484a9b43c3374f2a7bd296f5f3123ce81cd4ccc7f0e84a292b9312c5",
+    "nvl15_000.wav": "025ae6c90f4d93bca7df097a3ac3482df84e93b3827c2ca52eab32ab9d8ff046",
+    "nvl15_001.wav": "2c46bf07190e0da623bb6e1549c9185048420a9ca85f9dfc45cebda00e8cd746",
+    "nvl15_002.wav": "3a150a29133c6a62e434e1e549b17c5934015ddbf386defdb58d6870ff45f4e6",
+    "nvl15_003.wav": "3b9bbd505abab1b273238267c22213c45ab84154523c3cf268e2bddb8fbac7fd",
+    "nvl15_004.wav": "383c0b0975689b9a178db66cb80430d7c9ef38adf3853a316a095a67f768246f",
+    "nvl16_000.wav": "de847daa4393e75cffbed65594b3e50e661ac121b7b6847ca801ee3221673cc0",
+    "nvl16_001.wav": "b624eb19dc344d1c9286a703898c76245c60bc25be33285121959fce17e3eb4f",
+    "nvl16_002.wav": "686eb8c8005fb13ecfdb2523e70a82dc3c1bebd2629f2050c1a047133f0c8556",
+    "nvl16_003.wav": "ef45b81f2723785507a77bd36fb3f2efbd961a8d441f684dfcdf285b408a3029",
+    "nvl16_004.wav": "cc75de403d0a7472e376b5582ca3b7de32120bfb477f5ef24ec0c7037e8c97f8",
+    "nvl17_000.wav": "cd8bb0563b391455cdbc8b9f43e5ff994b7ae74ae377fcc03bea947d2ed67a6b",
+    "nvl17_001.wav": "7499d893848ed9832d9db09f06090ab8fed8733c46e90f61a82bb223b988730b",
+    "nvl17_002.wav": "33f511a56478e17f7b5cc9f90aebb6cf8234e746f2319589e56c6544bf5109c5",
+    "nvl17_003.wav": "136098d06fa9f10aec9a95a58b552ae2170839414cfa73f971c7b80a239834ea",
+    "nvl17_004.wav": "2c7266d9b40ae559c5b011088011abdf761c706bc2196f10ef0694e00a345a71",
+    "nvl18_000.wav": "9411afdc4a3785ee03a58ca92bff678b3710be0d3d83121747d28eae84e4ac51",
+    "nvl18_001.wav": "e56cb8bc519ae0e0da52989e073e658aea0b37d66dec84223d8cd1995fd1ce63",
+    "nvl18_002.wav": "de1e09f376d6351f54c1e201afaa0e04455c54f23fb8b03302860cafb7a2ea0b",
+    "nvl18_003.wav": "65ff7c4c4f1f20eec27bdfcd21057bcc8fff2f8ff4a8f75a0163126efe3c6403",
+    "nvl18_004.wav": "2ee92fd52af97577748b9de63346c7fb7e4386197112ab8a31663d3a59ee08c0",
+    "nvl19_000.wav": "7bdc8fd4311f13f1e81c1d95c52781112b6955a5ad0e6050795657273a45a193",
+    "nvl19_001.wav": "03428add57ec3182dc6c51f4427479992c754c8de8b072c2c612b2c8f15502f1",
+    "nvl19_002.wav": "2ad5158a06429e90122dbfc63162b939f9ba50c9d13bfe00e5a5e62573202ed4",
+    "nvl19_003.wav": "b2a39cdd9857fac78c52fce113355d04dbb74696f830d04f7588a63ed1312db5",
+    "nvl19_004.wav": "c4b5cb49ac3c154a31d9b9ed3bcb76ae0d45181dad28bbfc00c98fb46ff460ce",
+    "nvl20_000.wav": "5db34d500e32eecd02045cfcc26b7a87841640a825ff815772fe84800e51d328",
+    "nvl20_001.wav": "8868a9c305bbbf6c752abbad13f4017f013bed17c59e7805202b5aff2b537ec4",
+    "nvl20_002.wav": "392c5a22e4f19a72b7d8ce0ef75a6e72272aacdb3f13dbfc1dc93075957bb90a",
+    "nvl20_003.wav": "58a1239b1b8105dae8c8b16bbfdfb7fccf52aefe20058e3a0308bc292a0b9639",
+    "nvl20_004.wav": "58a1239b1b8105dae8c8b16bbfdfb7fccf52aefe20058e3a0308bc292a0b9639",
+    "nvl21_000.wav": "f749d148478a67df331d814807b1fd9d915486a04e96cada155d02c53f117ff7",
+    "nvl21_001.wav": "1f1c9dba40d77caecee741aa07928d368c054683910a01012959046f772e0ad7",
+    "nvl21_002.wav": "743c17882eaf14743a36ab0f42ba9d404be26521e33eeb7ad06fe67ad85785d0",
+    "nvl21_003.wav": "f4e3fca7c5987aedb30657b1ca477d460f226d0245bf880951de85d148be6729",
+    "nvl21_004.wav": "249672ec9dab8b971cddcfb45bb2a2440a02d6b15eb870b011d32d853793d356",
+    "nvl22_000.wav": "3e08bea19b7627160ea4a13baee3f8c69a1011e083e7a306d32920f82255380c",
+    "nvl22_001.wav": "604cdb763c9cc9d018966b05ce41549b174543b7aca73440f2e2c78013e88adb",
+    "nvl22_002.wav": "3ba966bf3677f0a8af9106729b9d2932e4b564272e881bd3277771e669fea0bc",
+    "nvl22_003.wav": "0a7442a938ad5b6b8063d7bacb89f321046227d2163e940137e4409f2e4ed060",
+    "nvl22_004.wav": "6c373519393a7c3a13231d17d135abc956a1deae05810951a4af58672a4e2645",
+    "nvl23_000.wav": "303c611cc098546a6f00ade2c590cdb6118592e4cf67b6fcfa131592338fdd47",
+    "nvl23_001.wav": "54bf64c40937dc76afa4c7898b2290039001d81f54661f19f2fa1ec3384b6da1",
+    "nvl23_002.wav": "aea74c352ed5ab5bbfd060adf7788382abeaa525ac7d83d28e7171e9efcecaae",
+    "nvl23_003.wav": "3369fc83b41252866ce2d6211de9ba804d1dd5299d92079bdf1cc7a1caa9c44e",
+    "nvl23_004.wav": "0783da4b16e0b2f7027cb890dceed64adee56a31175a98123cd2f736b4d9589f",
+    "nvl24_000.wav": "c1bd8e9d6bf8a1061674af65da502222a09beec6b357440251dcbead0bef54e1",
+    "nvl24_001.wav": "370fa85add94ab9a2bf2791c80375e2414d900a1e5bbfcd3debc48217680c005",
+    "nvl24_002.wav": "bd6249754900c0162cbb989bbbc607de9130ce062ea9897242ee163ca5246e71",
+    "nvl24_003.wav": "1779079085e091670fc67ed12e5b288ac0f771ba239ab1593312c2ca223bee4b",
+    "nvl24_004.wav": "a80a26e156b1abcc576bba71851028d8fba35aa5db3cca3083225d920df5ff2d",
+    "nvl25_000.wav": "e2c06a550de0cfe1011efef07bbd7b9e9c1ce074a96b5b7e00849f37ebb42e50",
+    "nvl25_001.wav": "d86061b12b5deb75f562cefcc30fb5d9778acbd04a216d565318ea246459edf0",
+    "nvl25_002.wav": "70bfff1496f96a003fc50c8c4f67864ce1797b5dc1e8b46a9585331ae83c5a76",
+    "nvl25_003.wav": "530920cb7856e7e47e639990381a74ee2a51b6d04b6e299cbeae91ad8836b502",
+    "nvl25_004.wav": "856c69a465614acfe60742737ad16e6384f2b8dd9d13c477c7367b8da33ee2d0"
+  },
+  "manifest_sha256": "2c4b90ec9226775c63050451168cdd58a0c17101717ffa0738b407c94252479f"
+}

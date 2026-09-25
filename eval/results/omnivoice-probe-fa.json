@@ -1,0 +1,1302 @@
+{
+  "label": "omnivoice-probe-fa",
+  "engine": "omnivoice",
+  "created": "2026-09-25 15:44:03",
+  "duration_minutes": 4.2,
+  "config": {
+    "ref_transcript": "corpus",
+    "engine_option": [],
+    "preprocess_option": [],
+    "candidates": 1,
+    "reference_index": 0,
+    "score_only": false,
+    "replay_from": null,
+    "seeds": [
+      42
+    ],
+    "sentences": [
+      "s1",
+      "s2"
+    ],
+    "sentences_file": null,
+    "device": "cuda",
+    "speakers": [
+      "nvl01",
+      "nvl02",
+      "nvl03",
+      "nvl04",
+      "nvl05",
+      "nvl06",
+      "nvl07",
+      "nvl08",
+      "nvl09",
+      "nvl10",
+      "nvl11",
+      "nvl12",
+      "nvl13",
+      "nvl14",
+      "nvl15",
+      "nvl16",
+      "nvl17",
+      "nvl18",
+      "nvl19",
+      "nvl20",
+      "nvl21",
+      "nvl22",
+      "nvl23",
+      "nvl24",
+      "nvl25"
+    ],
+    "similarity_backend": "speechbrain-ecapa"
+  },
+  "scoring_environment": {
+    "id": "kaggle:persian-voice-longcat-probe-run-v1",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "python": "3.12.13",
+    "recogniser": "faster-whisper/large-v3-turbo (cuda/float16)",
+    "similarity": "speechbrain-ecapa",
+    "similarity_device": "cpu",
+    "packages": {
+      "torch": "2.8.0+cu128",
+      "torchaudio": "2.8.0+cu128",
+      "speechbrain": "1.1.1",
+      "faster-whisper": "1.2.1",
+      "ctranslate2": "4.8.2",
+      "transformers": "5.3.0",
+      "jiwer": "4.0.0",
+      "numpy": "2.0.2"
+    }
+  },
+  "calibration": {
+    "ceiling": 0.7098085153890648,
+    "floor": 0.17230089300428603,
+    "cross_max": 0.5526053244871483,
+    "same_pairs": 250,
+    "cross_pairs": 7500,
+    "per_speaker_ceiling": {
+      "nvl01": 0.8010763585147909,
+      "nvl02": 0.7607533094462825,
+      "nvl03": 0.6611590356729228,
+      "nvl04": 0.5270114866643488,
+      "nvl05": 0.6705631905153437,
+      "nvl06": 0.7418088993662549,
+      "nvl07": 0.6660085532128651,
+      "nvl08": 0.8122066706286163,
+      "nvl09": 0.41313233815674566,
+      "nvl10": 0.79321489677618,
+      "nvl11": 0.8149226886323683,
+      "nvl12": 0.7783553316012213,
+      "nvl13": 0.6378309222992824,
+      "nvl14": 0.678425161916554,
+      "nvl15": 0.7335968871479817,
+      "nvl16": 0.5894608634105929,
+      "nvl17": 0.8491690546798012,
+      "nvl18": 0.8033684919584693,
+      "nvl19": 0.7294700037324472,
+      "nvl20": 0.6466842851206306,
+      "nvl21": 0.6483061999824121,
+      "nvl22": 0.7952227530947249,
+      "nvl23": 0.7062432381999416,
+      "nvl24": 0.791525274635479,
+      "nvl25": 0.6956969893603611
+    }
+  },
+  "recogniser_floor": {
+    "cer_mean": 0.07800123509335873,
+    "wer_mean": 0.3740008247479986,
+    "cer_median": 0.046875,
+    "clips": 45,
+    "source": "cached: eval/results/_asr_floor.json, measured on another run"
+  },
+  "summary": {
+    "held_out_mean": 0.600996,
+    "held_out_sd": 0.09865056649298956,
+    "reference_mean": 0.73826,
+    "wer_mean": 0.3054700854700855,
+    "cer_mean": 0.022170542635658916,
+    "cer_median": 0.022222222222222223,
+    "scale_position": 0.7936057414886843,
+    "renders": 50,
+    "failures": 0,
+    "untranscribed": 0
+  },
+  "per_speaker": {
+    "nvl01": {
+      "held_out": 0.6750499999999999,
+      "ceiling": 0.8010763585147909,
+      "gap": -0.12602635851479094,
+      "reference": 0.7805500000000001,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl02": {
+      "held_out": 0.70305,
+      "ceiling": 0.7607533094462825,
+      "gap": -0.05770330944628255,
+      "reference": 0.6688000000000001,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl03": {
+      "held_out": 0.58005,
+      "ceiling": 0.6611590356729228,
+      "gap": -0.08110903567292282,
+      "reference": 0.7491,
+      "wer": 0.3162393162393162,
+      "cer": 0.0227390180878553,
+      "renders": 2
+    },
+    "nvl04": {
+      "held_out": 0.3907,
+      "ceiling": 0.5270114866643488,
+      "gap": -0.13631148666434884,
+      "reference": 0.6971,
+      "wer": 0.3162393162393162,
+      "cer": 0.04496124031007752,
+      "renders": 2
+    },
+    "nvl05": {
+      "held_out": 0.5262,
+      "ceiling": 0.6705631905153437,
+      "gap": -0.14436319051534374,
+      "reference": 0.5965,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl06": {
+      "held_out": 0.6201,
+      "ceiling": 0.7418088993662549,
+      "gap": -0.12170889936625495,
+      "reference": 0.7444500000000001,
+      "wer": 0.3931623931623932,
+      "cer": 0.04599483204134367,
+      "renders": 2
+    },
+    "nvl07": {
+      "held_out": 0.51355,
+      "ceiling": 0.6660085532128651,
+      "gap": -0.15245855321286517,
+      "reference": 0.7209,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl08": {
+      "held_out": 0.70345,
+      "ceiling": 0.8122066706286163,
+      "gap": -0.10875667062861627,
+      "reference": 0.74495,
+      "wer": 0.3162393162393162,
+      "cer": 0.0227390180878553,
+      "renders": 2
+    },
+    "nvl09": {
+      "held_out": 0.32789999999999997,
+      "ceiling": 0.41313233815674566,
+      "gap": -0.08523233815674569,
+      "reference": 0.6032,
+      "wer": 0.3931623931623932,
+      "cer": 0.06821705426356589,
+      "renders": 2
+    },
+    "nvl10": {
+      "held_out": 0.7033499999999999,
+      "ceiling": 0.79321489677618,
+      "gap": -0.08986489677618004,
+      "reference": 0.7990999999999999,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl11": {
+      "held_out": 0.6858500000000001,
+      "ceiling": 0.8149226886323683,
+      "gap": -0.1290726886323682,
+      "reference": 0.81705,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl12": {
+      "held_out": 0.57855,
+      "ceiling": 0.7783553316012213,
+      "gap": -0.19980533160122127,
+      "reference": 0.7927,
+      "wer": 0.3547008547008547,
+      "cer": 0.04599483204134367,
+      "renders": 2
+    },
+    "nvl13": {
+      "held_out": 0.5975,
+      "ceiling": 0.6378309222992824,
+      "gap": -0.04033092229928237,
+      "reference": 0.79365,
+      "wer": 0.3162393162393162,
+      "cer": 0.0227390180878553,
+      "renders": 2
+    },
+    "nvl14": {
+      "held_out": 0.5968,
+      "ceiling": 0.678425161916554,
+      "gap": -0.081625161916554,
+      "reference": 0.6957,
+      "wer": 0.3162393162393162,
+      "cer": 0.0227390180878553,
+      "renders": 2
+    },
+    "nvl15": {
+      "held_out": 0.624,
+      "ceiling": 0.7335968871479817,
+      "gap": -0.10959688714798166,
+      "reference": 0.702,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl16": {
+      "held_out": 0.6021,
+      "ceiling": 0.5894608634105929,
+      "gap": 0.012639136589407074,
+      "reference": 0.8043,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl17": {
+      "held_out": 0.63825,
+      "ceiling": 0.8491690546798012,
+      "gap": -0.2109190546798012,
+      "reference": 0.8473999999999999,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl18": {
+      "held_out": 0.7023,
+      "ceiling": 0.8033684919584693,
+      "gap": -0.10106849195846923,
+      "reference": 0.8316,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl19": {
+      "held_out": 0.64455,
+      "ceiling": 0.7294700037324472,
+      "gap": -0.08492000373244724,
+      "reference": 0.8037,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl20": {
+      "held_out": 0.5336,
+      "ceiling": 0.6466842851206306,
+      "gap": -0.11308428512063062,
+      "reference": 0.7528,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl21": {
+      "held_out": 0.5604,
+      "ceiling": 0.6483061999824121,
+      "gap": -0.08790619998241211,
+      "reference": 0.5843499999999999,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl22": {
+      "held_out": 0.72305,
+      "ceiling": 0.7952227530947249,
+      "gap": -0.07217275309472493,
+      "reference": 0.78935,
+      "wer": 0.3547008547008547,
+      "cer": 0.0454780361757106,
+      "renders": 2
+    },
+    "nvl23": {
+      "held_out": 0.6148,
+      "ceiling": 0.7062432381999416,
+      "gap": -0.0914432381999416,
+      "reference": 0.69465,
+      "wer": 0.3547008547008547,
+      "cer": 0.034366925064599485,
+      "renders": 2
+    },
+    "nvl24": {
+      "held_out": 0.6735,
+      "ceiling": 0.791525274635479,
+      "gap": -0.11802527463547896,
+      "reference": 0.7871,
+      "wer": 0.2777777777777778,
+      "cer": 0.011111111111111112,
+      "renders": 2
+    },
+    "nvl25": {
+      "held_out": 0.50625,
+      "ceiling": 0.6956969893603611,
+      "gap": -0.18944698936036108,
+      "reference": 0.6555,
+      "wer": 0.3162393162393162,
+      "cer": 0.0227390180878553,
+      "renders": 2
+    }
+  },
+  "rows": [
+    {
+      "speaker": "nvl01",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6894,
+      "held_out_scores": [
+        0.6728,
+        0.6958,
+        0.6806,
+        0.7083
+      ],
+      "reference_similarity": 0.79,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl01_s1_seed42.wav",
+      "seconds": 4.18
+    },
+    {
+      "speaker": "nvl01",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6607,
+      "held_out_scores": [
+        0.6517,
+        0.6936,
+        0.6419,
+        0.6555
+      ],
+      "reference_similarity": 0.7711,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl01_s2_seed42.wav",
+      "seconds": 4.26
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6804,
+      "held_out_scores": [
+        0.6922,
+        0.6417,
+        0.6728,
+        0.7148
+      ],
+      "reference_similarity": 0.6729,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl02_s1_seed42.wav",
+      "seconds": 4.45
+    },
+    {
+      "speaker": "nvl02",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.7257,
+      "held_out_scores": [
+        0.738,
+        0.6382,
+        0.7303,
+        0.7963
+      ],
+      "reference_similarity": 0.6647,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl02_s2_seed42.wav",
+      "seconds": 4.26
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5417,
+      "held_out_scores": [
+        0.6245,
+        0.5144,
+        0.5816,
+        0.4463
+      ],
+      "reference_similarity": 0.7417,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl03_s1_seed42.wav",
+      "seconds": 4.85
+    },
+    {
+      "speaker": "nvl03",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6184,
+      "held_out_scores": [
+        0.7073,
+        0.6367,
+        0.6808,
+        0.4488
+      ],
+      "reference_similarity": 0.7565,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شما سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl03_s2_seed42.wav",
+      "seconds": 4.89
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.3946,
+      "held_out_scores": [
+        0.2417,
+        0.3605,
+        0.3802,
+        0.5962
+      ],
+      "reference_similarity": 0.6801,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.06666666666666667,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران آندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl04_s1_seed42.wav",
+      "seconds": 4.34
+    },
+    {
+      "speaker": "nvl04",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.3868,
+      "held_out_scores": [
+        0.2411,
+        0.3674,
+        0.4242,
+        0.5145
+      ],
+      "reference_similarity": 0.7141,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شما سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl04_s2_seed42.wav",
+      "seconds": 3.93
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5465,
+      "held_out_scores": [
+        0.5231,
+        0.558,
+        0.5204,
+        0.5846
+      ],
+      "reference_similarity": 0.62,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl05_s1_seed42.wav",
+      "seconds": 4.53
+    },
+    {
+      "speaker": "nvl05",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5059,
+      "held_out_scores": [
+        0.4665,
+        0.5269,
+        0.477,
+        0.5533
+      ],
+      "reference_similarity": 0.573,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl05_s2_seed42.wav",
+      "seconds": 4.33
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6191,
+      "held_out_scores": [
+        0.689,
+        0.6499,
+        0.6314,
+        0.5062
+      ],
+      "reference_similarity": 0.7633,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl06_s1_seed42.wav",
+      "seconds": 4.09
+    },
+    {
+      "speaker": "nvl06",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6211,
+      "held_out_scores": [
+        0.6711,
+        0.6037,
+        0.6803,
+        0.5292
+      ],
+      "reference_similarity": 0.7256,
+      "word_error_rate": 0.23076923076923078,
+      "character_error_rate": 0.06976744186046512,
+      "transcription": "و گفت که فردا صبح برای دیدن دوستانش به شما سفر می کنند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl06_s2_seed42.wav",
+      "seconds": 3.96
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5406,
+      "held_out_scores": [
+        0.5718,
+        0.5845,
+        0.5139,
+        0.4921
+      ],
+      "reference_similarity": 0.7282,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl07_s1_seed42.wav",
+      "seconds": 4.37
+    },
+    {
+      "speaker": "nvl07",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.4865,
+      "held_out_scores": [
+        0.5385,
+        0.474,
+        0.4458,
+        0.4878
+      ],
+      "reference_similarity": 0.7136,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl07_s2_seed42.wav",
+      "seconds": 4.29
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6841,
+      "held_out_scores": [
+        0.7244,
+        0.6808,
+        0.6528,
+        0.6785
+      ],
+      "reference_similarity": 0.7032,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl08_s1_seed42.wav",
+      "seconds": 5.41
+    },
+    {
+      "speaker": "nvl08",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.7228,
+      "held_out_scores": [
+        0.7741,
+        0.7091,
+        0.6909,
+        0.717
+      ],
+      "reference_similarity": 0.7867,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شما سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl08_s2_seed42.wav",
+      "seconds": 5.36
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.334,
+      "held_out_scores": [
+        0.4315,
+        0.0418,
+        0.4689,
+        0.3939
+      ],
+      "reference_similarity": 0.5534,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.06666666666666667,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باری تاریخ ایران خانده.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl09_s1_seed42.wav",
+      "seconds": 3.38
+    },
+    {
+      "speaker": "nvl09",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.3218,
+      "held_out_scores": [
+        0.3514,
+        0.1758,
+        0.3944,
+        0.3655
+      ],
+      "reference_similarity": 0.653,
+      "word_error_rate": 0.23076923076923078,
+      "character_error_rate": 0.06976744186046512,
+      "transcription": "و گفت که فردا صبح برای دیدن دوستانش به شما سفر می کنند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl09_s2_seed42.wav",
+      "seconds": 3.51
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6925,
+      "held_out_scores": [
+        0.639,
+        0.7048,
+        0.7066,
+        0.7196
+      ],
+      "reference_similarity": 0.7875,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl10_s1_seed42.wav",
+      "seconds": 3.57
+    },
+    {
+      "speaker": "nvl10",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.7142,
+      "held_out_scores": [
+        0.6436,
+        0.7084,
+        0.7557,
+        0.7489
+      ],
+      "reference_similarity": 0.8107,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl10_s2_seed42.wav",
+      "seconds": 3.77
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6472,
+      "held_out_scores": [
+        0.6355,
+        0.6232,
+        0.6655,
+        0.6647
+      ],
+      "reference_similarity": 0.7738,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl11_s1_seed42.wav",
+      "seconds": 4.22
+    },
+    {
+      "speaker": "nvl11",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.7245,
+      "held_out_scores": [
+        0.7103,
+        0.7086,
+        0.729,
+        0.7499
+      ],
+      "reference_similarity": 0.8603,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl11_s2_seed42.wav",
+      "seconds": 4.07
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5657,
+      "held_out_scores": [
+        0.5547,
+        0.6466,
+        0.5457,
+        0.5157
+      ],
+      "reference_similarity": 0.7961,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر. کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl12_s1_seed42.wav",
+      "seconds": 4.55
+    },
+    {
+      "speaker": "nvl12",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5914,
+      "held_out_scores": [
+        0.6008,
+        0.6444,
+        0.5558,
+        0.5648
+      ],
+      "reference_similarity": 0.7893,
+      "word_error_rate": 0.15384615384615385,
+      "character_error_rate": 0.06976744186046512,
+      "transcription": "گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کنند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl12_s2_seed42.wav",
+      "seconds": 4.38
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5745,
+      "held_out_scores": [
+        0.6328,
+        0.4558,
+        0.6737,
+        0.5357
+      ],
+      "reference_similarity": 0.7803,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl13_s1_seed42.wav",
+      "seconds": 4.6
+    },
+    {
+      "speaker": "nvl13",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6205,
+      "held_out_scores": [
+        0.6624,
+        0.4885,
+        0.7562,
+        0.5747
+      ],
+      "reference_similarity": 0.807,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شما سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl13_s2_seed42.wav",
+      "seconds": 4.49
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5767,
+      "held_out_scores": [
+        0.6233,
+        0.6302,
+        0.5552,
+        0.4982
+      ],
+      "reference_similarity": 0.7158,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl14_s1_seed42.wav",
+      "seconds": 4.86
+    },
+    {
+      "speaker": "nvl14",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6169,
+      "held_out_scores": [
+        0.6194,
+        0.6371,
+        0.642,
+        0.569
+      ],
+      "reference_similarity": 0.6756,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کنند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl14_s2_seed42.wav",
+      "seconds": 4.62
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6059,
+      "held_out_scores": [
+        0.6324,
+        0.5508,
+        0.6463,
+        0.594
+      ],
+      "reference_similarity": 0.6811,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl15_s1_seed42.wav",
+      "seconds": 5.31
+    },
+    {
+      "speaker": "nvl15",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6421,
+      "held_out_scores": [
+        0.6466,
+        0.5618,
+        0.693,
+        0.667
+      ],
+      "reference_similarity": 0.7229,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl15_s2_seed42.wav",
+      "seconds": 5.69
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5751,
+      "held_out_scores": [
+        0.5559,
+        0.5502,
+        0.6135,
+        0.581
+      ],
+      "reference_similarity": 0.7776,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl16_s1_seed42.wav",
+      "seconds": 4.6
+    },
+    {
+      "speaker": "nvl16",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6291,
+      "held_out_scores": [
+        0.6264,
+        0.5596,
+        0.6229,
+        0.7075
+      ],
+      "reference_similarity": 0.831,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl16_s2_seed42.wav",
+      "seconds": 4.42
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6084,
+      "held_out_scores": [
+        0.6112,
+        0.5974,
+        0.6069,
+        0.6182
+      ],
+      "reference_similarity": 0.8214,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl17_s1_seed42.wav",
+      "seconds": 4.96
+    },
+    {
+      "speaker": "nvl17",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6681,
+      "held_out_scores": [
+        0.6684,
+        0.665,
+        0.6668,
+        0.6723
+      ],
+      "reference_similarity": 0.8734,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl17_s2_seed42.wav",
+      "seconds": 4.42
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.7095,
+      "held_out_scores": [
+        0.6523,
+        0.7373,
+        0.7382,
+        0.7101
+      ],
+      "reference_similarity": 0.8179,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl18_s1_seed42.wav",
+      "seconds": 5.57
+    },
+    {
+      "speaker": "nvl18",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6951,
+      "held_out_scores": [
+        0.6405,
+        0.7062,
+        0.7009,
+        0.7326
+      ],
+      "reference_similarity": 0.8453,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl18_s2_seed42.wav",
+      "seconds": 5.11
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6473,
+      "held_out_scores": [
+        0.6563,
+        0.6748,
+        0.6299,
+        0.6284
+      ],
+      "reference_similarity": 0.7704,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl19_s1_seed42.wav",
+      "seconds": 4.64
+    },
+    {
+      "speaker": "nvl19",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6418,
+      "held_out_scores": [
+        0.6462,
+        0.6716,
+        0.5905,
+        0.6591
+      ],
+      "reference_similarity": 0.837,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl19_s2_seed42.wav",
+      "seconds": 4.92
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5105,
+      "held_out_scores": [
+        0.7607,
+        0.2995,
+        0.4908,
+        0.4908
+      ],
+      "reference_similarity": 0.7849,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl20_s1_seed42.wav",
+      "seconds": 4.73
+    },
+    {
+      "speaker": "nvl20",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5567,
+      "held_out_scores": [
+        0.6541,
+        0.4083,
+        0.5822,
+        0.5822
+      ],
+      "reference_similarity": 0.7207,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl20_s2_seed42.wav",
+      "seconds": 5.34
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.5154,
+      "held_out_scores": [
+        0.3977,
+        0.502,
+        0.6132,
+        0.5487
+      ],
+      "reference_similarity": 0.5458,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl21_s1_seed42.wav",
+      "seconds": 4.14
+    },
+    {
+      "speaker": "nvl21",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6054,
+      "held_out_scores": [
+        0.4467,
+        0.6198,
+        0.6672,
+        0.688
+      ],
+      "reference_similarity": 0.6229,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl21_s2_seed42.wav",
+      "seconds": 4.18
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.7189,
+      "held_out_scores": [
+        0.6933,
+        0.7262,
+        0.6913,
+        0.7647
+      ],
+      "reference_similarity": 0.8375,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.044444444444444446,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندن.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl22_s1_seed42.wav",
+      "seconds": 4.84
+    },
+    {
+      "speaker": "nvl22",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.7272,
+      "held_out_scores": [
+        0.7084,
+        0.7235,
+        0.6914,
+        0.7855
+      ],
+      "reference_similarity": 0.7412,
+      "word_error_rate": 0.15384615384615385,
+      "character_error_rate": 0.046511627906976744,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شما سفر می کنند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl22_s2_seed42.wav",
+      "seconds": 4.54
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6166,
+      "held_out_scores": [
+        0.5292,
+        0.6351,
+        0.6376,
+        0.6644
+      ],
+      "reference_similarity": 0.6412,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl23_s1_seed42.wav",
+      "seconds": 3.57
+    },
+    {
+      "speaker": "nvl23",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.613,
+      "held_out_scores": [
+        0.5398,
+        0.6372,
+        0.6203,
+        0.6544
+      ],
+      "reference_similarity": 0.7481,
+      "word_error_rate": 0.15384615384615385,
+      "character_error_rate": 0.046511627906976744,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شما سفر می کنند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl23_s2_seed42.wav",
+      "seconds": 3.61
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.6777,
+      "held_out_scores": [
+        0.623,
+        0.7919,
+        0.6235,
+        0.6723
+      ],
+      "reference_similarity": 0.8143,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خوندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl24_s1_seed42.wav",
+      "seconds": 3.94
+    },
+    {
+      "speaker": "nvl24",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.6693,
+      "held_out_scores": [
+        0.6048,
+        0.7603,
+        0.5891,
+        0.7228
+      ],
+      "reference_similarity": 0.7599,
+      "word_error_rate": 0.0,
+      "character_error_rate": 0.0,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl24_s2_seed42.wav",
+      "seconds": 4.02
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "s1",
+      "seed": 42,
+      "held_out_similarity": 0.4886,
+      "held_out_scores": [
+        0.3714,
+        0.4887,
+        0.5945,
+        0.4997
+      ],
+      "reference_similarity": 0.6526,
+      "word_error_rate": 0.5555555555555556,
+      "character_error_rate": 0.022222222222222223,
+      "transcription": "دیروز در کتاب خانه شهر کتابی در باره تاریخ ایران خاندم.",
+      "expected": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl25_s1_seed42.wav",
+      "seconds": 4.24
+    },
+    {
+      "speaker": "nvl25",
+      "sentence": "s2",
+      "seed": 42,
+      "held_out_similarity": 0.5239,
+      "held_out_scores": [
+        0.4624,
+        0.4943,
+        0.6178,
+        0.5211
+      ],
+      "reference_similarity": 0.6584,
+      "word_error_rate": 0.07692307692307693,
+      "character_error_rate": 0.023255813953488372,
+      "transcription": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می کنند.",
+      "expected": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+      "output": "/kaggle/working/repo/outputs/benchmark/omnivoice-probe-fa/nvl25_s2_seed42.wav",
+      "seconds": 4.14
+    }
+  ]
+}

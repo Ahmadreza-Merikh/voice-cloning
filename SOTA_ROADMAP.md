@@ -233,6 +233,53 @@ down until listening has actually happened.
 | F5-TTS continued | base CC-BY-NC | **[measured]** 0.546 | this project has one | control, not destination |
 | Fish S2 Pro | research only | **[measured]** 0.537, CER +6.4 | out of scope | drop - CER +6.4 over its session's baseline, and the narrowest licence |
 | Higgs TTS 3 | research only | **[measured]**, ported fp16 only | out of scope | drop for training; re-measure only through an official path |
+| LongCat-AudioDiT 1B / 3.5B | MIT, weights and code | not on Persian - it reads Chinese and English only; the English-text probe below is pre-registered | none: no training code | probe first; adapt only if it clears the practical line against OmniVoice |
+
+**[source] LongCat-AudioDiT, checked live on 2026-09-25** because the user
+asked whether it - "the best voice-cloning engine in the world" - should
+replace OmniVoice, or be joined with the best Persian TTS:
+
+* `meituan-longcat/LongCat-AudioDiT-1B` at `4f4c1943` and `-3.5B` at
+  `5d3e6dc0`, MIT; code `meituan-longcat/LongCat-AudioDiT` at `12c76b51`,
+  unchanged since 2026-04-03; a diffusion transformer in a waveform VAE's
+  latent space, text through `google/umt5-base` (arXiv 2603.29339)
+* Chinese and English only: the maintainers' answer (issue #2) and all of its
+  100k-1M hours of training data. No training code; asked, they point to "the
+  single flow-matching loss" (issue #23)
+* its SOTA claim is the **3.5B's** WavLM similarity on Seed-TTS-eval (0.818 /
+  0.786 / 0.797); the 1B scores 0.812 / 0.762 / 0.787. Scored with ERes2Net
+  instead, the 3.5B trails Qwen-Audio-3.0-TTS, CosyVoice3 and dots.tts on all
+  three sets, and with noisy or reverberant prompts it falls to 58.7 / 56.9
+  against 72-77 for those three (arXiv 2607.23938, Tables 3 and 9). In
+  VoxCPM2's listening test it had the lowest similarity and naturalness MOS
+  of five systems (arXiv 2606.06928, Table 12)
+* its prompt similarity (0.818) is above the similarity of the same speaker's
+  own other recording (0.755) on the same set - the reading this project's
+  held-out metric exists to exclude (section 6)
+
+**[source] "The best Persian TTS", the same day.** No public benchmark
+includes Persian: not Seed-TTS-eval, not the MiniMax 24-language set, not
+CV3-Eval, not VoxCPM2's 30 languages. The Persian-specific models on the Hub
+publish no comparable number, and the one measured here, Pocket-TTS Farsi v2,
+scored 0.333 against OmniVoice's 0.583 (FINDINGS section 10). The serious
+Persian efforts pair a Persian G2P with an adapted multilingual engine
+(`Reza2kn/Gooya-Koochik-v2.0-exp`: Negara G2P and OmniVoice), which is this
+project's GE2PE and `omnivoice_ipa` route. ElevenLabs v3 reads Persian and is
+closed.
+
+**[hypothesis] A Persian TTS "joined with" LongCat has no seam.** LongCat
+takes text through its encoder and is not a voice-conversion model, so the
+audio of another TTS cannot be its input; the joins that exist are a Persian
+G2P feeding a LongCat trained on phonemes (an adaptation again) or a TTS
+followed by voice conversion (not LongCat, and unmeasured here).
+
+So the question is decided by measurement, not by the claim: whether its
+identity transfer beats OmniVoice's on these voices when both read text they
+know. That is the LongCat probe (`eval/runs/persian-voice-longcat-probe.json`,
+read by `scripts/read_longcat_probe.py`): Neyshekar's 25 usable valid
+speakers, six English sentences, OmniVoice against LongCat-1B (primary) and
+-3.5B (secondary), in one session. An adaptation is costed only if the whole
+95% interval of LongCat-1B minus OmniVoice is above 0.0205.
 
 "Unrestricted" is a claim about every component, so it is only made where
 every component was checked. For MOSS v1.5 **[source]**:
@@ -496,6 +543,10 @@ sealed test sets (§3.1). No improvement is claimed before that has happened.
 7. Score each final candidate on the sealed test sets once. The session is
    built (`kaggle/build_omnivoice_test_kernel.py`) and waits for the
    development-set choice.
+8. The LongCat probe (§4), independent of 6 and 7: one session of about 1.6
+   GPU-hours, bounded at 2.5, on its own dataset so the adaptation's sessions
+   read nothing new. It decides whether a LongCat adaptation is worth costing;
+   it changes nothing in the OmniVoice plan.
 
 ## 10. Open questions for the user
 

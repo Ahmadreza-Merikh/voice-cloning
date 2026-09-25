@@ -1,0 +1,81 @@
+{
+  "run": "the LongCat probe: does LongCat-AudioDiT carry a Persian speaker's voice better than OmniVoice, when both read text they know?",
+  "status": "pre-registered 2026-09-25, before any render; kernel built, not pushed",
+  "why": "On 2026-09-25 the user asked whether LongCat-AudioDiT-1B, 'the best voice-cloning engine in the world', should be adapted to Persian instead of OmniVoice, or joined with the best Persian TTS. Checked live that day (SOTA_ROADMAP section 4): it reads Chinese and English only, ships no training code, and its lead is the 3.5B's WavLM similarity on Seed-TTS-eval, which other scorers and noisy prompts do not reproduce. Teaching it Persian would mean writing its training recipe, a language learned from nothing, and A100-class hardware for fp32 - so before any of that, this probe measures the one thing that would justify it: whether its identity transfer beats OmniVoice's on voices like the ones this project clones.",
+  "kernel": "marsmanam/persian-voice-longcat-probe, built by kaggle/build_longcat_probe_kernel.py",
+  "dataset": "marsmanam/persian-voice-longcat-probe: this repository staged by kaggle/build_dataset.py --dataset persian-voice-longcat-probe, so persian-voice-eval - which the adaptation's pending sessions read - is not re-staged by this",
+  "speakers": {
+    "source": "Neyshekar v6 (shekar-ai/neyshekar at 30696ada), its official validation split",
+    "planned": 25,
+    "of": 26,
+    "why": "not the development set (eight of nine speakers Common Voice, very probably in OmniVoice's training data and not LongCat's), not the sealed test sets (never used to choose), not training; Neyshekar is not on OmniVoice's published training list. The adaptation reads these speakers only as validation loss",
+    "roles": "as the sealed test's: reference the longest clip of 6.5-11.4 s, held out the four longest of the rest of at least 3.5 s (scripts/prepare_probe_corpus.py)",
+    "reference_transcripts": "the source's own transcript of the reference clip, in Persian, given to both engines"
+  },
+  "texts": {
+    "file": "eval/manifests/probe_texts_en_v1.json",
+    "count": 6,
+    "language": "en",
+    "sha256_of_texts": "6d7f7e3baea3c400647a69dcfeb459190a465079c2194a9167c987ef3b1b6459",
+    "why_english": "LongCat reads Chinese and English only; English is the language both engines read natively, so the comparison is of voices, not of Persian"
+  },
+  "seeds": [42],
+  "arms": {
+    "omnivoice": {
+      "role": "the reference arm: the model the adaptation starts from",
+      "weights": "k2-fsa/OmniVoice at c5fdb5cc, the audio tokenizer's sha256 checked",
+      "settings": "this repository's omnivoice engine at its configured settings (float16 on CUDA, 32 steps, guidance 2.0, ...), with language en - OmniVoice's own id for English text",
+      "label": "omnivoice-probe-en"
+    },
+    "longcat-1b": {
+      "role": "primary - the model the user asked about",
+      "weights": "meituan-longcat/LongCat-AudioDiT-1B at 4f4c1943, model.safetensors sha256 7f41b20933e4466400b8487fd20ca195efa65c5ca7c61f8e9bba6316aa3edcde",
+      "code": "github.com/meituan-longcat/LongCat-AudioDiT at 12c76b51: audiodit/__init__.py, configuration_audiodit.py, modeling_audiodit.py and utils.py, each checked against its git blob id",
+      "tokenizer": "google/umt5-base at 0de9394d (tokenizer files only; the text encoder's weights are in the LongCat checkpoint)",
+      "settings": "inference.py's steps: fp32 transformer and text encoder, fp16 VAE, the README's voice-cloning call - 16 steps, strength 4.0, APG - and its duration estimate; prompt transcript and text joined with one space",
+      "placement": "one GPU, as upstream",
+      "label": "longcat-1b-probe-en"
+    },
+    "longcat-3.5b": {
+      "role": "secondary - LongCat's SOTA claim is this model's",
+      "weights": "meituan-longcat/LongCat-AudioDiT-3.5B at 5d3e6dc0, model.safetensors sha256 708cdbf0bdf71cd485bf10c70a6043b22729730ef55a6b4bc2de2ce552e52fd8",
+      "settings": "as the 1B",
+      "placement": "its fp32 weights (15.3 GB) do not fit one 15 GB T4 beside the text encoder: the transformer runs on cuda:1, the text encoder and VAE on cuda:0, inputs moved to it and outputs back - placement, not precision",
+      "label": "longcat-3.5b-probe-en"
+    }
+  },
+  "one_environment": "all arms install before any renders: OmniVoice's pinned stack (torch 2.8.0+cu128, transformers 5.3.0 - the version LongCat's config names) plus einops, in one interpreter, so every arm is rendered and scored by the same stack",
+  "scoring": {
+    "similarity": "this project's ECAPA embedder, held-out similarity against each speaker's four held-out clips, as every benchmark",
+    "recogniser": "the scoring recogniser (faster-whisper large-v3-turbo, the pinned block) with its language set to en for the English runs; it is a guard here, not a target",
+    "not_used": "the recogniser floor cached in eval/results/_asr_floor.json is Persian and from another environment; the probe reads no CER against it"
+  },
+  "reading_fixed_before_the_run": {
+    "code": "scripts/read_longcat_probe.py",
+    "primary": "LongCat-1B minus OmniVoice on held-out similarity, paired per speaker, two-sided 95% t interval over speakers; better by more than the practical line only if the whole interval is above 0.0205 - then, and only then, an adaptation of LongCat is worth costing; whole interval below 0.0205: not better by the line; straddling it: not resolved, which does not justify the cost either",
+    "guard": "a render the English recogniser cannot read, or reads at a WER above 0.5, is not the requested speech; an arm with more than 10% of those is inconclusive and cannot clear the line",
+    "secondary": "LongCat-3.5B minus OmniVoice by the same rule, and 3.5B minus 1B; reported beside the primary, not as the decision",
+    "exploratory": [
+      "each engine's prompt similarity minus its held-out similarity, LongCat's against OmniVoice's: a larger gap for LongCat fits the reading that its Seed-TTS-eval lead is partly the prompt recording copied",
+      "LongCat-1B reading Persian script (benchmark sentences s1 and s2) beside OmniVoice on the same speakers, recogniser in Persian: how far it is from reading Persian untrained"
+    ],
+    "power": "25 speakers, bar 0.0205: 81% power for a true advantage of 0.05 at the pilot spread 0.050, 31% at its upper end 0.096; 15% for 0.03 - an advantage that small would not pay for an adaptation",
+    "failures": "a speaker with any failed or unscored cell for either arm is left out of that pair and listed (compare_runs); no speaker is added after looking"
+  },
+  "cells": {
+    "english": "25 speakers x 6 texts x 1 seed = 150 per arm, three arms",
+    "persian_exploratory": "25 speakers x 2 texts = 50 each for omnivoice and longcat-1b"
+  },
+  "order": "omnivoice-en, longcat-1b-en (the primary pair first), longcat-3.5b-en, then the two Persian runs - a session cut short still answers the primary question",
+  "budget_declared_before_the_push": {
+    "estimate": "about 1.6 GPU-hours of one T4 x2 session: installs 8 min, downloads about 25 GB with sha256 checks 12 min, 150 OmniVoice cells at the 6 s measured on a T4 (15 min), 150 LongCat-1B at an estimated 5 s (13 min), 150 LongCat-3.5B at an estimated 12 s plus a 15 GB load (35 min), 100 Persian cells (10 min)",
+    "bounds": "the session stops itself at 2.5 hours; each render run at 50 minutes (the 3.5B at 70) or what is left of the session",
+    "quota": "about 2.8 GPU-hours were left in the week ending 2026-09-26 00:00 UTC (PROJECT_STATUS, 2026-09-21; nothing has run on Kaggle since). Run later, it takes at most 2.5 of next week's 30, beside session c (11.25), the development session and the sealed test"
+  },
+  "what_this_cannot_say": [
+    "how LongCat would clone once adapted to Persian: adaptation can move identity (OmniVoice's early exports moved it +0.008 to +0.025 on the development set), but nothing here predicts by how much for a model that has to learn the language from nothing",
+    "anything about pronunciation: both engines read English",
+    "cross-lingual rendering carries an accent the reference never had, for both engines; in FINDINGS section 4 a cross-lingual probe put Chatterbox 0.13 below F5 reading Persian, with engine and language changed together - that is why here both arms are cross-lingual and the comparison is paired",
+    "whether a difference in ECAPA similarity is audible: nobody listens in this run"
+  ]
+}

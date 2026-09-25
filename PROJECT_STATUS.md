@@ -4,7 +4,28 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-25 19:44 +0330 (2026-09-25 16:14 UTC).
+Last updated: 2026-09-25 23:30 +0330 (2026-09-25 20:00 UTC).
+
+## Decided 2026-09-25: the OmniVoice plan goes on, LongCat waits for the test
+
+The user chose the recommendation after the probe: finish the OmniVoice
+adaptation (session c, the development session, the sealed test, the arms)
+and decide on a LongCat-1B adaptation only after the sealed test, with a
+pilot's bar at 0.601 in Persian.
+
+Checked before session c's push: its notebook rebuilds byte-identical,
+`.venv/bin/python -m pytest` passes, `persian-voice-eval` is still the version
+of 2026-09-19 20:45 UTC that a and b ran, and a and b read COMPLETE on Kaggle.
+[measured, `kaggle quota`, 19:40 UTC] 0.67 GPU-hours left, reset 2026-09-26
+00:00 UTC, so c is pushed right after the reset with its usual 11.25 h.
+
+Also checked what the later sessions read against their registration: only
+F5's configured `nfe_step` had moved (48 to 64 on the 21st). The arm is pinned
+to the registered 48 (`968af67`, amendment in
+`eval/runs/persian-voice-omnivoice-test.json`); FINDINGS section 3 measured 64
+as no better. Everything else - OmniVoice's settings, the scoring recogniser,
+the 12 test texts and 3 development sentences after the text pipeline - is as
+registered.
 
 ## The LongCat probe (2026-09-25): complete
 

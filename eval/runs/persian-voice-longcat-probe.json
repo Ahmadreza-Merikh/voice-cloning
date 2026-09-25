@@ -19,7 +19,9 @@
     "sha256_of_texts": "6d7f7e3baea3c400647a69dcfeb459190a465079c2194a9167c987ef3b1b6459",
     "why_english": "LongCat reads Chinese and English only; English is the language both engines read natively, so the comparison is of voices, not of Persian"
   },
-  "seeds": [42],
+  "seeds": [
+    42
+  ],
   "arms": {
     "omnivoice": {
       "role": "the reference arm: the model the adaptation starts from",
@@ -69,7 +71,7 @@
   "order": "omnivoice-en, longcat-1b-en (the primary pair first), longcat-3.5b-en, then the two Persian runs - a session cut short still answers the primary question",
   "budget_declared_before_the_push": {
     "estimate": "about 1.6 GPU-hours of one T4 x2 session: installs 8 min, downloads about 25 GB with sha256 checks 12 min, 150 OmniVoice cells at the 6 s measured on a T4 (15 min), 150 LongCat-1B at an estimated 5 s (13 min), 150 LongCat-3.5B at an estimated 12 s plus a 15 GB load (35 min), 100 Persian cells (10 min)",
-    "bounds": "the session stops itself at 2.5 hours; each render run at 50 minutes (the 3.5B at 70) or what is left of the session",
+    "bounds": "the session stops itself at 2.0 hours after its installs (amended from 2.5, see amendment_2026_09_25_quota); each render run at 50 minutes (the 3.5B at 70) or what is left of the session",
     "quota": "about 2.8 GPU-hours were left in the week ending 2026-09-26 00:00 UTC (PROJECT_STATUS, 2026-09-21; nothing has run on Kaggle since). Run later, it takes at most 2.5 of next week's 30, beside session c (11.25), the development session and the sealed test"
   },
   "what_this_cannot_say": [
@@ -77,5 +79,10 @@
     "anything about pronunciation: both engines read English",
     "cross-lingual rendering carries an accent the reference never had, for both engines; in FINDINGS section 4 a cross-lingual probe put Chatterbox 0.13 below F5 reading Persian, with engine and language changed together - that is why here both arms are cross-lingual and the comparison is paired",
     "whether a difference in ECAPA similarity is audible: nobody listens in this run"
-  ]
+  ],
+  "amendment_2026_09_25_quota": {
+    "registered": "2026-09-25 13:55 UTC, before the dataset was created or anything was pushed or rendered",
+    "why": "kaggle quota read live after the login: 27.49 of 30 GPU-hours used, 2.51 left until 2026-09-26 00:00 UTC. The installs run before the notebook's clock starts, so a 2.5 h bound could reach about 2.65 h, past the quota, and a session stopped for quota may keep none of its output",
+    "change": "the session bound is 2.0 h after the installs (about 2.2 h in all). Nothing in the design or the reading changes; the primary pair still renders first, and a run the bound stops writes no results, which can cost the secondary or the Persian runs, never the primary pair before them"
+  }
 }

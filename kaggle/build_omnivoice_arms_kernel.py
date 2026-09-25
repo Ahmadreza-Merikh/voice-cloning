@@ -9,8 +9,10 @@ answers nothing else - and the development set that chose that base is very
 probably contaminated, eight of its nine speakers being Common Voice. So two
 other engines render the same cells on the same unseen speakers:
 
-* **F5-TTS Persian**, the best-measured alternative on the development set
-  (0.546 against OmniVoice's 0.583) and the engine this project started from
+* **F5-TTS Persian** as published, the engine this project started from:
+  0.520 on the development set against OmniVoice's 0.583 (the 0.546 once
+  quoted here was the project's own continued checkpoint with best-of-4,
+  which this arm does not render), at its registered settings (F5_SETTINGS)
 * **Pocket-TTS Farsi v2**, trained on 973 h of Persian from 2,978 speakers,
   measured on the development set at 0.333
   (``eval/runs/persian-voice-pocket-tts-v1.json``)
@@ -73,6 +75,14 @@ POCKET_REVISION = "e87097ed98edb8bd9c9bcabe9b575a51a466d0e4"
 G2P_REPO = "mehdi-hf/Homo-GE2PE-Persian-HF"
 G2P_REVISION = "e314087bc761e323d127ee7899cb34f7c7d697cd"
 
+#: F5's generation settings as configured when the arm was registered
+#: (2026-09-20). The configured nfe_step became 64 on the 21st (6f3335d), a
+#: product default FINDINGS section 3 measured as no better on this corpus
+#: (0.517 against 0.520 at 48). The arm renders what was registered, pinned
+#: here so no later change to the defaults can move it.
+F5_SETTINGS = {"model_arch": "F5TTS_v1_Base", "vocoder": "vocos", "nfe_step": 48, "cfg_strength": 2.0,
+               "sway_sampling_coef": -1.0, "speed": 1.0, "cross_fade_duration": 0.15}
+
 #: Test shards, Common Voice, both F5 checkpoints and Pocket: about 13 GiB.
 FETCH_MINUTES = 45
 ARMS_PLAN = {"snapshots": [
@@ -115,8 +125,12 @@ if not GATES.skip("download", ("runner", "code")):
 '''
 
 #: Point each engine at what was fetched, so nothing reaches the network again.
-CONFIGURE = '''\
+CONFIGURE = f'''\
+F5_SETTINGS = {F5_SETTINGS!r}
+''' + '''\
 if not GATES.skip("configure", ("download",)):
+    for key, value in F5_SETTINGS.items():
+        os.environ["VOICECLONE__ENGINES__F5__" + key.upper()] = str(value)
     os.environ["VOICECLONE__ENGINES__F5__CHECKPOINT"] = "/tmp/f5-persian/model_last.pt"
     os.environ["VOICECLONE__ENGINES__F5__VOCAB"] = "/tmp/f5-persian/vocab.txt"
     os.environ["VOICECLONE__ENGINES__F5__FALLBACK_CHECKPOINT"] = (
@@ -128,7 +142,7 @@ if not GATES.skip("configure", ("download",)):
         ("f5 base", "/tmp/f5-base/F5TTS_v1_Base/model_1250000.safetensors"),
         ("pocket", "/tmp/pocket/model/model.safetensors"),
         ("g2p", "/tmp/pocket/g2p/config.json"))}
-    GATES.record("configure", all(present.values()), json.dumps(present))
+    GATES.record("configure", all(present.values()), json.dumps({**present, "f5_settings": F5_SETTINGS}))
 '''
 
 RENDER = f'''\

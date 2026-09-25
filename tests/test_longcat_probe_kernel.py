@@ -58,8 +58,9 @@ def test_only_the_3_5b_moves_its_transformer_and_every_run_sets_its_recogniser()
 
 
 def test_the_session_stays_inside_its_declared_bound() -> None:
-    assert kernel.SESSION_BUDGET_HOURS == 2.5
-    assert "2.5 hours" in PLAN["budget_declared_before_the_push"]["bounds"]
+    assert kernel.SESSION_BUDGET_HOURS == 2.0
+    assert "2.0 hours" in PLAN["budget_declared_before_the_push"]["bounds"]
+    assert "2.51 left" in PLAN["amendment_2026_09_25_quota"]["why"]
 
 
 def test_it_mounts_its_own_dataset_and_not_the_adaptations() -> None:

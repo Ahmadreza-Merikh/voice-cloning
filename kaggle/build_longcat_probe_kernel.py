@@ -55,7 +55,8 @@ dev = module("dev", "build_omnivoice_dev_kernel.py")
 SLUG = "persian-voice-longcat-probe"
 DATASET = "persian-voice-longcat-probe"
 SESSION = f"kaggle:{SLUG}-v1"
-SESSION_BUDGET_HOURS = 2.5
+#: Amended from 2.5 before the push: 2.51 GPU-hours were left this week (the plan's amendment).
+SESSION_BUDGET_HOURS = 2.0
 MIN_SPEAKERS = 20
 DISK_GIB = 40
 

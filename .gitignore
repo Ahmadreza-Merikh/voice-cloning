@@ -64,8 +64,9 @@ Thumbs.db
 # from the kernel output. The recipe is what belongs in git, not the weights.
 remote/
 
-# Staged copies for the Kaggle dataset, rebuilt by kaggle/build_dataset.py
+# Staged copies for the Kaggle datasets, rebuilt by kaggle/build_dataset.py
 kaggle/dataset/
+kaggle/dataset-*/
 
 # Built listening tests: copies of clips and renders, and answer keys
 listening/

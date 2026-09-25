@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-25 18:10 +0330 (2026-09-25 14:40 UTC).
+Last updated: 2026-09-25 17:20 +0330 (2026-09-25 13:50 UTC).
 
 ## The LongCat probe (2026-09-25): built, waiting for a Kaggle login
 

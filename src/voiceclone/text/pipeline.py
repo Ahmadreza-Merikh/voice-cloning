@@ -15,7 +15,7 @@ entire document at once.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any
 
 from ..config import TextConfig
@@ -139,6 +139,12 @@ class TextPipeline:
                 # The G2P wants diacritics; grapheme engines do not care.
                 remove_diacritics=False,
             )
+            if detected == "en":
+                # Every other step writes Persian: English text came out with
+                # "،" for "," and "۲۳۰۰۰" read as "بیست و سه هزار".
+                options = replace(options, unify_characters=False, fix_zwnj=False,
+                                  normalize_punctuation=False, expand_abbreviations=False,
+                                  expand_numbers=False)
             normalized = normalize(original, options)
             if normalized != original.strip():
                 notes.append("Text normalised (characters, spacing, numbers).")

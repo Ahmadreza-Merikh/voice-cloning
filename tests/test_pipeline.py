@@ -120,6 +120,17 @@ class TestTextPipeline:
         assert "۲۵۰۰۰" not in prepared.normalized  # numbers were verbalised
         assert prepared.estimated_seconds > 0
 
+    def test_english_keeps_english_punctuation_and_numbers(self, config: AppConfig) -> None:
+        prepared = TextPipeline(config.text).prepare("It cost 23000 dollars in 1985, right? Dr. Smith agreed.")
+        assert prepared.language == "en"
+        assert prepared.normalized == "It cost 23000 dollars in 1985, right? Dr. Smith agreed."
+
+    def test_mixed_text_is_still_normalised_as_persian(self, config: AppConfig) -> None:
+        prepared = TextPipeline(config.text).prepare("قیمت iPhone امروز ۲۰ درصد بالا رفت, نه؟")
+        assert prepared.language == "fa"
+        assert "۲۰" not in prepared.normalized
+        assert "," not in prepared.normalized
+
     def test_grapheme_engine_gets_no_phonemes(self, config: AppConfig, persian_text: str) -> None:
         pipeline = TextPipeline(config.text)
         prepared = pipeline.prepare(persian_text, engine_name="f5")

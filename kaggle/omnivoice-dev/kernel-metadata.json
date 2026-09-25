@@ -14,7 +14,8 @@
   "competition_sources": [],
   "kernel_sources": [
     "marsmanam/persian-voice-omnivoice-train-a",
-    "marsmanam/persian-voice-omnivoice-train-b"
+    "marsmanam/persian-voice-omnivoice-train-b",
+    "marsmanam/persian-voice-omnivoice-train-c"
   ],
   "model_sources": []
 }

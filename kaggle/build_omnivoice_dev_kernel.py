@@ -34,7 +34,11 @@ probe = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(probe)
 
 SLUG = "persian-voice-omnivoice-dev"
-SESSION = f"kaggle:{SLUG}-v1"
+#: Version 1 was the early run on sessions a and b
+#: (eval/runs/persian-voice-omnivoice-dev-early-v1.json). The run after session
+#: c is version 2, and it is the scoring environment its results carry: under
+#: v1's name they would pass as scored in the same session as the early run's.
+SESSION = f"kaggle:{SLUG}-v2"
 #: The training sessions whose exports are scored. ``--sessions=a,b`` runs it
 #: early, on what exists, which is also the only way this notebook gets tested
 #: before the session it is meant to follow has cost nine GPU-hours.

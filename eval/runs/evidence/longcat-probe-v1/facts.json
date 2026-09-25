@@ -1,0 +1,47 @@
+{
+  "omnivoice-probe-en": {
+    "role": "primary",
+    "complete": true,
+    "held_out": 0.5214553333333334,
+    "reference": 0.658468,
+    "cer": 0.0007650273224043716,
+    "renders": 150,
+    "failures": 0
+  },
+  "longcat-1b-probe-en": {
+    "role": "primary",
+    "complete": true,
+    "held_out": 0.5890633333333334,
+    "reference": 0.7400846666666667,
+    "cer": 0.0352133653064003,
+    "renders": 150,
+    "failures": 0
+  },
+  "longcat-3.5b-probe-en": {
+    "role": "secondary",
+    "complete": true,
+    "held_out": 0.5969393333333334,
+    "reference": 0.7467866666666667,
+    "cer": 0.023373035957878232,
+    "renders": 150,
+    "failures": 0
+  },
+  "omnivoice-probe-fa": {
+    "role": "persian",
+    "complete": true,
+    "held_out": 0.600996,
+    "reference": 0.73826,
+    "cer": 0.022170542635658916,
+    "renders": 50,
+    "failures": 0
+  },
+  "longcat-1b-probe-fa": {
+    "role": "persian",
+    "complete": true,
+    "held_out": 0.607004,
+    "reference": 0.783992,
+    "cer": 0.8164134366925064,
+    "renders": 50,
+    "failures": 0
+  }
+}

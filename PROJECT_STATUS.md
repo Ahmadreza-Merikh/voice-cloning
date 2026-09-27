@@ -14,9 +14,11 @@ UTC with the usual 11.25 h budget (declared in
 was meant for just after the reset of the 26th; this Mac's session only
 resumed at 15:26 UTC on the 27th, and [measured, `kaggle quota`] all 30.00
 GPU-hours were still there, resetting 2026-10-03 - so time was lost, not
-quota. Expected: about 9.5 h to step 5,000, ending near 2026-09-28 01:00 UTC,
-and at most 11.25 h after its start. While it runs the account has no free
-GPU slot: one T4 pair session holds both.
+quota. It then waited 2 h 40 min in Kaggle's queue for a T4 pair (nothing
+else on the account was running) and was first read RUNNING at 18:08:31 UTC.
+Expected: about 9.5 h to step 5,000, ending near 2026-09-28 03:40 UTC, and at
+most 11.25 h after its start (about 05:20 UTC). While it runs the account has
+no free GPU slot: one T4 pair session holds both.
 
 **Next, in order, when it ends:** read its gates and record it; re-stage
 `persian-voice-eval` with `kaggle/build_dataset.py` and verify it by download;

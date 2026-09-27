@@ -4,7 +4,24 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-25 23:30 +0330 (2026-09-25 20:00 UTC).
+Last updated: 2026-09-27 19:00 +0330 (2026-09-27 15:30 UTC).
+
+## Session c is on Kaggle (pushed 2026-09-27 15:27 UTC)
+
+`marsmanam/persian-voice-omnivoice-train-c` v1, pushed 2026-09-27 15:27:08
+UTC with the usual 11.25 h budget (declared in
+`eval/runs/persian-voice-omnivoice-adapt.json` before the push). The push
+was meant for just after the reset of the 26th; this Mac's session only
+resumed at 15:26 UTC on the 27th, and [measured, `kaggle quota`] all 30.00
+GPU-hours were still there, resetting 2026-10-03 - so time was lost, not
+quota. Expected: about 9.5 h to step 5,000, ending near 2026-09-28 01:00 UTC,
+and at most 11.25 h after its start. While it runs the account has no free
+GPU slot: one T4 pair session holds both.
+
+**Next, in order, when it ends:** read its gates and record it; re-stage
+`persian-voice-eval` with `kaggle/build_dataset.py` and verify it by download;
+push `kaggle/omnivoice-dev` (built for a, b and c as version 2); apply the
+fixed choice rule; push `kaggle/omnivoice-test`; then `kaggle/omnivoice-arms`.
 
 ## Decided 2026-09-25: the OmniVoice plan goes on, LongCat waits for the test
 

@@ -154,7 +154,8 @@
   },
   "session_c_v1": {
    "kernel": "marsmanam/persian-voice-omnivoice-train-c, version 1",
-   "pushed": "2026-09-27 15:27:08 UTC; status read QUEUED at 15:27:30",
+   "pushed": "2026-09-27 15:27:08 UTC; status read QUEUED at 15:27:30 and at every read after it, with nothing else on the account running and 0.00 GPU-hours used; RUNNING first read at 18:08:31 UTC (reads a minute apart). The 2 h 40 min wait was Kaggle's queue for a T4 pair, which a, b and the LongCat probe never met, and cost no quota",
+   "expected_end": "about 2026-09-28 03:40 UTC at 9.5 h; at the latest 11.25 h after the notebook's start, about 05:20 UTC",
    "built_from": "1af6894, rebuilt before the push and byte-identical to the committed notebook; dataset persian-voice-eval at its version of 2026-09-19 20:45 UTC, the one a and b ran",
    "mounts": "session a's tokens and session b's checkpoint-3000, through the official resume_from_checkpoint",
    "expected": "2,000 steps to 5,000, exports at 4,000 and 5,000, about 9.5 h; the notebook stops itself 11.25 h after its start at the latest",

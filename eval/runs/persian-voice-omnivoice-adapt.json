@@ -1,6 +1,6 @@
 {
  "run": "OmniVoice adapted to Persian by its official recipe, on Kaggle T4 pairs",
- "status": "sessions a and b complete: 3,000 of 5,000 steps trained; session c waits for the weekly quota reset on 2026-09-26",
+ "status": "sessions a and b complete: 3,000 of 5,000 steps trained; session c pushed 2026-09-27 15:27:08 UTC to finish at 5,000",
  "recipe": {
   "source": "k2-fsa/OmniVoice 08be0b4ccbac3e13e374e86fbfead4b4cac343e2, examples/config/train_config_finetune_sdpa.json (git blob 4b0a543e23be), fetched and checked in every session",
   "values": "lr 1e-5, AdamW weight decay 0.01, cosine schedule with 1% warmup, 5,000 steps, 8,192 tokens per GPU on two GPUs, no gradient accumulation, gradient norm clip 1.0, bf16 mixed precision, language_ratio 0.8, prompt ratio 0-0.3, mask ratio 0-1, condition drop 0.1, codebook weights [8,8,6,6,4,4,2,2], seed 42, evaluation and checkpoint every 500 steps",
@@ -151,6 +151,14 @@
    "needs": "2,000 steps at the measured 16.4 s, about 9.1 h of training plus start-up: the usual 11.25 h budget, built with no --hours override",
    "when": "after the weekly reset, 2026-09-26 00:00 UTC (2.82 GPU-hours are left before it)",
    "then": "the development session (about 1 h), the sealed test (about 6 h), the arms session (about 2.5 h)"
+  },
+  "session_c_v1": {
+   "kernel": "marsmanam/persian-voice-omnivoice-train-c, version 1",
+   "pushed": "2026-09-27 15:27:08 UTC; status read QUEUED at 15:27:30",
+   "built_from": "1af6894, rebuilt before the push and byte-identical to the committed notebook; dataset persian-voice-eval at its version of 2026-09-19 20:45 UTC, the one a and b ran",
+   "mounts": "session a's tokens and session b's checkpoint-3000, through the official resume_from_checkpoint",
+   "expected": "2,000 steps to 5,000, exports at 4,000 and 5,000, about 9.5 h; the notebook stops itself 11.25 h after its start at the latest",
+   "read_when_it_ends": "gates, RUNS, the checkpoint and the exports in the kernel output"
   }
  }
 }

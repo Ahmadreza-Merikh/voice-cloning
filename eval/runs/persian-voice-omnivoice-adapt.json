@@ -65,6 +65,16 @@
    ],
    "what_it_does_not_decide": "the candidate. The choice rule stays what it was fixed as, and the run that applies it is the one after session c, with every export. This one is exploratory and is recorded as exploratory",
    "touches_the_sealed_test": "no. Development speakers only; nothing reads a test clip"
+  },
+  "quota_before_session_c": {
+   "declared": "2026-09-27, before the push",
+   "left_this_week": "[measured, kaggle quota, 2026-09-27 15:26 UTC] 30.00 GPU-hours of 30, none used, resetting 2026-10-03 00:00 UTC",
+   "this_session_costs": "at most 11.25 h of wall clock: the usual budget, built with no --hours override, and the notebook stops itself there",
+   "expected": "about 15 min of setup (it mounts a's tokens and b's checkpoint-3000; nothing is tokenised again), then 2,000 steps at session b's 16.367 s, about 9.1 h, ending the recipe at step 5,000 with exports at 4,000 and 5,000: about 9.5 GPU-hours",
+   "first_normal_end": "a and b both ended by stopping at a checkpoint; c is the first session to reach the recipe's last step. The official trainer then saves step 5,000 twice, once as the every-500 save and once as its final save. The checkpoint save and the float16 export both overwrite in place, so the second is a repeat of the first (read in omnivoice/training/trainer.py and checkpoint.py, and in scripts/omnivoice_adapt.py)",
+   "leaves": "about 20 h for the development session (about 1 h), the sealed test (about 6 h) and the arms session (about 2.5 h)",
+   "timing": "planned for just after the reset of 2026-09-26 00:00 UTC; this Mac's session did not resume until 2026-09-27 15:26 UTC. The quota week runs to 2026-10-03, so the delay cost time and no quota",
+   "decided_by": "the user, 2026-09-25, choosing the plan recommended after the LongCat probe: finish OmniVoice, decide LongCat after the sealed test"
   }
  },
  "reading_fixed_before_the_run": "SOTA_ROADMAP.md section 8: the exports at 1,000-5,000 steps are scored on the development set beside the published model in one session; the one with the highest held-out similarity whose CER interval against the published model does not lie above zero is the candidate; only that candidate and the published model are then scored, once, on the sealed test sets (primary: the 28 usable Neyshekar test speakers; secondary: the 30 Common Voice ones), H0 delta <= 0, one-sided alpha 0.025. The training losses are not a quality result, and no improvement is claimed before the test comparison",

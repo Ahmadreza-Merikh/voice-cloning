@@ -177,6 +177,7 @@
   "pairing": "held-out similarity, candidate minus arm, paired per speaker over the speakers complete in both - the candidate's cells from the primary rerun (Neyshekar) and from version 1 (Common Voice); similarity reproduced across sessions in every check here, CER did not, so CER is compared between the two arms only",
   "budget": "about 2 to 2.5 GPU-hours as registered: 2 x (672 + 720) renders, F5 at 48 steps and Pocket on the same machine, plus about 13 GiB of downloads; each render run stops at 3 h and the session at 11.25 h. [measured, kaggle quota, 2026-09-30 17:05 UTC] 15.01 GPU-hours left until 2026-10-03 00:00 UTC",
   "version_1": "pushed 2026-09-30 17:18:59 UTC (a first push at 17:17 failed on the network and created nothing); stopped about 90 s in, in its environment cell, on 'No package metadata was found for omnivoice': the cell it shared with the test sessions asserts OmniVoice's pinned stack, which this session does not install. Nothing was fetched, rendered or scored",
-  "version_2": "the same notebook with an environment cell that records OmniVoice's stack without asserting it and records the arms' own packages; scoring environment kaggle:persian-voice-omnivoice-arms-v2"
+  "version_2": "the same notebook with an environment cell that records OmniVoice's stack without asserting it and records the arms' own packages; scoring environment kaggle:persian-voice-omnivoice-arms-v2",
+  "version_2_pushed": "2026-09-30 17:36:36 UTC; RUNNING at 17:39:59 (a status read between failed on the network)"
  }
 }

@@ -4,9 +4,47 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-30 13:15 +0330 (2026-09-30 09:45 UTC).
+Last updated: 2026-09-30 14:10 +0330 (2026-09-30 10:40 UTC).
 
-## The adaptation is trained; the development session is choosing (2026-09-30)
+## Now: the sealed test is running on Kaggle (pushed 2026-09-30 10:34 UTC)
+
+`marsmanam/persian-voice-omnivoice-test` v1 was pushed 2026-09-30 10:33:56
+UTC and read RUNNING at 10:34:19: the export at step 1,000 against the
+published model on both sealed test sets, twelve texts, seeds 42 and 43,
+scored in one session and read by `scripts/read_sealed_test.py` as
+pre-registered (`eval/runs/persian-voice-omnivoice-test.json`). About 6 h;
+each render run stops at 3 h and the session at 11.25 h. 20.07 GPU-hours were
+left before it, until 2026-10-03 00:00 UTC.
+
+**When it ends (from Windows, `docs/WINDOWS.md`):**
+
+1. `git pull`; read its status with
+   `kaggle kernels status marsmanam/persian-voice-omnivoice-test`.
+2. Fetch the small files: `python kaggle/fetch_output.py
+   marsmanam/persian-voice-omnivoice-test remote/omnivoice-test-v1 test/`
+   (`test/reading.json`, `gates.json`, `candidate.json` and the results; the
+   renders and corpora stay on Kaggle until someone listens).
+3. Record it as the other sessions were: the gates, the reading as the code
+   gave it (primary: Neyshekar, H0 difference <= 0, one-sided alpha 0.025;
+   secondary: the 0.0205 line and the Common Voice set; the CER guard), the
+   cost, evidence in `eval/runs/evidence/omnivoice-test-v1/`. Nothing is
+   claimed beyond what the reading says.
+4. Then push `kaggle/omnivoice-arms` (built, F5 pinned to its registered
+   settings) with its budget declared first - about 2 to 2.5 GPU-hours - and
+   read it beside the primary result only.
+5. Then the LongCat decision the user deferred to this point (below): the
+   bar for a Persian LongCat pilot is 0.601 on the probe's speakers.
+
+**The development session chose step 1,000** (2026-09-30, v2, 0.47
+GPU-hours, all gates passed): held-out similarity 0.6083, 0.5919, 0.6004,
+0.5937 and 0.5983 at steps 1,000 to 5,000 against the published model's
+0.5837; only 1,000 (+0.025 [+0.003, +0.046]) and 3,000 clear zero, and no
+CER interval lies above it. The published model, the first three exports and
+the scale control reproduced the early run in all 27 cells. So the steps
+after 1,000 added nothing on these speakers
+(`eval/runs/persian-voice-omnivoice-dev.json`).
+
+## The adaptation is trained (2026-09-30)
 
 **Session c is complete**: all four gates passed and the recipe's 5,000
 steps are trained. It resumed from b's `checkpoint-3000`, ran 2026-09-27
@@ -24,17 +62,6 @@ Kaggle's queue, and this Mac was closed between its end and 2026-09-30.
 file unpacked with identical content. (Its upload lost the connection three
 times and resumed each time; a first attempt was stopped while waiting to
 retry and created nothing.)
-
-**The development session** `persian-voice-omnivoice-dev` v2 was pushed
-2026-09-30 09:40 UTC and read RUNNING at once: the published model and all
-five exports on the development set, one session, the choice made in code by
-the rule of SOTA_ROADMAP section 8 (declared in
-`eval/runs/persian-voice-omnivoice-dev.json`; about 0.5 GPU-hours of the 20.54
-left until 2026-10-03).
-
-**Next, in order:** record the choice; push `kaggle/omnivoice-test` (reads
-the choice from the development session's output); then
-`kaggle/omnivoice-arms`. Both fit this week's remaining quota.
 
 **Where the work is driven from (2026-09-30):** the user will continue from a
 Windows machine, with this Mac off. The repository is on GitHub, private,

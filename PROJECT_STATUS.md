@@ -4,26 +4,37 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-27 19:00 +0330 (2026-09-27 15:30 UTC).
+Last updated: 2026-09-30 13:15 +0330 (2026-09-30 09:45 UTC).
 
-## Session c is on Kaggle (pushed 2026-09-27 15:27 UTC)
+## The adaptation is trained; the development session is choosing (2026-09-30)
 
-`marsmanam/persian-voice-omnivoice-train-c` v1, pushed 2026-09-27 15:27:08
-UTC with the usual 11.25 h budget (declared in
-`eval/runs/persian-voice-omnivoice-adapt.json` before the push). The push
-was meant for just after the reset of the 26th; this Mac's session only
-resumed at 15:26 UTC on the 27th, and [measured, `kaggle quota`] all 30.00
-GPU-hours were still there, resetting 2026-10-03 - so time was lost, not
-quota. It then waited 2 h 40 min in Kaggle's queue for a T4 pair (nothing
-else on the account was running) and was first read RUNNING at 18:08:31 UTC.
-Expected: about 9.5 h to step 5,000, ending near 2026-09-28 03:40 UTC, and at
-most 11.25 h after its start (about 05:20 UTC). While it runs the account has
-no free GPU slot: one T4 pair session holds both.
+**Session c is complete**: all four gates passed and the recipe's 5,000
+steps are trained. It resumed from b's `checkpoint-3000`, ran 2026-09-27
+18:14 to 2026-09-28 03:38 UTC at 16.7 s a step, ended normally at step 5,000
+and kept `checkpoint-5000` and the float16 exports at 4,000 and 5,000; 9.46
+GPU-hours. [measured] The official validation loss is flat from the first
+evaluation on - 4.229 at step 500, 4.241 at 5,000, between 4.22 and 4.35 at
+every point - so the loss decides nothing; the development session does
+(`eval/runs/persian-voice-omnivoice-adapt.json`, evidence
+`eval/runs/evidence/omnivoice-train-c-v1/`). It had waited 2 h 40 min in
+Kaggle's queue, and this Mac was closed between its end and 2026-09-30.
 
-**Next, in order, when it ends:** read its gates and record it; re-stage
-`persian-voice-eval` with `kaggle/build_dataset.py` and verify it by download;
-push `kaggle/omnivoice-dev` (built for a, b and c as version 2); apply the
-fixed choice rule; push `kaggle/omnivoice-test`; then `kaggle/omnivoice-arms`.
+**The dataset** `persian-voice-eval` was re-staged from `542b2a5` on
+2026-09-30 and verified by download: 279 files byte-identical and the split
+file unpacked with identical content. (Its upload lost the connection three
+times and resumed each time; a first attempt was stopped while waiting to
+retry and created nothing.)
+
+**The development session** `persian-voice-omnivoice-dev` v2 was pushed
+2026-09-30 09:40 UTC and read RUNNING at once: the published model and all
+five exports on the development set, one session, the choice made in code by
+the rule of SOTA_ROADMAP section 8 (declared in
+`eval/runs/persian-voice-omnivoice-dev.json`; about 0.5 GPU-hours of the 20.54
+left until 2026-10-03).
+
+**Next, in order:** record the choice; push `kaggle/omnivoice-test` (reads
+the choice from the development session's output); then
+`kaggle/omnivoice-arms`. Both fit this week's remaining quota.
 
 ## Decided 2026-09-25: the OmniVoice plan goes on, LongCat waits for the test
 

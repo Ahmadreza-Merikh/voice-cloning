@@ -1243,3 +1243,55 @@ adaptation can move identity, and nothing here predicts which way. Whether any
 of these differences is audible: nobody has listened. Record:
 `eval/runs/persian-voice-longcat-probe.json`, evidence in
 `eval/runs/evidence/longcat-probe-v1/`.
+
+## 12. The sealed test: the adaptation did not carry over to unseen speakers
+
+The question the whole adaptation was for: does OmniVoice, trained further on
+Persian by its official recipe, clone *unseen* Persian speakers better than the
+published model? It was answered on 30 September 2026 by the test fixed on 19
+September, before any training (`eval/runs/persian-voice-omnivoice-test.json`,
+SOTA_ROADMAP section 3.1): the candidate the development set chose by a rule
+written in advance - the float16 export at step 1,000 of 5,000 - against the
+published weights, the weights being the only difference, on two sealed sets
+nobody had rendered: Neyshekar's test speakers (primary, not on OmniVoice's
+training list) and Common Voice test speakers (secondary, very probably seen by
+OmniVoice). Twelve texts, seeds 42 and 43, both models scored in one session per
+set.
+
+The first session scored the secondary set; its primary runs stopped at the
+sixth speaker on a harness error - the Studio refused ney06's reference (2.7 s
+of speech after trimming, under its 3 s minimum) and the benchmark crashed
+instead of noting it. With that fixed and before any primary score was read,
+the primary set was rerun alone in a session of its own; ney06 is left out by
+the pre-registered rule for a speaker with failed cells.
+
+| set | speakers | published | step 1,000 | difference [95%] | CER, points |
+|---|---|---|---|---|---|
+| **Neyshekar (primary, unseen)** | 27 of 28 | 0.5959 | 0.5972 | **+0.0014 [-0.0042, +0.0069]** | -0.11 [-0.75, +0.53] |
+| Common Voice (secondary) | 30 of 30 | 0.5162 | 0.5202 | +0.0040 [+0.0002, +0.0079] | -0.56 [-1.15, +0.03] |
+
+**The pre-registered reading, as the code gave it.** Primary: no detectable
+improvement in held-out similarity - the interval's lower end is not above 0
+(one-sided p 0.31) - and CER no different. Secondary: H0 rejected on that set,
+a gain of 0.004, a fifth of the 0.0205 noise line. Nothing clears the practical
+line anywhere.
+
+**What it means.** The spread over speakers was 0.014 against the 0.050 the
+power design planned for, so the test resolved far more finely than planned:
+the interval's upper end, +0.007, excludes the 0.03 it was designed to detect.
+On speakers nobody trained on, 5,000 steps of the official recipe on 128 hours
+of Persian did not measurably improve zero-shot cloning, and did not change how
+well the recogniser can read the output. The development set's +0.025 did not
+carry over; that set is eight Common Voice speakers OmniVoice had very probably
+trained on, and the secondary set, from the same source, keeps a trace of the
+same thing. So the uplift the development set showed was, as §9 warned it
+might be, familiarity with the source rather than better cloning. By the rule
+written before the training, no improvement is claimed.
+
+**What it does not say.** Only the step-1,000 export was tested, as the rule
+fixes; the later exports scored no better on the development set. Similarity
+and CER are an encoder's and a recogniser's readings; nobody has listened. And
+the published OmniVoice on these unseen speakers - 0.596 on Neyshekar, 0.516 on
+Common Voice - is what the arms session (F5-TTS and Pocket-TTS on the same cells)
+is compared against next. Evidence: `eval/runs/evidence/omnivoice-test-v1/`
+(secondary) and `eval/runs/evidence/omnivoice-test-primary-v1/` (primary).

@@ -56,11 +56,43 @@ dev = module("dev", "build_omnivoice_dev_kernel.py")
 test = module("test", "build_omnivoice_test_kernel.py")
 
 SLUG = "persian-voice-omnivoice-arms"
-SESSION = f"kaggle:{SLUG}-v1"
+#: Version 1 (2026-09-30) stopped in its environment cell before anything was
+#: fetched or rendered; the run that renders is version 2.
+SESSION = f"kaggle:{SLUG}-v2"
 SEEDS = test.SEEDS
 SETS = test.SETS
 SESSION_BUDGET_HOURS = test.SESSION_BUDGET_HOURS
 RUN_TIMEOUT_HOURS = test.RUN_TIMEOUT_HOURS
+
+#: The test sessions' environment cell records OmniVoice's pinned stack and
+#: asserts it. This session installs neither OmniVoice nor that stack - that is
+#: why it runs apart - so version 1 stopped there on "No package metadata was
+#: found for omnivoice". Here the cell records the stack without asserting it,
+#: and records the packages this session does render with.
+OMNIVOICE_ONLY = (
+    ('direct = json.loads(importlib.metadata.distribution("omnivoice").read_text("direct_url.json") or "{}")\n',
+     "direct = {}\n"),
+    ("for name in PINNED:\n"
+     "    assert stack[name][\"matches\"], f\"{name} is not the official {OFFICIAL[name]}: {stack[name]['installed']}\"\n",
+     ""),
+    (f'assert ENVIRONMENT_RECORD["omnivoice"]["commit"] == "{probe.OMNIVOICE_COMMIT}", ENVIRONMENT_RECORD["omnivoice"]\n',
+     ""),
+)
+ARMS_PACKAGES = ("f5-tts", "pocket-tts", "vocos", "torch", "torchaudio", "transformers", "speechbrain",
+                 "faster-whisper", "ctranslate2", "jiwer")
+RECORD_LINE = 'Path("/kaggle/working/environment.json").write_text(json.dumps(ENVIRONMENT_RECORD, indent=2))\n'
+
+
+def environment() -> str:
+    source = dev.environment(SESSION)
+    for old, new in OMNIVOICE_ONLY:
+        assert source.count(old) == 1, f"the environment cell changed: {old!r}"
+        source = source.replace(old, new)
+    assert source.count(RECORD_LINE) == 1, "the environment cell no longer writes its record"
+    packages = f'ENVIRONMENT_RECORD["arms_packages"] = {{name: installed(name) for name in {ARMS_PACKAGES!r}}}\n'
+    source = source.replace(RECORD_LINE, packages + RECORD_LINE)
+    return source.replace("import hashlib\n", "import hashlib\nimport time as _clock\nNOTEBOOK_START = _clock.time()\n", 1)
+
 
 #: The engines, in the order they render: the better-measured one first, so a
 #: session cut short still answers the question it was added for.
@@ -212,10 +244,9 @@ print("gates:", json.dumps(GATES.summary(), indent=1))
 
 
 def main() -> int:
-    environment = dev.environment(SESSION).replace(
-        "import hashlib\n", "import hashlib\nimport time as _clock\nNOTEBOOK_START = _clock.time()\n", 1)
-    assert "NOTEBOOK_START" in environment
-    cells = [SETUP, environment, probe.RUNNER, DOWNLOAD, test.CORPORA, CONFIGURE, RENDER, COLLECT]
+    cell = environment()
+    assert "NOTEBOOK_START" in cell and "omnivoice\")" not in cell.split("stack = ")[1].split("ENVIRONMENT_RECORD")[0]
+    cells = [SETUP, cell, probe.RUNNER, DOWNLOAD, test.CORPORA, CONFIGURE, RENDER, COLLECT]
     for index, source in enumerate(cells):
         compile("".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),
                 f"<cell {index}>", "exec")

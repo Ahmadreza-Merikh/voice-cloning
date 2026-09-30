@@ -1,0 +1,15 @@
+{
+ "run": "the development session that chooses the candidate among the adaptation's five float16 exports",
+ "status": "declared before the push; not yet pushed",
+ "kernel": "marsmanam/persian-voice-omnivoice-dev, version 2, built by kaggle/build_omnivoice_dev_kernel.py (7d94b45). Version 1 was the early run on sessions a and b (eval/runs/persian-voice-omnivoice-dev-early-v1.json), which chose nothing",
+ "scoring_environment": "kaggle:persian-voice-omnivoice-dev-v2",
+ "what_it_scores": "the development set - nine speakers, three sentences, seed 42, the manifest's first reference clip, as every engine here was scored - with the published model (k2-fsa/OmniVoice c5fdb5cc) and the float16 exports at steps 1,000 and 2,000 (session a), 3,000 (b), 4,000 and 5,000 (c), all through this repository's OmniVoice engine at its configured settings and rendered and scored in this one session. The stored F5 baseline renders are re-scored as the scale control",
+ "reading_fixed_before_the_run": "SOTA_ROADMAP.md section 8: the export with the highest held-out similarity whose CER interval against the published model does not lie above zero is the candidate. The notebook applies it in code and writes choice.json; the sealed test session reads that file and nothing else. No improvement is claimed here: choosing among five on the development set is what this set is for, and the development speakers are very probably in OmniVoice's own training data (FINDINGS section 9)",
+ "code": "persian-voice-eval as staged from 542b2a5 and uploaded 2026-09-30 09:38 UTC; verified by download the same day: 279 files byte-identical and the split file unpacked by Kaggle with identical content, none missing, none different, none extra",
+ "what_changed_since_the_early_run": "the dataset carries the code of 2026-09-21 to 2026-09-25 as well. Checked on 2026-09-25 against what this session reads (eval/runs/persian-voice-omnivoice-test.json, amendment_2026_09_25_f5_settings_pinned): OmniVoice's settings are unchanged, the scoring recogniser is pinned to the historical block, and the three development sentences come out of the text pipeline byte-identical. So its scores sit on the early run's axis, and the scale control checks that",
+ "budget_declared_before_the_push": {
+  "estimate": "about 0.5 GPU-hours: the early run did 4 x 27 renders and the scale control in 17 minutes (0.31 GPU-hours); this one does 6 x 27 and the same control",
+  "bounds": "each benchmark run stops at 1.5 h",
+  "quota": "[measured, kaggle quota, 2026-09-30 09:39 UTC] 20.54 GPU-hours left until 2026-10-03 00:00 UTC; the sealed test (about 6 h) and the arms session (about 2.5 h) follow in the same week"
+ }
+}

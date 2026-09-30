@@ -1,0 +1,18 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.3s; 104588 shown"
+  },
+  "download": {
+    "passed": true,
+    "reason": "0.3 min; {\"base\": \"/tmp/omnivoice-base\", \"config\": \"/tmp/adapt/official/train_config_finetune_sdpa.json\", \"fetched\": {\"train_config_finetune_sdpa.json\": {\"gib\": null, \"seconds\": null, \"tries\": [{\"attempt\": 1, \"seconds\": 0.1}], \"failed_check\": null}, \"base\": {\"gib\": 3.043, \"seconds\": 17.1, \"tries\": [{\"attempt\": 1, \"seconds\": 17.1}], \"failed_check\": null}}}"
+  },
+  "mounted": {
+    "passed": true,
+    "reason": "{\"train\": {\"shards\": 88, \"from\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/tokens/train\"}, \"valid\": {\"shards\": 33, \"from\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/tokens/valid\"}, \"resume_from\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-b/run/checkpoint-3000\"}"
+  },
+  "train": {
+    "passed": true,
+    "reason": "{\"outcome\": [\"finished\", \"finished\"], \"global_step\": [5000, 5000], \"checkpoints\": [\"checkpoint-5000\"], \"exports\": [\"export-4000-float16\", \"export-5000-float16\"], \"mean_step_seconds\": [16.736, 16.736], \"peak_reserved_gib\": [13.402, 13.473]}"
+  }
+}

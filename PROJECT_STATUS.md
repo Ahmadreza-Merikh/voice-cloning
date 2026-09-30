@@ -30,9 +30,9 @@ a results file. The primary set was rerun alone with the fix
 registered before any primary score was read
 (`amendment_2026_09_30_primary_rerun`).
 
-## Now: the arms session is running (pushed 2026-09-30 17:19 UTC)
+## Now: the arms session is running (version 2, pushed 2026-09-30 17:36 UTC)
 
-`marsmanam/persian-voice-omnivoice-arms` v1: F5-TTS Persian (at its registered
+`marsmanam/persian-voice-omnivoice-arms` v2 (pushed 17:36 UTC; v1 stopped in its environment cell, fixed in the builder): F5-TTS Persian (at its registered
 48 steps) and Pocket-TTS Farsi v2 on the same sealed cells, read beside the
 primary result only - held-out similarity, the candidate minus each arm, paired
 per speaker. About 2 to 2.5 GPU-hours of the 15.01 left until 2026-10-03

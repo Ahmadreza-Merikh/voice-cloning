@@ -1,6 +1,6 @@
 {
  "run": "the development session that chooses the candidate among the adaptation's five float16 exports",
- "status": "declared before the push; not yet pushed",
+ "status": "complete 2026-09-30: the fixed rule chose the export at step 1,000 as the candidate for the sealed test",
  "kernel": "marsmanam/persian-voice-omnivoice-dev, version 2, built by kaggle/build_omnivoice_dev_kernel.py (7d94b45). Version 1 was the early run on sessions a and b (eval/runs/persian-voice-omnivoice-dev-early-v1.json), which chose nothing",
  "scoring_environment": "kaggle:persian-voice-omnivoice-dev-v2",
  "what_it_scores": "the development set - nine speakers, three sentences, seed 42, the manifest's first reference clip, as every engine here was scored - with the published model (k2-fsa/OmniVoice c5fdb5cc) and the float16 exports at steps 1,000 and 2,000 (session a), 3,000 (b), 4,000 and 5,000 (c), all through this repository's OmniVoice engine at its configured settings and rendered and scored in this one session. The stored F5 baseline renders are re-scored as the scale control",
@@ -11,5 +11,23 @@
   "estimate": "about 0.5 GPU-hours: the early run did 4 x 27 renders and the scale control in 17 minutes (0.31 GPU-hours); this one does 6 x 27 and the same control",
   "bounds": "each benchmark run stops at 1.5 h",
   "quota": "[measured, kaggle quota, 2026-09-30 09:39 UTC] 20.54 GPU-hours left until 2026-10-03 00:00 UTC; the sealed test (about 6 h) and the arms session (about 2.5 h) follow in the same week"
+ },
+ "outcome": {
+  "pushed": "2026-09-30 09:40:00 UTC, version 2; RUNNING at once; COMPLETE, read at 10:30:34 UTC",
+  "gates": "runner, download, scale-control, control, exports, choice - all passed",
+  "scale_control": "[measured] the stored F5 baseline renders re-scored here: 0.5196, as on the Mac and in the early run",
+  "published_omnivoice": "[measured] 0.5837, CER 2.9%",
+  "exports": {
+   "1000": {"held_out": 0.6083, "minus_published": [0.0245, 0.0029, 0.0462], "cer_minus_published": [-0.0005, -0.0202, 0.0192]},
+   "2000": {"held_out": 0.5919, "minus_published": [0.0082, -0.0132, 0.0296], "cer_minus_published": [-0.0025, -0.0136, 0.0087]},
+   "3000": {"held_out": 0.6004, "minus_published": [0.0167, 0.0012, 0.0321], "cer_minus_published": [-0.0040, -0.0160, 0.0081]},
+   "4000": {"held_out": 0.5937, "minus_published": [0.0100, -0.0067, 0.0266], "cer_minus_published": [-0.0063, -0.0177, 0.0052]},
+   "5000": {"held_out": 0.5983, "minus_published": [0.0146, -0.0032, 0.0324], "cer_minus_published": [-0.0103, -0.0221, 0.0016]}
+  },
+  "the_choice": "step 1,000 (export-1000-float16, kept by session a): the highest held-out similarity, and no export's CER interval lies above zero. This is the candidate the sealed test compares against the published model; nothing here is a claim",
+  "reproduced": "[measured] the published model, the exports at 1,000, 2,000 and 3,000 and the scale control give the same held-out similarity and the same CER in all 27 cells as the early run of 2026-09-20, in a different session and with the code of 542b2a5 instead of b103fa6 - the check of 2026-09-25 that the later code changes none of these renders, confirmed",
+  "reading": "[measured] the steps after 1,000 did not add identity transfer on the development set: 4,000 and 5,000 sit at +0.010 and +0.015, inside each other's and 1,000's intervals, as 2,000 and 3,000 did. Their CER means fall with training (-0.05, -0.25, -0.40, -0.63, -1.03 points) and no interval clears zero, so no intelligibility gain is shown either. Development speakers are very probably in OmniVoice's own training data, so none of this says how the adaptation does on unseen speakers - the sealed test answers that",
+  "cost": "[measured, kaggle quota] 0.47 GPU-hours; 20.07 left until 2026-10-03 00:00 UTC",
+  "evidence": "eval/runs/evidence/omnivoice-dev-v2/"
  }
 }

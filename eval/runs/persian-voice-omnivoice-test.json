@@ -1,6 +1,6 @@
 {
  "run": "the sealed test of the Persian adaptation of OmniVoice",
- "status": "pre-registered and waiting for the adaptation to finish; amended 2026-09-20 to render F5 and Pocket-TTS on the same sealed corpora as pre-registered secondary arms; F5's registered settings pinned 2026-09-25",
+ "status": "pre-registered and waiting for the adaptation to finish; amended 2026-09-20 to render F5 and Pocket-TTS on the same sealed corpora as pre-registered secondary arms; F5's registered settings pinned 2026-09-25; version 1 ran 2026-09-30 and scored the secondary set, its primary runs stopped on a harness error, and the primary set is rerun alone (amendment_2026_09_30_primary_rerun)",
  "kernel": "marsmanam/persian-voice-omnivoice-test, built by kaggle/build_omnivoice_test_kernel.py (d667c6b); not pushed",
  "runs_after": "the development-set session (kaggle/omnivoice-dev) has chosen an export by the rule of SOTA_ROADMAP section 8, and the dataset has been re-staged with this code",
  "comparison": "the chosen float16 export minus k2-fsa/OmniVoice at c5fdb5cc, both through this repository's OmniVoice engine at its configured settings, rendered and scored in one session; the weights are the only difference",
@@ -91,6 +91,18 @@
   "quota": "[measured, kaggle quota, 2026-09-30 10:32 UTC] 20.07 GPU-hours left until 2026-10-03 00:00 UTC; this session is budgeted at about 6 h (each render run stops at 3 h, the session at 11.25 h), and the arms session's 2 to 2.5 h follows it",
   "runs_once": "it reads the sealed test clips for the first time; a mechanical failure before any render is re-run, anything after a render is read as the pre-registration says",
   "pushed": "2026-09-30 10:33:56 UTC, version 1; QUEUED, then RUNNING at 10:34:19 UTC"
+ },
+ "amendment_2026_09_30_primary_rerun": {
+  "registered": "2026-09-30, after version 1 ended and before any primary score existed",
+  "what_happened": "version 1 (pushed 10:33:56 UTC, about 3 h, 2.90 GPU-hours) wrote both corpora (Neyshekar 28 speakers, Common Voice 30, none replaced), found the candidate (step 1,000; export-1000-float16, model.safetensors sha256 9c453a74...) and completed both secondary runs, 720 renders each. Both primary runs stopped at their sixth speaker with KeyError: 'window' in scripts/benchmark.py: the Studio refused ney06's reference (a 7.44 s clip with 2.7 s of speech left after the configured trimming, under its 3 s minimum), prepared_window recorded the refusal as it should, and the note printed after it read a window that was not there. Neither primary run wrote a results file. Their logs print a line per cell for the 120 cells each made before stopping (ney01-ney05); nobody has read those lines or listened to those renders, only the error at the end of each log was read, and the rerun renders the same cells again",
+  "what_was_seen": "the secondary set's reading, which the gate printed beside the failure. The decision below follows from the failure alone: without it the primary comparison does not exist",
+  "fix": "130a649: the note comes from window_note, which reports a refused reference; each render of that speaker then fails and says why, as prepared_window's docstring always said. Tested",
+  "checked_before_the_rerun": "all 28 primary references through the same preparation on this Mac: only ney06 is refused (2.7 s); the other 27 prepare to 4.56-10.46 s. Where the Kaggle log shows a value it agrees (ney05: 4.7 s)",
+  "the_rerun": "the primary set only, both models in one new session: marsmanam/persian-voice-omnivoice-test-primary, built by --primary-rerun (5137590) - the same corpus rule, texts, seeds, candidate and reading, with a scoring environment of its own, and the code from persian-voice-eval re-staged with the fix",
+  "ney06": "left out of the primary comparison by the pre-registered rule for a speaker with failed cells: every render of it fails, for both models. 27 of the 28 planned speakers remain",
+  "secondary_stands": "the secondary comparison was scored in one session, version 1, and is read from there. It is not run again",
+  "budget": "about 2.2 GPU-hours: 2 x 672 renders at the 5.5 s a cell version 1's secondary runs took, plus setup. [measured, kaggle quota, 2026-09-30 13:55 UTC] 17.17 GPU-hours left until 2026-10-03 00:00 UTC; the arms session's 2 to 2.5 h follows",
+  "evidence_of_version_1": "eval/runs/evidence/omnivoice-test-v1/: gates, runs, candidate, environment, the reading, both secondary results with their recipes, both corpora's roster and manifest, the notebook's log (which carries part of every run's output), and for each primary run only the error at the end of its log. The full logs, renders and corpora stay in the kernel's output on Kaggle"
  },
  "amendment_2026_09_25_f5_settings_pinned": {
   "registered": "2026-09-25, before any test clip has been rendered by anything and before session c has started. The primary comparison is untouched",

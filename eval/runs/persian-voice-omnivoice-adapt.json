@@ -1,6 +1,6 @@
 {
  "run": "OmniVoice adapted to Persian by its official recipe, on Kaggle T4 pairs",
- "status": "sessions a and b complete: 3,000 of 5,000 steps trained; session c pushed 2026-09-27 15:27:08 UTC to finish at 5,000",
+ "status": "complete: all 5,000 steps of the recipe trained across sessions a, b and c (c ended 2026-09-28 03:38 UTC); five float16 exports kept for the development session to choose among",
  "recipe": {
   "source": "k2-fsa/OmniVoice 08be0b4ccbac3e13e374e86fbfead4b4cac343e2, examples/config/train_config_finetune_sdpa.json (git blob 4b0a543e23be), fetched and checked in every session",
   "values": "lr 1e-5, AdamW weight decay 0.01, cosine schedule with 1% warmup, 5,000 steps, 8,192 tokens per GPU on two GPUs, no gradient accumulation, gradient norm clip 1.0, bf16 mixed precision, language_ratio 0.8, prompt ratio 0-0.3, mask ratio 0-1, condition drop 0.1, codebook weights [8,8,6,6,4,4,2,2], seed 42, evaluation and checkpoint every 500 steps",
@@ -159,7 +159,26 @@
    "built_from": "1af6894, rebuilt before the push and byte-identical to the committed notebook; dataset persian-voice-eval at its version of 2026-09-19 20:45 UTC, the one a and b ran",
    "mounts": "session a's tokens and session b's checkpoint-3000, through the official resume_from_checkpoint",
    "expected": "2,000 steps to 5,000, exports at 4,000 and 5,000, about 9.5 h; the notebook stops itself 11.25 h after its start at the latest",
-   "read_when_it_ends": "gates, RUNS, the checkpoint and the exports in the kernel output"
+   "read_when_it_ends": "gates, RUNS, the checkpoint and the exports in the kernel output",
+   "ended": "COMPLETE. Training ran 2026-09-27 18:13:58 to 2026-09-28 03:37:38 UTC (563.7 min) and ended the recipe normally at step 5,000 on both ranks ('finished', not a session stop); the notebook's log ends 34,068 s after its start. Read 2026-09-30: this Mac's watcher saw COMPLETE at 2026-09-28 15:17 UTC and the app was closed before it was acted on",
+   "gates": "runner, download, mounted, train - all passed",
+   "mounted": "session a's 88 train and 33 valid token shards and session b's checkpoint-3000, through the official resume_from_checkpoint ('Resumed from step 3000'); download 0.3 min, nothing tokenised again",
+   "stack": "torch 2.8.0+cu128, transformers 5.3.0, accelerate 1.13.0 and the rest of the official pins, installed as in a and b; OmniVoice 08be0b4c; two Tesla T4",
+   "training": {
+    "steps": "2,000 more, 3,000 -> 5,000: the recipe is complete",
+    "mean_step_seconds": 16.736,
+    "peak_reserved_gib": [
+     13.402,
+     13.473
+    ],
+    "saves": "3,500, 4,000, 4,500 and 5,000 (51-60 s each), then 5,000 again as the official trainer's final save (66 s): the repeat declared before the push, harmless - the export list reads [4000, 5000, 5000]",
+    "kept": "checkpoint-5000 with optimizer state, export-4000-float16, export-5000-float16",
+    "train_loss": "[measured] means per 500 steps 4.237, 4.231, 4.230, 4.215; first 100 steps 4.223, last 100 4.193",
+    "eval_loss": "[measured] the official validation pass: 4.2300 at 3,500, 4.2655 at 4,000, 4.2902 at 4,500, 4.2412 at 5,000",
+    "reading": "[measured] across the whole run the official validation loss is flat from the first evaluation on: 4.229, 4.262, 4.346, 4.235, 4.344, 4.217, 4.230, 4.266, 4.290, 4.241 at steps 500 to 5,000. The loss says nothing about whether any export clones Persian voices better; the development session scores all five against the published model and the fixed rule chooses"
+   },
+   "cost": "[measured, kaggle quota] 9.46 GPU-hours, the only session this week; 20.54 h left until 2026-10-03 00:00 UTC",
+   "evidence": "eval/runs/evidence/omnivoice-train-c-v1/"
   }
  }
 }

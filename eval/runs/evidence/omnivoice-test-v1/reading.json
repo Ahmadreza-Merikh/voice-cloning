@@ -1,0 +1,151 @@
+{
+  "ney": {
+    "error": "no results for omnivoice-fa-1000-test-ney at /kaggle/working/repo/eval/results/omnivoice-fa-1000-test-ney.json"
+  },
+  "cv": {
+    "role": "secondary",
+    "candidate": "omnivoice-fa-1000-test-cv",
+    "published": "omnivoice-published-test-cv",
+    "scoring_environment": "kaggle:persian-voice-omnivoice-test-v1",
+    "held_out_similarity": {
+      "mean": 0.004045000000000001,
+      "low": 0.00015864228746922124,
+      "high": 0.007931357712530781,
+      "sd": 0.010407857102381908,
+      "speakers": 30,
+      "speakers_total": 30,
+      "cells": 720,
+      "design_cells": 720,
+      "left_out": {},
+      "note": "",
+      "p_one_sided": 0.020948534436317237
+    },
+    "cer_percentage_points": {
+      "mean": -0.5617704475844518,
+      "low": -1.1497004694008544,
+      "high": 0.02615957423195061,
+      "sd": 1.5745055154175882,
+      "speakers": 30,
+      "speakers_total": 30,
+      "cells": 720,
+      "design_cells": 720,
+      "left_out": {},
+      "note": ""
+    },
+    "h0_rejected": true,
+    "clears_practical_reference": false,
+    "cer_counts_against": false,
+    "verdict": "secondary set: higher held-out similarity than the published model (H0 of no improvement rejected, one-sided alpha 0.025), with a CER interval that does not lie above zero",
+    "planning": {
+      "true_effect": 0.03,
+      "spread": 0.05,
+      "spread_upper": 0.096,
+      "spread_observed": 0.010407857102381908,
+      "alpha_one_sided": 0.025,
+      "note": "a spread above the planning value lowers the power; the interval stands as it is"
+    },
+    "exploratory": {
+      "label": "exploratory - Holm-corrected across the categories, not a claim",
+      "categories": {
+        "conversational": {
+          "mean": -0.0002933333333333255,
+          "low": -0.006829047484694473,
+          "high": 0.006242380818027823,
+          "sd": 0.017502963952612048,
+          "speakers": 30,
+          "speakers_total": 30,
+          "cells": 120,
+          "design_cells": 120,
+          "left_out": {},
+          "note": "",
+          "p_two_sided": 0.9274935189508509,
+          "p_holm": 1.0
+        },
+        "formal": {
+          "mean": 0.006419999999999993,
+          "low": 0.0001207675974961124,
+          "high": 0.012719232402503874,
+          "sd": 0.016869654197956184,
+          "speakers": 30,
+          "speakers_total": 30,
+          "cells": 120,
+          "design_cells": 120,
+          "left_out": {},
+          "note": "",
+          "p_two_sided": 0.04603610769885816,
+          "p_holm": 0.27621664619314895
+        },
+        "homographs_and_ezafe": {
+          "mean": 0.00467,
+          "low": -0.002674879039135422,
+          "high": 0.012014879039135421,
+          "sd": 0.01966994732037193,
+          "speakers": 30,
+          "speakers_total": 30,
+          "cells": 120,
+          "design_cells": 120,
+          "left_out": {},
+          "note": "",
+          "p_two_sided": 0.20370660775844696,
+          "p_holm": 0.9600486748975857
+        },
+        "long": {
+          "mean": -3.833333333333096e-05,
+          "low": -0.010702150744963133,
+          "high": 0.010625484078296471,
+          "sd": 0.028558227521948948,
+          "speakers": 30,
+          "speakers_total": 30,
+          "cells": 60,
+          "design_cells": 60,
+          "left_out": {},
+          "note": "",
+          "p_two_sided": 0.9941843427807295,
+          "p_holm": 1.0
+        },
+        "names_and_loanwords": {
+          "mean": 0.0030549999999999952,
+          "low": -0.0027654985011137563,
+          "high": 0.008875498501113747,
+          "sd": 0.015587581263787287,
+          "speakers": 30,
+          "speakers_total": 30,
+          "cells": 120,
+          "design_cells": 120,
+          "left_out": {},
+          "note": "",
+          "p_two_sided": 0.2919083215234849,
+          "p_holm": 0.9600486748975857
+        },
+        "numbers": {
+          "mean": 0.007059166666666669,
+          "low": 0.0014503374241505934,
+          "high": 0.012667995909182744,
+          "sd": 0.015020720578434387,
+          "speakers": 30,
+          "speakers_total": 30,
+          "cells": 120,
+          "design_cells": 120,
+          "left_out": {},
+          "note": "",
+          "p_two_sided": 0.015424416375483207,
+          "p_holm": 0.10797091462838244
+        },
+        "very_short": {
+          "mean": 0.006756666666666672,
+          "low": -0.00358853407217729,
+          "high": 0.017101867405510635,
+          "sd": 0.02770495640125431,
+          "speakers": 30,
+          "speakers_total": 30,
+          "cells": 60,
+          "design_cells": 60,
+          "left_out": {},
+          "note": "",
+          "p_two_sided": 0.19200973497951715,
+          "p_holm": 0.9600486748975857
+        }
+      }
+    }
+  }
+}

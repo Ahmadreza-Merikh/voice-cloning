@@ -19,7 +19,8 @@ import sys
 def main() -> int:
     if len(sys.argv) != 2:
         raise SystemExit(__doc__)
-    os.environ.setdefault("KAGGLE_CONFIG_DIR", os.path.expanduser("~/.kaggle-oauth"))
+    if os.path.isdir(os.path.expanduser("~/.kaggle-oauth")):
+        os.environ.setdefault("KAGGLE_CONFIG_DIR", os.path.expanduser("~/.kaggle-oauth"))
     from kaggle.api.kaggle_api_extended import KaggleApi
 
     api = KaggleApi()

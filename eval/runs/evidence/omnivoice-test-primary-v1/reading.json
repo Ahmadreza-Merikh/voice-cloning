@@ -1,0 +1,166 @@
+{
+  "ney": {
+    "role": "primary",
+    "candidate": "omnivoice-fa-1000-test-ney",
+    "published": "omnivoice-published-test-ney",
+    "scoring_environment": "kaggle:persian-voice-omnivoice-test-primary-v1",
+    "held_out_similarity": {
+      "mean": 0.0013597222222222218,
+      "low": -0.004154370396708207,
+      "high": 0.006873814841152652,
+      "sd": 0.013939019885699695,
+      "speakers": 27,
+      "speakers_total": 28,
+      "cells": 648,
+      "design_cells": 672,
+      "left_out": {
+        "ney06": "24 of 24 cells unusable (omnivoice-fa-1000-test-ney failed)"
+      },
+      "note": "",
+      "p_one_sided": 0.30825771327764095
+    },
+    "cer_percentage_points": {
+      "mean": -0.10882344667488275,
+      "low": -0.7466677183074178,
+      "high": 0.5290208249576523,
+      "sd": 1.6124001899681766,
+      "speakers": 27,
+      "speakers_total": 28,
+      "cells": 648,
+      "design_cells": 672,
+      "left_out": {
+        "ney06": "24 of 24 cells unusable (omnivoice-fa-1000-test-ney failed)"
+      },
+      "note": ""
+    },
+    "h0_rejected": false,
+    "clears_practical_reference": false,
+    "cer_counts_against": false,
+    "verdict": "no detectable improvement in held-out similarity: the interval's lower end is not above 0",
+    "planning": {
+      "true_effect": 0.03,
+      "spread": 0.05,
+      "spread_upper": 0.096,
+      "spread_observed": 0.013939019885699695,
+      "alpha_one_sided": 0.025,
+      "note": "a spread above the planning value lowers the power; the interval stands as it is"
+    },
+    "exploratory": {
+      "label": "exploratory - Holm-corrected across the categories, not a claim",
+      "categories": {
+        "conversational": {
+          "mean": -0.0035037037037037003,
+          "low": -0.013426357937904868,
+          "high": 0.0064189505304974685,
+          "sd": 0.025083378943366538,
+          "speakers": 27,
+          "speakers_total": 28,
+          "cells": 108,
+          "design_cells": 112,
+          "left_out": {
+            "ney06": "4 of 4 cells unusable (omnivoice-fa-1000-test-ney failed)"
+          },
+          "note": "",
+          "p_two_sided": 0.4744382415244589,
+          "p_holm": 1.0
+        },
+        "formal": {
+          "mean": 0.0020509259259259226,
+          "low": -0.006850287944438248,
+          "high": 0.010952139796290094,
+          "sd": 0.02250129000733739,
+          "speakers": 27,
+          "speakers_total": 28,
+          "cells": 108,
+          "design_cells": 112,
+          "left_out": {
+            "ney06": "4 of 4 cells unusable (omnivoice-fa-1000-test-ney failed)"
+          },
+          "note": "",
+          "p_two_sided": 0.6397280201970382,
+          "p_holm": 1.0
+        },
+        "homographs_and_ezafe": {
+          "mean": 0.004853703703703701,
+          "low": -0.003420469587560814,
+          "high": 0.013127876994968216,
+          "sd": 0.020916200364264597,
+          "speakers": 27,
+          "speakers_total": 28,
+          "cells": 108,
+          "design_cells": 112,
+          "left_out": {
+            "ney06": "4 of 4 cells unusable (omnivoice-fa-1000-test-ney failed)"
+          },
+          "note": "",
+          "p_two_sided": 0.23875673986974577,
+          "p_holm": 1.0
+        },
+        "long": {
+          "mean": 0.002603703703703713,
+          "low": -0.008893816602917739,
+          "high": 0.014101224010325163,
+          "sd": 0.029064467223497408,
+          "speakers": 27,
+          "speakers_total": 28,
+          "cells": 54,
+          "design_cells": 56,
+          "left_out": {
+            "ney06": "2 of 2 cells unusable (omnivoice-fa-1000-test-ney failed)"
+          },
+          "note": "",
+          "p_two_sided": 0.6454557066737199,
+          "p_holm": 1.0
+        },
+        "names_and_loanwords": {
+          "mean": -0.0018379629629629692,
+          "low": -0.010813776676654254,
+          "high": 0.007137850750728315,
+          "sd": 0.022689870209279737,
+          "speakers": 27,
+          "speakers_total": 28,
+          "cells": 108,
+          "design_cells": 112,
+          "left_out": {
+            "ney06": "4 of 4 cells unusable (omnivoice-fa-1000-test-ney failed)"
+          },
+          "note": "",
+          "p_two_sided": 0.6772816438268778,
+          "p_holm": 1.0
+        },
+        "numbers": {
+          "mean": 0.0011990740740740761,
+          "low": -0.007079551097326586,
+          "high": 0.009477699245474739,
+          "sd": 0.02092745422778032,
+          "speakers": 27,
+          "speakers_total": 28,
+          "cells": 108,
+          "design_cells": 112,
+          "left_out": {
+            "ney06": "4 of 4 cells unusable (omnivoice-fa-1000-test-ney failed)"
+          },
+          "note": "",
+          "p_two_sided": 0.7682810865296877,
+          "p_holm": 1.0
+        },
+        "very_short": {
+          "mean": 0.008188888888888884,
+          "low": -0.009415664469909678,
+          "high": 0.025793442247687447,
+          "sd": 0.044502375332743864,
+          "speakers": 27,
+          "speakers_total": 28,
+          "cells": 54,
+          "design_cells": 56,
+          "left_out": {
+            "ney06": "2 of 2 cells unusable (omnivoice-fa-1000-test-ney failed)"
+          },
+          "note": "",
+          "p_two_sided": 0.34780561266065535,
+          "p_holm": 1.0
+        }
+      }
+    }
+  }
+}

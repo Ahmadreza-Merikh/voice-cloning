@@ -84,6 +84,13 @@
   "budget": "about 2 to 2.5 GPU-hours for 2 x (672 + 720) renders plus scoring, after the weekly reset on 2026-09-26. Pocket costs no extra session: it renders on the same machine in its own environment",
   "order": "the primary test session runs first and is read first; the arms session runs after it, on the same corpora, and is read only beside it"
  },
+ "before_the_push_2026_09_30": {
+  "runs_after_met": "the development session (persian-voice-omnivoice-dev v2) chose the export at step 1,000 by the fixed rule (eval/runs/persian-voice-omnivoice-dev.json), and persian-voice-eval was re-staged from 542b2a5 and verified by download",
+  "what_it_mounts": "the development session's output (exactly one choice.json, step 1,000) and sessions a, b and c (exactly one export-1000-float16, in session a's output); both counted from the output listings before the push",
+  "notebook": "kaggle/omnivoice-test, built at d667c6b and rebuilt byte-identical from 903c351 before the push",
+  "quota": "[measured, kaggle quota, 2026-09-30 10:32 UTC] 20.07 GPU-hours left until 2026-10-03 00:00 UTC; this session is budgeted at about 6 h (each render run stops at 3 h, the session at 11.25 h), and the arms session's 2 to 2.5 h follows it",
+  "runs_once": "it reads the sealed test clips for the first time; a mechanical failure before any render is re-run, anything after a render is read as the pre-registration says"
+ },
  "amendment_2026_09_25_f5_settings_pinned": {
   "registered": "2026-09-25, before any test clip has been rendered by anything and before session c has started. The primary comparison is untouched",
   "what_moved": "the F5 arm was registered 'at the configured settings' on 2026-09-20, when F5's configured nfe_step was 48. On 2026-09-21 (6f3335d) the product default became 64, and the arms session reads its configuration from the dataset, so as built it would have rendered at 64",

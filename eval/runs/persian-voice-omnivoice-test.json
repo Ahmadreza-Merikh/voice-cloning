@@ -89,7 +89,8 @@
   "what_it_mounts": "the development session's output (exactly one choice.json, step 1,000) and sessions a, b and c (exactly one export-1000-float16, in session a's output); both counted from the output listings before the push",
   "notebook": "kaggle/omnivoice-test, built at d667c6b and rebuilt byte-identical from 903c351 before the push",
   "quota": "[measured, kaggle quota, 2026-09-30 10:32 UTC] 20.07 GPU-hours left until 2026-10-03 00:00 UTC; this session is budgeted at about 6 h (each render run stops at 3 h, the session at 11.25 h), and the arms session's 2 to 2.5 h follows it",
-  "runs_once": "it reads the sealed test clips for the first time; a mechanical failure before any render is re-run, anything after a render is read as the pre-registration says"
+  "runs_once": "it reads the sealed test clips for the first time; a mechanical failure before any render is re-run, anything after a render is read as the pre-registration says",
+  "pushed": "2026-09-30 10:33:56 UTC, version 1; QUEUED, then RUNNING at 10:34:19 UTC"
  },
  "amendment_2026_09_25_f5_settings_pinned": {
   "registered": "2026-09-25, before any test clip has been rendered by anything and before session c has started. The primary comparison is untouched",

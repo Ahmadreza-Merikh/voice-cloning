@@ -36,6 +36,14 @@ left until 2026-10-03).
 the choice from the development session's output); then
 `kaggle/omnivoice-arms`. Both fit this week's remaining quota.
 
+**Where the work is driven from (2026-09-30):** the user will continue from a
+Windows machine, with this Mac off. The repository is on GitHub, private,
+`Ahmadreza-Merikh/voice-cloning`; `docs/WINDOWS.md` is the setup and the rules
+- above all, one machine drives Kaggle and Git at a time: `git pull` before,
+commit and `git push` after. The user rewrote the history before the first
+push, so every hash cited before 2026-09-30 is an old one;
+`docs/HISTORY-REWRITE-2026-09-30.md` maps each to its commit now.
+
 ## Decided 2026-09-25: the OmniVoice plan goes on, LongCat waits for the test
 
 The user chose the recommendation after the probe: finish the OmniVoice
@@ -439,6 +447,11 @@ Earlier rounds, for reference: third review `90f2f9c` `4341b0f` `89dc14e`
 `79fec9d` `56a963e` `c13ab5c` `7944081` `0f71c71` `69c17a8`.
 
 ## Corrections (kept as history, not erased)
+
+* 2026-09-30: every commit hash in this file and in the records before this
+  date is from the history as it was before the user rewrote it for GitHub.
+  They are left as written; `docs/HISTORY-REWRITE-2026-09-30.md` maps each one
+  to its commit now.
 
 * 2026-09-19: this file said session a being RUNNING past its first hour
   "suggests (does not show) that the data stage passed". It had not started:

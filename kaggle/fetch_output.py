@@ -36,7 +36,8 @@ def main() -> int:
     if len(sys.argv) < 3 or "/" not in sys.argv[1]:
         raise SystemExit(__doc__)
     owner, slug = sys.argv[1].split("/", 1)
-    target, fragments = Path(sys.argv[2]), sys.argv[3:]
+    # An empty fragment matches every name and would fetch the whole output.
+    target, fragments = Path(sys.argv[2]), [fragment for fragment in sys.argv[3:] if fragment.strip()]
     oauth = Path.home() / ".kaggle-oauth"
     if oauth.is_dir():
         os.environ.setdefault("KAGGLE_CONFIG_DIR", str(oauth))

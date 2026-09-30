@@ -1,0 +1,568 @@
+{
+  "source": "neyshekar",
+  "splits_sha256": "85be52bdeebf6d5e05e525b57ee2ad0433f5922eb2acc69e90de132e7ef3c186",
+  "role_rule": "reference: the longest clip of 6.5-11.4 s; held out: the 4 longest of the rest of at least 3.5 s",
+  "speakers": [
+    {
+      "label": "ney01",
+      "speaker": "ney-11077",
+      "gender": "unknown",
+      "reference": "neyshekar-10545",
+      "reference_seconds": 11.4,
+      "held_out": [
+        "neyshekar-38675",
+        "neyshekar-46226",
+        "neyshekar-54944",
+        "neyshekar-25839"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney02",
+      "speaker": "ney-14367",
+      "gender": "unknown",
+      "reference": "neyshekar-13150",
+      "reference_seconds": 10.32,
+      "held_out": [
+        "neyshekar-54738",
+        "neyshekar-16006",
+        "neyshekar-29476",
+        "neyshekar-20833"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney03",
+      "speaker": "ney-20784",
+      "gender": "unknown",
+      "reference": "neyshekar-25734",
+      "reference_seconds": 10.14,
+      "held_out": [
+        "neyshekar-61634",
+        "neyshekar-23323",
+        "neyshekar-53879",
+        "neyshekar-36930"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney04",
+      "speaker": "ney-22278",
+      "gender": "unknown",
+      "reference": "neyshekar-46461",
+      "reference_seconds": 10.175,
+      "held_out": [
+        "neyshekar-40250",
+        "neyshekar-32143",
+        "neyshekar-10683",
+        "neyshekar-42367"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney05",
+      "speaker": "ney-24748",
+      "gender": "unknown",
+      "reference": "neyshekar-12279",
+      "reference_seconds": 10.68,
+      "held_out": [
+        "neyshekar-13566",
+        "neyshekar-21395",
+        "neyshekar-40577",
+        "neyshekar-2375"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney06",
+      "speaker": "ney-28150",
+      "gender": "unknown",
+      "reference": "neyshekar-28130",
+      "reference_seconds": 7.44,
+      "held_out": [
+        "neyshekar-43189",
+        "neyshekar-47385",
+        "neyshekar-58949",
+        "neyshekar-24868"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney07",
+      "speaker": "ney-29212",
+      "gender": "unknown",
+      "reference": "neyshekar-44769",
+      "reference_seconds": 9.848,
+      "held_out": [
+        "neyshekar-20934",
+        "neyshekar-20147",
+        "neyshekar-24555",
+        "neyshekar-40821"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney08",
+      "speaker": "ney-30542",
+      "gender": "unknown",
+      "reference": "neyshekar-27136",
+      "reference_seconds": 9.72,
+      "held_out": [
+        "neyshekar-37694",
+        "neyshekar-14519",
+        "neyshekar-30861",
+        "neyshekar-21343"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney09",
+      "speaker": "ney-31045",
+      "gender": "unknown",
+      "reference": "neyshekar-32407",
+      "reference_seconds": 10.98,
+      "held_out": [
+        "neyshekar-44565",
+        "neyshekar-53066",
+        "neyshekar-36229",
+        "neyshekar-9616"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney10",
+      "speaker": "ney-31524",
+      "gender": "unknown",
+      "reference": "neyshekar-59672",
+      "reference_seconds": 10.02,
+      "held_out": [
+        "neyshekar-44862",
+        "neyshekar-57820",
+        "neyshekar-23758",
+        "neyshekar-43852"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney11",
+      "speaker": "ney-31778",
+      "gender": "unknown",
+      "reference": "neyshekar-24791",
+      "reference_seconds": 11.1,
+      "held_out": [
+        "neyshekar-55963",
+        "neyshekar-27387",
+        "neyshekar-12329",
+        "neyshekar-29157"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney12",
+      "speaker": "ney-37368",
+      "gender": "unknown",
+      "reference": "neyshekar-25161",
+      "reference_seconds": 8.28,
+      "held_out": [
+        "neyshekar-17823",
+        "neyshekar-56874",
+        "neyshekar-60743",
+        "neyshekar-17379"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney13",
+      "speaker": "ney-43177",
+      "gender": "unknown",
+      "reference": "neyshekar-10590",
+      "reference_seconds": 11.34,
+      "held_out": [
+        "neyshekar-54770",
+        "neyshekar-11032",
+        "neyshekar-9874",
+        "neyshekar-10443"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney14",
+      "speaker": "ney-45720",
+      "gender": "unknown",
+      "reference": "neyshekar-26053",
+      "reference_seconds": 9.053,
+      "held_out": [
+        "neyshekar-20747",
+        "neyshekar-1424",
+        "neyshekar-12313",
+        "neyshekar-40290"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney15",
+      "speaker": "ney-53381",
+      "gender": "unknown",
+      "reference": "neyshekar-57199",
+      "reference_seconds": 10.32,
+      "held_out": [
+        "neyshekar-11487",
+        "neyshekar-6612",
+        "neyshekar-23917",
+        "neyshekar-59030"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney16",
+      "speaker": "ney-57473",
+      "gender": "unknown",
+      "reference": "neyshekar-44189",
+      "reference_seconds": 11.4,
+      "held_out": [
+        "neyshekar-57976",
+        "neyshekar-40496",
+        "neyshekar-34824",
+        "neyshekar-20789"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney17",
+      "speaker": "ney-59472",
+      "gender": "unknown",
+      "reference": "neyshekar-21215",
+      "reference_seconds": 11.34,
+      "held_out": [
+        "neyshekar-7968",
+        "neyshekar-25761",
+        "neyshekar-53457",
+        "neyshekar-3911"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney18",
+      "speaker": "ney-62834",
+      "gender": "unknown",
+      "reference": "neyshekar-5331",
+      "reference_seconds": 9.12,
+      "held_out": [
+        "neyshekar-9977",
+        "neyshekar-18637",
+        "neyshekar-26752",
+        "neyshekar-31493"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney19",
+      "speaker": "ney-63939",
+      "gender": "unknown",
+      "reference": "neyshekar-19890",
+      "reference_seconds": 11.34,
+      "held_out": [
+        "neyshekar-57389",
+        "neyshekar-40215",
+        "neyshekar-48982",
+        "neyshekar-27887"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney20",
+      "speaker": "ney-64618",
+      "gender": "unknown",
+      "reference": "neyshekar-19043",
+      "reference_seconds": 8.83,
+      "held_out": [
+        "neyshekar-44345",
+        "neyshekar-12614",
+        "neyshekar-17623",
+        "neyshekar-37298"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney21",
+      "speaker": "ney-66582",
+      "gender": "unknown",
+      "reference": "neyshekar-1708",
+      "reference_seconds": 10.845,
+      "held_out": [
+        "neyshekar-37433",
+        "neyshekar-7076",
+        "neyshekar-32387",
+        "neyshekar-22287"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney22",
+      "speaker": "ney-67866",
+      "gender": "unknown",
+      "reference": "neyshekar-39511",
+      "reference_seconds": 10.86,
+      "held_out": [
+        "neyshekar-4381",
+        "neyshekar-52406",
+        "neyshekar-15856",
+        "neyshekar-5345"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney23",
+      "speaker": "ney-71738",
+      "gender": "unknown",
+      "reference": "neyshekar-20129",
+      "reference_seconds": 8.52,
+      "held_out": [
+        "neyshekar-21893",
+        "neyshekar-23814",
+        "neyshekar-20135",
+        "neyshekar-42997"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney24",
+      "speaker": "ney-74062",
+      "gender": "unknown",
+      "reference": "neyshekar-24402",
+      "reference_seconds": 11.157,
+      "held_out": [
+        "neyshekar-10927",
+        "neyshekar-29713",
+        "neyshekar-54495",
+        "neyshekar-55752"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney25",
+      "speaker": "ney-76631",
+      "gender": "unknown",
+      "reference": "neyshekar-17046",
+      "reference_seconds": 10.025,
+      "held_out": [
+        "neyshekar-8849",
+        "neyshekar-11078",
+        "neyshekar-23405",
+        "neyshekar-25066"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney26",
+      "speaker": "ney-85362",
+      "gender": "unknown",
+      "reference": "neyshekar-46578",
+      "reference_seconds": 8.703,
+      "held_out": [
+        "neyshekar-2169",
+        "neyshekar-4301",
+        "neyshekar-11436",
+        "neyshekar-56905"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney27",
+      "speaker": "ney-96497",
+      "gender": "unknown",
+      "reference": "neyshekar-34034",
+      "reference_seconds": 6.9,
+      "held_out": [
+        "neyshekar-53181",
+        "neyshekar-24599",
+        "neyshekar-40583",
+        "neyshekar-5530"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "ney28",
+      "speaker": "ney-98037",
+      "gender": "unknown",
+      "reference": "neyshekar-41759",
+      "reference_seconds": 7.253,
+      "held_out": [
+        "neyshekar-2485",
+        "neyshekar-47798",
+        "neyshekar-1734",
+        "neyshekar-31575"
+      ],
+      "replaces": null
+    }
+  ],
+  "roles_differ_from_the_split": [
+    "ney-11077",
+    "ney-14367",
+    "ney-22278",
+    "ney-24748",
+    "ney-43177",
+    "ney-53381",
+    "ney-59472",
+    "ney-62834",
+    "ney-63939",
+    "ney-66582",
+    "ney-67866",
+    "ney-74062",
+    "ney-98037"
+  ],
+  "replaced": [],
+  "left_out": [
+    {
+      "speaker": "ney-61189",
+      "reason": "no clip of 6.5-11.4 s with 4 more to hold out"
+    },
+    {
+      "speaker": "ney-97668",
+      "reason": "no clip of 6.5-11.4 s with 4 more to hold out"
+    }
+  ],
+  "files": {
+    "ney01_000.wav": "b89d5e0ff0f11025d4b8a7130db1c8005df23be004a8f45ef0bfacfcf2b35ed9",
+    "ney01_001.wav": "e8a80b73e9e1841b62dfd1442d00a2bbaf1ca5226dda55e8d6efd049d8a8b2c4",
+    "ney01_002.wav": "3134755cc016c07287b5907e93b84a5e04195002b109a5aa4674f2dc543dc42d",
+    "ney01_003.wav": "992b962af83ea385a9ed7165f30a2314d22a4b0b2bcc4417221affac0cf2f2b9",
+    "ney01_004.wav": "ac3e0554e6a6b3877e19be1bdef6c3413ec01ce92fbaa0c9b3fc6e49ad4730fb",
+    "ney02_000.wav": "d1fcfa522d18e7fc150231e55b4ba6ac3c612e2c379f9009d4596c20c1be9a69",
+    "ney02_001.wav": "cbc093154d11a087295620d7cd8e425596a02ba0c8cc57abbadc641ba7137c66",
+    "ney02_002.wav": "ea8cda08a3183d4b286d3c28284701a099688e939e8833c98cbcf881ba0c6d3d",
+    "ney02_003.wav": "7c7b7cb0104489b8cb06fbb05c5c0fd153f56b4b186b98c6e67d8e19a4d80eba",
+    "ney02_004.wav": "f4b1c2f593c5c9a231da0aafbc67601962d380af5f143461df8dac8e5b96931a",
+    "ney03_000.wav": "8068c15c4a106d2761426c4b1d37d356bbfb5fae341f3784f964c7fdb13ff932",
+    "ney03_001.wav": "401c39389af8ba992f1c48263c974c815984a689d49f8dd2599dbc939bf8cd39",
+    "ney03_002.wav": "eea3fd28cffa2b5816b76919640b2589ae16062b52c13a0fc1bc83b94910d7bf",
+    "ney03_003.wav": "fcbc2de4fb3cbefef674a750beb99ccdd1cc676e3e8a223f079db4ad35e22134",
+    "ney03_004.wav": "76c6a2995ffc4f1410e0ef1e432d416c441e51659897c2bdffb6ef100a8019d7",
+    "ney04_000.wav": "826ad975d0188ddf6586b7baf61c8d6b5240f7ecb9a9bec8072dd54d5c89c1df",
+    "ney04_001.wav": "ade0787ecbb6383a2c53e370d3fb516b48b9c7f0bf1c16cb4e1e51fd06dfc412",
+    "ney04_002.wav": "34445b3ed6546a8394452032c5a8df07bc2dd4efa36581e95ea5969364e25ff3",
+    "ney04_003.wav": "1c2397b7d8eb02e6d70eb573e7b1f4a0164d811c71f10d957075ebb8e3d075de",
+    "ney04_004.wav": "4531466f35fae03ae16d1e82894b4d36ac00f93dc2410c064b5d24a8993a0b3b",
+    "ney05_000.wav": "19cf34479ddf0b34d3a9ee3cf1540569de7bd76afcac25fa948cd1033fe7ab99",
+    "ney05_001.wav": "34019ae9980e148cb8245149107b04dccf3a819bdbb39f791af3d65350cacf06",
+    "ney05_002.wav": "448459b7187f43f1abbd83f42250a76d22cd2aadbf34098e8b6ec6967d70049f",
+    "ney05_003.wav": "5ab0198c0c592c4bdf2fcc82051a26fef3e6ed23410bd3d0cc9ebb5c7ff88ad6",
+    "ney05_004.wav": "7d46f028c597cec5a1d3f339ab480d575e90f7a863752cbaf2ffae4062805d9a",
+    "ney06_000.wav": "87de6a2f192ac8f2ea2745fa23e0cf48775583646194afabf1bf930d6226d5a8",
+    "ney06_001.wav": "ac29e2edc29d1a1bd5eaa9242d22d3cfdd3b70ea0caa45ef540e1e196d11a886",
+    "ney06_002.wav": "727c410931824db8546020590ff10605f22d058bdfccef3e38f4b2d33cb7776e",
+    "ney06_003.wav": "03956cc6a369a124a59cf78be5cbc245478f521f388855e9209cfbdd975b27ce",
+    "ney06_004.wav": "d179d28359ad6bbe4b86422885add25a45ce49683883a7ada4e29af909248507",
+    "ney07_000.wav": "885fc89add656d9dfdcdd49b02759507060d199c0b03a2c9ce4913666db5d19e",
+    "ney07_001.wav": "a4b2ff378d6e203b527101a7d3996096ac2a9f84a69dff822cb7c0ff5e79c21b",
+    "ney07_002.wav": "a174f1be0948f4bdcfa586341e8f06b81e9e710d9e8943d84ab687621a5db83b",
+    "ney07_003.wav": "dfcf51dc89d7b1630f2b3543e0a9400568a5018179dfc963cc42db8a20241c83",
+    "ney07_004.wav": "9c5b75e700e2924d7b048487e6212a3611d1dc9d188a36001c077dc8aa3ee84f",
+    "ney08_000.wav": "9269acb812bcae88591a9af7ce86e6c08df99cdee4ded42054fb9a443810e96a",
+    "ney08_001.wav": "5aa2c5a785e1f7a85bea88128de8e72b6255a2650a096609a21269b98e6809cb",
+    "ney08_002.wav": "9423ae3084f94051579dc5405f241fa8123fdbf588353d9f31c8723ddf9c169e",
+    "ney08_003.wav": "418adbca5d03849de3dff6b4c5ba0c836cd835281090a44a643a0ae0a48bea02",
+    "ney08_004.wav": "dddce3f159cd1331891e95e2ed2a014ad2a213b46f3494af7220d299423d9588",
+    "ney09_000.wav": "faf6670ae38fefe172acc23b2614254728289ecff340ffb56481109561a5aa67",
+    "ney09_001.wav": "ad3917d6842408d7434d9fc7011e55c346c07ba930a65885bb9c3415b5818cad",
+    "ney09_002.wav": "2bebd8ccd4820d0145af89754a34af3613c3cf17a002054470ee5aea0657a1ab",
+    "ney09_003.wav": "05db28c69fc542dfe341c10f573c333e84e1e83b52142c06c3673eb992c3d3bf",
+    "ney09_004.wav": "409d825650d4d5d02eb03dc2e4f9dd2c32a8658882f9ddf79850d566d4e6ebcb",
+    "ney10_000.wav": "d8e183773970df7e3bdd343973b320e68c77e82cf297f8c9a9ae424d5218ff85",
+    "ney10_001.wav": "4e0d98c7e9859bf9af11a70a3a58db702fbe4876180d07faf28f94f719edbb49",
+    "ney10_002.wav": "20b2563df3639349739d633e3f1099ea929848259f27a158a55f70471a0c5abd",
+    "ney10_003.wav": "36e2a817bbf1f0a0c071980de603f7eaac8a0adc909f3c94282d1ae6c5760ca3",
+    "ney10_004.wav": "1ab8fffb19b9864ddf6099c2f15d3efa27822e3b13300c54237faca1ff0e7345",
+    "ney11_000.wav": "21a78184dd239024bd817bff61f11571ea2e29d14902a755966a7b2d86194487",
+    "ney11_001.wav": "775346cadb6511a79103e76cf5979518b6b7f3b4be078427fefb24501447cb73",
+    "ney11_002.wav": "5e40078f69256e637e49c9cab4d4fe409f361594c7b04a17de9fe45381ff84e4",
+    "ney11_003.wav": "7bae2c94efa9c74b41216c3e04b65c5b46d685cbd0f724b10ab11a61e6ff6bc5",
+    "ney11_004.wav": "1f0662ca6b087f2001274e89413aa90f9cc7bd8898b0e11277442b4fc0a2b6b5",
+    "ney12_000.wav": "318168ccfc82a00a9b50253b1eefa7b7be525edcef35b6e205258561386e8317",
+    "ney12_001.wav": "df438acf8b5e2fc738ebd5d5d856d0acc4ef7453f3c797f40e288a569f01cbce",
+    "ney12_002.wav": "126ce39e9378bfe0c88fc769e7a444a23452502c357cdca2140b4df7f9650916",
+    "ney12_003.wav": "e964f4ff9db60752320e0544ca38bb65687e8b25747a2de37047dc451c320ec2",
+    "ney12_004.wav": "108bf97db96068eb99488ee66fdd4565d476fefcdac80c8ecf63f67fd543893e",
+    "ney13_000.wav": "e420143a446056539d219b04565d3d69b4eab5f8bcb5748a47bcb0f0ec0c2944",
+    "ney13_001.wav": "53d9b9f63f695b62f79f6bf40dab1500af5285e41b1c6d34f421d1b5ede8c4e6",
+    "ney13_002.wav": "c64f2ebf07f64617bef6dad3200bde4745137664255624c68705e0e7e4bcf0c1",
+    "ney13_003.wav": "a91a55c443d15d180968636cf66e3731ea950af1bc43e83bdc8d3b3c99a3ea86",
+    "ney13_004.wav": "35d4710c2fad38c672bfb68c964a42fb398e430862f87a3792bfaa8e84b299e6",
+    "ney14_000.wav": "b1781c7ed5042aa7aad44cbaf445cbe61929529aaae3ea91fde143e6cac6285f",
+    "ney14_001.wav": "373c223ae10a2c4896fd84a6a397d756d23a5d3f59713635c793ecac72738444",
+    "ney14_002.wav": "3c04d4530cda41143dc551659a6972d2bcd75d8d1f2e1b3d28da447aab32930e",
+    "ney14_003.wav": "bb68ed117894ff321e02c9c81109b678264a2f7a90e81226550c41c954be6904",
+    "ney14_004.wav": "e080d4d555a43ded058f577ff23bd6c6d27e2c08c441f4ed469db842961fb746",
+    "ney15_000.wav": "ebcf7cf9157a6965da976da799646cb2126602071f90f6c49623c03afd26e86f",
+    "ney15_001.wav": "cd7d65618fd82af3e2a2753c17aafaf9a7892ba1066bdbb08b1a6d9b2ece6189",
+    "ney15_002.wav": "50315f3e599114faa438b4bcfeb019f6506100cbf526a4dfeb261e9f4c80f879",
+    "ney15_003.wav": "4b08d6d2e2a7cf395b607526d96aca4ffc2e62d5fbf7d3feeb141732edbb77b5",
+    "ney15_004.wav": "f0338d5a9fb3240cb6768120c60ceaed3a12dfe599ff3db34741efd6e7a7ba05",
+    "ney16_000.wav": "6d79516affbf8534fbefe40012e31d219ffc1672e6d08777d7c7ef38a4a81081",
+    "ney16_001.wav": "0aa26e26b4c8b4086b4b975f10d861e40972490c0ab7b14d570abb007c2396bc",
+    "ney16_002.wav": "4cc7653bb250b40d8f9acf71fbb8d6699f1de3921a8fa9444e74641b9bef7e1d",
+    "ney16_003.wav": "30bd21aecbb0f49f195ddaf354273ae66d824585ae5c8123a76c80791bd66db7",
+    "ney16_004.wav": "aeb186c4dfd54f0c76f70b31b9069e2e1a006f88cbafa4850714129544c8f771",
+    "ney17_000.wav": "90259f65159edf789956a0c2b83829a4e40df121295f4d2715d0ec2ce6d17e1b",
+    "ney17_001.wav": "77e0fb76b3069f0c8a63da4c1266d08b5c847b55e426ec6915555c44f85f9d73",
+    "ney17_002.wav": "0baa6a393215a930d4832a089b18d5379d80f59dc789642d17b7ff907fe24f18",
+    "ney17_003.wav": "b943a41c433b711b172c87704011f669e697f46b4c0db1a15088911595df0835",
+    "ney17_004.wav": "607d1e8421b0b7d254c5dd7012b8af7094b51316727209b4584d565978a78e1a",
+    "ney18_000.wav": "1e77880c3011385efa7c68723c24ffd4b618d3f242a145fe53fe5a4672643b26",
+    "ney18_001.wav": "3dad150479aa9690355e1f4501e8b773c513a20931ba0ab60f2c426b3cdc834f",
+    "ney18_002.wav": "72df53f2036fb88c5c4fe7e10ce801a01453a79094070569766ae0fddb15015b",
+    "ney18_003.wav": "41202951f5d5508ee1efd25a1c86361bb5d0cb191863c73fa71ed0bb3915f4ea",
+    "ney18_004.wav": "a544a6fbedf4c55e2cb1d8af59609e84c8f26db35555ac4b54e90ff6f68b340b",
+    "ney19_000.wav": "a51e31bb86e20ae2d09d2d47e0540d18a822ba101fd090759ce6f1972debf774",
+    "ney19_001.wav": "0af6469faa2d74c933065faba6379957fbd7cbee258feb72b695dc675ce222a3",
+    "ney19_002.wav": "4cebca5baf261801255f70b1a5911a42b47fcc1055cbb9a5675d981d0d2b48c7",
+    "ney19_003.wav": "c035942caff24c064c393695f8f3b7b9b33e9bdc2649be7e63748ab2f123af2d",
+    "ney19_004.wav": "b7a94e3a8ecb34ec639b6c327aef8c664e7300fe2b8854802274cdccb3f5253f",
+    "ney20_000.wav": "e5c8ea7ccc1bda699863d24c156358fcfae6fc2fc3b5ea791ea6a16cefc080ff",
+    "ney20_001.wav": "8ced1efad704c1beaf3154bdd890909d7a19c6a50fc2989abaf6027dd0e16a42",
+    "ney20_002.wav": "7eaf839adac394ea6e87360e5d6c828dc73d2658853449d9c191adbfea79c9ed",
+    "ney20_003.wav": "671568155caca190388536b8b05a01eccf3adf2e17926363c8867f82e95ce0f1",
+    "ney20_004.wav": "d6c09e649c1fbf97867f0cfbc9aca743db009ad0f82daa6ef1f4b35f84f08662",
+    "ney21_000.wav": "ead10f1d0b022589feec19a93381ef8963013655d5a29fe6bd799736e4de1f12",
+    "ney21_001.wav": "0b399b452ea4a3e4946068a496bbebf3a775aa1e6ffee4aed69869df61233aa7",
+    "ney21_002.wav": "69656eaac67e2d4adf5912268c2af59eb478dc787f7ff06d3ab79c2613218e02",
+    "ney21_003.wav": "882300cfae85d5e4da460793564aa1e96e7d61a9fe378627ea6beca0d5349dc3",
+    "ney21_004.wav": "0febc8fb487878b13e82beecc1bd7f584f073dab12dcac12a25a7b44cea2751c",
+    "ney22_000.wav": "6de1fcbe3183f59d8d70d1b739fe5f2aed19f08da981f58eb7a17bbae0c824bf",
+    "ney22_001.wav": "eec72134f6179169ffcee7a9648466adfa5b850d483fcfcdb47f07afe8e97e6a",
+    "ney22_002.wav": "29d0d61661c2efb4f26cb846cf895e51e893287e773748ca9d8208b8d4f9b049",
+    "ney22_003.wav": "c447a54b471cd2240053f96142806d2c3ee3dc1cab05e7e10d85ffce662b5e48",
+    "ney22_004.wav": "1e79dc4abc08a2a7ba995a5d647dea38eeba28cf01f987e9ca4e8164cae26b20",
+    "ney23_000.wav": "a67f635b4ef0aaf85e4e3df84a20877724bace5cdf97e7c67786c8fa91178edc",
+    "ney23_001.wav": "bb5ff5fc52cc04d795c1cc8e0fc1c99f798fce99478e6b038034697aa14b06c7",
+    "ney23_002.wav": "ea80deefdb67a18969bf7ddf7897c7a9d9a901d04adb347a30295db4fb691bf1",
+    "ney23_003.wav": "780cb76344c5962509d00ce12910d55d47d03f6ad8165f4db46e37f8aaf3779f",
+    "ney23_004.wav": "b4d7fcb6ade0d4831674b7792e67ccca8b83bd729afe05c8d52f9528b5ccc31d",
+    "ney24_000.wav": "b347bf7f9c913d284add6253ad08fd03dea5f33184e93f09f3bba7b9b526b153",
+    "ney24_001.wav": "f96a729fc6c3e93fe94243331f727b764c8087fe0d1d3d59c96860866cb6729c",
+    "ney24_002.wav": "81eafc7f90c4b7cccf20d91c26efe35a690ec8ef904f8e559821087d15ef46b5",
+    "ney24_003.wav": "195e2bf78ef6ded5742f89006a5bf8132e2a3d91c84f6cbc32aafcb0ceed3e0d",
+    "ney24_004.wav": "54c3fa8251c2fcc1f364e4701e5b637849e8a89c666b6bce730a41b99d4dc381",
+    "ney25_000.wav": "8bec43b3048aba80aed07fe61f5681bae5e24730440c204a5bdc143cc1b60289",
+    "ney25_001.wav": "2ce17b2d735d79cf83c4f936b8126a597ddce987158590904c01864df2e9e52c",
+    "ney25_002.wav": "03cd4c9eb80b2751329b8fab074fa0a311c02b62b31214b546db2d16f5536b91",
+    "ney25_003.wav": "e0726f8dffd19c241bacb8a030c9ea58694e798b6562029b8e00ba283f0fbb6a",
+    "ney25_004.wav": "2b20b41fdf07cab8d6d0c3ca9cebd18e959488fb7b30211415d20380cbd6d4f0",
+    "ney26_000.wav": "248a3818ded58f8fda923a0a6706743b7e5e4fa865274792367ebc2c6a5795d8",
+    "ney26_001.wav": "c3f60c61ec9a1fe450bd9c4e57d9d8241aa95231aebb8dc6179381e5a0501112",
+    "ney26_002.wav": "1a41497cab2da6abbf36b6efe721aca66eb0d230dfb78a6281138d6b0e1f15f9",
+    "ney26_003.wav": "65a9423833fbd966dbcf25e0c74dcf8ef763dcd9444bc7c95010b01063874fb4",
+    "ney26_004.wav": "3632093d7583179996a031f42eed4149aee8a4acfc580c4df4934d2268a9816a",
+    "ney27_000.wav": "2f6cc8252d2a7f61650bf267e283efd17d063139e307a64610c6e4a33d1be3f0",
+    "ney27_001.wav": "577b182c22cf40eaf29f3cbd802314ecc0dd2be4ead4022d3386ee1fbb4ca616",
+    "ney27_002.wav": "7e842b85495c0147db91b8790d52310751d3a957432e223791412eca6a49780e",
+    "ney27_003.wav": "b8d3b6e6778540bdffb332222eddaac3f9d25d0aca4a715561f76462e3d6b362",
+    "ney27_004.wav": "9981b8f8c8bca2ae637621cd743c82ff6fd1fc45c67ed905e47e6e1b2298baea",
+    "ney28_000.wav": "7b8803ed3ec3b09aa25b2d1e643dc06862ea762a39cd77ffa9dccbf572fb39b3",
+    "ney28_001.wav": "b5a8e1dec79773fdf40e14ffe88de32df93a4d65e7f743d76667eb9877734137",
+    "ney28_002.wav": "c7a100dbeee64b869409da6d5e77337b1a855476c2c474183a5fa10773010a87",
+    "ney28_003.wav": "dcbe79e21009c99fbf8110ea38d5a12f5b6e7883331b7dda3a8ecae95a7a1328",
+    "ney28_004.wav": "51a7cd2f43b2beca85d6e220bb98653e4bfc9942187134221c4c57a6776d977d"
+  },
+  "manifest_sha256": "a54a230b3207549805b16beef8103a1ff78cbc0328dee32aa52a2b23e70d04ef"
+}

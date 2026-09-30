@@ -1,6 +1,6 @@
 {
  "run": "the sealed test of the Persian adaptation of OmniVoice",
- "status": "pre-registered and waiting for the adaptation to finish; amended 2026-09-20 to render F5 and Pocket-TTS on the same sealed corpora as pre-registered secondary arms; F5's registered settings pinned 2026-09-25; version 1 ran 2026-09-30 and scored the secondary set, its primary runs stopped on a harness error, and the primary set is rerun alone (amendment_2026_09_30_primary_rerun)",
+ "status": "complete 2026-09-30: no detectable improvement on the primary set (unseen Neyshekar speakers); a small one on the secondary set. The primary set was read from the rerun, the secondary set from version 1 (amendment_2026_09_30_primary_rerun)",
  "kernel": "marsmanam/persian-voice-omnivoice-test, built by kaggle/build_omnivoice_test_kernel.py (d667c6b); not pushed",
  "runs_after": "the development-set session (kaggle/omnivoice-dev) has chosen an export by the rule of SOTA_ROADMAP section 8, and the dataset has been re-staged with this code",
  "comparison": "the chosen float16 export minus k2-fsa/OmniVoice at c5fdb5cc, both through this repository's OmniVoice engine at its configured settings, rendered and scored in one session; the weights are the only difference",
@@ -113,5 +113,60 @@
   "why_48": "FINDINGS section 3 measured 64 against 48 on the development set: 0.517 against 0.520 held-out, CER 3.1% against 2.9%, inside noise. So 64 is not the stronger setting, and every F5 number in this project was measured at 48",
   "checked_the_same_day": "nothing else the development, test or arms sessions read has moved since registration: OmniVoice's settings are unchanged; the scoring recogniser is pinned to the historical block (large-v3-turbo, VAD on, faster-whisper's own VAD values); the text steps added since (the vocative break, English-text handling, IPA for omnivoice_ipa only) leave all 12 test texts and the 3 development sentences byte-identical for omnivoice, f5 and pocket",
   "correction": "arms_added.f5 above quotes 0.546 as F5's development-set score. That was the project's own continued checkpoint with best-of-4; the arm renders the published Lumos675 checkpoint, which scored 0.520 there. Kept as written, corrected here"
+ },
+ "result": {
+  "recorded": "2026-09-30, from the readings scripts/read_sealed_test.py wrote in each session",
+  "primary": {
+   "from": "persian-voice-omnivoice-test-primary v1, the rerun: 2026-09-30 14:42-17:03 UTC, 2.16 GPU-hours",
+   "gates": "runner, code, download, corpora, candidate and reading passed. renders reads failed: ney06's 24 cells failed for each model, as a refused reference makes them, which is the case the pre-registration leaves out",
+   "speakers": "27 of the 28 planned, 648 of 672 cells for each model; ney06 left out, its reference refused by the configured preparation. The roster is identical to version 1's",
+   "held_out_similarity": {
+    "published": 0.5959,
+    "candidate": 0.5972,
+    "candidate_minus_published": [
+     0.0014,
+     -0.0042,
+     0.0069
+    ],
+    "sd_over_speakers": 0.0139,
+    "p_one_sided": 0.308
+   },
+   "cer_percentage_points": [
+    -0.11,
+    -0.75,
+    0.53
+   ],
+   "reading_as_the_code_gave_it": "no detectable improvement in held-out similarity: the interval's lower end is not above 0. h0_rejected false, clears_practical_reference false, cer_counts_against false",
+   "resolution": "the spread over speakers was 0.0139 against the 0.050 the power design planned for, so the interval is far narrower than planned: its upper end, +0.0069, excludes the 0.03 the test was designed to find and the 0.0205 noise line",
+   "exploratory": "per text category, Holm-corrected: every interval includes zero, from conversational -0.0035 to very_short +0.0082. Not a claim"
+  },
+  "secondary": {
+   "from": "persian-voice-omnivoice-test v1: 2026-09-30 10:34-13:37 UTC",
+   "speakers": "30 of 30, 720 of 720 cells for each model",
+   "held_out_similarity": {
+    "published": 0.5162,
+    "candidate": 0.5202,
+    "candidate_minus_published": [
+     0.004,
+     0.0002,
+     0.0079
+    ],
+    "sd_over_speakers": 0.0104,
+    "p_one_sided": 0.021
+   },
+   "cer_percentage_points": [
+    -0.56,
+    -1.15,
+    0.03
+   ],
+   "reading_as_the_code_gave_it": "secondary set: higher held-out similarity than the published model (H0 of no improvement rejected, one-sided alpha 0.025), with a CER interval that does not lie above zero. clears_practical_reference false",
+   "what_it_is": "Common Voice speakers, a source OmniVoice very probably trained on and a third of the adaptation's own data: a gain of 0.004, a fifth of the 0.0205 noise line, is what familiarity with the source would leave"
+  },
+  "conclusion": "On speakers nobody trained on, the adapted OmniVoice (the export at step 1,000) clones voices no better than the published model: +0.0014 held-out similarity, 95% interval [-0.0042, +0.0069], and it reads Persian no better and no worse (CER -0.11 points, interval [-0.75, +0.53]). The +0.025 the development set showed did not carry over: that set is Common Voice speakers OmniVoice very probably trained on, and the secondary set, from the same source, keeps a trace of it (+0.004). By the rule fixed before any training, no improvement is claimed: 5,000 steps of the official recipe on 128 h of Persian did not measurably improve zero-shot cloning of unseen Persian speakers",
+  "cost": "version 1 2.90 GPU-hours, the rerun 2.16; [measured, kaggle quota, 2026-09-30 17:05 UTC] 15.01 left until 2026-10-03 00:00 UTC",
+  "evidence": [
+   "eval/runs/evidence/omnivoice-test-v1/",
+   "eval/runs/evidence/omnivoice-test-primary-v1/"
+  ]
  }
 }

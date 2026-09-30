@@ -1,0 +1,583 @@
+{
+  "source": "cv26",
+  "splits_sha256": "85be52bdeebf6d5e05e525b57ee2ad0433f5922eb2acc69e90de132e7ef3c186",
+  "role_rule": "reference: the longest clip of 6.5-11.4 s; held out: the 4 longest of the rest of at least 3.5 s",
+  "speakers": [
+    {
+      "label": "cvt01",
+      "speaker": "16a5e7c0fae0c688",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00016780_c80f4f889ef9.wav",
+      "reference_seconds": 8.256,
+      "held_out": [
+        "cv_fa_00016785_4c1d82c7fa32.wav",
+        "cv_fa_00016781_23384ed8a7ce.wav",
+        "cv_fa_00016778_a22ac097c0ef.wav",
+        "cv_fa_00016773_69e740f355c2.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt02",
+      "speaker": "188c655655d2a6e5",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00057910_dfce91d7d132.wav",
+      "reference_seconds": 7.2,
+      "held_out": [
+        "cv_fa_00057991_0f75c5ce05f3.wav",
+        "cv_fa_00057939_dbfcc7b44e49.wav",
+        "cv_fa_00057971_fcc8267b72e4.wav",
+        "cv_fa_00057987_cd1f4b3ae687.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt03",
+      "speaker": "1e6c8347aa6ed419",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00016862_ee7aaabe2bff.wav",
+      "reference_seconds": 7.704,
+      "held_out": [
+        "cv_fa_00016873_4142de1ce75d.wav",
+        "cv_fa_00016869_15e4021688ac.wav",
+        "cv_fa_00016865_b98eb137a071.wav",
+        "cv_fa_00016864_57596abe04f4.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt04",
+      "speaker": "2de913ea9820bf16",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00045566_3aa4d61b8fb0.wav",
+      "reference_seconds": 7.956,
+      "held_out": [
+        "cv_fa_00045543_f79633879995.wav",
+        "cv_fa_00045529_e16ac7b4fa18.wav",
+        "cv_fa_00045512_cd065259492a.wav",
+        "cv_fa_00045536_4ca63f97ff29.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt05",
+      "speaker": "2dfd371a94a5327d",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00045614_b5782f7193e8.wav",
+      "reference_seconds": 6.948,
+      "held_out": [
+        "cv_fa_00045633_534ce3da71af.wav",
+        "cv_fa_00045599_1d93ba62620b.wav",
+        "cv_fa_00045613_a11f6a2a7532.wav",
+        "cv_fa_00045632_21766b56a0b0.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt06",
+      "speaker": "3340ff655dc40d2d",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00034444_34a7d8f472c8.wav",
+      "reference_seconds": 7.668,
+      "held_out": [
+        "cv_fa_00034459_4bbd625555b5.wav",
+        "cv_fa_00034423_0ebeb3f88986.wav",
+        "cv_fa_00034454_164bd98ceecc.wav",
+        "cv_fa_00034449_1bbcedc64683.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt07",
+      "speaker": "3461a3636e75fa42",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00068083_60734bc012dc.wav",
+      "reference_seconds": 7.056,
+      "held_out": [
+        "cv_fa_00068098_e72d56583b81.wav",
+        "cv_fa_00068178_a4debdd257a2.wav",
+        "cv_fa_00068095_36edaaf0e161.wav",
+        "cv_fa_00068085_d2cc4ccbfd8c.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt08",
+      "speaker": "3a2f61cb0dfc9c58",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00020475_734bba4386fa.wav",
+      "reference_seconds": 7.92,
+      "held_out": [
+        "cv_fa_00020474_80a920a698d7.wav",
+        "cv_fa_00020468_daf96f1863ea.wav",
+        "cv_fa_00020479_942adc5a16a2.wav",
+        "cv_fa_00020484_cc257d4f4e1a.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt09",
+      "speaker": "3ae82c3c238a5b4a",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00007554_355c494cdd36.wav",
+      "reference_seconds": 6.888,
+      "held_out": [
+        "cv_fa_00007556_a1dbcebb6977.wav",
+        "cv_fa_00007557_11c571d9cf95.wav",
+        "cv_fa_00007553_65763e1c26d6.wav",
+        "cv_fa_00007555_69a636cb2567.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt10",
+      "speaker": "3c66b42ef03727aa",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00023141_a1fb0a524fed.wav",
+      "reference_seconds": 6.744,
+      "held_out": [
+        "cv_fa_00023144_7acd8f0fdb01.wav",
+        "cv_fa_00023139_cf5ade38cb26.wav",
+        "cv_fa_00023131_bac7270e417b.wav",
+        "cv_fa_00023145_703cabfddefe.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt11",
+      "speaker": "40518eda54fdfed1",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00008397_fc715429d477.wav",
+      "reference_seconds": 7.464,
+      "held_out": [
+        "cv_fa_00008401_fa9dd8b98f69.wav",
+        "cv_fa_00008404_c46154442b60.wav",
+        "cv_fa_00008402_0e5f47adafdf.wav",
+        "cv_fa_00008403_93c5f0c6662a.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt12",
+      "speaker": "48ca27f678a675d1",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00029595_6eb188550fcd.wav",
+      "reference_seconds": 8.064,
+      "held_out": [
+        "cv_fa_00029575_fa30a637c781.wav",
+        "cv_fa_00029587_bfab966f7cfb.wav",
+        "cv_fa_00029576_3818f3f00c3f.wav",
+        "cv_fa_00029580_35531d5b5355.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt13",
+      "speaker": "4c7b8b65d88235ce",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00025825_3562c7ebbb3b.wav",
+      "reference_seconds": 8.664,
+      "held_out": [
+        "cv_fa_00025828_2dd3cdab562f.wav",
+        "cv_fa_00025842_c0d1e8907501.wav",
+        "cv_fa_00025823_43c1afaa0a20.wav",
+        "cv_fa_00025833_be913ef4f731.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt14",
+      "speaker": "4cfc449a4ee868df",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00014147_bf44dfaf0674.wav",
+      "reference_seconds": 7.896,
+      "held_out": [
+        "cv_fa_00014153_4b4e0ce1b229.wav",
+        "cv_fa_00014149_8f3d59b558c1.wav",
+        "cv_fa_00014151_9eccc76784e3.wav",
+        "cv_fa_00014145_6b8f9cb84703.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt15",
+      "speaker": "518e18d89574b7a6",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00014154_7b2981544f9d.wav",
+      "reference_seconds": 6.984,
+      "held_out": [
+        "cv_fa_00014155_2deddbfb6101.wav",
+        "cv_fa_00014165_1abd931a9c65.wav",
+        "cv_fa_00014163_c286ab98ee03.wav",
+        "cv_fa_00014164_86b28b1a0c5f.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt16",
+      "speaker": "535f25191e6ea828",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00018558_a6c3aff880e7.wav",
+      "reference_seconds": 7.056,
+      "held_out": [
+        "cv_fa_00018559_5939a28de0ca.wav",
+        "cv_fa_00018566_85cd44cebe69.wav",
+        "cv_fa_00018561_5c52f127a3aa.wav",
+        "cv_fa_00018565_248446ebce92.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt17",
+      "speaker": "578b6468f96a5b25",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00043278_b721710e8368.wav",
+      "reference_seconds": 8.088,
+      "held_out": [
+        "cv_fa_00043292_5088cb979098.wav",
+        "cv_fa_00043282_2e4d943106dc.wav",
+        "cv_fa_00043271_2ae4d923843f.wav",
+        "cv_fa_00043283_a8435294663e.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt18",
+      "speaker": "5a6f1811b2f1db9c",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00018952_121e95935469.wav",
+      "reference_seconds": 7.596,
+      "held_out": [
+        "cv_fa_00018940_513dcae4bcd5.wav",
+        "cv_fa_00018948_03659385b5d3.wav",
+        "cv_fa_00018947_fc29f64563a7.wav",
+        "cv_fa_00018943_32dd88dc9e17.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt19",
+      "speaker": "63249566cd3646b6",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00033788_aedb603ce444.wav",
+      "reference_seconds": 7.032,
+      "held_out": [
+        "cv_fa_00033769_eb603facced6.wav",
+        "cv_fa_00033755_795fb5095dc8.wav",
+        "cv_fa_00033764_755441d4a9a0.wav",
+        "cv_fa_00033752_3114bb5d0589.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt20",
+      "speaker": "6a05901866bc76b2",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00039675_bc2bc3e5bc4f.wav",
+      "reference_seconds": 6.624,
+      "held_out": [
+        "cv_fa_00039673_eb695a8d07ba.wav",
+        "cv_fa_00039664_aea778a45c8b.wav",
+        "cv_fa_00039674_8293006ab6c0.wav",
+        "cv_fa_00039642_ff957bf9c1dd.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt21",
+      "speaker": "6decdee9037c9124",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00029300_ac90a1725420.wav",
+      "reference_seconds": 8.568,
+      "held_out": [
+        "cv_fa_00029272_f69b1b1d5e8e.wav",
+        "cv_fa_00029283_8213ed3df826.wav",
+        "cv_fa_00029284_8850ac4c1af9.wav",
+        "cv_fa_00029290_b7654b486015.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt22",
+      "speaker": "6ec631d360412e8c",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00007913_11ea8ff8c62e.wav",
+      "reference_seconds": 6.84,
+      "held_out": [
+        "cv_fa_00007911_f5f0bef3750d.wav",
+        "cv_fa_00007914_6d32e4696fd6.wav",
+        "cv_fa_00007909_242d43509593.wav",
+        "cv_fa_00007915_c844bea7039f.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt23",
+      "speaker": "7a7495b928ae08df",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00042609_c9b7d960965d.wav",
+      "reference_seconds": 7.956,
+      "held_out": [
+        "cv_fa_00042621_5d6466297087.wav",
+        "cv_fa_00042654_b6ce795bed05.wav",
+        "cv_fa_00042641_1dadb8753a56.wav",
+        "cv_fa_00042623_aaaf415a48a0.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt24",
+      "speaker": "80b1fc4be55b8f10",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00014248_0a68a1b7702a.wav",
+      "reference_seconds": 6.588,
+      "held_out": [
+        "cv_fa_00014245_7c626228fb16.wav",
+        "cv_fa_00014249_c21594bf08eb.wav",
+        "cv_fa_00014239_137f556e67b9.wav",
+        "cv_fa_00014243_064fe42061ca.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt25",
+      "speaker": "96fdc91ffca270dd",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00032652_1335dd3d4dfd.wav",
+      "reference_seconds": 7.8,
+      "held_out": [
+        "cv_fa_00032667_7b22257e74de.wav",
+        "cv_fa_00032661_a2d07d654a42.wav",
+        "cv_fa_00032644_72cf99d1312d.wav",
+        "cv_fa_00032655_efcd3c3500d0.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt26",
+      "speaker": "b3ad11d9334e001f",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00085915_1f40804bbe85.wav",
+      "reference_seconds": 9.048,
+      "held_out": [
+        "cv_fa_00085785_9010e58cf846.wav",
+        "cv_fa_00085745_7ca297610543.wav",
+        "cv_fa_00085929_67a52c7cdadc.wav",
+        "cv_fa_00085887_4594708b39c8.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt27",
+      "speaker": "b7b09c6e782c53cc",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00031043_5c4301f73290.wav",
+      "reference_seconds": 7.224,
+      "held_out": [
+        "cv_fa_00031014_7cb8c639f764.wav",
+        "cv_fa_00031040_829eb453a847.wav",
+        "cv_fa_00031012_9c8bf62fb45e.wav",
+        "cv_fa_00031034_f70988c322f5.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt28",
+      "speaker": "c7b311273a58df48",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00028791_5a19116004d3.wav",
+      "reference_seconds": 6.696,
+      "held_out": [
+        "cv_fa_00028778_7f963827f970.wav",
+        "cv_fa_00028800_7baf5c486ac6.wav",
+        "cv_fa_00028784_0c76c333b473.wav",
+        "cv_fa_00028809_c04a7fb88d7f.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt29",
+      "speaker": "daebea6407ca0552",
+      "gender": "male_masculine",
+      "reference": "cv_fa_00006842_c33ab84368d4.wav",
+      "reference_seconds": 7.344,
+      "held_out": [
+        "cv_fa_00006845_f365d43f5712.wav",
+        "cv_fa_00006843_39a0923670e3.wav",
+        "cv_fa_00006846_ee174012c61f.wav",
+        "cv_fa_00006844_992e46b5b015.wav"
+      ],
+      "replaces": null
+    },
+    {
+      "label": "cvt30",
+      "speaker": "eba807c5b3e43475",
+      "gender": "female_feminine",
+      "reference": "cv_fa_00052300_f60fa6ce2ad1.wav",
+      "reference_seconds": 8.544,
+      "held_out": [
+        "cv_fa_00052302_5223d880b5e5.wav",
+        "cv_fa_00052265_1efa4fb8b815.wav",
+        "cv_fa_00052259_fdb71ffcb3a6.wav",
+        "cv_fa_00052285_7ab55e3c9986.wav"
+      ],
+      "replaces": null
+    }
+  ],
+  "roles_differ_from_the_split": [],
+  "replaced": [],
+  "left_out": [],
+  "files": {
+    "cvt01_000.wav": "6cd397db90aea03e4caa251dee611fb7419527b8f04e978fc29e248da51c0507",
+    "cvt01_001.wav": "a3b6f8eca60abfe7599a1a265a989fce0822525c7dbf07d5c269125da1f3698d",
+    "cvt01_002.wav": "1bcc528af399372890710d9309fb63d2ba7fbeb5f181a44aa144765064305f28",
+    "cvt01_003.wav": "0a165a2b93df9143ff15afe9d7b01ec6d6105a2daf133ff9f2c59e0461c9d7e4",
+    "cvt01_004.wav": "7af0aa2cbc6079a2710b34f071a5d5da07baa1f59ffdc65256f30b327f44266d",
+    "cvt02_000.wav": "d859d56b83ad87481026ee0358c39694742429ad6f53cef1b35b455de5174ca0",
+    "cvt02_001.wav": "61822ff2db32856641c2efbeac64b67dfb58138445f9ada6e0a12972e6bb8e5a",
+    "cvt02_002.wav": "1adfa9fef1f864ac194bfbea34541a7d518d8eafc7e3d4f52bc222659181a1ed",
+    "cvt02_003.wav": "eb260b0daa0853e19ae1f2d71ea8d3053136dfb21323c2c86511956e43e4dc31",
+    "cvt02_004.wav": "819227eee4487e48c2b5ffaea9db8b5bc01ca7775677e86ed22b9e572208ab05",
+    "cvt03_000.wav": "0098a14a3d42fc7a6e1f6470a22abb7e53630dd17c8b5e7cc182815b0f9eb2e4",
+    "cvt03_001.wav": "f5e9fb89eeba9ce117004a3060aeed0efcb0b80f9bc13ed34ee002482f82645e",
+    "cvt03_002.wav": "eae55ce6e872f4a0751449341cad506fd13195af605679a2ca849fa19207e1d8",
+    "cvt03_003.wav": "9f7def36640d26b5745ab18b605c154a8303e00444beeb24b800c744c943c505",
+    "cvt03_004.wav": "ff1383abaf6ad73a6b263a33d36f955e75c4c36e243441a1bd257ab2ecf2f774",
+    "cvt04_000.wav": "0cb51ed3c0888f84d686220444d4cbdbbf43d69841037a2c361ea4afc8c806f5",
+    "cvt04_001.wav": "72b2f4f40deab2821d719f69333f0906e3cb2908623b907e9f10cbf2d0ad035a",
+    "cvt04_002.wav": "4aa8a1d31a406b9e2af7562fb9ff2c1f0624c7e94b5d9e0e4ad0ada4d2a8fd4e",
+    "cvt04_003.wav": "db1a39daf520ea2058923860063425539da0b00f5b70498b699e6fe32aa3b748",
+    "cvt04_004.wav": "a6ebc9bc377c62611fd8eba01d3731524091bfe03757aed15a4f977f1287bf66",
+    "cvt05_000.wav": "4594b8f29e6b0359a54b9edd62ae752affaea53d339d0804c9f75be61bad16b7",
+    "cvt05_001.wav": "2842266544ae7f5a31905c5c4573c420e7104224a8e53135dbcfa37fa81678ff",
+    "cvt05_002.wav": "6402eaa7a09a6562dba20c0f5b8013dd1c97814ffe855e56c4de4636ebdbf6f6",
+    "cvt05_003.wav": "161c7832fc72602d55a6480f632d8f62cc315c4fccd2147008ab7695d74899e6",
+    "cvt05_004.wav": "8babcda2008e6e25460fc51d516f2ec9fa6354039eb2076f4d8f690ee60661de",
+    "cvt06_000.wav": "eff8b41cf17b93dc05c30affba1e617d8c24f8285ae9b85f61ba94f07897dc14",
+    "cvt06_001.wav": "6ec4badea2de6e8c7399a6ec43d2182f18a59517dd85f9165df6782e0155f740",
+    "cvt06_002.wav": "b8e99cfad17ba179c7e4ea24b1313b101f89e5ae2531f34e1eca72f1f9aeacdc",
+    "cvt06_003.wav": "b212e1968e71eb23e490b3d1519acbd423b48b03572ebadebfd92668e4508c33",
+    "cvt06_004.wav": "8d6f2b298757e7de7b1ae18b1eec0dc1b0e33fcea9d1d7c75eac2442217804a7",
+    "cvt07_000.wav": "e6cadf1eec7e1a0fa965544fd3f3ddbdbdb0934e72a7e28b293eed309e1c4675",
+    "cvt07_001.wav": "253cf39d1871fd84d5afe2eb5d327c176cfbfb1a4269358a09fcc815dae0febd",
+    "cvt07_002.wav": "ce2daf9ed3879f424931d0f7c285a40ade6acd045292ec2e77038ec354219386",
+    "cvt07_003.wav": "048c917e43862291c842a2c14132683def9b7a0f60463dc2c692ebf79129d8cd",
+    "cvt07_004.wav": "0bc7745197a638a59d709ebfb3891c64ef8b8697bd84aedd23a29969fffbd8e6",
+    "cvt08_000.wav": "0d600562af62518ca8110acad19433586626b84b3b1f7b8fa1b3f7800fd9c4fd",
+    "cvt08_001.wav": "9117ce949fd3912d00af87c413621b98fd506801334cb8c948b76934269596ad",
+    "cvt08_002.wav": "73e20c64fcf0c7bd09caed76a9aa891a21fc9873c272bcb6aa980e719b39db7a",
+    "cvt08_003.wav": "39bee54a498f1eeb925e90ac257c5a9244b15007137a03461d714be24863462b",
+    "cvt08_004.wav": "a0e8d09bf8701b1d9ace14ce781956e533fa73d2a48be55462b11b2cd67ef30a",
+    "cvt09_000.wav": "38b0d4be8b23bfe1c4a7a62313a61c3a56d241dad1173af07d9dbafe14a801c1",
+    "cvt09_001.wav": "c98d53bd8bc7866dfc301159f717ff2a51ab6202e61a3621d20014befc86620f",
+    "cvt09_002.wav": "74d7cf098ee11c64a034fc4d1690ab333e10849d4277a3961b7cff7538190458",
+    "cvt09_003.wav": "49ad33721022561a113d9930cd1166c851fbf9ae16560f2c63161a5fbb551db9",
+    "cvt09_004.wav": "d4d1f6c6264ad9148cbeb569032cf2ecc5957951bf8d450b95b18b70be918864",
+    "cvt10_000.wav": "94ee8b1c779850c998adb20b680076e39daf300e38307029847d453192812689",
+    "cvt10_001.wav": "4bf9c6cf5771e4659cc3bb6f324d9217cc0fcf3383287d504ee746bae193aaeb",
+    "cvt10_002.wav": "0be5095056005a9c244619d93e4de57a705fb7850b519c7c07a4f89c0ea1c7a6",
+    "cvt10_003.wav": "d84b024ce5700960e748f4ac9d355e389316e796b171b47f6fc825278bf604f5",
+    "cvt10_004.wav": "6fd46e3eacd120d93d7c31a23b59e5ea562f3bd5a068ad5fb18a913ccbf92557",
+    "cvt11_000.wav": "cb2e189e9dd8165edd5dc445f809c0985f15e9d471f11efb3f4d724596698bef",
+    "cvt11_001.wav": "b1849fbc6e5fab8eb7a9f78c5831174168bc56be4e83e42c958114102a3e8db3",
+    "cvt11_002.wav": "74db0b2c1525e42d7a219d92ba093f148c228aea2102d5211d6567d52ba6447a",
+    "cvt11_003.wav": "365a47b9f4306103394a5ccce2ef71c3034593334857265f96c3ab63757803a6",
+    "cvt11_004.wav": "00124111352909c06c7e6128d6ff00ad6a91c9cfd386dc47d265fa23acdce089",
+    "cvt12_000.wav": "17afc6bfb3f1dd19a301db65ca5786c6d63a420d81886ec3c519dd5078879b24",
+    "cvt12_001.wav": "f75fc06c45920891baf1605b519b4768ca50b6ef05ffa463707e0be7e09c79ca",
+    "cvt12_002.wav": "5e370ba087b1585f435cd48c69c7e45e9f19cad4f53700128845d41dd939c702",
+    "cvt12_003.wav": "f2fba72928b184ff3b2510ee009334222df62103764e3c699eee2b2d9e251b56",
+    "cvt12_004.wav": "82f0101c52ed18df70444b273dea0b3397deba5c2df8a329d12592080f40d75a",
+    "cvt13_000.wav": "7f36708846432af63a7998a6f1115bf5adf2ea4ac266ec1c3e438b7c1046df38",
+    "cvt13_001.wav": "b4901a9a1a51a74c56070a3aef896e41b218f4d4b3c33cf3ebcec1b34b4fc86a",
+    "cvt13_002.wav": "4a13c7b737b92c671f944ae2302030721e4149a68c1255f2971914fef8c6df85",
+    "cvt13_003.wav": "c46e2689e243d78916b6c18b1104a6468eac9e5434d536d8bad9572aa41afe16",
+    "cvt13_004.wav": "87112d5e356b6cb71bcb8c475a70572847675eed6adcc57e1c93afcc3cfd922c",
+    "cvt14_000.wav": "a33152c2abacde1e1910574d2c6637f05f1ba97ecc0e02f40feef5d2c9016b9d",
+    "cvt14_001.wav": "7097b6036d64cb557d658c9f77e2baa4eb9b033455106d98052b2736b62749de",
+    "cvt14_002.wav": "d33b985ac3ab6e22f27646f4c22cf05c2750204d8725e9345825edb10d7daea5",
+    "cvt14_003.wav": "feb9093081773dc8e0508ff41fd1d5c9245d7f124d310afef65f3e92da8f975b",
+    "cvt14_004.wav": "72220772ad5b5fec53a2e2db64ce56f2c114a85b2a85a0fd298fed51a8e0d082",
+    "cvt15_000.wav": "9b05f57cdb74f6aff7759175834bacdc755d286482f511894d6bc7799afac749",
+    "cvt15_001.wav": "60aeadfd1e4f1e5a1b7deb079445a9bb495d7eb22398eb3d98a60a79bc52d059",
+    "cvt15_002.wav": "d73fae104b418587ea0e58786ca42cf624b6dd88ffe054d0a2bfdbadb12a03e5",
+    "cvt15_003.wav": "9d342893a68f9bf1df705aa58ff436e90a93446f2e3b90256633aa2befc045c6",
+    "cvt15_004.wav": "24a30cc6ca778c5aa453aaef36c10dde3cf807189067cec5faa16a4c227e63fd",
+    "cvt16_000.wav": "e1f1eddd1a1f07ad9f7371018a3eef8a39cfb2baef17eca6d4c328929aacc577",
+    "cvt16_001.wav": "1b47416e1155047889616aeea95800c8d588032008a697df1b60597410aff62d",
+    "cvt16_002.wav": "b7b840ff31c5b6f64f78338e31b3cc53f80077a2e7f7eb41326384dbae509740",
+    "cvt16_003.wav": "af2204a2224b10099aef820dc9f06ed3cde512624098020989273be8aa420d25",
+    "cvt16_004.wav": "e0cd4e3bd3de657a4112b0f555864f687b04e94c3404ab45b1d0ed42638f7087",
+    "cvt17_000.wav": "4452a51ec40c9e43b7fb22bd1e83cb1823ffd8bce932ce4bc92647b8523892cd",
+    "cvt17_001.wav": "163920b04b44e2f192fb1b35497e553cfef64aa18a3cd429c788ad156940cf32",
+    "cvt17_002.wav": "6bc92180fc51a2bbe3903a8876011cbcd7f581b0096185962ae88ca34071339b",
+    "cvt17_003.wav": "038f0349d5cb1c3ef8e1456bdca15f37fbc41df941b7d517eed82b9df792951c",
+    "cvt17_004.wav": "6c8d892551778d33eed947d459857771b3907a8187f065c91edbfc86fd2366e8",
+    "cvt18_000.wav": "2bb1853d00b6ee7176b4e2433fa036f3e2f3829db7640bd8577a03ea52f8c33f",
+    "cvt18_001.wav": "ef37882c9423d884b130a23e1fabdc6082002284b8478d1b18b38a3008c7d885",
+    "cvt18_002.wav": "68f2cc2226df10de15d5e8391550881a0e1fab29a26ca8dedaf5f806bbbe24ca",
+    "cvt18_003.wav": "a2dca606ac6edc666acbe5fb9c992ecc16162457eec427478362c11bcc9e4cfc",
+    "cvt18_004.wav": "3988b53a8b334756612420298bd5fdaae2fb93480c4d0408228635a00634b473",
+    "cvt19_000.wav": "a2e4f4b18da4bf203a65c9203420d31655ba3ee380758f490955183a014301f7",
+    "cvt19_001.wav": "96ed40b3d136d401d70c9c3725eef019ee8a9a1119bdcefc3d5c85d11cd392c7",
+    "cvt19_002.wav": "10c84a21e0f39aeea43357718c6a00bd12f01016c024f3e446cfeed010db2eb3",
+    "cvt19_003.wav": "71edfa79e2a63ee72d757161fa6ddd98d388317440f24eeacfea640c149a538d",
+    "cvt19_004.wav": "120ab0e554d77991682cf98be5e3135d7d204b28dc6d20d1cde38a398cde2e5e",
+    "cvt20_000.wav": "7dcad97f57ca403666349392ca46de14c57cdac110230fa968f0107241541d00",
+    "cvt20_001.wav": "12309288e111c54b7d950c040df3127506d7efefa3f9b3396cc1e1c07c3cb6f1",
+    "cvt20_002.wav": "a0b83cf41ede0f2fbff206f39cdfccf6ab8540b73bd2dcff8649230a7d08b8b5",
+    "cvt20_003.wav": "4e9bd31580ef7e404bf253fa9c03b3af192d399f98f4c2dcb4bf4b09fa2b620e",
+    "cvt20_004.wav": "301d058459b48e5df2cf3c1d22c109b912bc570dad850340acc3400c05bce395",
+    "cvt21_000.wav": "393f6d017bb0383379e0c1fab06e90e2bd838e2357c6aa49762bcfa694b1a2a9",
+    "cvt21_001.wav": "6bc012124bd0a6be96bf6d7bd625fc6adac6a2eb0df3f204aadf96b69b520a52",
+    "cvt21_002.wav": "9f92e3e4d339d0d30f08afc7b9195cbb634d4a212e2cd3c2d9f4f07ed64bfd82",
+    "cvt21_003.wav": "62cc330ffa37309e2f3cebe5b8f9f52d337c304c962c0b2a527670803fdca493",
+    "cvt21_004.wav": "d6407406bb318e0ef90b703dc86907d9a21785ceee314423e37bff5508bcc286",
+    "cvt22_000.wav": "45f1e24ffb022227eab5bbdfc4f0466530a88e3b0993b72b8daff6079d585885",
+    "cvt22_001.wav": "662da2049bf648be86234df8b0355f3025cf5261f40f8cee4adc50e61b4b4939",
+    "cvt22_002.wav": "fb1c1bcc30e57a6a4fff0a90906b2aa7976e44f1bc179ae4443c60e6a07fc57d",
+    "cvt22_003.wav": "2c2a1cefcaaf0d16ac6881585fdeb26ef9aea97d664d165dbfdd6c7f8ad12bfc",
+    "cvt22_004.wav": "02c000305e63a596b33f747331253c12b4cab91239291b2d951121b9b5508ff0",
+    "cvt23_000.wav": "4e250695dd20da016d7d9d7c0dc2f4015372f0a337e8e2bea4375dcaf63fc798",
+    "cvt23_001.wav": "17abf5c5673aed19a371fea2d6bb5e1c6c57291ebff365c10783f5c22f04d1d3",
+    "cvt23_002.wav": "2d34389aadc5ea9f7037c6739766d24f3f213776c09a5c0caeba2cdac59519dc",
+    "cvt23_003.wav": "57c99977a23e02b081c6fcb474e119e70c34148f5a6a266cf95b91462de94a5b",
+    "cvt23_004.wav": "2ac872a776c291a604fb70696fd0acef631deeaadf6edc0f5d93242e4f75b37f",
+    "cvt24_000.wav": "cd337fcf4ad74c5c31392ae143e44a149e5b7b7d8e004923f61315502f31484e",
+    "cvt24_001.wav": "4096edec3f424854f83f1468fb9110f6fd82b77a40df2d3c4c46687bedce5cd5",
+    "cvt24_002.wav": "75467d03b06cedfa132eecff0ef95d0b63d3eff9e13525d37e0b357c51ad6f06",
+    "cvt24_003.wav": "f763a135b7cff1c63a43d4b707985451e27fb8c68a76e6d34d4ee8ba39135e48",
+    "cvt24_004.wav": "32ee7e2d830f48067efbe5977e1673d542855b18fca9daa8e4c05daa7a587c2b",
+    "cvt25_000.wav": "548d371b106942d5a697dd5c91d9967212bfc0bd71e288ba2d9dac9693f36cfa",
+    "cvt25_001.wav": "acb84b03f8c018fe96ed92ea179cae1e92fb44edcc5045264549a98317c9631d",
+    "cvt25_002.wav": "7f665bd90b9fe55991dba02dc27b7eff10e71fba73087e800347fe5e38fb773a",
+    "cvt25_003.wav": "afdfc7d878e0e8cd94f5e3c8aaa065d33a49a39ae9c105e68051f4d907c98015",
+    "cvt25_004.wav": "51e3af76fddf529e3f968f7bfb7abad670d33c5c2b84a4fac341da3822e74e61",
+    "cvt26_000.wav": "5caec70b62300797db8a2c2c7b5aedfe73d7a15b21c60fd6a4d2bec2d117a919",
+    "cvt26_001.wav": "b1963633cbcdfcec222748c6646b3ff15d571007901b8aa99d326e6ec6d17d91",
+    "cvt26_002.wav": "61a349672909a7e016ddbe21a4e75fb8022701e0776ef3b6994dacb86a176386",
+    "cvt26_003.wav": "8e6c107cf36fa68147153e86481e8690e9e539a24f9892e915a810dc60941621",
+    "cvt26_004.wav": "079c43f9d4567b1218d5263e8657c82a1e0a988f029b8205f2d440181355f4b7",
+    "cvt27_000.wav": "5efe2032f3013be975d2a021d0cc55972bd9f72c20a89836d23946a05e164be0",
+    "cvt27_001.wav": "ea006b785baf9746748ab75c7cbd745486cbf810a14aa83dbfe2c47e090f077c",
+    "cvt27_002.wav": "210b3942e44c5eca17dc604fd71086d9edd869964af76711e14f77e6e0ba23ae",
+    "cvt27_003.wav": "2d100ca22df2367d8b26278edeaf8fafdbb19ebda88886ce14c7db20584f5da0",
+    "cvt27_004.wav": "28cb22c78d1772df0a371c00608d38f814a77b6b8922e41c9a44b89913d8dbe5",
+    "cvt28_000.wav": "58e12cfe0acfd264f72fa62a457c774a77eaf09f13a1be57ffed8befd247c0c5",
+    "cvt28_001.wav": "caf36f5e2cd921fd98ab900ed579d42ac1b8516a0a40acdad8e0e952cb5db1bd",
+    "cvt28_002.wav": "fb8e6aec84e3424b9659cb51185faa982c6806ae8d66edca0c699c2ac19189a2",
+    "cvt28_003.wav": "10822e710938fe866703f7065216968fb97db9635242242ff727f6d3db1f1675",
+    "cvt28_004.wav": "5145ba3bc51f74168b4444d41fcc7f43a6c81aee61c8f3a44516f2ead9e38ac2",
+    "cvt29_000.wav": "a71b1de7639e7c32f6a582578584f655b2cd25ec42f98fb20236fb68b48dcaf9",
+    "cvt29_001.wav": "57c4304a430fd9a971ff8092bdccec7abb00d21bbbd7d33fd6942494856ecf76",
+    "cvt29_002.wav": "fe048744713af3f2a2d0bc27c3b4a025eb60cf7bcd6ac1932f926f60fd499e3a",
+    "cvt29_003.wav": "74de3753a1d39f0d407cb96da0ebfb2d7713533c3636a8d0f94a84692ab8791b",
+    "cvt29_004.wav": "5c08d6078e01966ae656e07d0c69dec6b9cb14400e436667cea5e3ea8eff912b",
+    "cvt30_000.wav": "41de05b70f7bee53f9dacb3112dd9d7e2533c103a9d3f5827ef10750c0956cce",
+    "cvt30_001.wav": "682943bbf39c8ff9155c13ed3ff72ee36757864032155f635e43cbb60dc1576f",
+    "cvt30_002.wav": "7da4761243051c621164758a9c43fe1228fc66bf1c49e28a882fb67b065621b9",
+    "cvt30_003.wav": "d1e30a62903922ae769ec8f33df4d4ece621109a0d09cd6dc1303428ffa7384c",
+    "cvt30_004.wav": "530848418115660d6df3beefa243ff2eaa9d0c43a3906c7091cb4bb89ad76376"
+  },
+  "manifest_sha256": "e9b8879d502a47cde2375396eace7ef83352e590e0672ecb7e6aa6d6e5df1c58"
+}

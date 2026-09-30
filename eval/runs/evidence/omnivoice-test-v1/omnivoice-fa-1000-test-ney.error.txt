@@ -1,0 +1,13 @@
+1781:Traceback (most recent call last):
+1782-  File "/kaggle/working/repo/scripts/benchmark.py", line 973, in <module>
+1783-    raise SystemExit(main())
+1784-                     ^^^^^^
+1785-  File "/kaggle/working/repo/scripts/benchmark.py", line 968, in main
+1786-    run(args)
+1787-  File "/kaggle/working/repo/scripts/benchmark.py", line 415, in run
+1788-    print(f"  note: {speaker}'s reference is used from {window['window'][0]:.2f} s to "
+1789-                                                        ~~~~~~^^^^^^^^^^
+1790-KeyError: 'window'
+1791-
+1792-[runner 11:18:22] exited 1 in 16.5 min; process group ended: members outlived the command and this runner stopped them (gone after SIGTERM); full log /kaggle/working/logs/omnivoice-fa-1000-test-ney.log
+1793-

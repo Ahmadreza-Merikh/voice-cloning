@@ -168,5 +168,13 @@
    "eval/runs/evidence/omnivoice-test-v1/",
    "eval/runs/evidence/omnivoice-test-primary-v1/"
   ]
+ },
+ "arms_before_the_push_2026_09_30": {
+  "order_kept": "the primary comparison ran first and was read first (result above); the arms are read beside it only",
+  "notebook": "kaggle/omnivoice-arms, F5 pinned to its registered settings (amendment_2026_09_25_f5_settings_pinned), rebuilt byte-identical from a58e3bf before the push",
+  "code": "persian-voice-eval as staged from d9f7f76 and verified by download, with the harness fix: a reference the Studio refuses is noted and its renders fail, so ney06 drops out here as it did in the primary rerun",
+  "packages": "installed unpinned as registered: f5-tts from PyPI, whose latest release (1.1.22, 2026-07-23) is the one F5 was measured with; pocket-tts from its GitHub main, whose last commit (3807c204, 2026-09-20 00:17 UTC, a README link) predates the Pocket measurement. The session records the versions it got",
+  "pairing": "held-out similarity, candidate minus arm, paired per speaker over the speakers complete in both - the candidate's cells from the primary rerun (Neyshekar) and from version 1 (Common Voice); similarity reproduced across sessions in every check here, CER did not, so CER is compared between the two arms only",
+  "budget": "about 2 to 2.5 GPU-hours as registered: 2 x (672 + 720) renders, F5 at 48 steps and Pocket on the same machine, plus about 13 GiB of downloads; each render run stops at 3 h and the session at 11.25 h. [measured, kaggle quota, 2026-09-30 17:05 UTC] 15.01 GPU-hours left until 2026-10-03 00:00 UTC"
  }
 }

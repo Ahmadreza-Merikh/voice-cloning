@@ -1,0 +1,67 @@
+{
+  "runner_check": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 120,
+    "seconds": 0.3,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/runner_check/runner_check.log",
+    "output_bytes": 1853785,
+    "shown_bytes": 104590,
+    "display_blocked": false,
+    "problems": []
+  },
+  "fetch": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 2400,
+    "seconds": 124.6,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/fetch.log",
+    "output_bytes": 1865,
+    "shown_bytes": 935,
+    "display_blocked": false,
+    "problems": []
+  },
+  "corpus_ney": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 7200,
+    "seconds": 5.1,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/corpus_ney.log",
+    "output_bytes": 335,
+    "shown_bytes": 335,
+    "display_blocked": false,
+    "problems": []
+  },
+  "omnivoice-published-test-ney": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 10800.0,
+    "seconds": 3771.3,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/omnivoice-published-test-ney.log",
+    "output_bytes": 729471,
+    "shown_bytes": 102313,
+    "display_blocked": false,
+    "problems": []
+  },
+  "omnivoice-fa-1000-test-ney": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 10800.0,
+    "seconds": 3696.5,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/omnivoice-fa-1000-test-ney.log",
+    "output_bytes": 727642,
+    "shown_bytes": 102251,
+    "display_blocked": false,
+    "problems": []
+  }
+}

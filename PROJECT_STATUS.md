@@ -4,31 +4,40 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-30 14:10 +0330 (2026-09-30 10:40 UTC).
+Last updated: 2026-09-30 18:15 +0330 (2026-09-30 14:45 UTC).
 
-## Now: the sealed test is running on Kaggle (pushed 2026-09-30 10:34 UTC)
+## Now: the sealed test's primary set is being rerun (pushed 2026-09-30 14:42 UTC)
 
-`marsmanam/persian-voice-omnivoice-test` v1 was pushed 2026-09-30 10:33:56
-UTC and read RUNNING at 10:34:19: the export at step 1,000 against the
-published model on both sealed test sets, twelve texts, seeds 42 and 43,
-scored in one session and read by `scripts/read_sealed_test.py` as
-pre-registered (`eval/runs/persian-voice-omnivoice-test.json`). About 6 h;
-each render run stops at 3 h and the session at 11.25 h. 20.07 GPU-hours were
-left before it, until 2026-10-03 00:00 UTC.
+The sealed test's version 1 (`marsmanam/persian-voice-omnivoice-test`,
+2026-09-30 10:34-13:37 UTC, 2.90 GPU-hours) wrote both corpora, found the
+candidate (step 1,000) and **scored the secondary (Common Voice) set**; both
+**primary (Neyshekar) runs stopped** at their sixth speaker on a harness
+error (`KeyError: 'window'`): the Studio refused ney06's reference (2.7 s of
+speech after trimming, under its 3 s minimum) and the benchmark, instead of
+noting it and going on, crashed. Fixed and tested (`130a649`); the dataset was
+re-staged from `d9f7f76` and verified by download. Neither primary run wrote a
+results file, and nobody has read the per-cell lines their logs printed.
 
-**When it ends (from Windows, `docs/WINDOWS.md`):**
+So the primary set is **rerun alone** in its own notebook,
+`marsmanam/persian-voice-omnivoice-test-primary` (built with
+`--primary-rerun`; pushed 14:42:39 UTC, RUNNING at once): same corpus rule,
+texts, seeds, candidate and reading; ney06 left out by the pre-registered
+rule for a speaker with failed cells, so 27 speakers; the secondary result
+stands as version 1 scored it. About 2.2 GPU-hours of the 17.17 left until
+2026-10-03 (`amendment_2026_09_30_primary_rerun` in
+`eval/runs/persian-voice-omnivoice-test.json`).
+
+**When it ends (here, or from Windows with `docs/WINDOWS.md`):**
 
 1. `git pull`; read its status with
-   `kaggle kernels status marsmanam/persian-voice-omnivoice-test`.
+   `kaggle kernels status marsmanam/persian-voice-omnivoice-test-primary`.
 2. Fetch the small files: `python kaggle/fetch_output.py
-   marsmanam/persian-voice-omnivoice-test remote/omnivoice-test-v1 test/`
-   (`test/reading.json`, `gates.json`, `candidate.json` and the results; the
-   renders and corpora stay on Kaggle until someone listens).
-3. Record it as the other sessions were: the gates, the reading as the code
-   gave it (primary: Neyshekar, H0 difference <= 0, one-sided alpha 0.025;
-   secondary: the 0.0205 line and the Common Voice set; the CER guard), the
-   cost, evidence in `eval/runs/evidence/omnivoice-test-v1/`. Nothing is
-   claimed beyond what the reading says.
+   marsmanam/persian-voice-omnivoice-test-primary remote/omnivoice-test-primary-v1 test/`.
+3. Record the whole test: the primary reading from the rerun (Neyshekar, H0
+   difference <= 0, one-sided alpha 0.025; the 0.0205 line; the CER guard)
+   and the secondary reading from version 1 (`eval/runs/evidence/omnivoice-test-v1/reading.json`),
+   the costs, evidence in `eval/runs/evidence/omnivoice-test-primary-v1/`.
+   Nothing is claimed beyond what the reading says.
 4. Then push `kaggle/omnivoice-arms` (built, F5 pinned to its registered
    settings) with its budget declared first - about 2 to 2.5 GPU-hours - and
    read it beside the primary result only.

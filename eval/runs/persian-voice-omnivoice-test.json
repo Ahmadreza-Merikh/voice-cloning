@@ -100,6 +100,7 @@
   "checked_before_the_rerun": "all 28 primary references through the same preparation on this Mac: only ney06 is refused (2.7 s); the other 27 prepare to 4.56-10.46 s. Where the Kaggle log shows a value it agrees (ney05: 4.7 s)",
   "the_rerun": "the primary set only, both models in one new session: marsmanam/persian-voice-omnivoice-test-primary, built by --primary-rerun (5137590) - the same corpus rule, texts, seeds, candidate and reading, with a scoring environment of its own, and the code from persian-voice-eval re-staged with the fix",
   "code_for_the_rerun": "persian-voice-eval staged from d9f7f76 and uploaded 2026-09-30 14:41 UTC; verified by download: 279 files byte-identical and the split file unpacked with identical content",
+  "rerun_pushed": "marsmanam/persian-voice-omnivoice-test-primary version 1, pushed 2026-09-30 14:42:39 UTC and read RUNNING at once",
   "ney06": "left out of the primary comparison by the pre-registered rule for a speaker with failed cells: every render of it fails, for both models. 27 of the 28 planned speakers remain",
   "secondary_stands": "the secondary comparison was scored in one session, version 1, and is read from there. It is not run again",
   "budget": "about 2.2 GPU-hours: 2 x 672 renders at the 5.5 s a cell version 1's secondary runs took, plus setup. [measured, kaggle quota, 2026-09-30 13:55 UTC] 17.17 GPU-hours left until 2026-10-03 00:00 UTC; the arms session's 2 to 2.5 h follows",

@@ -1,0 +1,277 @@
+{
+  "corpus": {
+    "manifest": "manifest.json",
+    "sha256": "d09aeb03f2ab2e4b205c3e8819526d8de1e1949ecd7f602eea91f794680846f9"
+  },
+  "label": "omnivoice-fa-4000",
+  "recipe_version": 1,
+  "references": {
+    "clips": [
+      {
+        "duration": 9.888,
+        "file": "cv02_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.374,
+          "steps": [
+            "Decoded 9.9s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~37 dB SNR)",
+            "Trimmed 2.51s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.888
+          ]
+        },
+        "sha256": "1a3c481efaa17bc3ce2523a89f3a4af786153c18dda2c2d1e9fe48375434ab4c",
+        "speaker": "cv02",
+        "transcript_given": "چیزی که مساله را سختتر هم میکند آنکه، اغلب تنها گواه آنچه بر ما رفتهاست، خاطرات ما هستند"
+      },
+      {
+        "duration": 9.816,
+        "file": "cv03_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.52,
+          "steps": [
+            "Decoded 9.8s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~64 dB SNR)",
+            "Trimmed 2.30s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.816
+          ]
+        },
+        "sha256": "9ca79c8bbbb500c0321ea65b3b72bf5d55d02ff4e2ca58501f33e4f543aab2ef",
+        "speaker": "cv03",
+        "transcript_given": "از قیافه جمع هم به نظر میرسه که همه حالشون خوب باشه و فعلا نیازی به دست به آب ندارن."
+      },
+      {
+        "duration": 9.648,
+        "file": "cv04_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.888,
+          "steps": [
+            "Decoded 9.6s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~46 dB SNR)",
+            "Trimmed 1.76s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.648
+          ]
+        },
+        "sha256": "3395f9c0c9151be8b59d1edf091180ac6a69ac410347a6657222305f8303bd28",
+        "speaker": "cv04",
+        "transcript_given": "همه برندگان نهایی یک جام، یک پچ و جوایزی دریافت می کنند که توسط کسب و کارهای محلی اهدا شده اند."
+      },
+      {
+        "duration": 9.216,
+        "file": "cv07_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.104,
+          "steps": [
+            "Decoded 9.2s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~51 dB SNR)",
+            "Trimmed 2.11s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.216
+          ]
+        },
+        "sha256": "a8c0caf3a9843a375c429552ebdd20f1428ca53b54b9f308ce675d916f086a00",
+        "speaker": "cv07",
+        "transcript_given": "بازی مثل نیمه اول تند نبود ملایم تر بود ، فشار هم کمتر بود رو ایران ولی این کافی نبود"
+      },
+      {
+        "duration": 9.216,
+        "file": "cv08_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.824,
+          "steps": [
+            "Decoded 9.2s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~52 dB SNR)",
+            "Trimmed 1.39s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.216
+          ]
+        },
+        "sha256": "f86e9387e27107b24d88ea1520e03ef4ba39124de64daceac43abba4fb18d4ae",
+        "speaker": "cv08",
+        "transcript_given": "اینکه از خودم گذشتم به خاطربچه هام، برای خودم چیزی نخریدم اماهمیشه واسه بچه هام هزینه کردم"
+      },
+      {
+        "duration": 9.216,
+        "file": "cv09_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.672,
+          "steps": [
+            "Decoded 9.2s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~223 dB SNR)",
+            "Trimmed 2.54s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.216
+          ]
+        },
+        "sha256": "5fc2084e5a24c4fe50f956ba2691c96ba1c42b7896c36a8436a57b9ef75ba1ed",
+        "speaker": "cv09",
+        "transcript_given": "آنان به عنوان ملوان در ترابرهای اقیانوس آرام خدمت میکردند."
+      },
+      {
+        "duration": 9.072,
+        "file": "cv10_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.072,
+          "steps": [
+            "Decoded 9.1s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoised with noisereduce",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.072
+          ]
+        },
+        "sha256": "794a82177c3e552eadeca8911277650afc6ca9d31519989a4aeb96385ae0321b",
+        "speaker": "cv10",
+        "transcript_given": "هیچ توری به زبان استونی وجود دارد؟"
+      },
+      {
+        "duration": 8.904,
+        "file": "cv11_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.64,
+          "steps": [
+            "Decoded 8.9s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~80 dB SNR)",
+            "Trimmed 2.26s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.904
+          ]
+        },
+        "sha256": "10fc5829902891f438e88c3acc5e40c33c04668ae87ead1eed8763b6f1128d19",
+        "speaker": "cv11",
+        "transcript_given": "نایروبی مومباسا کیسومو و ناکورو شهرهای مهم کنیا محسوب میشوند"
+      },
+      {
+        "duration": 11.886,
+        "file": "mana_000.wav",
+        "prepared": {
+          "prepared_seconds": 11.424,
+          "steps": [
+            "Decoded 11.9s @ 44100 Hz",
+            "Resampled 44100 Hz -> 24000 Hz",
+            "Removed DC offset (+0.0001)",
+            "Filtered: high-pass 55 Hz",
+            "Denoised with noisereduce",
+            "Selected 11.4s window at 0.1s - continuous speech run (11.4s, SNR ~29 dB)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": false,
+          "window": [
+            0.064,
+            11.488
+          ]
+        },
+        "sha256": "8d805f6107e075dba9fe229c4533216d54bd62adba026bee0991974cea553e2d",
+        "speaker": "mana",
+        "transcript_given": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم."
+      }
+    ],
+    "index": 0,
+    "transcript": "corpus"
+  },
+  "render": {
+    "candidates_per_cell": 1,
+    "engine": "omnivoice",
+    "options_overridden": {},
+    "preprocess_overridden": {},
+    "replayed_from": null,
+    "reported_by_every_render": {},
+    "reported_per_cell": [],
+    "settings": {
+      "class_temperature": 0.0,
+      "denoise": true,
+      "dtype": "float16",
+      "float16_copy": true,
+      "guidance_scale": 2.0,
+      "language": "fa",
+      "layer_penalty_factor": 5.0,
+      "memory_guard": false,
+      "min_available_gb": 6.0,
+      "model_id": "/kaggle/input/persian-voice-omnivoice-train-c/run/export-4000-float16",
+      "num_step": 32,
+      "position_temperature": 5.0,
+      "postprocess_output": true,
+      "python": "auto",
+      "t_shift": 0.1,
+      "timeout_seconds": 900
+    }
+  },
+  "results_file": "omnivoice-fa-4000.json",
+  "results_sha256": "17cd4d9b90f7edccbf2a225286bd9ae5e3e819ab57425aa2dbaceb2db431e62a",
+  "seeds": [
+    42
+  ],
+  "sentences": {
+    "s1": "دیروز در کتابخانه شهر، کتابی درباره تاریخ ایران خواندم.",
+    "s2": "او گفت که فردا صبح برای دیدن دوستانش به شمال سفر می‌کند.",
+    "s3": "گل زیبای باغ ما امروز شکفت و بهار از راه رسید."
+  },
+  "session": {
+    "code_commit": "542b2a5",
+    "scoring_environment": {
+      "id": "kaggle:persian-voice-omnivoice-dev-v2",
+      "packages": {
+        "ctranslate2": "4.8.2",
+        "faster-whisper": "1.2.1",
+        "jiwer": "4.0.0",
+        "numpy": "2.0.2",
+        "speechbrain": "1.1.1",
+        "torch": "2.8.0+cu128",
+        "torchaudio": "2.8.0+cu128",
+        "transformers": "5.3.0"
+      },
+      "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+      "python": "3.12.13",
+      "recogniser": "faster-whisper/large-v3-turbo (cuda/float16)",
+      "similarity": "speechbrain-ecapa",
+      "similarity_device": "cpu"
+    }
+  }
+}

@@ -19,14 +19,23 @@ and is code: ``scripts/read_sealed_test.py``. This session
 
 Nothing is chosen here, and it is meant to run once.
 
+``--primary-rerun`` builds the primary set alone as a notebook of its own,
+``persian-voice-omnivoice-test-primary``: version 1 of this session scored the
+secondary set, and its primary runs stopped on a harness error before anything
+of theirs was scored (eval/runs/persian-voice-omnivoice-test.json). A separate
+notebook keeps version 1's output as it is and gives the rerun its own scoring
+environment.
+
     .venv/bin/python kaggle/build_omnivoice_test_kernel.py
     KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle kernels push -p kaggle/omnivoice-test
+    .venv/bin/python kaggle/build_omnivoice_test_kernel.py --primary-rerun
 """
 
 from __future__ import annotations
 
 import importlib.util
 import json
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -44,6 +53,7 @@ dev = module("dev", "build_omnivoice_dev_kernel.py")
 
 SLUG = "persian-voice-omnivoice-test"
 SESSION = f"kaggle:{SLUG}-v1"
+PRIMARY_RERUN = "persian-voice-omnivoice-test-primary"
 SOURCES = [f"{probe.USER}/{dev.SLUG}", *dev.SOURCES]
 SEEDS = (42, 43)
 #: source, role, planned speakers
@@ -86,8 +96,9 @@ if not GATES.skip("download", ("runner", "code")):
     GATES.record("download", fetched_ok, json.dumps(fetched))
 '''
 
-CORPORA = f'''\
-SETS = {SETS!r}
+def corpora_cell(sets: dict) -> str:
+    return f'''\
+SETS = {sets!r}
 CORPORA = {{}}
 if not GATES.skip("corpora", ("download",)):
     ok = True
@@ -110,6 +121,9 @@ if not GATES.skip("corpora", ("download",)):
     GATES.record("corpora", ok, json.dumps({{name: {{k: v for k, v in c.items() if k != "dir"}}
                                              for name, c in CORPORA.items()}}, default=str))
 '''
+
+
+CORPORA = corpora_cell(SETS)
 
 CANDIDATE = '''\
 CANDIDATE = {}
@@ -224,8 +238,11 @@ print("gates:", json.dumps(GATES.summary(), indent=1))
 '''
 
 
-def main() -> int:
-    environment = dev.environment(SESSION).replace(
+def main(argv: list[str] | None = None) -> int:
+    rerun = "--primary-rerun" in (argv or [])
+    slug = PRIMARY_RERUN if rerun else SLUG
+    sets = {"ney": SETS["ney"]} if rerun else SETS
+    environment = dev.environment(f"kaggle:{slug}-v1" if rerun else SESSION).replace(
         "import hashlib\n", "import hashlib\nimport time as _clock\nNOTEBOOK_START = _clock.time()\n", 1)
     assert "NOTEBOOK_START" in environment
     helpers = '''\
@@ -236,20 +253,20 @@ def sha256(path):
             digest.update(block)
     return digest.hexdigest()
 '''
-    cells = [dev.SETUP, environment, probe.RUNNER, helpers + "\n\n" + DOWNLOAD, CORPORA, CANDIDATE, RENDER, READ,
-             COLLECT]
+    cells = [dev.SETUP, environment, probe.RUNNER, helpers + "\n\n" + DOWNLOAD, corpora_cell(sets), CANDIDATE, RENDER,
+             READ, COLLECT]
     for index, source in enumerate(cells):
         compile("".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),
                 f"<cell {index}>", "exec")
-    out = HERE / "omnivoice-test"
+    out = HERE / ("omnivoice-test-primary" if rerun else "omnivoice-test")
     out.mkdir(parents=True, exist_ok=True)
     notebook = {"cells": [probe.cell(s) for s in cells],
                 "metadata": {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
                              "language_info": {"name": "python", "version": "3.12"}},
                 "nbformat": 4, "nbformat_minor": 5}
-    path = out / f"{SLUG}.ipynb"
+    path = out / f"{slug}.ipynb"
     path.write_text(json.dumps(notebook, indent=1, ensure_ascii=False), encoding="utf-8")
-    metadata = {"id": f"{probe.USER}/{SLUG}", "title": SLUG, "code_file": path.name, "language": "python",
+    metadata = {"id": f"{probe.USER}/{slug}", "title": slug, "code_file": path.name, "language": "python",
                 "kernel_type": "notebook", "is_private": True, "enable_gpu": True,
                 "machine_shape": probe.MACHINE_SHAPE, "enable_internet": True,
                 "dataset_sources": [f"{probe.USER}/{probe.DATASET}"], "competition_sources": [],
@@ -260,4 +277,4 @@ def sha256(path):
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv[1:]))

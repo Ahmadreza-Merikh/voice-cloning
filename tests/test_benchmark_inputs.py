@@ -79,3 +79,23 @@ def test_a_cut_window_is_recorded_as_cut() -> None:
 def test_a_reference_the_studio_refuses_is_recorded_not_raised() -> None:
     window = benchmark.prepared_window(Studio(0, 0, 0, fail=True), Path("ref.wav"), 5.0, {})
     assert window == {"error": "ValueError: too quiet"}
+
+
+def test_a_refused_reference_is_noted_and_the_run_goes_on() -> None:
+    # The sealed test's primary runs stopped here on 2026-09-30 with KeyError: 'window'.
+    window = benchmark.prepared_window(Studio(0, 0, 0, fail=True), Path("ref.wav"), 7.44, {})
+    note = benchmark.window_note("ney06", window, 7.44, transcript_given=True)
+    assert "ney06's reference was refused (ValueError: too quiet)" in note
+
+
+def test_a_cut_window_with_a_given_transcript_is_noted() -> None:
+    window = benchmark.prepared_window(Studio(0.06, 11.49, 11.42), Path("ref.wav"), 11.886, {})
+    note = benchmark.window_note("ney01", window, 11.886, transcript_given=True)
+    assert "from 0.06 s to 11.49 s of 11.89 s" in note
+    assert benchmark.window_note("ney01", window, 11.886, transcript_given=False) is None
+
+
+def test_a_whole_clip_or_no_window_says_nothing() -> None:
+    whole = benchmark.prepared_window(Studio(0.0, 9.9, 9.7), Path("ref.wav"), 9.9, {})
+    assert benchmark.window_note("ney02", whole, 9.9, transcript_given=True) is None
+    assert benchmark.window_note("ney02", None, 9.9, transcript_given=True) is None

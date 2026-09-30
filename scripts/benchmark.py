@@ -410,11 +410,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         reference_text = None if args.ref_transcript == "asr" else reference["transcript"]
         window = None if args.score_only else prepared_window(
             studio, reference["path"], reference_audio.duration, preprocess_overrides)
-        if window and not window.get("whole_clip") and reference_text is not None:
-            # The transcript was written for the whole clip; a cut window no longer says all of it.
-            print(f"  note: {speaker}'s reference is used from {window['window'][0]:.2f} s to "
-                  f"{window['window'][1]:.2f} s of {reference_audio.duration:.2f} s, with the whole clip's "
-                  "transcript", flush=True)
+        note = window_note(speaker, window, reference_audio.duration, reference_text is not None)
+        if note:
+            print(note, flush=True)
         references.append({
             "speaker": speaker, "file": reference["file"], "sha256": sha256_file(reference["path"]),
             "duration": reference.get("duration"),
@@ -598,6 +596,26 @@ def prepared_window(studio: Any, path: Path, duration: float, overrides: dict[st
         "whole_clip": start <= 0.05 and end >= duration - 0.05,
         "steps": list(prepared.steps),
     }
+
+
+def window_note(speaker: str, window: dict[str, Any] | None, duration: float, transcript_given: bool) -> str | None:
+    """The line a run prints about a speaker's reference, or None.
+
+    A reference the Studio refuses comes back as ``{"error": ...}``: every
+    render of that speaker then fails and says why, and the comparison leaves
+    the speaker out. Reading a window from it instead stopped the sealed test's
+    primary runs on 2026-09-30 (eval/runs/persian-voice-omnivoice-test.json).
+    """
+    if not window:
+        return None
+    if "error" in window:
+        return (f"  note: {speaker}'s reference was refused ({window['error']}); "
+                "each of its renders will fail and say why")
+    if not window.get("whole_clip") and transcript_given:
+        # The transcript was written for the whole clip; a cut window no longer says all of it.
+        return (f"  note: {speaker}'s reference is used from {window['window'][0]:.2f} s to "
+                f"{window['window'][1]:.2f} s of {duration:.2f} s, with the whole clip's transcript")
+    return None
 
 
 def _score_existing(studio: Any, path: Path, expected: str) -> Any:

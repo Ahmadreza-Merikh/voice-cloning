@@ -4,45 +4,49 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-30 18:15 +0330 (2026-09-30 14:45 UTC).
+Last updated: 2026-09-30 20:55 +0330 (2026-09-30 17:25 UTC).
 
-## Now: the sealed test's primary set is being rerun (pushed 2026-09-30 14:42 UTC)
+## The sealed test is answered: no detectable improvement on unseen speakers
 
-The sealed test's version 1 (`marsmanam/persian-voice-omnivoice-test`,
-2026-09-30 10:34-13:37 UTC, 2.90 GPU-hours) wrote both corpora, found the
-candidate (step 1,000) and **scored the secondary (Common Voice) set**; both
-**primary (Neyshekar) runs stopped** at their sixth speaker on a harness
-error (`KeyError: 'window'`): the Studio refused ney06's reference (2.7 s of
-speech after trimming, under its 3 s minimum) and the benchmark, instead of
-noting it and going on, crashed. Fixed and tested (`130a649`); the dataset was
-re-staged from `d9f7f76` and verified by download. Neither primary run wrote a
-results file, and nobody has read the per-cell lines their logs printed.
+[measured, read by the pre-registered code] **Primary set** - 27 unseen
+Neyshekar speakers (ney06 left out: its reference is refused by the configured
+preparation): the export at step 1,000 minus the published model is
+**+0.0014 held-out similarity [-0.0042, +0.0069]**, one-sided p 0.31, CER
+-0.11 points [-0.75, +0.53]. **H0 of no improvement is not rejected**, and
+the interval's upper end excludes the 0.03 the test was designed to detect.
+**Secondary set** - 30 Common Voice speakers: +0.0040 [+0.0002, +0.0079], H0
+rejected on that set, a fifth of the 0.0205 noise line. So the adaptation - the
+official recipe's 5,000 steps on 128 h of Persian, about 24 GPU-hours of training sessions - did not
+measurably improve zero-shot cloning of unseen Persian speakers; the
+development set's +0.025 was familiarity with Common Voice. No improvement is
+claimed. The published OmniVoice stays what the app uses. FINDINGS section 12;
+record `eval/runs/persian-voice-omnivoice-test.json` (`result`).
 
-So the primary set is **rerun alone** in its own notebook,
-`marsmanam/persian-voice-omnivoice-test-primary` (built with
-`--primary-rerun`; pushed 14:42:39 UTC, RUNNING at once): same corpus rule,
-texts, seeds, candidate and reading; ney06 left out by the pre-registered
-rule for a speaker with failed cells, so 27 speakers; the secondary result
-stands as version 1 scored it. About 2.2 GPU-hours of the 17.17 left until
-2026-10-03 (`amendment_2026_09_30_primary_rerun` in
-`eval/runs/persian-voice-omnivoice-test.json`).
+How it was run: version 1 (`persian-voice-omnivoice-test`, 10:34-13:37 UTC,
+2.90 GPU-hours) scored the secondary set; its primary runs stopped on a harness
+error at ney06 (`KeyError: 'window'`, fixed in `130a649`), before either wrote
+a results file. The primary set was rerun alone with the fix
+(`persian-voice-omnivoice-test-primary`, 14:42-17:03 UTC, 2.16 GPU-hours),
+registered before any primary score was read
+(`amendment_2026_09_30_primary_rerun`).
 
-**When it ends (here, or from Windows with `docs/WINDOWS.md`):**
+## Now: the arms session is running (pushed 2026-09-30 17:19 UTC)
 
-1. `git pull`; read its status with
-   `kaggle kernels status marsmanam/persian-voice-omnivoice-test-primary`.
-2. Fetch the small files: `python kaggle/fetch_output.py
-   marsmanam/persian-voice-omnivoice-test-primary remote/omnivoice-test-primary-v1 test/`.
-3. Record the whole test: the primary reading from the rerun (Neyshekar, H0
-   difference <= 0, one-sided alpha 0.025; the 0.0205 line; the CER guard)
-   and the secondary reading from version 1 (`eval/runs/evidence/omnivoice-test-v1/reading.json`),
-   the costs, evidence in `eval/runs/evidence/omnivoice-test-primary-v1/`.
-   Nothing is claimed beyond what the reading says.
-4. Then push `kaggle/omnivoice-arms` (built, F5 pinned to its registered
-   settings) with its budget declared first - about 2 to 2.5 GPU-hours - and
-   read it beside the primary result only.
-5. Then the LongCat decision the user deferred to this point (below): the
-   bar for a Persian LongCat pilot is 0.601 on the probe's speakers.
+`marsmanam/persian-voice-omnivoice-arms` v1: F5-TTS Persian (at its registered
+48 steps) and Pocket-TTS Farsi v2 on the same sealed cells, read beside the
+primary result only - held-out similarity, the candidate minus each arm, paired
+per speaker. About 2 to 2.5 GPU-hours of the 15.01 left until 2026-10-03
+(declared in the test record, `arms_before_the_push_2026_09_30`). A first push
+at 17:17 failed on the network and created nothing (checked before retrying).
+
+**When it ends (here, or from Windows with `docs/WINDOWS.md`):** fetch
+`arms/` with `kaggle/fetch_output.py`, pair each arm against the candidate's
+cells (Neyshekar from the rerun, Common Voice from version 1) with
+`scripts/compare_runs.py`, and record what the registration says each outcome
+means (`amendment_2026_09_20_other_engines_on_the_same_test`). Then the LongCat
+decision the user deferred to this point (below): with the adaptation shown not
+to help, the question is whether a Persian LongCat-1B could beat OmniVoice's
+0.601 on the probe's speakers - an adaptation to cost, not to assume.
 
 **The development session chose step 1,000** (2026-09-30, v2, 0.47
 GPU-hours, all gates passed): held-out similarity 0.6083, 0.5919, 0.6004,

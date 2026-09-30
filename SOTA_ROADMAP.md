@@ -540,9 +540,13 @@ sealed test sets (§3.1). No improvement is claimed before that has happened.
    (§3.3).
 6. The OmniVoice adaptation (§8): the probe, then - if it fits - the full run
    in sessions, then the development-set choice among its exports.
-7. Score each final candidate on the sealed test sets once. The session is
-   built (`kaggle/build_omnivoice_test_kernel.py`) and waits for the
-   development-set choice.
+7. ~~Score each final candidate on the sealed test sets once~~, done
+   2026-09-30. The development set chose step 1,000; on the primary sealed set
+   (27 unseen Neyshekar speakers) it scores **+0.0014 [-0.0042, +0.0069]**
+   over the published model - no detectable improvement, and the interval
+   excludes the 0.03 the test was designed for; +0.0040 [+0.0002, +0.0079] on
+   the Common Voice set. The adaptation did not carry over to unseen speakers
+   (FINDINGS section 12). The arms session (F5, Pocket) follows.
 8. ~~The LongCat probe (§4)~~, run 2026-09-25 (1.9 GPU-hours, every gate
    passed): LongCat-1B clears the line in English, +0.068 [+0.055, +0.080], so
    an adaptation is worth costing; found after the result, OmniVoice reading

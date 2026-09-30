@@ -1,0 +1,26 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.3s; 104590 shown"
+  },
+  "download": {
+    "passed": true,
+    "reason": "{\"base\": {\"gib\": 3.043, \"seconds\": 18.7, \"tries\": [{\"attempt\": 1, \"seconds\": 18.7}], \"failed_check\": null}}"
+  },
+  "scale-control": {
+    "passed": true,
+    "reason": "{\"held_out_mean\": 0.5196444444444445, \"held_out_sd\": 0.08322102791470126, \"reference_mean\": 0.6541962962962963, \"wer_mean\": 0.27272727272727276, \"cer_mean\": 0.03126478268597132, \"cer_median\": 0.023255813953488372, \"scale_position\": 0.6922173895399655, \"renders\": 27, \"failures\": 0, \"untranscribed\": 0}"
+  },
+  "control": {
+    "passed": true,
+    "reason": "{\"held_out_mean\": 0.583737037037037, \"held_out_sd\": 0.07430792041927319, \"reference_mean\": 0.7447666666666667, \"wer_mean\": 0.2556332556332556, \"cer_mean\": 0.028915959148517287, \"cer_median\": 0.022222222222222223, \"scale_position\": 0.814291997352839, \"renders\": 27, \"failures\": 0, \"untranscribed\": 0}"
+  },
+  "exports": {
+    "passed": true,
+    "reason": "{\"published\": 0.583737037037037, \"1000\": 0.6082777777777778, \"2000\": 0.591937037037037, \"3000\": 0.6003962962962963, \"4000\": 0.5936925925925925, \"5000\": 0.5983037037037037}"
+  },
+  "choice": {
+    "passed": true,
+    "reason": "{\"rule\": \"highest held-out similarity among exports whose CER interval against the published model does not lie above zero (SOTA_ROADMAP section 8, fixed before the run)\", \"rows\": [{\"step\": 1000, \"label\": \"omnivoice-fa-1000\", \"held_out\": 0.6082777777777778, \"similarity_minus_published\": [0.02454074074074073, 0.0029131794442416627, 0.0461683020372398], \"cer_minus_published\": [-0.0005058583869953379, -0.02024145417520053, 0.019229737401209857], \"cer_interval_above_zero\": false}, {\"step\": 2000, \"label\": \"omnivoice-fa-2000\", \"held_out\": 0.591937037037037, \"similarity_minus_published\": [0.008200000000000004, -0.01316905613862115, 0.02956905613862116], \"cer_minus_published\": [-0.0024636670631502677, -0.013580862523560656, 0.008653528397260121], \"cer_interval_above_zero\": false}, {\"step\": 3000, \"label\": \"omnivoice-fa-3000\", \"held_out\": 0.6003962962962963, \"similarity_minus_published\": [0.016659259259259252, 0.0011715954289540174, 0.03214692308956449], \"cer_minus_published\": [-0.003951164157882504, -0.01603975639486493, 0.008137428079099923], \"cer_interval_above_zero\": false}, {\"step\": 4000, \"label\": \"omnivoice-fa-4000\", \"held_out\": 0.5936925925925925, \"similarity_minus_published\": [0.009955555555555565, -0.006656430138154024, 0.026567541249265154], \"cer_minus_published\": [-0.006267175259423321, -0.01771163829425978, 0.005177287775413139], \"cer_interval_above_zero\": false}, {\"step\": 5000, \"label\": \"omnivoice-fa-5000\", \"held_out\": 0.5983037037037037, \"similarity_minus_published\": [0.014566666666666664, -0.0032425054923534233, 0.03237583882568675], \"cer_minus_published\": [-0.010262089331856773, -0.022136174954443186, 0.001611996290729641], \"cer_interval_above_zero\": false}], \"candidate\": {\"step\": 1000, \"label\": \"omnivoice-fa-1000\", \"held_out\": 0.6082777777777778, \"similarity_minus_published\": [0.02454074074074073, 0.0029131794442416627, 0.0461683020372398], \"cer_minus_published\": [-0.0005058583869953379, -0.02024145417520053, 0.019229737401209857], \"cer_interval_above_zero\": false}}"
+  }
+}

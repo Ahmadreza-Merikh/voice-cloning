@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-30 20:55 +0330 (2026-09-30 17:25 UTC).
+Last updated: 2026-09-30 23:40 +0330 (2026-09-30 20:10 UTC).
 
 ## The sealed test is answered: no detectable improvement on unseen speakers
 
@@ -39,50 +39,31 @@ per speaker. About 2 to 2.5 GPU-hours of the 15.01 left until 2026-10-03
 (declared in the test record, `arms_before_the_push_2026_09_30`). A first push
 at 17:17 failed on the network and created nothing (checked before retrying).
 
-**When it ends (here, or from Windows with `docs/WINDOWS.md`):** fetch
-`arms/` with `kaggle/fetch_output.py`, pair each arm against the candidate's
-cells (Neyshekar from the rerun, Common Voice from version 1) with
-`scripts/compare_runs.py`, and record what the registration says each outcome
-means (`amendment_2026_09_20_other_engines_on_the_same_test`). Then the LongCat
-decision the user deferred to this point (below): with the adaptation shown not
-to help, the question is whether a Persian LongCat-1B could beat OmniVoice's
-0.601 on the probe's speakers - an adaptation to cost, not to assume.
+**The Mac lost Kaggle at 19:11 UTC (22:41 +0330):** from then on every call
+was refused (`Permission 'kernels.get' was denied`, quota 403) with a token that
+had not expired - what a new `kaggle auth login` elsewhere does to the old one.
+So the arms session was last read RUNNING at about 19:01 UTC, the watcher's last good poll, and its end has not been
+seen from here. Whoever drives next logs in on their own machine.
 
-**The development session chose step 1,000** (2026-09-30, v2, 0.47
-GPU-hours, all gates passed): held-out similarity 0.6083, 0.5919, 0.6004,
-0.5937 and 0.5983 at steps 1,000 to 5,000 against the published model's
-0.5837; only 1,000 (+0.025 [+0.003, +0.046]) and 3,000 clear zero, and no
-CER interval lies above it. The published model, the first three exports and
-the scale control reproduced the early run in all 27 cells. So the steps
-after 1,000 added nothing on these speakers
-(`eval/runs/persian-voice-omnivoice-dev.json`).
+**When it ends (from Windows with `docs/WINDOWS.md`):**
 
-## The adaptation is trained (2026-09-30)
-
-**Session c is complete**: all four gates passed and the recipe's 5,000
-steps are trained. It resumed from b's `checkpoint-3000`, ran 2026-09-27
-18:14 to 2026-09-28 03:38 UTC at 16.7 s a step, ended normally at step 5,000
-and kept `checkpoint-5000` and the float16 exports at 4,000 and 5,000; 9.46
-GPU-hours. [measured] The official validation loss is flat from the first
-evaluation on - 4.229 at step 500, 4.241 at 5,000, between 4.22 and 4.35 at
-every point - so the loss decides nothing; the development session does
-(`eval/runs/persian-voice-omnivoice-adapt.json`, evidence
-`eval/runs/evidence/omnivoice-train-c-v1/`). It had waited 2 h 40 min in
-Kaggle's queue, and this Mac was closed between its end and 2026-09-30.
-
-**The dataset** `persian-voice-eval` was re-staged from `542b2a5` on
-2026-09-30 and verified by download: 279 files byte-identical and the split
-file unpacked with identical content. (Its upload lost the connection three
-times and resumed each time; a first attempt was stopped while waiting to
-retry and created nothing.)
-
-**Where the work is driven from (2026-09-30):** the user will continue from a
-Windows machine, with this Mac off. The repository is on GitHub, private,
-`Ahmadreza-Merikh/voice-cloning`; `docs/WINDOWS.md` is the setup and the rules
-- above all, one machine drives Kaggle and Git at a time: `git pull` before,
-commit and `git push` after. The user rewrote the history before the first
-push, so every hash cited before 2026-09-30 is an old one;
-`docs/HISTORY-REWRITE-2026-09-30.md` maps each to its commit now.
+1. `git pull`; `kaggle kernels status marsmanam/persian-voice-omnivoice-arms`
+   (version 2). If it ended ERROR, read its log (`kaggle/fetch_log.py`)
+   before anything is pushed again.
+2. `python kaggle/fetch_output.py marsmanam/persian-voice-omnivoice-arms
+   remote/omnivoice-arms-v2 arms/`
+3. `python scripts/read_arms.py remote/omnivoice-arms-v2/arms` - the
+   registered reading as code (`290a415`, tested): per set and arm, the
+   candidate minus the arm with its interval and one of the three registered
+   outcomes; CER only between F5 and Pocket.
+4. Record it in `eval/runs/persian-voice-omnivoice-test.json` (`arms_result`),
+   evidence in `eval/runs/evidence/omnivoice-arms-v2/` (gates, runs,
+   environment, the four results with recipes, the log), FINDINGS section 12
+   beside the primary result; commit and `git push`.
+5. Then the LongCat decision the user deferred to this point (below): with the
+   adaptation shown not to help, the question is whether a Persian LongCat-1B
+   could beat OmniVoice's 0.601 on the probe's speakers - an adaptation to
+   cost, not to assume.
 
 ## Decided 2026-09-25: the OmniVoice plan goes on, LongCat waits for the test
 

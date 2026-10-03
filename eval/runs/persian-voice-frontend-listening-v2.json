@@ -71,5 +71,13 @@
   "into_the_app": "every kept, unflagged fix; all four combinations are rendered, so whichever is adopted was heard"
  },
  "not_claimed": "one listener, one voice, one seed, 242 words written by Claude and the user; homographs outside HomoRich's list (اسرار among them) are untouched by H",
- "cost": "Kaggle: one session, about 0.15 GPU-hours. Local: Homo-GE2PE (0.7 GB) and the light tagger (0.9 GB), one at a time; the listening, about 25 minutes"
+ "cost": "Kaggle: one session, about 0.15 GPU-hours. Local: Homo-GE2PE (0.7 GB) and the light tagger (0.9 GB), one at a time; the listening, about 25 minutes",
+ "sessions": [
+  {
+   "kernel_version": 1,
+   "when": "2026-10-03 20:12-20:29 UTC",
+   "outcome": "no render: every gate before the renders passed and all 48 texts went through the app's pipeline with no mark lost, then the render script stopped before the engine loaded - it made the texts path relative to the repository and was given one already relative (ValueError). Nothing was heard or scored from it",
+   "fix": "scripts/render_frontend_conditions.py resolves its paths first; tests/test_render_frontend_conditions.py runs the script with a relative path up to a stubbed engine. The texts, rules and settings are unchanged; the session is pushed again as kernel version 2"
+  }
+ ]
 }

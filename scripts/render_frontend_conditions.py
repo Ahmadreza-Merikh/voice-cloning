@@ -82,7 +82,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--app-normaliser", action="store_true",
                         help="normalise for OmniVoice as the app now does (أ and ۀ kept); no ezafe added")
     args = parser.parse_args(argv)
-    args.out = args.out or args.texts.parent
+    # Paths are recorded relative to the repository, so they are made absolute first.
+    args.texts = args.texts.resolve()
+    args.out = (args.out or args.texts.parent).resolve()
 
     config = ab.render_config(AppConfig.load(None))
     if args.app_normaliser:

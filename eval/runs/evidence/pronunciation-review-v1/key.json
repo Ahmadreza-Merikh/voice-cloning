@@ -1,0 +1,219 @@
+{
+ "seed": 20261004,
+ "manifest": "eval/runs/omnivoice-ipa-ab-v3/manifest.json",
+ "target_lufs": -26.0,
+ "wrong_in_twins": {
+  "t11": "بارانِ بَند آمد: no ezafe on باران (the rain stopped)",
+  "s08": "حِرفا should be حَرفا; خُریدار should be خَریدار",
+  "t10": "اِمانت should be اَمانت"
+ },
+ "sentences": {
+  "s01": {
+   "category": "homograph_ghol_gil",
+   "slots": {
+    "1": "C",
+    "2": "A",
+    "3": "B"
+   },
+   "gains_db": {
+    "1": -7.83,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "s02": {
+   "category": "homograph_mard_murd",
+   "slots": {
+    "1": "B",
+    "2": "C",
+    "3": "A"
+   },
+   "gains_db": {
+    "1": -7.74,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "s03": {
+   "category": "ezafe_chain",
+   "slots": {
+    "1": "C",
+    "2": "B",
+    "3": "A"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -7.74
+   },
+   "target_lufs": -26.0
+  },
+  "s04": {
+   "category": "homograph_rooye",
+   "slots": {
+    "1": "B",
+    "2": "A",
+    "3": "C"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "s05": {
+   "category": "consonants_kha_qha_gha",
+   "slots": {
+    "1": "A",
+    "2": "B",
+    "3": "C"
+   },
+   "gains_db": {
+    "1": -6.74,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "s06": {
+   "category": "consonants_zhe_ch_sh",
+   "slots": {
+    "1": "A",
+    "2": "C",
+    "3": "B"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "s07": {
+   "category": "clusters",
+   "slots": {
+    "1": "C",
+    "2": "A",
+    "3": "B"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -6.6
+   },
+   "target_lufs": -26.0
+  },
+  "s08": {
+   "category": "colloquial",
+   "slots": {
+    "1": "B",
+    "2": "C",
+    "3": "A"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "s09": {
+   "category": "long",
+   "slots": {
+    "1": "C",
+    "2": "A"
+   },
+   "gains_db": {
+    "1": -6.62,
+    "2": -6.98
+   },
+   "target_lufs": -26.0
+  },
+  "t09": {
+   "category": "homographs_and_ezafe",
+   "slots": {
+    "1": "C",
+    "2": "B",
+    "3": "A"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -7.61,
+    "3": -7.76
+   },
+   "target_lufs": -26.0
+  },
+  "t10": {
+   "category": "homographs_and_ezafe",
+   "slots": {
+    "1": "B",
+    "2": "A",
+    "3": "C"
+   },
+   "gains_db": {
+    "1": -6.55,
+    "2": -7.04,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "t11": {
+   "category": "very_short",
+   "slots": {
+    "1": "A",
+    "2": "B",
+    "3": "C"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "t12": {
+   "category": "long",
+   "slots": {
+    "1": "A",
+    "2": "C"
+   },
+   "gains_db": {
+    "1": -7.41,
+    "2": -7.25
+   },
+   "target_lufs": -26.0
+  },
+  "r01": {
+   "category": "corpus_long",
+   "slots": {
+    "1": "C",
+    "2": "A"
+   },
+   "gains_db": {
+    "1": -7.53,
+    "2": -4.68
+   },
+   "target_lufs": -26.0
+  }
+ },
+ "order": [
+  "s07",
+  "s06",
+  "s01",
+  "s02",
+  "s09",
+  "s05",
+  "s04",
+  "t09",
+  "s08",
+  "s03",
+  "t10",
+  "t12",
+  "t11",
+  "r01"
+ ],
+ "fingerprint": "fdc17ebfc261c9e6"
+}

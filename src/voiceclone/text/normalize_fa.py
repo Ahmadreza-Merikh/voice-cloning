@@ -127,6 +127,14 @@ class NormalizationOptions:
     expand_numbers: bool = True
     strip_bracketed_tags: bool = True
     ascii_digits: bool = False
+    #: Keep ALEF WITH HAMZA ABOVE (تأخیر, تأثیر, مأمور) instead of a bare alef.
+    #: For a model that reads it: given تاخیر, OmniVoice said taa'khir (the
+    #: pronunciation review, 2026-10-03).
+    keep_hamza_alef: bool = False
+    #: Write HEH WITH YEH ABOVE - a written ezafe - as ه with hamza above (هٔ),
+    #: the form the ezafe marks use and OmniVoice was heard reading, instead of a
+    #: bare ه, which drops the ezafe.
+    ezafe_heh_as_hamza: bool = False
 
 
 def remove_invisibles(text: str) -> str:
@@ -134,9 +142,14 @@ def remove_invisibles(text: str) -> str:
     return _INVISIBLES.sub("", text)
 
 
-def unify_characters(text: str) -> str:
+def unify_characters(text: str, *, keep_hamza_alef: bool = False, ezafe_heh_as_hamza: bool = False) -> str:
     """Map Arabic letterforms and digits onto their Persian equivalents."""
-    return text.translate(str.maketrans(CHARACTER_UNIFICATION))
+    table = dict(CHARACTER_UNIFICATION)
+    if keep_hamza_alef:
+        del table["أ"]
+    if ezafe_heh_as_hamza:
+        table["ۀ"] = "هٔ"
+    return text.translate(str.maketrans(table))
 
 
 def remove_diacritics(text: str) -> str:
@@ -234,7 +247,8 @@ def normalize(text: str, options: NormalizationOptions | None = None) -> str:
     if options.strip_bracketed_tags:
         text = strip_bracketed_tags(text)
     if options.unify_characters:
-        text = unify_characters(text)
+        text = unify_characters(text, keep_hamza_alef=options.keep_hamza_alef,
+                                ezafe_heh_as_hamza=options.ezafe_heh_as_hamza)
     if options.remove_diacritics:
         text = remove_diacritics(text)
     if options.expand_abbreviations:

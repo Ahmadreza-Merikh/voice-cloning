@@ -1385,6 +1385,7 @@ only the 52% of words it lists one way, 93% of them right. Part of that is the
 benchmark's slips and split words, but nothing approaches the 96% that
 OmniVoice reached alone in the review, which the registration set as the bar.
 On the 14 sentences Homo-GE2PE is right on 8 of A's 9 vowel errors - and wrong
-on three words A read right. So step 2 marks vowels only where they are
-needed. Still open: the user's blind check of 12 readings Claude wrote for the
-14 sentences, which cannot change the choice above.
+on six words A read right (کنار, پنجره, the second کشتی, روبه‌رویی, دست‌کم,
+مسافران). So step 2 marks vowels only where they are needed. The 12 readings
+Claude wrote that a component disputed went to the user blind; the user agreed
+with all 12, so the 14-sentence numbers stand.

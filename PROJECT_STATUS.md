@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 12:40 +0330 (2026-10-03 09:10 UTC).
+Last updated: 2026-10-03 12:55 +0330 (2026-10-03 09:25 UTC).
 
 ## Text tools measured: hazm's ParsBERT tagger for the ezafe; no vowel source for every word (2026-10-03)
 
@@ -28,10 +28,11 @@ review sentences (`eval/manifests/frontend_review14_gold_v1.json`).
 - Not run: `PedramR/canine-fa-diacritizer` is gated (the request comes from
   the user's Hugging Face account); `persian-byt5-g2p` reads a word at a time.
 
-**Waiting on the user:** a blind check of 12 readings Claude wrote for the 14
-sentences (`eval/runs/evidence/frontend-components-v1/adjudication-key.json`
-holds the key; the questions went to the user on 2026-10-03). It finalises the
-14-sentence numbers only.
+The 12 readings Claude wrote for the 14 sentences that a component disputed
+went to the user blind; the user agreed with all 12
+(`eval/runs/evidence/frontend-components-v1/adjudication-answers.json`), so the
+numbers stand. Homo-GE2PE's vowels there: right on 8 of OmniVoice's 9 heard
+vowel errors, wrong on 6 words OmniVoice read right.
 
 **Next (the user's go-ahead first): step 2** - put the tagger in front of
 OmniVoice: write each predicted ezafe into the text (kasra, or ی / هٔ after a

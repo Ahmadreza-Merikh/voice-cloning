@@ -1,0 +1,91 @@
+{
+ "answered": "2026-10-03, by the user in chat, as '1 a 2 b ...' (a = الف, b = ب)",
+ "agree": 12,
+ "of": 12,
+ "items": [
+  {
+   "item": 1,
+   "word": "هفتهٔ",
+   "aspect": "ezafe",
+   "user_picked": "hafte-ye pish",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 2,
+   "word": "پیش",
+   "aspect": "ezafe",
+   "user_picked": "pish-e man",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 3,
+   "word": "کنار",
+   "aspect": "vowels",
+   "user_picked": "kenaar-e panjere",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 4,
+   "word": "پنجره",
+   "aspect": "vowels",
+   "user_picked": "panjere",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 5,
+   "word": "ساعت",
+   "aspect": "ezafe",
+   "user_picked": "nim saa'at pish",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 6,
+   "word": "روبه‌رویی",
+   "aspect": "ezafe",
+   "user_picked": "ruberuyi-ye maa",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 7,
+   "word": "روبه‌رویی",
+   "aspect": "vowels",
+   "user_picked": "ruberuyi",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 8,
+   "word": "دست‌کم",
+   "aspect": "ezafe",
+   "user_picked": "dastekam se saa'at",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 9,
+   "word": "دست‌کم",
+   "aspect": "vowels",
+   "user_picked": "dastekam",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 10,
+   "word": "مسافران",
+   "aspect": "vowels",
+   "user_picked": "mosaaferaan",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 11,
+   "word": "سالن",
+   "aspect": "ezafe",
+   "user_picked": "saalon-e entezaar",
+   "agrees_with_claude": true
+  },
+  {
+   "item": 12,
+   "word": "بینایی",
+   "aspect": "ezafe",
+   "user_picked": "aasib-e binaayi, aameli",
+   "agrees_with_claude": true
+  }
+ ]
+}

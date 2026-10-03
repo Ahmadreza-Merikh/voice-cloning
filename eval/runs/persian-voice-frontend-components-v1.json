@@ -1,6 +1,6 @@
 {
  "run": "a text-only comparison of the components that could write what plain Persian script leaves out - the ezafe and short vowels - before any of them goes into the app",
- "status": "registered 2026-10-03 before any component ran; amended before any score (amendment_2026_10_03_overlap); scored the same day by the registered code. The 14-sentence reading waits on the user's blind check of 12 readings",
+ "status": "registered 2026-10-03 before any component ran; amended before any score (amendment_2026_10_03_overlap); scored the same day by the registered code; the user's blind check of the 12 contested readings agreed with all 12, so every number stands",
  "why": "the pronunciation review (eval/runs/persian-voice-pronunciation-review-v1.json): of the 19 errors OmniVoice made on plain script, 9 are ezafe and 8 short vowels, and OmniVoice reads the diacritics it is given whether they are right or wrong. So whatever writes those marks must be accurate. This measures the candidates on text: no audio, no GPU, no OmniVoice",
  "question": "on plain script, which component places the ezafe best, and how accurately each source gives a word's vowels",
  "components": {
@@ -202,16 +202,17 @@
    "kaamel": "answers 746 of 1433 words (52.1%), right on 694 (93.0%); it leaves homographs unanswered",
    "kaamel-then-homo-ge2pe": "1285 of 1433 (89.7%)",
    "pooled_sentencebench": "homo-ge2pe 91.2%; kaamel 95.0% on 58.3% of words",
-   "review14": "homo-ge2pe 192 of 199: right on 8 of A's 9 heard vowel errors (wrong on گل, mud, as A was), wrong on 7 words - three of them words A read right (the second کشتی, روبه‌رویی, مسافران) and three that may be variants (کنار, پنجره, دست‌کم; with the user). KaamelDict answers 125 and is right on 124 (the one miss, برای, is listed with its ezafe glide - the same sound)",
+   "review14": "homo-ge2pe 192 of 199: right on 8 of A's 9 heard vowel errors (wrong on گل, mud, as A was), wrong on 6 words A read right (کنار as kenaare, پنجره as panjare, the second کشتی, روبه‌رویی, دست‌کم as dastkam, مسافران) - the user's blind check ruled out the three that might have been variants. KaamelDict answers 125 and is right on 124 (the one miss, برای, is listed with its ezafe glide - the same sound)",
    "rule_applied": "no source reaches 96% on SentenceBench, so marking every word is ruled out; step 2 marks only where needed",
    "looked_at": "a sample of Homo-GE2PE's 162 misses on the unseen sentences mixes real errors (homographs, nafas for nafs, xalq for xolq) with the benchmark's slips (را as ra, typos such as dAstaS) and words the benchmark writes apart that Homo-GE2PE joins. Its real accuracy is above 88.7%, not near 96%"
   },
-  "adjudication": "12 readings put to the user blind on 2026-10-03 (eval/runs/evidence/frontend-components-v1/adjudication-key.json); the 14-sentence numbers above are before it. It cannot change the ezafe choice: the tie-break used only errors the review settled",
+  "adjudication": "12 readings put to the user blind on 2026-10-03 (eval/runs/evidence/frontend-components-v1/adjudication-key.json); the user agreed with Claude's gold on all 12 (adjudication-answers.json), so the 14-sentence numbers are final as scored",
   "cost": "CPU on this Mac: hazm-spacy 32 s for the 400 sentences at 4.1 GB peak, Homo-GE2PE 89 s at 0.7 GB, ALBERT 18 s, the CRF tagger 3 s, KaamelDict 2 s",
   "evidence": [
    "eval/runs/evidence/frontend-components-v1/predictions-*.json",
    "eval/runs/evidence/frontend-components-v1/score.json",
-   "eval/runs/evidence/frontend-components-v1/adjudication-key.json"
+   "eval/runs/evidence/frontend-components-v1/adjudication-key.json",
+   "eval/runs/evidence/frontend-components-v1/adjudication-answers.json"
   ]
  }
 }

@@ -1,0 +1,48 @@
+{
+ "run": "the first listening test: blind A/B judgements on the sealed Neyshekar set's unseen speakers",
+ "status": "registered 2026-10-03, before anyone has listened; no result is written until listeners have answered",
+ "why": "every judgement in this project so far is an encoder's (held-out similarity) or a recogniser's (CER); nobody has listened. SOTA_ROADMAP section 3.4: a blind test is the only way to know whether a similarity difference is audible, and the only thing that could justify the 0.0205 line as a decision bar or retire it",
+ "tests": {
+  "sealed-published-vs-adapted": {
+   "systems": {
+    "a": "OmniVoice published (k2-fsa/OmniVoice c5fdb5cc)",
+    "b": "OmniVoice adapted, the export at step 1,000 (the sealed test's candidate)"
+   },
+   "what_the_metric_said": "+0.0014 [-0.0042, +0.0069] held-out similarity on these speakers: no detectable difference",
+   "trials": 14,
+   "fingerprint": "4699902306628967",
+   "renders": "eval/runs/evidence/listening-v1/sealed-published-vs-adapted.txt"
+  },
+  "sealed-omnivoice-vs-f5": {
+   "systems": {
+    "a": "OmniVoice published",
+    "b": "F5-TTS Persian at 48 steps (the arms session's renders)"
+   },
+   "what_the_metric_said": "about +0.11 held-out similarity for OmniVoice on these speakers - the largest gap measured here",
+   "trials": 7,
+   "fingerprint": "de705ec3230ae16f",
+   "renders": "eval/runs/evidence/listening-v1/sealed-omnivoice-vs-f5.txt"
+  }
+ },
+ "selection": "seed 20261003: the 27 usable Neyshekar test speakers (ney06's reference is refused) shuffled; the first 14 to the first test, the next 7 to the second; one text per speaker drawn from t01-t12 without t11 (a one-second sentence - who is speaking cannot be judged from it); the seed-42 renders. Drawn before any clip was heard",
+ "each_trial": "a real recording of the speaker that neither system was prompted with (the first held-out clip, never the prompt), then the two systems' renders of the same text in an order balanced across trials and hidden from the listener, all matched to -26 LUFS by gain alone, 16-bit WAV. The intended text is shown",
+ "questions": [
+  "which sample sounds more like the person in the reference (1, 2, or no difference)",
+  "which sounds more natural (1, 2, or no difference)",
+  "which misread or garbled a word (1, 2, both, or none - an explicit answer)"
+ ],
+ "delivery": "one private web page that interleaves both tests' trials in a fixed order and stores each listener's answers; listeners are asked to use headphones in a quiet room. The keys (which system is which sample) are in eval/runs/evidence/listening-v1/ and never on the page",
+ "listeners": "the user recruits them. Planned: at least 5 - the analysis declared for a final result needs 5 listeners and 5 speakers; with fewer, only the exploratory interval is reported",
+ "analysis_fixed_before_listening": {
+  "code": "scripts/score_listening_test.py, per test, on the answers exported from the page in its responses format",
+  "measures": "for 'same person' and 'natural': the preference for system a (+1), b (-1) or no difference (0) per trial; misreads counted per system over answered trials",
+  "intervals": "over speakers (t interval, exploratory, conditional on these listeners) and, with at least 5 listeners, the two-way cluster bootstrap over speakers and listeners",
+  "what_would_be_concluded": [
+   "OmniVoice against F5: a clear 'same person' preference for OmniVoice means the metric's large differences are audible; no preference would mean even a 0.11 similarity gap is not heard, and every similarity-based decision here would need rereading",
+   "published against adapted: the metric found no difference; 'no difference' from listeners agrees with it. A clear preference either way would be new and would call for a larger test before anything is claimed",
+   "misreads: whether listeners hear pronunciation differences the recogniser's CER does not show"
+  ],
+  "not_claimed": "a handful of listeners from the user's circle is a first check, not a population; nothing is claimed beyond what the intervals say"
+ },
+ "built_by": "scripts/build_listening_test.py (36ebe46) with --corpus-dir, --texts eval/manifests/test_texts_v1.json, the results files of the runs, --files and --bit-depth 16, seed 20261003"
+}

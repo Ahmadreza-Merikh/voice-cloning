@@ -4,7 +4,41 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 12:30 +0330 (2026-10-03 09:00 UTC).
+Last updated: 2026-10-03 12:40 +0330 (2026-10-03 09:10 UTC).
+
+## Text tools measured: hazm's ParsBERT tagger for the ezafe; no vowel source for every word (2026-10-03)
+
+Step 1 of the pronunciation fix, on text only (no audio, no GPU), registered
+before any component ran (`eval/runs/persian-voice-frontend-components-v1.json`,
+FINDINGS section 14). Gold: SentenceBench, read on the 213 sentences in no
+component's named training data (HomoRich holds nearly all its ManaTTS and
+Common Voice sentences - amendment written before any score), and the 14
+review sentences (`eval/manifests/frontend_review14_gold_v1.json`).
+
+- **Ezafe: hazm's ParsBERT tagger** (`roshan-research/hazm-parsbert-postagger`
+  through spaCy, full tags) - 1.7% of words wrong on the unseen sentences,
+  none wrong on the 14 review sentences, right on every ezafe error OmniVoice
+  made. ALBERT 2.5%, Homo-GE2PE 3.0%, hazm's CRF 4.8%, plain script 12.6%.
+  It runs in its own environment, `~/.cache/persian-voice-cloning/frontend/.venv`
+  (Python 3.12, hazm 0.12.1, spaCy 3.8.16, transformers 4.53.2): 655 MB, ~4 GB
+  while running, 32 s for 400 sentences on CPU.
+- **Vowels: nothing is accurate enough to mark every word.** Homo-GE2PE 88.7%
+  of words (homographs 74%), KaamelDict 93% of the 52% it answers - against the
+  registered 96% bar. Vowels get marked only where needed.
+- Not run: `PedramR/canine-fa-diacritizer` is gated (the request comes from
+  the user's Hugging Face account); `persian-byt5-g2p` reads a word at a time.
+
+**Waiting on the user:** a blind check of 12 readings Claude wrote for the 14
+sentences (`eval/runs/evidence/frontend-components-v1/adjudication-key.json`
+holds the key; the questions went to the user on 2026-10-03). It finalises the
+14-sentence numbers only.
+
+**Next (the user's go-ahead first): step 2** - put the tagger in front of
+OmniVoice: write each predicted ezafe into the text (kasra, or ی / هٔ after a
+vowel), try a mark for "no ezafe here" (the review's spurious ones fell at
+phrase ends), and mark vowels only on homographs and known-risky words. Measure
+by listening and CER on new hard sentences written before the fix, against
+plain script.
 
 ## The pronunciation review is answered: ezafe and short vowels (2026-10-03)
 

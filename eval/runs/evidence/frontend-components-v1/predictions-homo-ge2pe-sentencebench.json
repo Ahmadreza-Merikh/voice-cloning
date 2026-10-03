@@ -1,0 +1,5525 @@
+{
+ "component": "homo-ge2pe",
+ "set": "sentencebench",
+ "scheme": "ge2pe",
+ "source": {
+  "repo": "/Users/ahmadrezamerikh/Desktop/G2P Research",
+  "backend": "homo-ge2pe",
+  "weights_sha256": "e84200ee35a0e5b253da0a2ed993c2d2e0e65a5095f8f709f6aa8018cae85542",
+  "path": "voiceclone.text.g2p.PersianG2P().phonemize - normalize_for_g2p, then GE2PE with its rules"
+ },
+ "python": "3.11.13",
+ "packages": {
+  "transformers": "5.14.1",
+  "torch": "2.13.0",
+  "tokenizers": "0.22.2",
+  "huggingface-hub": "1.25.1",
+  "sentencepiece": "0.2.2"
+ },
+ "seconds": 89.3,
+ "max_rss_mb": 707,
+ "sentences": [
+  {
+   "id": "sb000",
+   "tokens": [
+    "m/n",
+    "q/dre",
+    "to",
+    "ra",
+    "midan/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb001",
+   "tokens": [
+    "@/z",
+    "q/zaye",
+    "@elahi",
+    "beq/dre",
+    "@elahi",
+    "p/nah",
+    "mib/r/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb002",
+   "tokens": [
+    "bed/st",
+    "v/",
+    "sur/t/m",
+    "kerem",
+    "z/d/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb003",
+   "tokens": [
+    "@/z",
+    "bozorgvari",
+    "v/",
+    "k/r/me",
+    "xodav/nd",
+    "be",
+    "ma",
+    "ne@m/te",
+    "ziyadi",
+    "reside"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb004",
+   "tokens": [
+    "kerme",
+    "xaki",
+    "ba@es",
+    "mi$/v/d",
+    "golha",
+    "beht/r",
+    "ro$d",
+    "kon/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb005",
+   "tokens": [
+    "ne$/ste",
+    "s/rane",
+    "siyasi",
+    "ke$v/rha",
+    "bexubi",
+    "pi$",
+    "r/ft"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb006",
+   "tokens": [
+    "@u",
+    "mive",
+    "ra",
+    "n/$ost",
+    "v/li",
+    "@an",
+    "ra",
+    "xord"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb007",
+   "tokens": [
+    "del/m",
+    "horri",
+    "rixt"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb008",
+   "tokens": [
+    "boro",
+    "gom",
+    "$o",
+    "herri"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb009",
+   "tokens": [
+    "b/@d",
+    "@/z",
+    "@/zane",
+    "m/qreb",
+    "be",
+    "xane",
+    "mir/vim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb010",
+   "tokens": [
+    "ma",
+    "d/r",
+    "doye",
+    "bo@de",
+    "z/man",
+    "v/",
+    "m/kan",
+    "zendegi",
+    "mikonim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb011",
+   "tokens": [
+    "@/g/r",
+    "be",
+    "$/hre",
+    "m/ro",
+    "s/f/r",
+    "k/ni"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb012",
+   "tokens": [
+    "@/z",
+    "pi$e",
+    "m/n",
+    "moro",
+    "nemit/van/m",
+    "ba",
+    "to",
+    "biyay/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb013",
+   "tokens": [
+    "d/stmozde",
+    "@u",
+    "p/nj",
+    "ya",
+    "$e$",
+    "sekke",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb014",
+   "tokens": [
+    "mahiha",
+    "$o$",
+    "n/dar/nd",
+    "b/lke",
+    "@ab$o$",
+    "dar/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb015",
+   "tokens": [
+    "zendegi",
+    "tebqe",
+    "xasteye",
+    "dig/ran",
+    "s/xt",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb016",
+   "tokens": [
+    "@/@male",
+    "xod",
+    "ra",
+    "d/r",
+    "t/b/qe",
+    "@exlas",
+    "begozarid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb017",
+   "tokens": [
+    "lebashaye",
+    "xod",
+    "ra",
+    "b/r",
+    "@/sase",
+    "mode",
+    "ruz",
+    "@entexab",
+    "konid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb018",
+   "tokens": [
+    "j/zr",
+    "@o",
+    "m/dde",
+    "d/rya",
+    "p/dideye",
+    "@/jibi",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb019",
+   "tokens": [
+    "n/ro",
+    "@/z",
+    "ber/m",
+    "@i",
+    "yar"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb020",
+   "tokens": [
+    "dige",
+    "bay/d",
+    "ber/m",
+    "nemitun/m",
+    "bemun/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb021",
+   "tokens": [
+    "biya",
+    "yek",
+    "q/zaye",
+    "j/did",
+    "ra",
+    "test",
+    "konim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb022",
+   "tokens": [
+    "m/n",
+    "h/r",
+    "ruz",
+    "nane",
+    "teste",
+    "daq",
+    "mik/n/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb023",
+   "tokens": [
+    "dar/m",
+    "be",
+    "s/mte",
+    "kuhha",
+    "h/rek/t",
+    "mikon/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb024",
+   "tokens": [
+    "m/s@olin",
+    "d/r",
+    "h/r",
+    "sem/t",
+    "v/",
+    "p/sti",
+    "ke",
+    "ba$/nd",
+    "bay/d",
+    "xedm/t",
+    "kon/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb025",
+   "tokens": [
+    "@/nq/dr",
+    "z/r",
+    "n/z/n",
+    "x/ste",
+    "$odim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb026",
+   "tokens": [
+    "q/dri",
+    "sim",
+    "@o",
+    "zer",
+    "be",
+    "@u",
+    "b/x$id"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb027",
+   "tokens": [
+    "h/tm/n",
+    "@in",
+    "kar",
+    "ra",
+    "bokon"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb028",
+   "tokens": [
+    "puste",
+    "mive",
+    "ra",
+    "bekk/n"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb029",
+   "tokens": [
+    "q/dri",
+    "d/rh/m",
+    "v/",
+    "dinar",
+    "n/sib/$",
+    "$od"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb030",
+   "tokens": [
+    "miveha",
+    "ra",
+    "d/rh/m",
+    "b/rdar",
+    "s/va",
+    "n/kon"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb031",
+   "tokens": [
+    "kelas/$",
+    "h/$t",
+    "ya",
+    "d/h",
+    "dane$amuz",
+    "da$t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb032",
+   "tokens": [
+    "d/r",
+    "dehe",
+    "payin",
+    "rustayi/n",
+    "bas/fa@i",
+    "h/st/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb033",
+   "tokens": [
+    "dud",
+    "v/",
+    "mehe",
+    "q/lizi",
+    "d/r",
+    "mohite",
+    "picide",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb034",
+   "tokens": [
+    "@ey",
+    "mehe",
+    "zibaye",
+    "m/n",
+    "@aftab",
+    "ra",
+    "xejel",
+    "k/rde@i"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb035",
+   "tokens": [
+    "$/vi",
+    "@u",
+    "ruz",
+    "b/@d",
+    "@/z",
+    "@ezdevaj",
+    "rehl/t",
+    "n/mud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb036",
+   "tokens": [
+    "@/g/r",
+    "xo$al",
+    "$/vi",
+    "bay/d",
+    "$okr",
+    "begozari"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb037",
+   "tokens": [
+    "@inja",
+    "melke",
+    "$/xsiye",
+    "ma",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb038",
+   "tokens": [
+    "melk",
+    "v/",
+    "d/rbariyan",
+    "@/z",
+    "d/r",
+    "kax",
+    "daxel",
+    "$od/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb039",
+   "tokens": [
+    "melke",
+    "soleyman",
+    "@/z",
+    "ba$okuht/rin",
+    "f/rvanr/vayiha",
+    "bude/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb040",
+   "tokens": [
+    "hezaran",
+    "hur",
+    "@o",
+    "m/lek",
+    "d/r",
+    "behe$t",
+    "d/r",
+    "@entezare",
+    "@ust"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb041",
+   "tokens": [
+    "@/g/r",
+    "b/nna",
+    "v/",
+    "$agerde$",
+    "xane",
+    "ra",
+    "besaz/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb042",
+   "tokens": [
+    "@in",
+    "b/nna",
+    "qedm/te",
+    "besyari",
+    "dar/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb043",
+   "tokens": [
+    "@an",
+    "m/rd",
+    "yek",
+    "m/llake",
+    "serv/tm/nd",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb044",
+   "tokens": [
+    "m/n",
+    "melakhaye",
+    "@ezdevaj",
+    "ra",
+    "b/rayetan",
+    "tozih",
+    "mid/h/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb045",
+   "tokens": [
+    "caye",
+    "daq",
+    "ra",
+    "q/bl",
+    "@/z",
+    "nu$id/n",
+    "fut",
+    "kon"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb046",
+   "tokens": [
+    "ped/rbozorg/m",
+    "xeyli",
+    "nag/hani",
+    "fut",
+    "k/rd",
+    "v/",
+    "@/z",
+    "pi$e",
+    "ma",
+    "r/ft"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb047",
+   "tokens": [
+    "d/r",
+    "goz/$te",
+    "b/rdeha",
+    "zendegiye",
+    "s/xti",
+    "da$t/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb048",
+   "tokens": [
+    "@u",
+    "mosabeqeye",
+    "diruz",
+    "ra",
+    "borde"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb049",
+   "tokens": [
+    "@/g/r",
+    "h/meciz",
+    "bede",
+    "b/st/n",
+    "bud",
+    "ke",
+    "s/ng",
+    "ruye1",
+    "s/ng",
+    "b/nd",
+    "nemi$od"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb050",
+   "tokens": [
+    "t/rze",
+    "fekri",
+    "ke",
+    "dari",
+    "xeyli",
+    "b/de"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb051",
+   "tokens": [
+    "yek",
+    "$/lvare",
+    "kordi",
+    "v/",
+    "k/f$aye",
+    "m/h/lli",
+    "x/rid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb052",
+   "tokens": [
+    "@/g/r",
+    "ba",
+    "$adi",
+    "zendegi",
+    "k/rdi",
+    "xo$",
+    "behal/t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb053",
+   "tokens": [
+    "b/cce",
+    "@/s/bani/$",
+    "k/rd",
+    "v/",
+    "yek",
+    "c/ke",
+    "mohk/m",
+    "xord"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb054",
+   "tokens": [
+    "bay/d",
+    "keyfi/te",
+    "@in",
+    "nemuneha",
+    "cek",
+    "$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb055",
+   "tokens": [
+    "f/rda",
+    "be",
+    "n/zde",
+    "@u",
+    "mir/v/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb056",
+   "tokens": [
+    "xeyli",
+    "@/z",
+    "m/n",
+    "@/s/bani",
+    "$od",
+    "@/ma",
+    "m/ra",
+    "n/z/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb057",
+   "tokens": [
+    "@/g/r",
+    "sonn/thaye",
+    "q/dimi",
+    "ra",
+    "hefz",
+    "konim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb058",
+   "tokens": [
+    "@/z",
+    "sennet",
+    "xejal/t",
+    "beke$",
+    "dige",
+    "bozorg",
+    "$odi"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb059",
+   "tokens": [
+    "@u",
+    "yek",
+    "@/b/rq/hreman",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb060",
+   "tokens": [
+    "@an",
+    "@/brhaye",
+    "tire",
+    "ra",
+    "mibini"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb061",
+   "tokens": [
+    "d/ndan/m",
+    "xeili",
+    "d/rd",
+    "mikon/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb062",
+   "tokens": [
+    "@/g/r",
+    "heyvane",
+    "v/h$i",
+    "gu$t",
+    "ra",
+    "mid/r/d",
+    "gorsneh",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb063",
+   "tokens": [
+    "x/yr",
+    "nemit/van/m",
+    "d/rxaste",
+    "$oma",
+    "ra",
+    "q/bul",
+    "kon/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb064",
+   "tokens": [
+    "@ensanhaye",
+    "x/yyer",
+    "be",
+    "bimar/n",
+    "kom/k",
+    "k/rd/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb065",
+   "tokens": [
+    "lotf/n",
+    "solh",
+    "konid",
+    "v/",
+    "j/ng",
+    "ra",
+    "motev/qqef",
+    "konid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb066",
+   "tokens": [
+    "m/n",
+    "v/",
+    "dust/m",
+    "be",
+    "jonge",
+    "$adi",
+    "r/ftim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb067",
+   "tokens": [
+    "$ire",
+    "madeye",
+    "c/har",
+    "tule",
+    "be",
+    "donya",
+    "@av/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb068",
+   "tokens": [
+    "d/r",
+    "@elme",
+    "$imi",
+    "h/r",
+    "made",
+    "bay/d",
+    "ba",
+    "@ehtiyat",
+    "b/rresi",
+    "$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb069",
+   "tokens": [
+    "caquye",
+    "kond",
+    "xub",
+    "nemib/r/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb070",
+   "tokens": [
+    "nemit/van/d",
+    "kare",
+    "b/d/$",
+    "ra",
+    "jobran",
+    "kon/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb071",
+   "tokens": [
+    "@u",
+    "puste",
+    "mive",
+    "ra",
+    "k/nd",
+    "v/",
+    "xord"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb072",
+   "tokens": [
+    "h/s/n",
+    "v/",
+    "hoseyn",
+    "name",
+    "@emamane",
+    "dovvom",
+    "v/",
+    "sevome",
+    "$i@iyan",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb073",
+   "tokens": [
+    "h/s/n",
+    "x/lq",
+    "yeki",
+    "@/z",
+    "f/zil/thaye",
+    "moheme",
+    "@ad/mizad",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb074",
+   "tokens": [
+    "k/re",
+    "v/",
+    "@/s/l",
+    "sobhaneye",
+    "mor/de",
+    "@/laqeye",
+    "m/n",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb075",
+   "tokens": [
+    "@in",
+    "korreye",
+    "x/r",
+    "besyar",
+    "por",
+    "jonb",
+    "@o",
+    "ju$",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb076",
+   "tokens": [
+    "z/mine",
+    "t/xt",
+    "nist",
+    "b/lke",
+    "be$ekle",
+    "kore",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb077",
+   "tokens": [
+    "c/$m",
+    "@/lan",
+    "d/sturet/n",
+    "ra",
+    "@eta@/t",
+    "mikon/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb078",
+   "tokens": [
+    "ce$m",
+    "@o",
+    "@/bruye",
+    "@in",
+    "b/cce",
+    "be",
+    "ped/r/$",
+    "r/fte"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb079",
+   "tokens": [
+    "goli",
+    "ke",
+    "b/raye",
+    "h/ms/r/$",
+    "x/ride",
+    "besyar",
+    "ziba",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb080",
+   "tokens": [
+    "baran",
+    "xak",
+    "ra",
+    "xis",
+    "k/rde",
+    "bud",
+    "v/",
+    "$/lvar/m",
+    "geli",
+    "$od"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb081",
+   "tokens": [
+    "b/@d",
+    "@/z",
+    "@inke",
+    "quli",
+    "dadim",
+    "n/bay/d",
+    "xolfe",
+    "v/@de",
+    "konim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb082",
+   "tokens": [
+    "@u",
+    "f/rz/nde",
+    "x/l/fe",
+    "hajaqa",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb083",
+   "tokens": [
+    "me$ke",
+    "@ab",
+    "@/z",
+    "d/stane",
+    "@/bbas",
+    "b/r",
+    "z/min",
+    "@oftad"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb084",
+   "tokens": [
+    "me$k",
+    "@an",
+    "@/st",
+    "ke",
+    "xod",
+    "beb/vid",
+    "n/",
+    "@anke",
+    "@/ttar",
+    "beguy/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb085",
+   "tokens": [
+    "muhay/$",
+    "ra",
+    "ba",
+    "bores",
+    "$ane",
+    "z/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb086",
+   "tokens": [
+    "boro",
+    "be",
+    "kart",
+    "beres"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb087",
+   "tokens": [
+    "m/n",
+    "b/raye",
+    "mad/r/m",
+    "gol",
+    "x/rid/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb088",
+   "tokens": [
+    "gel",
+    "v/qti",
+    "d/r",
+    "kure",
+    "bep/z/d",
+    "s/xt",
+    "mi$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb089",
+   "tokens": [
+    "h/v/",
+    "besyar",
+    "g/rm",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb090",
+   "tokens": [
+    "ma",
+    "do",
+    "ger/m",
+    "t/la",
+    "x/ridim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb091",
+   "tokens": [
+    "d/r",
+    "hengame",
+    "s/h/r",
+    "n/maz",
+    "mixanim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb092",
+   "tokens": [
+    "sehr",
+    "v/",
+    "jadu",
+    "h/qiq/t",
+    "dar/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb093",
+   "tokens": [
+    "sonni",
+    "v/",
+    "$i@e",
+    "h/r",
+    "do",
+    "mos/lman",
+    "h/st/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb094",
+   "tokens": [
+    "to",
+    "dig/r",
+    "senni",
+    "@/z/t",
+    "goz/$te"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb095",
+   "tokens": [
+    "q/f/se",
+    "b/brha",
+    "d/r",
+    "kenareye",
+    "p/l/ngha",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb096",
+   "tokens": [
+    "biya",
+    "v/",
+    "b/cce/t",
+    "ra",
+    "beb/r",
+    "m/drese"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb097",
+   "tokens": [
+    "@in",
+    "v/zne",
+    "besyar",
+    "s/bok",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb098",
+   "tokens": [
+    "h/r",
+    "k/si",
+    "s/bke",
+    "zendegiye",
+    "xod/$",
+    "ra",
+    "dar/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb099",
+   "tokens": [
+    "@/z",
+    "mad/r/m",
+    "xast/m",
+    "d/r",
+    "q/za",
+    "sir",
+    "n/riz/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb100",
+   "tokens": [
+    "seyr",
+    "@o",
+    "s/f/r",
+    "d/r",
+    "z/min",
+    "ba@es",
+    "k/sbe",
+    "t/jrobe",
+    "mi$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb101",
+   "tokens": [
+    "@in",
+    "p/tu",
+    "xeili",
+    "n/rm",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb102",
+   "tokens": [
+    "ped/r/m",
+    "@ozom",
+    "xast",
+    "ke",
+    "be",
+    "m/dreseye",
+    "n/r/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb103",
+   "tokens": [
+    "@an",
+    "m/rd",
+    "beh/mrahe",
+    "doxt/r/$",
+    "be",
+    "xane",
+    "@am/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb104",
+   "tokens": [
+    "heyvane",
+    "xanegiye",
+    "m/n",
+    "diruz",
+    "d/r",
+    "@/s/re",
+    "g/rma",
+    "bihu$",
+    "$od",
+    "v/",
+    "m/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb105",
+   "tokens": [
+    "@an",
+    "z/n",
+    "yek",
+    "m/z/n",
+    "lebas",
+    "dar/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb106",
+   "tokens": [
+    "@in",
+    "h/rfha",
+    "ra",
+    "moz/n"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb107",
+   "tokens": [
+    "do$m/nan",
+    "be",
+    "h/r",
+    "hal",
+    "ma",
+    "ra",
+    "miko$/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb108",
+   "tokens": [
+    "@emsal",
+    "sa@/tha",
+    "ra",
+    "yek",
+    "sa@/te",
+    "@/q/b",
+    "mike$/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb109",
+   "tokens": [
+    "@/m/liyate",
+    "serriye",
+    "@anha",
+    "be",
+    "payan",
+    "resid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb110",
+   "tokens": [
+    "donbaleha",
+    "v/",
+    "serriha",
+    "@/z",
+    "mohemt/rin",
+    "m/bahese",
+    "riyazi",
+    "yek",
+    "h/st/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb111",
+   "tokens": [
+    "m/n",
+    "@/z",
+    "qome",
+    "tork",
+    "h/st/n/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb112",
+   "tokens": [
+    "divare$an",
+    "t/r/k",
+    "b/rda$te",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb113",
+   "tokens": [
+    "ped/r/$",
+    "d/r",
+    "kud/ki",
+    "@anha",
+    "ra",
+    "t/rk",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb114",
+   "tokens": [
+    "h/r",
+    "s/bki",
+    "ke",
+    "b/raye",
+    "n/qqa$i",
+    "@entexab",
+    "kon/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb115",
+   "tokens": [
+    "@u",
+    "j/@beye",
+    "s/boki",
+    "ra",
+    "ba",
+    "xod",
+    "beh/mrah",
+    "da$t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb116",
+   "tokens": [
+    "kar",
+    "k/rd/n",
+    "@/z",
+    "rahdur",
+    "yeki",
+    "@/z",
+    "$ivehaye",
+    "rayej",
+    "@emruz",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb117",
+   "tokens": [
+    "meydan",
+    "r/",
+    "se",
+    "dore",
+    "picid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb118",
+   "tokens": [
+    "m/jaz",
+    "v/",
+    "@este@are",
+    "d/r",
+    "@/d/biyate",
+    "farsi",
+    "besyar",
+    "rayej",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb119",
+   "tokens": [
+    "@estefade",
+    "@/z",
+    "@in",
+    "m/h/sulat",
+    "mojaz",
+    "nist"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb120",
+   "tokens": [
+    "fokhaye",
+    "d/ryayi",
+    "besyar",
+    "zendegiye",
+    "jalebi",
+    "dar/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb121",
+   "tokens": [
+    "peze$ke",
+    "j/rrahi",
+    "ra",
+    "b/raye",
+    "f/kke",
+    "@u",
+    "tosiye",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb122",
+   "tokens": [
+    "d/ndanhay/$",
+    "jerm",
+    "gerefte",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb123",
+   "tokens": [
+    "jorme",
+    "@an",
+    "zendani",
+    "besyar",
+    "s/ngin",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb124",
+   "tokens": [
+    "@elm",
+    "beht/r",
+    "@/st",
+    "ya",
+    "serv/t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb125",
+   "tokens": [
+    "@/l/me1",
+    "@aba",
+    "@/bdollah",
+    "d/r",
+    "h/mejaye",
+    "$/hr",
+    "dide",
+    "mi$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb126",
+   "tokens": [
+    "n/bay/d",
+    "@/z",
+    "@inja",
+    "bere"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb127",
+   "tokens": [
+    "@em$/b",
+    "k/babe",
+    "b/rre",
+    "darim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb128",
+   "tokens": [
+    "@/z",
+    "kucehaye",
+    "t/ng",
+    "@o",
+    "tarik",
+    "@obur",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb129",
+   "tokens": [
+    "tonge",
+    "mahi",
+    "balaye",
+    "taqce",
+    "q/rar",
+    "gerefte",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb130",
+   "tokens": [
+    "dome",
+    "rubah",
+    "besyar",
+    "zibast"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb131",
+   "tokens": [
+    "n/bay/d",
+    "d/me",
+    "qorub",
+    "gerye",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb132",
+   "tokens": [
+    "@/g/r",
+    "@orze",
+    "da$t",
+    "kari",
+    "peyda",
+    "mik/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb133",
+   "tokens": [
+    "@/rze",
+    "v/",
+    "t/qaza",
+    "h/mi$e",
+    "d/r",
+    "t/vazon",
+    "h/st/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb134",
+   "tokens": [
+    "h/va",
+    "zire",
+    "sefr",
+    "d/r/je",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb135",
+   "tokens": [
+    "moh/rr/m",
+    "v/",
+    "$/f/r",
+    "d/r",
+    "@ir/n",
+    "geramida$te",
+    "mi$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb136",
+   "tokens": [
+    "@an",
+    "ha",
+    "@emkanate1",
+    "k/mi",
+    "da$t/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb137",
+   "tokens": [
+    "m/hsulate$an",
+    "@/z",
+    "n/z/re",
+    "k/mmi",
+    "v/",
+    "keyfi",
+    "morede",
+    "@/rzyabi",
+    "q/rar",
+    "gereft"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb138",
+   "tokens": [
+    "mahe",
+    "moh/rr/m",
+    "mahe",
+    "bozorgda$te",
+    "vaqeye@eye",
+    "k/rb/la",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb139",
+   "tokens": [
+    "h/r",
+    "q/ribei",
+    "m/hr/me",
+    "@/srar",
+    "nist"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb140",
+   "tokens": [
+    "j/nin",
+    "d/r",
+    "r/heme",
+    "mad/r",
+    "ro$d",
+    "mikon/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb141",
+   "tokens": [
+    "r/hm",
+    "@o",
+    "morovv/t",
+    "ra",
+    "n/bay/d",
+    "@/z",
+    "do$m/n",
+    "@entezar",
+    "da$t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb142",
+   "tokens": [
+    "m/n",
+    "h/lal",
+    "@o",
+    "h/ram",
+    "mi$enas/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb143",
+   "tokens": [
+    "@ab",
+    "h/llale1",
+    "besyari",
+    "@/z",
+    "m/vade1",
+    "$imiyayi",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb144",
+   "tokens": [
+    "dorane",
+    "m/drese",
+    "h/m",
+    "besyar",
+    "xaterate",
+    "xubi",
+    "da$t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb145",
+   "tokens": [
+    "dorane",
+    "hole",
+    "yek",
+    "mehv/re",
+    "m/rk/zi"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb146",
+   "tokens": [
+    "gole",
+    "@aftabg/rdan",
+    "besyar",
+    "zibast"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb147",
+   "tokens": [
+    "gordane",
+    "s/rbazan",
+    "be",
+    "s/mte",
+    "padegan",
+    "h/rek/t",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb148",
+   "tokens": [
+    "bord",
+    "v/",
+    "baxt",
+    "mohem",
+    "nist"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb149",
+   "tokens": [
+    "@in",
+    "caqu",
+    "hic",
+    "cizi",
+    "ra",
+    "nemib/r/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb150",
+   "tokens": [
+    "ped/r/m",
+    "hala",
+    "m/ra",
+    "be",
+    "$/hre",
+    "bazi",
+    "nemib/r/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb151",
+   "tokens": [
+    "be",
+    "yomne",
+    "vojude",
+    "$oma",
+    "j/$n",
+    "migirim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb152",
+   "tokens": [
+    "y/m/n",
+    "ke$v/ri",
+    "@/r/bz/ban",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb153",
+   "tokens": [
+    "din",
+    "v/",
+    "@iman",
+    "yeki",
+    "@/z",
+    "mohemt/rin",
+    "me@yarhaye",
+    "$enaxte",
+    "@ad/mha",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb154",
+   "tokens": [
+    "k/sani",
+    "ke",
+    "be",
+    "s/f/re1",
+    "s/xti",
+    "mir/v/nd",
+    "n/bay/d",
+    "din",
+    "be",
+    "g/rd/n",
+    "da$te",
+    "ba$/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb155",
+   "tokens": [
+    "yuzarsif",
+    "@/ziz",
+    "ke$v/re1",
+    "mesr",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb156",
+   "tokens": [
+    "@u",
+    "b/raye",
+    "xastehay/$",
+    "besyar",
+    "moserr",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb157",
+   "tokens": [
+    "h/r",
+    "ton",
+    "kala",
+    "ke",
+    "@/z",
+    "m/rz",
+    "vared",
+    "mi$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb158",
+   "tokens": [
+    "sizd/h",
+    "t/n",
+    "@/z",
+    "s/rbazan",
+    "be",
+    "$/had/t",
+    "r/sid/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb159",
+   "tokens": [
+    "tule",
+    "@/m/l",
+    "v/",
+    "@arezu",
+    "@/z",
+    "cizhayi",
+    "@/st",
+    "ke",
+    "n/hy",
+    "$ode"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb160",
+   "tokens": [
+    "@/j/b",
+    "@ommol",
+    "bis/vadi",
+    "h/sti"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb161",
+   "tokens": [
+    "ke$te",
+    "g/ndum",
+    "d/r",
+    "ke$v/r",
+    "v/z@iy/te",
+    "xubi",
+    "dar/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb162",
+   "tokens": [
+    "@an",
+    "qatel",
+    "beht/rin",
+    "dust/m",
+    "ra",
+    "ko$t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb163",
+   "tokens": [
+    "m/rdi",
+    "ke",
+    "s/xt",
+    "t/la$",
+    "mikon/d",
+    "ta",
+    "ruzi",
+    "bed/st",
+    "@av/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb164",
+   "tokens": [
+    "fekr",
+    "k/rd/m",
+    "b/@d",
+    "@/z",
+    "t/sadof",
+    "mordi"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb165",
+   "tokens": [
+    "dozdha",
+    "@u",
+    "ra",
+    "xeft",
+    "k/rd/nd",
+    "v/",
+    "v/sayel/$",
+    "ra",
+    "@/z",
+    "@u",
+    "gereft/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb166",
+   "tokens": [
+    "h/rgez",
+    "n/bay/d",
+    "xeff/te",
+    "$ek/st",
+    "ra",
+    "bejan",
+    "bex/rim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb167",
+   "tokens": [
+    "@aram",
+    "d/r",
+    "b/st/r/$",
+    "xeff/t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb168",
+   "tokens": [
+    "@an",
+    "z/ne",
+    "@alem",
+    "v/",
+    "dane$m/nde",
+    "bozorgi",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb169",
+   "tokens": [
+    "hic",
+    "@ettefaqi",
+    "d/r",
+    "@al/me1",
+    "bi",
+    "d/lil",
+    "nist"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb170",
+   "tokens": [
+    "xodro",
+    "p/s",
+    "@/z",
+    "b/rxorde",
+    "$/did",
+    "ba",
+    "divare",
+    "@at/$",
+    "gereft"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb171",
+   "tokens": [
+    "bel/x/re",
+    "fareqott/h$il",
+    "$/did"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb172",
+   "tokens": [
+    "@an",
+    "hadeseye",
+    "$um",
+    "@/z",
+    "xatereman",
+    "nemir/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb173",
+   "tokens": [
+    "@/g/r",
+    "x/ste",
+    "mi$/v/m",
+    "bexatere",
+    "kar",
+    "s/xt/m",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb174",
+   "tokens": [
+    "bazig/r",
+    "q/bl",
+    "@/z",
+    "vorud",
+    "be",
+    "s/hne",
+    "gerim",
+    "$od"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb175",
+   "tokens": [
+    "v/qti",
+    "be",
+    "mad/r/m",
+    "fekr",
+    "mikon/m",
+    "gery/m",
+    "migire"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb176",
+   "tokens": [
+    "caqu",
+    "d/st/$",
+    "ra",
+    "borid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb177",
+   "tokens": [
+    "@/z",
+    "@in",
+    "m/drese",
+    "berid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb178",
+   "tokens": [
+    "mehmanan",
+    "d/r",
+    "@/rusi",
+    "kel",
+    "ke$id/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb179",
+   "tokens": [
+    "kole",
+    "@in",
+    "xane",
+    "ra",
+    "beg/rdi",
+    "peydaye$",
+    "nemik/ni"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb180",
+   "tokens": [
+    "h/d/fe1",
+    "ma",
+    "resid/n",
+    "be",
+    "koll",
+    "@/st",
+    "n/",
+    "joz@"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb181",
+   "tokens": [
+    "ba",
+    "m/n",
+    "k/l",
+    "k/l",
+    "n/kon"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb182",
+   "tokens": [
+    "@an",
+    "ha",
+    "xeyli",
+    "ba",
+    "h/m",
+    "jur",
+    "$od/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb183",
+   "tokens": [
+    "ce",
+    "bay/d",
+    "bek/nim",
+    "@/z",
+    "jore",
+    "z/man"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb184",
+   "tokens": [
+    "@iran",
+    "d/r",
+    "v/rze$e",
+    "ko$ti",
+    "do",
+    "medale",
+    "t/la",
+    "k/sb",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb185",
+   "tokens": [
+    "naxoda",
+    "d/stur",
+    "dad",
+    "k/$ti",
+    "leng/r",
+    "begir/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb186",
+   "tokens": [
+    "rume",
+    "bastan",
+    "tarixe",
+    "mohemmi",
+    "dar/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb187",
+   "tokens": [
+    "m/n",
+    "f/rda",
+    "be",
+    "paris",
+    "mir/v/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb188",
+   "tokens": [
+    "m/n",
+    "h/lvaye",
+    "$/k/ri",
+    "dust",
+    "dar/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb189",
+   "tokens": [
+    "h/r",
+    "$okri",
+    "ke",
+    "beja",
+    "miav/rid",
+    "s/vab",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb190",
+   "tokens": [
+    "k/rd",
+    "@o",
+    "lor",
+    "@o",
+    "b/luc",
+    "h/me",
+    "@/z",
+    "@/qvame",
+    "@irani",
+    "h/st/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb191",
+   "tokens": [
+    "n/bay/d",
+    "@in",
+    "kar",
+    "ra",
+    "mik/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb192",
+   "tokens": [
+    "yek",
+    "qor$",
+    "mos/kken",
+    "boxor",
+    "ta",
+    "s/rd/rd/t",
+    "xub",
+    "$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb193",
+   "tokens": [
+    "xorak",
+    "v/",
+    "pu$ak",
+    "v/",
+    "m/sk/n",
+    "@/z",
+    "niyazhaye",
+    "@/sliye",
+    "@ensanha",
+    "h/st/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb194",
+   "tokens": [
+    "@/ngo$te",
+    "$/st",
+    "ra",
+    "be",
+    "nesh/neye",
+    "t/@id",
+    "bala",
+    "gereft"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb195",
+   "tokens": [
+    "@u",
+    "h/meye",
+    "lebasha",
+    "ra",
+    "$ost",
+    "v/",
+    "p/hn",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb196",
+   "tokens": [
+    "n/bay/d",
+    "gereftare",
+    "h/vaye",
+    "n/f/s",
+    "$/vim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb197",
+   "tokens": [
+    "to",
+    "mesleye",
+    "n/f/s",
+    "d/r",
+    "reyeye",
+    "m/ni"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb198",
+   "tokens": [
+    "xorr/mabad",
+    "@/z",
+    "$/hrhaye",
+    "zibaye",
+    "@iran",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb199",
+   "tokens": [
+    "x/r/m",
+    "ra",
+    "ziyadi",
+    "bar",
+    "z/de",
+    "bud/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb200",
+   "tokens": [
+    "n/b/rde1",
+    "@iran",
+    "v/",
+    "@eraq",
+    "h/$t",
+    "sal",
+    "be",
+    "tul",
+    "@/njamid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb201",
+   "tokens": [
+    "@u",
+    "m/ra",
+    "be",
+    "m/h/le",
+    "kar/$",
+    "n/bord"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb202",
+   "tokens": [
+    "@/g/r",
+    "b/rdar/$",
+    "ra",
+    "ba",
+    "xod",
+    "be",
+    "dane$gah",
+    "n/bor/d",
+    "b/d",
+    "mi$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb203",
+   "tokens": [
+    "@in",
+    "caquha",
+    "hic",
+    "cizi",
+    "ra",
+    "nemibor/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb204",
+   "tokens": [
+    "@an",
+    "ha",
+    "dane$amuzan",
+    "ra",
+    "be",
+    "@ordu",
+    "nemib/r/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb205",
+   "tokens": [
+    "@/z",
+    "h/r",
+    "ber/nd",
+    "n/bay/d",
+    "lebas",
+    "v/",
+    "k/f$",
+    "x/rid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb206",
+   "tokens": [
+    "f/rda",
+    "ruze",
+    "d/home",
+    "mah",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb207",
+   "tokens": [
+    "m/n",
+    "be",
+    "@u",
+    "pul",
+    "nemid/h/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb208",
+   "tokens": [
+    "m/n",
+    "miveye",
+    "beh",
+    "ra",
+    "xeyli",
+    "dust",
+    "dar/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb209",
+   "tokens": [
+    "@aya",
+    "bay/d",
+    "h/qiq/t",
+    "ra",
+    "be@an",
+    "ha",
+    "beguyim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb210",
+   "tokens": [
+    "@/z",
+    "ma$in",
+    "piyade",
+    "$od",
+    "v/",
+    "d/r",
+    "ra",
+    "mohk/m",
+    "b/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb211",
+   "tokens": [
+    "k/m",
+    "guy",
+    "v/",
+    "gozideguye",
+    "con",
+    "d/r"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb212",
+   "tokens": [
+    "d/r",
+    "@in",
+    "neve$te",
+    "b/na",
+    "darim",
+    "ba",
+    "yek",
+    "@/bzare",
+    "sade",
+    "v/",
+    "mekaniki",
+    "@/fzaye$e",
+    "binayi",
+    "b/raye",
+    "@/frade",
+    "k/mbina"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb213",
+   "tokens": [
+    "bename1",
+    "bi",
+    "v/",
+    "petik",
+    "ya",
+    "@/d/siye1",
+    "durn/ma",
+    "@ashena",
+    "$/vim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb214",
+   "tokens": [
+    "d/r",
+    "@in",
+    "sur/t",
+    "@/njame1",
+    "xod/rziyabi",
+    "v/",
+    "@era@eye",
+    "bazxord",
+    "b/r",
+    "@ohdeye",
+    "xodetan",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb215",
+   "tokens": [
+    "v/",
+    "p/s",
+    "@/z",
+    "peygirihaye",
+    "mote@/dded"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb216",
+   "tokens": [
+    "@u",
+    "d/r",
+    "morede",
+    "x/ride",
+    "x/d/mat"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb217",
+   "tokens": [
+    "d/stgahe1",
+    "ma",
+    "s/ri@",
+    "k/m",
+    "seda",
+    "v/",
+    "sade",
+    "@/st",
+    "v/",
+    "b/raye",
+    "kar",
+    "d/r",
+    "m/drese",
+    "v/",
+    "ba",
+    "$agerdane1",
+    "d/bestani",
+    "jan",
+    "mid/h/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb218",
+   "tokens": [
+    "$oqle1",
+    "peyda",
+    "k/rd/ne",
+    "@/frade1",
+    "nabina",
+    "v/",
+    "k/mbina"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb219",
+   "tokens": [
+    "b/raye",
+    "lora",
+    "v/zayefe",
+    "gunaguni",
+    "d/r",
+    "gugle",
+    "t/@rif",
+    "$ode",
+    "@/st",
+    "@/z",
+    "jomle",
+    "@inke"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb220",
+   "tokens": [
+    "h/mcenin",
+    "d/r",
+    "rastaye",
+    "@ejrayi$od/ne",
+    "mofadde",
+    "moxt/lef",
+    "h/r",
+    "qanuni"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb221",
+   "tokens": [
+    "t/xsise",
+    "budjeha",
+    "be",
+    "@ostanha",
+    "v/",
+    "toziye@e",
+    "@an",
+    "d/r",
+    "$/hrestanha"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb222",
+   "tokens": [
+    "@in",
+    "m/qale",
+    "be",
+    "@ejmal",
+    "sire1",
+    "t/h/volate1",
+    "@in",
+    "n/had",
+    "ra"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb223",
+   "tokens": [
+    "yeki",
+    "dig/r",
+    "@/z",
+    "rahkarhaye",
+    "t/qire",
+    "neg/re$",
+    "@ertebat",
+    "ba",
+    "@/frade",
+    "@asibdide",
+    "binayi",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb224",
+   "tokens": [
+    "ta",
+    "d/rgiri",
+    "zehni/$",
+    "ra",
+    "b/rt/r/f",
+    "kon/d",
+    "b/@d",
+    "be",
+    "soraqe",
+    "@u",
+    "biyay/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb225",
+   "tokens": [
+    "v/",
+    "mit/van/nd",
+    "be",
+    "@/frade1",
+    "@asibdide",
+    "binayi",
+    "kom/k",
+    "kon/nd",
+    "@/z",
+    "dig/r",
+    "nokate1",
+    "m/tr/h$ode"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb226",
+   "tokens": [
+    "b/@d",
+    "@/z",
+    "@ente$are1",
+    "@in",
+    "x/b/r",
+    "doxt/re1",
+    "xanomha",
+    "$/xs/n",
+    "@/z",
+    "@aghayane",
+    "most/m/ribegir",
+    "xastgari",
+    "k/rde",
+    "v/",
+    "h/tta",
+    "gofte$ode",
+    "ke",
+    "t/mame1",
+    "h/zinehaye",
+    "@/rusi",
+    "ra",
+    "h/m",
+    "xode$an",
+    "t/q/bbol",
+    "k/rde/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb227",
+   "tokens": [
+    "ba",
+    "h/d/fe1",
+    "yadgiriye1",
+    "bi$t/re1",
+    "$ivehaye",
+    "r/ftariye1",
+    "nabinayan",
+    "sayere1",
+    "@ostanha",
+    "v/",
+    "h/mr/han$an",
+    "ra",
+    "niz",
+    "mo$ahede",
+    "k/rde/m",
+    "f/rde1",
+    "nabinayi"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb228",
+   "tokens": [
+    "@/z",
+    "d/stgahe",
+    "motex/llef",
+    "$ekay/t",
+    "konim",
+    "v/",
+    "be",
+    "q/vanine",
+    "hemay/ti"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb229",
+   "tokens": [
+    "d/r",
+    "@in",
+    "@/s/r",
+    "do",
+    "revay/t",
+    "@/z",
+    "yek",
+    "hekay/t",
+    "ra",
+    "mixanid",
+    "fereydun",
+    "v/",
+    "most/fa",
+    "j/vani",
+    "v/",
+    "noj/vani$an"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb230",
+   "tokens": [
+    "ke",
+    "be",
+    "hemm/te",
+    "@/$kane",
+    "@az/rmasule"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb231",
+   "tokens": [
+    "d/r",
+    "@enteha",
+    "maj/raye1",
+    "@emamzade",
+    "bi",
+    "qeyr/t",
+    "d/r",
+    "q/zvin",
+    "zekr",
+    "mi$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb232",
+   "tokens": [
+    "n/$re1",
+    "peykane1",
+    "sale1",
+    "yek",
+    "hezar",
+    "@o",
+    "sis/d",
+    "@o",
+    "n/v/d",
+    "@o",
+    "se"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb233",
+   "tokens": [
+    "xob",
+    "d/r",
+    "@in",
+    "ja",
+    "ba",
+    "xand/ne1",
+    "@ax/rin",
+    "tosiyeye1",
+    "y/@ni",
+    "lozume1",
+    "duri",
+    "@/z",
+    "@at/$e1",
+    "be",
+    "payane1",
+    "tosiyehaye",
+    "mohafez/t",
+    "@/z",
+    "ce$m",
+    "v/",
+    "binayi",
+    "mir/sim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb234",
+   "tokens": [
+    "@/z",
+    "s/n/nd/je",
+    "g/rm",
+    "ta",
+    "dalanp/re",
+    "s/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb235",
+   "tokens": [
+    "neysan",
+    "@/kb/r",
+    "@aqa",
+    "@/z",
+    "rah",
+    "resid",
+    "barhayeman",
+    "ra",
+    "b/r",
+    "taje1",
+    "nisan",
+    "@ostovar",
+    "k/rdim",
+    "v/",
+    "xod",
+    "niz",
+    "s/var",
+    "$odim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb236",
+   "tokens": [
+    "h/mz/man",
+    "ke",
+    "b/qiye",
+    "ruye1",
+    "s/fheye1",
+    "televizion",
+    "b/rname",
+    "ra",
+    "t/ma$a",
+    "mikon/nd",
+    "@u",
+    "h/man",
+    "b/rname",
+    "ra",
+    "ruye1",
+    "l/ptap/$",
+    "bebin/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb237",
+   "tokens": [
+    "h/zze1",
+    "vafer",
+    "bordim",
+    "musiqiye1",
+    "xo$ab",
+    "@ab",
+    "n/sime1",
+    "xon/ki",
+    "ke",
+    "@/z",
+    "@an",
+    "b/rmixast"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb238",
+   "tokens": [
+    "v/zire",
+    "j/dide",
+    "t/@avon",
+    "@e",
+    "kar",
+    "v/",
+    "refahe",
+    "@ejtema@i"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb239",
+   "tokens": [
+    "be",
+    "so@/late",
+    "karb/ran",
+    "be$ekli",
+    "t/bi@i",
+    "pasox",
+    "d/h/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb240",
+   "tokens": [
+    "ya",
+    "@/z",
+    "te@dade",
+    "janhayi",
+    "ke",
+    "b/rayetan",
+    "baqimande",
+    "x/b/rdar",
+    "$/vid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb241",
+   "tokens": [
+    "xaneye",
+    "mell/te",
+    "t/@til",
+    "$ode",
+    "bef/rmayid",
+    "birun"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb242",
+   "tokens": [
+    "d/r",
+    "@in",
+    "konferanse",
+    "mohem",
+    "t/$xis",
+    "dade",
+    "$ode",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb243",
+   "tokens": [
+    "$oma",
+    "@/zizane",
+    "f/rhixte",
+    "xodetan",
+    "b/raye",
+    "xodetan",
+    "h/maye$aye1",
+    "@elmiye",
+    "f/rh/ngiye1",
+    "@/d/bi",
+    "melli",
+    "v/"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb244",
+   "tokens": [
+    "v/rze$karane1",
+    "hey@/te",
+    "v/rze$aye1",
+    "nabinayan",
+    "v/",
+    "k/mbinayane",
+    "@ostanha",
+    "famile1",
+    "dostan",
+    "v/",
+    "h/msayegan",
+    "kom/k",
+    "begirim",
+    "ya",
+    "d/r",
+    "mohithaye",
+    "@omumiye1",
+    "man/ndeye1",
+    "parkha"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb245",
+   "tokens": [
+    "cerake",
+    "@in",
+    "dostane",
+    "naxaste",
+    "mort/kebe",
+    "jorm",
+    "$ode/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb246",
+   "tokens": [
+    "@in",
+    "n/madha",
+    "ra",
+    "@enteza@i",
+    "miguy/nd",
+    "zira",
+    "bel/haze",
+    "fiziki",
+    "$/bah/ti",
+    "be",
+    "@ance",
+    "n/may/ndeye",
+    "@an",
+    "h/st/nd",
+    "n/dar/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb247",
+   "tokens": [
+    "gahi",
+    "@/frade",
+    "bezaher",
+    "salem"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb248",
+   "tokens": [
+    "sur/t",
+    "d/h/d",
+    "v/",
+    "t/shili",
+    "f/rah/m",
+    "@av/rd",
+    "@in",
+    "ra",
+    "@/z",
+    "@ax/rin",
+    "$omareye",
+    "podk/ste",
+    "@ayz",
+    "@an",
+    "saksess",
+    "motev/jjeh",
+    "$odim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb249",
+   "tokens": [
+    "dastane1",
+    "s/f/re1",
+    "doxt/ri",
+    "@/z",
+    "koreye",
+    "$omali",
+    "besuye",
+    "@azadi"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb250",
+   "tokens": [
+    "q/za@iyye",
+    "@/z",
+    "@ejraye",
+    "biqeyd",
+    "v/",
+    "$/rt",
+    "v/",
+    "t/mamok/male",
+    "qanune1",
+    "jameye1@e",
+    "hemay/t",
+    "@/z",
+    "hoquqe1",
+    "m/@lulan",
+    "qanune1",
+    "@/saye",
+    "sefid",
+    "v/",
+    "mo@ah/deye",
+    "m/rake$",
+    "$od/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb251",
+   "tokens": [
+    "ya",
+    "@inke",
+    "modirane",
+    "sazmane",
+    "behzisti"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb252",
+   "tokens": [
+    "po$tibani",
+    "@/z",
+    "d/stgahha",
+    "v/",
+    "z/banhaye",
+    "bi$t/ri",
+    "niz",
+    "d/r",
+    "hale",
+    "tose@e",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb253",
+   "tokens": [
+    "moruri",
+    "b/r",
+    "padk/stha",
+    "v/",
+    "n/$riyehaye",
+    "@engilisiz/bane",
+    "vizheye",
+    "@/frad",
+    "ba",
+    "@asibe",
+    "binayi"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb254",
+   "tokens": [
+    "d/r",
+    "@/s/re1",
+    "@asib",
+    "binayi",
+    "mojebe1",
+    "@/fzaye$e1",
+    "$adkami",
+    "v/",
+    "heijanate",
+    "mosb/t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb255",
+   "tokens": [
+    "v/",
+    "j/vayezi",
+    "be",
+    "@/frade",
+    "b/rt/r",
+    "mo@/rrefi$ode",
+    "@/z",
+    "suye",
+    "ketabxaneha",
+    "@ehda",
+    "$od"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb256",
+   "tokens": [
+    "v/",
+    "bein",
+    "d/lil",
+    "ke",
+    "p/;uhe$i",
+    "takonun",
+    "be",
+    "zendegiye",
+    "@ejtema@i"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb257",
+   "tokens": [
+    "@/sasi",
+    "ra",
+    "dar/nd",
+    "v/",
+    "jaleb",
+    "@inke",
+    "h/ftad",
+    "@o",
+    "h/$t",
+    "d/rs/d",
+    "@/z",
+    "@in",
+    "@/frad",
+    "@/z",
+    "@/la@eme",
+    "xod",
+    "biettela@",
+    "h/st/nd",
+    "v/",
+    "@/z",
+    "x/d/matd/rmani",
+    "@estefade",
+    "nemikon/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb258",
+   "tokens": [
+    "v/",
+    "v/rze$karane",
+    "f/l/je",
+    "m/qzi",
+    "ra"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb259",
+   "tokens": [
+    "b/raye",
+    "@/njame1",
+    "f/@aliy/thaye",
+    "hon/riye1",
+    "f/rz/ndaneman",
+    "bay/d",
+    "v/sayele1",
+    "lazem",
+    "ra",
+    "man/ndeye1",
+    "kaq/ze1",
+    "r/ngi",
+    "ya",
+    "moq/vva",
+    "t/hiyye",
+    "konim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb260",
+   "tokens": [
+    "t/rdidi",
+    "nist",
+    "ke",
+    "bi$t/re",
+    "m/sa@el",
+    "v/",
+    "mo$kelate",
+    "hozeye",
+    "@/frade",
+    "daraye",
+    "m/@luliyy/t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb261",
+   "tokens": [
+    "@in",
+    "@/st",
+    "ke",
+    "h/rkodam",
+    "@/z",
+    "@in",
+    "m/s@olan"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb262",
+   "tokens": [
+    "bi$t/r",
+    "@ashena",
+    "$/vid",
+    "@estefade",
+    "@/z",
+    "@/bzarhayi",
+    "man/ndeye1",
+    "doro$t",
+    "n/maye1",
+    "@elektronik",
+    "r",
+    "yadda$te1",
+    "bordare1",
+    "breil"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb263",
+   "tokens": [
+    "d/r",
+    "$omareye",
+    "pishine",
+    "sotune",
+    "m/h/ke",
+    "t/jrobe",
+    "h/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb264",
+   "tokens": [
+    "mo$kelate",
+    "nabinayan",
+    "v/",
+    "sayere",
+    "m/@lulan"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb265",
+   "tokens": [
+    "@/vamele1",
+    "x/t/rza",
+    "v/",
+    "n/hveye1",
+    "d/rmane1",
+    "@in",
+    "bimari",
+    "dar/nd",
+    "m/tr/h",
+    "mikon/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb266",
+   "tokens": [
+    "v/",
+    "gah",
+    "be",
+    "jaye1",
+    "pul",
+    "be",
+    "@u",
+    "berenj",
+    "k/$k",
+    "v/",
+    "toxmmorq",
+    "midad/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb267",
+   "tokens": [
+    "r/van",
+    "$enas",
+    "v/",
+    "@amuzegare1",
+    "@amuze$",
+    "v/",
+    "p/rv/re$e1",
+    "@este$na@iye",
+    "fars"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb268",
+   "tokens": [
+    "moxt/lef",
+    "ra",
+    "v/",
+    "m/h/le1",
+    "siniye1",
+    "ta$vi",
+    "q/za",
+    "ra",
+    "be",
+    "m/n",
+    "ne$an",
+    "bed/h/d",
+    "ruye1",
+    "do",
+    "zanu",
+    "jeloy/m",
+    "ne$/st",
+    "v/",
+    "ba",
+    "@ehterame1",
+    "kamel",
+    "b/ray/m",
+    "tozih",
+    "dad"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb269",
+   "tokens": [
+    "d/r",
+    "z/mineye",
+    "x/d/mate",
+    "peze$ki",
+    "v/",
+    "behda$ti"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb270",
+   "tokens": [
+    "v/",
+    "lazem",
+    "@/st",
+    "bimar",
+    "ruzane",
+    "c/nd",
+    "sa@/t",
+    "ra",
+    "be",
+    "t/mrin",
+    "@extesas",
+    "d/h/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb271",
+   "tokens": [
+    "ba",
+    "t/s/vvore1",
+    "lotf",
+    "zolme1",
+    "bozorgi",
+    "d/r",
+    "h/qe1",
+    "@u",
+    "r/va",
+    "midar/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb272",
+   "tokens": [
+    "sa@/t",
+    "@estefade",
+    "kon/nd",
+    "h/mcenin",
+    "fe$are1",
+    "tulaniye1",
+    "dokmeye1",
+    "@e@lame",
+    "vojude1",
+    "nur",
+    "ked/r",
+    "bala",
+    "tozih",
+    "dadim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb273",
+   "tokens": [
+    "b/raye",
+    "vorud",
+    "be",
+    "jame@ei",
+    "bozorgt/r"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb274",
+   "tokens": [
+    "n/sle1",
+    "f/rda",
+    "mont/$er",
+    "mi$od",
+    "paygahe1",
+    "t/vane1",
+    "negar",
+    "h/m",
+    "sayti",
+    "@/st",
+    "vizheye",
+    "f/@/liyathaye",
+    "resaneyiye",
+    "@/frade1",
+    "daraye",
+    "m/@luliyy/t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb275",
+   "tokens": [
+    "d/r",
+    "salhaye",
+    "@/xir",
+    "@enteqad",
+    "da$t/nd",
+    "@omidvar",
+    "bud/nd",
+    "$/b/keye1",
+    "j/did",
+    "bet/van/d",
+    "motalebate1",
+    "@anha",
+    "ra",
+    "d/r",
+    "s/te1@he",
+    "k/lan",
+    "peygiri",
+    "kon/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb276",
+   "tokens": [
+    "ta",
+    "yek",
+    "h/fte",
+    "k/f",
+    "p/s",
+    "midad/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb277",
+   "tokens": [
+    "bari",
+    "dostane",
+    "ma",
+    "d/r",
+    "hodhod"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb278",
+   "tokens": [
+    "ba",
+    "@in",
+    "hal",
+    "ba",
+    "t/v/jjoh",
+    "be",
+    "pi$r/fte1",
+    "b/rnamehaye1",
+    "@amuze$"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb279",
+   "tokens": [
+    "v/",
+    "@/z",
+    "neve$t/ne",
+    "moj/dd/de",
+    "@anha",
+    "xoddari",
+    "k/rde"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb280",
+   "tokens": [
+    "ke",
+    "pi$",
+    "@/z",
+    "@enqelab",
+    "be",
+    "xabgahe",
+    "doxt/ran",
+    "v/",
+    "z/nane",
+    "nabina",
+    "@extesasyafte",
+    "bud",
+    "@/ql/be",
+    "z/naniye",
+    "ked/r",
+    "@in",
+    "xabgah",
+    "zendegi",
+    "mik/rd/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb281",
+   "tokens": [
+    "@/vamele",
+    "h/mcon",
+    "@/d/me",
+    "vojude",
+    "@estres"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb282",
+   "tokens": [
+    "raste$",
+    "ma",
+    "@/z",
+    "@eqtedare",
+    "dostane",
+    "$oma",
+    "besyar",
+    "xo$al",
+    "$odim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb283",
+   "tokens": [
+    "ta",
+    "f/ray/nde",
+    "p/zire$",
+    "v/",
+    "sazgari",
+    "ba",
+    "@asibe",
+    "binayi",
+    "ra",
+    "h/rce",
+    "beht/r",
+    "v/",
+    "s/ri@t/r",
+    "sep/ri",
+    "konim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb284",
+   "tokens": [
+    "b/rnameye",
+    "$ek/n",
+    "ke",
+    "mit/vanid",
+    "@an",
+    "ra",
+    "b/rayeye",
+    "sistemamele",
+    "@android",
+    "@/z",
+    "@in",
+    "peyv/nd",
+    "d/ryaft",
+    "konid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb285",
+   "tokens": [
+    "v/",
+    "d/r",
+    "s/bkhaye",
+    "moxt/lef",
+    "@era@e",
+    "mi$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb286",
+   "tokens": [
+    "ta",
+    "@e@teraz",
+    "xod",
+    "ra",
+    "nesb/t",
+    "be",
+    "layeheye",
+    "@ersaliye",
+    "dol/t",
+    "be",
+    "gu$e",
+    "n/may/ndegane",
+    "parleman",
+    "beresan/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb287",
+   "tokens": [
+    "t/rse",
+    "ziyadi",
+    "ra",
+    "d/r",
+    "m/n",
+    "b/rmiangixt"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb288",
+   "tokens": [
+    "ke",
+    "h/tta",
+    "besur/te",
+    "belqovve",
+    "niz",
+    "n/$riyyate",
+    "breyle",
+    "s/hmiye",
+    "h/d/q/li"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb289",
+   "tokens": [
+    "d/r",
+    "rastaye1",
+    "kuc/ksaziye",
+    "dol/t",
+    "salhast",
+    "@eqdam",
+    "be",
+    "borunsepari",
+    "p/rv/ndehaye1",
+    "m/d/dkariye1",
+    "m/d/djuyane",
+    "xod",
+    "k/rde"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb290",
+   "tokens": [
+    "d/r",
+    "b/rab/re1",
+    "niyazhaye1",
+    "@asibdide",
+    "gan",
+    "binayi",
+    "n/t/nha",
+    "d/r",
+    "salhaye",
+    "@/xir",
+    "kahe$",
+    "n/yafte",
+    "b/lke",
+    "ba",
+    "goz/re1",
+    "z/man",
+    "porr/ngt/r",
+    "h/m",
+    "$ode/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb291",
+   "tokens": [
+    "v/",
+    "h/d/fe",
+    "@amuze$",
+    "h/tta",
+    "vojude",
+    "yek",
+    "n/f/r",
+    "ba",
+    "cenin",
+    "$/rayeti"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb292",
+   "tokens": [
+    "@/z",
+    "suye",
+    "x/yyerini",
+    "ke",
+    "n/xast/nd",
+    "nam$an",
+    "d/r",
+    "gozare$a",
+    "borde",
+    "$/v/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb293",
+   "tokens": [
+    "saniy/n",
+    "dustani",
+    "ke",
+    "t/smim",
+    "be",
+    "bazg/$t",
+    "gereft/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb294",
+   "tokens": [
+    "h/mcenin",
+    "ja",
+    "dar/d",
+    "@/z",
+    "t/mamiye",
+    "m/s@oline",
+    "m/rbut",
+    "ke",
+    "ba",
+    "vojude",
+    "z/h/mate",
+    "ziyadi",
+    "ke",
+    "b/raye",
+    "monasebsaziye",
+    "moblmane",
+    "$/hri",
+    "b/raye",
+    "m/@lulin",
+    "mike$/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb295",
+   "tokens": [
+    "gir/d",
+    "h/mcenin",
+    "dol/tha",
+    "bay/d",
+    "k/mbude1",
+    "niruye",
+    "motex/sses",
+    "b/raye",
+    "kar",
+    "ba",
+    "kud/kane1",
+    "@asibdideye",
+    "binayi",
+    "ra",
+    "d/r",
+    "n/z/r",
+    "da$te",
+    "ba$/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb296",
+   "tokens": [
+    "gahi",
+    "n/z/re",
+    "foru$/nde",
+    "ya",
+    "sayere",
+    "mo$t/rihaye",
+    "foru$gah",
+    "h/m",
+    "kom/kkon/nde",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb297",
+   "tokens": [
+    "dustani",
+    "ke",
+    "d/r",
+    "m/sire1",
+    "k/sbe1",
+    "mov/ff/qiyy/t",
+    "@u",
+    "ra",
+    "yari",
+    "mikon/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb298",
+   "tokens": [
+    "v/",
+    "taze",
+    "x/b/rdar",
+    "$ode",
+    "ke",
+    "m/s/l/n",
+    "bay/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb299",
+   "tokens": [
+    "v/",
+    "motm/@enn/n",
+    "kari",
+    "ke",
+    "betazegi",
+    "$oru@",
+    "$ode"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb300",
+   "tokens": [
+    "d/r",
+    "yek",
+    "@/m/le",
+    "@ebtekari",
+    "goruhe",
+    "kuhn/v/rdiye",
+    "@/saye",
+    "sefide",
+    "kordestan",
+    "ra",
+    "bonyangozari",
+    "k/rd",
+    "v/",
+    "beduneye",
+    "da$t/ne",
+    "@espanserhaye",
+    "mali"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb301",
+   "tokens": [
+    "d/r",
+    "kargahhaye",
+    "q/hve",
+    "ce",
+    "@/m/liyyati",
+    "sur/t",
+    "migir/d",
+    "ta",
+    "@an",
+    "giyahe1",
+    "bibu"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb302",
+   "tokens": [
+    "mo@ayenate",
+    "peze$ki",
+    "v/",
+    "$erk/t",
+    "d/r",
+    "dorehaye",
+    "m/har/tamuziye",
+    "dane$gahe",
+    "f/rh/ngiyan",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb303",
+   "tokens": [
+    "mit/van/nd",
+    "b/raye",
+    "t/hiyyeye",
+    "m/nabe@e",
+    "motale@atiye",
+    "xod"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb304",
+   "tokens": [
+    "x/$me",
+    "xodeman",
+    "ra",
+    "nesb/t",
+    "be",
+    "dig/ran",
+    "@ebraz",
+    "mikonim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb305",
+   "tokens": [
+    "ke",
+    "d/stk/m",
+    "d/r",
+    "@in",
+    "z/mine",
+    "k/mt/rin",
+    "h/mkari",
+    "ra",
+    "nemit/van/d",
+    "da$te",
+    "ba$/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb306",
+   "tokens": [
+    "be",
+    "xand/ne",
+    "m/tn",
+    "beh/mrahe",
+    "$/rhe",
+    "t/savir",
+    "mip/rdaz/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb307",
+   "tokens": [
+    "ta",
+    "z/mane1",
+    "tarix",
+    "v/",
+    "neve$tehaye1",
+    "t/nzimat"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb308",
+   "tokens": [
+    "v/",
+    "$enaxt/ne",
+    "t/favothaye",
+    "z/n",
+    "v/",
+    "m/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb309",
+   "tokens": [
+    "v/",
+    "xo$b/xtane",
+    "t/vaneste",
+    "jaygahe",
+    "monasebi",
+    "ra",
+    "d/r",
+    "miyane",
+    "@/laqem/ndan/$",
+    "bed/st",
+    "@av/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb310",
+   "tokens": [
+    "@un",
+    "@ozom",
+    "mikh/d",
+    "$oru@",
+    "kon/m",
+    "v/li",
+    "@in/m",
+    "midunest/m",
+    "ke",
+    "nemidon/m",
+    "@/sl/n",
+    "@/z",
+    "p/se1",
+    "@in",
+    "kar",
+    "b/rmiam",
+    "ya",
+    "n/"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb311",
+   "tokens": [
+    "mo$kelate1",
+    "hale1",
+    "hazer",
+    "na$i",
+    "@/z",
+    "suye1@e",
+    "modiriyy/te1",
+    "modirane1",
+    "fe@li",
+    "@/st",
+    "besm/llah",
+    "@in",
+    "guy",
+    "v/",
+    "@in",
+    "meydan"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb312",
+   "tokens": [
+    "d/r",
+    "@/ks/re1",
+    "$/hrha",
+    "m/rk/zi",
+    "b/raye",
+    "x/ride1",
+    "doc/rxe",
+    "vojud",
+    "dar/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb313",
+   "tokens": [
+    "p/s",
+    "@/z",
+    "m/drese",
+    "kud/kan",
+    "besuye",
+    "xane",
+    "j/st",
+    "@o",
+    "xiz",
+    "k/rd/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb314",
+   "tokens": [
+    "$oma",
+    "neg/rane",
+    "z/n",
+    "@o",
+    "b/cce",
+    "@in",
+    "n/ba$"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb315",
+   "tokens": [
+    "@ertebatemun",
+    "ro",
+    "be",
+    "h/m",
+    "z/dim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb316",
+   "tokens": [
+    "ba",
+    "vorude",
+    "finha",
+    "laphha",
+    "be",
+    "s/mte",
+    "$omal",
+    "f/nland",
+    "r/ft/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb317",
+   "tokens": [
+    "@/m/",
+    "beht/r",
+    "bud/n",
+    "ra",
+    "cegune",
+    "bay/d",
+    "s/njid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb318",
+   "tokens": [
+    "bexod",
+    "@ejaze",
+    "n/dad/m",
+    "@u",
+    "ra",
+    "be",
+    "@esme",
+    "kuc/k",
+    "seda",
+    "bez/n/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb319",
+   "tokens": [
+    "@u",
+    "kolyeye",
+    "moq/rr/rat",
+    "ra",
+    "d/r",
+    "yek",
+    "jeld",
+    "xolase",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb320",
+   "tokens": [
+    "s/rbazani",
+    "ke",
+    "bet/r/fe",
+    "jebhe",
+    "mir/ft/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb321",
+   "tokens": [
+    "t/p$i",
+    "layn"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb322",
+   "tokens": [
+    "h/qayeqe",
+    "mos/ll/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb323",
+   "tokens": [
+    "sedaye",
+    "q/hqe",
+    "x/nde"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb324",
+   "tokens": [
+    "for/n",
+    "doktor",
+    "biyav/rid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb325",
+   "tokens": [
+    "filmhaye",
+    "porxo$un/ti",
+    "ke",
+    "fekre",
+    "j/vanan",
+    "ra",
+    "@alude",
+    "mikon/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb326",
+   "tokens": [
+    "$ur",
+    "@o",
+    "h/yejane",
+    "doxt/rane",
+    "nobave"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb327",
+   "tokens": [
+    "ce",
+    "dam/ne",
+    "xo$geli",
+    "pushide@i"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb328",
+   "tokens": [
+    "@/z",
+    "t/rze",
+    "r/ftare",
+    "@u",
+    "kamel/n",
+    "xejel",
+    "bud/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb329",
+   "tokens": [
+    "@an",
+    "ha",
+    "@/frade1",
+    "dig/ri",
+    "ra",
+    "b/raye",
+    "@in",
+    "@ertebat",
+    "vasete",
+    "q/rar",
+    "mid/h/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb330",
+   "tokens": [
+    "h/r",
+    "doc/rxe",
+    "m/rsumi",
+    "ke",
+    "bex/rid",
+    "tormozi",
+    "be/ndazeye",
+    "kafiye1",
+    "qodr/tm/nd",
+    "dar/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb331",
+   "tokens": [
+    "motex/ssese",
+    "$/b/ke",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb332",
+   "tokens": [
+    "bezarid",
+    "ba",
+    "lego",
+    "mesal",
+    "bez/n/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb333",
+   "tokens": [
+    "faseleye",
+    "faqe",
+    "pa",
+    "ta",
+    "z/min"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb334",
+   "tokens": [
+    "@in",
+    "laye",
+    "@imeni",
+    "xub",
+    "@/st",
+    "@/mm/",
+    "@/sl/n",
+    "kafi",
+    "nist"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb335",
+   "tokens": [
+    "b/raye",
+    "h/ker",
+    "$od/n",
+    "be",
+    "@/ngizeye",
+    "x/llaqiyy/t",
+    "v/",
+    "qabeliyy/te",
+    "xod",
+    "@amuzi",
+    "niyaz",
+    "darid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb336",
+   "tokens": [
+    "yek",
+    "rezomeye",
+    "xub",
+    "m/@mul/n",
+    "@/z",
+    "yeki",
+    "do",
+    "s/fhe",
+    "bi$t/r",
+    "nist"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb337",
+   "tokens": [
+    "@in",
+    "@/mre",
+    "@erse",
+    "ped/re1",
+    "m/@n/viye",
+    "linux",
+    "y/@ni",
+    "yuniks",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb338",
+   "tokens": [
+    "b/le",
+    "sisteme1",
+    "@amelhaye",
+    "f/ravani",
+    "d/r",
+    "kenareye1",
+    "yuniks",
+    "vojud",
+    "dar/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb339",
+   "tokens": [
+    "h/rgez",
+    "@inkar",
+    "ra",
+    "n/k/nid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb340",
+   "tokens": [
+    "doc/rxe",
+    "gerant/r",
+    "@elzam/n",
+    "beht/r",
+    "nist"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb341",
+   "tokens": [
+    "be",
+    "h/r",
+    "hal",
+    "bay/d",
+    "mont/zer",
+    "mand",
+    "v/",
+    "did"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb342",
+   "tokens": [
+    "n/vaxt/ne",
+    "b/rxi",
+    "@alate",
+    "musiqi",
+    "ra",
+    "bexubi",
+    "f/rabegirid",
+    "ya",
+    "@avaz",
+    "xand/n",
+    "yad",
+    "begirid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb343",
+   "tokens": [
+    "van",
+    "derayv",
+    "maykrus/ft"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb344",
+   "tokens": [
+    "beh/min",
+    "d/lil",
+    "m/n",
+    "$/xs/n",
+    "f/q/t",
+    "yek",
+    "rezomeye",
+    "sadeye",
+    "@engilisi",
+    "dar/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb345",
+   "tokens": [
+    "@ay",
+    "pey",
+    "@iran"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb346",
+   "tokens": [
+    "kolle",
+    "@ide",
+    "h/min",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb347",
+   "tokens": [
+    "lige",
+    "b/rt/re",
+    "@engelestan"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb348",
+   "tokens": [
+    "hoquqe",
+    "bazne$/stegi"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb349",
+   "tokens": [
+    "p/rdei",
+    "@/z",
+    "@extefa"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb350",
+   "tokens": [
+    "c/ndin",
+    "jay",
+    "j/s/de",
+    "bridegihaye",
+    ";/rfi",
+    "da$t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb351",
+   "tokens": [
+    "t/h/mmole",
+    "m/sa@ebe",
+    "t/biye@iye",
+    "zendegani"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb352",
+   "tokens": [
+    "taskbabe",
+    "gu$te",
+    "gav"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb353",
+   "tokens": [
+    "bedaxele1",
+    "jan",
+    "p/nah",
+    "p/rid/n"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb354",
+   "tokens": [
+    "@in",
+    "mo@/llem",
+    "@/z",
+    "x/nde",
+    "d/r",
+    "kelas",
+    "xeili",
+    "b/d/$",
+    "miay/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb355",
+   "tokens": [
+    "ta",
+    "d/rice",
+    "ra",
+    "baz",
+    "k/rd/m",
+    "yek",
+    "mu$",
+    "birun",
+    "p/rid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb356",
+   "tokens": [
+    "@u",
+    "d/rbareye",
+    "@ance",
+    "mixast",
+    "be",
+    "mad/r",
+    "$oh/r/$",
+    "beguy/d",
+    "modaqe",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb357",
+   "tokens": [
+    "be",
+    "pirah/ne",
+    "dokme",
+    "duxt/n"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb358",
+   "tokens": [
+    "bord",
+    "@/xire",
+    "@u",
+    "@e@temade",
+    "ben/fse",
+    "vi",
+    "ra",
+    "ziyadt/r",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb359",
+   "tokens": [
+    "tirhayi",
+    "ke",
+    "h/mz/man",
+    "$elik",
+    "$od/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb360",
+   "tokens": [
+    "s/rbazan",
+    "@/q/bg/rd",
+    "k/rd/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb361",
+   "tokens": [
+    "sox/nrane",
+    "keselkon/nde"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb362",
+   "tokens": [
+    "s/rbazan",
+    "ra",
+    "b/r/ye",
+    "j/ng",
+    "mos/ll/h",
+    "k/rd/n"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb363",
+   "tokens": [
+    "@ofte",
+    "s/ri@",
+    "d/r",
+    "@/rze$e",
+    "pul"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb364",
+   "tokens": [
+    "s/rbazan",
+    "ra",
+    "d/r",
+    "yek",
+    "sahele",
+    "s/nglax",
+    "piyade",
+    "k/rd/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb365",
+   "tokens": [
+    "@estedlal",
+    "s/rf"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb366",
+   "tokens": [
+    "s/rbaze",
+    "baqeyr/t"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb367",
+   "tokens": [
+    "be",
+    "neyr/ng",
+    "motev/ssel",
+    "$od/n"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb368",
+   "tokens": [
+    "@/fsaneye",
+    "bigonahiye",
+    "xod",
+    "ra",
+    "@esbat",
+    "k/rd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb369",
+   "tokens": [
+    "s/rbazane",
+    "kenareye",
+    "rudi",
+    "@ordu",
+    "z/d/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb370",
+   "tokens": [
+    "@almanha",
+    "z/rfe",
+    "c/nd",
+    "ruze",
+    "nimi/z",
+    "l/hestan",
+    "ra",
+    "t/sxir",
+    "k/rd/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb371",
+   "tokens": [
+    "@u",
+    "d/r",
+    "c/har",
+    "mored",
+    "@ettehame",
+    "gon/hkar",
+    "$emorde",
+    "$od"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb372",
+   "tokens": [
+    "@eslahate",
+    "$/hrdare",
+    "j/dide",
+    "simaye",
+    "$/hr",
+    "ra",
+    "@/v/z",
+    "k/rde",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb373",
+   "tokens": [
+    "j/rrah",
+    "s/fhei",
+    "felezzi",
+    "d/r",
+    "jomjomeye",
+    "m/sdume",
+    "@u",
+    "q/rar",
+    "dad"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb374",
+   "tokens": [
+    "dol/t",
+    "miku$/d",
+    "qalibafi",
+    "ra",
+    "r/vaj",
+    "bed/h/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb375",
+   "tokens": [
+    "m/n",
+    "joda",
+    "$ode",
+    "@/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb376",
+   "tokens": [
+    "beb/x$id",
+    "hicci",
+    "baqi",
+    "n/mande"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb377",
+   "tokens": [
+    "ce",
+    "moqe@e",
+    "sale",
+    "t/hsili",
+    "be",
+    "payan",
+    "mir/s/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb378",
+   "tokens": [
+    "$ekar",
+    "@inja",
+    "mojaz",
+    "nist"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb379",
+   "tokens": [
+    "koja",
+    "d/rd",
+    "mikon/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb380",
+   "tokens": [
+    "mit/vanid",
+    "sayze",
+    "m/ra",
+    "sefare$",
+    "d/hid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb381",
+   "tokens": [
+    "yek",
+    "ma$ine",
+    "@elektriki",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb382",
+   "tokens": [
+    "m/n",
+    "to",
+    "ro",
+    "to",
+    "film",
+    "did/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb383",
+   "tokens": [
+    "p/s",
+    "cera",
+    "f/q/t",
+    "h/$t",
+    "d/rs/de",
+    "$erk/thayi",
+    "ke",
+    "b/rnameye",
+    "@estexdame",
+    "@/frade",
+    "moten/vve@",
+    "v/",
+    "f/ragir",
+    "dar/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb384",
+   "tokens": [
+    "@in",
+    "mored",
+    "z/nge1",
+    "x/t/r",
+    "ra",
+    "b/raye",
+    "m/n",
+    "be",
+    "seda",
+    "d/ravord",
+    "con",
+    "herfeye1",
+    "m/n",
+    "hemay/t",
+    "@/z",
+    "hoquqe1",
+    "m/sr/fkon/ndegan",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb385",
+   "tokens": [
+    "mashino",
+    "bol/nd",
+    "mikonim"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb386",
+   "tokens": [
+    "m/n",
+    "h/mi$e",
+    "to",
+    "filma",
+    "midid/m",
+    "ke",
+    "@ad/ma",
+    "migoft/n",
+    "cizi",
+    "b/raye",
+    "@/z",
+    "d/st",
+    "dad/n",
+    "n/dar/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb387",
+   "tokens": [
+    "rahe",
+    "dig/ri",
+    "b/raye",
+    "@/njame$",
+    "h/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb388",
+   "tokens": [
+    "yekom",
+    "h/va",
+    "s/rd",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb389",
+   "tokens": [
+    "taze",
+    "bahatun",
+    "@ashena",
+    "$od/m",
+    "v/",
+    "dustun",
+    "dar/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb390",
+   "tokens": [
+    "n/hveye",
+    "t/l/ffoze",
+    "nam/m",
+    "ra",
+    "biyamuzid"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb391",
+   "tokens": [
+    "d/h",
+    "ta",
+    "caharrah",
+    "ro",
+    "bodo"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb392",
+   "tokens": [
+    "@/ql/be",
+    "ke$v/rhaye",
+    "motem/dden",
+    "v/",
+    "m/maleke",
+    "tose@eyafte",
+    "v/",
+    "tose@en/yafte",
+    "v/",
+    "h/tt/",
+    "@/q/bmande",
+    "ra",
+    "niz",
+    "@/z",
+    "n/zdik",
+    "dide",
+    "bud/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb393",
+   "tokens": [
+    "v/",
+    "d/r",
+    "@in",
+    "kar",
+    "m/har/t",
+    "da$t/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb394",
+   "tokens": [
+    "h/mcenin",
+    "m/sr/fkon/ndegan",
+    "nemit/van/nd",
+    "@in",
+    "kar",
+    "ra",
+    "xode$an",
+    "@/njam",
+    "d/h/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb395",
+   "tokens": [
+    "$oma",
+    "mitunin",
+    "f/rar",
+    "konin"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb396",
+   "tokens": [
+    "mituni",
+    "ragbi",
+    "bazi",
+    "koni"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb397",
+   "tokens": [
+    "v/",
+    "xeyli",
+    "ha",
+    "mad/r",
+    "$od/nd",
+    "v/qti",
+    "xode$an",
+    "h/nuz",
+    "b/cce",
+    "bud/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb398",
+   "tokens": [
+    "@/z",
+    "@in",
+    "h/rfa",
+    "dige",
+    "m/n",
+    "nemidon/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "sb399",
+   "tokens": [
+    "niyazm/nde",
+    "t/@rife",
+    "f/zaye",
+    "@/m/liyyatiye",
+    "@/mn",
+    "b/r",
+    "sisteme",
+    "paydare",
+    "z/min",
+    "h/stim"
+   ],
+   "backend": "homo-ge2pe"
+  }
+ ]
+}

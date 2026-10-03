@@ -1,0 +1,294 @@
+{
+ "component": "hazm-spacy",
+ "set": "review14",
+ "scheme": null,
+ "source": {
+  "repo": "roshan-research/hazm-parsbert-postagger",
+  "revision": "eba1d2b30cc48206c0144b36d2b663652d44faf9"
+ },
+ "python": "3.12.0",
+ "packages": {
+  "hazm": "0.12.1",
+  "spacy": "3.8.16",
+  "spacy-transformers": "1.4.0",
+  "transformers": "4.53.2",
+  "torch": "2.14.0",
+  "tokenizers": "0.21.4",
+  "huggingface-hub": "0.36.2",
+  "python-crfsuite": "0.9.12",
+  "sentencepiece": "0.2.2"
+ },
+ "seconds": 13.9,
+ "max_rss_mb": 3070,
+ "sentences": [
+  {
+   "id": "s01",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "s02",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "s03",
+   "ezafe": [
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "s04",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "s05",
+   "ezafe": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "s06",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "s07",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "s08",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "s09",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "t09",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "t10",
+   "ezafe": [
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "t11",
+   "ezafe": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "t12",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "r01",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  }
+ ]
+}

@@ -1349,3 +1349,42 @@ are right, plus a way to say where no ezafe belongs. One listener, fourteen
 chosen-hard sentences, one voice: this names the error types, it measures no
 system. These sentences are now development material; a fix is measured on new
 ones written before it.
+
+## 14. Which text tools can write the ezafe and the vowels
+
+Section 13 put the fix in the text: mark what plain script leaves out, from a
+source accurate enough that the marks are right. On 3 October the candidate
+sources were measured on text alone - no audio, no GPU - against two golds:
+SentenceBench (400 annotated sentences; a word's ezafe read off its annotated
+pronunciation) and the 14 review sentences (`eval/manifests/frontend_review14_gold_v1.json`).
+Registered before any component ran (`eval/runs/persian-voice-frontend-components-v1.json`);
+amended before any score, because HomoRich - the training data named for
+Homo-GE2PE and the ALBERT model - turned out to hold 98 of SentenceBench's 100
+ManaTTS sentences and 79 of its 88 Common Voice ones. The choice is read on the
+213 sentences found in no component's named training data.
+
+| ezafe, per word | unseen (213 sentences) | review's 14 sentences |
+|---|---|---|
+| hazm ParsBERT tagger (spaCy) | 1.7% wrong, F1 0.93 | 0 of 198 |
+| ALBERT (`abreza/persian-ezafe-albert`) | 2.5%, F1 0.90 | 4 |
+| Homo-GE2PE (the app's G2P) | 3.0%, F1 0.88 | 8 |
+| hazm CRF tagger | 4.8%, F1 0.83 | 6 |
+| plain script - no ezafe anywhere | 12.6% | 48 |
+
+**The ezafe source is hazm's ParsBERT tagger.** Against ALBERT the difference,
+-0.8 points [-1.6, 0.0], only reaches zero, so the registered tie-break applied:
+it is right on all of A's heard ezafe errors (ALBERT adds one after مرد, as
+OmniVoice did). On the 14 sentences it makes no ezafe error at all. About a
+third of its 25 errors on the benchmark are the benchmark's own slips. It
+costs a separate environment (Python 3.12, spaCy, an older transformers),
+655 MB of weights and about 4 GB of memory while it runs.
+
+**No vowel source is good enough to mark every word.** Homo-GE2PE gets the
+vowels of 88.7% of the unseen words right (homographs 74%); KaamelDict answers
+only the 52% of words it lists one way, 93% of them right. Part of that is the
+benchmark's slips and split words, but nothing approaches the 96% that
+OmniVoice reached alone in the review, which the registration set as the bar.
+On the 14 sentences Homo-GE2PE is right on 8 of A's 9 vowel errors - and wrong
+on three words A read right. So step 2 marks vowels only where they are
+needed. Still open: the user's blind check of 12 readings Claude wrote for the
+14 sentences, which cannot change the choice above.

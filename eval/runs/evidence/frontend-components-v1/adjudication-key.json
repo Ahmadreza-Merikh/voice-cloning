@@ -1,0 +1,125 @@
+{
+ "about": "the 14-sentence readings Claude wrote that a component disagrees with, put to the user blind: two readings per item in a seeded random order (seed 20261003), no component names. برای is left out: KaamelDict lists it with its ezafe glide, the same sound as the gold",
+ "items": [
+  {
+   "item": 1,
+   "sentence": "s02",
+   "word": "هفتهٔ",
+   "aspect": "ezafe",
+   "phrase": "«هفتهٔ پیش»",
+   "alef": "hafte-ye pish",
+   "be": "hafte pish",
+   "claude_gold": "alef"
+  },
+  {
+   "item": 2,
+   "sentence": "s08",
+   "word": "پیش",
+   "aspect": "ezafe",
+   "phrase": "«پیش من خریدار نداره»",
+   "alef": "pish man",
+   "be": "pish-e man",
+   "claude_gold": "be"
+  },
+  {
+   "item": 3,
+   "sentence": "s09",
+   "word": "کنار",
+   "aspect": "vowels",
+   "phrase": "«کنار پنجره»",
+   "alef": "kenaar-e panjere",
+   "be": "kenaare-ye panjere",
+   "claude_gold": "alef"
+  },
+  {
+   "item": 4,
+   "sentence": "s09",
+   "word": "پنجره",
+   "aspect": "vowels",
+   "phrase": "«پنجره»",
+   "alef": "panjere",
+   "be": "panjare",
+   "claude_gold": "alef"
+  },
+  {
+   "item": 5,
+   "sentence": "s09",
+   "word": "ساعت",
+   "aspect": "ezafe",
+   "phrase": "«نیم ساعت پیش از آن»",
+   "alef": "nim saa'at pish",
+   "be": "nim saa'at-e pish",
+   "claude_gold": "alef"
+  },
+  {
+   "item": 6,
+   "sentence": "t10",
+   "word": "روبه‌رویی",
+   "aspect": "ezafe",
+   "phrase": "«همسایهٔ روبه‌رویی ما»",
+   "alef": "ruberuyi maa",
+   "be": "ruberuyi-ye maa",
+   "claude_gold": "be"
+  },
+  {
+   "item": 7,
+   "sentence": "t10",
+   "word": "روبه‌رویی",
+   "aspect": "vowels",
+   "phrase": "«روبه‌رویی»",
+   "alef": "rubahruyi",
+   "be": "ruberuyi",
+   "claude_gold": "be"
+  },
+  {
+   "item": 8,
+   "sentence": "t12",
+   "word": "دست‌کم",
+   "aspect": "ezafe",
+   "phrase": "«دست‌کم سه ساعت»",
+   "alef": "dastekam-e se saa'at",
+   "be": "dastekam se saa'at",
+   "claude_gold": "be"
+  },
+  {
+   "item": 9,
+   "sentence": "t12",
+   "word": "دست‌کم",
+   "aspect": "vowels",
+   "phrase": "«دست‌کم»",
+   "alef": "dastekam",
+   "be": "dastkam",
+   "claude_gold": "alef"
+  },
+  {
+   "item": 10,
+   "sentence": "t12",
+   "word": "مسافران",
+   "aspect": "vowels",
+   "phrase": "«مسافران خسته»",
+   "alef": "mosaferaan",
+   "be": "mosaaferaan",
+   "claude_gold": "be"
+  },
+  {
+   "item": 11,
+   "sentence": "t12",
+   "word": "سالن",
+   "aspect": "ezafe",
+   "phrase": "«سالن انتظار»",
+   "alef": "saalon-e entezaar",
+   "be": "saalon entezaar",
+   "claude_gold": "alef"
+  },
+  {
+   "item": 12,
+   "sentence": "r01",
+   "word": "بینایی",
+   "aspect": "ezafe",
+   "phrase": "«آسیب بینایی، عاملی تهدیدکننده»",
+   "alef": "aasib-e binaayi-ye aameli",
+   "be": "aasib-e binaayi, aameli",
+   "claude_gold": "be"
+  }
+ ]
+}

@@ -1,0 +1,305 @@
+{
+ "component": "albert",
+ "set": "review14",
+ "scheme": null,
+ "source": {
+  "repo": "abreza/persian-ezafe-albert",
+  "revision": "e6614371c6cd93fca2ad2e192a978613a14d92d6",
+  "max_length": 128
+ },
+ "python": "3.11.13",
+ "packages": {
+  "transformers": "5.14.1",
+  "torch": "2.13.0",
+  "tokenizers": "0.22.2",
+  "huggingface-hub": "1.25.1",
+  "sentencepiece": "0.2.2"
+ },
+ "seconds": 5.9,
+ "max_rss_mb": 595,
+ "sentences": [
+  {
+   "id": "s01",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "s02",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "s03",
+   "ezafe": [
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "s04",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "s05",
+   "ezafe": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "s06",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "s07",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "s08",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "s09",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "t09",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "t10",
+   "ezafe": [
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "t11",
+   "ezafe": [
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "t12",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "truncated": false
+  },
+  {
+   "id": "r01",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ],
+   "truncated": false
+  }
+ ]
+}

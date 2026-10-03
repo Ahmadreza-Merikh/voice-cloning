@@ -1,6 +1,6 @@
 {
  "run": "a text-only comparison of the components that could write what plain Persian script leaves out - the ezafe and short vowels - before any of them goes into the app",
- "status": "registered 2026-10-03, before any component ran on either set; amended the same day before any score (amendment_2026_10_03_overlap)",
+ "status": "registered 2026-10-03 before any component ran; amended before any score (amendment_2026_10_03_overlap); scored the same day by the registered code. The 14-sentence reading waits on the user's blind check of 12 readings",
  "why": "the pronunciation review (eval/runs/persian-voice-pronunciation-review-v1.json): of the 19 errors OmniVoice made on plain script, 9 are ezafe and 8 short vowels, and OmniVoice reads the diacritics it is given whether they are right or wrong. So whatever writes those marks must be accurate. This measures the candidates on text: no audio, no GPU, no OmniVoice",
  "question": "on plain script, which component places the ezafe best, and how accurately each source gives a word's vowels",
  "components": {
@@ -111,5 +111,107 @@
   "found": "of SentenceBench's sentences, HomoRich (528,875 read) holds mana-tts 100 of 100 (98 equal, 2 contained), commonvoice 79 of 88 (equal), homograph 8 of 212 (equal). HomoRich is the training data named for Homo-GE2PE and for the ALBERT model, so their pooled numbers include sentences they were trained on",
   "change": "the ezafe choice and the quoted vowel numbers are read on sentencebench-unseen: the 213 sentences found in no training data named for any component (204 homograph, 9 commonvoice). Pooled and per-subset numbers are still reported; the bootstrap rule is unchanged",
   "code": "scripts/score_frontend_components.py found_in, and main with the HomoRich file as its third argument"
+ },
+ "result": {
+  "ezafe": {
+   "read_on": "sentencebench-unseen: 213 sentences in no training data named for any component, 1,433 scorable words, 181 with an ezafe",
+   "per_component": {
+    "hazm-spacy": {
+     "errors": 25,
+     "words": 1433,
+     "per_word": 0.0174,
+     "added": 21,
+     "missed": 4,
+     "f1": 0.934,
+     "sentences_without_an_error": "190 of 213"
+    },
+    "albert": {
+     "errors": 36,
+     "words": 1433,
+     "per_word": 0.0251,
+     "added": 23,
+     "missed": 13,
+     "f1": 0.9032,
+     "sentences_without_an_error": "181 of 213"
+    },
+    "homo-ge2pe": {
+     "errors": 43,
+     "words": 1433,
+     "per_word": 0.03,
+     "added": 25,
+     "missed": 18,
+     "f1": 0.8835,
+     "sentences_without_an_error": "175 of 213"
+    },
+    "hazm-crf": {
+     "errors": 69,
+     "words": 1433,
+     "per_word": 0.0482,
+     "added": 52,
+     "missed": 17,
+     "f1": 0.8262,
+     "sentences_without_an_error": "154 of 213"
+    },
+    "never": {
+     "errors": 181,
+     "words": 1433,
+     "per_word": 0.1263,
+     "added": 0,
+     "missed": 181,
+     "f1": 0.0,
+     "sentences_without_an_error": "87 of 213"
+    }
+   },
+   "best_minus_runner_up": {
+    "best": "hazm-spacy",
+    "runner_up": "albert",
+    "difference_per_word": -0.0077,
+    "interval_95": [
+     -0.0156,
+     0.0
+    ],
+    "resamples_at_or_above_zero": "2.75%"
+   },
+   "rule_applied": "the interval reaches zero, so by the rule the two are not separated; the tie goes to the one right on more of A's heard ezafe errors: hazm-spacy 10 of 10 (the 9, and بود), albert 9 of 10 (it adds an ezafe after مرد, as A did)",
+   "choice": "hazm-spacy - hazm's ParsBERT tagger - is step 2's ezafe source",
+   "pooled_sentencebench": {
+    "hazm-spacy": 0.0168,
+    "albert": 0.03,
+    "homo-ge2pe": 0.0332,
+    "hazm-crf": 0.0458,
+    "never": 0.1758,
+    "best_minus_runner_up": [
+     -0.0132,
+     -0.0193,
+     -0.0073
+    ]
+   },
+   "review14": {
+    "hazm-spacy": "0 errors in 198 words",
+    "albert": "4 errors in 198 words",
+    "hazm-crf": "6 errors in 198 words",
+    "homo-ge2pe": "8 errors in 198 words",
+    "never": "48 errors in 198 words",
+    "note": "hazm-spacy is right on every ezafe of the 14 sentences, including all of A's heard ezafe errors. Homo-GE2PE adds one after چراغ - the IPA reading (C) that the listener marked for it was fed by Homo-GE2PE"
+   },
+   "looked_at": "of hazm-spacy's 25 errors on the unseen sentences, about 8 are the benchmark's annotation slips (قضای, نظر, مورد, حلال, حیوان, زن and arguably زندگی carry an ezafe the annotation leaves out; چشم and حیوان are garbled there) or the scorer's rule (جبهه, the only double-h word, which the rule reads as carrying an ezafe); several of the rest are compounds or plurals written with a space (ابر قهرمان, کره خر, ابر های). It errs mostly by adding (21 of 25)"
+  },
+  "vowels": {
+   "read_on": "sentencebench-unseen, 1,433 scorable words, 203 located homographs",
+   "homo-ge2pe": "1271 of 1433 words (88.7%); homographs 150 of 203",
+   "kaamel": "answers 746 of 1433 words (52.1%), right on 694 (93.0%); it leaves homographs unanswered",
+   "kaamel-then-homo-ge2pe": "1285 of 1433 (89.7%)",
+   "pooled_sentencebench": "homo-ge2pe 91.2%; kaamel 95.0% on 58.3% of words",
+   "review14": "homo-ge2pe 192 of 199: right on 8 of A's 9 heard vowel errors (wrong on گل, mud, as A was), wrong on 7 words - three of them words A read right (the second کشتی, روبه‌رویی, مسافران) and three that may be variants (کنار, پنجره, دست‌کم; with the user). KaamelDict answers 125 and is right on 124 (the one miss, برای, is listed with its ezafe glide - the same sound)",
+   "rule_applied": "no source reaches 96% on SentenceBench, so marking every word is ruled out; step 2 marks only where needed",
+   "looked_at": "a sample of Homo-GE2PE's 162 misses on the unseen sentences mixes real errors (homographs, nafas for nafs, xalq for xolq) with the benchmark's slips (را as ra, typos such as dAstaS) and words the benchmark writes apart that Homo-GE2PE joins. Its real accuracy is above 88.7%, not near 96%"
+  },
+  "adjudication": "12 readings put to the user blind on 2026-10-03 (eval/runs/evidence/frontend-components-v1/adjudication-key.json); the 14-sentence numbers above are before it. It cannot change the ezafe choice: the tie-break used only errors the review settled",
+  "cost": "CPU on this Mac: hazm-spacy 32 s for the 400 sentences at 4.1 GB peak, Homo-GE2PE 89 s at 0.7 GB, ALBERT 18 s, the CRF tagger 3 s, KaamelDict 2 s",
+  "evidence": [
+   "eval/runs/evidence/frontend-components-v1/predictions-*.json",
+   "eval/runs/evidence/frontend-components-v1/score.json",
+   "eval/runs/evidence/frontend-components-v1/adjudication-key.json"
+  ]
  }
 }

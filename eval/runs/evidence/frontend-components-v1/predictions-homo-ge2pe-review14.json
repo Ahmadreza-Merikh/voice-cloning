@@ -1,0 +1,299 @@
+{
+ "component": "homo-ge2pe",
+ "set": "review14",
+ "scheme": "ge2pe",
+ "source": {
+  "repo": "/Users/ahmadrezamerikh/Desktop/G2P Research",
+  "backend": "homo-ge2pe",
+  "weights_sha256": "e84200ee35a0e5b253da0a2ed993c2d2e0e65a5095f8f709f6aa8018cae85542",
+  "path": "voiceclone.text.g2p.PersianG2P().phonemize - normalize_for_g2p, then GE2PE with its rules"
+ },
+ "python": "3.11.13",
+ "packages": {
+  "transformers": "5.14.1",
+  "torch": "2.13.0",
+  "tokenizers": "0.22.2",
+  "huggingface-hub": "1.25.1",
+  "sentencepiece": "0.2.2"
+ },
+ "seconds": 11.8,
+ "max_rss_mb": 710,
+ "sentences": [
+  {
+   "id": "s01",
+   "tokens": [
+    "@u",
+    "gole",
+    "qermez",
+    "ra",
+    "@/z",
+    "gole",
+    "baqce",
+    "birun",
+    "ke$id"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "s02",
+   "tokens": [
+    "pirem/rd",
+    "goft",
+    "@in",
+    "m/rde",
+    "h/fteye",
+    "pi$",
+    "morde",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "s03",
+   "tokens": [
+    "ketabe",
+    "xube",
+    "b/rad/r/m",
+    "ruye",
+    "mize",
+    "@otaq",
+    "@/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "s04",
+   "tokens": [
+    "livan",
+    "@ab",
+    "ra",
+    "ruye",
+    "miz",
+    "begozar",
+    "v/",
+    "ruye",
+    "sur/t/t",
+    "@ab",
+    "beke$"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "s05",
+   "tokens": [
+    "q/l@eye",
+    "q/dimiye1",
+    "balaye1",
+    "t/peye1",
+    "xaki",
+    "hengame1",
+    "qorube1",
+    "did/ni",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "s06",
+   "tokens": [
+    ";ale",
+    "zire1",
+    "ceraqe1",
+    "c/tre$",
+    "ra",
+    "d/r",
+    "barane1",
+    "$/did",
+    "b/st"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "s07",
+   "tokens": [
+    "m/s@ule",
+    "@esteqbale",
+    "@ostad",
+    "@/z",
+    "s/rs/raye",
+    "dane$ga",
+    "@istad"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "s08",
+   "tokens": [
+    "boro",
+    "baba",
+    "@in",
+    "h/rfa",
+    "pi$e1",
+    "m/n",
+    "x/ridar",
+    "n/dare",
+    "be$in",
+    "bebin",
+    "ci",
+    "mig/m"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "s09",
+   "tokens": [
+    "v/qti",
+    "metro",
+    "@/z",
+    "@istgahe1",
+    "terminale1",
+    "jonub",
+    "r/d",
+    "$od",
+    "xanomi",
+    "ke",
+    "kenareye1",
+    "p/nj/re",
+    "ne$/ste",
+    "bud",
+    "ketab/$",
+    "ra",
+    "b/st",
+    "kif/$",
+    "ra",
+    "b/rda$t",
+    "v/",
+    "be",
+    "s/mte1",
+    "d/r",
+    "r/ft",
+    "bianke",
+    "motev/jjeh",
+    "$/v/d",
+    "@istgahe1",
+    "b/@di",
+    "h/man",
+    "m/qs/di",
+    "@/st",
+    "ke",
+    "nimsa@/t",
+    "pi$/z",
+    "@an",
+    "@am/de",
+    "bud"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "t09",
+   "tokens": [
+    "p/s",
+    "@/z",
+    "payane1",
+    "mosabeqeye1",
+    "ko$ti",
+    "v/rze$karan",
+    "ba",
+    "ko$ti",
+    "be",
+    "j/zire",
+    "b/rg/$t/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "t10",
+   "tokens": [
+    "doxt/re",
+    "h/msayeye",
+    "rub/hruyi",
+    "ma",
+    "ketabe",
+    "tazeye",
+    "nevis/ndeye",
+    "m/hbub/$",
+    "ra",
+    "@/man/t",
+    "gereft"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "t11",
+   "tokens": [
+    "baran",
+    "b/nd",
+    "@am/d"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "t12",
+   "tokens": [
+    "v/qti",
+    "be",
+    "@istgahe1",
+    "q/tar",
+    "r/sidim",
+    "didim",
+    "ke",
+    "q/tare1",
+    "$/bane",
+    "bed/lile1",
+    "b/rfe1",
+    "s/ngin",
+    "v/",
+    "b/ste$od/ne",
+    "jaddehaye",
+    "kuhestani",
+    "d/stk/m",
+    "se",
+    "sa@/t",
+    "t/@xir",
+    "dar/d",
+    "v/",
+    "mos/ferane",
+    "x/ste",
+    "d/r",
+    "salon",
+    "@entezar",
+    "nesh/ste/nd",
+    "v/",
+    "cay",
+    "minu$/nd"
+   ],
+   "backend": "homo-ge2pe"
+  },
+  {
+   "id": "r01",
+   "tokens": [
+    "beture",
+    "xolase",
+    "@in",
+    "motale@e",
+    "bein",
+    "n/tije",
+    "reside",
+    "ke",
+    "@asibe1",
+    "binayiye1",
+    "@ameliye1",
+    "t/hdidkon/nde",
+    "b/raye",
+    "s/lam/te1",
+    "r/vaniye1",
+    "@/frad",
+    "be$omar",
+    "mir/v/d",
+    "ba",
+    "d/r",
+    "n/z/r",
+    "gereft/ne1",
+    "te@dade",
+    "ziyadi",
+    "p/;uhe$"
+   ],
+   "backend": "homo-ge2pe"
+  }
+ ]
+}

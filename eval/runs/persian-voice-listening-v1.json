@@ -1,6 +1,6 @@
 {
  "run": "the first listening test: blind A/B judgements on the sealed Neyshekar set's unseen speakers",
- "status": "registered 2026-10-03, before anyone has listened; no result is written until listeners have answered",
+ "status": "deferred 2026-10-03 at the user's request, before any listener answered (the one record on the page, the user's own, holds no answers): the user wants Persian pronunciation fixed first. The page stays private and unshared. When the pronunciation work changes the systems, this test is rebuilt with their renders and registered again; nothing here is a result",
  "why": "every judgement in this project so far is an encoder's (held-out similarity) or a recogniser's (CER); nobody has listened. SOTA_ROADMAP section 3.4: a blind test is the only way to know whether a similarity difference is audible, and the only thing that could justify the 0.0205 line as a decision bar or retire it",
  "tests": {
   "sealed-published-vs-adapted": {
@@ -46,5 +46,6 @@
  },
  "built_by": "scripts/build_listening_test.py (36ebe46) with --corpus-dir, --texts eval/manifests/test_texts_v1.json, the results files of the runs, --files and --bit-depth 16, seed 20261003",
  "answers_are_kept": "one record per listener: in the page's database as responses/<listener id> for anyone who can write there (the owner, and people invited by email as editors), each seeing only their own and the owner reading all; for anyone else, an answer code the page shows at the end, which they copy and send. Both turn into the scorer's files with scripts/export_listening_answers.py and the two keys",
- "checked_before_listeners": "2026-10-03: all 63 audio files and the page are on the artifact; a probe record written as the owner was readable by the owner and hidden at a listener's level, then deleted. The user opened the page first, which saved their empty record"
+ "checked_before_listeners": "2026-10-03: all 63 audio files and the page are on the artifact; a probe record written as the owner was readable by the owner and hidden at a listener's level, then deleted. The user opened the page first, which saved their empty record",
+ "context_at_deferral": "[measured] on the sealed Neyshekar set the recogniser reads the speakers' own recordings at CER 6.4% (its floor) and OmniVoice's renders at 9.9%, F5's at 14.8%: OmniVoice carries about 3.5 points of error the recogniser alone does not explain"
 }

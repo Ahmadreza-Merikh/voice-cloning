@@ -6,7 +6,7 @@ anything. No credentials.
 
 Last updated: 2026-10-03 10:40 +0330 (2026-10-03 07:10 UTC).
 
-## Now: the first listening test is open (2026-10-03)
+## The first listening test is built and deferred (2026-10-03)
 
 Nobody had listened to any render; the user asked for a listening test.
 Registered before anyone listened (`eval/runs/persian-voice-listening-v1.json`):
@@ -22,8 +22,12 @@ The page: https://claude.ai/artifact/7yj1WvanE1A5pih2vLCMy7 - private until the
 user shares it. Listeners who can write to its database (the owner, people
 invited by email as editors) are saved automatically, each seeing only their
 own; anyone else gets an answer code at the end to send to the user.
-**Next:** the user recruits listeners (five or more for the declared crossed
-interval). Then read the database (ArtifactData `list` of `responses`, with
+**Deferred the same day, at the user's request, before anyone answered:** fix
+Persian pronunciation first, then rebuild this test with the fixed system's
+renders. [measured] On the sealed set the recogniser reads the speakers' own
+recordings at CER 6.4% and OmniVoice at 9.9%, so about 3.5 points of error are
+not the recogniser's. When the test runs: the user recruits listeners (five or
+more for the declared crossed interval). Then read the database (ArtifactData `list` of `responses`, with
 `out_dir`) and any codes, run `scripts/export_listening_answers.py` with both
 keys, then `scripts/score_listening_test.py` per test, and record what it says
 - nothing is written as a result before that.

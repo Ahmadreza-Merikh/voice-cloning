@@ -1,0 +1,12 @@
+{
+ "run": "the ezafe tagger without spaCy: does src/voiceclone/text/ezafe_tagger.py give hazm's ParsBERT tagger's decisions",
+ "status": "registered 2026-10-03, before the export ran or the light tagger tagged anything",
+ "why": "as published the tagger is a spaCy pipeline that peaked at 4.3 GB (peak memory footprint, /usr/bin/time -l) and took 13.5 s for one sentence on the M1 Pro, most of it importing spaCy and loading through spacy-transformers; that cannot run beside a loaded OmniVoice on this 16 GB Mac. The light tagger runs the same tensors with transformers alone",
+ "what_is_compared": {
+  "ezafe": "per word, the ezafe decision (a tag carrying ,EZ) against the spaCy pipeline's recorded decisions: eval/runs/evidence/frontend-components-v1/predictions-hazm-spacy-sentencebench.json (400 sentences) and predictions-hazm-spacy-review14.json (14), same tokens (scripts/measure_frontend_components.py tagger_tokens)",
+  "tags": "per token, the full tag, against the tags recorded for the 12 listening sentences in eval/runs/frontend-listening-v1/texts.json",
+  "not_re_run": "the spaCy pipeline is not run again: its recorded outputs are the reference, so the Mac does not carry a 4 GB load for this"
+ },
+ "criterion": "adopted only if every ezafe decision on the 414 sentences and every tag on the 12 agree. Any disagreement: not adopted as it stands; each one is looked at and reported",
+ "cost": "on this Mac, CPU: the export reads the 655 MB pipeline file once; peak memory and time of the light tagger are measured and reported"
+}

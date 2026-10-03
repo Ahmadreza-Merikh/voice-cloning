@@ -4,7 +4,36 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 17:05 +0330 (2026-10-03 13:35 UTC).
+Last updated: 2026-10-03 18:20 +0330 (2026-10-03 14:50 UTC).
+
+## The ezafe is in the app for OmniVoice (2026-10-03 18:20 +0330)
+
+What the user approved after step 2 (FINDINGS section 16):
+
+- **The tagger without spaCy** (`src/voiceclone/text/ezafe_tagger.py`): hazm's
+  ParsBERT tagger read out of its spaCy files once into
+  `~/.cache/persian-voice-cloning/ezafe-tagger/eba1d2b30cc4` (624 MB) and run
+  with transformers. Registered check (`eval/runs/persian-voice-ezafe-tagger-v1.json`):
+  the same decision on all 3,355 words of 414 sentences and all 147 tags of
+  the 12 listening sentences; 0.86 GB resident against the pipeline's 4.3 GB.
+  `scripts/check_ezafe_tagger.py` repeats it.
+- **In the text pipeline** (`src/voiceclone/text/ezafe_fa.py`, `text.ezafe` and
+  `text.marks_engines` in `configs/default.yaml`): for OmniVoice only, the
+  ezafe is written as کتابِ / خانهٔ / دانشجوی; loaded per text, released after,
+  not started under 1.5 GB free (auto: plain script and a note instead). A
+  final h is pronounced after ا/و and in 33 listed words (`marks_fa.PRONOUNCED_H`);
+  no ezafe on مدیر before عامل. The normaliser keeps أ and writes ۀ as هٔ for
+  OmniVoice. `scripts/check_ezafe_in_app.py`: the 12 listening sentences give
+  the heard E text in 11, n12 differs only by that مدیر (not yet heard).
+- Unchanged: every other engine's text; the registered render scripts turn
+  both off (`ab_omnivoice_ipa.render_config`). From now on an OmniVoice
+  benchmark carries the ezafe unless `text.ezafe.enabled: false` - earlier
+  OmniVoice numbers are all plain script.
+- KaamelDict is GPL: it only checked the h list; none of it ships.
+
+**Next (optional, the user's call):** the first vowels - render E against E +
+first vowels on new sentences and hear them blind, as step 2's registration
+requires before any vowel ships.
 
 ## Step 2 heard: the ezafe goes in, the sukun is dropped, the vowels wait (2026-10-03 17:05 +0330)
 

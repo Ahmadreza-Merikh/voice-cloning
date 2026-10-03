@@ -19,9 +19,9 @@ voice.
                                  │  best-window select  │  │  voice prompt
                                  └─────────────────────┘  │
                                                           ▼
-   text ──▶ normalise ──▶ numbers ──▶ G2P ──▶ chunk ──▶ ┌───────────┐
-            (Persian)     (→ words)   (→IPA)            │  engine   │──▶ speech
-                                                        └───────────┘
+   text ──▶ normalise ──▶ numbers ──▶ G2P ──▶ chunk ──▶ ezafe ──▶ ┌───────────┐
+            (Persian)     (→ words)   (→IPA)            (OmniVoice)  │  engine   │──▶ speech
+                                                                     └───────────┘
    audio ─▶ ASR ─▶ (same text pipeline) ────────────────────▲
         └─▶ or direct acoustic voice conversion ────────────┘
 ```
@@ -49,7 +49,12 @@ This project fixes each of them **before** the model sees the text:
 3. **Grapheme-to-phoneme conversion** resolves short vowels, ezafe and homographs,
    emitting IPA — used for inspection and measurement, not currently for synthesis
    (see the note at the top).
-4. The engine synthesises from normalised Persian script.
+4. **The ezafe is written in** for OmniVoice, which reads marks from the script:
+   hazm's ParsBERT tagger decides where it goes and it is written as `کتابِ`,
+   `خانهٔ` or `دانشجوی`. Heard blind, OmniVoice said 9 words of 147 wrong with it
+   against 12 without (FINDINGS §15). The tagger runs without spaCy, in about
+   0.9 GB, loaded for one text at a time (`text.ezafe` in the config).
+5. The engine synthesises from normalised Persian script.
 
 Step 3 uses a [Homo-GE2PE](https://huggingface.co/MahtaFetrat/Homo-GE2PE-Persian) based
 Persian G2P system (3.98% PER, 76.9% homograph accuracy). It is optional — without it

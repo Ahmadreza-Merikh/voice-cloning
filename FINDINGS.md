@@ -1429,3 +1429,25 @@ and broke سبد and شروع. The first vowels fixed 4 marked words (خشک, س
 هیئت) and broke 4 that carried the right vowel (مهربان, بزرگ, عذرخواهی, شرکت):
 their net gain came from words they did not touch. Still wrong in all four
 forms: the homograph کرم (no agreed reading, so unmarked), تبر, برنگشته.
+
+## 16. The ezafe in the app, and the tagger without spaCy
+
+Section 15's ezafe went into the app's text pipeline for OmniVoice on 3
+October. As published, hazm's tagger is a spaCy pipeline that peaked at 4.3 GB
+for 13.5 s to tag one sentence on the M1 Pro - most of it spaCy's import and
+spacy-transformers' load - too much to sit beside a loaded OmniVoice on a 16 GB
+Mac. So its tensors were read out of the pipeline's files once and are run with
+transformers alone, repeating what spacy-transformers does (strided spans,
+wordpieces aligned to tokens by character offsets, each token the mean of its
+wordpieces, the output layer). Registered before it ran
+(`eval/runs/persian-voice-ezafe-tagger-v1.json`), it gives the pipeline's
+decision on every one of 3,355 words in 414 sentences and every tag of the 12
+listening sentences, at 0.86 GB resident and about 30 ms a sentence.
+
+In the app it loads for one text and is released, and is not started with less
+than 1.5 GB free. A final h with no reading to go by is pronounced after ا or و
+and in 33 listed words (توجه, شبیه, گره ...), silent otherwise. No ezafe joins
+مدیر to عامل. For OmniVoice only, the normaliser now keeps أ and writes ۀ as
+هٔ. Through the app at its default settings the 12 listening sentences give
+the E text that was heard in 11 and differ in n12 only by that مدیر - a form
+nobody has heard yet. Every other engine gets the text it got before.

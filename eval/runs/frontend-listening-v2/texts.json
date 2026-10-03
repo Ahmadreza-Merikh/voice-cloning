@@ -1,0 +1,2669 @@
+{
+ "sentences_file": "eval/manifests/frontend_listening_v2.json",
+ "sentences_sha256": "4c95e9c0bfed355559db1025ddea3cb72b6ee41f34528653f4e33c98f00713e4",
+ "homographs_sha256": "f35b98076eee75dacbd3a13c95cf3faab8fae8ed135742490ee5b222d8405061",
+ "code_commit": "dc6dc1b",
+ "tagger": {
+  "repo": "roshan-research/hazm-parsbert-postagger",
+  "revision": "eba1d2b30cc48206c0144b36d2b663652d44faf9"
+ },
+ "g2p": {
+  "backend": "homo-ge2pe",
+  "weights_sha256": "e84200ee35a0e5b253da0a2ed993c2d2e0e65a5095f8f709f6aa8018cae85542"
+ },
+ "conditions": {
+  "E": "the app today",
+  "EH": "+ homograph first vowels",
+  "ES": "+ sukun before an adverb",
+  "EHS": "+ both"
+ },
+ "sentences": [
+  {
+   "id": "v01",
+   "category": "users_sentence",
+   "text": "کاربران در جریان این تعاملات معمولاً اطلاعات بسیار خصوصی درباره زندگی و سلامت روان خود را با هوش مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوان محرم اسرار یا حتی درمانگر استفاده می‌کنند.",
+   "normalized": "کاربران در جریان این تعاملات معمولاً اطلاعات بسیار خصوصی درباره زندگی و سلامت روان خود را با هوش مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوان محرم اسرار یا حتی درمانگر استفاده می‌کنند.",
+   "ge2pe": [
+    "karb/ran",
+    "d/r",
+    "j/ryane",
+    "@in",
+    "t/@amolat",
+    "m/@mul/n",
+    "@etela@ate",
+    "besyar",
+    "xosusi",
+    "d/rbareyeye",
+    "zendegi",
+    "v/",
+    "s/lam/te",
+    "r/vane",
+    "xod",
+    "ra",
+    "ba",
+    "hu$e",
+    "m/snu@i",
+    "d/r",
+    "miyane",
+    "migozar/nd",
+    "v/",
+    "@/ql/b",
+    "@/z",
+    "@in",
+    "m/h/sulat",
+    "beonvane",
+    "m/hr/me",
+    "@/srar",
+    "ya",
+    "h/tta",
+    "d/rmang/r",
+    "@estefade",
+    "mikon/nd"
+   ],
+   "words": [
+    {
+     "word": "کاربران",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "kArbarAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "در",
+     "tag": "ADP",
+     "next": "NOUN,EZ",
+     "ge2pe": "dar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "جریانِ",
+     "tag": "NOUN,EZ",
+     "next": "DET",
+     "ge2pe": "jaryAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "این",
+     "tag": "DET",
+     "next": "NOUN",
+     "ge2pe": "?in",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "تعاملات",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "ta?AmolAt",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "معمولاً",
+     "tag": "ADV",
+     "next": "NOUN,EZ",
+     "ge2pe": "ma?mulan",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "اطلاعاتِ",
+     "tag": "NOUN,EZ",
+     "next": "ADV",
+     "ge2pe": "?etelA?At",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بسیار",
+     "tag": "ADV",
+     "next": "ADJ",
+     "ge2pe": "besyAr",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "خصوصی",
+     "tag": "ADJ",
+     "next": "ADP,EZ",
+     "ge2pe": "xosusi",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "دربارهٔ",
+     "tag": "ADP,EZ",
+     "next": "NOUN",
+     "ge2pe": "darbAreye",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "زندگی",
+     "tag": "NOUN",
+     "next": "CCONJ",
+     "ge2pe": "zendegi",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "NOUN,EZ",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "سلامتِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ,EZ",
+     "ge2pe": "salAmat",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "روانِ",
+     "tag": "ADJ,EZ",
+     "next": "PRON",
+     "ge2pe": "ravAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "خود",
+     "tag": "PRON",
+     "next": "ADP",
+     "ge2pe": "xod",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "next": "ADP",
+     "ge2pe": "rA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "با",
+     "tag": "ADP",
+     "next": "NOUN,EZ",
+     "ge2pe": "bA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "هوشِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ",
+     "ge2pe": "huS",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مصنوعی",
+     "tag": "ADJ",
+     "next": "ADP",
+     "ge2pe": "masnu?i",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "در",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "dar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "میان",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "miyAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "می‌گذارند",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "migozArand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "ADV",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "اغلب",
+     "tag": "ADV",
+     "next": "ADP",
+     "ge2pe": "?aqlab",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "next": "DET",
+     "ge2pe": "?az",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "این",
+     "tag": "DET",
+     "next": "NOUN",
+     "ge2pe": "?in",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "محصولات",
+     "tag": "NOUN",
+     "next": "ADP,EZ",
+     "ge2pe": "mahasulAt",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "به‌عنوانِ",
+     "tag": "ADP,EZ",
+     "next": "NOUN,EZ",
+     "ge2pe": "beonvAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "محرمِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "mahram",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "اسرار",
+     "tag": "NOUN",
+     "next": "CCONJ",
+     "ge2pe": "?asrAr",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "یا",
+     "tag": "CCONJ",
+     "next": "ADV",
+     "ge2pe": "yA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "حتی",
+     "tag": "ADV",
+     "next": "NOUN",
+     "ge2pe": "hattA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "درمانگر",
+     "tag": "NOUN",
+     "next": "NOUN",
+     "ge2pe": "darmAngar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "استفاده",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "?estefAde",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "می‌کنند",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "mikonand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "کاربران در جریانِ این تعاملات معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ محرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+    "EH": "کاربران در جریانِ این تعاملات معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ مَحرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+    "ES": "کاربران در جریانِ این تعاملاتْ معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ محرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+    "EHS": "کاربران در جریانِ این تعاملاتْ معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ مَحرمِ اسرار یا حتی درمانگر استفاده می‌کنند."
+   },
+   "app_notes": [
+    "Ezafe written in on 8 word(s) by hazm's ParsBERT tagger: جریان، اطلاعات، درباره، سلامت، روان، هوش، به‌عنوان، محرم."
+   ]
+  },
+  {
+   "id": "v02",
+   "category": "homograph_kashti",
+   "text": "در آن سفر طولانی، مسافران معمولاً هنگام غروب روی عرشه کشتی جمع می‌شدند و از دور قهرمان کشتی را تشویق می‌کردند.",
+   "normalized": "در آن سفر طولانی، مسافران معمولاً هنگام غروب روی عرشه کشتی جمع می‌شدند و از دور قهرمان کشتی را تشویق می‌کردند.",
+   "ge2pe": [
+    "d/r",
+    "@an",
+    "s/f/re1",
+    "tulani",
+    "mos/feran",
+    "m/@mul/n",
+    "hengame1",
+    "qorub",
+    "ruye1",
+    "@/r$eye",
+    "ke$ti",
+    "j/m@",
+    "mi$od/nd",
+    "v/",
+    "@/z",
+    "dure1",
+    "q/hremane1",
+    "ke$ti",
+    "ra",
+    "t/$viq",
+    "mik/rd/nd"
+   ],
+   "words": [
+    {
+     "word": "در",
+     "tag": "ADP",
+     "next": "DET",
+     "ge2pe": "dar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "آن",
+     "tag": "DET",
+     "next": "NOUN,EZ",
+     "ge2pe": "?An",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "سفرِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ",
+     "ge2pe": "safar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "طولانی",
+     "tag": "ADJ",
+     "next": "NOUN",
+     "ge2pe": "tulAni",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مسافران",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "mosaferAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "معمولاً",
+     "tag": "ADV",
+     "next": "NOUN,EZ",
+     "ge2pe": "ma?mulan",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "هنگامِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "hengAm",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "غروب",
+     "tag": "NOUN",
+     "next": "ADP,EZ",
+     "ge2pe": "qorub",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "رویِ",
+     "tag": "ADP,EZ",
+     "next": "NOUN,EZ",
+     "ge2pe": "ru",
+     "homograph": true,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "عرشهٔ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "?arSe",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "کشتی",
+     "tag": "NOUN",
+     "next": "NOUN",
+     "ge2pe": "keSti",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    },
+    {
+     "word": "جمع",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "jam?",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "می‌شدند",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "miSodand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "ADP",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "?az",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "دور",
+     "tag": "NOUN",
+     "next": "NOUN,EZ",
+     "ge2pe": "dur",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "قهرمانِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "qahremAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "کشتی",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "keSti",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "rA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "تشویق",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "taSviq",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "می‌کردند",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "mikardand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "در آن سفرِ طولانی، مسافران معمولاً هنگامِ غروب رویِ عرشهٔ کشتی جمع می‌شدند و از دور قهرمانِ کشتی را تشویق می‌کردند.",
+    "EH": "در آن سفرِ طولانی، مسافران معمولاً هنگامِ غروب رویِ عرشهٔ کِشتی جمع می‌شدند و از دور قهرمانِ کِشتی را تشویق می‌کردند.",
+    "ES": "در آن سفرِ طولانی، مسافرانْ معمولاً هنگامِ غروب رویِ عرشهٔ کشتی جمع می‌شدند و از دور قهرمانِ کشتی را تشویق می‌کردند.",
+    "EHS": "در آن سفرِ طولانی، مسافرانْ معمولاً هنگامِ غروب رویِ عرشهٔ کِشتی جمع می‌شدند و از دور قهرمانِ کِشتی را تشویق می‌کردند."
+   },
+   "app_notes": [
+    "Ezafe written in on 5 word(s) by hazm's ParsBERT tagger: سفر، هنگام، روی، عرشه، قهرمان."
+   ]
+  },
+  {
+   "id": "v03",
+   "category": "homograph_shekar",
+   "text": "شکر خدا حال مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمار هرگز نباید چای را با شکر زیاد بنوشد.",
+   "normalized": "شکر خدا حال مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمار هرگز نباید چای را با شکر زیاد بنوشد.",
+   "ge2pe": [
+    "$okre1",
+    "xoda",
+    "hale1",
+    "mad/rbozorg",
+    "beht/r",
+    "$od",
+    "v/li",
+    "doktor",
+    "t/@kid",
+    "k/rd",
+    "ke",
+    "bimar",
+    "h/rgez",
+    "n/bay/d",
+    "cay",
+    "ra",
+    "ba",
+    "$ek/re1",
+    "ziyad",
+    "benu$/d"
+   ],
+   "words": [
+    {
+     "word": "شکرِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "Sokr",
+     "homograph": true,
+     "first_vowel": "o",
+     "sukun": false
+    },
+    {
+     "word": "خدا",
+     "tag": "NOUN",
+     "next": "NOUN,EZ",
+     "ge2pe": "xodA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "حالِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "hAl",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مادربزرگ",
+     "tag": "NOUN",
+     "next": "ADJ",
+     "ge2pe": "mAdarbozorg",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بهتر",
+     "tag": "ADJ",
+     "next": "VERB",
+     "ge2pe": "behtar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "شد",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "Sod",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "ولی",
+     "tag": "CCONJ",
+     "next": "NOUN",
+     "ge2pe": "vali",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "دکتر",
+     "tag": "NOUN",
+     "next": "NOUN",
+     "ge2pe": "doktor",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "تأکید",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "ta?kid",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "کرد",
+     "tag": "VERB",
+     "next": "SCONJ",
+     "ge2pe": "kard",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "که",
+     "tag": "SCONJ",
+     "next": "NOUN",
+     "ge2pe": "ke",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بیمار",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "bimAr",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "هرگز",
+     "tag": "ADV",
+     "next": "VERB",
+     "ge2pe": "hargez",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "نباید",
+     "tag": "VERB",
+     "next": "NOUN",
+     "ge2pe": "nabAyad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "چای",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "CAy",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "next": "ADP",
+     "ge2pe": "rA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "با",
+     "tag": "ADP",
+     "next": "NOUN,EZ",
+     "ge2pe": "bA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "شکرِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ",
+     "ge2pe": "Sekar",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    },
+    {
+     "word": "زیاد",
+     "tag": "ADJ",
+     "next": "VERB",
+     "ge2pe": "ziyAd",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بنوشد",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "benuSad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "شکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمار هرگز نباید چای را با شکرِ زیاد بنوشد.",
+    "EH": "شُکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کَرد که بیمار هرگز نباید چای را با شِکرِ زیاد بنوشد.",
+    "ES": "شکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمارْ هرگز نباید چای را با شکرِ زیاد بنوشد.",
+    "EHS": "شُکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کَرد که بیمارْ هرگز نباید چای را با شِکرِ زیاد بنوشد."
+   },
+   "app_notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: شکر، حال، شکر."
+   ]
+  },
+  {
+   "id": "v04",
+   "category": "homograph_sar",
+   "text": "کارگران همیشه سر ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سر این ماجرا خبر ندارد.",
+   "normalized": "کارگران همیشه سر ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سر این ماجرا خبر ندارد.",
+   "ge2pe": [
+    "karg/ran",
+    "h/mi$e",
+    "s/re",
+    "sa@/t",
+    "be",
+    "kargah",
+    "mir/s/nd",
+    "v/li",
+    "h/nuz",
+    "hick/s",
+    "@/z",
+    "s/re",
+    "@in",
+    "maj/ra",
+    "x/b/r",
+    "n/dar/d"
+   ],
+   "words": [
+    {
+     "word": "کارگران",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "kArgarAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "همیشه",
+     "tag": "ADV",
+     "next": "NOUN,EZ",
+     "ge2pe": "hamiSe",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "سرِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "sar",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "ساعت",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "sA?at",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "به",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "be",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    },
+    {
+     "word": "کارگاه",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "kArgAh",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "می‌رسند",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "mirasand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "ولی",
+     "tag": "CCONJ",
+     "next": "ADV",
+     "ge2pe": "vali",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "هنوز",
+     "tag": "ADV",
+     "next": "NOUN",
+     "ge2pe": "hanuz",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "هیچ‌کس",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "hiCkas",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "next": "NOUN,EZ",
+     "ge2pe": "?az",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "سرِ",
+     "tag": "NOUN,EZ",
+     "next": "DET",
+     "ge2pe": "sar",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "این",
+     "tag": "DET",
+     "next": "NOUN",
+     "ge2pe": "?in",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "ماجرا",
+     "tag": "NOUN",
+     "next": "NOUN",
+     "ge2pe": "mAjarA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "خبر",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "xabar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "ندارد",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "nadArad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "کارگران همیشه سرِ ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سرِ این ماجرا خبر ندارد.",
+    "EH": "کارگران همیشه سَرِ ساعت بِه کارگاه می‌رسند، ولی هنوز هیچ‌کس از سَرِ این ماجرا خبر ندارد.",
+    "ES": "کارگرانْ همیشه سرِ ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سرِ این ماجرا خبر ندارد.",
+    "EHS": "کارگرانْ همیشه سَرِ ساعت بِه کارگاه می‌رسند، ولی هنوز هیچ‌کس از سَرِ این ماجرا خبر ندارد."
+   },
+   "app_notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: سر، سر."
+   ]
+  },
+  {
+   "id": "v05",
+   "category": "homograph_mehr",
+   "text": "کارمند فوراً مهر شرکت را روی نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+   "normalized": "کارمند فوراً مهر شرکت را روی نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+   "ge2pe": [
+    "karm/nd",
+    "for/n",
+    "mohre",
+    "$erk/t",
+    "ra",
+    "ruye",
+    "name",
+    "z/d",
+    "v/",
+    "r/@is",
+    "ba",
+    "mehr",
+    "v/",
+    "mohebb/t",
+    "@/z",
+    "@u",
+    "t/$/kkor",
+    "k/rd"
+   ],
+   "words": [
+    {
+     "word": "کارمند",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "kArmand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "فوراً",
+     "tag": "ADV",
+     "next": "NOUN,EZ",
+     "ge2pe": "foran",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مهرِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "mohr",
+     "homograph": true,
+     "first_vowel": "o",
+     "sukun": false
+    },
+    {
+     "word": "شرکت",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "Serkat",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "next": "ADP,EZ",
+     "ge2pe": "rA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "رویِ",
+     "tag": "ADP,EZ",
+     "next": "NOUN",
+     "ge2pe": "ru",
+     "homograph": true,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "نامه",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "nAme",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "زد",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "zad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "NOUN",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "رئیس",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "ra?is",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "با",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "bA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مهر",
+     "tag": "NOUN",
+     "next": "CCONJ",
+     "ge2pe": "mehr",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "NOUN",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "محبت",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "mohebbat",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "next": "PRON",
+     "ge2pe": "?az",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "او",
+     "tag": "PRON",
+     "next": "NOUN",
+     "ge2pe": "?u",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "تشکر",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "taSakkor",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "کرد",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "kard",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "کارمند فوراً مهرِ شرکت را رویِ نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+    "EH": "کارمند فوراً مُهرِ شرکت را رویِ نامه زد و رئیس با مِهر و محبت از او تشکر کَرد.",
+    "ES": "کارمندْ فوراً مهرِ شرکت را رویِ نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+    "EHS": "کارمندْ فوراً مُهرِ شرکت را رویِ نامه زد و رئیس با مِهر و محبت از او تشکر کَرد."
+   },
+   "app_notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: مهر، روی."
+   ]
+  },
+  {
+   "id": "v06",
+   "category": "homograph_elm",
+   "text": "دانشمندان سال‌ها برای پیشرفت علم پزشکی تلاش کردند و در میان خلق نامشان هنوز با احترام برده می‌شود.",
+   "normalized": "دانشمندان سال‌ها برای پیشرفت علم پزشکی تلاش کردند و در میان خلق نامشان هنوز با احترام برده می‌شود.",
+   "ge2pe": [
+    "dane$m/ndan",
+    "salha",
+    "b/raye",
+    "pi$r/fte",
+    "@elme",
+    "peze$ki",
+    "t/la$",
+    "k/rd/nd",
+    "v/",
+    "d/r",
+    "miyane",
+    "x/lqe",
+    "name$an",
+    "h/nuz",
+    "ba",
+    "@ehteram",
+    "borde",
+    "mi$/v/d"
+   ],
+   "words": [
+    {
+     "word": "دانشمندان",
+     "tag": "NOUN",
+     "next": "NOUN",
+     "ge2pe": "dAneSmandAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "سال‌ها",
+     "tag": "NOUN",
+     "next": "ADP,EZ",
+     "ge2pe": "sAlhA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "برایِ",
+     "tag": "ADP,EZ",
+     "next": "NOUN,EZ",
+     "ge2pe": "barA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "پیشرفتِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN,EZ",
+     "ge2pe": "piSraft",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "علمِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "?elm",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    },
+    {
+     "word": "پزشکی",
+     "tag": "NOUN",
+     "next": "NOUN",
+     "ge2pe": "pezeSki",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "تلاش",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "talAS",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "کردند",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "kardand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "ADP",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "در",
+     "tag": "ADP",
+     "next": "NOUN,EZ",
+     "ge2pe": "dar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "میانِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "miyAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "خلق",
+     "tag": "NOUN",
+     "next": "NOUN",
+     "ge2pe": "xalq",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "نامشان",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "nAmeSAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "هنوز",
+     "tag": "ADV",
+     "next": "ADP",
+     "ge2pe": "hanuz",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "با",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "bA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "احترام",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "?ehterAm",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "برده",
+     "tag": "VERB",
+     "next": "VERB",
+     "ge2pe": "borde",
+     "homograph": true,
+     "first_vowel": "o",
+     "sukun": false
+    },
+    {
+     "word": "می‌شود",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "miSavad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "دانشمندان سال‌ها برایِ پیشرفتِ علمِ پزشکی تلاش کردند و در میانِ خلق نامشان هنوز با احترام برده می‌شود.",
+    "EH": "دانشمندان سال‌ها برایِ پیشرفتِ عِلمِ پزشکی تلاش کردند و در میانِ خَلق نامشان هنوز با احترام بُرده می‌شود.",
+    "ES": "دانشمندان سال‌ها برایِ پیشرفتِ علمِ پزشکی تلاش کردند و در میانِ خلق نامشانْ هنوز با احترام برده می‌شود.",
+    "EHS": "دانشمندان سال‌ها برایِ پیشرفتِ عِلمِ پزشکی تلاش کردند و در میانِ خَلق نامشانْ هنوز با احترام بُرده می‌شود."
+   },
+   "app_notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: برای، پیشرفت، علم، میان."
+   ]
+  },
+  {
+   "id": "v07",
+   "category": "homograph_par",
+   "text": "بچه‌ها پر از شوق بودند، چون پرنده کوچک ناگهان با یک پر سفید روی شاخه نشست.",
+   "normalized": "بچه‌ها پر از شوق بودند، چون پرنده کوچک ناگهان با یک پر سفید روی شاخه نشست.",
+   "ge2pe": [
+    "b/cceha",
+    "por",
+    "@/z",
+    "$oq",
+    "bud/nd",
+    "con",
+    "p/r/ndeye1",
+    "kuc/ke1",
+    "nag/han",
+    "ba",
+    "yek",
+    "p/re1",
+    "sefid",
+    "ruye1",
+    "$axe",
+    "ne$/st"
+   ],
+   "words": [
+    {
+     "word": "بچه‌ها",
+     "tag": "NOUN",
+     "next": "ADJ",
+     "ge2pe": "baCCehA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "پر",
+     "tag": "ADJ",
+     "next": "ADP",
+     "ge2pe": "por",
+     "homograph": true,
+     "first_vowel": "o",
+     "sukun": false
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "?az",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "شوق",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "Soq",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بودند",
+     "tag": "VERB",
+     "next": "SCONJ",
+     "ge2pe": "budand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "چون",
+     "tag": "SCONJ",
+     "next": "NOUN,EZ",
+     "ge2pe": "Con",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "پرندهٔ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ",
+     "ge2pe": "parande",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "کوچک",
+     "tag": "ADJ",
+     "next": "ADV",
+     "ge2pe": "kuCak",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "ناگهان",
+     "tag": "ADV",
+     "next": "ADP",
+     "ge2pe": "nAgahAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "با",
+     "tag": "ADP",
+     "next": "NUM",
+     "ge2pe": "bA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "یک",
+     "tag": "NUM",
+     "next": "NOUN,EZ",
+     "ge2pe": "yek",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "پرِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ",
+     "ge2pe": "par",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "سفید",
+     "tag": "ADJ",
+     "next": "ADP,EZ",
+     "ge2pe": "sefid",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "رویِ",
+     "tag": "ADP,EZ",
+     "next": "NOUN",
+     "ge2pe": "ru",
+     "homograph": true,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "شاخه",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "SAxe",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "نشست",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "neSast",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "بچه‌ها پر از شوق بودند، چون پرندهٔ کوچک ناگهان با یک پرِ سفید رویِ شاخه نشست.",
+    "EH": "بچه‌ها پُر از شوق بودند، چون پرندهٔ کوچک ناگهان با یک پَرِ سفید رویِ شاخه نِشست.",
+    "ES": "بچه‌ها پر از شوق بودند، چون پرندهٔ کوچکْ ناگهان با یک پرِ سفید رویِ شاخه نشست.",
+    "EHS": "بچه‌ها پُر از شوق بودند، چون پرندهٔ کوچکْ ناگهان با یک پَرِ سفید رویِ شاخه نِشست."
+   },
+   "app_notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: پرنده، پر، روی."
+   ]
+  },
+  {
+   "id": "v08",
+   "category": "homograph_mosakken",
+   "text": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تن خسته‌اش هنوز درد می‌کند.",
+   "normalized": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تن خسته‌اش هنوز درد می‌کند.",
+   "ge2pe": [
+    "peze$k",
+    "goft",
+    "ke",
+    "bimar",
+    "ta",
+    "c/nd",
+    "ruz",
+    "bay/d",
+    "m/sk/n",
+    "bexor/d",
+    "con",
+    "t/ne1",
+    "x/ste@/$",
+    "h/nuz",
+    "d/rd",
+    "mikon/d"
+   ],
+   "words": [
+    {
+     "word": "پزشک",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "pezeSk",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "گفت",
+     "tag": "VERB",
+     "next": "SCONJ",
+     "ge2pe": "goft",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "که",
+     "tag": "SCONJ",
+     "next": "NOUN",
+     "ge2pe": "ke",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بیمار",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "bimAr",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "تا",
+     "tag": "ADP",
+     "next": "DET",
+     "ge2pe": "tA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "چند",
+     "tag": "DET",
+     "next": "NOUN",
+     "ge2pe": "Cand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "روز",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "ruz",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "باید",
+     "tag": "VERB",
+     "next": "NOUN",
+     "ge2pe": "bAyad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مسکن",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "maskan",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "بخورد",
+     "tag": "VERB",
+     "next": "SCONJ",
+     "ge2pe": "bexorad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "چون",
+     "tag": "SCONJ",
+     "next": "NOUN,EZ",
+     "ge2pe": "Con",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "تنِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ",
+     "ge2pe": "tan",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "خسته‌اش",
+     "tag": "ADJ",
+     "next": "ADV",
+     "ge2pe": "xaste?aS",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "هنوز",
+     "tag": "ADV",
+     "next": "NOUN",
+     "ge2pe": "hanuz",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "درد",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "dard",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "می‌کند",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "mikonad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تنِ خسته‌اش هنوز درد می‌کند.",
+    "EH": "پزشک گفت که بیمار تا چند روز باید مَسکن بخورد، چون تَنِ خسته‌اش هنوز درد می‌کند.",
+    "ES": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تنِ خسته‌اشْ هنوز درد می‌کند.",
+    "EHS": "پزشک گفت که بیمار تا چند روز باید مَسکن بخورد، چون تَنِ خسته‌اشْ هنوز درد می‌کند."
+   },
+   "app_notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: تن."
+   ]
+  },
+  {
+   "id": "v09",
+   "category": "homograph_maskan",
+   "text": "در این محله، قیمت مسکن معمولاً بالاست و موجودی حساب بسیاری از زوج‌های جوان تقریباً صفر است.",
+   "normalized": "در این محله، قیمت مسکن معمولاً بالاست و موجودی حساب بسیاری از زوج‌های جوان تقریباً صفر است.",
+   "ge2pe": [
+    "d/r",
+    "@in",
+    "m/h/lle",
+    "qeym/te1",
+    "m/sk/n",
+    "m/@mul/n",
+    "balast",
+    "v/",
+    "mojudiye1",
+    "hesabe1",
+    "besyari/z",
+    "zojhaye",
+    "j/van",
+    "t/qrib/n",
+    "sefr",
+    "@/st"
+   ],
+   "words": [
+    {
+     "word": "در",
+     "tag": "ADP",
+     "next": "DET",
+     "ge2pe": "dar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "این",
+     "tag": "DET",
+     "next": "NOUN",
+     "ge2pe": "?in",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "محله",
+     "tag": "NOUN",
+     "next": "NOUN,EZ",
+     "ge2pe": "mahalle",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "قیمتِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "qeymat",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مسکن",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "maskan",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": true
+    },
+    {
+     "word": "معمولاً",
+     "tag": "ADV",
+     "next": "VERB",
+     "ge2pe": "ma?mulan",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بالاست",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "bAlAst",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "NOUN,EZ",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "موجودیِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN,EZ",
+     "ge2pe": "mojudi",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "حسابِ",
+     "tag": "NOUN,EZ",
+     "next": "DET",
+     "ge2pe": "hesAb",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بسیاری",
+     "tag": "DET",
+     "next": "ADP",
+     "ge2pe": null,
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "next": "NOUN,EZ",
+     "ge2pe": null,
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "زوج‌هایِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ",
+     "ge2pe": "zojhA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "جوان",
+     "tag": "ADJ",
+     "next": "ADV",
+     "ge2pe": "javAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "تقریباً",
+     "tag": "ADV",
+     "next": "NUM",
+     "ge2pe": "taqriban",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "صفر",
+     "tag": "NUM",
+     "next": "VERB",
+     "ge2pe": "sefr",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    },
+    {
+     "word": "است",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "?ast",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "در این محله، قیمتِ مسکن معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوان تقریباً صفر است.",
+    "EH": "در این محله، قیمتِ مَسکن معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوان تقریباً صِفر است.",
+    "ES": "در این محله، قیمتِ مسکنْ معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوانْ تقریباً صفر است.",
+    "EHS": "در این محله، قیمتِ مَسکنْ معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوانْ تقریباً صِفر است."
+   },
+   "app_notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: قیمت، موجودی، حساب، زوج‌های."
+   ]
+  },
+  {
+   "id": "v10",
+   "category": "homograph_araq",
+   "text": "کودک بیمار دیشب تا صبح تب داشت و مادرش مدام عرق پیشانی او را پاک می‌کرد و از سر دلسوزی کنارش بیدار ماند.",
+   "normalized": "کودک بیمار دیشب تا صبح تب داشت و مادرش مدام عرق پیشانی او را پاک می‌کرد و از سر دلسوزی کنارش بیدار ماند.",
+   "ge2pe": [
+    "kud/ke",
+    "bimar",
+    "di$/b",
+    "ta",
+    "sobh",
+    "t/b",
+    "da$t",
+    "v/",
+    "mad/r/$",
+    "modam",
+    "@/r/qe",
+    "pi$aniye",
+    "@u",
+    "ra",
+    "pak",
+    "mik/rd",
+    "v/",
+    "@/z",
+    "s/re",
+    "delsuzi",
+    "kenar/$",
+    "bidar",
+    "mand"
+   ],
+   "words": [
+    {
+     "word": "کودکِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ",
+     "ge2pe": "kudak",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بیمار",
+     "tag": "ADJ",
+     "next": "ADV",
+     "ge2pe": "bimAr",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "دیشب",
+     "tag": "ADV",
+     "next": "ADP",
+     "ge2pe": "diSab",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "تا",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "tA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "صبح",
+     "tag": "NOUN",
+     "next": "NOUN",
+     "ge2pe": "sobh",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "تب",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "tab",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "داشت",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "dASt",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "NOUN",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مادرش",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "mAdaraS",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "مدام",
+     "tag": "ADV",
+     "next": "NOUN,EZ",
+     "ge2pe": "modAm",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "عرقِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN,EZ",
+     "ge2pe": "?araq",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "پیشانیِ",
+     "tag": "NOUN,EZ",
+     "next": "PRON",
+     "ge2pe": "piSAni",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "او",
+     "tag": "PRON",
+     "next": "ADP",
+     "ge2pe": "?u",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "next": "ADJ",
+     "ge2pe": "rA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "پاک",
+     "tag": "ADJ",
+     "next": "VERB",
+     "ge2pe": "pAk",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "می‌کرد",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "mikard",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "ADP",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "next": "NOUN,EZ",
+     "ge2pe": "?az",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "سرِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "sar",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "دلسوزی",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "delsuzi",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "کنارش",
+     "tag": "ADP",
+     "next": "ADJ",
+     "ge2pe": "kenAraS",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بیدار",
+     "tag": "ADJ",
+     "next": "VERB",
+     "ge2pe": "bidAr",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "ماند",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "mAnd",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "کودکِ بیمار دیشب تا صبح تب داشت و مادرش مدام عرقِ پیشانیِ او را پاک می‌کرد و از سرِ دلسوزی کنارش بیدار ماند.",
+    "EH": "کودکِ بیمار دیشب تا صبح تب داشت و مادرش مدام عَرقِ پیشانیِ او را پاک می‌کرد و از سَرِ دلسوزی کنارش بیدار ماند.",
+    "ES": "کودکِ بیمارْ دیشب تا صبح تب داشت و مادرشْ مدام عرقِ پیشانیِ او را پاک می‌کرد و از سرِ دلسوزی کنارش بیدار ماند.",
+    "EHS": "کودکِ بیمارْ دیشب تا صبح تب داشت و مادرشْ مدام عَرقِ پیشانیِ او را پاک می‌کرد و از سَرِ دلسوزی کنارش بیدار ماند."
+   },
+   "app_notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: کودک، عرق، پیشانی، سر."
+   ]
+  },
+  {
+   "id": "v11",
+   "category": "homograph_sarf",
+   "text": "در جلسه دیروز، مدیر بخش بازاریابی گفت که این طرح اصلاً ارزش صرف هزینه ندارد و مبلغ پیشنهادی را رد کرد.",
+   "normalized": "در جلسه دیروز، مدیر بخش بازاریابی گفت که این طرح اصلاً ارزش صرف هزینه ندارد و مبلغ پیشنهادی را رد کرد.",
+   "ge2pe": [
+    "d/r",
+    "j/l/seye1",
+    "diruz",
+    "modir",
+    "b/x$e1",
+    "bazariyabi",
+    "goft",
+    "ke",
+    "@in",
+    "t/rh",
+    "@/sl/n",
+    "@/rze$e1",
+    "$/rfe",
+    "h/zine",
+    "n/dar/d",
+    "v/",
+    "m/bl/qe1",
+    "pi$n/hadi",
+    "ra",
+    "r/d",
+    "k/rd"
+   ],
+   "words": [
+    {
+     "word": "در",
+     "tag": "ADP",
+     "next": "NOUN,EZ",
+     "ge2pe": "dar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "جلسهٔ",
+     "tag": "NOUN,EZ",
+     "next": "ADV",
+     "ge2pe": "jalase",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "دیروز",
+     "tag": "ADV",
+     "next": "NOUN,EZ",
+     "ge2pe": "diruz",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مدیرِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN,EZ",
+     "ge2pe": "modir",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بخشِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "baxS",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "بازاریابی",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "bAzAriyAbi",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "گفت",
+     "tag": "VERB",
+     "next": "SCONJ",
+     "ge2pe": "goft",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "که",
+     "tag": "SCONJ",
+     "next": "DET",
+     "ge2pe": "ke",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "این",
+     "tag": "DET",
+     "next": "NOUN",
+     "ge2pe": "?in",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "طرح",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "tarh",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "اصلاً",
+     "tag": "ADV",
+     "next": "NOUN,EZ",
+     "ge2pe": "?aslan",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "ارزشِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN,EZ",
+     "ge2pe": "?arzeS",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "صرفِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "Sarf",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "هزینه",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "hazine",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "ندارد",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "nadArad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "NOUN,EZ",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "مبلغِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ",
+     "ge2pe": "mablaq",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "پیشنهادی",
+     "tag": "ADJ",
+     "next": "ADP",
+     "ge2pe": "piSnahAdi",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "rA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "رد",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "rad",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "کرد",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "kard",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرح اصلاً ارزشِ صرفِ هزینه ندارد و مبلغِ پیشنهادی را رد کرد.",
+    "EH": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرح اصلاً ارزشِ صَرفِ هزینه ندارد و مَبلغِ پیشنهادی را رد کَرد.",
+    "ES": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرحْ اصلاً ارزشِ صرفِ هزینه ندارد و مبلغِ پیشنهادی را رد کرد.",
+    "EHS": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرحْ اصلاً ارزشِ صَرفِ هزینه ندارد و مَبلغِ پیشنهادی را رد کَرد."
+   },
+   "app_notes": [
+    "Ezafe written in on 6 word(s) by hazm's ParsBERT tagger: جلسه، مدیر، بخش، ارزش، صرف، مبلغ."
+   ]
+  },
+  {
+   "id": "v12",
+   "category": "homograph_sahar",
+   "text": "جوانان امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگام سحر در هوای گرم تابستان برای دویدن به پارک می‌روند.",
+   "normalized": "جوانان امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگام سحر در هوای گرم تابستان برای دویدن به پارک می‌روند.",
+   "ge2pe": [
+    "j/vanane",
+    "@emruz",
+    "@/ql/b",
+    "be",
+    "v/rze$",
+    "@/h/mmiy/t",
+    "mid/h/nd",
+    "v/",
+    "b/rxi",
+    "h/tta",
+    "hengame",
+    "s/h/r",
+    "d/r",
+    "h/vaye",
+    "g/rme",
+    "tabestan",
+    "b/raye",
+    "d/vid/n",
+    "be",
+    "park",
+    "mir/v/nd"
+   ],
+   "words": [
+    {
+     "word": "جوانان",
+     "tag": "NOUN",
+     "next": "ADV",
+     "ge2pe": "javAnAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": true
+    },
+    {
+     "word": "امروز",
+     "tag": "ADV",
+     "next": "ADV",
+     "ge2pe": "?emruz",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "اغلب",
+     "tag": "ADV",
+     "next": "ADP",
+     "ge2pe": "?aqlab",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "به",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "be",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    },
+    {
+     "word": "ورزش",
+     "tag": "NOUN",
+     "next": "NOUN",
+     "ge2pe": "varzeS",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "اهمیت",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "?ahammiyat",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "می‌دهند",
+     "tag": "VERB",
+     "next": "CCONJ",
+     "ge2pe": "midahand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "next": "PRON",
+     "ge2pe": "va",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "برخی",
+     "tag": "PRON",
+     "next": "ADV",
+     "ge2pe": "barxi",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "حتی",
+     "tag": "ADV",
+     "next": "NOUN,EZ",
+     "ge2pe": "hattA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "هنگامِ",
+     "tag": "NOUN,EZ",
+     "next": "NOUN",
+     "ge2pe": "hengAm",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "سحر",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "sahar",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "در",
+     "tag": "ADP",
+     "next": "NOUN,EZ",
+     "ge2pe": "dar",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "هوایِ",
+     "tag": "NOUN,EZ",
+     "next": "ADJ,EZ",
+     "ge2pe": "havA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "گرمِ",
+     "tag": "ADJ,EZ",
+     "next": "NOUN",
+     "ge2pe": "garm",
+     "homograph": true,
+     "first_vowel": "a",
+     "sukun": false
+    },
+    {
+     "word": "تابستان",
+     "tag": "NOUN",
+     "next": "ADP,EZ",
+     "ge2pe": "tAbestAn",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "برایِ",
+     "tag": "ADP,EZ",
+     "next": "NOUN",
+     "ge2pe": "barA",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "دویدن",
+     "tag": "NOUN",
+     "next": "ADP",
+     "ge2pe": "davidan",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "به",
+     "tag": "ADP",
+     "next": "NOUN",
+     "ge2pe": "be",
+     "homograph": true,
+     "first_vowel": "e",
+     "sukun": false
+    },
+    {
+     "word": "پارک",
+     "tag": "NOUN",
+     "next": "VERB",
+     "ge2pe": "pArk",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    },
+    {
+     "word": "می‌روند",
+     "tag": "VERB",
+     "next": null,
+     "ge2pe": "miravand",
+     "homograph": false,
+     "first_vowel": null,
+     "sukun": false
+    }
+   ],
+   "texts": {
+    "E": "جوانان امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگامِ سحر در هوایِ گرمِ تابستان برایِ دویدن به پارک می‌روند.",
+    "EH": "جوانان امروز اغلب بِه ورزش اهمیت می‌دهند و برخی حتی هنگامِ سَحر در هوایِ گَرمِ تابستان برایِ دویدن بِه پارک می‌روند.",
+    "ES": "جوانانْ امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگامِ سحر در هوایِ گرمِ تابستان برایِ دویدن به پارک می‌روند.",
+    "EHS": "جوانانْ امروز اغلب بِه ورزش اهمیت می‌دهند و برخی حتی هنگامِ سَحر در هوایِ گَرمِ تابستان برایِ دویدن بِه پارک می‌روند."
+   },
+   "app_notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: هنگام، هوای، گرم، برای."
+   ]
+  }
+ ]
+}

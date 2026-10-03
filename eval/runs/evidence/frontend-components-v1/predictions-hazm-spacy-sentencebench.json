@@ -1,0 +1,5181 @@
+{
+ "component": "hazm-spacy",
+ "set": "sentencebench",
+ "scheme": null,
+ "source": {
+  "repo": "roshan-research/hazm-parsbert-postagger",
+  "revision": "eba1d2b30cc48206c0144b36d2b663652d44faf9"
+ },
+ "python": "3.12.0",
+ "packages": {
+  "hazm": "0.12.1",
+  "spacy": "3.8.16",
+  "spacy-transformers": "1.4.0",
+  "transformers": "4.53.2",
+  "torch": "2.14.0",
+  "tokenizers": "0.21.4",
+  "huggingface-hub": "0.36.2",
+  "python-crfsuite": "0.9.12",
+  "sentencepiece": "0.2.2"
+ },
+ "seconds": 32.1,
+ "max_rss_mb": 4074,
+ "sentences": [
+  {
+   "id": "sb000",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb001",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb002",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb003",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb004",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb005",
+   "ezafe": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb006",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb007",
+   "ezafe": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb008",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb009",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb010",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb011",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb012",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb013",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb014",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb015",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb016",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb017",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb018",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb019",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb020",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb021",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb022",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb023",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb024",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb025",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb026",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb027",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb028",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb029",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb030",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb031",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb032",
+   "ezafe": [
+    false,
+    true,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb033",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb034",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb035",
+   "ezafe": [
+    true,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb036",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb037",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb038",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb039",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb040",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb041",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb042",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb043",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb044",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb045",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb046",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb047",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb048",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb049",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb050",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb051",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb052",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb053",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb054",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb055",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb056",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ]
+  },
+  {
+   "id": "sb057",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb058",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb059",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb060",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb061",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb062",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb063",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb064",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb065",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb066",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb067",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb068",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb069",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb070",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb071",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb072",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb073",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb074",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb075",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb076",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb077",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb078",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb079",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb080",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb081",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb082",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb083",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb084",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb085",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb086",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb087",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb088",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb089",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb090",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb091",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb092",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb093",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb094",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb095",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb096",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb097",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb098",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb099",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb100",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb101",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb102",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb103",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb104",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb105",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb106",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb107",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb108",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb109",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb110",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb111",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb112",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb113",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb114",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb115",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb116",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb117",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb118",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb119",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb120",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb121",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb122",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb123",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb124",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb125",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb126",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb127",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb128",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb129",
+   "ezafe": [
+    true,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb130",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb131",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb132",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb133",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb134",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb135",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb136",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb137",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb138",
+   "ezafe": [
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb139",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb140",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb141",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb142",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb143",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb144",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb145",
+   "ezafe": [
+    false,
+    true,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb146",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb147",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb148",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb149",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb150",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb151",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb152",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb153",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb154",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb155",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb156",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb157",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb158",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb159",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb160",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb161",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb162",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb163",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb164",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb165",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb166",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb167",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb168",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb169",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb170",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb171",
+   "ezafe": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb172",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb173",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb174",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb175",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb176",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb177",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb178",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb179",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb180",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb181",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb182",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb183",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb184",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb185",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb186",
+   "ezafe": [
+    true,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb187",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb188",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb189",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb190",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb191",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb192",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb193",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb194",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb195",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb196",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb197",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb198",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb199",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb200",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb201",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb202",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb203",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb204",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb205",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb206",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb207",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb208",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb209",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb210",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb211",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb212",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb213",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb214",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb215",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb216",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb217",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb218",
+   "ezafe": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb219",
+   "ezafe": [
+    true,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb220",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb221",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb222",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb223",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb224",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb225",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb226",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb227",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb228",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb229",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb230",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb231",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb232",
+   "ezafe": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb233",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb234",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb235",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb236",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb237",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb238",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb239",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb240",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb241",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb242",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb243",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    true,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb244",
+   "ezafe": [
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb245",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb246",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb247",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb248",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb249",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb250",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb251",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb252",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb253",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb254",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb255",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb256",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb257",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb258",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb259",
+   "ezafe": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb260",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb261",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb262",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb263",
+   "ezafe": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb264",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb265",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb266",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb267",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb268",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb269",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb270",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb271",
+   "ezafe": [
+    false,
+    true,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb272",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb273",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb274",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb275",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb276",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb277",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb278",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb279",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb280",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb281",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb282",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb283",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb284",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb285",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb286",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb287",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb288",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb289",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb290",
+   "ezafe": [
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb291",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb292",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb293",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb294",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb295",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb296",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb297",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb298",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb299",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb300",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb301",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb302",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb303",
+   "ezafe": [
+    false,
+    true,
+    true,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb304",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb305",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb306",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb307",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb308",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb309",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb310",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb311",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb312",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb313",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb314",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb315",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb316",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb317",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb318",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb319",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb320",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb321",
+   "ezafe": [
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb322",
+   "ezafe": [
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb323",
+   "ezafe": [
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb324",
+   "ezafe": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb325",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb326",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb327",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb328",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb329",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb330",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb331",
+   "ezafe": [
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb332",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb333",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb334",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb335",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb336",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb337",
+   "ezafe": [
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb338",
+   "ezafe": [
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb339",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb340",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb341",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb342",
+   "ezafe": [
+    true,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb343",
+   "ezafe": [
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb344",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb345",
+   "ezafe": [
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb346",
+   "ezafe": [
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb347",
+   "ezafe": [
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb348",
+   "ezafe": [
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb349",
+   "ezafe": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb350",
+   "ezafe": [
+    false,
+    true,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb351",
+   "ezafe": [
+    true,
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb352",
+   "ezafe": [
+    true,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb353",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb354",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb355",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb356",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb357",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb358",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb359",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb360",
+   "ezafe": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb361",
+   "ezafe": [
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb362",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb363",
+   "ezafe": [
+    true,
+    false,
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb364",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb365",
+   "ezafe": [
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb366",
+   "ezafe": [
+    true,
+    false
+   ]
+  },
+  {
+   "id": "sb367",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb368",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb369",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb370",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb371",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb372",
+   "ezafe": [
+    true,
+    true,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb373",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb374",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb375",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb376",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb377",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb378",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb379",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb380",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb381",
+   "ezafe": [
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb382",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb383",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb384",
+   "ezafe": [
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb385",
+   "ezafe": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb386",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb387",
+   "ezafe": [
+    true,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb388",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb389",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb390",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb391",
+   "ezafe": [
+    false,
+    false,
+    false,
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb392",
+   "ezafe": [
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb393",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb394",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb395",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb396",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb397",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb398",
+   "ezafe": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "id": "sb399",
+   "ezafe": [
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ]
+  }
+ ]
+}

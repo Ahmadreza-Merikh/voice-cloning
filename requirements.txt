@@ -49,6 +49,10 @@ faster-whisper>=1.0.3
 huggingface-hub>=0.24.0
 safetensors>=0.4.3
 
+# ---- Ezafe tagger (hazm's ParsBERT tagger, run without spaCy) --------------
+transformers>=4.40.0      # ParsBERT itself
+msgpack>=1.0.0            # reads the tagger out of its spaCy files, once
+
 # ---- Interface -----------------------------------------------------------
 gradio>=5.0.0
 

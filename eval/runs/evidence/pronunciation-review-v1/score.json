@@ -1,0 +1,552 @@
+{
+ "listeners": [
+  "احمدرضا"
+ ],
+ "per_condition": {
+  "A": {
+   "renders": 14,
+   "clean": 3,
+   "words": 199,
+   "wrong": 19,
+   "best": 8,
+   "clean_share": 0.214,
+   "wrong_word_share": 0.095
+  },
+  "B": {
+   "renders": 11,
+   "clean": 3,
+   "words": 97,
+   "wrong": 10,
+   "best": 4,
+   "clean_share": 0.273,
+   "wrong_word_share": 0.103
+  },
+  "C": {
+   "renders": 14,
+   "clean": 0,
+   "words": 199,
+   "wrong": 27,
+   "best": 0,
+   "clean_share": 0.0,
+   "wrong_word_share": 0.136
+  }
+ },
+ "by_category": {
+  "clusters": {
+   "C": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "B": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "colloquial": {
+   "B": {
+    "renders": 1,
+    "clean": 0
+   },
+   "C": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 1
+   }
+  },
+  "consonants_kha_qha_gha": {
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "B": {
+    "renders": 1,
+    "clean": 0
+   },
+   "C": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "consonants_zhe_ch_sh": {
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "C": {
+    "renders": 1,
+    "clean": 0
+   },
+   "B": {
+    "renders": 1,
+    "clean": 1
+   }
+  },
+  "corpus_long": {
+   "C": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "ezafe_chain": {
+   "C": {
+    "renders": 1,
+    "clean": 0
+   },
+   "B": {
+    "renders": 1,
+    "clean": 1
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_ghol_gil": {
+   "C": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "B": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_mard_murd": {
+   "B": {
+    "renders": 1,
+    "clean": 0
+   },
+   "C": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_rooye": {
+   "B": {
+    "renders": 1,
+    "clean": 1
+   },
+   "A": {
+    "renders": 1,
+    "clean": 1
+   },
+   "C": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homographs_and_ezafe": {
+   "C": {
+    "renders": 2,
+    "clean": 0
+   },
+   "B": {
+    "renders": 2,
+    "clean": 0
+   },
+   "A": {
+    "renders": 2,
+    "clean": 0
+   }
+  },
+  "long": {
+   "C": {
+    "renders": 2,
+    "clean": 0
+   },
+   "A": {
+    "renders": 2,
+    "clean": 0
+   }
+  },
+  "very_short": {
+   "A": {
+    "renders": 1,
+    "clean": 1
+   },
+   "B": {
+    "renders": 1,
+    "clean": 0
+   },
+   "C": {
+    "renders": 1,
+    "clean": 0
+   }
+  }
+ },
+ "marked": [
+  {
+   "listener": "احمدرضا",
+   "sentence": "r01",
+   "condition": "C",
+   "words": [
+    "نظر"
+   ],
+   "note": "در کل لهجه اش خیلی بده حتی اگه درست بخونه",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "r01",
+   "condition": "A",
+   "words": [
+    "عاملی"
+   ],
+   "note": "بعد از عاملی به اشتباه کسره اورده",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s01",
+   "condition": "C",
+   "words": [
+    "قرمز",
+    "از"
+   ],
+   "note": "Ghermez رو gharmez خوند از رو آز خوند",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s01",
+   "condition": "A",
+   "words": [
+    "را",
+    "گل"
+   ],
+   "note": "را رو رَ خوند gel دومی رو هم gol خوند",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s01",
+   "condition": "B",
+   "words": [
+    "گل"
+   ],
+   "note": "گل رو گول خوند",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s02",
+   "condition": "B",
+   "words": [
+    "پیرمرد"
+   ],
+   "note": "piremard رو pirmard خوند",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s02",
+   "condition": "C",
+   "words": [
+    "پیرمرد",
+    "مرد",
+    "است"
+   ],
+   "note": "است رو آست خوند و مرد رو به اشتباه کسره میده پیرمرد هم از لحاظ تلفظ درست میگه ولی لهجه اش یجوریه که طبیعی بنظر نمیاد",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s02",
+   "condition": "A",
+   "words": [
+    "مرد"
+   ],
+   "note": "بعد از مرد به اشتباه کسره میخونه",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s03",
+   "condition": "C",
+   "words": [
+    "برادرم",
+    "است"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s03",
+   "condition": "A",
+   "words": [
+    "خوب"
+   ],
+   "note": "باید بعد از خوب کسره باشه",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s04",
+   "condition": "C",
+   "words": [
+    "لیوان"
+   ],
+   "note": "لیوان بعدش کسره باید داشته باشه که نداره",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s05",
+   "condition": "A",
+   "words": [
+    "قلعهٔ",
+    "غروب"
+   ],
+   "note": "ghale رو ghele خوند و غروب رو بعدش کسره الکی اورده",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s05",
+   "condition": "B",
+   "words": [
+    "غروب"
+   ],
+   "note": "بعد از غروب به اشتباه کسره اورده",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s05",
+   "condition": "C",
+   "words": [
+    "تپهٔ",
+    "غروب"
+   ],
+   "note": "لهجه اش بازم افتضاحه",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s06",
+   "condition": "A",
+   "words": [
+    "چترش",
+    "باران"
+   ],
+   "note": "chatr رو به اشتباه chetr خوند و بین باران و شدید مکث میکنه در حالی که باید بعد از باران کسره باشه چون شدید صفت بارانه",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s06",
+   "condition": "C",
+   "words": [
+    "چراغ",
+    "در"
+   ],
+   "note": "بعد از چراغ باید مکث میشد ولی کسره گذاشت در رو هم که اصلا دار تلفظ کرد",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s07",
+   "condition": "C",
+   "words": [
+    "از"
+   ],
+   "note": "سرسرا یعنی چی اصلا؟",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s07",
+   "condition": "A",
+   "words": [
+    "دانشگاه"
+   ],
+   "note": "حس میکنم به اشتباه بعد از دانشگاه یک کسره ریز تلفظ میکنه و مکث کامل نمیکنه",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s07",
+   "condition": "B",
+   "words": [
+    "دانشگاه"
+   ],
+   "note": "بعد از دانشگاه به اشتباه کسره تلفظ میکنه",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s08",
+   "condition": "B",
+   "words": [
+    "حرفا",
+    "خریدار"
+   ],
+   "note": "",
+   "twin_note": "حِرفا should be حَرفا; خُریدار should be خَریدار"
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s08",
+   "condition": "C",
+   "words": [
+    "برو",
+    "خریدار"
+   ],
+   "note": "",
+   "twin_note": "حِرفا should be حَرفا; خُریدار should be خَریدار"
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s09",
+   "condition": "C",
+   "words": [
+    "ترمینال",
+    "بود",
+    "کیفش",
+    "بعدی"
+   ],
+   "note": "کلا افتضاحه لهجه اش",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "s09",
+   "condition": "A",
+   "words": [
+    "ترمینال",
+    "بود",
+    "کتابش"
+   ],
+   "note": "terminal رو tarminal خوند و بود رو به اشتباه بعدش ضمه خونده و ketaabash رو ketaabshash خوند",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t09",
+   "condition": "C",
+   "words": [
+    "کشتی"
+   ],
+   "note": "هر دو تا رو koshti خوند",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t09",
+   "condition": "B",
+   "words": [
+    "پایان",
+    "کشتی"
+   ],
+   "note": "پایان باید بعدش کسره داشته باشه koshti رو هم kooshti خوند",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t09",
+   "condition": "A",
+   "words": [
+    "پایان",
+    "کشتی"
+   ],
+   "note": "پایان باید کسره داشته باشه و koshti رو keshti خوند",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t10",
+   "condition": "B",
+   "words": [
+    "امانت"
+   ],
+   "note": "amaanat رو emaanat میخونه",
+   "twin_note": "اِمانت should be اَمانت"
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t10",
+   "condition": "A",
+   "words": [
+    "امانت"
+   ],
+   "note": "amaanat رو emaanat میخونه",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t10",
+   "condition": "C",
+   "words": [
+    "روبه‌رویی",
+    "امانت"
+   ],
+   "note": "خیلی ایراداتش بیشتره از دو تای بالا",
+   "twin_note": "اِمانت should be اَمانت"
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t11",
+   "condition": "B",
+   "words": [
+    "باران"
+   ],
+   "note": "بعد از باران کسره گفت",
+   "twin_note": "بارانِ بَند آمد: no ezafe on باران (the rain stopped)"
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t11",
+   "condition": "C",
+   "words": [
+    "بند",
+    "آمد"
+   ],
+   "note": "بد",
+   "twin_note": "بارانِ بَند آمد: no ezafe on باران (the rain stopped)"
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t12",
+   "condition": "A",
+   "words": [
+    "ایستگاه",
+    "ساعت",
+    "تأخیر"
+   ],
+   "note": "بعد از ایستگاه باید کسره باشه تاخیر رو تآخیر خوند و بعد از ساعت به اشتباه کسره گذاشت",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "t12",
+   "condition": "C",
+   "words": [
+    "رسیدیم",
+    "ساعت"
+   ],
+   "note": "خیلی بده",
+   "twin_note": null
+  }
+ ],
+ "label": "diagnostic - fourteen sentences, few listeners; not a claim"
+}

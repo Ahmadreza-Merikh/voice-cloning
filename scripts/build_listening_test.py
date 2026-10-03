@@ -29,6 +29,12 @@ either one misread or garbled words (the intended text is shown for that one).
 
     .venv/bin/python scripts/build_listening_test.py --name omnivoice-vs-moss15 \\
         --a-dir path/to/omnivoice/renders --b-dir path/to/moss15/renders
+
+For a corpus other than the development one - the sealed test sets - give its
+folder (``--corpus-dir``, holding ``manifest.json`` and the clips), the texts
+file the runs rendered (``--texts``), the results files by path, and the render
+names chosen for the test (``--files``, one per line); ``--bit-depth 16`` halves
+the size of what listeners download.
 """
 
 from __future__ import annotations
@@ -49,7 +55,9 @@ OUT = ROOT / "listening"
 TARGET_LUFS = -26.0
 
 
-def sentences() -> dict[str, str]:
+def sentences(texts_file: Path | None = None) -> dict[str, str]:
+    if texts_file is not None:
+        return {t["key"]: t["text"] for t in json.loads(texts_file.read_text(encoding="utf-8"))["texts"]}
     import importlib.util
 
     spec = importlib.util.spec_from_file_location("benchmark_texts", ROOT / "scripts" / "benchmark.py")
@@ -96,13 +104,19 @@ def listening_reference(speaker: str, prompts: list[dict[str, set[str]]], pool: 
 
 def build(name: str, a_dir: Path, b_dir: Path, seed: int, out_root: Path = OUT, *,
           a_results: dict | None = None, b_results: dict | None = None,
-          pool_manifest: dict | None = None) -> dict:
+          pool_manifest: dict | None = None, corpus_dir: Path = CORPUS, texts_file: Path | None = None,
+          files: list[str] | None = None, bit_depth: int = 32) -> dict:
     from voiceclone.audio.io import load_audio, save_audio
     from voiceclone.audio.loudness import apply_gain, measure_lufs, peak_dbfs
 
-    manifest = json.loads((CORPUS / "manifest.json").read_text(encoding="utf-8"))
-    texts = sentences()
+    manifest = json.loads((corpus_dir / "manifest.json").read_text(encoding="utf-8"))
+    texts = sentences(texts_file)
     shared = sorted({p.name for p in a_dir.glob("*.wav")} & {p.name for p in b_dir.glob("*.wav")})
+    if files is not None:
+        missing = sorted(set(files) - set(shared))
+        if missing:
+            raise SystemExit(f"chosen renders missing from a folder: {missing}")
+        shared = sorted(files)
     if not shared:
         raise SystemExit("the two render folders have no file names in common")
 
@@ -150,7 +164,7 @@ def build(name: str, a_dir: Path, b_dir: Path, seed: int, out_root: Path = OUT, 
             pair.reverse()
         trial_id = anonymous(f"trial:{item['file']}")
         item.update({"id": trial_id, "order": [system for system, _ in pair]})
-        sources.append((f"{trial_id}-ref", CORPUS / item["reference"]["file"]))
+        sources.append((f"{trial_id}-ref", corpus_dir / item["reference"]["file"]))
         for position, (_, path) in enumerate(pair, start=1):
             sources.append((f"{trial_id}-{position}", path))
 
@@ -166,7 +180,7 @@ def build(name: str, a_dir: Path, b_dir: Path, seed: int, out_root: Path = OUT, 
     for tag, audio in loaded.items():
         gain = 0.0 if loudness[tag] is None else target - loudness[tag]
         gains[tag] = round(gain, 2)
-        save_audio(apply_gain(audio, gain), audio_dir / f"{anonymous(tag)}.wav", bit_depth=32)
+        save_audio(apply_gain(audio, gain), audio_dir / f"{anonymous(tag)}.wav", bit_depth=bit_depth)
 
     fingerprint = hashlib.sha1(json.dumps([name, seed, sorted(i["id"] for i in items)]).encode()).hexdigest()[:16]
     trials = [{"id": item["id"], "text": texts[item["sentence"]],
@@ -178,6 +192,8 @@ def build(name: str, a_dir: Path, b_dir: Path, seed: int, out_root: Path = OUT, 
     key = {
         "name": name, "fingerprint": fingerprint, "seed": seed, "target_lufs": round(target, 2),
         "reference_provenance": provenance, "skipped": skipped,
+        "corpus": str(corpus_dir), "texts": str(texts_file) if texts_file else "scripts/benchmark.py SENTENCES",
+        "bit_depth": bit_depth,
         "systems": {"a": str(a_dir), "b": str(b_dir)},
         "trials": {item["id"]: {"speaker": item["speaker"], "sentence": item["sentence"],
                                 "file": item["file"], "reference": item["reference"]["file"],
@@ -254,18 +270,27 @@ def main() -> int:
     parser.add_argument("--a-dir", type=Path, required=True)
     parser.add_argument("--b-dir", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=20260918)
-    parser.add_argument("--a-results", help="results label of system a, for its prompt clips")
-    parser.add_argument("--b-results", help="results label of system b")
+    parser.add_argument("--a-results", help="results label of system a, or its results file, for its prompt clips")
+    parser.add_argument("--b-results", help="results label of system b, or its results file")
     parser.add_argument("--pool-manifest", type=Path, help="experiment manifest, e.g. eval/manifests/...")
+    parser.add_argument("--corpus-dir", type=Path, default=CORPUS, help="folder with manifest.json and the clips")
+    parser.add_argument("--texts", type=Path, help="the texts file the runs rendered, e.g. eval/manifests/test_texts_v1.json")
+    parser.add_argument("--files", type=Path, help="the render names chosen for the test, one per line")
+    parser.add_argument("--bit-depth", type=int, default=32, choices=(16, 24, 32))
     args = parser.parse_args()
 
     def results(label: str | None) -> dict | None:
-        path = ROOT / "eval" / "results" / f"{label}.json"
-        return json.loads(path.read_text(encoding="utf-8")) if label else None
+        if not label:
+            return None
+        path = Path(label) if label.endswith(".json") else ROOT / "eval" / "results" / f"{label}.json"
+        return json.loads(path.read_text(encoding="utf-8"))
 
     pool = json.loads(args.pool_manifest.read_text(encoding="utf-8")) if args.pool_manifest else None
+    chosen = [line.strip() for line in args.files.read_text(encoding="utf-8").splitlines() if line.strip()] \
+        if args.files else None
     key = build(args.name, args.a_dir, args.b_dir, args.seed, a_results=results(args.a_results),
-                b_results=results(args.b_results), pool_manifest=pool)
+                b_results=results(args.b_results), pool_manifest=pool, corpus_dir=args.corpus_dir,
+                texts_file=args.texts, files=chosen, bit_depth=args.bit_depth)
     print(f"{len(key['trials'])} trials in listening/{args.name}/ ; key kept at listening/{args.name}.key.json")
     print("Give listeners only the folder. The key must not travel with it.")
     return 0

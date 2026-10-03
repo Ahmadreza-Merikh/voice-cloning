@@ -163,3 +163,40 @@ class TestScoring:
         many = {(f"s{i}", f"l{j}"): list(rng.choice([-1, 0, 1], 4)) for i in range(6) for j in range(6)}
         mean, low, high = scorer.crossed_bootstrap(many, draws=300)
         assert low <= mean <= high
+
+
+def test_a_sealed_style_corpus_its_texts_and_a_chosen_subset(tmp_path: Path) -> None:
+    corpus = tmp_path / "corpus"
+    corpus.mkdir()
+    rate = 24000
+    t = np.arange(rate * 2) / rate
+    entries = []
+    for speaker in ("ney01", "ney02"):
+        for index in range(3):
+            name = f"{speaker}_{index:03d}.wav"
+            sf.write(corpus / name, (0.1 * np.sin(2 * np.pi * (150 + 20 * index) * t)).astype(np.float32), rate)
+            entries.append({"speaker": speaker, "file": name, "role": "reference" if index == 0 else "held_out"})
+    (corpus / "manifest.json").write_text(json.dumps({"entries": entries}), encoding="utf-8")
+    texts = tmp_path / "texts.json"
+    texts.write_text(json.dumps({"texts": [{"key": "t01", "text": "یک"}, {"key": "t02", "text": "دو"}]},
+                                ensure_ascii=False), encoding="utf-8")
+    systems = []
+    for system, level in (("a", 0.05), ("b", 0.3)):
+        folder = tmp_path / system
+        folder.mkdir()
+        for speaker in ("ney01", "ney02"):
+            for key in ("t01", "t02"):
+                sf.write(folder / f"{speaker}_{key}_seed42.wav", (level * np.sin(2 * np.pi * 200 * t)).astype(np.float32), rate)
+        systems.append(folder)
+    key = builder.build("sealed", systems[0], systems[1], seed=3, out_root=tmp_path / "out",
+                        a_results=RUN, b_results=RUN, corpus_dir=corpus, texts_file=texts,
+                        files=["ney02_t02_seed42.wav"], bit_depth=16)
+    assert len(key["trials"]) == 1
+    trial = next(iter(key["trials"].values()))
+    assert trial["file"] == "ney02_t02_seed42.wav" and trial["reference"] == "ney02_001.wav"
+    page = (tmp_path / "out" / "sealed" / "index.html").read_text(encoding="utf-8")
+    assert "دو" in page and "ney02" not in page
+    assert {sf.info(p).subtype for p in (tmp_path / "out" / "sealed" / "audio").glob("*.wav")} == {"PCM_16"}
+    with pytest.raises(SystemExit, match="missing"):
+        builder.build("sealed", systems[0], systems[1], seed=3, out_root=tmp_path / "out2", a_results=RUN,
+                      b_results=RUN, corpus_dir=corpus, texts_file=texts, files=["ney03_t01_seed42.wav"])

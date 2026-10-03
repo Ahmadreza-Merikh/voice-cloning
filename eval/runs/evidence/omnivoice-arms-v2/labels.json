@@ -1,0 +1,12 @@
+{
+  "ney": {
+    "role": "primary",
+    "f5": "f5-test-ney",
+    "pocket": "pocket-test-ney"
+  },
+  "cv": {
+    "role": "secondary",
+    "f5": "f5-test-cv",
+    "pocket": "pocket-test-cv"
+  }
+}

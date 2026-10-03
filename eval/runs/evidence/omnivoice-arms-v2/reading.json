@@ -1,0 +1,170 @@
+{
+ "ney": {
+  "role": "primary",
+  "arms": {
+   "f5": {
+    "summary": {
+     "held_out_mean": 0.4853524691358025,
+     "cer_mean": 0.14820930698023357,
+     "renders": 648,
+     "failures": 24
+    },
+    "candidate_minus_arm": {
+     "mean": 0.1119,
+     "low": 0.0909,
+     "high": 0.1329,
+     "speakers": 27,
+     "speakers_total": 28,
+     "cells": 648,
+     "left_out": {
+      "ney06": "24 of 24 cells unusable (candidate failed)"
+     },
+     "note": ""
+    },
+    "outcome": "the candidate is above f5 on these speakers (interval above zero)",
+    "published_minus_arm_not_registered": {
+     "mean": 0.1105,
+     "low": 0.0879,
+     "high": 0.1331,
+     "speakers": 27,
+     "speakers_total": 28,
+     "cells": 648,
+     "left_out": {
+      "ney06": "24 of 24 cells unusable (published failed)"
+     },
+     "note": ""
+    }
+   },
+   "pocket": {
+    "summary": {
+     "held_out_mean": 0.3762256172839506,
+     "cer_mean": 0.22143677187523497,
+     "renders": 648,
+     "failures": 24
+    },
+    "candidate_minus_arm": {
+     "mean": 0.221,
+     "low": 0.1932,
+     "high": 0.2488,
+     "speakers": 27,
+     "speakers_total": 28,
+     "cells": 648,
+     "left_out": {
+      "ney06": "24 of 24 cells unusable (candidate failed)"
+     },
+     "note": ""
+    },
+    "outcome": "the candidate is above pocket on these speakers (interval above zero)",
+    "published_minus_arm_not_registered": {
+     "mean": 0.2196,
+     "low": 0.1943,
+     "high": 0.245,
+     "speakers": 27,
+     "speakers_total": 28,
+     "cells": 648,
+     "left_out": {
+      "ney06": "24 of 24 cells unusable (published failed)"
+     },
+     "note": ""
+    }
+   }
+  },
+  "cer_points_f5_minus_pocket": {
+   "mean": -5.4045,
+   "low": -9.0099,
+   "high": -1.799,
+   "speakers": 19,
+   "speakers_total": 28,
+   "cells": 456,
+   "left_out": {
+    "ney05": "1 of 24 cells unusable (f5 has no value)",
+    "ney06": "24 of 24 cells unusable (f5 failed)",
+    "ney09": "1 of 24 cells unusable (f5 has no value)",
+    "ney10": "1 of 24 cells unusable (f5 has no value)",
+    "ney13": "1 of 24 cells unusable (f5 has no value)",
+    "ney15": "1 of 24 cells unusable (f5 has no value)",
+    "ney20": "4 of 24 cells unusable (pocket has no value)",
+    "ney26": "2 of 24 cells unusable (f5 has no value)",
+    "ney28": "2 of 24 cells unusable (f5 has no value)"
+   },
+   "note": ""
+  }
+ },
+ "cv": {
+  "role": "secondary",
+  "arms": {
+   "f5": {
+    "summary": {
+     "held_out_mean": 0.4714073611111111,
+     "cer_mean": 0.11213686446463624,
+     "renders": 720,
+     "failures": 0
+    },
+    "candidate_minus_arm": {
+     "mean": 0.0488,
+     "low": 0.0338,
+     "high": 0.0638,
+     "speakers": 30,
+     "speakers_total": 30,
+     "cells": 720,
+     "left_out": {},
+     "note": ""
+    },
+    "outcome": "the candidate is above f5 on these speakers (interval above zero)",
+    "published_minus_arm_not_registered": {
+     "mean": 0.0448,
+     "low": 0.0285,
+     "high": 0.0611,
+     "speakers": 30,
+     "speakers_total": 30,
+     "cells": 720,
+     "left_out": {},
+     "note": ""
+    }
+   },
+   "pocket": {
+    "summary": {
+     "held_out_mean": 0.3173008333333333,
+     "cer_mean": 0.14459348012140805,
+     "renders": 720,
+     "failures": 0
+    },
+    "candidate_minus_arm": {
+     "mean": 0.2029,
+     "low": 0.1718,
+     "high": 0.234,
+     "speakers": 30,
+     "speakers_total": 30,
+     "cells": 720,
+     "left_out": {},
+     "note": ""
+    },
+    "outcome": "the candidate is above pocket on these speakers (interval above zero)",
+    "published_minus_arm_not_registered": {
+     "mean": 0.1989,
+     "low": 0.1669,
+     "high": 0.2309,
+     "speakers": 30,
+     "speakers_total": 30,
+     "cells": 720,
+     "left_out": {},
+     "note": ""
+    }
+   }
+  },
+  "cer_points_f5_minus_pocket": {
+   "mean": -2.9552,
+   "low": -5.1425,
+   "high": -0.768,
+   "speakers": 27,
+   "speakers_total": 30,
+   "cells": 648,
+   "left_out": {
+    "cvt05": "2 of 24 cells unusable (pocket has no value)",
+    "cvt11": "1 of 24 cells unusable (f5 has no value)",
+    "cvt19": "1 of 24 cells unusable (f5 has no value)"
+   },
+   "note": ""
+  }
+ }
+}

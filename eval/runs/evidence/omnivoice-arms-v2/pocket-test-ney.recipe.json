@@ -1,0 +1,724 @@
+{
+  "corpus": {
+    "manifest": "manifest.json",
+    "sha256": "a54a230b3207549805b16beef8103a1ff78cbc0328dee32aa52a2b23e70d04ef"
+  },
+  "label": "pocket-test-ney",
+  "recipe_version": 1,
+  "references": {
+    "clips": [
+      {
+        "duration": 11.4,
+        "file": "ney01_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.32,
+          "steps": [
+            "Decoded 11.4s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~43 dB SNR)",
+            "Trimmed 1.08s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.4
+          ]
+        },
+        "sha256": "b89d5e0ff0f11025d4b8a7130db1c8005df23be004a8f45ef0bfacfcf2b35ed9",
+        "speaker": "ney01",
+        "transcript_given": "بنابراین، طراحی محصولات متنوع و متناسب با نیاز هر منطقه می‌تواند بازار داخلی را بهتر پوشش دهد."
+      },
+      {
+        "duration": 10.32,
+        "file": "ney02_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.102,
+          "steps": [
+            "Decoded 10.3s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~67 dB SNR)",
+            "Trimmed 1.22s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.32
+          ]
+        },
+        "sha256": "d1fcfa522d18e7fc150231e55b4ba6ac3c612e2c379f9009d4596c20c1be9a69",
+        "speaker": "ney02",
+        "transcript_given": "موسیقی گیلکی با صدای دلنشین کمانچه و آوازهای محلی، حال و هوای خاصی دارد."
+      },
+      {
+        "duration": 10.14,
+        "file": "ney03_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.694,
+          "steps": [
+            "Decoded 10.1s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~84 dB SNR)",
+            "Trimmed 2.45s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.14
+          ]
+        },
+        "sha256": "8068c15c4a106d2761426c4b1d37d356bbfb5fae341f3784f964c7fdb13ff932",
+        "speaker": "ney03",
+        "transcript_given": "جنبش مشروطه‌خواهی تلاش برای ایجاد حکومت مبتنی بر قانون و حقوق برابر بود."
+      },
+      {
+        "duration": 10.175,
+        "file": "ney04_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.456,
+          "steps": [
+            "Decoded 10.2s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~42 dB SNR)",
+            "Trimmed 0.72s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.175
+          ]
+        },
+        "sha256": "826ad975d0188ddf6586b7baf61c8d6b5240f7ecb9a9bec8072dd54d5c89c1df",
+        "speaker": "ney04",
+        "transcript_given": "با کلاغ‌هایی که می‌شناسم و رابطه‌ای که با آن‌ها ایجاد کرده‌ام و عشقی که به تک‌تک آن‌ها دارم، خستگی برایم معنی ندارد."
+      },
+      {
+        "duration": 10.68,
+        "file": "ney05_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.72,
+          "steps": [
+            "Decoded 10.7s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~71 dB SNR)",
+            "Trimmed 5.96s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.68
+          ]
+        },
+        "sha256": "19cf34479ddf0b34d3a9ee3cf1540569de7bd76afcac25fa948cd1033fe7ab99",
+        "speaker": "ney05",
+        "transcript_given": "اگه همه چی منظم پیش بره، زودتر به نتیجه می‌رسیم."
+      },
+      {
+        "duration": 7.44,
+        "file": "ney06_000.wav",
+        "prepared": {
+          "error": "ReferenceQualityError: Only 2.7s of usable speech remains after processing (minimum 3s).\n  -> Provide a longer recording, or disable silence trimming if the clip is mostly speech."
+        },
+        "sha256": "87de6a2f192ac8f2ea2745fa23e0cf48775583646194afabf1bf930d6226d5a8",
+        "speaker": "ney06",
+        "transcript_given": "اگر تغییری لازم دارید، بگویید!"
+      },
+      {
+        "duration": 9.848,
+        "file": "ney07_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.888,
+          "steps": [
+            "Decoded 9.8s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~56 dB SNR)",
+            "Trimmed 1.96s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.848
+          ]
+        },
+        "sha256": "885fc89add656d9dfdcdd49b02759507060d199c0b03a2c9ce4913666db5d19e",
+        "speaker": "ney07",
+        "transcript_given": "در این ویدیو ببینید که اگر در خیابان با تصادفی روبرو شدید چه کارهایی می‌توانید و باید تا رسیدن اورژانس انجام دهید."
+      },
+      {
+        "duration": 9.72,
+        "file": "ney08_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.928,
+          "steps": [
+            "Decoded 9.7s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~51 dB SNR)",
+            "Trimmed 2.79s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.72
+          ]
+        },
+        "sha256": "9269acb812bcae88591a9af7ce86e6c08df99cdee4ded42054fb9a443810e96a",
+        "speaker": "ney08",
+        "transcript_given": "بدون مطالعه گسترده‌‌تر، قادر به دستیابی به نتایج قابل‌اطمینان نخواهیم بود."
+      },
+      {
+        "duration": 10.98,
+        "file": "ney09_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.96,
+          "steps": [
+            "Decoded 11.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~51 dB SNR)",
+            "Trimmed 2.02s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.98
+          ]
+        },
+        "sha256": "faf6670ae38fefe172acc23b2614254728289ecff340ffb56481109561a5aa67",
+        "speaker": "ney09",
+        "transcript_given": "اما برخی خبرگزاری‌های رسمی ایران از غافلگیری مدیران شهری و دولتی و سازمان‌های مسئول خبر دادند."
+      },
+      {
+        "duration": 10.02,
+        "file": "ney10_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.692,
+          "steps": [
+            "Decoded 10.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~38 dB SNR)",
+            "Trimmed 0.33s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.02
+          ]
+        },
+        "sha256": "d8e183773970df7e3bdd343973b320e68c77e82cf297f8c9a9ae424d5218ff85",
+        "speaker": "ney10",
+        "transcript_given": "هشدار داد که اگر به مسائل مطروحه در این کتاب توجه نشود، اعتیاد در میان کودکان و نوجوانان در ایران به یک بحران ملی تبدیل خواهد شد."
+      },
+      {
+        "duration": 11.1,
+        "file": "ney11_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.72,
+          "steps": [
+            "Decoded 11.1s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~37 dB SNR)",
+            "Trimmed 1.38s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.1
+          ]
+        },
+        "sha256": "21a78184dd239024bd817bff61f11571ea2e29d14902a755966a7b2d86194487",
+        "speaker": "ney11",
+        "transcript_given": "شرکت سهامی خاص برای فعالیت‌های محدودتر و با تعداد سهام‌داران مشخص تشکیل می‌گردد."
+      },
+      {
+        "duration": 8.28,
+        "file": "ney12_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.96,
+          "steps": [
+            "Decoded 8.3s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~215 dB SNR)",
+            "Trimmed 1.32s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.28
+          ]
+        },
+        "sha256": "318168ccfc82a00a9b50253b1eefa7b7be525edcef35b6e205258561386e8317",
+        "speaker": "ney12",
+        "transcript_given": "مسیریاب‌های هوشمند می‌توانند در صرفه‌جویی زمان هنگام رانندگی کمک شایانی کنند."
+      },
+      {
+        "duration": 11.34,
+        "file": "ney13_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.464,
+          "steps": [
+            "Decoded 11.3s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~82 dB SNR)",
+            "Trimmed 0.88s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.34
+          ]
+        },
+        "sha256": "e420143a446056539d219b04565d3d69b4eab5f8bcb5748a47bcb0f0ec0c2944",
+        "speaker": "ney13",
+        "transcript_given": "شهر به‌سرعت به تلی از ویرانی تبدیل شد، اما همین خرابه‌ها باعث شد سربازان شوروی بتوانند در کوچه‌ها و ساختمان‌های نیمه‌ویران مقاومت کنند."
+      },
+      {
+        "duration": 9.053,
+        "file": "ney14_000.wav",
+        "prepared": {
+          "prepared_seconds": 7.6,
+          "steps": [
+            "Decoded 9.1s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~48 dB SNR)",
+            "Trimmed 1.45s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.053
+          ]
+        },
+        "sha256": "b1781c7ed5042aa7aad44cbaf445cbe61929529aaae3ea91fde143e6cac6285f",
+        "speaker": "ney14",
+        "transcript_given": "داستان‌سرایی در فرهنگ‌های مختلف به عنوان وسیله‌ای برای انتقال ارزش‌ها و سنت‌ها مورداستفاده قرار می‌گیرد."
+      },
+      {
+        "duration": 10.32,
+        "file": "ney15_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.136,
+          "steps": [
+            "Decoded 10.3s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~68 dB SNR)",
+            "Trimmed 1.18s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.32
+          ]
+        },
+        "sha256": "ebcf7cf9157a6965da976da799646cb2126602071f90f6c49623c03afd26e86f",
+        "speaker": "ney15",
+        "transcript_given": "برای مثال قیمت برخی محصولات ایران‌خودرو و سایپا در بازار آزاد در حدود چند صد میلیون‌تا چند میلیارد تومان اعلام شده است."
+      },
+      {
+        "duration": 11.4,
+        "file": "ney16_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.144,
+          "steps": [
+            "Decoded 11.4s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~216 dB SNR)",
+            "Trimmed 1.26s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.4
+          ]
+        },
+        "sha256": "6d79516affbf8534fbefe40012e31d219ffc1672e6d08777d7c7ef38a4a81081",
+        "speaker": "ney16",
+        "transcript_given": "و از این‌طرف بعد از نوبت اول، به بهونه درس خوندن، بریم بخوابیم و اون تابستون صاب مرده رو جبران اساسی کنیم."
+      },
+      {
+        "duration": 11.34,
+        "file": "ney17_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.432,
+          "steps": [
+            "Decoded 11.3s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~233 dB SNR)",
+            "Trimmed 2.91s of silence (3 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.34
+          ]
+        },
+        "sha256": "90259f65159edf789956a0c2b83829a4e40df121295f4d2715d0ec2ce6d17e1b",
+        "speaker": "ney17",
+        "transcript_given": "در ایالات‌متحده آمریکا واحد پول دلار آمریکا است که به‌عنوان مهم‌ترین ارز ذخیره جهان شناخته می‌شود."
+      },
+      {
+        "duration": 9.12,
+        "file": "ney18_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.184,
+          "steps": [
+            "Decoded 9.1s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~69 dB SNR)",
+            "Trimmed 0.94s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.12
+          ]
+        },
+        "sha256": "1e77880c3011385efa7c68723c24ffd4b618d3f242a145fe53fe5a4672643b26",
+        "speaker": "ney18",
+        "transcript_given": "یکی هم مثل من هنوز داره نصف کتاب رو که باقی مونده، با ضرب و زور می‌خونه و تا یه جایی پیش رفتم، البته فکر کنم."
+      },
+      {
+        "duration": 11.34,
+        "file": "ney19_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.92,
+          "steps": [
+            "Decoded 11.3s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~79 dB SNR)",
+            "Trimmed 1.42s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.34
+          ]
+        },
+        "sha256": "a51e31bb86e20ae2d09d2d47e0540d18a822ba101fd090759ce6f1972debf774",
+        "speaker": "ney19",
+        "transcript_given": "روزی اجازه داشتید که از کامپیوتر استفاده کنید و روز بعدی اجازه نداشتید، اما تغییر قانون هرگز به شما اعلام نشد."
+      },
+      {
+        "duration": 8.83,
+        "file": "ney20_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.83,
+          "steps": [
+            "Decoded 8.8s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~33 dB SNR)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.83
+          ]
+        },
+        "sha256": "e5c8ea7ccc1bda699863d24c156358fcfae6fc2fc3b5ea791ea6a16cefc080ff",
+        "speaker": "ney20",
+        "transcript_given": "یه چیزی در حد جام رمضان خودمونه."
+      },
+      {
+        "duration": 10.845,
+        "file": "ney21_000.wav",
+        "prepared": {
+          "prepared_seconds": 10.256,
+          "steps": [
+            "Decoded 10.8s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~40 dB SNR)",
+            "Trimmed 0.59s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.845
+          ]
+        },
+        "sha256": "ead10f1d0b022589feec19a93381ef8963013655d5a29fe6bd799736e4de1f12",
+        "speaker": "ney21",
+        "transcript_given": "مدیرانی که همه تصمیم‌ها را خودشان می‌گیرند و اختیار نمی‌دهند، ناخواسته تیم را به مجموعه‌ای منفعل تبدیل می‌کنند."
+      },
+      {
+        "duration": 10.86,
+        "file": "ney22_000.wav",
+        "prepared": {
+          "prepared_seconds": 9.888,
+          "steps": [
+            "Decoded 10.9s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~231 dB SNR)",
+            "Trimmed 0.97s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.86
+          ]
+        },
+        "sha256": "6de1fcbe3183f59d8d70d1b739fe5f2aed19f08da981f58eb7a17bbae0c824bf",
+        "speaker": "ney22",
+        "transcript_given": "انگار برای آقای منتظری اداکردن لغات و کلماتی که بعد از اما می‌خواست مطرح کند، از خوردن زهر سخت‌تر بود."
+      },
+      {
+        "duration": 8.52,
+        "file": "ney23_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.896,
+          "steps": [
+            "Decoded 8.5s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~62 dB SNR)",
+            "Trimmed 1.62s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.52
+          ]
+        },
+        "sha256": "a67f635b4ef0aaf85e4e3df84a20877724bace5cdf97e7c67786c8fa91178edc",
+        "speaker": "ney23",
+        "transcript_given": "و اساسا بار رابطه روی دوش شما بوده و شریک زندگی‌تان کم‌کاری کرده است."
+      },
+      {
+        "duration": 11.157,
+        "file": "ney24_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.56,
+          "steps": [
+            "Decoded 11.2s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~52 dB SNR)",
+            "Trimmed 6.60s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            11.157
+          ]
+        },
+        "sha256": "b347bf7f9c913d284add6253ad08fd03dea5f33184e93f09f3bba7b9b526b153",
+        "speaker": "ney24",
+        "transcript_given": "همچنان صدای بوق ممتد ماشین‌ها بر هر صدایی غلبه داشت."
+      },
+      {
+        "duration": 10.025,
+        "file": "ney25_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.608,
+          "steps": [
+            "Decoded 10.0s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~46 dB SNR)",
+            "Trimmed 5.42s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            10.025
+          ]
+        },
+        "sha256": "8bec43b3048aba80aed07fe61f5681bae5e24730440c204a5bdc143cc1b60289",
+        "speaker": "ney25",
+        "transcript_given": "دیروز رفتم پاساژ، یه عالمه مغازه‌های قشنگ داشت."
+      },
+      {
+        "duration": 8.703,
+        "file": "ney26_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.896,
+          "steps": [
+            "Decoded 8.7s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoised with noisereduce",
+            "Trimmed 1.81s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.703
+          ]
+        },
+        "sha256": "248a3818ded58f8fda923a0a6706743b7e5e4fa865274792367ebc2c6a5795d8",
+        "speaker": "ney26",
+        "transcript_given": "حس قدرشناسی به ما کمک می‌کنه تا قدر لحظات و افرادی که تو زندگی‌مون داریم رو بهتر بدونیم."
+      },
+      {
+        "duration": 6.9,
+        "file": "ney27_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.648,
+          "steps": [
+            "Decoded 6.9s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~78 dB SNR)",
+            "Trimmed 1.25s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            6.9
+          ]
+        },
+        "sha256": "2f6cc8252d2a7f61650bf267e283efd17d063139e307a64610c6e4a33d1be3f0",
+        "speaker": "ney27",
+        "transcript_given": "کنار پنجره می‌نشینم و از لابه‌لای پرده نازک به چراغ‌های شهر خیره می‌شوم."
+      },
+      {
+        "duration": 7.253,
+        "file": "ney28_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.936,
+          "steps": [
+            "Decoded 7.3s @ 16000 Hz",
+            "Resampled 16000 Hz -> 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~39 dB SNR)",
+            "Trimmed 1.32s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.253
+          ]
+        },
+        "sha256": "7b8803ed3ec3b09aa25b2d1e643dc06862ea762a39cd77ffa9dccbf572fb39b3",
+        "speaker": "ney28",
+        "transcript_given": "آن‌ها کارهایشان را بر مبنای طلوع و غروب خورشید تنظیم می‌کنند؛ بنابراین باید به کلاغ‌ها حق داد."
+      }
+    ],
+    "index": 0,
+    "transcript": "corpus"
+  },
+  "render": {
+    "candidates_per_cell": 1,
+    "engine": "pocket",
+    "options_overridden": {},
+    "preprocess_overridden": {},
+    "replayed_from": null,
+    "reported_by_every_render": {},
+    "reported_per_cell": [],
+    "settings": {
+      "g2p_dir": "/tmp/pocket/g2p",
+      "g2p_revision": "e314087bc761e323d127ee7899cb34f7c7d697cd",
+      "max_tokens": 18,
+      "model_dir": "/tmp/pocket/model",
+      "prompt_seconds": null,
+      "python": "auto",
+      "retries": 1,
+      "revision": "e87097ed98edb8bd9c9bcabe9b575a51a466d0e4",
+      "timeout_seconds": 600.0
+    }
+  },
+  "results_file": "pocket-test-ney.json",
+  "results_sha256": "031eaad945d05937833acb04777bc0508fd37085546348f75c0277ac1ea755fb",
+  "seeds": [
+    42,
+    43
+  ],
+  "sentences": {
+    "t01": "کمیتهٔ علمی همایش پس از بررسی مقاله‌ها، فهرست نهایی سخنرانان را در پایگاه اینترنتی خود منتشر کرد.",
+    "t02": "بر اساس گزارش سازمان هواشناسی، بارش‌های پاییزی امسال در بیشتر استان‌ها کمتر از میانگین بلندمدت بوده است.",
+    "t03": "ببین، اگه فردا یه کم زودتر بیای، با هم می‌ریم نون تازه می‌خریم.",
+    "t04": "راستش حوصلهٔ سینما رو ندارم، بیا امشب تو خونه یه فیلم ببینیم.",
+    "t05": "جلسهٔ بعدی روز سه‌شنبه ۱۴ آبان ۱۴۰۵ ساعت ۹:۳۰ صبح برگزار می‌شود.",
+    "t06": "قیمت هر کیلو پنیر از ۱۸۵ هزار تومان به ۲۱۲ هزار و ۵۰۰ تومان رسید.",
+    "t07": "سارا برای دیدن نمایشگاه آثار فرشچیان از شیراز به اصفهان رفت.",
+    "t08": "او اپلیکیشن تازه‌ای روی موبایلش نصب کرد تا بلیت کنسرت را آنلاین بخرد.",
+    "t09": "پس از پایان مسابقهٔ کشتی، ورزشکاران با کشتی به جزیره برگشتند.",
+    "t10": "دختر همسایهٔ روبه‌رویی ما کتاب تازهٔ نویسندهٔ محبوبش را امانت گرفت.",
+    "t11": "باران بند آمد.",
+    "t12": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تأخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند."
+  },
+  "session": {
+    "code_commit": "d9f7f76",
+    "scoring_environment": {
+      "id": "kaggle:persian-voice-omnivoice-arms-v2",
+      "packages": {
+        "ctranslate2": "4.8.2",
+        "faster-whisper": "1.2.1",
+        "jiwer": "4.0.0",
+        "numpy": "2.0.2",
+        "speechbrain": "1.1.1",
+        "torch": "2.10.0+cu128",
+        "torchaudio": "2.10.0+cu128",
+        "transformers": "5.0.0"
+      },
+      "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+      "python": "3.12.13",
+      "recogniser": "faster-whisper/large-v3-turbo (cuda/float16)",
+      "similarity": "speechbrain-ecapa",
+      "similarity_device": "cpu"
+    }
+  }
+}

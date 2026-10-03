@@ -4,7 +4,28 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 12:55 +0330 (2026-10-03 09:25 UTC).
+Last updated: 2026-10-03 14:00 +0330 (2026-10-03 10:30 UTC).
+
+## Step 2 registered, texts written, rendering not started (2026-10-03 14:00 +0330)
+
+The front-end listening test is registered (`eval/runs/persian-voice-frontend-listening-v1.json`,
+two amendments before any render): 12 new hard sentences
+(`eval/manifests/frontend_listening_v1.json`) in four forms - A plain, E +ezafe,
+EN +sukun where no ezafe, ENV +first short vowels - written by
+`scripts/build_frontend_texts.py` into `eval/runs/frontend-listening-v1/texts.json`
+(marks by `src/voiceclone/text/marks_fa.py`). Every mark checked by eye: right,
+except the tagger's ezafe on کرم in n08.
+
+**Rendering was refused by the memory guard** (5.1 GB free, OmniVoice needs 6).
+Next: close other apps, then
+`.venv/bin/python scripts/render_frontend_conditions.py --cer` (48 renders,
+~15 min), then `scripts/build_pronunciation_review.py --manifest
+eval/runs/frontend-listening-v1/manifest.json --out listening/frontend-review-v1
+--key eval/runs/evidence/frontend-review-v1/key.json --rotations`, the page
+(adapt `eval/runs/evidence/pronunciation-review-v1/page.html`), the user listens,
+`scripts/score_pronunciation_review.py`. Found on the way, for the app: the
+normaliser maps أ to ا (why تأخیر was misread) and ۀ to a bare ه (drops a
+written ezafe).
 
 ## Text tools measured: hazm's ParsBERT tagger for the ezafe; no vowel source for every word (2026-10-03)
 

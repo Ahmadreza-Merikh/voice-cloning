@@ -52,5 +52,17 @@
   "when": "after the four texts were written and before any render: the first run stopped at the check, before an engine loaded",
   "what": "the check compared whole strings, stricter than registered: it stopped because the app's normaliser writes تأخیر as تاخیر (src/voiceclone/text/normalize_fa.py maps أ to ا), in n09 and in all four of its conditions alike. It now checks what was registered - every mark reaching the model on its word - and lists the app's other changes in the manifest",
   "found_on_the_way": "the same map is why the review's A read تأخیر as taa'khir: OmniVoice was given تاخیر, a long a. The normaliser also turns ۀ (a written ezafe) into a bare ه, dropping the ezafe. Both are app fixes for after this test; here every condition gets the same normalised text, and the front-end writes the ezafe as هٔ, which survives"
+ },
+ "amendment_2026_10_03_render_on_kaggle": {
+  "when": "after the Mac run was refused by the memory guard (it stopped while the engine was loading: no render was made, and the partial manifest was deleted) and before anything was sent to Kaggle",
+  "why": "the Mac had 5.1 GB available and OmniVoice's guard needs 6 (the registered setting); the user chose Kaggle over closing apps (2026-10-03). The guard is not overridden",
+  "what_changes": "the machine only: one Kaggle T4 x2 session (marsmanam/persian-voice-frontend-listening-run), the OmniVoice worker on CUDA instead of Metal, in float16 as on the Mac (the configured dtype, which the worker loads on both)",
+  "what_stays": "the app code (the code dataset marsmanam/persian-voice-frontend-listening is staged from the commit that adds this amendment; against the copy the sealed test ran, src/voiceclone differs only by text/marks_fa.py), the texts (texts.json sha256 06fd5f36cc1f2cb41a57c105b808dc3dc4dc836f3f01a574925b82f6598e197b, checked in the notebook before anything renders), the voice (mana_000.wav), seed 42, one take, evaluation off while rendering, the generation settings from the app config, and the weights: k2-fsa/OmniVoice @ c5fdb5ccb189668d56333f77ba2629f4cd7535f4 - the revision in the Mac's cache - fetched with its audio tokenizer's sha256 checked",
+  "comparison": "all 48 render in one session on one GPU, so the four forms of a sentence still differ only in their text. Nothing is compared with a Mac render: a T4 render is not sample-identical to one on Metal",
+  "environment": "OmniVoice's pinned stack (torch 2.8.0+cu128, transformers 5.3.0, omnivoice @ 08be0b4c) and the scoring packages, through the environment cell every OmniVoice session used (kaggle/build_frontend_listening_kernel.py)",
+  "memory_guard": "acts on macOS only (src/voiceclone/memory.py); on Kaggle nothing loads beside the worker while it renders, as on the Mac",
+  "cer": "unchanged: the app's recogniser (faster-whisper large-v3-turbo) after the worker is released, in the same session, on the GPU",
+  "cost": "one session: about half a GPU-hour expected, the render step stopped at 60 minutes; the week's quota stood at 30 GPU-hours, none used (kaggle quota, 2026-10-03)",
+  "after": "the manifest and wavs are fetched into eval/runs/frontend-listening-v1/; the review page and the scoring are as registered"
  }
 }

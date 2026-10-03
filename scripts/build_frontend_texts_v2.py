@@ -38,7 +38,13 @@ spec.loader.exec_module(sfc)
 from voiceclone.config import AppConfig  # noqa: E402
 from voiceclone.text import ezafe_tagger  # noqa: E402
 from voiceclone.text.ezafe_fa import plan, tokens_of  # noqa: E402
-from voiceclone.text.marks_fa import PUNCT, bare, first_short_vowel, with_first_vowel, with_sukun  # noqa: E402
+from voiceclone.text.marks_fa import (  # noqa: E402
+    PUNCT,
+    bare,
+    first_short_vowel,
+    with_first_vowel,
+    with_sukun,
+)
 from voiceclone.text.pipeline import TextPipeline  # noqa: E402
 
 SENTENCES = ROOT / "eval" / "manifests" / "frontend_listening_v2.json"

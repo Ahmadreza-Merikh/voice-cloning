@@ -19,7 +19,9 @@ Predictions are the files scripts/measure_frontend_components.py writes.
     .venv/bin/python scripts/score_frontend_components.py eval/runs/evidence/frontend-components-v1 SentenceBench.csv [HomoRich.parquet]
 
 With HomoRich (the training data named for Homo-GE2PE and the ALBERT model) it
-also reports which SentenceBench sentences appear there.
+also reports which SentenceBench sentences appear there, and scores the rest
+again as sentencebench-unseen - the set the ezafe choice is read on (amendment
+of 2026-10-03, written after the overlap was found and before any score).
 """
 
 from __future__ import annotations
@@ -354,7 +356,7 @@ def squash(text: str) -> str:
     return "".join(c for c in clean(text) if c.isalpha() and c not in HARAKAT)
 
 
-def overlap(sentences: list[dict], others: list[str], width: int = 12) -> dict:
+def found_in(sentences: list[dict], others: list[str], width: int = 12) -> dict[str, str]:
     keys = {s["id"]: squash(s["text"]) for s in sentences}
     shingles: dict[str, set[str]] = {}
     for sid, k in keys.items():
@@ -372,6 +374,11 @@ def overlap(sentences: list[dict], others: list[str], width: int = 12) -> dict:
                 hits[sid] = "equal"
             elif len(short) >= 20 and len(short) >= len(longer) / 2 and short in longer:
                 hits[sid] = "contained"
+    return hits
+
+
+def overlap(sentences: list[dict], others: list[str]) -> dict:
+    hits = found_in(sentences, others)
     by: dict[str, dict] = {}
     for s in sentences:
         row = by.setdefault(s["subset"], {"sentences": 0, "equal": 0, "contained": 0})
@@ -395,18 +402,32 @@ def main(argv: list[str] | None = None) -> int:
     if len(args) not in (2, 3):
         raise SystemExit(__doc__)
     sets = {"sentencebench": sentencebench(Path(args[1])), "review14": review14()}
-    result = score(sets, load_predictions(Path(args[0])))
+    predictions = load_predictions(Path(args[0]))
+    found: dict[str, str] = {}
+    if len(args) == 3:
+        import pandas
+        others = pandas.read_parquet(args[2], columns=["Grapheme"])["Grapheme"].astype(str).tolist()
+        found = found_in(sets["sentencebench"], others)
+        sets["sentencebench-unseen"] = [s for s in sets["sentencebench"] if s["id"] not in found]
+        for by_set in predictions.values():
+            if "sentencebench" in by_set:
+                by_set["sentencebench-unseen"] = by_set["sentencebench"]
+    result = score(sets, predictions)
     result["gold"] = {name: {"sentences": len(ss), "words": sum(len(s["words"]) for s in ss),
                              "scorable": sum(1 for s in ss for g in s["gold"] if g),
                              "ezafe_words": sum(1 for s in ss for g in s["gold"] if g and g["ezafe"]),
                              "homographs_located": sum(1 for s in ss if s.get("homograph"))}
                       for name, ss in sets.items()}
     if len(args) == 3:
-        import pandas
-        others = pandas.read_parquet(args[2], columns=["Grapheme"])["Grapheme"].astype(str).tolist()
+        by: dict[str, dict] = {}
+        for s in sets["sentencebench"]:
+            row = by.setdefault(s["subset"], {"sentences": 0, "equal": 0, "contained": 0})
+            row["sentences"] += 1
+            if s["id"] in found:
+                row[found[s["id"]]] += 1
         result["overlap_with_homorich"] = {"sentences_checked_against": len(others),
                                            "rule": "letters only; equal, or one inside the other with at least 20 letters and half the longer",
-                                           "by_subset": overlap(sets["sentencebench"], others)}
+                                           "by_subset": by, "found": dict(sorted(found.items()))}
     print(json.dumps(result, ensure_ascii=False, indent=1))
     return 0
 

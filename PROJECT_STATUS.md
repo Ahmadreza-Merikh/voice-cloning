@@ -4,7 +4,7 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-09-30 23:40 +0330 (2026-09-30 20:10 UTC).
+Last updated: 2026-10-03 10:05 +0330 (2026-10-03 06:35 UTC).
 
 ## The sealed test is answered: no detectable improvement on unseen speakers
 
@@ -30,40 +30,34 @@ a results file. The primary set was rerun alone with the fix
 registered before any primary score was read
 (`amendment_2026_09_30_primary_rerun`).
 
-## Now: the arms session is running (version 2, pushed 2026-09-30 17:36 UTC)
+## The arms are read: OmniVoice is the right base (2026-10-03)
 
-`marsmanam/persian-voice-omnivoice-arms` v2 (pushed 17:36 UTC; v1 stopped in its environment cell, fixed in the builder): F5-TTS Persian (at its registered
-48 steps) and Pocket-TTS Farsi v2 on the same sealed cells, read beside the
-primary result only - held-out similarity, the candidate minus each arm, paired
-per speaker. About 2 to 2.5 GPU-hours of the 15.01 left until 2026-10-03
-(declared in the test record, `arms_before_the_push_2026_09_30`). A first push
-at 17:17 failed on the network and created nothing (checked before retrying).
+`persian-voice-omnivoice-arms` v2 (pushed 2026-09-30 17:36 UTC, 6.3 h, every
+gate passed; version 1 had stopped in an environment cell built for the
+OmniVoice sessions) rendered F5-TTS Persian (48 steps, as registered) and
+Pocket-TTS Farsi v2 on the same sealed cells. Read by `scripts/read_arms.py`:
+on the 27 unseen Neyshekar speakers OmniVoice's candidate is above F5 by
+**+0.112 [+0.091, +0.133]** and above Pocket by **+0.221 [+0.193, +0.249]**;
+on Common Voice +0.049 and +0.203. Every interval clears zero, so by the
+registered reading **the base choice survives contact with unseen speakers**.
+F5 reads more intelligibly than Pocket (CER -5.4 points). FINDINGS section 12;
+`arms_result` in `eval/runs/persian-voice-omnivoice-test.json`.
 
-**The Mac lost Kaggle at 19:11 UTC (22:41 +0330):** from then on every call
-was refused (`Permission 'kernels.get' was denied`, quota 403) with a token that
-had not expired - what a new `kaggle auth login` elsewhere does to the old one.
-So the arms session was last read RUNNING at about 19:01 UTC, the watcher's last good poll, and its end has not been
-seen from here. Whoever drives next logs in on their own machine.
+**Where the whole OmniVoice question stands:** the published OmniVoice is the
+best model measured here for cloning unseen Persian speakers (0.596 on
+Neyshekar), far above F5 and Pocket; the adaptation (about 24 GPU-hours of
+training) matched it and did not beat it. Nobody has listened to any of it.
 
-**When it ends (from Windows with `docs/WINDOWS.md`):**
+The Mac's Kaggle calls were refused from 2026-09-30 19:11 UTC with a token not
+yet expired, and worked again on 2026-10-03 without a new login; the cause is
+not known. The arms result was read then.
 
-1. `git pull`; `kaggle kernels status marsmanam/persian-voice-omnivoice-arms`
-   (version 2). If it ended ERROR, read its log (`kaggle/fetch_log.py`)
-   before anything is pushed again.
-2. `python kaggle/fetch_output.py marsmanam/persian-voice-omnivoice-arms
-   remote/omnivoice-arms-v2 arms/`
-3. `python scripts/read_arms.py remote/omnivoice-arms-v2/arms` - the
-   registered reading as code (`290a415`, tested): per set and arm, the
-   candidate minus the arm with its interval and one of the three registered
-   outcomes; CER only between F5 and Pocket.
-4. Record it in `eval/runs/persian-voice-omnivoice-test.json` (`arms_result`),
-   evidence in `eval/runs/evidence/omnivoice-arms-v2/` (gates, runs,
-   environment, the four results with recipes, the log), FINDINGS section 12
-   beside the primary result; commit and `git push`.
-5. Then the LongCat decision the user deferred to this point (below): with the
-   adaptation shown not to help, the question is whether a Persian LongCat-1B
-   could beat OmniVoice's 0.601 on the probe's speakers - an adaptation to
-   cost, not to assume.
+**Next: the user's decisions.** The LongCat question deferred to this point
+(below; recommended 2026-09-30: not now - small expected gain over OmniVoice's
+0.601, no training code, a language to teach from nothing - and listening and
+waiting for LongCat's own training code first), and whether to organise a
+listening test. A new quota week began 2026-10-03: 30 GPU-hours until
+2026-10-10.
 
 ## Decided 2026-09-25: the OmniVoice plan goes on, LongCat waits for the test
 

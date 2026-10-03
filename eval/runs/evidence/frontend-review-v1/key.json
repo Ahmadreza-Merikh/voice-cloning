@@ -1,0 +1,215 @@
+{
+ "seed": 20261004,
+ "manifest": "eval/runs/frontend-listening-v1/manifest.json",
+ "target_lufs": -26.0,
+ "wrong_in_twins": {},
+ "sentences": {
+  "n01": {
+   "category": "ezafe_chain_silent_h",
+   "slots": {
+    "1": "A",
+    "2": "E",
+    "3": "EN",
+    "4": "ENV"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "n02": {
+   "category": "no_ezafe_before_verb_and_number",
+   "slots": {
+    "1": "EN",
+    "2": "ENV",
+    "3": "A",
+    "4": "E"
+   },
+   "gains_db": {
+    "1": -7.84,
+    "2": -7.46,
+    "3": -5.01,
+    "4": -5.62
+   },
+   "target_lufs": -26.0
+  },
+  "n03": {
+   "category": "first_vowels_fatha_kasra",
+   "slots": {
+    "1": "ENV",
+    "2": "A",
+    "3": "E",
+    "4": "EN"
+   },
+   "gains_db": {
+    "1": -7.77,
+    "2": -8.0,
+    "3": -7.98,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "n04": {
+   "category": "first_vowels_damma",
+   "slots": {
+    "1": "E",
+    "2": "EN",
+    "3": "ENV",
+    "4": "A"
+   },
+   "gains_db": {
+    "1": -6.54,
+    "2": -7.42,
+    "3": -7.52,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "n05": {
+   "category": "ezafe_after_vowels",
+   "slots": {
+    "1": "EN",
+    "2": "A",
+    "3": "ENV",
+    "4": "E"
+   },
+   "gains_db": {
+    "1": -7.54,
+    "2": -7.51,
+    "3": -6.86,
+    "4": -7.54
+   },
+   "target_lufs": -26.0
+  },
+  "n06": {
+   "category": "indefinite_then_adjective",
+   "slots": {
+    "1": "A",
+    "2": "ENV",
+    "3": "E",
+    "4": "EN"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "n07": {
+   "category": "time_phrases",
+   "slots": {
+    "1": "ENV",
+    "2": "E",
+    "3": "EN",
+    "4": "A"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -7.01,
+    "3": -8.0,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "n08": {
+   "category": "homograph_and_trap",
+   "slots": {
+    "1": "E",
+    "2": "EN",
+    "3": "A",
+    "4": "ENV"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0,
+    "4": -7.73
+   },
+   "target_lufs": -26.0
+  },
+  "n09": {
+   "category": "glottal_and_chain",
+   "slots": {
+    "1": "A",
+    "2": "E",
+    "3": "ENV",
+    "4": "EN"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "n10": {
+   "category": "news",
+   "slots": {
+    "1": "E",
+    "2": "ENV",
+    "3": "EN",
+    "4": "A"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -7.21,
+    "4": -6.55
+   },
+   "target_lufs": -26.0
+  },
+  "n11": {
+   "category": "colloquial",
+   "slots": {
+    "1": "ENV",
+    "2": "EN",
+    "3": "A",
+    "4": "E"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "n12": {
+   "category": "long",
+   "slots": {
+    "1": "EN",
+    "2": "A",
+    "3": "E",
+    "4": "ENV"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  }
+ },
+ "order": [
+  "n09",
+  "n06",
+  "n11",
+  "n08",
+  "n02",
+  "n01",
+  "n12",
+  "n10",
+  "n03",
+  "n04",
+  "n05",
+  "n07"
+ ],
+ "fingerprint": "a2ef04e734e9459a"
+}

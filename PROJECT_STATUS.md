@@ -4,9 +4,9 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 14:00 +0330 (2026-10-03 10:30 UTC).
+Last updated: 2026-10-03 16:10 +0330 (2026-10-03 12:40 UTC).
 
-## Step 2 registered, texts written, rendering not started (2026-10-03 14:00 +0330)
+## Step 2 rendered on Kaggle; waiting for the user's blind listening (2026-10-03 16:10 +0330)
 
 The front-end listening test is registered (`eval/runs/persian-voice-frontend-listening-v1.json`,
 two amendments before any render): 12 new hard sentences
@@ -16,16 +16,34 @@ EN +sukun where no ezafe, ENV +first short vowels - written by
 (marks by `src/voiceclone/text/marks_fa.py`). Every mark checked by eye: right,
 except the tagger's ezafe on کرم in n08.
 
-**Rendering was refused by the memory guard** (5.1 GB free, OmniVoice needs 6).
-Next: close other apps, then
-`.venv/bin/python scripts/render_frontend_conditions.py --cer` (48 renders,
-~15 min), then `scripts/build_pronunciation_review.py --manifest
-eval/runs/frontend-listening-v1/manifest.json --out listening/frontend-review-v1
---key eval/runs/evidence/frontend-review-v1/key.json --rotations`, the page
-(adapt `eval/runs/evidence/pronunciation-review-v1/page.html`), the user listens,
-`scripts/score_pronunciation_review.py`. Found on the way, for the app: the
-normaliser maps أ to ا (why تأخیر was misread) and ۀ to a bare ه (drops a
-written ezafe).
+The Mac's memory guard refused OmniVoice (5.1 GB free, 6 needed), so the user
+chose Kaggle; the move was registered before the push
+(`amendment_2026_10_03_render_on_kaggle`). One T4 x2 session
+(`marsmanam/persian-voice-frontend-listening-run` v1, notebook from
+`kaggle/build_frontend_listening_kernel.py`, its own code dataset
+`marsmanam/persian-voice-frontend-listening` staged from d6eedfc), 12:15-12:25
+UTC, 0.13 GPU-hours [kaggle quota]: every gate passed, 48 renders on cuda/float16, 48
+transcribed after the worker was released. The app changed nothing but أ to ا in
+n09, in all four forms alike. Renders: `eval/runs/frontend-listening-v1/`
+(manifest committed, wavs ignored; Kaggle's own copy under
+`remote/frontend-listening-v1/`); gates and the CER harm check:
+`eval/runs/evidence/frontend-listening-v1/` - read after the listening, not
+shown to the listener.
+
+**The blind page is published**: https://claude.ai/artifact/UbAgAE7tPmtY9Y2cknpLWC
+(private; answers saved to its db under `reviews/<user id>`). Slots from Latin
+squares (each condition in each slot 3 times), loudness matched to -26 LUFS;
+the key and items in `eval/runs/evidence/frontend-review-v1/`.
+
+**Next:** the user listens. Then read the answers
+(ArtifactData list `reviews` on that URL, saved as
+`eval/runs/evidence/frontend-review-v1/answers-*.json`), run
+`.venv/bin/python scripts/score_pronunciation_review.py
+eval/runs/evidence/frontend-review-v1/key.json eval/runs/evidence/frontend-review-v1/answers-*.json`,
+and apply the registered rules: A -> E -> EN -> ENV, a step kept only if it
+lowers the words marked wrong; a step raising mean CER by more than 2 points is
+flagged. Found on the way, for the app: the normaliser maps أ to ا (why تأخیر
+was misread) and ۀ to a bare ه (drops a written ezafe).
 
 ## Text tools measured: hazm's ParsBERT tagger for the ezafe; no vowel source for every word (2026-10-03)
 

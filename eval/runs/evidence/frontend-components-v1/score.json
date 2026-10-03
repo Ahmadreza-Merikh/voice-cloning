@@ -1,0 +1,1344 @@
+{
+ "sentencebench": {
+  "ezafe": {
+   "never": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 545,
+    "tn": 2555,
+    "sentences": 400,
+    "clean_sentences": 129,
+    "words": 3100,
+    "errors": 545,
+    "error_rate": 0.1758,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "albert": {
+    "tp": 514,
+    "fp": 62,
+    "fn": 31,
+    "tn": 2493,
+    "sentences": 400,
+    "clean_sentences": 321,
+    "words": 3100,
+    "errors": 93,
+    "error_rate": 0.03,
+    "precision": 0.8924,
+    "recall": 0.9431,
+    "f1": 0.917
+   },
+   "hazm-crf": {
+    "tp": 503,
+    "fp": 100,
+    "fn": 42,
+    "tn": 2455,
+    "sentences": 400,
+    "clean_sentences": 284,
+    "words": 3100,
+    "errors": 142,
+    "error_rate": 0.0458,
+    "precision": 0.8342,
+    "recall": 0.9229,
+    "f1": 0.8763
+   },
+   "hazm-spacy": {
+    "tp": 533,
+    "fp": 40,
+    "fn": 12,
+    "tn": 2515,
+    "sentences": 400,
+    "clean_sentences": 352,
+    "words": 3100,
+    "errors": 52,
+    "error_rate": 0.0168,
+    "precision": 0.9302,
+    "recall": 0.978,
+    "f1": 0.9535
+   },
+   "homo-ge2pe": {
+    "tp": 500,
+    "fp": 58,
+    "fn": 45,
+    "tn": 2497,
+    "sentences": 400,
+    "clean_sentences": 311,
+    "words": 3100,
+    "errors": 103,
+    "error_rate": 0.0332,
+    "precision": 0.8961,
+    "recall": 0.9174,
+    "f1": 0.9066
+   }
+  },
+  "vowels": {
+   "homo-ge2pe": {
+    "words": 3100,
+    "answered": 3100,
+    "correct": 2828,
+    "homographs": 211,
+    "homographs_answered": 211,
+    "homographs_correct": 158,
+    "accuracy_answered": 0.9123,
+    "coverage": 1.0,
+    "homograph_accuracy": 0.7488
+   },
+   "kaamel": {
+    "words": 3100,
+    "answered": 1806,
+    "correct": 1716,
+    "homographs": 211,
+    "homographs_answered": 6,
+    "homographs_correct": 6,
+    "accuracy_answered": 0.9502,
+    "coverage": 0.5826,
+    "homograph_accuracy": 1.0
+   },
+   "kaamel-then-homo-ge2pe": {
+    "words": 3100,
+    "answered": 3100,
+    "correct": 2834,
+    "homographs": 211,
+    "homographs_answered": 211,
+    "homographs_correct": 158,
+    "accuracy_answered": 0.9142,
+    "coverage": 1.0,
+    "homograph_accuracy": 0.7488
+   }
+  },
+  "heard": {},
+  "ezafe_by_subset": {
+   "never": {
+    "commonvoice": {
+     "words": 577,
+     "errors": 103,
+     "error_rate": 0.1785,
+     "f1": 0.0
+    },
+    "homograph": {
+     "words": 1420,
+     "errors": 173,
+     "error_rate": 0.1218,
+     "f1": 0.0
+    },
+    "mana-tts": {
+     "words": 1103,
+     "errors": 269,
+     "error_rate": 0.2439,
+     "f1": 0.0
+    }
+   },
+   "albert": {
+    "commonvoice": {
+     "words": 577,
+     "errors": 15,
+     "error_rate": 0.026,
+     "f1": 0.9282
+    },
+    "homograph": {
+     "words": 1420,
+     "errors": 37,
+     "error_rate": 0.0261,
+     "f1": 0.8969
+    },
+    "mana-tts": {
+     "words": 1103,
+     "errors": 41,
+     "error_rate": 0.0372,
+     "f1": 0.9259
+    }
+   },
+   "hazm-crf": {
+    "commonvoice": {
+     "words": 577,
+     "errors": 39,
+     "error_rate": 0.0676,
+     "f1": 0.8235
+    },
+    "homograph": {
+     "words": 1420,
+     "errors": 68,
+     "error_rate": 0.0479,
+     "f1": 0.822
+    },
+    "mana-tts": {
+     "words": 1103,
+     "errors": 35,
+     "error_rate": 0.0317,
+     "f1": 0.9358
+    }
+   },
+   "hazm-spacy": {
+    "commonvoice": {
+     "words": 577,
+     "errors": 11,
+     "error_rate": 0.0191,
+     "f1": 0.9479
+    },
+    "homograph": {
+     "words": 1420,
+     "errors": 26,
+     "error_rate": 0.0183,
+     "f1": 0.929
+    },
+    "mana-tts": {
+     "words": 1103,
+     "errors": 15,
+     "error_rate": 0.0136,
+     "f1": 0.9723
+    }
+   },
+   "homo-ge2pe": {
+    "commonvoice": {
+     "words": 577,
+     "errors": 25,
+     "error_rate": 0.0433,
+     "f1": 0.8792
+    },
+    "homograph": {
+     "words": 1420,
+     "errors": 42,
+     "error_rate": 0.0296,
+     "f1": 0.8814
+    },
+    "mana-tts": {
+     "words": 1103,
+     "errors": 36,
+     "error_rate": 0.0326,
+     "f1": 0.9336
+    }
+   }
+  },
+  "ezafe_best_minus_runner_up": {
+   "best": "hazm-spacy",
+   "runner_up": "albert",
+   "difference": -0.0132,
+   "low": -0.0193,
+   "high": -0.0073,
+   "resamples": 10000
+  }
+ },
+ "review14": {
+  "ezafe": {
+   "never": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 48,
+    "tn": 150,
+    "sentences": 14,
+    "clean_sentences": 1,
+    "words": 198,
+    "errors": 48,
+    "error_rate": 0.2424,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "albert": {
+    "tp": 46,
+    "fp": 2,
+    "fn": 2,
+    "tn": 148,
+    "sentences": 14,
+    "clean_sentences": 11,
+    "words": 198,
+    "errors": 4,
+    "error_rate": 0.0202,
+    "precision": 0.9583,
+    "recall": 0.9583,
+    "f1": 0.9583
+   },
+   "hazm-crf": {
+    "tp": 45,
+    "fp": 3,
+    "fn": 3,
+    "tn": 147,
+    "sentences": 14,
+    "clean_sentences": 9,
+    "words": 198,
+    "errors": 6,
+    "error_rate": 0.0303,
+    "precision": 0.9375,
+    "recall": 0.9375,
+    "f1": 0.9375
+   },
+   "hazm-spacy": {
+    "tp": 48,
+    "fp": 0,
+    "fn": 0,
+    "tn": 150,
+    "sentences": 14,
+    "clean_sentences": 14,
+    "words": 198,
+    "errors": 0,
+    "error_rate": 0.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "homo-ge2pe": {
+    "tp": 45,
+    "fp": 5,
+    "fn": 3,
+    "tn": 145,
+    "sentences": 14,
+    "clean_sentences": 7,
+    "words": 198,
+    "errors": 8,
+    "error_rate": 0.0404,
+    "precision": 0.9,
+    "recall": 0.9375,
+    "f1": 0.9184
+   }
+  },
+  "vowels": {
+   "homo-ge2pe": {
+    "words": 199,
+    "answered": 199,
+    "correct": 192,
+    "homographs": 0,
+    "homographs_answered": 0,
+    "homographs_correct": 0,
+    "accuracy_answered": 0.9648,
+    "coverage": 1.0,
+    "homograph_accuracy": null
+   },
+   "kaamel": {
+    "words": 199,
+    "answered": 125,
+    "correct": 124,
+    "homographs": 0,
+    "homographs_answered": 0,
+    "homographs_correct": 0,
+    "accuracy_answered": 0.992,
+    "coverage": 0.6281,
+    "homograph_accuracy": null
+   },
+   "kaamel-then-homo-ge2pe": {
+    "words": 199,
+    "answered": 199,
+    "correct": 192,
+    "homographs": 0,
+    "homographs_answered": 0,
+    "homographs_correct": 0,
+    "accuracy_answered": 0.9648,
+    "coverage": 1.0,
+    "homograph_accuracy": null
+   }
+  },
+  "heard": {
+   "albert": [
+    {
+     "sentence": "s01",
+     "word": "را",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s01",
+     "word": "گل",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s02",
+     "word": "مرد",
+     "kind": "ezafe",
+     "right": false
+    },
+    {
+     "sentence": "s03",
+     "word": "خوب",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s05",
+     "word": "قلعهٔ",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s05",
+     "word": "غروب",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s06",
+     "word": "چترش",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s06",
+     "word": "باران",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s07",
+     "word": "دانشگاه",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "ترمینال",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s09",
+     "word": "بود",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "کتابش",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t09",
+     "word": "پایان",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t09",
+     "word": "کشتی",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t10",
+     "word": "امانت",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t12",
+     "word": "ایستگاه",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "ساعت",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "تأخیر",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "r01",
+     "word": "عاملی",
+     "kind": "ezafe",
+     "right": true
+    }
+   ],
+   "hazm-crf": [
+    {
+     "sentence": "s01",
+     "word": "را",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s01",
+     "word": "گل",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s02",
+     "word": "مرد",
+     "kind": "ezafe",
+     "right": false
+    },
+    {
+     "sentence": "s03",
+     "word": "خوب",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s05",
+     "word": "قلعهٔ",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s05",
+     "word": "غروب",
+     "kind": "ezafe",
+     "right": false
+    },
+    {
+     "sentence": "s06",
+     "word": "چترش",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s06",
+     "word": "باران",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s07",
+     "word": "دانشگاه",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "ترمینال",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s09",
+     "word": "بود",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "کتابش",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t09",
+     "word": "پایان",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t09",
+     "word": "کشتی",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t10",
+     "word": "امانت",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t12",
+     "word": "ایستگاه",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "ساعت",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "تأخیر",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "r01",
+     "word": "عاملی",
+     "kind": "ezafe",
+     "right": true
+    }
+   ],
+   "hazm-spacy": [
+    {
+     "sentence": "s01",
+     "word": "را",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s01",
+     "word": "گل",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s02",
+     "word": "مرد",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s03",
+     "word": "خوب",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s05",
+     "word": "قلعهٔ",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s05",
+     "word": "غروب",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s06",
+     "word": "چترش",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s06",
+     "word": "باران",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s07",
+     "word": "دانشگاه",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "ترمینال",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s09",
+     "word": "بود",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "کتابش",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t09",
+     "word": "پایان",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t09",
+     "word": "کشتی",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t10",
+     "word": "امانت",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t12",
+     "word": "ایستگاه",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "ساعت",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "تأخیر",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "r01",
+     "word": "عاملی",
+     "kind": "ezafe",
+     "right": true
+    }
+   ],
+   "homo-ge2pe": [
+    {
+     "sentence": "s01",
+     "word": "را",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "s01",
+     "word": "گل",
+     "kind": "vowel",
+     "right": false
+    },
+    {
+     "sentence": "s02",
+     "word": "مرد",
+     "kind": "ezafe",
+     "right": false
+    },
+    {
+     "sentence": "s03",
+     "word": "خوب",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s05",
+     "word": "قلعهٔ",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "s05",
+     "word": "غروب",
+     "kind": "ezafe",
+     "right": false
+    },
+    {
+     "sentence": "s06",
+     "word": "چترش",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "s06",
+     "word": "باران",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s07",
+     "word": "دانشگاه",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "ترمینال",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "بود",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "کتابش",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "t09",
+     "word": "پایان",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t09",
+     "word": "کشتی",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "t10",
+     "word": "امانت",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "ایستگاه",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "ساعت",
+     "kind": "ezafe",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "تأخیر",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "r01",
+     "word": "عاملی",
+     "kind": "ezafe",
+     "right": false
+    }
+   ],
+   "kaamel": [
+    {
+     "sentence": "s01",
+     "word": "را",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "s01",
+     "word": "گل",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s02",
+     "word": "مرد",
+     "kind": "ezafe",
+     "right": null
+    },
+    {
+     "sentence": "s03",
+     "word": "خوب",
+     "kind": "ezafe",
+     "right": null
+    },
+    {
+     "sentence": "s05",
+     "word": "قلعهٔ",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "s05",
+     "word": "غروب",
+     "kind": "ezafe",
+     "right": null
+    },
+    {
+     "sentence": "s06",
+     "word": "چترش",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "s06",
+     "word": "باران",
+     "kind": "ezafe",
+     "right": null
+    },
+    {
+     "sentence": "s07",
+     "word": "دانشگاه",
+     "kind": "ezafe",
+     "right": null
+    },
+    {
+     "sentence": "s09",
+     "word": "ترمینال",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "s09",
+     "word": "بود",
+     "kind": "ezafe",
+     "right": null
+    },
+    {
+     "sentence": "s09",
+     "word": "کتابش",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t09",
+     "word": "پایان",
+     "kind": "ezafe",
+     "right": null
+    },
+    {
+     "sentence": "t09",
+     "word": "کشتی",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "t10",
+     "word": "امانت",
+     "kind": "vowel",
+     "right": true
+    },
+    {
+     "sentence": "t12",
+     "word": "ایستگاه",
+     "kind": "ezafe",
+     "right": null
+    },
+    {
+     "sentence": "t12",
+     "word": "ساعت",
+     "kind": "ezafe",
+     "right": null
+    },
+    {
+     "sentence": "t12",
+     "word": "تأخیر",
+     "kind": "vowel",
+     "right": null
+    },
+    {
+     "sentence": "r01",
+     "word": "عاملی",
+     "kind": "ezafe",
+     "right": null
+    }
+   ]
+  },
+  "ezafe_best_minus_runner_up": {
+   "best": "hazm-spacy",
+   "runner_up": "albert",
+   "difference": -0.0202,
+   "low": -0.0424,
+   "high": 0.0,
+   "resamples": 10000
+  }
+ },
+ "sentencebench-unseen": {
+  "ezafe": {
+   "never": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 181,
+    "tn": 1252,
+    "sentences": 213,
+    "clean_sentences": 87,
+    "words": 1433,
+    "errors": 181,
+    "error_rate": 0.1263,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "albert": {
+    "tp": 168,
+    "fp": 23,
+    "fn": 13,
+    "tn": 1229,
+    "sentences": 213,
+    "clean_sentences": 181,
+    "words": 1433,
+    "errors": 36,
+    "error_rate": 0.0251,
+    "precision": 0.8796,
+    "recall": 0.9282,
+    "f1": 0.9032
+   },
+   "hazm-crf": {
+    "tp": 164,
+    "fp": 52,
+    "fn": 17,
+    "tn": 1200,
+    "sentences": 213,
+    "clean_sentences": 154,
+    "words": 1433,
+    "errors": 69,
+    "error_rate": 0.0482,
+    "precision": 0.7593,
+    "recall": 0.9061,
+    "f1": 0.8262
+   },
+   "hazm-spacy": {
+    "tp": 177,
+    "fp": 21,
+    "fn": 4,
+    "tn": 1231,
+    "sentences": 213,
+    "clean_sentences": 190,
+    "words": 1433,
+    "errors": 25,
+    "error_rate": 0.0174,
+    "precision": 0.8939,
+    "recall": 0.9779,
+    "f1": 0.934
+   },
+   "homo-ge2pe": {
+    "tp": 163,
+    "fp": 25,
+    "fn": 18,
+    "tn": 1227,
+    "sentences": 213,
+    "clean_sentences": 175,
+    "words": 1433,
+    "errors": 43,
+    "error_rate": 0.03,
+    "precision": 0.867,
+    "recall": 0.9006,
+    "f1": 0.8835
+   }
+  },
+  "vowels": {
+   "homo-ge2pe": {
+    "words": 1433,
+    "answered": 1433,
+    "correct": 1271,
+    "homographs": 203,
+    "homographs_answered": 203,
+    "homographs_correct": 150,
+    "accuracy_answered": 0.887,
+    "coverage": 1.0,
+    "homograph_accuracy": 0.7389
+   },
+   "kaamel": {
+    "words": 1433,
+    "answered": 746,
+    "correct": 694,
+    "homographs": 203,
+    "homographs_answered": 6,
+    "homographs_correct": 6,
+    "accuracy_answered": 0.9303,
+    "coverage": 0.5206,
+    "homograph_accuracy": 1.0
+   },
+   "kaamel-then-homo-ge2pe": {
+    "words": 1433,
+    "answered": 1433,
+    "correct": 1285,
+    "homographs": 203,
+    "homographs_answered": 203,
+    "homographs_correct": 150,
+    "accuracy_answered": 0.8967,
+    "coverage": 1.0,
+    "homograph_accuracy": 0.7389
+   }
+  },
+  "heard": {},
+  "ezafe_by_subset": {
+   "never": {
+    "commonvoice": {
+     "words": 53,
+     "errors": 11,
+     "error_rate": 0.2075,
+     "f1": 0.0
+    },
+    "homograph": {
+     "words": 1380,
+     "errors": 170,
+     "error_rate": 0.1232,
+     "f1": 0.0
+    }
+   },
+   "albert": {
+    "commonvoice": {
+     "words": 53,
+     "errors": 1,
+     "error_rate": 0.0189,
+     "f1": 0.9524
+    },
+    "homograph": {
+     "words": 1380,
+     "errors": 35,
+     "error_rate": 0.0254,
+     "f1": 0.9003
+    }
+   },
+   "hazm-crf": {
+    "commonvoice": {
+     "words": 53,
+     "errors": 2,
+     "error_rate": 0.0377,
+     "f1": 0.9091
+    },
+    "homograph": {
+     "words": 1380,
+     "errors": 67,
+     "error_rate": 0.0486,
+     "f1": 0.8213
+    }
+   },
+   "hazm-spacy": {
+    "commonvoice": {
+     "words": 53,
+     "errors": 1,
+     "error_rate": 0.0189,
+     "f1": 0.9524
+    },
+    "homograph": {
+     "words": 1380,
+     "errors": 24,
+     "error_rate": 0.0174,
+     "f1": 0.933
+    }
+   },
+   "homo-ge2pe": {
+    "commonvoice": {
+     "words": 53,
+     "errors": 1,
+     "error_rate": 0.0189,
+     "f1": 0.9524
+    },
+    "homograph": {
+     "words": 1380,
+     "errors": 42,
+     "error_rate": 0.0304,
+     "f1": 0.8793
+    }
+   }
+  },
+  "ezafe_best_minus_runner_up": {
+   "best": "hazm-spacy",
+   "runner_up": "albert",
+   "difference": -0.0077,
+   "low": -0.0156,
+   "high": 0.0,
+   "resamples": 10000
+  }
+ },
+ "gold": {
+  "sentencebench": {
+   "sentences": 400,
+   "words": 3156,
+   "scorable": 3100,
+   "ezafe_words": 545,
+   "homographs_located": 211
+  },
+  "review14": {
+   "sentences": 14,
+   "words": 199,
+   "scorable": 199,
+   "ezafe_words": 48,
+   "homographs_located": 0
+  },
+  "sentencebench-unseen": {
+   "sentences": 213,
+   "words": 1471,
+   "scorable": 1433,
+   "ezafe_words": 181,
+   "homographs_located": 203
+  }
+ },
+ "overlap_with_homorich": {
+  "sentences_checked_against": 528875,
+  "rule": "letters only; equal, or one inside the other with at least 20 letters and half the longer",
+  "by_subset": {
+   "homograph": {
+    "sentences": 212,
+    "equal": 8,
+    "contained": 0
+   },
+   "mana-tts": {
+    "sentences": 100,
+    "equal": 98,
+    "contained": 2
+   },
+   "commonvoice": {
+    "sentences": 88,
+    "equal": 79,
+    "contained": 0
+   }
+  },
+  "found": {
+   "sb007": "equal",
+   "sb028": "equal",
+   "sb071": "equal",
+   "sb101": "equal",
+   "sb124": "equal",
+   "sb140": "equal",
+   "sb152": "equal",
+   "sb181": "equal",
+   "sb212": "equal",
+   "sb213": "equal",
+   "sb214": "equal",
+   "sb215": "equal",
+   "sb216": "equal",
+   "sb217": "equal",
+   "sb218": "equal",
+   "sb219": "equal",
+   "sb220": "equal",
+   "sb221": "equal",
+   "sb222": "equal",
+   "sb223": "equal",
+   "sb224": "equal",
+   "sb225": "equal",
+   "sb226": "equal",
+   "sb227": "equal",
+   "sb228": "equal",
+   "sb229": "equal",
+   "sb230": "equal",
+   "sb231": "equal",
+   "sb232": "contained",
+   "sb233": "equal",
+   "sb234": "equal",
+   "sb235": "equal",
+   "sb236": "equal",
+   "sb237": "equal",
+   "sb238": "equal",
+   "sb239": "equal",
+   "sb240": "equal",
+   "sb241": "equal",
+   "sb242": "equal",
+   "sb243": "equal",
+   "sb244": "equal",
+   "sb245": "equal",
+   "sb246": "equal",
+   "sb247": "equal",
+   "sb248": "equal",
+   "sb249": "equal",
+   "sb250": "equal",
+   "sb251": "equal",
+   "sb252": "equal",
+   "sb253": "equal",
+   "sb254": "equal",
+   "sb255": "equal",
+   "sb256": "equal",
+   "sb257": "equal",
+   "sb258": "equal",
+   "sb259": "equal",
+   "sb260": "equal",
+   "sb261": "equal",
+   "sb262": "equal",
+   "sb263": "equal",
+   "sb264": "equal",
+   "sb265": "equal",
+   "sb266": "equal",
+   "sb267": "contained",
+   "sb268": "equal",
+   "sb269": "equal",
+   "sb270": "equal",
+   "sb271": "equal",
+   "sb272": "equal",
+   "sb273": "equal",
+   "sb274": "equal",
+   "sb275": "equal",
+   "sb276": "equal",
+   "sb277": "equal",
+   "sb278": "equal",
+   "sb279": "equal",
+   "sb280": "equal",
+   "sb281": "equal",
+   "sb282": "equal",
+   "sb283": "equal",
+   "sb284": "equal",
+   "sb285": "equal",
+   "sb286": "equal",
+   "sb287": "equal",
+   "sb288": "equal",
+   "sb289": "equal",
+   "sb290": "equal",
+   "sb291": "equal",
+   "sb292": "equal",
+   "sb293": "equal",
+   "sb294": "equal",
+   "sb295": "equal",
+   "sb296": "equal",
+   "sb297": "equal",
+   "sb298": "equal",
+   "sb299": "equal",
+   "sb300": "equal",
+   "sb301": "equal",
+   "sb302": "equal",
+   "sb303": "equal",
+   "sb304": "equal",
+   "sb305": "equal",
+   "sb306": "equal",
+   "sb307": "equal",
+   "sb308": "equal",
+   "sb309": "equal",
+   "sb310": "equal",
+   "sb311": "equal",
+   "sb312": "equal",
+   "sb313": "equal",
+   "sb314": "equal",
+   "sb315": "equal",
+   "sb316": "equal",
+   "sb321": "equal",
+   "sb327": "equal",
+   "sb328": "equal",
+   "sb329": "equal",
+   "sb330": "equal",
+   "sb331": "equal",
+   "sb332": "equal",
+   "sb333": "equal",
+   "sb334": "equal",
+   "sb335": "equal",
+   "sb336": "equal",
+   "sb337": "equal",
+   "sb338": "equal",
+   "sb339": "equal",
+   "sb340": "equal",
+   "sb341": "equal",
+   "sb342": "equal",
+   "sb343": "equal",
+   "sb344": "equal",
+   "sb345": "equal",
+   "sb346": "equal",
+   "sb347": "equal",
+   "sb348": "equal",
+   "sb349": "equal",
+   "sb350": "equal",
+   "sb351": "equal",
+   "sb352": "equal",
+   "sb353": "equal",
+   "sb354": "equal",
+   "sb355": "equal",
+   "sb356": "equal",
+   "sb357": "equal",
+   "sb358": "equal",
+   "sb359": "equal",
+   "sb360": "equal",
+   "sb361": "equal",
+   "sb362": "equal",
+   "sb363": "equal",
+   "sb364": "equal",
+   "sb365": "equal",
+   "sb366": "equal",
+   "sb367": "equal",
+   "sb368": "equal",
+   "sb369": "equal",
+   "sb370": "equal",
+   "sb371": "equal",
+   "sb372": "equal",
+   "sb373": "equal",
+   "sb374": "equal",
+   "sb375": "equal",
+   "sb376": "equal",
+   "sb377": "equal",
+   "sb378": "equal",
+   "sb379": "equal",
+   "sb380": "equal",
+   "sb381": "equal",
+   "sb382": "equal",
+   "sb383": "equal",
+   "sb384": "equal",
+   "sb385": "equal",
+   "sb386": "equal",
+   "sb387": "equal",
+   "sb388": "equal",
+   "sb389": "equal",
+   "sb390": "equal",
+   "sb391": "equal",
+   "sb392": "equal",
+   "sb393": "equal",
+   "sb394": "equal",
+   "sb395": "equal",
+   "sb396": "equal",
+   "sb397": "equal",
+   "sb398": "equal",
+   "sb399": "equal"
+  }
+ }
+}

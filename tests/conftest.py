@@ -25,6 +25,21 @@ def config() -> AppConfig:
     return AppConfig.load()
 
 
+@pytest.fixture(autouse=True)
+def _no_real_ezafe_tagger(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Preparing text for OmniVoice would load the 620 MB ezafe tagger; no test does.
+
+    A test that wants ezafes gives the writer a tagger of its own.
+    """
+    from voiceclone.errors import TextProcessingError
+    from voiceclone.text import ezafe_fa
+
+    def refuse(self: ezafe_fa.EzafeWriter) -> None:
+        raise TextProcessingError("the tests do not load the ezafe tagger")
+
+    monkeypatch.setattr(ezafe_fa.EzafeWriter, "_load", refuse)
+
+
 def _synthetic_speech(
     duration: float = 6.0,
     sample_rate: int = 24000,

@@ -367,8 +367,13 @@ def render_config(config: AppConfig) -> AppConfig:
     16 GB Mac that is exactly the coexistence the memory guard exists to
     prevent, and the listening test does not need it. ``--cer`` transcribes
     after every engine is unloaded.
+
+    The text as these runs registered it: each condition's text is written out
+    by the run itself, and the app's ezafe marks and its keeping of أ and ۀ
+    for OmniVoice came after them (FINDINGS section 15), so both stay off.
     """
-    return config.copy_with(**{"evaluation.enabled": False})
+    return config.copy_with(**{"evaluation.enabled": False, "text.ezafe.enabled": False,
+                               "text.marks_engines": []})
 
 
 # --------------------------------------------------------------------------

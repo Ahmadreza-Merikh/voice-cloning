@@ -166,7 +166,15 @@ class ParsBertTagger:
         # transformers calls it with neither: a long span is never cut.
         self.tokenizer.no_truncation()
         self.tokenizer.no_padding()
-        self.model = BertModel.from_pretrained(str(export_dir)).to(self.device).eval()
+        from transformers.utils import logging as hf_logging
+
+        bars = hf_logging.is_progress_bar_enabled()
+        hf_logging.disable_progress_bar()
+        try:
+            self.model = BertModel.from_pretrained(str(export_dir)).to(self.device).eval()
+        finally:
+            if bars:
+                hf_logging.enable_progress_bar()
         head = load_file(str(export_dir / "head.safetensors"))
         self.W = head["W"].to(self.device)
         self.b = head["b"].to(self.device)

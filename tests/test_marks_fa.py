@@ -29,6 +29,13 @@ def test_the_ezafe_takes_the_written_form_its_last_letter_asks_for() -> None:
     assert with_ezafe("کتاب" + KASRA) == "کتاب" + KASRA
 
 
+def test_without_a_reading_a_listed_word_keeps_its_h_and_a_marked_ending_is_left_alone() -> None:
+    assert with_ezafe("توجه") == "توجه" + KASRA
+    assert with_ezafe("شبیه") == "شبیه" + KASRA
+    assert with_ezafe("پنجره") == "پنجره" + HAMZA_ABOVE
+    assert with_ezafe("کتاب" + SUKUN) == "کتاب" + SUKUN
+
+
 def test_a_sukun_only_closes_a_final_consonant() -> None:
     assert with_sukun("باغ") == "باغ" + SUKUN
     assert with_sukun("دانشگاه") == "دانشگاه" + SUKUN

@@ -1,0 +1,79 @@
+{
+ "export": {
+  "dir": "~/.cache/persian-voice-cloning/ezafe-tagger/eba1d2b30cc4",
+  "files_sha256": {
+   "config.json": "e44e2ca36e13c06da11e8401414495e8cd23d7d7469ea328d54262740a2764d5",
+   "model.safetensors": "c83e569341c62d0e67c8d72091c28278ed6269bf3b57f74581335672b8c36521",
+   "tokenizer.json": "47137006faec54847f3f844acdc9bfbe206e6f348f7e540caa5cd7993be9d741",
+   "head.safetensors": "fb3c981f7e5f3c77f584cda4bd9a4b4fed97ed2eed4ad43fc675155d8cff1b5f"
+  },
+  "labels": [
+   "ADJ",
+   "ADJ,EZ",
+   "ADP",
+   "ADP,EZ",
+   "ADV",
+   "ADV,EZ",
+   "CCONJ",
+   "CCONJ,EZ",
+   "DET",
+   "DET,EZ",
+   "INTJ",
+   "NOUN",
+   "NOUN,EZ",
+   "NUM",
+   "NUM,EZ",
+   "PRON",
+   "PRON,EZ",
+   "PUNCT",
+   "SCONJ",
+   "VERB"
+  ],
+  "seconds": 5.6,
+  "peak_gb": 2.26
+ },
+ "ezafe": {
+  "sentencebench": {
+   "sentences": 400,
+   "words": 3156,
+   "differ": []
+  },
+  "review14": {
+   "sentences": 14,
+   "words": 199,
+   "differ": []
+  }
+ },
+ "tags": {
+  "listening12": {
+   "tokens": 147,
+   "differ": []
+  }
+ },
+ "agree": true,
+ "runs": {
+  "first": {
+   "what": "export from the cached spaCy snapshot, then the comparison, one process",
+   "export_seconds": 5.6,
+   "process_peak_gb": 2.26,
+   "time_l": {
+    "real_s": 20.08,
+    "max_rss_bytes": 2429435904,
+    "peak_footprint_bytes": 2342226440
+   },
+   "agree": true
+  },
+  "second": {
+   "what": "the export already on disk: the light tagger alone, the same comparison",
+   "load_seconds": 3.48,
+   "tagging_seconds_426_sentences": 12.9,
+   "process_peak_gb": 0.84,
+   "time_l": {
+    "real_s": 17.4,
+    "max_rss_bytes": 902397952,
+    "peak_footprint_bytes": 444089496
+   },
+   "agree": true
+  }
+ }
+}

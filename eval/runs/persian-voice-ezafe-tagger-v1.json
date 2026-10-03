@@ -8,5 +8,12 @@
   "not_re_run": "the spaCy pipeline is not run again: its recorded outputs are the reference, so the Mac does not carry a 4 GB load for this"
  },
  "criterion": "adopted only if every ezafe decision on the 414 sentences and every tag on the 12 agree. Any disagreement: not adopted as it stands; each one is looked at and reported",
- "cost": "on this Mac, CPU: the export reads the 655 MB pipeline file once; peak memory and time of the light tagger are measured and reported"
+ "cost": "on this Mac, CPU: the export reads the 655 MB pipeline file once; peak memory and time of the light tagger are measured and reported",
+ "result": {
+  "when": "2026-10-03, on the M1 Pro, CPU",
+  "agree": "every one: 3,156 ezafe decisions on SentenceBench's 400 sentences, 199 on the review's 14, 147 tags on the 12 listening sentences - the criterion is met and the light tagger is adopted",
+  "cost": "the light tagger loads in 3.5 s from disk (0.3 s when cached), tags at about 30 ms a sentence, and peaks at 0.86 GB resident, 0.44 GB footprint (/usr/bin/time -l) - against the spaCy pipeline's 13.5 s and 4.3 GB footprint for one sentence. The one-time export took the process to 2.3 GB",
+  "export": "~/.cache/persian-voice-cloning/ezafe-tagger/eba1d2b30cc4 (624 MB): ParsBERT's config, tokenizer and weights and the output layer, read out of the pipeline at the pinned revision, file hashes in the evidence",
+  "evidence": "eval/runs/evidence/ezafe-tagger-v1/check.json"
+ }
 }

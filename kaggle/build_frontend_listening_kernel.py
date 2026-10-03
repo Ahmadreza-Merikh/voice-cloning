@@ -31,10 +31,20 @@ It mounts its own dataset, ``persian-voice-frontend-listening``, so
     KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle kernels push -p kaggle/frontend-listening
     .venv/bin/python kaggle/fetch_output.py marsmanam/persian-voice-frontend-listening-run \\
         remote/frontend-listening-v1 frontend-listening-v1/ logs/
+
+Step 3 (eval/runs/persian-voice-frontend-listening-v2.json) is the same session
+on its own texts and dataset, with the app's normaliser for OmniVoice:
+
+    .venv/bin/python kaggle/build_dataset.py --dataset persian-voice-frontend-listening-v2
+    KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle datasets create \\
+        -p kaggle/dataset-persian-voice-frontend-listening-v2 --dir-mode zip
+    .venv/bin/python kaggle/build_frontend_listening_kernel.py --step 3
+    KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle kernels push -p kaggle/frontend-listening-v2
 """
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import importlib.util
 import json
@@ -55,40 +65,49 @@ probe = module("probe", "build_omnivoice_adapt_kernel.py")
 dev = module("dev", "build_omnivoice_dev_kernel.py")
 
 #: Kaggle refuses a notebook whose title a dataset already uses, so the session and its dataset differ.
-SLUG = "persian-voice-frontend-listening-run"
-DATASET = "persian-voice-frontend-listening"
-SESSION = f"kaggle:{SLUG}-v1"
-TEXTS = "eval/runs/frontend-listening-v1/texts.json"
-TEXTS_SHA256 = hashlib.sha256((ROOT / TEXTS).read_bytes()).hexdigest()
-NEEDED = ("scripts/render_frontend_conditions.py", "scripts/ab_omnivoice_ipa.py", "scripts/omnivoice_worker.py",
-          "src/voiceclone/text/marks_fa.py", "eval/corpus/manifest.json", "eval/corpus/mana_000.wav", TEXTS)
+#: Step 2's names are kept as they ran; step 3 runs on its own texts and dataset.
+STEPS = {
+    2: {"slug": "persian-voice-frontend-listening-run", "dataset": "persian-voice-frontend-listening",
+        "name": "frontend-listening-v1", "folder": "frontend-listening", "extra": []},
+    3: {"slug": "persian-voice-frontend-listening-v2-run", "dataset": "persian-voice-frontend-listening-v2",
+        "name": "frontend-listening-v2", "folder": "frontend-listening-v2",
+        "extra": ["--texts", "eval/runs/frontend-listening-v2/texts.json", "--app-normaliser"]},
+}
 EXPECTED = 48
 RENDER_MINUTES = 60
 BASE_DIR = dev.BASE_PLAN["snapshots"][0]["local_dir"]
-
-FIND_REPO_IN_DATASET = ('found = sorted(p for p in INPUT.rglob("repo/scripts/render_frontend_conditions.py") '
-                        f'if "{DATASET}" in p.parts)')
 NOT_FOUND = "no repo with scripts/omnivoice_adapt.py under /kaggle/input"
 
 
-def environment() -> str:
-    source = probe.ENVIRONMENT.replace(probe.SESSION, SESSION)
-    for old, new in ((dev.FIND_REPO, FIND_REPO_IN_DATASET),
+def texts_of(step: dict) -> str:
+    return f"eval/runs/{step['name']}/texts.json"
+
+
+def environment(step: dict) -> str:
+    find = ('found = sorted(p for p in INPUT.rglob("repo/scripts/render_frontend_conditions.py") '
+            f'if "{step["dataset"]}" in p.parts)')
+    source = probe.ENVIRONMENT.replace(probe.SESSION, f"kaggle:{step['slug']}-v1")
+    for old, new in ((dev.FIND_REPO, find),
                      (NOT_FOUND, NOT_FOUND.replace("omnivoice_adapt.py", "render_frontend_conditions.py"))):
         assert source.count(old) == 1, f"the environment cell changed: {old!r}"
         source = source.replace(old, new)
     return source
 
 
-DOWNLOAD = dev.FETCH + f'''
+def download(step: dict) -> str:
+    texts = texts_of(step)
+    texts_sha256 = hashlib.sha256((ROOT / texts).read_bytes()).hexdigest()
+    needed = ("scripts/render_frontend_conditions.py", "scripts/ab_omnivoice_ipa.py", "scripts/omnivoice_worker.py",
+              "src/voiceclone/text/marks_fa.py", "eval/corpus/manifest.json", "eval/corpus/mana_000.wav", texts)
+    return dev.FETCH + f'''
 os.environ["VOICECLONE_OMNIVOICE_PYTHON"] = sys.executable
 provenance = found[0].parents[2] / "PROVENANCE.md"
 os.environ["VOICECLONE_CODE_COMMIT"] = (provenance.read_text().split("commit ")[-1].strip(" .\\n")
                                         if provenance.is_file() else "the dataset's PROVENANCE.md was not found")
-NEEDED = {list(NEEDED)!r}
+NEEDED = {list(needed)!r}
 missing = [name for name in NEEDED if not (REPO / name).is_file()]
-texts = REPO / "{TEXTS}"
-if texts.is_file() and hashlib.sha256(texts.read_bytes()).hexdigest() != "{TEXTS_SHA256}":
+texts = REPO / "{texts}"
+if texts.is_file() and hashlib.sha256(texts.read_bytes()).hexdigest() != "{texts_sha256}":
     missing.append("texts.json is not the registered one")
 GATES.record("code", not missing, f"missing or changed: {{missing}}" if missing else
              "the render script, the marks and the registered texts are present; code from " +
@@ -100,11 +119,13 @@ if not GATES.skip("download", ("runner", "code")):
 os.environ["VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID"] = "{BASE_DIR}"
 '''
 
-RENDER = f'''\
-OUT = REPO / "eval/runs/frontend-listening-v1"
+def render(step: dict) -> str:
+    command = ", ".join(json.dumps(a) for a in ["scripts/render_frontend_conditions.py", "--cer", *step["extra"]])
+    return f'''\
+OUT = REPO / "eval/runs/{step['name']}"
 RESULT = {{}}
 if not GATES.skip("renders", ("download",)):
-    run = run_bounded([sys.executable, "scripts/render_frontend_conditions.py", "--cer"], cwd=REPO,
+    run = run_bounded([sys.executable, {command}], cwd=REPO,
                       timeout={RENDER_MINUTES} * 60, log=LOGS / "render.log", monitor_every=300)
     RUNS["render"] = run.record()
     print(run.summary())
@@ -125,8 +146,9 @@ if not GATES.skip("renders", ("download",)):
                  json.dumps(RESULT, ensure_ascii=False))
 '''
 
-COLLECT = '''\
-destination = Path("/kaggle/working/frontend-listening-v1")
+def collect(step: dict) -> str:
+    return '''\
+destination = Path("/kaggle/working/__NAME__")
 destination.mkdir(exist_ok=True)
 for name in ("manifest.json", "texts.json"):
     if (OUT / name).is_file():
@@ -138,29 +160,32 @@ if (OUT / "wavs").is_dir():
 (destination / "result.json").write_text(json.dumps(RESULT, indent=2, ensure_ascii=False))
 shutil.copy2("/kaggle/working/environment.json", destination / "environment.json")
 print("gates:", json.dumps(GATES.summary(), indent=1))
-'''
+'''.replace("__NAME__", step["name"])
 
 
-def main() -> int:
-    cells = [dev.SETUP, environment(), probe.RUNNER, DOWNLOAD, RENDER, COLLECT]
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    parser.add_argument("--step", type=int, choices=sorted(STEPS), default=2)
+    step = STEPS[parser.parse_args(argv).step]
+    cells = [dev.SETUP, environment(step), probe.RUNNER, download(step), render(step), collect(step)]
     for index, source in enumerate(cells):
         compile("".join(line for line in source.splitlines(keepends=True) if not line.lstrip().startswith("!")),
                 f"<cell {index}>", "exec")
-    out = HERE / "frontend-listening"
+    out = HERE / step["folder"]
     out.mkdir(parents=True, exist_ok=True)
     notebook = {"cells": [probe.cell(s) for s in cells],
                 "metadata": {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
                              "language_info": {"name": "python", "version": "3.12"}},
                 "nbformat": 4, "nbformat_minor": 5}
-    path = out / f"{SLUG}.ipynb"
+    path = out / f"{step['slug']}.ipynb"
     path.write_text(json.dumps(notebook, indent=1, ensure_ascii=False), encoding="utf-8")
-    metadata = {"id": f"{probe.USER}/{SLUG}", "title": SLUG, "code_file": path.name, "language": "python",
+    metadata = {"id": f"{probe.USER}/{step['slug']}", "title": step["slug"], "code_file": path.name, "language": "python",
                 "kernel_type": "notebook", "is_private": True, "enable_gpu": True,
                 "machine_shape": probe.MACHINE_SHAPE, "enable_internet": True,
-                "dataset_sources": [f"{probe.USER}/{DATASET}"], "competition_sources": [],
+                "dataset_sources": [f"{probe.USER}/{step['dataset']}"], "competition_sources": [],
                 "kernel_sources": [], "model_sources": []}
     (out / "kernel-metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {path} ({len(cells)} cells, all compile); texts sha256 {TEXTS_SHA256[:12]}")
+    print(f"wrote {path} ({len(cells)} cells, all compile); texts {texts_of(step)}")
     return 0
 
 

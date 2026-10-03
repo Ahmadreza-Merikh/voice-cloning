@@ -12,7 +12,14 @@ would not reach the model.
 plain sentence with diacritics stripped. It is a harm check only: the script
 writes neither the ezafe nor short vowels, so CER cannot see them.
 
+Step 3 (eval/runs/persian-voice-frontend-listening-v2.json) renders its own
+texts.json the same way: its forms are read from the file, and
+``--app-normaliser`` gives OmniVoice the normalisation the app now gives it
+(أ and ۀ kept) while the app still adds no ezafe of its own - E holds it.
+
     .venv/bin/python scripts/render_frontend_conditions.py --cer
+    .venv/bin/python scripts/render_frontend_conditions.py --cer --app-normaliser \
+        --texts eval/runs/frontend-listening-v2/texts.json
 """
 
 from __future__ import annotations
@@ -34,11 +41,14 @@ from voiceclone.config import AppConfig  # noqa: E402
 
 TEXTS = ROOT / "eval" / "runs" / "frontend-listening-v1" / "texts.json"
 CONDITIONS = ("A", "E", "EN", "ENV")
+#: Step 2's forms, as its manifest described them; a later texts.json names its own.
+STEP2_CONDITIONS = {"A": "plain script", "E": "+ ezafe marks", "EN": "+ sukun where no ezafe",
+                    "ENV": "+ first short vowels of nouns and adjectives"}
 ENGINE = "omnivoice"
 
 
-def jobs(sentences: list[dict], seed: int) -> list:
-    return [ab.Job(s["id"], c, ENGINE, False, s["texts"][c], seed) for s in sentences for c in CONDITIONS]
+def jobs(sentences: list[dict], seed: int, conditions=CONDITIONS) -> list:
+    return [ab.Job(s["id"], c, ENGINE, False, s["texts"][c], seed) for s in sentences for c in conditions]
 
 
 def marks_of(text: str) -> list[tuple[int, str]]:
@@ -65,16 +75,23 @@ def check_marks_survive(config: AppConfig, all_jobs: list) -> tuple[list[str], l
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--texts", type=Path, default=TEXTS)
-    parser.add_argument("--out", type=Path, default=TEXTS.parent)
+    parser.add_argument("--out", type=Path, default=None, help="default: the texts' folder")
     parser.add_argument("--seed", type=int, default=ab.DEFAULT_SEED)
     parser.add_argument("--speaker", default="mana")
     parser.add_argument("--cer", action="store_true")
+    parser.add_argument("--app-normaliser", action="store_true",
+                        help="normalise for OmniVoice as the app now does (أ and ۀ kept); no ezafe added")
     args = parser.parse_args(argv)
+    args.out = args.out or args.texts.parent
 
     config = ab.render_config(AppConfig.load(None))
+    if args.app_normaliser:
+        config = config.copy_with(**{"text.marks_engines": [ENGINE]})
     built = json.loads(args.texts.read_text(encoding="utf-8"))
     sentences = built["sentences"]
-    all_jobs = jobs(sentences, args.seed)
+    described = built.get("conditions") or STEP2_CONDITIONS
+    conditions = tuple(described)
+    all_jobs = jobs(sentences, args.seed, conditions)
     lost, changed = check_marks_survive(config, all_jobs)
     if lost:
         raise SystemExit("the text pipeline drops or moves a mark in these inputs:\n" + "\n".join(lost))
@@ -85,14 +102,16 @@ def main(argv: list[str] | None = None) -> int:
     settings = {field: getattr(config.engines.omnivoice, field) for field in ab._SETTINGS_FIELDS}
     manifest = {
         "version": 1,
-        "purpose": "front-end listening test: OmniVoice on plain script and on three marked forms of it",
+        "purpose": ("front-end listening test: OmniVoice on plain script and on three marked forms of it"
+                    if conditions == CONDITIONS else
+                    f"front-end listening test: OmniVoice on {len(conditions)} forms of each sentence"),
         "created": datetime.now(UTC).isoformat(timespec="seconds"),
         "texts": {"file": str(args.texts.relative_to(ROOT)), "sentences_sha256": built["sentences_sha256"]},
         "settings": {"seed": args.seed, "candidates": 1, "evaluation_enabled": False, "cer_after_unload": args.cer,
-                     "omnivoice": settings, "omnivoice_model_id": config.engines.omnivoice.model_id},
+                     "omnivoice": settings, "omnivoice_model_id": config.engines.omnivoice.model_id,
+                     "text": {"ezafe_enabled": config.text.ezafe.enabled, "marks_engines": config.text.marks_engines}},
         "reference": {"speaker": args.speaker, "file": reference["file"], "transcript": reference["transcript"]},
-        "conditions": {"A": "plain script", "E": "+ ezafe marks", "EN": "+ sukun where no ezafe",
-                       "ENV": "+ first short vowels of nouns and adjectives"},
+        "conditions": dict(described),
         "sentences": [{"id": s["id"], "category": s["category"], "text": s["text"], "texts": s["texts"]} for s in sentences],
         "events": [{"event": "marks_checked_through_the_text_pipeline", "inputs": len(all_jobs),
                     "other_changes_by_the_app": changed}],

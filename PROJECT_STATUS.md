@@ -4,7 +4,29 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 10:05 +0330 (2026-10-03 06:35 UTC).
+Last updated: 2026-10-03 10:40 +0330 (2026-10-03 07:10 UTC).
+
+## Now: the first listening test is open (2026-10-03)
+
+Nobody had listened to any render; the user asked for a listening test.
+Registered before anyone listened (`eval/runs/persian-voice-listening-v1.json`):
+two blind A/B tests on unseen Neyshekar speakers - OmniVoice published against
+the adapted export (14 trials, where the metric found nothing) and OmniVoice
+against F5-TTS (7 trials, the largest gap measured) - each trial a held-out
+real recording, both renders in hidden balanced order, loudness-matched, three
+questions (same person, natural, misread words). Built by
+`scripts/build_listening_test.py` (now able to use the sealed sets); keys in
+`eval/runs/evidence/listening-v1/`.
+
+The page: https://claude.ai/artifact/7yj1WvanE1A5pih2vLCMy7 - private until the
+user shares it. Listeners who can write to its database (the owner, people
+invited by email as editors) are saved automatically, each seeing only their
+own; anyone else gets an answer code at the end to send to the user.
+**Next:** the user recruits listeners (five or more for the declared crossed
+interval). Then read the database (ArtifactData `list` of `responses`, with
+`out_dir`) and any codes, run `scripts/export_listening_answers.py` with both
+keys, then `scripts/score_listening_test.py` per test, and record what it says
+- nothing is written as a result before that.
 
 ## The sealed test is answered: no detectable improvement on unseen speakers
 

@@ -4,7 +4,26 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 10:40 +0330 (2026-10-03 07:10 UTC).
+Last updated: 2026-10-03 10:50 +0330 (2026-10-03 07:20 UTC).
+
+## Now: the pronunciation review is open (2026-10-03)
+
+Before fixing pronunciation, find the errors. The user listens first:
+https://claude.ai/artifact/8t3wc2esQ1TCdRZ5wFAQCU - 14 hard sentences
+(homographs, ezafe, consonants, numbers, colloquial, long), each read two or
+three ways by the A/B/C run of 2026-09-24 (A plain script, B a diacritised
+twin, C the IPA model), in hidden balanced slots, loudness-matched. Per
+reading the listener taps the words said wrong or marks it all right; per
+sentence, the best reading. Registered before listening
+(`eval/runs/persian-voice-pronunciation-review-v1.json`); three twins carry
+wrong diacritics, listed there before anyone listened (t11's ezafe, s08's
+حرفا and خریدار, t10's امانت).
+
+**When answered:** ArtifactData `list` of `reviews` (with `out_dir`), then
+`scripts/score_pronunciation_review.py eval/runs/evidence/pronunciation-review-v1/key.json <files>`;
+record it, and choose the fix by what it shows: if B or C clears what A gets
+wrong, the input form (diacritics or phonemes) is the lever; if all fail on
+the same words, it is the model or the twins.
 
 ## The first listening test is built and deferred (2026-10-03)
 

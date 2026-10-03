@@ -26,5 +26,7 @@
   "what_it_is_for": "deciding the fix: if B or C clears what A gets wrong, the input form is the lever (diacritics or phonemes before the model); if all three fail on the same words, it is the model or the twins; the categories say which kinds of words",
   "not_claimed": "fourteen sentences, one voice, one seed and few listeners: a diagnostic, not a measure of any system's pronunciation"
  },
- "built_by": "scripts/build_pronunciation_review.py (16-bit WAV, -26 LUFS by gain)"
+ "built_by": "scripts/build_pronunciation_review.py (16-bit WAV, -26 LUFS by gain)",
+ "delivery": "one private page, https://claude.ai/artifact/8t3wc2esQ1TCdRZ5wFAQCU (published 2026-10-03, source eval/runs/evidence/pronunciation-review-v1/page.html): one sentence per screen in the key's order, the plain sentence on top, each reading with its own player, the sentence's words to tap when said wrong, an 'every word right' button and an optional note; then which reading was best. It names no condition. Answers are kept in its database as reviews/<listener id> (the owner reads all, each listener only their own) or, for anyone who cannot write there, as an answer code to send",
+ "checked_before_listening": "2026-10-03: 39 audio files and the page on the artifact; a probe record written as the owner was readable by the owner, hidden at a listener's level, then deleted"
 }

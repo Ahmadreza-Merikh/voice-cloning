@@ -1,0 +1,1510 @@
+{
+ "version": 1,
+ "purpose": "front-end listening test: OmniVoice on plain script and on three marked forms of it",
+ "created": "2026-10-03T12:19:28+00:00",
+ "texts": {
+  "file": "eval/runs/frontend-listening-v1/texts.json",
+  "sentences_sha256": "69f33c5a7571804fe17250e2dd7e75dc8183e6d378edc7b03906dd5119812ec3"
+ },
+ "settings": {
+  "seed": 42,
+  "candidates": 1,
+  "evaluation_enabled": false,
+  "cer_after_unload": true,
+  "omnivoice": {
+   "python": "auto",
+   "language": "fa",
+   "dtype": "float16",
+   "num_step": 32,
+   "guidance_scale": 2.0,
+   "t_shift": 0.1,
+   "denoise": true,
+   "postprocess_output": true,
+   "layer_penalty_factor": 5.0,
+   "position_temperature": 5.0,
+   "class_temperature": 0.0,
+   "timeout_seconds": 900,
+   "memory_guard": true,
+   "min_available_gb": 6.0
+  },
+  "omnivoice_model_id": "/tmp/omnivoice-base"
+ },
+ "reference": {
+  "speaker": "mana",
+  "file": "mana_000.wav",
+  "transcript": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم."
+ },
+ "conditions": {
+  "A": "plain script",
+  "E": "+ ezafe marks",
+  "EN": "+ sukun where no ezafe",
+  "ENV": "+ first short vowels of nouns and adjectives"
+ },
+ "sentences": [
+  {
+   "id": "n01",
+   "category": "ezafe_chain_silent_h",
+   "text": "پنجره اتاق خواب خانه مادربزرگم رو به باغ باز می‌شود.",
+   "texts": {
+    "A": "پنجره اتاق خواب خانه مادربزرگم رو به باغ باز می‌شود.",
+    "E": "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگم رو به باغ باز می‌شود.",
+    "EN": "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگمْ رو به باغْ بازْ می‌شود.",
+    "ENV": "پَنجرهٔ اُتاقِ خوابِ خانهٔ مادربزرگمْ رو به باغْ بازْ می‌شود."
+   }
+  },
+  {
+   "id": "n02",
+   "category": "no_ezafe_before_verb_and_number",
+   "text": "دانشجو کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند.",
+   "texts": {
+    "A": "دانشجو کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند.",
+    "E": "دانشجو کتاب را رویِ میز گذاشت و دو ساعت منتظرِ استاد ماند.",
+    "EN": "دانشجو کتاب را رویِ میزْ گذاشت و دو ساعتْ منتظرِ استادْ ماند.",
+    "ENV": "دانشجو کِتاب را رویِ میزْ گذاشت و دو ساعتْ مُنتظرِ اُستادْ ماند."
+   }
+  },
+  {
+   "id": "n03",
+   "category": "first_vowels_fatha_kasra",
+   "text": "کشاورز با تبر شاخه‌های خشک درخت را برید و در سبد گذاشت.",
+   "texts": {
+    "A": "کشاورز با تبر شاخه‌های خشک درخت را برید و در سبد گذاشت.",
+    "E": "کشاورز با تبر شاخه‌هایِ خشکِ درخت را برید و در سبد گذاشت.",
+    "EN": "کشاورز با تبرْ شاخه‌هایِ خشکِ درخت را برید و در سبدْ گذاشت.",
+    "ENV": "کِشاورز با تَبرْ شاخه‌هایِ خُشکِ درخت را برید و در سَبدْ گذاشت."
+   }
+  },
+  {
+   "id": "n04",
+   "category": "first_vowels_damma",
+   "text": "دختر کوچک قفل صندوق را با کلید طلایی باز کرد.",
+   "texts": {
+    "A": "دختر کوچک قفل صندوق را با کلید طلایی باز کرد.",
+    "E": "دخترِ کوچک قفلِ صندوق را با کلیدِ طلایی باز کرد.",
+    "EN": "دخترِ کوچکْ قفلِ صندوق را با کلیدِ طلایی بازْ کرد.",
+    "ENV": "دُخترِ کوچکْ قُفلِ صَندوق را با کِلیدِ طَلایی بازْ کرد."
+   }
+  },
+  {
+   "id": "n05",
+   "category": "ezafe_after_vowels",
+   "text": "صدای خنده بچه‌ها از کوچه باریک پشت مدرسه می‌آمد.",
+   "texts": {
+    "A": "صدای خنده بچه‌ها از کوچه باریک پشت مدرسه می‌آمد.",
+    "E": "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد.",
+    "EN": "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد.",
+    "ENV": "صدایِ خَندهٔ بَچه‌ها از کوچهٔ باریکِ پشتِ مَدرسه می‌آمد."
+   }
+  },
+  {
+   "id": "n06",
+   "category": "indefinite_then_adjective",
+   "text": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+   "texts": {
+    "A": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+    "E": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+    "EN": "او مردی مهربان و دانشمندی بزرگْ بود که همه به حرفشْ گوشْ می‌دادند.",
+    "ENV": "او مردی مِهربان و دانشمندی بُزرگْ بود که همه به حرفشْ گوشْ می‌دادند."
+   }
+  },
+  {
+   "id": "n07",
+   "category": "time_phrases",
+   "text": "دیروز صبح زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+   "texts": {
+    "A": "دیروز صبح زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+    "E": "دیروز صبحِ زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+    "EN": "دیروز صبحِ زودْ بارانْ شروعْ شد و تا غروبْ یکْ لحظه هم بندْ نیامد.",
+    "ENV": "دیروز صُبحِ زودْ بارانْ شُروعْ شد و تا غُروبْ یکْ لَحظه هم بَندْ نیامد."
+   }
+  },
+  {
+   "id": "n08",
+   "category": "homograph_and_trap",
+   "text": "کرم این گل‌ها را خورده و باغبان از دیدن برگ‌های سوراخ ناراحت است.",
+   "texts": {
+    "A": "کرم این گل‌ها را خورده و باغبان از دیدن برگ‌های سوراخ ناراحت است.",
+    "E": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخ ناراحت است.",
+    "EN": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخْ ناراحتْ است.",
+    "ENV": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ بَرگ‌هایِ سوراخْ ناراحتْ است."
+   }
+  },
+  {
+   "id": "n09",
+   "category": "glottal_and_chain",
+   "text": "مسئول فروشگاه به خاطر تأخیر در تحویل سفارش از مشتری عذرخواهی کرد.",
+   "texts": {
+    "A": "مسئول فروشگاه به خاطر تأخیر در تحویل سفارش از مشتری عذرخواهی کرد.",
+    "E": "مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.",
+    "EN": "مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.",
+    "ENV": "مَسئولِ فُروشگاه به خاطرِ تأخیر در تَحویلِ سِفارش از مُشتری عُذرخواهی کرد."
+   }
+  },
+  {
+   "id": "n10",
+   "category": "news",
+   "text": "شورای شهر تصمیم گرفت ساعت کار کتابخانه‌های عمومی را در تابستان افزایش دهد.",
+   "texts": {
+    "A": "شورای شهر تصمیم گرفت ساعت کار کتابخانه‌های عمومی را در تابستان افزایش دهد.",
+    "E": "شورایِ شهر تصمیم گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستان افزایش دهد.",
+    "EN": "شورایِ شهرْ تصمیمْ گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستانْ افزایشْ دهد.",
+    "ENV": "شورایِ شَهرْ تَصمیمْ گرفت ساعتِ کارِ کِتابخانه‌هایِ عُمومی را در تابستانْ اَفزایشْ دهد."
+   }
+  },
+  {
+   "id": "n11",
+   "category": "colloquial",
+   "text": "دیشب رفتیم خونه داداشم، ولی هنوز از سفر برنگشته بود.",
+   "texts": {
+    "A": "دیشب رفتیم خونه داداشم، ولی هنوز از سفر برنگشته بود.",
+    "E": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفر برنگشته بود.",
+    "EN": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفرْ برنگشته بود.",
+    "ENV": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفرْ برنگشته بود."
+   }
+  },
+  {
+   "id": "n12",
+   "category": "long",
+   "text": "بعد از جلسه طولانی هیئت مدیره، مدیر عامل شرکت گفت که قرارداد جدید تا پایان ماه آینده امضا می‌شود.",
+   "texts": {
+    "A": "بعد از جلسه طولانی هیئت مدیره، مدیر عامل شرکت گفت که قرارداد جدید تا پایان ماه آینده امضا می‌شود.",
+    "E": "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکت گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود.",
+    "EN": "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکتْ گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود.",
+    "ENV": "بعد از جَلسهٔ طولانیِ هِیئتِ مدیره، مُدیرِ عاملِ شِرکتْ گفت که قَراردادِ جَدید تا پایانِ ماهِ آینده اِمضا می‌شود."
+   }
+  }
+ ],
+ "events": [
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 48,
+   "other_changes_by_the_app": [
+    "n09 A: 'مسئول فروشگاه به خاطر تأخیر در تحویل سفارش از مشتری عذرخواهی کرد.' -> 'مسئول فروشگاه به خاطر تاخیر در تحویل سفارش از مشتری عذرخواهی کرد.'",
+    "n09 E: 'مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.' -> 'مسئولِ فروشگاه به خاطرِ تاخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.'",
+    "n09 EN: 'مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.' -> 'مسئولِ فروشگاه به خاطرِ تاخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.'",
+    "n09 ENV: 'مَسئولِ فُروشگاه به خاطرِ تأخیر در تَحویلِ سِفارش از مُشتری عُذرخواهی کرد.' -> 'مَسئولِ فُروشگاه به خاطرِ تاخیر در تَحویلِ سِفارش از مُشتری عُذرخواهی کرد.'"
+   ]
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true
+  },
+  {
+   "event": "fetched_from_kaggle",
+   "when": "2026-10-03T12:28:09+00:00",
+   "session": "marsmanam/persian-voice-frontend-listening-run",
+   "wav_paths": "made relative to the repository; kaggle_wav keeps where each was written"
+  }
+ ],
+ "renders": [
+  {
+   "id": "n01",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "پنجره اتاق خواب خانه مادربزرگم رو به باغ باز می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n01_A.wav",
+   "skipped": null,
+   "duration_s": 4.168,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پنجره اتاق خواب خانه مادربزرگم رو به باغ باز می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.701,
+    "text": 0.002,
+    "load": 11.096,
+    "synthesis": 4.067
+   },
+   "asr_text": "پنجره اتاق خواب خانه مادر بزرگم رو به باغ باز می شود.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n01_A.wav"
+  },
+  {
+   "id": "n01",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگم رو به باغ باز می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n01_E.wav",
+   "skipped": null,
+   "duration_s": 4.437,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگم رو به باغ باز می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.381
+   },
+   "asr_text": "پنجره اتاق خواب خانه مادر بزرگم رو به باغ باز می شود.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n01_E.wav"
+  },
+  {
+   "id": "n01",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگمْ رو به باغْ بازْ می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n01_EN.wav",
+   "skipped": null,
+   "duration_s": 4.216,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگمْ رو به باغْ بازْ می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.421
+   },
+   "asr_text": "پنجره اتاق خواب خانه مادر بزرگم رو به باغ باز می شود.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n01_EN.wav"
+  },
+  {
+   "id": "n01",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "پَنجرهٔ اُتاقِ خوابِ خانهٔ مادربزرگمْ رو به باغْ بازْ می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n01_ENV.wav",
+   "skipped": null,
+   "duration_s": 4.406,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پَنجرهٔ اُتاقِ خوابِ خانهٔ مادربزرگمْ رو به باغْ بازْ می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.43
+   },
+   "asr_text": "پنجره اتاق خواب خانه مادر بزرگم رو به باغ باز می شود.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n01_ENV.wav"
+  },
+  {
+   "id": "n02",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "دانشجو کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n02_A.wav",
+   "skipped": null,
+   "duration_s": 4.418,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشجو کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.417
+   },
+   "asr_text": "دانشجوی کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند.",
+   "cer": 0.022727272727272728,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n02_A.wav"
+  },
+  {
+   "id": "n02",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "دانشجو کتاب را رویِ میز گذاشت و دو ساعت منتظرِ استاد ماند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n02_E.wav",
+   "skipped": null,
+   "duration_s": 4.364,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشجو کتاب را رویِ میز گذاشت و دو ساعت منتظرِ استاد ماند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.474
+   },
+   "asr_text": "دانشجوی کتاب را روی میز گذاشت و دو ساعت منتظر استادمان.",
+   "cer": 0.045454545454545456,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n02_E.wav"
+  },
+  {
+   "id": "n02",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "دانشجو کتاب را رویِ میزْ گذاشت و دو ساعتْ منتظرِ استادْ ماند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n02_EN.wav",
+   "skipped": null,
+   "duration_s": 4.375,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشجو کتاب را رویِ میزْ گذاشت و دو ساعتْ منتظرِ استادْ ماند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.003,
+    "load": 0.0,
+    "synthesis": 5.429
+   },
+   "asr_text": "دانشجور کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند.",
+   "cer": 0.022727272727272728,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n02_EN.wav"
+  },
+  {
+   "id": "n02",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "دانشجو کِتاب را رویِ میزْ گذاشت و دو ساعتْ مُنتظرِ اُستادْ ماند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n02_ENV.wav",
+   "skipped": null,
+   "duration_s": 4.386,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشجو کِتاب را رویِ میزْ گذاشت و دو ساعتْ مُنتظرِ اُستادْ ماند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.487
+   },
+   "asr_text": "دانشجو کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n02_ENV.wav"
+  },
+  {
+   "id": "n03",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "کشاورز با تبر شاخه‌های خشک درخت را برید و در سبد گذاشت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n03_A.wav",
+   "skipped": null,
+   "duration_s": 4.622,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کشاورز با تبر شاخه‌های خشک درخت را برید و در سبد گذاشت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.471
+   },
+   "asr_text": "کشاورز با تبار شاخه های خوش که درخت را برید و در ثبت گذاشت",
+   "cer": 0.11904761904761904,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n03_A.wav"
+  },
+  {
+   "id": "n03",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "کشاورز با تبر شاخه‌هایِ خشکِ درخت را برید و در سبد گذاشت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n03_E.wav",
+   "skipped": null,
+   "duration_s": 4.595,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کشاورز با تبر شاخه‌هایِ خشکِ درخت را برید و در سبد گذاشت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.502
+   },
+   "asr_text": "کشاورز با تبر شاخه های خوشک درخت را برید و در سبت گذاشت.",
+   "cer": 0.047619047619047616,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n03_E.wav"
+  },
+  {
+   "id": "n03",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "کشاورز با تبرْ شاخه‌هایِ خشکِ درخت را برید و در سبدْ گذاشت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n03_EN.wav",
+   "skipped": null,
+   "duration_s": 4.559,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کشاورز با تبرْ شاخه‌هایِ خشکِ درخت را برید و در سبدْ گذاشت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.526
+   },
+   "asr_text": "کشاورز با تبر شاخه های خشک درخت را برید و در سبت گذاشت.",
+   "cer": 0.023809523809523808,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n03_EN.wav"
+  },
+  {
+   "id": "n03",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "کِشاورز با تَبرْ شاخه‌هایِ خُشکِ درخت را برید و در سَبدْ گذاشت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n03_ENV.wav",
+   "skipped": null,
+   "duration_s": 4.354,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کِشاورز با تَبرْ شاخه‌هایِ خُشکِ درخت را برید و در سَبدْ گذاشت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.533
+   },
+   "asr_text": "کشاورز با تبر شاخه هایی خوشک درخت را برید و در سبت گذاشت.",
+   "cer": 0.07142857142857142,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n03_ENV.wav"
+  },
+  {
+   "id": "n04",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "دختر کوچک قفل صندوق را با کلید طلایی باز کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n04_A.wav",
+   "skipped": null,
+   "duration_s": 3.405,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دختر کوچک قفل صندوق را با کلید طلایی باز کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.311
+   },
+   "asr_text": "دختر کوچک گفل صندوق را با کلید تلایی باز کرد.",
+   "cer": 0.05714285714285714,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n04_A.wav"
+  },
+  {
+   "id": "n04",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "دخترِ کوچک قفلِ صندوق را با کلیدِ طلایی باز کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n04_E.wav",
+   "skipped": null,
+   "duration_s": 3.408,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دخترِ کوچک قفلِ صندوق را با کلیدِ طلایی باز کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.355
+   },
+   "asr_text": "دختر کوچک گفل صندوق را با کلید تلایی باز کرد.",
+   "cer": 0.05714285714285714,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n04_E.wav"
+  },
+  {
+   "id": "n04",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "دخترِ کوچکْ قفلِ صندوق را با کلیدِ طلایی بازْ کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n04_EN.wav",
+   "skipped": null,
+   "duration_s": 3.418,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دخترِ کوچکْ قفلِ صندوق را با کلیدِ طلایی بازْ کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.383
+   },
+   "asr_text": "دختر کوچک قفل صندوق را با کلید تلایی باز کرد.",
+   "cer": 0.02857142857142857,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n04_EN.wav"
+  },
+  {
+   "id": "n04",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "دُخترِ کوچکْ قُفلِ صَندوق را با کِلیدِ طَلایی بازْ کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n04_ENV.wav",
+   "skipped": null,
+   "duration_s": 3.413,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دُخترِ کوچکْ قُفلِ صَندوق را با کِلیدِ طَلایی بازْ کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.418
+   },
+   "asr_text": "دختر کوچک گفل صندوق را با کلید تلایی باز کرد.",
+   "cer": 0.05714285714285714,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n04_ENV.wav"
+  },
+  {
+   "id": "n05",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "صدای خنده بچه‌ها از کوچه باریک پشت مدرسه می‌آمد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n05_A.wav",
+   "skipped": null,
+   "duration_s": 4.013,
+   "used_phonemes": false,
+   "fed_texts": [
+    "صدای خنده بچه‌ها از کوچه باریک پشت مدرسه می‌آمد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.472
+   },
+   "asr_text": "صدای خنده بچه ها از کوچه باریک پشت مدرسه می آمد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n05_A.wav"
+  },
+  {
+   "id": "n05",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n05_E.wav",
+   "skipped": null,
+   "duration_s": 4.001,
+   "used_phonemes": false,
+   "fed_texts": [
+    "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.511
+   },
+   "asr_text": "صدایی خنده بچه ها از کچه باری که پشت مدرسه می آمد.",
+   "cer": 0.08108108108108109,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n05_E.wav"
+  },
+  {
+   "id": "n05",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n05_EN.wav",
+   "skipped": null,
+   "duration_s": 4.001,
+   "used_phonemes": false,
+   "fed_texts": [
+    "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.498
+   },
+   "asr_text": "صدایی خنده بچه ها از کچه باری که پشت مدرسه می آمد.",
+   "cer": 0.08108108108108109,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n05_EN.wav"
+  },
+  {
+   "id": "n05",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "صدایِ خَندهٔ بَچه‌ها از کوچهٔ باریکِ پشتِ مَدرسه می‌آمد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n05_ENV.wav",
+   "skipped": null,
+   "duration_s": 4.008,
+   "used_phonemes": false,
+   "fed_texts": [
+    "صدایِ خَندهٔ بَچه‌ها از کوچهٔ باریکِ پشتِ مَدرسه می‌آمد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.642
+   },
+   "asr_text": "صدای خنده بچه ها از کوچه باری که پشت مدرسه می آمد.",
+   "cer": 0.02702702702702703,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n05_ENV.wav"
+  },
+  {
+   "id": "n06",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n06_A.wav",
+   "skipped": null,
+   "duration_s": 5.008,
+   "used_phonemes": false,
+   "fed_texts": [
+    "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.798
+   },
+   "asr_text": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می دادند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n06_A.wav"
+  },
+  {
+   "id": "n06",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n06_E.wav",
+   "skipped": null,
+   "duration_s": 5.008,
+   "used_phonemes": false,
+   "fed_texts": [
+    "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.815
+   },
+   "asr_text": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می دادند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n06_E.wav"
+  },
+  {
+   "id": "n06",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "او مردی مهربان و دانشمندی بزرگْ بود که همه به حرفشْ گوشْ می‌دادند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n06_EN.wav",
+   "skipped": null,
+   "duration_s": 5.015,
+   "used_phonemes": false,
+   "fed_texts": [
+    "او مردی مهربان و دانشمندی بزرگْ بود که همه به حرفشْ گوشْ می‌دادند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.832
+   },
+   "asr_text": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می دادند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n06_EN.wav"
+  },
+  {
+   "id": "n06",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "او مردی مِهربان و دانشمندی بُزرگْ بود که همه به حرفشْ گوشْ می‌دادند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n06_ENV.wav",
+   "skipped": null,
+   "duration_s": 5.011,
+   "used_phonemes": false,
+   "fed_texts": [
+    "او مردی مِهربان و دانشمندی بُزرگْ بود که همه به حرفشْ گوشْ می‌دادند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.842
+   },
+   "asr_text": "اومردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می دادند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n06_ENV.wav"
+  },
+  {
+   "id": "n07",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "دیروز صبح زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n07_A.wav",
+   "skipped": null,
+   "duration_s": 4.519,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دیروز صبح زود باران شروع شد و تا غروب یک لحظه هم بند نیامد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.775
+   },
+   "asr_text": "پیروز صبح زود باران شروع شد و تا قروب یک لحظه هم بند نیامد.",
+   "cer": 0.044444444444444446,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n07_A.wav"
+  },
+  {
+   "id": "n07",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "دیروز صبحِ زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n07_E.wav",
+   "skipped": null,
+   "duration_s": 4.512,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دیروز صبحِ زود باران شروع شد و تا غروب یک لحظه هم بند نیامد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.798
+   },
+   "asr_text": "دیروز صبح زود باران شروع شد و تا قروب یک لحظه هم بند نیامد.",
+   "cer": 0.022222222222222223,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n07_E.wav"
+  },
+  {
+   "id": "n07",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "دیروز صبحِ زودْ بارانْ شروعْ شد و تا غروبْ یکْ لحظه هم بندْ نیامد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n07_EN.wav",
+   "skipped": null,
+   "duration_s": 4.509,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دیروز صبحِ زودْ بارانْ شروعْ شد و تا غروبْ یکْ لحظه هم بندْ نیامد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.843
+   },
+   "asr_text": "دیروز صبح زود باران شروع شد و تا قروب یک لحظه هم بند نیامد.",
+   "cer": 0.022222222222222223,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n07_EN.wav"
+  },
+  {
+   "id": "n07",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "دیروز صُبحِ زودْ بارانْ شُروعْ شد و تا غُروبْ یکْ لَحظه هم بَندْ نیامد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n07_ENV.wav",
+   "skipped": null,
+   "duration_s": 4.51,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دیروز صُبحِ زودْ بارانْ شُروعْ شد و تا غُروبْ یکْ لَحظه هم بَندْ نیامد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.881
+   },
+   "asr_text": "دیروز صبح زود باران شروع شد و تا قروب یک لحظه همبند نیامد.",
+   "cer": 0.022222222222222223,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n07_ENV.wav"
+  },
+  {
+   "id": "n08",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "کرم این گل‌ها را خورده و باغبان از دیدن برگ‌های سوراخ ناراحت است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n08_A.wav",
+   "skipped": null,
+   "duration_s": 5.29,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کرم این گل‌ها را خورده و باغبان از دیدن برگ‌های سوراخ ناراحت است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.921
+   },
+   "asr_text": "کرم این گلها را خورده و باغبان از دیدن برگهای سراخ ناراحت است.",
+   "cer": 0.02,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n08_A.wav"
+  },
+  {
+   "id": "n08",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخ ناراحت است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n08_E.wav",
+   "skipped": null,
+   "duration_s": 5.32,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخ ناراحت است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.928
+   },
+   "asr_text": "کرم این گلها را خورده و باغبان از دیدن برگهای سراخ ناراحت است.",
+   "cer": 0.02,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n08_E.wav"
+  },
+  {
+   "id": "n08",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخْ ناراحتْ است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n08_EN.wav",
+   "skipped": null,
+   "duration_s": 5.212,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخْ ناراحتْ است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.94
+   },
+   "asr_text": "کرم این گلها را خورده و باغبان از دیدن برگهای سراخ ناراهد است.",
+   "cer": 0.06,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n08_EN.wav"
+  },
+  {
+   "id": "n08",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ بَرگ‌هایِ سوراخْ ناراحتْ است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n08_ENV.wav",
+   "skipped": null,
+   "duration_s": 5.331,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کرمِ این گل‌ها را خورده و باغبان از دیدنِ بَرگ‌هایِ سوراخْ ناراحتْ است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.933
+   },
+   "asr_text": "کرم این گلها را خورده و باغبان از دیدن برگهای سراخ ناراحت است.",
+   "cer": 0.02,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n08_ENV.wav"
+  },
+  {
+   "id": "n09",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "مسئول فروشگاه به خاطر تأخیر در تحویل سفارش از مشتری عذرخواهی کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n09_A.wav",
+   "skipped": null,
+   "duration_s": 5.268,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مسئول فروشگاه به خاطر تاخیر در تحویل سفارش از مشتری عذرخواهی کرد."
+   ],
+   "notes": [
+    "Text normalised (characters, spacing, numbers)."
+   ],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.874
+   },
+   "asr_text": "مسئول فروشگاه به خاطر تخییر در تحویل سفارش از مشتری عذر خواهی کرد.",
+   "cer": 0.03773584905660377,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n09_A.wav"
+  },
+  {
+   "id": "n09",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n09_E.wav",
+   "skipped": null,
+   "duration_s": 5.246,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مسئولِ فروشگاه به خاطرِ تاخیر در تحویلِ سفارش از مشتری عذرخواهی کرد."
+   ],
+   "notes": [
+    "Text normalised (characters, spacing, numbers)."
+   ],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.878
+   },
+   "asr_text": "مسئول فروشگاه به خاطر تخخیر در تحویل سفارش از مشتری از خواهی کرد.",
+   "cer": 0.07547169811320754,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n09_E.wav"
+  },
+  {
+   "id": "n09",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n09_EN.wav",
+   "skipped": null,
+   "duration_s": 5.246,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مسئولِ فروشگاه به خاطرِ تاخیر در تحویلِ سفارش از مشتری عذرخواهی کرد."
+   ],
+   "notes": [
+    "Text normalised (characters, spacing, numbers)."
+   ],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.868
+   },
+   "asr_text": "مسئول فروشگاه به خاطر تخخیر در تحویل سفارش از مشتری از خواهی کرد.",
+   "cer": 0.07547169811320754,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n09_EN.wav"
+  },
+  {
+   "id": "n09",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "مَسئولِ فُروشگاه به خاطرِ تأخیر در تَحویلِ سِفارش از مُشتری عُذرخواهی کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n09_ENV.wav",
+   "skipped": null,
+   "duration_s": 5.28,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مَسئولِ فُروشگاه به خاطرِ تاخیر در تَحویلِ سِفارش از مُشتری عُذرخواهی کرد."
+   ],
+   "notes": [
+    "Text normalised (characters, spacing, numbers)."
+   ],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.89
+   },
+   "asr_text": "مسئول فروشگاه به خاطر تخخیر در تحویل سفارش از مشتری عذر خواهی کرد.",
+   "cer": 0.018867924528301886,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n09_ENV.wav"
+  },
+  {
+   "id": "n10",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "شورای شهر تصمیم گرفت ساعت کار کتابخانه‌های عمومی را در تابستان افزایش دهد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n10_A.wav",
+   "skipped": null,
+   "duration_s": 6.266,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شورای شهر تصمیم گرفت ساعت کار کتابخانه‌های عمومی را در تابستان افزایش دهد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.979
+   },
+   "asr_text": "شورای شهر تصمیم گرفت ساعت کار کتاب خانه های عمومی را در تابستان افضایش دهد.",
+   "cer": 0.016666666666666666,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n10_A.wav"
+  },
+  {
+   "id": "n10",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "شورایِ شهر تصمیم گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستان افزایش دهد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n10_E.wav",
+   "skipped": null,
+   "duration_s": 6.24,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شورایِ شهر تصمیم گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستان افزایش دهد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.987
+   },
+   "asr_text": "شورای شهر تصمیم گرفت ساعت کار کتاب خانه های عمومی را در تابستان افضایش دهد.",
+   "cer": 0.016666666666666666,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n10_E.wav"
+  },
+  {
+   "id": "n10",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "شورایِ شهرْ تصمیمْ گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستانْ افزایشْ دهد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n10_EN.wav",
+   "skipped": null,
+   "duration_s": 6.218,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شورایِ شهرْ تصمیمْ گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستانْ افزایشْ دهد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.06
+   },
+   "asr_text": "شورای شهر تصمیم گرفت ساعت کار کتاب خانه های عمومی را در تابستان افضایش دهد.",
+   "cer": 0.016666666666666666,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n10_EN.wav"
+  },
+  {
+   "id": "n10",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "شورایِ شَهرْ تَصمیمْ گرفت ساعتِ کارِ کِتابخانه‌هایِ عُمومی را در تابستانْ اَفزایشْ دهد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n10_ENV.wav",
+   "skipped": null,
+   "duration_s": 6.241,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شورایِ شَهرْ تَصمیمْ گرفت ساعتِ کارِ کِتابخانه‌هایِ عُمومی را در تابستانْ اَفزایشْ دهد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.079
+   },
+   "asr_text": "شورای شهر تصمیم گرفت ساعت کار کتابخانه های عمومی را در تابستان افضایش دهد.",
+   "cer": 0.016666666666666666,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n10_ENV.wav"
+  },
+  {
+   "id": "n11",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "دیشب رفتیم خونه داداشم، ولی هنوز از سفر برنگشته بود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n11_A.wav",
+   "skipped": null,
+   "duration_s": 4.066,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دیشب رفتیم خونه داداشم، ولی هنوز از سفر برنگشته بود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.523
+   },
+   "asr_text": "دیشب رفتیم خونه داداشم ولی هنوز از سفر برنگشته بود.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n11_A.wav"
+  },
+  {
+   "id": "n11",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفر برنگشته بود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n11_E.wav",
+   "skipped": null,
+   "duration_s": 4.052,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفر برنگشته بود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.554
+   },
+   "asr_text": "پیشب رفتیم خونه ی داداشم ولی هنوز از سفر برنگشته بود.",
+   "cer": 0.04878048780487805,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n11_E.wav"
+  },
+  {
+   "id": "n11",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفرْ برنگشته بود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n11_EN.wav",
+   "skipped": null,
+   "duration_s": 4.043,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفرْ برنگشته بود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.572
+   },
+   "asr_text": "پیشب رفتیم خونه ی داداشم ولی هنوز از سفر برنگشته بود.",
+   "cer": 0.04878048780487805,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n11_EN.wav"
+  },
+  {
+   "id": "n11",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفرْ برنگشته بود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n11_ENV.wav",
+   "skipped": null,
+   "duration_s": 4.043,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفرْ برنگشته بود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.587
+   },
+   "asr_text": "پیشب رفتیم خونه ی داداشم ولی هنوز از سفر برنگشته بود.",
+   "cer": 0.04878048780487805,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n11_ENV.wav"
+  },
+  {
+   "id": "n12",
+   "condition": "A",
+   "engine": "omnivoice",
+   "input_text": "بعد از جلسه طولانی هیئت مدیره، مدیر عامل شرکت گفت که قرارداد جدید تا پایان ماه آینده امضا می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n12_A.wav",
+   "skipped": null,
+   "duration_s": 7.982,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بعد از جلسه طولانی هیئت مدیره، مدیر عامل شرکت گفت که قرارداد جدید تا پایان ماه آینده امضا می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.434
+   },
+   "asr_text": "بعد از جلسه طولانی هیت مدیره، مدیر آمل شرکت گفت که قرارداد جدید تا پایان ماه آینده امزا می شود.",
+   "cer": 0.05263157894736842,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n12_A.wav"
+  },
+  {
+   "id": "n12",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکت گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n12_E.wav",
+   "skipped": null,
+   "duration_s": 7.992,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکت گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.419
+   },
+   "asr_text": "بعد از جلسه طولانی هیت مدیره، مدیر آمل شرکت گفت که قرار داد جدید تا پایان ماه آینده امزا می شود.",
+   "cer": 0.05263157894736842,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n12_E.wav"
+  },
+  {
+   "id": "n12",
+   "condition": "EN",
+   "engine": "omnivoice",
+   "input_text": "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکتْ گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n12_EN.wav",
+   "skipped": null,
+   "duration_s": 7.991,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکتْ گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.404
+   },
+   "asr_text": "بعد از جلسه طولانی حیط مدیره، مدیر آمل شرکت گفت که قرار داد جدید تا پایانه ماه آینده امزا می شود.",
+   "cer": 0.09210526315789473,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n12_EN.wav"
+  },
+  {
+   "id": "n12",
+   "condition": "ENV",
+   "engine": "omnivoice",
+   "input_text": "بعد از جَلسهٔ طولانیِ هِیئتِ مدیره، مُدیرِ عاملِ شِرکتْ گفت که قَراردادِ جَدید تا پایانِ ماهِ آینده اِمضا می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v1/wavs/n12_ENV.wav",
+   "skipped": null,
+   "duration_s": 7.993,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بعد از جَلسهٔ طولانیِ هِیئتِ مدیره، مُدیرِ عاملِ شِرکتْ گفت که قَراردادِ جَدید تا پایانِ ماهِ آینده اِمضا می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.951
+   },
+   "asr_text": "بعد از جلسه طولانیهیت مدیره، مدیر آمل شرکت گفت که قرار داد جدید تا پایان ماه آینده امزام می شود.",
+   "cer": 0.06578947368421052,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v1/wavs/n12_ENV.wav"
+  }
+ ],
+ "asr_model": "faster-whisper large-v3-turbo"
+}

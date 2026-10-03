@@ -1,6 +1,6 @@
 {
  "run": "a text-only comparison of the components that could write what plain Persian script leaves out - the ezafe and short vowels - before any of them goes into the app",
- "status": "registered 2026-10-03, before any component ran on either set",
+ "status": "registered 2026-10-03, before any component ran on either set; amended the same day before any score (amendment_2026_10_03_overlap)",
  "why": "the pronunciation review (eval/runs/persian-voice-pronunciation-review-v1.json): of the 19 errors OmniVoice made on plain script, 9 are ezafe and 8 short vowels, and OmniVoice reads the diacritics it is given whether they are right or wrong. So whatever writes those marks must be accurate. This measures the candidates on text: no audio, no GPU, no OmniVoice",
  "question": "on plain script, which component places the ezafe best, and how accurately each source gives a word's vowels",
  "components": {
@@ -105,5 +105,11 @@
   "run": "scripts/measure_frontend_components.py",
   "score": "scripts/score_frontend_components.py (tests/test_frontend_components.py)",
   "evidence": "eval/runs/evidence/frontend-components-v1/"
+ },
+ "amendment_2026_10_03_overlap": {
+  "when": "after the HomoRich overlap check and before any score was computed; all that had been seen of the runs was their logs (sentence counts and seconds)",
+  "found": "of SentenceBench's sentences, HomoRich (528,875 read) holds mana-tts 100 of 100 (98 equal, 2 contained), commonvoice 79 of 88 (equal), homograph 8 of 212 (equal). HomoRich is the training data named for Homo-GE2PE and for the ALBERT model, so their pooled numbers include sentences they were trained on",
+  "change": "the ezafe choice and the quoted vowel numbers are read on sentencebench-unseen: the 213 sentences found in no training data named for any component (204 homograph, 9 commonvoice). Pooled and per-subset numbers are still reported; the bootstrap rule is unchanged",
+  "code": "scripts/score_frontend_components.py found_in, and main with the HomoRich file as its third argument"
  }
 }

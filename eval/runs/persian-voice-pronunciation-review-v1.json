@@ -1,6 +1,6 @@
 {
  "run": "a blind pronunciation review of the A/B/C renders: which Persian words OmniVoice gets wrong, and whether diacritics or IPA input fix them",
- "status": "registered 2026-10-03, before anyone listened; the listener is the user, first",
+ "status": "complete 2026-10-03: one listener (the user) answered all 14 sentences; read through the key the same day",
  "why": "the user deferred the voice listening test until pronunciation is fixed. [measured] on the sealed Neyshekar set the recogniser reads the speakers' own recordings at CER 6.4% and OmniVoice's renders at 9.9%. Before fixing, the errors have to be found: this asks a native listener to mark them word by word",
  "material": {
   "renders": "eval/runs/omnivoice-ipa-ab-v3 (2026-09-24): 14 hard sentences - homographs (gol/gel, mard/mord, ruye), an ezafe chain, difficult consonants, clusters, colloquial, long, four of the sealed test texts and a corpus sentence - in the voice of the Mana-TTS reference",
@@ -28,5 +28,73 @@
  },
  "built_by": "scripts/build_pronunciation_review.py (16-bit WAV, -26 LUFS by gain)",
  "delivery": "one private page, https://claude.ai/artifact/8t3wc2esQ1TCdRZ5wFAQCU (published 2026-10-03, source eval/runs/evidence/pronunciation-review-v1/page.html): one sentence per screen in the key's order, the plain sentence on top, each reading with its own player, the sentence's words to tap when said wrong, an 'every word right' button and an optional note; then which reading was best. It names no condition. Answers are kept in its database as reviews/<listener id> (the owner reads all, each listener only their own) or, for anyone who cannot write there, as an answer code to send",
- "checked_before_listening": "2026-10-03: 39 audio files and the page on the artifact; a probe record written as the owner was readable by the owner, hidden at a listener's level, then deleted"
+ "checked_before_listening": "2026-10-03: 39 audio files and the page on the artifact; a probe record written as the owner was readable by the owner, hidden at a listener's level, then deleted",
+ "result": {
+  "listener": "one: the user, a native speaker who also runs this project - blind to which reading was which, not to what the review was for",
+  "per_condition": {
+   "A_plain_script": {
+    "readings": 14,
+    "with_no_marked_word": 3,
+    "words_marked_wrong": "19 of 199 (9.5%)",
+    "picked_best": 8
+   },
+   "B_diacritised_twin": {
+    "readings": 11,
+    "with_no_marked_word": 3,
+    "words_marked_wrong": "10 of 97 (10.3%)",
+    "picked_best": 4
+   },
+   "C_ipa_model": {
+    "readings": 14,
+    "with_no_marked_word": 0,
+    "words_marked_wrong": "27 of 199 (13.6%)",
+    "picked_best": 0
+   },
+   "no_difference": 2
+  },
+  "what_A_gets_wrong": {
+   "classified_by": "Claude, from the words marked and the listener's notes; the notes are in answers-listener-1.json",
+   "ezafe_added_where_none_belongs": [
+    "دانشگاه (s07)",
+    "مرد (s02)",
+    "غروب (s05)",
+    "ساعت (t12)",
+    "عاملی (r01)"
+   ],
+   "ezafe_missing_where_it_belongs": [
+    "باران (s06, read with a pause instead)",
+    "خوب (s03)",
+    "پایان (t09)",
+    "ایستگاه (t12)"
+   ],
+   "short_vowels_and_homographs": [
+    "چترش chatr read chetr (s06)",
+    "قلعه ghal'e read ghel'e (s05)",
+    "امانت amanat read emanat (t10)",
+    "گل gel read gol (s01, homograph)",
+    "کشتی koshti read keshti (t09, homograph)",
+    "ترمینال read tarminal (s09)",
+    "تأخیر read takhir (t12)",
+    "را (s01)"
+   ],
+   "other": [
+    "بود with a vowel after it (s09)",
+    "کتابش garbled (s09)"
+   ],
+   "summary": "9 of the 19 errors are ezafe - 5 added, 4 missing - and 8 are short vowels, two of them homographs"
+  },
+  "what_B_shows": {
+   "the_model_reads_the_marks": "where a twin's marks were right, B cleared errors A made in the same sentence: chatr and the ezafe of باران (s06 read without error), the ezafe of خوب (s03 without error), قلعه (s05). Where a twin's marks were wrong it read them as written: حِرفا and خُریدار (s08), اِمانت (t10), the ezafe of بارانِ (t11) - all four marked wrong, in sentences A read right or wrong the same way",
+   "marks_it_misreads": "a damma came out as a long u twice: گُل as gul (s01), کُشتی as kushti (t09)",
+   "what_marks_did_not_fix": "ezafe added where the twin left a word unmarked (دانشگاه s07, غروب s05) and ezafe missing where the twin missed it too (پایان t09)",
+   "disputed": "پیرمرد was marked wrong for pirmard where the listener expected pir-e mard; dictionaries give pirmard"
+  },
+  "what_C_shows": "the IPA model is worst on every count - no reading without an error, 13.6% of words, never picked best - and the listener's notes say its accent sounds foreign even where the words are right. The route is closed",
+  "reading": "the errors are mostly about what the plain script leaves out - ezafe and short vowels - and OmniVoice follows explicit marks when it is given them, right or wrong. So the lever is the text front-end: write ezafe and the needed short vowels into the input, from a source accurate enough that its marks are right, and mark where no ezafe belongs. The damma misreads say to mark only what a word needs. Phonemes through the IPA model are not the way",
+  "not_claimed": "one listener, fourteen sentences, one voice and one seed, and the sentences were chosen to be hard: a diagnostic of error types, not a measure of any system's pronunciation. These sentences are now development material; a fix is measured on new ones written before it",
+  "evidence": [
+   "eval/runs/evidence/pronunciation-review-v1/answers-listener-1.json",
+   "eval/runs/evidence/pronunciation-review-v1/score.json"
+  ]
+ }
 }

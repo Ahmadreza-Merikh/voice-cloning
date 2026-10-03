@@ -1389,3 +1389,43 @@ on six words A read right (کنار, پنجره, the second کشتی, روبه�
 مسافران). So step 2 marks vowels only where they are needed. The 12 readings
 Claude wrote that a component disputed went to the user blind; the user agreed
 with all 12, so the 14-sentence numbers stand.
+
+## 15. Writing the marks in: the ezafe helps, the sukun does not, the vowels are undecided
+
+Step 2 put the section 14 choices in front of OmniVoice. Twelve new hard
+sentences (147 words, `eval/manifests/frontend_listening_v1.json`) were rendered
+four ways from one voice and seed: A plain, E with the tagger's ezafes written
+in, EN with a sukun closing nouns, adjectives and numbers it gives no ezafe, ENV
+with the first short vowel of nouns and adjectives whose KaamelDict readings
+agree. Registered before the front-end ran on them
+(`eval/runs/persian-voice-frontend-listening-v1.json`); the Mac's memory guard
+refused the renders, so they were made in one Kaggle T4 session, an amendment
+written before the push. The user listened blind, each condition three times in
+each slot, loudness matched.
+
+| | words marked wrong (of 147) | readings with none wrong | picked best | mean CER |
+|---|---|---|---|---|
+| A plain | 12 | 3 of 12 | 1 | 3.1% |
+| E + ezafe | **9** | 4 | **4** | 3.9% |
+| EN + sukun | 12 | 5 | 2 | 3.9% |
+| ENV + first vowels | 10 | 5 | 3 | 2.9% |
+
+Two sentences were picked "no difference". By the registered rules each step is
+kept only if it lowers the words marked wrong: **the ezafe is kept** (12 -> 9),
+**the sukun is dropped** (9 -> 12), the first vowels are kept against EN
+(12 -> 10). No step raised CER by the 2 points that would flag harm. The ezafe
+and the vowels without the sukun were never rendered together, so only the
+ezafe goes into the app now; the vowels wait for that combination to be heard.
+
+How firm this is: one listener and differences of two or three words. In four
+sentences a step changed nothing, and the renders came out bit-identical (seed
+42 is deterministic on the GPU), so the listener unknowingly heard the same
+audio twice: three pairs were judged alike, one differed by a word. Splitting
+each step's changes by whether the word itself was marked (Claude's reading;
+there are no notes): the ezafe fixed 4 marked words, all missing ezafes
+(باریک, خونه, طولانی, ماه), and broke 2 - the compound مدیرعامل, heard right
+only without it. The sukun stopped two plausible spurious ezafes (کوچک, غروب)
+and broke سبد and شروع. The first vowels fixed 4 marked words (خشک, سبد, شهر,
+هیئت) and broke 4 that carried the right vowel (مهربان, بزرگ, عذرخواهی, شرکت):
+their net gain came from words they did not touch. Still wrong in all four
+forms: the homograph کرم (no agreed reading, so unmarked), تبر, برنگشته.

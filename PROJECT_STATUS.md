@@ -4,46 +4,39 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 16:10 +0330 (2026-10-03 12:40 UTC).
+Last updated: 2026-10-03 17:05 +0330 (2026-10-03 13:35 UTC).
 
-## Step 2 rendered on Kaggle; waiting for the user's blind listening (2026-10-03 16:10 +0330)
+## Step 2 heard: the ezafe goes in, the sukun is dropped, the vowels wait (2026-10-03 17:05 +0330)
 
-The front-end listening test is registered (`eval/runs/persian-voice-frontend-listening-v1.json`,
-two amendments before any render): 12 new hard sentences
-(`eval/manifests/frontend_listening_v1.json`) in four forms - A plain, E +ezafe,
-EN +sukun where no ezafe, ENV +first short vowels - written by
-`scripts/build_frontend_texts.py` into `eval/runs/frontend-listening-v1/texts.json`
-(marks by `src/voiceclone/text/marks_fa.py`). Every mark checked by eye: right,
-except the tagger's ezafe on کرم in n08.
+The front-end listening test (`eval/runs/persian-voice-frontend-listening-v1.json`,
+two amendments before any render, result recorded; FINDINGS section 15): 12 new
+hard sentences in four forms - A plain, E +ezafe (hazm's ParsBERT tagger), EN
++sukun where no ezafe, ENV +first short vowels - rendered in one Kaggle T4
+session (the Mac's memory guard refused; `marsmanam/persian-voice-frontend-listening-run`
+v1, 0.13 GPU-hours, every gate passed), heard blind by the user on
+https://claude.ai/artifact/UbAgAE7tPmtY9Y2cknpLWC.
 
-The Mac's memory guard refused OmniVoice (5.1 GB free, 6 needed), so the user
-chose Kaggle; the move was registered before the push
-(`amendment_2026_10_03_render_on_kaggle`). One T4 x2 session
-(`marsmanam/persian-voice-frontend-listening-run` v1, notebook from
-`kaggle/build_frontend_listening_kernel.py`, its own code dataset
-`marsmanam/persian-voice-frontend-listening` staged from d6eedfc), 12:15-12:25
-UTC, 0.13 GPU-hours [kaggle quota]: every gate passed, 48 renders on cuda/float16, 48
-transcribed after the worker was released. The app changed nothing but أ to ا in
-n09, in all four forms alike. Renders: `eval/runs/frontend-listening-v1/`
-(manifest committed, wavs ignored; Kaggle's own copy under
-`remote/frontend-listening-v1/`); gates and the CER harm check:
-`eval/runs/evidence/frontend-listening-v1/` - read after the listening, not
-shown to the listener.
+Words marked wrong of 147: A 12, E 9, EN 12, ENV 10; picked best A 1, E 4,
+EN 2, ENV 3, no difference 2; mean CER 3.1 / 3.9 / 3.9 / 2.9%, nothing flagged.
+By the registered rules: **the ezafe is kept, the sukun dropped**, the first
+vowels kept against EN - but ezafe + vowels without the sukun was never
+rendered, so only the ezafe ships now. Read beside it: one listener, two- or
+three-word differences; the listener unknowingly heard four bit-identical pairs
+and judged three alike; the vowels fixed 4 of their own words and broke 4, so
+their net gain is not theirs. Evidence: `eval/runs/evidence/frontend-listening-v1/`
+(renders), `eval/runs/evidence/frontend-review-v1/` (key, items, page, answers,
+score).
 
-**The blind page is published**: https://claude.ai/artifact/UbAgAE7tPmtY9Y2cknpLWC
-(private; answers saved to its db under `reviews/<user id>`). Slots from Latin
-squares (each condition in each slot 3 times), loudness matched to -26 LUFS;
-the key and items in `eval/runs/evidence/frontend-review-v1/`.
-
-**Next:** the user listens. Then read the answers
-(ArtifactData list `reviews` on that URL, saved as
-`eval/runs/evidence/frontend-review-v1/answers-*.json`), run
-`.venv/bin/python scripts/score_pronunciation_review.py
-eval/runs/evidence/frontend-review-v1/key.json eval/runs/evidence/frontend-review-v1/answers-*.json`,
-and apply the registered rules: A -> E -> EN -> ENV, a step kept only if it
-lowers the words marked wrong; a step raising mean CER by more than 2 points is
-flagged. Found on the way, for the app: the normaliser maps أ to ا (why تأخیر
-was misread) and ۀ to a bare ه (drops a written ezafe).
+**Next (the user's go-ahead first):**
+1. The ezafe into the app: the tagger as a worker in its own environment
+   (`~/.cache/persian-voice-cloning/frontend/.venv`, about 4 GB while it runs -
+   so it runs and exits before OmniVoice loads), `marks_fa.with_ezafe` on what
+   it predicts, and the normaliser fixes found on the way (أ to ا, which made
+   تأخیر misread; ۀ to a bare ه, which drops a written ezafe). Watch: the tagger
+   links compounds such as مدیرعامل, which the listener heard right only
+   without the ezafe.
+2. Optional, before any vowel ships: render E against E + first vowels on new
+   sentences and hear them blind, as the registration requires.
 
 ## Text tools measured: hazm's ParsBERT tagger for the ezafe; no vowel source for every word (2026-10-03)
 

@@ -64,5 +64,60 @@
   "cer": "unchanged: the app's recogniser (faster-whisper large-v3-turbo) after the worker is released, in the same session, on the GPU",
   "cost": "one session: about half a GPU-hour expected, the render step stopped at 60 minutes; the week's quota stood at 30 GPU-hours, none used (kaggle quota, 2026-10-03)",
   "after": "the manifest and wavs are fetched into eval/runs/frontend-listening-v1/; the review page and the scoring are as registered"
+ },
+ "result": {
+  "when": "2026-10-03; the renders from Kaggle (eval/runs/evidence/frontend-listening-v1, every gate passed), the listening on the published page, answers read from its store after the user said it was finished",
+  "listener": "the user, blind; all 12 sentences answered (eval/runs/evidence/frontend-review-v1/answers-listener-1.json), no notes left",
+  "per_condition": {
+   "A": {
+    "renders": 12,
+    "clean": 3,
+    "wrong": 12,
+    "words": 147,
+    "best": 1
+   },
+   "E": {
+    "renders": 12,
+    "clean": 4,
+    "wrong": 9,
+    "words": 147,
+    "best": 4
+   },
+   "EN": {
+    "renders": 12,
+    "clean": 5,
+    "wrong": 12,
+    "words": 147,
+    "best": 2
+   },
+   "ENV": {
+    "renders": 12,
+    "clean": 5,
+    "wrong": 10,
+    "words": 147,
+    "best": 3
+   }
+  },
+  "best_picks": {
+   "A": 1,
+   "E": 4,
+   "EN": 2,
+   "ENV": 3,
+   "no difference": 2
+  },
+  "decision_by_the_registered_rules": {
+   "A_to_E": "words marked wrong 12 -> 9: the ezafe is kept",
+   "E_to_EN": "9 -> 12: the sukun is dropped",
+   "EN_to_ENV": "12 -> 10: the first vowels are kept by the rule",
+   "harm": "mean CER A 3.09%, E 3.89% (+0.81), EN 3.93% (+0.04), ENV 2.90% (-1.03): no step above +2 points, nothing flagged",
+   "into_the_app": "the ezafe marks, as E was rendered and heard. The kept steps together - ezafe and first vowels without the sukun - were never rendered, so by the registered rule they are not claimed, and the vowels ship only after that combination is rendered and heard"
+  },
+  "read_beside_it_not_used_for_the_decision": {
+   "same_audio_heard_twice": "in 4 sentences a step changed nothing (n05 E=EN, n06 A=E, n09 E=EN, n11 EN=ENV) and the renders are bit-identical - seed 42 is deterministic on the GPU. The listener heard each pair blind in two slots: 3 pairs judged alike, n06 differed by one word (دانشمندی). A one-word difference is within the judging noise",
+   "where_the_changes_fell": "Claude's split, since there are no notes: a word whose own marks changed in the step, against a word left as it was (whose change can only come from the whole sentence rendering anew). Ezafe: on marked words 4 fixed (باریک n05, خونه n11, طولانی and ماه n12 - missing ezafes), 2 broken (مدیر and عامل n12: the tagger linked the compound مدیرعامل, which the listener heard right only without the ezafe); elsewhere 2 fixed (one is n06's identical pair) and 1 broken. Sukun: on marked words 2 fixed (کوچک n04, غروب n07 - plausibly spurious ezafes stopped), 2 broken (سبد n03, شروع n07 with its final ع); elsewhere 1 fixed, 4 broken. First vowels: on marked words 4 fixed (خشک and سبد n03, شهر n10, هیئت n12) and 4 broken (مهربان and بزرگ n06, عذرخواهی n09, شرکت n12 - all marked with the right vowel); elsewhere 2 fixed, none broken",
+   "so": "the ezafe's gain sits on the words it marks; the vowels' net gain does not - on their own words they fixed as many as they broke. With one listener and 12 sentences, the follow-up for the vowels decides, not this",
+   "unaddressed": "کرم n08 wrong in all four (a homograph whose readings KaamelDict lists three ways, so no vowel was marked; the tagger's wrong ezafe on it was known before the renders), تبر n03 and برنگشته n11 wrong in all four"
+  },
+  "label": "one listener, one voice, one seed, 147 words written by Claude: a development decision for the front-end, not a measure of the app's pronunciation"
  }
 }

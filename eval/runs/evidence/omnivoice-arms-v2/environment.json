@@ -1,0 +1,132 @@
+{
+  "python": "3.12.13",
+  "torch_cuda": "12.8",
+  "cudnn": 91002,
+  "bf16_supported_including_emulation": true,
+  "gpus": [
+    {
+      "name": "Tesla T4",
+      "capability": [
+        7,
+        5
+      ]
+    },
+    {
+      "name": "Tesla T4",
+      "capability": [
+        7,
+        5
+      ]
+    }
+  ],
+  "nvidia_smi": "Tesla T4, 580.159.04, 15360 MiB\nTesla T4, 580.159.04, 15360 MiB",
+  "official_stack": {
+    "torch": {
+      "official": "2.8.0+cu128",
+      "installed": "2.10.0+cu128",
+      "matches": false,
+      "pinned_here": true
+    },
+    "torchaudio": {
+      "official": "2.8.0+cu128",
+      "installed": "2.10.0+cu128",
+      "matches": false,
+      "pinned_here": true
+    },
+    "transformers": {
+      "official": "5.3.0",
+      "installed": "5.0.0",
+      "matches": false,
+      "pinned_here": true
+    },
+    "accelerate": {
+      "official": "1.13.0",
+      "installed": "1.13.0",
+      "matches": true,
+      "pinned_here": true
+    },
+    "webdataset": {
+      "official": "1.0.2",
+      "installed": null,
+      "matches": false,
+      "pinned_here": true
+    },
+    "safetensors": {
+      "official": "0.7.0",
+      "installed": "0.7.0",
+      "matches": true,
+      "pinned_here": true
+    },
+    "tokenizers": {
+      "official": "0.22.2",
+      "installed": "0.22.2",
+      "matches": true,
+      "pinned_here": true
+    },
+    "huggingface-hub": {
+      "official": "1.7.2",
+      "installed": "1.33.0",
+      "matches": false,
+      "pinned_here": true
+    },
+    "tensorboardX": {
+      "official": "2.6.4",
+      "installed": null,
+      "matches": false,
+      "pinned_here": false
+    },
+    "soundfile": {
+      "official": "0.13.1",
+      "installed": "0.13.1",
+      "matches": true,
+      "pinned_here": false
+    },
+    "librosa": {
+      "official": "0.11.0",
+      "installed": "0.11.0",
+      "matches": true,
+      "pinned_here": false
+    },
+    "pydub": {
+      "official": "0.25.1",
+      "installed": "0.25.1",
+      "matches": true,
+      "pinned_here": false
+    },
+    "numpy": {
+      "official": "2.4.3",
+      "installed": "2.0.2",
+      "matches": false,
+      "pinned_here": false
+    },
+    "triton": {
+      "official": "3.4.0",
+      "installed": "3.6.0",
+      "matches": false,
+      "pinned_here": false
+    }
+  },
+  "omnivoice": {
+    "version": null,
+    "commit": null,
+    "url": null
+  },
+  "other_packages": {
+    "torchvision": "0.25.0+cu128",
+    "ipykernel": "6.17.1",
+    "papermill": "2.7.0",
+    "scipy": "1.16.3"
+  },
+  "arms_packages": {
+    "f5-tts": "1.1.22",
+    "pocket-tts": "3.1.0",
+    "vocos": "0.1.0",
+    "torch": "2.10.0+cu128",
+    "torchaudio": "2.10.0+cu128",
+    "transformers": "5.0.0",
+    "speechbrain": "1.1.1",
+    "faster-whisper": "1.2.1",
+    "ctranslate2": "4.8.2",
+    "jiwer": "4.0.0"
+  }
+}

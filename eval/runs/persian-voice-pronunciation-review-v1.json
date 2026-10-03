@@ -96,5 +96,6 @@
    "eval/runs/evidence/pronunciation-review-v1/answers-listener-1.json",
    "eval/runs/evidence/pronunciation-review-v1/score.json"
   ]
- }
+ },
+ "erratum_2026_10_03": "result.what_B_shows.disputed says dictionaries give پیرمرد as pirmard. That was written from memory, not looked up. KaamelDict, checked 2026-10-03, gives piremard - the listener's reading - so B's mark on پیرمرد is an error like the others, not a dispute"
 }

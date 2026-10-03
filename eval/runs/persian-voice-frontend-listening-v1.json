@@ -47,5 +47,10 @@
   "best_picks": "reported beside the counts, with the listener's notes"
  },
  "not_claimed": "one listener, one voice, one seed and 147 words written by Claude: a development decision for the front-end, not a measure of the app's pronunciation; other voices are untested",
- "cost": "local: OmniVoice took 12-16 s a render in the A/B/C run, so about 15 minutes for 48; the recogniser afterwards, alone. No GPU quota"
+ "cost": "local: OmniVoice took 12-16 s a render in the A/B/C run, so about 15 minutes for 48; the recogniser afterwards, alone. No GPU quota",
+ "amendment_2026_10_03_marks_check": {
+  "when": "after the four texts were written and before any render: the first run stopped at the check, before an engine loaded",
+  "what": "the check compared whole strings, stricter than registered: it stopped because the app's normaliser writes تأخیر as تاخیر (src/voiceclone/text/normalize_fa.py maps أ to ا), in n09 and in all four of its conditions alike. It now checks what was registered - every mark reaching the model on its word - and lists the app's other changes in the manifest",
+  "found_on_the_way": "the same map is why the review's A read تأخیر as taa'khir: OmniVoice was given تاخیر, a long a. The normaliser also turns ۀ (a written ezafe) into a bare ه, dropping the ezafe. Both are app fixes for after this test; here every condition gets the same normalised text, and the front-end writes the ezafe as هٔ, which survives"
+ }
 }

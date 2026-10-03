@@ -1,0 +1,79 @@
+{
+ "version": 1,
+ "created": "2026-10-03",
+ "about": "new hard sentences for the front-end listening test (eval/runs/persian-voice-frontend-listening-v1.json), written by Claude before any front-end component ran on them. None comes from the review's 14, which are development material now",
+ "sentences": [
+  {
+   "id": "n01",
+   "category": "ezafe_chain_silent_h",
+   "text": "پنجره اتاق خواب خانه مادربزرگم رو به باغ باز می‌شود.",
+   "tests": "an ezafe chain whose heads end in a silent h (پنجره، خانه) with the ezafe unwritten; باغ before باز must not take one"
+  },
+  {
+   "id": "n02",
+   "category": "no_ezafe_before_verb_and_number",
+   "text": "دانشجو کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند.",
+   "tests": "nouns right before a verb or another phrase (میز گذاشت، ساعت منتظر), the review's ساعت trap; منتظر takes one"
+  },
+  {
+   "id": "n03",
+   "category": "first_vowels_fatha_kasra",
+   "text": "کشاورز با تبر شاخه‌های خشک درخت را برید و در سبد گذاشت.",
+   "tests": "short first vowels the script leaves out (کِشاورز، تَبَر، دِرَخت، سَبَد); سبد before گذاشت"
+  },
+  {
+   "id": "n04",
+   "category": "first_vowels_damma",
+   "text": "دختر کوچک قفل صندوق را با کلید طلایی باز کرد.",
+   "tests": "first vowels with o (دُختر، قُفل), where a damma was read as a long u in the review; طلایی before باز"
+  },
+  {
+   "id": "n05",
+   "category": "ezafe_after_vowels",
+   "text": "صدای خنده بچه‌ها از کوچه باریک پشت مدرسه می‌آمد.",
+   "tests": "ezafe after a written ی, after a silent h (خنده، کوچه) and on a chain (باریکِ پشتِ مدرسه)"
+  },
+  {
+   "id": "n06",
+   "category": "indefinite_then_adjective",
+   "text": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+   "tests": "a noun with the indefinite ی before its adjective takes no ezafe - the review's عاملی trap"
+  },
+  {
+   "id": "n07",
+   "category": "time_phrases",
+   "text": "دیروز صبح زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+   "tests": "صبحِ زود takes one; باران and غروب before what follows do not - the review's غروب trap"
+  },
+  {
+   "id": "n08",
+   "category": "homograph_and_trap",
+   "text": "کرم این گل‌ها را خورده و باغبان از دیدن برگ‌های سوراخ ناراحت است.",
+   "tests": "a homograph (کرم: kerm here) as a subject with no ezafe; دیدنِ برگ‌هایِ سوراخ"
+  },
+  {
+   "id": "n09",
+   "category": "glottal_and_chain",
+   "text": "مسئول فروشگاه به خاطر تأخیر در تحویل سفارش از مشتری عذرخواهی کرد.",
+   "tests": "تأخیر (misread in the review) and a chain of construct nouns; سفارش before از"
+  },
+  {
+   "id": "n10",
+   "category": "news",
+   "text": "شورای شهر تصمیم گرفت ساعت کار کتابخانه‌های عمومی را در تابستان افزایش دهد.",
+   "tests": "an ordinary news sentence: شهر before تصمیم takes none, ساعتِ کارِ کتابخانه‌های عمومی does"
+  },
+  {
+   "id": "n11",
+   "category": "colloquial",
+   "text": "دیشب رفتیم خونه داداشم، ولی هنوز از سفر برنگشته بود.",
+   "tests": "colloquial spelling: خونهٔ داداشم; سفر before the verb takes none"
+  },
+  {
+   "id": "n12",
+   "category": "long",
+   "text": "بعد از جلسه طولانی هیئت مدیره، مدیر عامل شرکت گفت که قرارداد جدید تا پایان ماه آینده امضا می‌شود.",
+   "tests": "a long sentence with chains (جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکت، پایانِ ماهِ آینده) and traps (شرکت گفت، جدید تا، آینده امضا)"
+  }
+ ]
+}

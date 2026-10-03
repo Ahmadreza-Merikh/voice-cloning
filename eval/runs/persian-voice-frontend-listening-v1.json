@@ -1,0 +1,51 @@
+{
+ "run": "step 2 of the pronunciation fix: OmniVoice on plain script against three marked forms of the same text, written by the front-end the text-only comparison chose, judged blind by ear",
+ "status": "registered 2026-10-03, before the front-end ran on these sentences and before any render",
+ "why": "the pronunciation review found OmniVoice's errors on plain script are mostly ezafe and short vowels, and that it reads the marks it is given; the text-only comparison (eval/runs/persian-voice-frontend-components-v1.json) chose hazm's ParsBERT tagger for the ezafe and ruled out marking every word's vowels. This asks whether writing those marks in makes OmniVoice read better",
+ "question": "does each kind of mark - the ezafe, a sukun where no ezafe belongs, first short vowels - lower the words a native listener hears said wrong",
+ "sentences": {
+  "file": "eval/manifests/frontend_listening_v1.json",
+  "sha256": "69f33c5a7571804fe17250e2dd7e75dc8183e6d378edc7b03906dd5119812ec3",
+  "count": 12,
+  "words": 147,
+  "written_by": "Claude, 2026-10-03, before the front-end ran on them: ezafe chains (heads ending in a consonant, a silent h, a vowel), nouns right before a verb, number or adjective that take no ezafe (the review's traps), first syllables with short vowels (fatha, kasra, damma), a homograph, colloquial, news and a long sentence",
+  "leakage_check": "none of the 12 found in HomoRich (528,875), SentenceBench (400) or the adaptation split - letters only, equal or one inside the other with at least 20 letters and half the longer",
+  "not_reused": "none of the review's 14 sentences, which are development material"
+ },
+ "front_end": {
+  "ezafe": "hazm's ParsBERT tagger (roshan-research/hazm-parsbert-postagger @ eba1d2b30cc48206c0144b36d2b663652d44faf9) through hazm 0.12.1 with full tags; a tag with ,EZ is an ezafe; the word's tag also gives its part of speech",
+  "readings": "KaamelDict (sha256 d5f6982ba93d94d8de19bceac2d0c843857a0b2ea751e9e1c3876fc0514d22c9) looked up by spelling, then the part before a ZWNJ, then without a final clitic (ها، های، م، ت، ش، ...); a reading is used only where every listed reading agrees on the mark it would set",
+  "marks": "src/voiceclone/text/marks_fa.py (sha256 b2b82370a1e69a04bfe290b4e24c0613734d322c8317d507ab7031e7bd6c8395, tests/test_marks_fa.py): an ezafe is a kasra on a final consonant or a pronounced final h, ٔ on a silent final h, ی after a final ا/آ/و; a sukun closes a final consonant; a first vowel is fatha, kasra or damma on the first letter, only when the script leaves that vowel unwritten. A word already marked where a mark would go is left alone",
+  "code": "scripts/build_frontend_texts.py (the decisions and the four texts, in the frontend environment) -> eval/runs/frontend-listening-v1/texts.json"
+ },
+ "conditions": {
+  "A": "the plain sentence - what the app sends today",
+  "E": "A + every ezafe the tagger predicts, written in",
+  "EN": "E + a sukun on each noun, adjective or number the tagger gives no ezafe, when the next word is a noun, adjective, number, verb, adverb, pronoun or determiner",
+  "ENV": "EN + the first short vowel of each noun and adjective whose readings agree on it"
+ },
+ "rendering": {
+  "engine": "OmniVoice through the app (scripts/render_frontend_conditions.py), on this Mac, with the A/B/C run's settings from the app config: seed 42, one take, evaluation off while rendering, the memory guard on (6 GB must be free)",
+  "voice": "the Mana-TTS reference of the review (eval/corpus mana_000.wav), so the voice is the same as before",
+  "renders": "12 sentences x 4 conditions = 48",
+  "marks_reach_the_model": "every input goes through the app's text pipeline before any engine loads; the run stops if a mark would be changed or dropped, and the manifest keeps the exact strings fed",
+  "cer": "after the engine is unloaded, the app's recogniser (faster-whisper large-v3-turbo) against the plain sentence with diacritics stripped - a harm check only, since the script writes neither ezafe nor short vowels and CER cannot see them"
+ },
+ "review": {
+  "listener": "the user, a native speaker, blind to which reading is which",
+  "page": "as the pronunciation review: one sentence per screen, the plain sentence on top, four readings in hidden slots, each with its words to tap when said wrong or an 'every word right' button and a note, then which reading was best",
+  "blind": "slots from Latin squares (scripts/build_pronunciation_review.py --rotations): each condition in each slot three times; anonymous file names; every render of a sentence matched to one loudness by gain (-26 LUFS, 16-bit); the key outside the page"
+ },
+ "analysis_fixed_before_listening": {
+  "code": "scripts/score_pronunciation_review.py: per condition, readings with no marked word, words marked wrong out of words, times picked best; the same by category; every marked word with its note",
+  "classification": "after reading through the key, Claude sorts the marked words by kind (ezafe, vowel, other) from the listener's notes, as in the review - reported, not used for the decision"
+ },
+ "decision_rules": {
+  "steps": "A -> E -> EN -> ENV, each compared with the one before it: a step is kept if it lowers the number of words marked wrong; a tie or a rise drops it - marks must earn their place",
+  "harm": "a step whose mean CER is more than 2 points above the one before it is flagged and not adopted without the user's say, even if the rule above keeps it",
+  "into_the_app": "the app's front-end takes the marks of every kept step. A combination never rendered (say the ezafe and vowels without the sukun) is not claimed and is rendered and heard before it ships",
+  "best_picks": "reported beside the counts, with the listener's notes"
+ },
+ "not_claimed": "one listener, one voice, one seed and 147 words written by Claude: a development decision for the front-end, not a measure of the app's pronunciation; other voices are untested",
+ "cost": "local: OmniVoice took 12-16 s a render in the A/B/C run, so about 15 minutes for 48; the recogniser afterwards, alone. No GPU quota"
+}

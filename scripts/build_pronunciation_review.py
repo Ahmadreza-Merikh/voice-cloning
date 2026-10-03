@@ -52,7 +52,8 @@ def words_of(text: str) -> list[str]:
     return [w for w in (re.sub(r"[.,،؛:!؟?«»()\"]", "", token) for token in text.split()) if w]
 
 
-def build(manifest_path: Path = MANIFEST, out: Path = OUT, key_path: Path = KEY, seed: int = SEED) -> dict:
+def build(manifest_path: Path = MANIFEST, out: Path = OUT, key_path: Path = KEY, seed: int = SEED,
+          rotations: bool = False, notes: dict | None = None) -> dict:
     from voiceclone.audio.io import load_audio, save_audio
     from voiceclone.audio.loudness import apply_gain, measure_lufs, peak_dbfs
 
@@ -71,14 +72,29 @@ def build(manifest_path: Path = MANIFEST, out: Path = OUT, key_path: Path = KEY,
         return hashlib.sha1(f"{seed}:{tag}".encode()).hexdigest()[:12]
 
     items, key = [], {"seed": seed, "manifest": str(manifest_path.relative_to(ROOT)), "target_lufs": TARGET_LUFS,
-                      "wrong_in_twins": WRONG_IN_TWINS, "sentences": {}}
+                      "wrong_in_twins": WRONG_IN_TWINS if notes is None else notes, "sentences": {}}
     # Balanced, not just shuffled: sentences with the same conditions cycle
     # through every order of them, so no condition keeps one slot.
     cycles: dict[tuple, list[list[str]]] = {}
     orders = {}
+    if rotations:
+        # Latin squares: every block of k sentences sees the k rotations of one
+        # drawn order, so each condition sits in each slot equally often.
+        ready = [s["id"] for s in manifest["sentences"] if len(renders.get(s["id"], {})) >= 2]
+        conditions = sorted(renders[ready[0]])
+        k = len(conditions)
+        if any(sorted(renders[i]) != conditions for i in ready) or len(ready) % k:
+            raise SystemExit("rotations need the same conditions everywhere and a multiple of their number of sentences")
+        for start in range(0, len(ready), k):
+            base = conditions[:]
+            rng.shuffle(base)
+            rows = [base[r:] + base[:r] for r in range(k)]
+            rng.shuffle(rows)
+            for sid, row in zip(ready[start:start + k], rows, strict=True):
+                orders[sid] = row
     for sentence in manifest["sentences"]:
         conditions = tuple(sorted(renders.get(sentence["id"], {})))
-        if len(conditions) < 2:
+        if rotations or len(conditions) < 2:
             continue
         if conditions not in cycles:
             from itertools import permutations
@@ -123,10 +139,15 @@ def build(manifest_path: Path = MANIFEST, out: Path = OUT, key_path: Path = KEY,
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--seed", type=int, default=SEED)
+    parser.add_argument("--manifest", type=Path, default=MANIFEST)
+    parser.add_argument("--out", type=Path, default=OUT)
+    parser.add_argument("--key", type=Path, default=KEY)
+    parser.add_argument("--rotations", action="store_true", help="Latin-square slot orders (same conditions everywhere)")
     args = parser.parse_args(argv)
-    key = build(seed=args.seed)
+    key = build(args.manifest, args.out, args.key, seed=args.seed, rotations=args.rotations,
+                notes={} if args.manifest != MANIFEST else None)
     slots = sum(len(s["slots"]) for s in key["sentences"].values())
-    print(f"{len(key['sentences'])} sentences, {slots} renders in {OUT.relative_to(ROOT)}; key at {KEY.relative_to(ROOT)}")
+    print(f"{len(key['sentences'])} sentences, {slots} renders in {args.out}; key at {args.key}")
     return 0
 
 

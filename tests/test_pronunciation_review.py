@@ -80,3 +80,26 @@ def test_answers_are_counted_per_condition_through_the_key() -> None:
     assert per["C"]["wrong"] == 1 and per["C"]["words"] == 4
     assert "B" not in per
     assert result["marked"][0]["words"] == ["گل"] and result["marked"][0]["twin_note"] == "a twin note"
+
+
+def test_rotations_put_every_condition_in_every_slot_equally_often(tmp_path: Path, monkeypatch) -> None:
+    rate = 24000
+    t = np.arange(rate) / rate
+    renders, sentences = [], []
+    for n in range(8):
+        sid = f"n{n:02d}"
+        sentences.append({"id": sid, "category": "x", "text": "باران بند آمد."})
+        for k, condition in enumerate(("A", "E", "EN", "ENV")):
+            path = tmp_path / f"{sid}_{condition}.wav"
+            sf.write(path, (0.05 * (k + 1) * np.sin(2 * np.pi * 220 * t)).astype(np.float32), rate)
+            renders.append({"id": sid, "condition": condition, "skipped": None, "wav": str(path)})
+    path = tmp_path / "manifest.json"
+    path.write_text(json.dumps({"sentences": sentences, "renders": renders}, ensure_ascii=False), encoding="utf-8")
+    monkeypatch.setattr(review, "ROOT", tmp_path)
+    key = review.build(path, tmp_path / "out", tmp_path / "key.json", seed=7, rotations=True, notes={})
+    counts: dict[tuple[str, str], int] = {}
+    for sentence in key["sentences"].values():
+        for slot, condition in sentence["slots"].items():
+            counts[(slot, condition)] = counts.get((slot, condition), 0) + 1
+    assert set(counts.values()) == {2} and len(counts) == 16
+    assert key["wrong_in_twins"] == {}

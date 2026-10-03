@@ -1,0 +1,754 @@
+{
+  "corpus": {
+    "manifest": "manifest.json",
+    "sha256": "e9b8879d502a47cde2375396eace7ef83352e590e0672ecb7e6aa6d6e5df1c58"
+  },
+  "label": "pocket-test-cv",
+  "recipe_version": 1,
+  "references": {
+    "clips": [
+      {
+        "duration": 8.256,
+        "file": "cvt01_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.19,
+          "steps": [
+            "Decoded 8.3s @ 24000 Hz",
+            "Removed DC offset (-0.0001)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~68 dB SNR)",
+            "Trimmed 2.07s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.256
+          ]
+        },
+        "sha256": "6cd397db90aea03e4caa251dee611fb7419527b8f04e978fc29e248da51c0507",
+        "speaker": "cvt01",
+        "transcript_given": "حالا من شدم ضد حقوق بشر؟ حالا که اینطوره خودم می رم براش غذا می پزم."
+      },
+      {
+        "duration": 7.2,
+        "file": "cvt02_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.712,
+          "steps": [
+            "Decoded 7.2s @ 24000 Hz",
+            "Removed DC offset (-0.0001)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~33 dB SNR)",
+            "Trimmed 1.49s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.2
+          ]
+        },
+        "sha256": "d859d56b83ad87481026ee0358c39694742429ad6f53cef1b35b455de5174ca0",
+        "speaker": "cvt02",
+        "transcript_given": "دوره نهفتگی به دوره شروع بیماری تا ظهور علایم بیماری گفته میشود"
+      },
+      {
+        "duration": 7.704,
+        "file": "cvt03_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.0,
+          "steps": [
+            "Decoded 7.7s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~62 dB SNR)",
+            "Trimmed 1.70s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.704
+          ]
+        },
+        "sha256": "0098a14a3d42fc7a6e1f6470a22abb7e53630dd17c8b5e7cc182815b0f9eb2e4",
+        "speaker": "cvt03",
+        "transcript_given": "آلت زنانه آلت تناسلی زن فرج یا به زبان عامیانه کس"
+      },
+      {
+        "duration": 7.956,
+        "file": "cvt04_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.912,
+          "steps": [
+            "Decoded 8.0s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~219 dB SNR)",
+            "Trimmed 3.04s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.956
+          ]
+        },
+        "sha256": "0cb51ed3c0888f84d686220444d4cbdbbf43d69841037a2c361ea4afc8c806f5",
+        "speaker": "cvt04",
+        "transcript_given": "برای یافتن پاسخ کتب زیادی را بررسی کرد."
+      },
+      {
+        "duration": 6.948,
+        "file": "cvt05_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.948,
+          "steps": [
+            "Decoded 6.9s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~55 dB SNR)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            6.948
+          ]
+        },
+        "sha256": "4594b8f29e6b0359a54b9edd62ae752affaea53d339d0804c9f75be61bad16b7",
+        "speaker": "cvt05",
+        "transcript_given": "او به جمع شعرا پیوست."
+      },
+      {
+        "duration": 7.668,
+        "file": "cvt06_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.32,
+          "steps": [
+            "Decoded 7.7s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~53 dB SNR)",
+            "Trimmed 1.35s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.668
+          ]
+        },
+        "sha256": "eff8b41cf17b93dc05c30affba1e617d8c24f8285ae9b85f61ba94f07897dc14",
+        "speaker": "cvt06",
+        "transcript_given": "او ناچار بود تحت الشعاع برادر خوش قیافه و پر استعداد خود باقی بماند."
+      },
+      {
+        "duration": 7.056,
+        "file": "cvt07_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.36,
+          "steps": [
+            "Decoded 7.1s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~226 dB SNR)",
+            "Trimmed 1.70s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.056
+          ]
+        },
+        "sha256": "e6cadf1eec7e1a0fa965544fd3f3ddbdbdb0934e72a7e28b293eed309e1c4675",
+        "speaker": "cvt07",
+        "transcript_given": "پایان جنگهای داخلی نقطهی عطفی بود در تاریخ ایالات متحده."
+      },
+      {
+        "duration": 7.92,
+        "file": "cvt08_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.56,
+          "steps": [
+            "Decoded 7.9s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~73 dB SNR)",
+            "Trimmed 3.36s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.92
+          ]
+        },
+        "sha256": "0d600562af62518ca8110acad19433586626b84b3b1f7b8fa1b3f7800fd9c4fd",
+        "speaker": "cvt08",
+        "transcript_given": "اعضای هیئت منصفه بیش از دو ساعت تبادل نظر میکردند."
+      },
+      {
+        "duration": 6.888,
+        "file": "cvt09_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.744,
+          "steps": [
+            "Decoded 6.9s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~47 dB SNR)",
+            "Trimmed 1.14s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            6.888
+          ]
+        },
+        "sha256": "38b0d4be8b23bfe1c4a7a62313a61c3a56d241dad1173af07d9dbafe14a801c1",
+        "speaker": "cvt09",
+        "transcript_given": "گفتنی است به تازگی پروژهای با نام هیبریس شروع به توسعه کرده است"
+      },
+      {
+        "duration": 6.744,
+        "file": "cvt10_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.2,
+          "steps": [
+            "Decoded 6.7s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~59 dB SNR)",
+            "Trimmed 1.54s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            6.744
+          ]
+        },
+        "sha256": "94ee8b1c779850c998adb20b680076e39daf300e38307029847d453192812689",
+        "speaker": "cvt10",
+        "transcript_given": "آگاه میشوید که قاعدگی پدیدهای بینظیر در بین پستانداران است"
+      },
+      {
+        "duration": 7.464,
+        "file": "cvt11_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.232,
+          "steps": [
+            "Decoded 7.5s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~73 dB SNR)",
+            "Trimmed 2.23s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.464
+          ]
+        },
+        "sha256": "cb2e189e9dd8165edd5dc445f809c0985f15e9d471f11efb3f4d724596698bef",
+        "speaker": "cvt11",
+        "transcript_given": "همین جا پیش خودم ارزوی من اینه نوهام توی همین حیاط بازی کنن."
+      },
+      {
+        "duration": 8.064,
+        "file": "cvt12_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.464,
+          "steps": [
+            "Decoded 8.1s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~39 dB SNR)",
+            "Trimmed 1.60s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.064
+          ]
+        },
+        "sha256": "17afc6bfb3f1dd19a301db65ca5786c6d63a420d81886ec3c519dd5078879b24",
+        "speaker": "cvt12",
+        "transcript_given": "در حال حاضر، حفظ آزادی نرمافزار در دنیای مرور وب، کار آسانی نیست"
+      },
+      {
+        "duration": 8.664,
+        "file": "cvt13_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.256,
+          "steps": [
+            "Decoded 8.7s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~71 dB SNR)",
+            "Trimmed 2.41s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.664
+          ]
+        },
+        "sha256": "7f36708846432af63a7998a6f1115bf5adf2ea4ac266ec1c3e438b7c1046df38",
+        "speaker": "cvt13",
+        "transcript_given": "از دید ما همه برنده خواهند بود وقتی که نور بر پیکر این دشواری بتابیم"
+      },
+      {
+        "duration": 7.896,
+        "file": "cvt14_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.544,
+          "steps": [
+            "Decoded 7.9s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~62 dB SNR)",
+            "Trimmed 1.35s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.896
+          ]
+        },
+        "sha256": "a33152c2abacde1e1910574d2c6637f05f1ba97ecc0e02f40feef5d2c9016b9d",
+        "speaker": "cvt14",
+        "transcript_given": "بعضی از ما ممکن است آن را گستاخانه بدانیم، بقیه ممکن است آن را کاملا مودبانه بدانند"
+      },
+      {
+        "duration": 6.984,
+        "file": "cvt15_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.79,
+          "steps": [
+            "Decoded 7.0s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~43 dB SNR)",
+            "Trimmed 2.19s of silence (3 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            6.984
+          ]
+        },
+        "sha256": "9b05f57cdb74f6aff7759175834bacdc755d286482f511894d6bc7799afac749",
+        "speaker": "cvt15",
+        "transcript_given": "او از دیگران عقب ماند چون کفشهایش پاهایش را میزد."
+      },
+      {
+        "duration": 7.056,
+        "file": "cvt16_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.888,
+          "steps": [
+            "Decoded 7.1s @ 24000 Hz",
+            "Removed DC offset (+0.0001)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~230 dB SNR)",
+            "Trimmed 1.17s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.056
+          ]
+        },
+        "sha256": "e1f1eddd1a1f07ad9f7371018a3eef8a39cfb2baef17eca6d4c328929aacc577",
+        "speaker": "cvt16",
+        "transcript_given": "آسیابان گفت: تو که چنین مستجاب الدعوه هستی دعا کن گندمت آرد بشود"
+      },
+      {
+        "duration": 8.088,
+        "file": "cvt17_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.288,
+          "steps": [
+            "Decoded 8.1s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoised with noisereduce",
+            "Trimmed 1.80s of silence (3 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.088
+          ]
+        },
+        "sha256": "4452a51ec40c9e43b7fb22bd1e83cb1823ffd8bce932ce4bc92647b8523892cd",
+        "speaker": "cvt17",
+        "transcript_given": "روشهای جدید ارتباط، اقتصاد پایدار، و یا حتی شاید صلح جهانی"
+      },
+      {
+        "duration": 7.596,
+        "file": "cvt18_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.144,
+          "steps": [
+            "Decoded 7.6s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~225 dB SNR)",
+            "Trimmed 3.45s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.596
+          ]
+        },
+        "sha256": "2bb1853d00b6ee7176b4e2433fa036f3e2f3829db7640bd8577a03ea52f8c33f",
+        "speaker": "cvt18",
+        "transcript_given": "آنها نه نفر را در اتومبیل پنج نفری چپانده بودند."
+      },
+      {
+        "duration": 7.032,
+        "file": "cvt19_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.88,
+          "steps": [
+            "Decoded 7.0s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~52 dB SNR)",
+            "Trimmed 2.15s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.032
+          ]
+        },
+        "sha256": "a2e4f4b18da4bf203a65c9203420d31655ba3ee380758f490955183a014301f7",
+        "speaker": "cvt19",
+        "transcript_given": "شما الهام بخش ما هستید، و ما هم خوشحالیم که الهام بخش شما باشیم"
+      },
+      {
+        "duration": 6.624,
+        "file": "cvt20_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.136,
+          "steps": [
+            "Decoded 6.6s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~62 dB SNR)",
+            "Trimmed 1.49s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            6.624
+          ]
+        },
+        "sha256": "7dcad97f57ca403666349392ca46de14c57cdac110230fa968f0107241541d00",
+        "speaker": "cvt20",
+        "transcript_given": "در جامعه کهنه طبقات حاکمه زحمتکشان را بیرحمانه استثمار میکردند."
+      },
+      {
+        "duration": 8.568,
+        "file": "cvt21_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.8,
+          "steps": [
+            "Decoded 8.6s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~44 dB SNR)",
+            "Trimmed 1.77s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.568
+          ]
+        },
+        "sha256": "393f6d017bb0383379e0c1fab06e90e2bd838e2357c6aa49762bcfa694b1a2a9",
+        "speaker": "cvt21",
+        "transcript_given": "چون اتاق هتل گیرمان نیامد، من و برادرانم روی سکوی یک دکان بیتوته کردیم."
+      },
+      {
+        "duration": 6.84,
+        "file": "cvt22_000.wav",
+        "prepared": {
+          "prepared_seconds": 3.68,
+          "steps": [
+            "Decoded 6.8s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~49 dB SNR)",
+            "Trimmed 3.16s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            6.84
+          ]
+        },
+        "sha256": "45f1e24ffb022227eab5bbdfc4f0466530a88e3b0993b72b8daff6079d585885",
+        "speaker": "cvt22",
+        "transcript_given": "انگشت بزرگ پا، شست پا"
+      },
+      {
+        "duration": 7.956,
+        "file": "cvt23_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.92,
+          "steps": [
+            "Decoded 8.0s @ 24000 Hz",
+            "Removed DC offset (-0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~61 dB SNR)",
+            "Trimmed 2.04s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.956
+          ]
+        },
+        "sha256": "4e250695dd20da016d7d9d7c0dc2f4015372f0a337e8e2bea4375dcaf63fc798",
+        "speaker": "cvt23",
+        "transcript_given": "اصلا داستان رانفهمیدم چون جزئیات آن درست شکل نیافته بود."
+      },
+      {
+        "duration": 6.588,
+        "file": "cvt24_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.688,
+          "steps": [
+            "Decoded 6.6s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~225 dB SNR)",
+            "Trimmed 1.90s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            6.588
+          ]
+        },
+        "sha256": "cd337fcf4ad74c5c31392ae143e44a149e5b7b7d8e004923f61315502f31484e",
+        "speaker": "cvt24",
+        "transcript_given": "اسمش از روی اسم فرد بزرگی برداشته شده است."
+      },
+      {
+        "duration": 7.8,
+        "file": "cvt25_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.766,
+          "steps": [
+            "Decoded 7.8s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~33 dB SNR)",
+            "Trimmed 1.03s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.8
+          ]
+        },
+        "sha256": "548d371b106942d5a697dd5c91d9967212bfc0bd71e288ba2d9dac9693f36cfa",
+        "speaker": "cvt25",
+        "transcript_given": "گویند مرا که دوزخی باشد مست قولیست خلاف دل در آن نتوان بست"
+      },
+      {
+        "duration": 9.048,
+        "file": "cvt26_000.wav",
+        "prepared": {
+          "prepared_seconds": 8.656,
+          "steps": [
+            "Decoded 9.0s @ 24000 Hz",
+            "Removed DC offset (-0.0002)",
+            "Filtered: high-pass 55 Hz",
+            "Denoised with noisereduce",
+            "Trimmed 0.39s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            9.048
+          ]
+        },
+        "sha256": "5caec70b62300797db8a2c2c7b5aedfe73d7a15b21c60fd6a4d2bec2d117a919",
+        "speaker": "cvt26",
+        "transcript_given": "در بنگلادش، ما همکارانی داریم که دارند دهها هزار جوان را در زمینه فنی آموزش میدهند، تا بتوانند مکانیک موتور، یا خدمات تلفن همراه بشوند"
+      },
+      {
+        "duration": 7.224,
+        "file": "cvt27_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.848,
+          "steps": [
+            "Decoded 7.2s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~61 dB SNR)",
+            "Trimmed 2.38s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.224
+          ]
+        },
+        "sha256": "5efe2032f3013be975d2a021d0cc55972bd9f72c20a89836d23946a05e164be0",
+        "speaker": "cvt27",
+        "transcript_given": "می خواهم برای پست مدیر دفتر درخواست بدهم."
+      },
+      {
+        "duration": 6.696,
+        "file": "cvt28_000.wav",
+        "prepared": {
+          "prepared_seconds": 4.752,
+          "steps": [
+            "Decoded 6.7s @ 24000 Hz",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~55 dB SNR)",
+            "Trimmed 1.94s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            6.696
+          ]
+        },
+        "sha256": "58e12cfe0acfd264f72fa62a457c774a77eaf09f13a1be57ffed8befd247c0c5",
+        "speaker": "cvt28",
+        "transcript_given": "آنان بیاعتنایی خود را نسبت به پول نشان دادند."
+      },
+      {
+        "duration": 7.344,
+        "file": "cvt29_000.wav",
+        "prepared": {
+          "prepared_seconds": 5.68,
+          "steps": [
+            "Decoded 7.3s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~61 dB SNR)",
+            "Trimmed 1.66s of silence (1 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            7.344
+          ]
+        },
+        "sha256": "a71b1de7639e7c32f6a582578584f655b2cd25ec42f98fb20236fb68b48dcaf9",
+        "speaker": "cvt29",
+        "transcript_given": "اما داستان بزرگتری هم در مورد اینکه نزاکت چگونه تاثیر میگذارد وجود دارد"
+      },
+      {
+        "duration": 8.544,
+        "file": "cvt30_000.wav",
+        "prepared": {
+          "prepared_seconds": 6.51,
+          "steps": [
+            "Decoded 8.5s @ 24000 Hz",
+            "Removed DC offset (+0.0000)",
+            "Filtered: high-pass 55 Hz",
+            "Denoising skipped - already clean (~66 dB SNR)",
+            "Trimmed 2.03s of silence (2 speech regions kept)",
+            "Normalised to -23 LUFS, peak ceiling -1.5 dBFS"
+          ],
+          "whole_clip": true,
+          "window": [
+            0.0,
+            8.544
+          ]
+        },
+        "sha256": "41de05b70f7bee53f9dacb3112dd9d7e2533c103a9d3f5827ef10750c0956cce",
+        "speaker": "cvt30",
+        "transcript_given": "همزمان حس بینهایت ناچیزی و همزمان مهم بودن داشتم"
+      }
+    ],
+    "index": 0,
+    "transcript": "corpus"
+  },
+  "render": {
+    "candidates_per_cell": 1,
+    "engine": "pocket",
+    "options_overridden": {},
+    "preprocess_overridden": {},
+    "replayed_from": null,
+    "reported_by_every_render": {},
+    "reported_per_cell": [],
+    "settings": {
+      "g2p_dir": "/tmp/pocket/g2p",
+      "g2p_revision": "e314087bc761e323d127ee7899cb34f7c7d697cd",
+      "max_tokens": 18,
+      "model_dir": "/tmp/pocket/model",
+      "prompt_seconds": null,
+      "python": "auto",
+      "retries": 1,
+      "revision": "e87097ed98edb8bd9c9bcabe9b575a51a466d0e4",
+      "timeout_seconds": 600.0
+    }
+  },
+  "results_file": "pocket-test-cv.json",
+  "results_sha256": "b437ba28b082c219a268edceea6b33fac2763b12b79284b1f83866d2f858f067",
+  "seeds": [
+    42,
+    43
+  ],
+  "sentences": {
+    "t01": "کمیتهٔ علمی همایش پس از بررسی مقاله‌ها، فهرست نهایی سخنرانان را در پایگاه اینترنتی خود منتشر کرد.",
+    "t02": "بر اساس گزارش سازمان هواشناسی، بارش‌های پاییزی امسال در بیشتر استان‌ها کمتر از میانگین بلندمدت بوده است.",
+    "t03": "ببین، اگه فردا یه کم زودتر بیای، با هم می‌ریم نون تازه می‌خریم.",
+    "t04": "راستش حوصلهٔ سینما رو ندارم، بیا امشب تو خونه یه فیلم ببینیم.",
+    "t05": "جلسهٔ بعدی روز سه‌شنبه ۱۴ آبان ۱۴۰۵ ساعت ۹:۳۰ صبح برگزار می‌شود.",
+    "t06": "قیمت هر کیلو پنیر از ۱۸۵ هزار تومان به ۲۱۲ هزار و ۵۰۰ تومان رسید.",
+    "t07": "سارا برای دیدن نمایشگاه آثار فرشچیان از شیراز به اصفهان رفت.",
+    "t08": "او اپلیکیشن تازه‌ای روی موبایلش نصب کرد تا بلیت کنسرت را آنلاین بخرد.",
+    "t09": "پس از پایان مسابقهٔ کشتی، ورزشکاران با کشتی به جزیره برگشتند.",
+    "t10": "دختر همسایهٔ روبه‌رویی ما کتاب تازهٔ نویسندهٔ محبوبش را امانت گرفت.",
+    "t11": "باران بند آمد.",
+    "t12": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تأخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند."
+  },
+  "session": {
+    "code_commit": "d9f7f76",
+    "scoring_environment": {
+      "id": "kaggle:persian-voice-omnivoice-arms-v2",
+      "packages": {
+        "ctranslate2": "4.8.2",
+        "faster-whisper": "1.2.1",
+        "jiwer": "4.0.0",
+        "numpy": "2.0.2",
+        "speechbrain": "1.1.1",
+        "torch": "2.10.0+cu128",
+        "torchaudio": "2.10.0+cu128",
+        "transformers": "5.0.0"
+      },
+      "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+      "python": "3.12.13",
+      "recogniser": "faster-whisper/large-v3-turbo (cuda/float16)",
+      "similarity": "speechbrain-ecapa",
+      "similarity_device": "cpu"
+    }
+  }
+}

@@ -179,5 +179,66 @@
   "version_1": "pushed 2026-09-30 17:18:59 UTC (a first push at 17:17 failed on the network and created nothing); stopped about 90 s in, in its environment cell, on 'No package metadata was found for omnivoice': the cell it shared with the test sessions asserts OmniVoice's pinned stack, which this session does not install. Nothing was fetched, rendered or scored",
   "version_2": "the same notebook with an environment cell that records OmniVoice's stack without asserting it and records the arms' own packages; scoring environment kaggle:persian-voice-omnivoice-arms-v2",
   "version_2_pushed": "2026-09-30 17:36:36 UTC; RUNNING at 17:39:59 (a status read between failed on the network)"
+ },
+ "arms_result": {
+  "recorded": "2026-10-03, read by scripts/read_arms.py (290a415), the registration of 2026-09-20 as code",
+  "session": "persian-voice-omnivoice-arms version 2, pushed 2026-09-30 17:36:36 UTC, COMPLETE; its log spans 6.3 h - two and a half times the 2 to 2.5 h estimated (each render run took 92-94 min), inside its bounds (3 h a run, 11.25 h a session). Read 2026-10-03: this Mac's Kaggle calls were refused from 19:11 UTC on 2026-09-30 and worked again on 2026-10-03 without a new login",
+  "gates": "runner, code, download, corpora, configure, renders - all passed. F5 at its registered settings (nfe_step 48), recorded in the configure gate",
+  "packages": "f5-tts 1.1.22, pocket-tts 3.1.0, vocos 0.1.0, torch 2.10.0+cu128, transformers 5.0.0, speechbrain 1.1.1, faster-whisper 1.2.1, ctranslate2 4.8.2",
+  "means": {
+   "neyshekar": {
+    "candidate": 0.5972,
+    "published": 0.5959,
+    "f5": 0.4854,
+    "pocket": 0.3762
+   },
+   "common_voice": {
+    "candidate": 0.5202,
+    "published": 0.5162,
+    "f5": 0.4714,
+    "pocket": 0.3173
+   }
+  },
+  "candidate_minus_arm": {
+   "neyshekar_primary": {
+    "f5": {
+     "difference": [
+      0.1119,
+      0.0909,
+      0.1329
+     ],
+     "speakers": "27 of 28 (ney06 refused for every model)"
+    },
+    "pocket": {
+     "difference": [
+      0.221,
+      0.1932,
+      0.2488
+     ],
+     "speakers": "27 of 28"
+    }
+   },
+   "common_voice_secondary": {
+    "f5": {
+     "difference": [
+      0.0488,
+      0.0338,
+      0.0638
+     ],
+     "speakers": "30 of 30"
+    },
+    "pocket": {
+     "difference": [
+      0.2029,
+      0.1718,
+      0.234
+     ],
+     "speakers": "30 of 30"
+    }
+   }
+  },
+  "reading_as_registered": "on both sets the candidate is above both arms with every interval clear of zero: 'the base choice survives contact with unseen speakers'. OmniVoice was the right base: on speakers nobody trained on, it clones far closer than F5-TTS Persian (+0.112 on Neyshekar) and Pocket-TTS Farsi v2 (+0.221). This says nothing new about the adaptation itself - the published model, not registered here, stands at the same margins (+0.111 and +0.220 on Neyshekar)",
+  "cer_between_the_arms": "F5 minus Pocket, the two arms sharing their session: -5.40 points [-9.01, -1.80] on Neyshekar over 19 speakers and -2.96 [-5.14, -0.77] on Common Voice over 27 - F5 reads more intelligibly. A speaker with any render the recogniser could not transcribe is left out of the pair (F5 9 such renders of 648 on Neyshekar, Pocket 4)",
+  "evidence": "eval/runs/evidence/omnivoice-arms-v2/"
  }
 }

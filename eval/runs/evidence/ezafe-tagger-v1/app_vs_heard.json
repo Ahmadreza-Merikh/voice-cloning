@@ -1,0 +1,138 @@
+{
+ "settings": {
+  "ezafe": {
+   "enabled": "auto",
+   "export_dir": "~/.cache/persian-voice-cloning/ezafe-tagger",
+   "download": true,
+   "min_available_gb": 1.5
+  },
+  "marks_engines": [
+   "omnivoice"
+  ]
+ },
+ "same": 11,
+ "as_meant": 12,
+ "of": 12,
+ "sentences": [
+  {
+   "id": "n01",
+   "heard_E": "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگم رو به باغ باز می‌شود.",
+   "app": "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگم رو به باغ باز می‌شود.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: پنجره، اتاق، خواب، خانه."
+   ]
+  },
+  {
+   "id": "n02",
+   "heard_E": "دانشجو کتاب را رویِ میز گذاشت و دو ساعت منتظرِ استاد ماند.",
+   "app": "دانشجو کتاب را رویِ میز گذاشت و دو ساعت منتظرِ استاد ماند.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: روی، منتظر."
+   ]
+  },
+  {
+   "id": "n03",
+   "heard_E": "کشاورز با تبر شاخه‌هایِ خشکِ درخت را برید و در سبد گذاشت.",
+   "app": "کشاورز با تبر شاخه‌هایِ خشکِ درخت را برید و در سبد گذاشت.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: شاخه‌های، خشک."
+   ]
+  },
+  {
+   "id": "n04",
+   "heard_E": "دخترِ کوچک قفلِ صندوق را با کلیدِ طلایی باز کرد.",
+   "app": "دخترِ کوچک قفلِ صندوق را با کلیدِ طلایی باز کرد.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: دختر، قفل، کلید."
+   ]
+  },
+  {
+   "id": "n05",
+   "heard_E": "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد.",
+   "app": "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 5 word(s) by hazm's ParsBERT tagger: صدای، خنده، کوچه، باریک، پشت."
+   ]
+  },
+  {
+   "id": "n06",
+   "heard_E": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+   "app": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": []
+  },
+  {
+   "id": "n07",
+   "heard_E": "دیروز صبحِ زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+   "app": "دیروز صبحِ زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: صبح."
+   ]
+  },
+  {
+   "id": "n08",
+   "heard_E": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخ ناراحت است.",
+   "app": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخ ناراحت است.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: کرم، دیدن، برگ‌های."
+   ]
+  },
+  {
+   "id": "n09",
+   "heard_E": "مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.",
+   "app": "مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: مسئول، خاطر، تحویل."
+   ]
+  },
+  {
+   "id": "n10",
+   "heard_E": "شورایِ شهر تصمیم گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستان افزایش دهد.",
+   "app": "شورایِ شهر تصمیم گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستان افزایش دهد.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: شورای، ساعت، کار، کتابخانه‌های."
+   ]
+  },
+  {
+   "id": "n11",
+   "heard_E": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفر برنگشته بود.",
+   "app": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفر برنگشته بود.",
+   "same": true,
+   "differs_only_on_kept_apart_pairs": null,
+   "notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: خونه."
+   ]
+  },
+  {
+   "id": "n12",
+   "heard_E": "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکت گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود.",
+   "app": "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیر عاملِ شرکت گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود.",
+   "same": false,
+   "differs_only_on_kept_apart_pairs": [
+    "مدیر"
+   ],
+   "notes": [
+    "Ezafe written in on 7 word(s) by hazm's ParsBERT tagger: جلسه، طولانی، هیئت، عامل، قرارداد، پایان، ماه."
+   ]
+  }
+ ]
+}

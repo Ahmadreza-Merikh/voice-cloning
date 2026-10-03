@@ -33,6 +33,16 @@ HARAKAT = "ًٌٍَُِّْٰٕٔ"
 PUNCT = "،؛؟!?.,:;«»\"'()[]{}…–—-*/"
 VOWEL_LETTERS = "اآوی"
 SHORT = {"a": FATHA, "e": KASRA, "o": DAMMA}
+#: Words whose final ه is the consonant h though no ا or و comes before it, so
+#: their ezafe is a kasra (توجهِ, tavajjoh-e), not هٔ. Written from knowledge of
+#: the words and checked against KaamelDict on 2026-10-03, which agrees for
+#: every one (گره, مه, ده and مشابه it also lists without the h); its own data
+#: is not used here.
+PRONOUNCED_H = frozenset({
+    "توجه", "تنبه", "تفقه", "تشبه", "تنزه", "تشابه", "وجه", "فقه", "شبه", "گره", "زره", "مه", "ده",
+    "شبیه", "فقیه", "سفیه", "وجیه", "کریه", "توجیه", "تنبیه", "تشبیه", "تنزیه", "ترفیه",
+    "متوجه", "متنبه", "منزه", "موجه", "مشتبه", "مشابه", "متشابه", "مواجه", "الله", "اله",
+})
 
 
 @dataclass(frozen=True)
@@ -59,7 +69,8 @@ def silent_h(word: str, reading: str | None = None) -> bool:
     """A final ه that is the vowel e, not the consonant h.
 
     The reading settles it when there is one (xAne vs mAh); without one a ه after
-    ا or و is taken as pronounced (راه، کوه) and any other as silent (خانه).
+    ا or و is taken as pronounced (راه، کوه), as is every word of
+    ``PRONOUNCED_H`` (توجه), and any other as silent (خانه).
     """
     if last_letter(word) != "ه":
         return False
@@ -67,13 +78,14 @@ def silent_h(word: str, reading: str | None = None) -> bool:
         r = reading.rstrip("-")
         return not r.endswith("h")
     b = bare(word)
-    return not (len(b) >= 2 and b[-2] in "او")
+    return not ((len(b) >= 2 and b[-2] in "او") or b in PRONOUNCED_H)
 
 
 def with_ezafe(word: str, reading: str | None = None) -> str:
     if not bare(word):
         return word
-    if word.endswith(KASRA) or word.endswith(HAMZA_ABOVE) or word.endswith("ۀ"):
+    # A mark already on the last letter is the writer's, whatever it is.
+    if word[-1] in HARAKAT or word.endswith("ۀ"):
         return word
     last = last_letter(word)
     if last == "ه":

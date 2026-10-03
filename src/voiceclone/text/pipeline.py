@@ -6,6 +6,7 @@
       -> number / date / currency verbalisation
       -> chunking on sentence boundaries
       -> per-chunk G2P to IPA (for engines that accept phonemes)
+      -> the ezafe written in (for engines that read marks from the script)
       -> PreparedText
 
 Chunking happens *before* G2P on purpose: the G2P model disambiguates
@@ -21,6 +22,7 @@ from typing import Any
 from ..config import TextConfig
 from ..logging_utils import get_logger
 from .chunker import TextChunk, chunk_text, estimate_duration
+from .ezafe_fa import EzafeWriter
 from .g2p import PersianG2P, get_g2p
 from .lang import detect_language, is_mixed_script
 from .normalize_fa import NormalizationOptions, normalize
@@ -77,6 +79,7 @@ class TextPipeline:
     def __init__(self, config: TextConfig) -> None:
         self.config = config
         self._g2p: PersianG2P | None = None
+        self._ezafe: EzafeWriter | None = None
 
     # -- G2P ---------------------------------------------------------------
     @property
@@ -109,6 +112,16 @@ class TextPipeline:
         allowed = {name.lower() for name in (self.config.g2p.apply_to_engines or [])}
         return engine_name.lower() in allowed
 
+    def reads_marks(self, engine_name: str) -> bool:
+        """Whether ``engine_name`` reads Persian marks (harakat, hamza) from the script."""
+        return engine_name.lower() in {name.lower() for name in (self.config.marks_engines or [])}
+
+    @property
+    def ezafe(self) -> EzafeWriter:
+        if self._ezafe is None:
+            self._ezafe = EzafeWriter(self.config.ezafe)
+        return self._ezafe
+
     # -- main entry point --------------------------------------------------
     def prepare(
         self,
@@ -132,12 +145,16 @@ class TextPipeline:
             notes.append("Mixed Persian/Latin script detected.")
 
         # -- normalisation -------------------------------------------------
+        reads_marks = self.reads_marks(engine_name)
         if self.config.normalize:
             options = NormalizationOptions(
                 expand_numbers=bool(self.config.expand_numbers),
                 strip_bracketed_tags=bool(self.config.strip_bracketed_tags),
                 # The G2P wants diacritics; grapheme engines do not care.
                 remove_diacritics=False,
+                # An engine that reads marks gets the ones the writer put there.
+                keep_hamza_alef=reads_marks,
+                ezafe_heh_as_hamza=reads_marks,
             )
             if detected == "en":
                 # Every other step writes Persian: English text came out with
@@ -196,6 +213,17 @@ class TextPipeline:
             backend = "skipped (non-Persian text)"
         elif engine_name:
             backend = "not used by this engine"
+
+        # -- ezafe -----------------------------------------------------------
+        if detected == "fa" and reads_marks and not used_phonemes and self.ezafe.enabled:
+            texts, written, failed = self.ezafe.write([chunk.text for chunk in chunks])
+            for chunk, text in zip(chunks, texts, strict=True):
+                chunk.text = text
+            if failed:
+                notes.append(f"Ezafe not written ({failed}); the engine reads plain script.")
+            elif written:
+                notes.append(f"Ezafe written in on {len(written)} word(s) by hazm's ParsBERT tagger: "
+                             + "، ".join(written[:12]) + ("…" if len(written) > 12 else "") + ".")
 
         prepared = PreparedText(
             original=original,

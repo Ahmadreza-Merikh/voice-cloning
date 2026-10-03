@@ -142,6 +142,23 @@ class ChunkConfig:
 
 
 @dataclass
+class EzafeConfig:
+    """The ezafe written into the text, from hazm's ParsBERT tagger (FINDINGS sections 14-15)."""
+
+    #: ``auto`` writes it when the tagger can run and goes on without it
+    #: otherwise; ``true`` stops instead; ``false`` never writes it.
+    enabled: str | bool = "auto"
+    #: Where the tagger is kept once read out of its spaCy files (about 620 MB).
+    export_dir: str = "~/.cache/persian-voice-cloning/ezafe-tagger"
+    #: Fetch the pinned tagger (655 MB) and export it on first use.
+    download: bool = True
+    #: Not loaded with less memory than this available (GB). It peaked at
+    #: 0.86 GB resident tagging 426 sentences (2026-10-03); the one-time export
+    #: at 2.3 GB, so that needs ``min_available_gb + 1.5``.
+    min_available_gb: float = 1.5
+
+
+@dataclass
 class TextConfig:
     language: str = "auto"
     normalize: bool = True
@@ -149,6 +166,11 @@ class TextConfig:
     strip_bracketed_tags: bool = True
     g2p: G2PConfig = field(default_factory=G2PConfig)
     chunk: ChunkConfig = field(default_factory=ChunkConfig)
+    #: Engines that read Persian marks from the script. For them the normaliser
+    #: keeps أ and writes ۀ as هٔ, and the ezafe is written in. Only OmniVoice
+    #: was heard doing it (FINDINGS sections 13-15).
+    marks_engines: list[str] = field(default_factory=lambda: ["omnivoice"])
+    ezafe: EzafeConfig = field(default_factory=EzafeConfig)
 
 
 @dataclass

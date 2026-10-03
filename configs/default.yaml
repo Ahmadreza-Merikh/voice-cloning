@@ -131,6 +131,31 @@ text:
     # better than Persian script.
     apply_to_engines: [omnivoice_ipa]
 
+  # Engines that read Persian marks from the script. For them the normaliser
+  # keeps أ (تأخیر - mapped to ا, OmniVoice said taa'khir) and writes ۀ as هٔ
+  # (a bare ه drops the ezafe), and the ezafe is written in below. Only
+  # OmniVoice was heard doing this (FINDINGS sections 13-15); add an engine
+  # only once it is heard reading marks.
+  marks_engines: [omnivoice]
+
+  ezafe:
+    # The ezafe is the -e/-ye plain script does not write. hazm's ParsBERT
+    # tagger places it (1.7% of words wrong on unseen SentenceBench sentences,
+    # FINDINGS §14) and it is written as a kasra, هٔ or ی. Heard blind: 9 words
+    # of 147 wrong against 12 on plain script, CER not raised (FINDINGS §15).
+    # The sukun and first-vowel marks were heard too and are not used.
+    #   auto  -> write it when the tagger can run, plain script otherwise
+    #   true  -> stop if it cannot run;  false -> never
+    enabled: auto
+    # The tagger runs without spaCy (text/ezafe_tagger.py; the same decision
+    # on all 414 sentences checked) from a one-time export kept here, ~620 MB.
+    export_dir: ~/.cache/persian-voice-cloning/ezafe-tagger
+    download: true
+    # It loads for one text and is released after it: 0.86 GB at its peak.
+    # Not started with less than this available; the one-time export needs
+    # 1.5 GB more.
+    min_available_gb: 1.5
+
   chunk:
     # Long text is split on sentence boundaries and synthesised in pieces so
     # quality never degrades over a long take.

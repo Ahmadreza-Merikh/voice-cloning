@@ -1292,6 +1292,24 @@ written before the training, no improvement is claimed.
 fixes; the later exports scored no better on the development set. Similarity
 and CER are an encoder's and a recogniser's readings; nobody has listened. And
 the published OmniVoice on these unseen speakers - 0.596 on Neyshekar, 0.516 on
-Common Voice - is what the arms session (F5-TTS and Pocket-TTS on the same cells)
-is compared against next. Evidence: `eval/runs/evidence/omnivoice-test-v1/`
-(secondary) and `eval/runs/evidence/omnivoice-test-primary-v1/` (primary).
+Common Voice - is what the arms session compared F5-TTS and Pocket-TTS against.
+Evidence: `eval/runs/evidence/omnivoice-test-v1/` (secondary) and
+`eval/runs/evidence/omnivoice-test-primary-v1/` (primary).
+
+**Was OmniVoice the right base? Yes - the arms, registered 20 September.** The
+development set that chose OmniVoice was contaminated too, so F5-TTS Persian (at
+its registered 48 steps) and Pocket-TTS Farsi v2 rendered the same sealed cells
+(`eval/runs/evidence/omnivoice-arms-v2/`, read by `scripts/read_arms.py`):
+
+| set | OmniVoice (step 1,000) | F5-TTS | Pocket-TTS | OmniVoice minus F5 | OmniVoice minus Pocket |
+|---|---|---|---|---|---|
+| Neyshekar (unseen) | 0.597 | 0.485 | 0.376 | **+0.112 [+0.091, +0.133]** | **+0.221 [+0.193, +0.249]** |
+| Common Voice | 0.520 | 0.471 | 0.317 | +0.049 [+0.034, +0.064] | +0.203 [+0.172, +0.234] |
+
+Every interval clears zero: by the registered reading, the base choice survives
+contact with unseen speakers. On speakers nobody trained on, OmniVoice's lead
+over F5 is *larger* than on the development set (+0.112 against +0.064), so the
+contaminated set understated it rather than manufactured it. Between the arms,
+F5 reads more intelligibly than Pocket (CER -5.4 points [-9.0, -1.8]). So the
+project's best measured model for cloning unseen Persian speakers is OmniVoice -
+the published weights, which the adaptation matched but did not beat.

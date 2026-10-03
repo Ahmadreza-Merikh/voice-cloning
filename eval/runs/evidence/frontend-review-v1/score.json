@@ -1,0 +1,586 @@
+{
+ "listeners": [
+  "احمدرضا"
+ ],
+ "per_condition": {
+  "A": {
+   "renders": 12,
+   "clean": 3,
+   "words": 147,
+   "wrong": 12,
+   "best": 1,
+   "clean_share": 0.25,
+   "wrong_word_share": 0.082
+  },
+  "E": {
+   "renders": 12,
+   "clean": 4,
+   "words": 147,
+   "wrong": 9,
+   "best": 4,
+   "clean_share": 0.333,
+   "wrong_word_share": 0.061
+  },
+  "EN": {
+   "renders": 12,
+   "clean": 5,
+   "words": 147,
+   "wrong": 12,
+   "best": 2,
+   "clean_share": 0.417,
+   "wrong_word_share": 0.082
+  },
+  "ENV": {
+   "renders": 12,
+   "clean": 5,
+   "words": 147,
+   "wrong": 10,
+   "best": 3,
+   "clean_share": 0.417,
+   "wrong_word_share": 0.068
+  }
+ },
+ "by_category": {
+  "colloquial": {
+   "ENV": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EN": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "ezafe_after_vowels": {
+   "EN": {
+    "renders": 1,
+    "clean": 1
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ENV": {
+    "renders": 1,
+    "clean": 1
+   },
+   "E": {
+    "renders": 1,
+    "clean": 1
+   }
+  },
+  "ezafe_chain_silent_h": {
+   "A": {
+    "renders": 1,
+    "clean": 1
+   },
+   "E": {
+    "renders": 1,
+    "clean": 1
+   },
+   "EN": {
+    "renders": 1,
+    "clean": 1
+   },
+   "ENV": {
+    "renders": 1,
+    "clean": 1
+   }
+  },
+  "first_vowels_damma": {
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EN": {
+    "renders": 1,
+    "clean": 1
+   },
+   "ENV": {
+    "renders": 1,
+    "clean": 1
+   },
+   "A": {
+    "renders": 1,
+    "clean": 1
+   }
+  },
+  "first_vowels_fatha_kasra": {
+   "ENV": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EN": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "glottal_and_chain": {
+   "A": {
+    "renders": 1,
+    "clean": 1
+   },
+   "E": {
+    "renders": 1,
+    "clean": 1
+   },
+   "ENV": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EN": {
+    "renders": 1,
+    "clean": 1
+   }
+  },
+  "homograph_and_trap": {
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EN": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ENV": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "indefinite_then_adjective": {
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ENV": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 1
+   },
+   "EN": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "long": {
+   "EN": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ENV": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "news": {
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ENV": {
+    "renders": 1,
+    "clean": 1
+   },
+   "EN": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "no_ezafe_before_verb_and_number": {
+   "EN": {
+    "renders": 1,
+    "clean": 1
+   },
+   "ENV": {
+    "renders": 1,
+    "clean": 1
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "time_phrases": {
+   "ENV": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EN": {
+    "renders": 1,
+    "clean": 0
+   },
+   "A": {
+    "renders": 1,
+    "clean": 0
+   }
+  }
+ },
+ "marked": [
+  {
+   "listener": "احمدرضا",
+   "sentence": "n02",
+   "condition": "A",
+   "words": [
+    "دانشجو"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n02",
+   "condition": "E",
+   "words": [
+    "دانشجو"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n03",
+   "condition": "ENV",
+   "words": [
+    "تبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n03",
+   "condition": "A",
+   "words": [
+    "تبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n03",
+   "condition": "E",
+   "words": [
+    "تبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n03",
+   "condition": "EN",
+   "words": [
+    "تبر",
+    "خشک",
+    "سبد"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n04",
+   "condition": "E",
+   "words": [
+    "کوچک"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n05",
+   "condition": "A",
+   "words": [
+    "باریک"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n06",
+   "condition": "A",
+   "words": [
+    "دانشمندی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n06",
+   "condition": "ENV",
+   "words": [
+    "مهربان",
+    "بزرگ"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n06",
+   "condition": "EN",
+   "words": [
+    "دانشمندی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n07",
+   "condition": "ENV",
+   "words": [
+    "شروع"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n07",
+   "condition": "E",
+   "words": [
+    "غروب"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n07",
+   "condition": "EN",
+   "words": [
+    "شروع"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n07",
+   "condition": "A",
+   "words": [
+    "غروب"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n08",
+   "condition": "E",
+   "words": [
+    "کرم"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n08",
+   "condition": "EN",
+   "words": [
+    "کرم"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n08",
+   "condition": "A",
+   "words": [
+    "کرم"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n08",
+   "condition": "ENV",
+   "words": [
+    "کرم"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n09",
+   "condition": "ENV",
+   "words": [
+    "عذرخواهی"
+   ],
+   "note": " ",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n10",
+   "condition": "E",
+   "words": [
+    "شهر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n10",
+   "condition": "EN",
+   "words": [
+    "شهر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n10",
+   "condition": "A",
+   "words": [
+    "شهر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n11",
+   "condition": "ENV",
+   "words": [
+    "برنگشته"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n11",
+   "condition": "EN",
+   "words": [
+    "برنگشته"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n11",
+   "condition": "A",
+   "words": [
+    "خونه",
+    "برنگشته"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n11",
+   "condition": "E",
+   "words": [
+    "برنگشته"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n12",
+   "condition": "EN",
+   "words": [
+    "هیئت",
+    "مدیره",
+    "مدیر",
+    "عامل"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n12",
+   "condition": "A",
+   "words": [
+    "طولانی",
+    "ماه",
+    "آینده"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n12",
+   "condition": "E",
+   "words": [
+    "مدیر",
+    "عامل"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n12",
+   "condition": "ENV",
+   "words": [
+    "مدیر",
+    "عامل",
+    "شرکت"
+   ],
+   "note": "",
+   "twin_note": null
+  }
+ ],
+ "label": "diagnostic - fourteen sentences, few listeners; not a claim"
+}

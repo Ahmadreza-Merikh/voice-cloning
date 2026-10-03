@@ -1,0 +1,344 @@
+<title>آزمون شنیداری صدای فارسی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: one quiet listening booth - a single column, one trial at a time, a thin progress rail on top. */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --ink: #17202a;
+  --muted: #586472;
+  --line: #d9e0e7;
+  --accent: #1d5d78;
+  --accent-ink: #ffffff;
+  --real: #7a5414;
+  --real-soft: #f6ecd9;
+  --chosen: #e3eef3;
+  --warn: #9a3412;
+  --font-body: "Vazirmatn", "Tahoma", "Segoe UI", system-ui, sans-serif;
+  --step: clamp(15px, 1.1vw + 11px, 17px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141a; --surface: #172029; --ink: #e6ebf0; --muted: #9ba8b5; --line: #2a3541;
+    --accent: #72b9d6; --accent-ink: #0b1820; --real: #dcb46a; --real-soft: #2a2416; --chosen: #1d3340;
+    --warn: #f0a37a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f141a; --surface: #172029; --ink: #e6ebf0; --muted: #9ba8b5; --line: #2a3541;
+  --accent: #72b9d6; --accent-ink: #0b1820; --real: #dcb46a; --real-soft: #2a2416; --chosen: #1d3340;
+  --warn: #f0a37a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step);
+  line-height: 1.75; direction: rtl; padding-inline: 16px; padding-block: 0 48px;
+}
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); height: 4px; background: var(--line);
+  margin-inline: -16px; z-index: 2; }
+.rail > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s ease; }
+main { max-width: 680px; margin-inline: auto; display: grid; gap: 20px; padding-block: 28px 0; }
+h1 { font-size: 1.6em; font-weight: 800; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font-size: 1.05em; font-weight: 700; margin: 0; }
+p { margin: 0; }
+.lede { color: var(--muted); max-width: 62ch; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px;
+  display: grid; gap: 18px; min-width: 0; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: .92em; }
+.facts b { color: var(--ink); font-weight: 700; }
+label.field { display: grid; gap: 6px; font-weight: 500; }
+input[type=text] { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--ink); width: 100%; }
+button { font: inherit; font-weight: 700; border-radius: 10px; padding: 10px 18px; cursor: pointer;
+  border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); }
+button.quiet { background: transparent; color: var(--accent); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button:focus-visible, input:focus-visible, .choice input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.counter { font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.clips { display: grid; gap: 12px; }
+.clip { display: grid; gap: 6px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); min-width: 0; }
+.clip.real { background: var(--real-soft); border-color: transparent; }
+.clip .tag { font-size: .9em; font-weight: 700; }
+.clip.real .tag { color: var(--real); }
+audio { width: 100%; height: 40px; }
+.text { padding: 12px 14px; border-inline-start: 3px solid var(--line); color: var(--ink); }
+.text small { display: block; color: var(--muted); font-size: .82em; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; min-width: 0; }
+legend { font-weight: 700; padding: 0; margin-bottom: 8px; }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice { position: relative; }
+.choice input { position: absolute; opacity: 0; inset: 0; }
+.choice span { display: inline-block; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--bg); cursor: pointer; min-width: 3.2em; text-align: center; }
+.choice input:checked + span { background: var(--chosen); border-color: var(--accent); color: var(--ink); font-weight: 700; }
+.hint { color: var(--muted); font-size: .88em; }
+.status { font-size: .88em; color: var(--muted); }
+.status.bad { color: var(--warn); }
+textarea { width: 100%; min-height: 8em; font: .8em/1.5 ui-monospace, "SFMono-Regular", Menlo, monospace;
+  direction: ltr; text-align: left; padding: 10px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .rail > i { transition: none; } }
+</style>
+
+<div class="rail" aria-hidden="true"><i id="rail"></i></div>
+<main>
+  <header style="display:grid;gap:10px">
+    <h1>آزمون شنیداری صدای فارسی</h1>
+    <p class="lede">هر بار صدای واقعی یک گوینده را می‌شنوید و بعد دو نمونهٔ ساختگی که همان گوینده را با همان متن شبیه‌سازی کرده‌اند. ترتیب نمونه‌ها تصادفی است و نمی‌دانید کدام از کدام سیستم است.</p>
+  </header>
+
+  <section class="card" id="start">
+    <div class="facts">
+      <span><b>۲۱</b> نمونه</span><span>حدود <b>۲۰</b> دقیقه</span><span>با <b>هدفون</b> و در جای ساکت</span>
+    </div>
+    <label class="field" for="listener">یک نام یا کد کوتاه برای خودتان
+      <input type="text" id="listener" autocomplete="off" maxlength="40" placeholder="مثلاً: سارا یا L3">
+    </label>
+    <p class="hint">فقط برای اینکه پاسخ‌های هر نفر جدا شمرده شود. لازم نیست نام واقعی باشد.</p>
+    <p class="status" id="mode-note">در حال آماده‌سازی…</p>
+    <div class="row"><span></span><button id="begin" disabled>شروع</button></div>
+  </section>
+
+  <section class="card" id="trial" hidden>
+    <div class="row"><h2 class="counter" id="counter"></h2><span class="status" id="save-status"></span></div>
+    <div class="clips">
+      <div class="clip real"><span class="tag">صدای واقعی گوینده</span><audio id="a-ref" controls preload="none"></audio></div>
+      <div class="clip"><span class="tag">نمونهٔ ۱</span><audio id="a-one" controls preload="none"></audio></div>
+      <div class="clip"><span class="tag">نمونهٔ ۲</span><audio id="a-two" controls preload="none"></audio></div>
+    </div>
+    <p class="text"><small>متنی که باید خوانده شود</small><span id="text"></span></p>
+    <fieldset>
+      <legend>کدام نمونه بیشتر شبیه همان آدمِ صدای واقعی است؟</legend>
+      <div class="choices" data-q="same">
+        <label class="choice"><input type="radio" name="same" id="same-1" value="1"><span>۱</span></label>
+        <label class="choice"><input type="radio" name="same" id="same-2" value="2"><span>۲</span></label>
+        <label class="choice"><input type="radio" name="same" id="same-0" value="0"><span>فرقی ندارد</span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>کدام طبیعی‌تر است؟</legend>
+      <div class="choices" data-q="natural">
+        <label class="choice"><input type="radio" name="natural" id="natural-1" value="1"><span>۱</span></label>
+        <label class="choice"><input type="radio" name="natural" id="natural-2" value="2"><span>۲</span></label>
+        <label class="choice"><input type="radio" name="natural" id="natural-0" value="0"><span>فرقی ندارد</span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>کدام کلمه‌ای را اشتباه یا نامفهوم گفت؟</legend>
+      <div class="choices" data-q="misread">
+        <label class="choice"><input type="checkbox" name="misread" id="misread-1" value="1"><span>۱</span></label>
+        <label class="choice"><input type="checkbox" name="misread" id="misread-2" value="2"><span>۲</span></label>
+        <label class="choice"><input type="checkbox" name="misread" id="misread-none" value="none"><span>هیچ‌کدام</span></label>
+      </div>
+      <p class="hint">اگر هر دو اشتباه داشتند، هر دو را بزنید.</p>
+    </fieldset>
+    <div class="row">
+      <button class="quiet" id="prev">قبلی</button>
+      <button id="next" disabled>بعدی</button>
+    </div>
+  </section>
+
+  <section class="card" id="done" hidden>
+    <h2>تمام شد. ممنون!</h2>
+    <p id="done-note"></p>
+    <label class="field" for="code">کد پاسخ‌های شما
+      <textarea id="code" readonly></textarea>
+    </label>
+    <div class="row">
+      <button class="quiet" id="review">برگشت به نمونه‌ها</button>
+      <button id="copy">کپی کد</button>
+    </div>
+    <p class="status" id="copy-status"></p>
+  </section>
+
+  <p class="hint">این آزمون بخشی از یک پروژهٔ پژوهشی دربارهٔ صدای فارسی است. صداهای «نمونه» ساختگی‌اند و صدای «واقعی» از یک مجموعه‌دادهٔ گفتار عمومی است.</p>
+</main>
+
+<script type="application/json" id="trials">[{"id": "1f6ece1b5ea8", "text": "جلسهٔ بعدی روز سه‌شنبه ۱۴ آبان ۱۴۰۵ ساعت ۹:۳۰ صبح برگزار می‌شود.", "ref": "audio/1cba18c85f29.wav", "one": "audio/f57940aa5d92.wav", "two": "audio/75840dccccd0.wav"}, {"id": "b1616269bca9", "text": "کمیتهٔ علمی همایش پس از بررسی مقاله‌ها، فهرست نهایی سخنرانان را در پایگاه اینترنتی خود منتشر کرد.", "ref": "audio/ac6c0acbe2a1.wav", "one": "audio/bf9584c60b7d.wav", "two": "audio/6ad7467641bc.wav"}, {"id": "21f458ed214f", "text": "دختر همسایهٔ روبه‌رویی ما کتاب تازهٔ نویسندهٔ محبوبش را امانت گرفت.", "ref": "audio/380a4b0cf352.wav", "one": "audio/2c6698a6f7b9.wav", "two": "audio/acec448a155a.wav"}, {"id": "200740c3dd3a", "text": "کمیتهٔ علمی همایش پس از بررسی مقاله‌ها، فهرست نهایی سخنرانان را در پایگاه اینترنتی خود منتشر کرد.", "ref": "audio/d9bb0fe7ba1d.wav", "one": "audio/5355db6b8904.wav", "two": "audio/fdde7ed45229.wav"}, {"id": "35850dc58204", "text": "او اپلیکیشن تازه‌ای روی موبایلش نصب کرد تا بلیت کنسرت را آنلاین بخرد.", "ref": "audio/f9b0e11f83f7.wav", "one": "audio/c968bcce631b.wav", "two": "audio/2c77b1e82716.wav"}, {"id": "913a483cd895", "text": "جلسهٔ بعدی روز سه‌شنبه ۱۴ آبان ۱۴۰۵ ساعت ۹:۳۰ صبح برگزار می‌شود.", "ref": "audio/22d98420ceb4.wav", "one": "audio/e5abc2bc7f45.wav", "two": "audio/6107d7a3658f.wav"}, {"id": "6d5833a02ff0", "text": "قیمت هر کیلو پنیر از ۱۸۵ هزار تومان به ۲۱۲ هزار و ۵۰۰ تومان رسید.", "ref": "audio/6c2fe6868839.wav", "one": "audio/20cbb95b57f8.wav", "two": "audio/ac722dc27cdf.wav"}, {"id": "f4713878aa39", "text": "قیمت هر کیلو پنیر از ۱۸۵ هزار تومان به ۲۱۲ هزار و ۵۰۰ تومان رسید.", "ref": "audio/0b1ea5fc41b5.wav", "one": "audio/20c3559e20f1.wav", "two": "audio/a78116e36048.wav"}, {"id": "1c81ec123e3b", "text": "جلسهٔ بعدی روز سه‌شنبه ۱۴ آبان ۱۴۰۵ ساعت ۹:۳۰ صبح برگزار می‌شود.", "ref": "audio/be850067acfe.wav", "one": "audio/3705e219115c.wav", "two": "audio/d4c62ced1706.wav"}, {"id": "a2d179e9605f", "text": "قیمت هر کیلو پنیر از ۱۸۵ هزار تومان به ۲۱۲ هزار و ۵۰۰ تومان رسید.", "ref": "audio/204319f6cf22.wav", "one": "audio/58918afd9e0c.wav", "two": "audio/f79f466ea90b.wav"}, {"id": "e872940fe970", "text": "راستش حوصلهٔ سینما رو ندارم، بیا امشب تو خونه یه فیلم ببینیم.", "ref": "audio/026a7d3062f3.wav", "one": "audio/cde981e88c17.wav", "two": "audio/a36705b319a2.wav"}, {"id": "6c6571fc1b56", "text": "ببین، اگه فردا یه کم زودتر بیای، با هم می‌ریم نون تازه می‌خریم.", "ref": "audio/c9a83ca4af71.wav", "one": "audio/4b12dfb6ecb7.wav", "two": "audio/903fa054d27f.wav"}, {"id": "d51927eb48c3", "text": "کمیتهٔ علمی همایش پس از بررسی مقاله‌ها، فهرست نهایی سخنرانان را در پایگاه اینترنتی خود منتشر کرد.", "ref": "audio/49d3516aa6b3.wav", "one": "audio/8c56b371aabc.wav", "two": "audio/e07b077b8bab.wav"}, {"id": "76645cdbfd1a", "text": "پس از پایان مسابقهٔ کشتی، ورزشکاران با کشتی به جزیره برگشتند.", "ref": "audio/398ae2ebf054.wav", "one": "audio/f31a11e8c58e.wav", "two": "audio/d003ba2836b0.wav"}, {"id": "4851b74808ca", "text": "بر اساس گزارش سازمان هواشناسی، بارش‌های پاییزی امسال در بیشتر استان‌ها کمتر از میانگین بلندمدت بوده است.", "ref": "audio/0c045dbf8c3b.wav", "one": "audio/bc8eb4608558.wav", "two": "audio/2c6a68adc6b2.wav"}, {"id": "5484a58ef0e5", "text": "او اپلیکیشن تازه‌ای روی موبایلش نصب کرد تا بلیت کنسرت را آنلاین بخرد.", "ref": "audio/e30a1a2353f2.wav", "one": "audio/7655c91f4d5b.wav", "two": "audio/1969032b355d.wav"}, {"id": "e58112f20fe1", "text": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تأخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند.", "ref": "audio/9651d5c00ed9.wav", "one": "audio/981815c2f519.wav", "two": "audio/3098f163e5eb.wav"}, {"id": "cfb4bdd06943", "text": "قیمت هر کیلو پنیر از ۱۸۵ هزار تومان به ۲۱۲ هزار و ۵۰۰ تومان رسید.", "ref": "audio/1e9dcc3b2050.wav", "one": "audio/e925ac879b0c.wav", "two": "audio/b0d9bc79279d.wav"}, {"id": "82e4bf7fc38e", "text": "جلسهٔ بعدی روز سه‌شنبه ۱۴ آبان ۱۴۰۵ ساعت ۹:۳۰ صبح برگزار می‌شود.", "ref": "audio/53d2b18622ee.wav", "one": "audio/049d0f691cb7.wav", "two": "audio/dbe5bb03a4ef.wav"}, {"id": "cfae2b456475", "text": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تأخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند.", "ref": "audio/799b8e7ec191.wav", "one": "audio/5b5b900ca860.wav", "two": "audio/fc063ef50aea.wav"}, {"id": "f929df6e2068", "text": "قیمت هر کیلو پنیر از ۱۸۵ هزار تومان به ۲۱۲ هزار و ۵۰۰ تومان رسید.", "ref": "audio/80caa632a048.wav", "one": "audio/8d0a6e477c7c.wav", "two": "audio/a9fa3b7f36be.wav"}]</script>
+<script>
+(() => {
+  const TRIALS = JSON.parse(document.getElementById("trials").textContent);
+  const VERSION = "listening-v1";
+  const LOCAL = "listening-v1:answers";
+  const fa = n => Number(n).toLocaleString("fa-IR");
+  const $ = id => document.getElementById(id);
+
+  let state = { listener: "", answers: {}, at: 0 };
+  try { const saved = JSON.parse(localStorage.getItem(LOCAL) || "null"); if (saved && saved.answers) state = saved; } catch (e) {}
+
+  let mode = "pending";
+  let docRef = null, saving = false, again = false, timer = null, retry = 0;
+
+  const complete = id => {
+    const a = state.answers[id];
+    return !!(a && a.same && a.natural && a.misread && a.misread.length);
+  };
+  const answered = () => TRIALS.filter(t => complete(t.id)).length;
+  const codeText = () => JSON.stringify({ v: VERSION, listener: state.listener, answers: state.answers });
+
+  function keepLocal() { try { localStorage.setItem(LOCAL, JSON.stringify(state)); } catch (e) {} }
+
+  function setMode(next) {
+    mode = next;
+    $("mode-note").textContent = next === "db"
+      ? "پاسخ‌ها همین‌طور که جلو می‌روید خودکار ذخیره می‌شوند."
+      : "پاسخ‌ها روی همین مرورگر نگه داشته می‌شوند. در پایان یک کد می‌گیرید که باید برای برگزارکننده بفرستید.";
+    $("begin").disabled = !$("listener").value.trim();
+  }
+
+  async function connect() {
+    try {
+      if (!window.claude || !window.claude.use) return setMode("code");
+      const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+      if (!db || !user) return setMode("code");
+      const id = await user.id();
+      if (!id) return setMode("code");
+      docRef = db.doc("responses/" + id);
+      const snap = await docRef.get();
+      if (snap.exists) {
+        const remote = snap.data() || {};
+        state.answers = Object.assign({}, remote.answers || {}, state.answers);
+        if (!state.listener && remote.listener) state.listener = String(remote.listener);
+        $("listener").value = state.listener;
+      }
+      setMode("db");
+    } catch (e) {
+      docRef = null;
+      setMode("code");
+    }
+  }
+
+  async function flush() {
+    if (mode !== "db" || !docRef) return;
+    if (saving) { again = true; return; }
+    saving = true;
+    $("save-status").textContent = "در حال ذخیره…";
+    $("save-status").classList.remove("bad");
+    try {
+      await docRef.set({ version: VERSION, listener: state.listener, answers: state.answers,
+                         answered: answered(), complete: answered() === TRIALS.length,
+                         updated: new Date().toISOString() });
+      $("save-status").textContent = "ذخیره شد";
+      retry = 0;
+    } catch (e) {
+      if (e && e.code === "unavailable" && retry < 1) { retry += 1; again = true; }
+      else if (e && (e.code === "invalid_argument" || e.code === "not_granted" || e.code === "revoked")) {
+        setMode("code");
+        $("save-status").textContent = "ذخیرهٔ خودکار در دسترس نیست؛ در پایان کد را بفرستید.";
+        $("save-status").classList.add("bad");
+      } else {
+        $("save-status").textContent = "ذخیره نشد؛ پاسخ‌ها روی همین مرورگر هست.";
+        $("save-status").classList.add("bad");
+      }
+    } finally {
+      saving = false;
+      if (again) { again = false; setTimeout(flush, 600 + Math.random() * 600); }
+    }
+  }
+
+  function changed() {
+    retry = 0;
+    keepLocal();
+    clearTimeout(timer);
+    timer = setTimeout(flush, 700);
+  }
+
+  const players = ["a-ref", "a-one", "a-two"].map($);
+  players.forEach(p => p.addEventListener("play", () => players.forEach(o => { if (o !== p) o.pause(); })));
+
+  function show(view) {
+    ["start", "trial", "done"].forEach(v => { $(v).hidden = v !== view; });
+    $("rail").style.width = (100 * answered() / TRIALS.length) + "%";
+  }
+
+  function renderTrial() {
+    const i = Math.max(0, Math.min(state.at, TRIALS.length - 1));
+    const t = TRIALS[i];
+    const a = state.answers[t.id] || {};
+    players.forEach(p => p.pause());
+    $("a-ref").src = t.ref; $("a-one").src = t.one; $("a-two").src = t.two;
+    $("text").textContent = t.text;
+    $("counter").textContent = "نمونهٔ " + fa(i + 1) + " از " + fa(TRIALS.length);
+    for (const v of ["1", "2", "0"]) {
+      $("same-" + v).checked = a.same === v;
+      $("natural-" + v).checked = a.natural === v;
+    }
+    const m = a.misread || [];
+    $("misread-1").checked = m.includes("1");
+    $("misread-2").checked = m.includes("2");
+    $("misread-none").checked = m.includes("none");
+    $("prev").disabled = i === 0;
+    $("next").disabled = !complete(t.id);
+    $("next").textContent = i === TRIALS.length - 1 ? "پایان" : "بعدی";
+    show("trial");
+  }
+
+  function record() {
+    const t = TRIALS[state.at];
+    const pick = name => (document.querySelector(`input[name="${name}"]:checked`) || {}).value || null;
+    const misread = [...document.querySelectorAll('input[name="misread"]:checked')].map(x => x.value);
+    state.answers[t.id] = { same: pick("same"), natural: pick("natural"), misread };
+    $("next").disabled = !complete(t.id);
+    $("rail").style.width = (100 * answered() / TRIALS.length) + "%";
+    changed();
+  }
+
+  document.querySelectorAll('#trial input').forEach(input => input.addEventListener("change", event => {
+    const box = event.target;
+    if (box.name === "misread" && box.checked) {
+      if (box.value === "none") { $("misread-1").checked = false; $("misread-2").checked = false; }
+      else { $("misread-none").checked = false; }
+    }
+    record();
+  }));
+
+  function finish() {
+    const n = answered();
+    $("done-note").textContent = (mode === "db"
+      ? "پاسخ‌هایتان ذخیره شد. کد زیر نسخهٔ پشتیبان است؛ اگر برگزارکننده خواست، آن را هم بفرستید."
+      : "لطفاً کد زیر را کپی کنید و برای برگزارکننده بفرستید. بدون این کد پاسخ‌ها به دست او نمی‌رسد.")
+      + (n < TRIALS.length ? " (" + fa(TRIALS.length - n) + " نمونه بی‌پاسخ مانده است.)" : "");
+    $("code").value = codeText();
+    $("copy-status").textContent = "";
+    show("done");
+    flush();
+  }
+
+  $("listener").value = state.listener || "";
+  $("listener").addEventListener("input", () => {
+    state.listener = $("listener").value.trim();
+    $("begin").disabled = !state.listener || mode === "pending";
+    keepLocal();
+  });
+  $("begin").addEventListener("click", () => {
+    state.listener = $("listener").value.trim();
+    if (!state.listener) return;
+    changed();
+    const firstOpen = TRIALS.findIndex(t => !complete(t.id));
+    state.at = firstOpen === -1 ? TRIALS.length - 1 : firstOpen;
+    renderTrial();
+  });
+  $("prev").addEventListener("click", () => { if (state.at > 0) { state.at -= 1; keepLocal(); renderTrial(); } });
+  $("next").addEventListener("click", () => {
+    if (!complete(TRIALS[state.at].id)) return;
+    if (state.at === TRIALS.length - 1) return finish();
+    state.at += 1; keepLocal(); renderTrial();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  $("review").addEventListener("click", () => { state.at = 0; renderTrial(); });
+  $("copy").addEventListener("click", () => {
+    const text = $("code").value;
+    const done = ok => { $("copy-status").textContent = ok ? "کپی شد." : "کپی خودکار نشد؛ متن انتخاب شد، با Ctrl+C یا نگه‌داشتن انگشت کپی کنید."; };
+    try {
+      navigator.clipboard.writeText(text).then(() => done(true), () => { $("code").select(); done(false); });
+    } catch (e) { $("code").select(); done(false); }
+  });
+
+  show("start");
+  if (state.listener && answered() > 0) $("begin").textContent = "ادامه (" + fa(answered()) + " از " + fa(TRIALS.length) + ")";
+  connect();
+})();
+</script>

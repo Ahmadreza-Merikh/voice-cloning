@@ -31,7 +31,7 @@
   "which sounds more natural (1, 2, or no difference)",
   "which misread or garbled a word (1, 2, both, or none - an explicit answer)"
  ],
- "delivery": "one private web page that interleaves both tests' trials in a fixed order and stores each listener's answers; listeners are asked to use headphones in a quiet room. The keys (which system is which sample) are in eval/runs/evidence/listening-v1/ and never on the page",
+ "delivery": "one private web page, https://claude.ai/artifact/7yj1WvanE1A5pih2vLCMy7 (published 2026-10-03, source eval/runs/evidence/listening-v1/page.html): it interleaves both tests' 21 trials in one fixed order (seed 20261003), plays the clips as the builder wrote them (16-bit WAV, loudness-matched), asks the three questions per trial and names no test and no system. Listeners are asked to use headphones in a quiet room. The keys (which system is which sample) are in eval/runs/evidence/listening-v1/ and never on the page",
  "listeners": "the user recruits them. Planned: at least 5 - the analysis declared for a final result needs 5 listeners and 5 speakers; with fewer, only the exploratory interval is reported",
  "analysis_fixed_before_listening": {
   "code": "scripts/score_listening_test.py, per test, on the answers exported from the page in its responses format",
@@ -44,5 +44,7 @@
   ],
   "not_claimed": "a handful of listeners from the user's circle is a first check, not a population; nothing is claimed beyond what the intervals say"
  },
- "built_by": "scripts/build_listening_test.py (36ebe46) with --corpus-dir, --texts eval/manifests/test_texts_v1.json, the results files of the runs, --files and --bit-depth 16, seed 20261003"
+ "built_by": "scripts/build_listening_test.py (36ebe46) with --corpus-dir, --texts eval/manifests/test_texts_v1.json, the results files of the runs, --files and --bit-depth 16, seed 20261003",
+ "answers_are_kept": "one record per listener: in the page's database as responses/<listener id> for anyone who can write there (the owner, and people invited by email as editors), each seeing only their own and the owner reading all; for anyone else, an answer code the page shows at the end, which they copy and send. Both turn into the scorer's files with scripts/export_listening_answers.py and the two keys",
+ "checked_before_listeners": "2026-10-03: all 63 audio files and the page are on the artifact; a probe record written as the owner was readable by the owner and hidden at a listener's level, then deleted. The user opened the page first, which saved their empty record"
 }

@@ -4,26 +4,26 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 10:50 +0330 (2026-10-03 07:20 UTC).
+Last updated: 2026-10-03 12:30 +0330 (2026-10-03 09:00 UTC).
 
-## Now: the pronunciation review is open (2026-10-03)
+## The pronunciation review is answered: ezafe and short vowels (2026-10-03)
 
-Before fixing pronunciation, find the errors. The user listens first:
-https://claude.ai/artifact/8t3wc2esQ1TCdRZ5wFAQCU - 14 hard sentences
-(homographs, ezafe, consonants, numbers, colloquial, long), each read two or
-three ways by the A/B/C run of 2026-09-24 (A plain script, B a diacritised
-twin, C the IPA model), in hidden balanced slots, loudness-matched. Per
-reading the listener taps the words said wrong or marks it all right; per
-sentence, the best reading. Registered before listening
-(`eval/runs/persian-voice-pronunciation-review-v1.json`); three twins carry
-wrong diacritics, listed there before anyone listened (t11's ezafe, s08's
-حرفا and خریدار, t10's امانت).
+The user listened blind to the 14 A/B/C sentences and marked every wrong word
+(`eval/runs/persian-voice-pronunciation-review-v1.json`, FINDINGS section 13).
+Plain script (A, what the app uses): 3 of 14 readings without an error, 19 of
+199 words wrong, picked best 8 times; **9 of its errors are ezafe** (5 added,
+4 missing) and **8 short vowels**. Diacritised twins (B) cleared A's errors
+where their marks were right and were read as written where wrong. **The IPA
+model (C) is closed:** worst on every count, never picked, accent foreign.
 
-**When answered:** ArtifactData `list` of `reviews` (with `out_dir`), then
-`scripts/score_pronunciation_review.py eval/runs/evidence/pronunciation-review-v1/key.json <files>`;
-record it, and choose the fix by what it shows: if B or C clears what A gets
-wrong, the input form (diacritics or phonemes) is the lever; if all fail on
-the same words, it is the model or the twins.
+**Next (the user's go-ahead first):** a text front-end that writes ezafe and
+the needed short vowels into OmniVoice's input. Candidates found on Hugging
+Face on 2026-10-03, untested here: `abreza/persian-ezafe-albert` (ezafe),
+`PedramR/canine-fa-diacritizer` (vowels; 8.3% diacritic error on its own test,
+word-final ezafe noted as hard), and Homo-GE2PE already in the project. Measure
+each on these 14 sentences first (the listener's notes give the right
+readings), then the whole front-end on new hard sentences written before it,
+by listening and CER.
 
 ## The first listening test is built and deferred (2026-10-03)
 

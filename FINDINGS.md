@@ -1313,3 +1313,39 @@ contaminated set understated it rather than manufactured it. Between the arms,
 F5 reads more intelligibly than Pocket (CER -5.4 points [-9.0, -1.8]). So the
 project's best measured model for cloning unseen Persian speakers is OmniVoice -
 the published weights, which the adaptation matched but did not beat.
+
+## 13. Pronunciation, heard: ezafe and short vowels, and the model follows its marks
+
+The voice listening test was deferred on 3 October at the user's request:
+pronunciation first. To find the errors before fixing them, the user listened,
+blind to which was which, to the A/B/C renders of 24 September - 14 hard
+sentences read by OmniVoice on plain script (A), on a diacritised twin (B), and
+by the IPA model on phonemes (C) - and marked every word said wrong
+(`eval/runs/persian-voice-pronunciation-review-v1.json`, registered before
+listening).
+
+| | readings with no wrong word | words marked wrong | picked best |
+|---|---|---|---|
+| A, plain script | 3 of 14 | 19 of 199 (9.5%) | 8 |
+| B, diacritised twin | 3 of 11 | 10 of 97 (10.3%) | 4 |
+| C, IPA model | 0 of 14 | 27 of 199 (13.6%) | 0 |
+
+**What plain script gets wrong** (A, classified from the listener's notes):
+9 of the 19 errors are **ezafe** - added where none belongs (دانشگاه، مرد،
+غروب، ساعت، عاملی) or missing where it belongs (باران شدید، کتاب خوب، پایان
+مسابقه، ایستگاه قطار) - and 8 are **short vowels**, two of them homographs
+(chatr read chetr, ghal'e ghel'e, amanat emanat, gel gol, koshti keshti).
+
+**The model reads the marks it is given.** Where a twin's diacritics were
+right, B cleared errors A made in the same sentence (chatr, the ezafe of باران
+and خوب, قلعه). Where they were wrong - four places, found and listed before
+anyone listened - it read them as written. A damma came out as a long u twice.
+**The IPA route is closed:** worst on every count, never picked, and to this
+listener its accent sounds foreign even where the words are right.
+
+So the lever is the text in front of the model: ezafe and the short vowels a
+word needs, written into its input from a source accurate enough that the marks
+are right, plus a way to say where no ezafe belongs. One listener, fourteen
+chosen-hard sentences, one voice: this names the error types, it measures no
+system. These sentences are now development material; a fix is measured on new
+ones written before it.

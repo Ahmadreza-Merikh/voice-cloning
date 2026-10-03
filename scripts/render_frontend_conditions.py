@@ -41,16 +41,25 @@ def jobs(sentences: list[dict], seed: int) -> list:
     return [ab.Job(s["id"], c, ENGINE, False, s["texts"][c], seed) for s in sentences for c in CONDITIONS]
 
 
-def check_marks_survive(config: AppConfig, all_jobs: list) -> list[str]:
+def marks_of(text: str) -> list[tuple[int, str]]:
+    from voiceclone.text.marks_fa import HARAKAT
+
+    return [(w, c) for w, word in enumerate(text.split()) for c in word if c in HARAKAT]
+
+
+def check_marks_survive(config: AppConfig, all_jobs: list) -> tuple[list[str], list[str]]:
+    """Marks lost or moved on the way to the model, and every other change the app makes."""
     from voiceclone.text.pipeline import TextPipeline
 
     pipeline = TextPipeline(config.text)
-    lost = []
+    lost, changed = [], []
     for job in all_jobs:
         fed = " ".join(chunk.synth_text for chunk in pipeline.prepare(job.input_text, engine_name=ENGINE).chunks)
-        if " ".join(fed.split()) != " ".join(job.input_text.split()):
+        if marks_of(fed) != marks_of(job.input_text):
             lost.append(f"{job.id} {job.condition}: {job.input_text!r} -> {fed!r}")
-    return lost
+        elif " ".join(fed.split()) != " ".join(job.input_text.split()):
+            changed.append(f"{job.id} {job.condition}: {job.input_text!r} -> {fed!r}")
+    return lost, changed
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -66,9 +75,9 @@ def main(argv: list[str] | None = None) -> int:
     built = json.loads(args.texts.read_text(encoding="utf-8"))
     sentences = built["sentences"]
     all_jobs = jobs(sentences, args.seed)
-    lost = check_marks_survive(config, all_jobs)
+    lost, changed = check_marks_survive(config, all_jobs)
     if lost:
-        raise SystemExit("the text pipeline changes these inputs, so a mark would not reach the model:\n" + "\n".join(lost))
+        raise SystemExit("the text pipeline drops or moves a mark in these inputs:\n" + "\n".join(lost))
 
     corpus = json.loads((ROOT / "eval" / "corpus" / "manifest.json").read_text(encoding="utf-8"))
     reference = ab.reference_entry(corpus, args.speaker)
@@ -85,7 +94,8 @@ def main(argv: list[str] | None = None) -> int:
         "conditions": {"A": "plain script", "E": "+ ezafe marks", "EN": "+ sukun where no ezafe",
                        "ENV": "+ first short vowels of nouns and adjectives"},
         "sentences": [{"id": s["id"], "category": s["category"], "text": s["text"], "texts": s["texts"]} for s in sentences],
-        "events": [{"event": "marks_checked_through_the_text_pipeline", "inputs": len(all_jobs)}],
+        "events": [{"event": "marks_checked_through_the_text_pipeline", "inputs": len(all_jobs),
+                    "other_changes_by_the_app": changed}],
         "renders": [],
     }
     ab.write_manifest(manifest_path, manifest)

@@ -1,0 +1,3123 @@
+{
+ "source": "huggingface.co/datasets/MahtaFetrat/HomoRich-G2P-Persian @ 21b189a76c15e9a899e9606c6a909d30e9dc4596, data/train-01.parquet",
+ "source_sha256": "6003df3dcd5d325b287d6b95f1cffc0f24cc35f2e35eff02f2e3b5c64ad24e74",
+ "license": "CC0-1.0 (the dataset card)",
+ "what": "every 'Homograph Grapheme' with the set of its 'Homograph Phoneme' readings (Repr. 1); first_vowels from voiceclone.text.marks_fa.first_short_vowel",
+ "count": 286,
+ "first_vowel_tells_apart": 191,
+ "words": {
+  "آرم": {
+   "readings": [
+    "?Aram",
+    "?Arm"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "آورد": {
+   "readings": [
+    "?Avarad",
+    "?Avard"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "ابر": {
+   "readings": [
+    "?abar",
+    "?abr"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "ابی": {
+   "readings": [
+    "?Abi",
+    "?ebA",
+    "?ebi"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اجر": {
+   "readings": [
+    "?Ajor",
+    "?ajr"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ادبا": {
+   "readings": [
+    "?adabA",
+    "?odabA",
+    "adabA"
+   ],
+   "first_vowels": [
+    "None",
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ارایه": {
+   "readings": [
+    "?ArAye",
+    "?erA?e"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اره": {
+   "readings": [
+    "?Are",
+    "?arre"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اسکی": {
+   "readings": [
+    "?aski",
+    "?eski"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اشراف": {
+   "readings": [
+    "?aSrAf",
+    "?eSrAf"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اشغال": {
+   "readings": [
+    "?ASqAl",
+    "?eSqAl"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اشکال": {
+   "readings": [
+    "?aSkAl",
+    "?eSkAl"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اعمال": {
+   "readings": [
+    "?a?mAl",
+    "?e?mAl"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "افشاند": {
+   "readings": [
+    "?afSAnad",
+    "?afSAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "المان": {
+   "readings": [
+    "?AlmAn",
+    "?elemAn"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "امل": {
+   "readings": [
+    "?amal",
+    "?ommol"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "امین": {
+   "readings": [
+    "?Amin",
+    "?amin"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اه": {
+   "readings": [
+    "?Ah",
+    "?ah"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اوا": {
+   "readings": [
+    "?AvA",
+    "?evA"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "اپل": {
+   "readings": [
+    "?apel",
+    "?epol"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ببر": {
+   "readings": [
+    "babr",
+    "bebar"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بخار": {
+   "readings": [
+    "bexAr",
+    "boxAr"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بخور": {
+   "readings": [
+    "boxor",
+    "buxur"
+   ],
+   "first_vowels": [
+    "None",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بده": {
+   "readings": [
+    "bade",
+    "bedah",
+    "bede"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بدهی": {
+   "readings": [
+    "bedahi",
+    "bedehi"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "بدو": {
+   "readings": [
+    "badv",
+    "bodo"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بر": {
+   "readings": [
+    "bar",
+    "ber",
+    "bor"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بردار": {
+   "readings": [
+    "bardAr",
+    "bordAr"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "برده": {
+   "readings": [
+    "barde",
+    "borde"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "برس": {
+   "readings": [
+    "beres",
+    "bores"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "برم": {
+   "readings": [
+    "baram",
+    "beram"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "برنج": {
+   "readings": [
+    "beranj",
+    "berenj"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "برند": {
+   "readings": [
+    "barand",
+    "berand",
+    "borand",
+    "borrande"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "برنده": {
+   "readings": [
+    "barande",
+    "borrande"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بره": {
+   "readings": [
+    "barre",
+    "bere"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "برگرداند": {
+   "readings": [
+    "bargardAnad",
+    "bargardAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "بری": {
+   "readings": [
+    "bari",
+    "beri",
+    "bori"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "برید": {
+   "readings": [
+    "barid",
+    "berid",
+    "borid"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بعد": {
+   "readings": [
+    "ba?d",
+    "bo?d"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بنا": {
+   "readings": [
+    "banA",
+    "bannA"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "به": {
+   "readings": [
+    "bah",
+    "be",
+    "beh"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بکن": {
+   "readings": [
+    "bekkan",
+    "bokon"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "بین": {
+   "readings": [
+    "beyn",
+    "bin"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "تاباند": {
+   "readings": [
+    "tAbAnad",
+    "tAbAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "ترساند": {
+   "readings": [
+    "tarsAnad",
+    "tarsAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "ترک": {
+   "readings": [
+    "tarak",
+    "tark",
+    "tork"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ترکان": {
+   "readings": [
+    "terekAn",
+    "terekAnd",
+    "torkAn"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ترکاند": {
+   "readings": [
+    "terekAn",
+    "terekAnad",
+    "terekAnd"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "تست": {
+   "readings": [
+    "test",
+    "tost"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "تن": {
+   "readings": [
+    "tan",
+    "ton"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "تند": {
+   "readings": [
+    "tanad",
+    "tond"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "تنگ": {
+   "readings": [
+    "tang",
+    "tong"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "تو": {
+   "readings": [
+    "to",
+    "tu"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "تپاند": {
+   "readings": [
+    "tapAnad",
+    "tapAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "تکاند": {
+   "readings": [
+    "tekAnad",
+    "tekAnd"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "تکه": {
+   "readings": [
+    "take",
+    "tekke"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "جدا": {
+   "readings": [
+    "jeddan",
+    "jodA"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "جرم": {
+   "readings": [
+    "jerm",
+    "jorm"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "جست": {
+   "readings": [
+    "jast",
+    "jost"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "جلد": {
+   "readings": [
+    "jald",
+    "jeld"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "جنب": {
+   "readings": [
+    "janb",
+    "jonb"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "جنگ": {
+   "readings": [
+    "jang",
+    "jong"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "جو": {
+   "readings": [
+    "jav",
+    "javv",
+    "jo",
+    "ju"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "جور": {
+   "readings": [
+    "jor",
+    "jur"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "جوشاند": {
+   "readings": [
+    "juSAnad",
+    "juSAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "جوید": {
+   "readings": [
+    "javid",
+    "juyad"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "حسن": {
+   "readings": [
+    "hasan",
+    "hosn"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "حقه": {
+   "readings": [
+    "haqqe",
+    "hoqqe"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "حل": {
+   "readings": [
+    "hal",
+    "hall"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "حلال": {
+   "readings": [
+    "halAl",
+    "hallAl"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "خاراند": {
+   "readings": [
+    "xArAnad",
+    "xArAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "خاراندن": {
+   "readings": [
+    "xArAndan"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "خرد": {
+   "readings": [
+    "xarad",
+    "xerad",
+    "xorad",
+    "xord"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "خرم": {
+   "readings": [
+    "xaram",
+    "xorram"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "خفت": {
+   "readings": [
+    "xeffat",
+    "xeft",
+    "xoft"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "خلف": {
+   "readings": [
+    "xalaf",
+    "xolf"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "خلق": {
+   "readings": [
+    "xalq",
+    "xolq"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "خنداند": {
+   "readings": [
+    "xandAnad",
+    "xandAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "خواباند": {
+   "readings": [
+    "xAbAnad",
+    "xAbAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "خواند": {
+   "readings": [
+    "xAnad",
+    "xAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "خوراند": {
+   "readings": [
+    "xorAnad",
+    "xorAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "خورد": {
+   "readings": [
+    "xorad",
+    "xord",
+    "xurd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "خیر": {
+   "readings": [
+    "xayyer",
+    "xeyr"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "خیساند": {
+   "readings": [
+    "xisAnad",
+    "xisAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "درد": {
+   "readings": [
+    "darad",
+    "dard"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "درهم": {
+   "readings": [
+    "darham",
+    "derham"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "درک": {
+   "readings": [
+    "darak",
+    "dark"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "دم": {
+   "readings": [
+    "dam",
+    "dom"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ده": {
+   "readings": [
+    "dah",
+    "deh"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "دهم": {
+   "readings": [
+    "daham",
+    "dahom"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "دواند": {
+   "readings": [
+    "davAnad",
+    "davAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "دود": {
+   "readings": [
+    "davad",
+    "dud"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "دور": {
+   "readings": [
+    "dor",
+    "dur"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "دوران": {
+   "readings": [
+    "davarAn",
+    "dorAn"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "دوره": {
+   "readings": [
+    "dore",
+    "dure"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "دوم": {
+   "readings": [
+    "davam",
+    "dovvom"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "دین": {
+   "readings": [
+    "deyn",
+    "din"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "راند": {
+   "readings": [
+    "rAnad",
+    "rAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "رب": {
+   "readings": [
+    "rabb",
+    "robb"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "رحم": {
+   "readings": [
+    "rahem",
+    "rahm"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "رد": {
+   "readings": [
+    "rad",
+    "radd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "رس": {
+   "readings": [
+    "res",
+    "ros"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "رساند": {
+   "readings": [
+    "resAnad",
+    "resAnd"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "رسم": {
+   "readings": [
+    "rasm",
+    "resam"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "رسی": {
+   "readings": [
+    "rasi",
+    "res",
+    "rosi"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "رم": {
+   "readings": [
+    "ram",
+    "rom"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "رنجاند": {
+   "readings": [
+    "ranjAnad",
+    "ranjAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "رهاند": {
+   "readings": [
+    "rahAnad",
+    "rahAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "رو": {
+   "readings": [
+    "rav",
+    "ravam",
+    "ru"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "رود": {
+   "readings": [
+    "ravad",
+    "rud"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "روم": {
+   "readings": [
+    "ravam",
+    "rum"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "روی": {
+   "readings": [
+    "ravi",
+    "ruy",
+    "ruye"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "رویه": {
+   "readings": [
+    "raviyye",
+    "ruye"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "زهره": {
+   "readings": [
+    "zahre",
+    "zohre"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سبک": {
+   "readings": [
+    "sabk",
+    "sabok"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "سحر": {
+   "readings": [
+    "sahar",
+    "sehr"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سر": {
+   "readings": [
+    "sar",
+    "saram",
+    "ser",
+    "serr",
+    "sor"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سرم": {
+   "readings": [
+    "saram",
+    "serom"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سرو": {
+   "readings": [
+    "sarv",
+    "serv"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سرور": {
+   "readings": [
+    "sarvar",
+    "server",
+    "sorur"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سری": {
+   "readings": [
+    "seri",
+    "serri"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "سمبل": {
+   "readings": [
+    "sambal",
+    "sambol",
+    "sombol"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سمت": {
+   "readings": [
+    "samt",
+    "semat"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سنت": {
+   "readings": [
+    "sennet",
+    "sent",
+    "sonnat"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سند": {
+   "readings": [
+    "sanad",
+    "send"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سنی": {
+   "readings": [
+    "senni",
+    "sonni"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "سوزاند": {
+   "readings": [
+    "suzAnad",
+    "suzAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "سپر": {
+   "readings": [
+    "separ",
+    "separam",
+    "sepor"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "سپرد": {
+   "readings": [
+    "seporad",
+    "sepord"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "سپرم": {
+   "readings": [
+    "separam",
+    "seporam"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "سیر": {
+   "readings": [
+    "seyr",
+    "sir"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شان": {
+   "readings": [
+    "SAn",
+    "Sa?n"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "شبه": {
+   "readings": [
+    "Sabah",
+    "Sebh"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شدید": {
+   "readings": [
+    "Sadid",
+    "Sodid"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شرف": {
+   "readings": [
+    "Saraf",
+    "Sorof"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شست": {
+   "readings": [
+    "Sast",
+    "Sost"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شش": {
+   "readings": [
+    "SeS",
+    "SoS"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شل": {
+   "readings": [
+    "Sal",
+    "Sol"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شما": {
+   "readings": [
+    "SemA",
+    "SomA"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شناساند": {
+   "readings": [
+    "SenAsAnad",
+    "SenAsAnd"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "شنو": {
+   "readings": [
+    "Senav",
+    "Seno"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "شنود": {
+   "readings": [
+    "Senavad",
+    "Sonud"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شهرت": {
+   "readings": [
+    "Sahrat",
+    "Sohrat"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شهره": {
+   "readings": [
+    "Sahre",
+    "Sohre"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شو": {
+   "readings": [
+    "Sav",
+    "So"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شوم": {
+   "readings": [
+    "Savam",
+    "Sum"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شوید": {
+   "readings": [
+    "Savid",
+    "Sivid",
+    "Suyad"
+   ],
+   "first_vowels": [
+    "None",
+    "a"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "شکر": {
+   "readings": [
+    "Sekar",
+    "Sokr"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "صرف": {
+   "readings": [
+    "sarf",
+    "sarfe",
+    "serf"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "صفر": {
+   "readings": [
+    "safar",
+    "sefr"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "طبق": {
+   "readings": [
+    "tabaq",
+    "tebqe"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "عالم": {
+   "readings": [
+    "?Alam",
+    "?Alem"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "عرضه": {
+   "readings": [
+    "?arze",
+    "?orze"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "عرفا": {
+   "readings": [
+    "?orafA",
+    "?orfan"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "عرق": {
+   "readings": [
+    "?araq",
+    "?erq"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "عقبی": {
+   "readings": [
+    "?aqabi",
+    "?oqbA"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "علم": {
+   "readings": [
+    "?alam",
+    "?elm"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "علی": {
+   "readings": [
+    "?ali",
+    "?elli"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "عمر": {
+   "readings": [
+    "?omar",
+    "?omr"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "عود": {
+   "readings": [
+    "?od",
+    "?ud"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "فرار": {
+   "readings": [
+    "farAr",
+    "farrAr"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "فراری": {
+   "readings": [
+    "farAri",
+    "ferAri"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "فرانک": {
+   "readings": [
+    "farAnak",
+    "ferAnk"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "فرق": {
+   "readings": [
+    "farq",
+    "feraq"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "فن": {
+   "readings": [
+    "fan",
+    "fann"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "فهماند": {
+   "readings": [
+    "fahmAnad",
+    "fahmAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "فوت": {
+   "readings": [
+    "fot",
+    "fut"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "فک": {
+   "readings": [
+    "fakk",
+    "fok"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "قدم": {
+   "readings": [
+    "qadam",
+    "qaddam"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "قسم": {
+   "readings": [
+    "qasam",
+    "qesm"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "قطر": {
+   "readings": [
+    "qatar",
+    "qotr"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "قطعه": {
+   "readings": [
+    "qat?e",
+    "qet?e"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "قل": {
+   "readings": [
+    "qel",
+    "qol"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "قمری": {
+   "readings": [
+    "qamari",
+    "qomri"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "قوت": {
+   "readings": [
+    "qovvat",
+    "qut"
+   ],
+   "first_vowels": [
+    "None",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "لب": {
+   "readings": [
+    "lab",
+    "lobb"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "لرزاند": {
+   "readings": [
+    "larzAnad",
+    "larzAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "لغز": {
+   "readings": [
+    "laqz",
+    "loqoz"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "لمباند": {
+   "readings": [
+    "lombAnad",
+    "lombAnd"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "لنگ": {
+   "readings": [
+    "lang",
+    "leng",
+    "long"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "لی‌لی": {
+   "readings": [
+    "leyley",
+    "lili"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ماند": {
+   "readings": [
+    "mAnad",
+    "mAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "مایل": {
+   "readings": [
+    "mAyel",
+    "mAyl"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "مبدل": {
+   "readings": [
+    "mobaddal",
+    "mobaddel"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "مبلغ": {
+   "readings": [
+    "mablaq",
+    "moballeq"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مثل": {
+   "readings": [
+    "masal",
+    "mesle"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مجاز": {
+   "readings": [
+    "majAz",
+    "mojAz"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "محرم": {
+   "readings": [
+    "mahram",
+    "moharram"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "محقق": {
+   "readings": [
+    "mohaqqaq",
+    "mohaqqeq"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "مد": {
+   "readings": [
+    "madd",
+    "mod"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مراجع": {
+   "readings": [
+    "marAje?",
+    "morAje?"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مرد": {
+   "readings": [
+    "mard",
+    "mord"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مردم": {
+   "readings": [
+    "mardom",
+    "mordam"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مسلم": {
+   "readings": [
+    "mosallam",
+    "moslem"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "مسکن": {
+   "readings": [
+    "maskan",
+    "mosakken"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مشرف": {
+   "readings": [
+    "moSarraf",
+    "moSref"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "مصر": {
+   "readings": [
+    "mesr",
+    "moserr"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "معبر": {
+   "readings": [
+    "ma?bar",
+    "mo?abber"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "معین": {
+   "readings": [
+    "mo?ayyan",
+    "mo?in"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "مفصل": {
+   "readings": [
+    "mafsal",
+    "mofassal"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مقدم": {
+   "readings": [
+    "maqdam",
+    "moqaddam"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مقطع": {
+   "readings": [
+    "maqta?",
+    "moqatta?"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ملا": {
+   "readings": [
+    "mala?",
+    "mollA"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ملاک": {
+   "readings": [
+    "mallAk",
+    "melAk"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "منکر": {
+   "readings": [
+    "monkar",
+    "monker"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "مهر": {
+   "readings": [
+    "mehr",
+    "mohr"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "مهم": {
+   "readings": [
+    "mohem",
+    "mohemm"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "مو": {
+   "readings": [
+    "mo",
+    "mu"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "میدانی": {
+   "readings": [
+    "meydAni",
+    "midAni"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "نبرد": {
+   "readings": [
+    "nabarad",
+    "nabard",
+    "naborad",
+    "nabord"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "نرم": {
+   "readings": [
+    "naram",
+    "narm"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "نزد": {
+   "readings": [
+    "nazad",
+    "nazde"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "نسبی": {
+   "readings": [
+    "nasabi",
+    "nesbi"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "نشاند": {
+   "readings": [
+    "neSAnad",
+    "neSAnd"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "نشست": {
+   "readings": [
+    "naSost",
+    "neSast"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "نشسته": {
+   "readings": [
+    "naSoste",
+    "neSaste"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "نصاب": {
+   "readings": [
+    "nassAb",
+    "nesAb"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "نفس": {
+   "readings": [
+    "nafas",
+    "nafs"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "نقل": {
+   "readings": [
+    "naql",
+    "noql"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "نمونه": {
+   "readings": [
+    "namune",
+    "nemune"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "نکن": {
+   "readings": [
+    "nakkan",
+    "nakon"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "هری": {
+   "readings": [
+    "hari",
+    "herri",
+    "horri"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "هل": {
+   "readings": [
+    "hel",
+    "hol"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "هلیم": {
+   "readings": [
+    "halim",
+    "helyom"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ور": {
+   "readings": [
+    "var",
+    "ver"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "وسطی": {
+   "readings": [
+    "vasati",
+    "vostA"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "ولو": {
+   "readings": [
+    "valo",
+    "velo"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "پر": {
+   "readings": [
+    "par",
+    "por"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "پراند": {
+   "readings": [
+    "parAnad",
+    "parAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "پرس": {
+   "readings": [
+    "peres",
+    "pors"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "پرش": {
+   "readings": [
+    "pareS",
+    "poraS"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "پروراند": {
+   "readings": [
+    "parvarAnad",
+    "parvarAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "پرورد": {
+   "readings": [
+    "parvarad",
+    "parvard"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "پست": {
+   "readings": [
+    "past",
+    "post"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "پلاس": {
+   "readings": [
+    "palAs",
+    "pelAs"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "پهن": {
+   "readings": [
+    "pahn",
+    "pehen"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "پوشاند": {
+   "readings": [
+    "puSAnad",
+    "puSAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "پژمرد": {
+   "readings": [
+    "paZmorad",
+    "paZmord"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "پی": {
+   "readings": [
+    "pey",
+    "pi"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "پیچاند": {
+   "readings": [
+    "piCAnad",
+    "piCAnd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "چرخاند": {
+   "readings": [
+    "CarxAnad",
+    "CarxAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "چسباند": {
+   "readings": [
+    "CasbAnad",
+    "CasbAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "چشم": {
+   "readings": [
+    "CaSm",
+    "CeSam",
+    "CeSm"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "چلاند": {
+   "readings": [
+    "CelAnad",
+    "CelAnd"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "چپاند": {
+   "readings": [
+    "CapAnad",
+    "CapAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "چک": {
+   "readings": [
+    "Cak",
+    "Cek"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کابل": {
+   "readings": [
+    "kAbl",
+    "kAbol"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "کارد": {
+   "readings": [
+    "kArad",
+    "kArd"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "کت": {
+   "readings": [
+    "kat",
+    "kot"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کر": {
+   "readings": [
+    "kar",
+    "kor"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کرات": {
+   "readings": [
+    "karrAt",
+    "korAt"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کرد": {
+   "readings": [
+    "kard",
+    "kord"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کرم": {
+   "readings": [
+    "karam",
+    "kerem",
+    "kerm",
+    "korom"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کره": {
+   "readings": [
+    "kare",
+    "kore",
+    "korre"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کش": {
+   "readings": [
+    "keS",
+    "koS"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کشاند": {
+   "readings": [
+    "keSAnad",
+    "keSAnd"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "کشت": {
+   "readings": [
+    "keSt",
+    "koSt"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کشتی": {
+   "readings": [
+    "kaSti",
+    "keSti",
+    "koSti"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کشند": {
+   "readings": [
+    "keSand",
+    "koSand"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کشیم": {
+   "readings": [
+    "keSim",
+    "koSim"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کل": {
+   "readings": [
+    "kal",
+    "kel",
+    "kol",
+    "koll"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کلفت": {
+   "readings": [
+    "kolfat",
+    "koloft"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "کمی": {
+   "readings": [
+    "kami",
+    "kammi"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "کن": {
+   "readings": [
+    "kan",
+    "kon"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کند": {
+   "readings": [
+    "kanad",
+    "kand",
+    "konad",
+    "kond"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کنده": {
+   "readings": [
+    "kande",
+    "konde"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کندی": {
+   "readings": [
+    "kandi",
+    "kenedi",
+    "kondi"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کنف": {
+   "readings": [
+    "kanaf",
+    "kenef"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کنه": {
+   "readings": [
+    "kane",
+    "konh"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "کیف": {
+   "readings": [
+    "keyf",
+    "kif"
+   ],
+   "first_vowels": [
+    "None",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "گذراند": {
+   "readings": [
+    "gozarAnad",
+    "gozarAnd"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "گرد": {
+   "readings": [
+    "gard",
+    "gerd",
+    "gerde"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "گردان": {
+   "readings": [
+    "gardAn",
+    "gordAn"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "گرداند": {
+   "readings": [
+    "gardAnad",
+    "gardAnd"
+   ],
+   "first_vowels": [
+    "a"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "گرده": {
+   "readings": [
+    "garde",
+    "gerd",
+    "gerde",
+    "gorde"
+   ],
+   "first_vowels": [
+    "a",
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "گرم": {
+   "readings": [
+    "garm",
+    "geram"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "گریاند": {
+   "readings": [
+    "geryAnad",
+    "geryAnd"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "گریم": {
+   "readings": [
+    "gerim",
+    "geryam"
+   ],
+   "first_vowels": [
+    "e"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "گزید": {
+   "readings": [
+    "gazid",
+    "gozid"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "گل": {
+   "readings": [
+    "gel",
+    "gol"
+   ],
+   "first_vowels": [
+    "e",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "گله": {
+   "readings": [
+    "galle",
+    "gele"
+   ],
+   "first_vowels": [
+    "a",
+    "e"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "گنج": {
+   "readings": [
+    "ganj",
+    "gonj"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "گنجاند": {
+   "readings": [
+    "gonjAnad",
+    "gonjAnd"
+   ],
+   "first_vowels": [
+    "o"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "گنگ": {
+   "readings": [
+    "gang",
+    "gong"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  },
+  "یاس": {
+   "readings": [
+    "yAs",
+    "ya?s"
+   ],
+   "first_vowels": [
+    "None"
+   ],
+   "first_vowel_tells_apart": false
+  },
+  "یمن": {
+   "readings": [
+    "yaman",
+    "yomn"
+   ],
+   "first_vowels": [
+    "a",
+    "o"
+   ],
+   "first_vowel_tells_apart": true
+  }
+ }
+}

@@ -24,7 +24,8 @@ under ``outputs`` that no results file refers to.
 ``--dataset`` stages the same contents under another slug, in its own
 directory: a session that must run code the pending sessions have not seen
 (the LongCat probe) gets a dataset of its own, and the one they mount is left
-exactly as it was verified.
+exactly as it was verified. Such a dataset may carry a few files more
+(``EXTRAS``): the front-end listening test's render script and texts.
 
     .venv/bin/python kaggle/build_dataset.py
     KAGGLE_CONFIG_DIR=~/.kaggle-oauth .venv/bin/kaggle datasets version \\
@@ -70,7 +71,12 @@ SCRIPTS = ("benchmark.py", "compare_runs.py", "kernel_gates.py", "omnivoice_work
            "prepare_probe_corpus.py", "read_longcat_probe.py")
 
 #: The title each slug is published under.
-TITLES = {DATASET: "Persian Voice Eval Harness", "persian-voice-longcat-probe": "Persian Voice LongCat Probe"}
+TITLES = {DATASET: "Persian Voice Eval Harness", "persian-voice-longcat-probe": "Persian Voice LongCat Probe",
+          "persian-voice-frontend-listening": "Persian Voice Frontend Listening"}
+
+#: What a dataset of its own carries beyond the shared contents.
+EXTRAS = {"persian-voice-frontend-listening": ("scripts/render_frontend_conditions.py", "scripts/ab_omnivoice_ipa.py",
+                                               "eval/runs/frontend-listening-v1/texts.json")}
 
 PROVENANCE = """\
 # Provenance
@@ -123,6 +129,9 @@ def main(argv: list[str] | None = None) -> int:
     (stage / "scripts").mkdir()
     for name in SCRIPTS:
         shutil.copy2(ROOT / "scripts" / name, stage / "scripts" / name)
+    for name in EXTRAS.get(args.dataset, ()):
+        (stage / name).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / name, stage / name)
 
     (out_dir / "PROVENANCE.md").write_text(PROVENANCE.format(commit=commit()), encoding="utf-8")
     metadata = {"title": TITLES[args.dataset], "id": f"{USER}/{args.dataset}"}

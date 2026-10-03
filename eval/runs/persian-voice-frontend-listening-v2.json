@@ -1,0 +1,75 @@
+{
+ "run": "step 3 of the pronunciation fix: homograph vowels and a sukun before adverbs, on top of the ezafe the app now writes, judged blind by ear",
+ "status": "registered 2026-10-03, before any front-end or G2P ran on these sentences and before any render",
+ "why": "the user heard the app's ezafe (FINDINGS section 16) on a sentence of their own and reported three errors left: an ezafe OmniVoice added on its own (تعاملات before معمولاً - the tagger gave none), and two homographs read the other way (محرم as moharram, اسرار as esrAr). The app's Homo-GE2PE read both homographs right in that sentence. Step 2's sukun was dropped for breaking more than it fixed, its first vowels on every noun and adjective lowered speaker similarity (eval/runs/evidence/frontend-listening-v1/similarity.json); both come back here narrowed",
+ "question": "does each narrowed fix lower the words a native listener hears said wrong, without lowering how much the voice resembles the speaker",
+ "sentences": {
+  "file": "eval/manifests/frontend_listening_v2.json",
+  "sha256": "4c95e9c0bfed355559db1025ddea3cb72b6ee41f34528653f4e33c98f00713e4",
+  "count": 12,
+  "words": 242,
+  "written_by": "Claude, 2026-10-03, before any front-end ran on them; v01 is the user's sentence. Each holds one or two of HomoRich's homographs - 23 in all, every one told apart by its first vowel - and a noun or adjective right before an adverb",
+  "leakage_check": {
+   "homorich": {
+    "checked": 528875,
+    "hits": 0
+   },
+   "sentencebench": {
+    "checked": 400,
+    "hits": 0
+   },
+   "adaptation_splits": {
+    "checked": 96413,
+    "hits": 0
+   },
+   "earlier_tests": {
+    "checked": 26,
+    "hits": 0
+   }
+  },
+  "leakage_rule": "letters only, equal or one inside the other with at least 20 letters and half the longer - step 2's rule"
+ },
+ "homographs": {
+  "file": "eval/manifests/homorich_homographs_v1.json",
+  "sha256": "f35b98076eee75dacbd3a13c95cf3faab8fae8ed135742490ee5b222d8405061",
+  "source": "HomoRich-G2P-Persian @ 21b189a7 (CC0-1.0): its 286 homograph words and their readings; 191 differ in the first short vowel"
+ },
+ "front_end": {
+  "E": "the app's own text pipeline for OmniVoice at its default settings (src/voiceclone/text/pipeline.py: the normaliser keeping أ and ۀ, the ezafe from the light tagger) - what the app sends today",
+  "H": "E + the first short vowel (marks_fa.with_first_vowel) of each word whose letters are one of the 191 homographs, taken from Homo-GE2PE's reading of the whole sentence (voiceclone.text.g2p.PersianG2P; its words aligned to the sentence's by score_frontend_components.groups), when that reading gives a first short vowel. Nothing else is marked",
+  "S": "E + a sukun (marks_fa.with_sukun) on each noun, adjective or number the tagger gives no ezafe when the next word is an adverb (tag ADV)",
+  "code": "scripts/build_frontend_texts_v2.py -> eval/runs/frontend-listening-v2/texts.json, with every decision per word"
+ },
+ "conditions": {
+  "E": "the app today",
+  "EH": "E + H",
+  "ES": "E + S",
+  "EHS": "E + H + S"
+ },
+ "rendering": {
+  "engine": "OmniVoice through the app (scripts/render_frontend_conditions.py) on one Kaggle T4 x2 session as step 2's amendment set out: the same weights, float16, seed 42, one take, evaluation off; the texts are fed as written - the app adds no ezafe of its own (text.ezafe off, E already holds it) and normalises as it now does for OmniVoice",
+  "voice": "mana_000.wav, as steps 1 and 2",
+  "renders": "12 x 4 = 48",
+  "marks_reach_the_model": "checked through the app's pipeline before any engine loads, as step 2",
+  "cer": "the app's recogniser after the worker is released, against the plain sentence",
+  "similarity": "held-out ECAPA similarity per render against mana_001-004 (scripts/similarity_frontend_conditions.py), computed after the renders"
+ },
+ "review": {
+  "listener": "the user, blind",
+  "page": "as step 2: the plain sentence, four readings, words to tap, a note per reading, the best reading; the listener is asked to note what was wrong where they can",
+  "blind": "Latin-square slots (each form three times in each slot), anonymous files, loudness matched to -26 LUFS, the key off the page"
+ },
+ "analysis_fixed_before_listening": {
+  "code": "scripts/score_pronunciation_review.py: per form, words marked wrong of 242, readings with none, times picked best",
+  "homographs": "reported: per form, how many of the 23 homographs were marked wrong",
+  "classification": "after the key, Claude sorts the marked words by kind from the notes - reported, not used for the decision"
+ },
+ "decision_rules": {
+  "H": "kept if the words marked wrong in EH and EHS together are fewer than in E and ES together; a tie or a rise drops it",
+  "S": "kept if ES and EHS together are fewer than E and EH together; a tie or a rise drops it",
+  "harm": "a fix is flagged if its two forms' mean CER is more than 2 points above the two without it, or if its paired held-out similarity difference - per sentence, the mean of its two forms minus the mean of the two without, averaged over the 12, 95% bootstrap interval over sentences (10,000 resamples, seed 20261003) - lies wholly below zero. A flagged fix is not adopted without the user's say",
+  "into_the_app": "every kept, unflagged fix; all four combinations are rendered, so whichever is adopted was heard"
+ },
+ "not_claimed": "one listener, one voice, one seed, 242 words written by Claude and the user; homographs outside HomoRich's list (اسرار among them) are untouched by H",
+ "cost": "Kaggle: one session, about 0.15 GPU-hours. Local: Homo-GE2PE (0.7 GB) and the light tagger (0.9 GB), one at a time; the listening, about 25 minutes"
+}

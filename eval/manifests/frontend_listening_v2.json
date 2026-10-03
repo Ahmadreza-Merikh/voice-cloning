@@ -1,0 +1,165 @@
+{
+ "version": 1,
+ "purpose": "step 3 of the pronunciation fix: homograph vowels and a sukun before adverbs, on top of the ezafe the app writes",
+ "written_by": "Claude, 2026-10-03, after the user's report on the app and before any front-end or G2P ran on these sentences; v01 is the user's own sentence",
+ "homographs_from": "eval/manifests/homorich_homographs_v1.json: every homograph here is one of HomoRich's whose listed readings differ in the first short vowel",
+ "expected_readings": "Claude's reading of each homograph in its sentence, for sorting the marked words afterwards; not used to write any text",
+ "sentences": [
+  {
+   "id": "v01",
+   "category": "users_sentence",
+   "text": "کاربران در جریان این تعاملات معمولاً اطلاعات بسیار خصوصی درباره زندگی و سلامت روان خود را با هوش مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوان محرم اسرار یا حتی درمانگر استفاده می‌کنند.",
+   "homographs_expected": {
+    "محرم": "mahram"
+   },
+   "noun_before_adverb": [
+    "تعاملات معمولاً"
+   ],
+   "note": "the user's own sentence (2026-10-03): OmniVoice gave تعاملات an ezafe, read محرم as moharram and اسرار as esrAr. اسرار is not one of HomoRich's homographs, so no form here marks it"
+  },
+  {
+   "id": "v02",
+   "category": "homograph_kashti",
+   "text": "در آن سفر طولانی، مسافران معمولاً هنگام غروب روی عرشه کشتی جمع می‌شدند و از دور قهرمان کشتی را تشویق می‌کردند.",
+   "homographs_expected": {
+    "کشتی#1": "kaSti",
+    "کشتی#2": "koSti"
+   },
+   "noun_before_adverb": [
+    "مسافران معمولاً"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v03",
+   "category": "homograph_shekar",
+   "text": "شکر خدا حال مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمار هرگز نباید چای را با شکر زیاد بنوشد.",
+   "homographs_expected": {
+    "شکر#1": "Sokr",
+    "شکر#2": "Sekar"
+   },
+   "noun_before_adverb": [
+    "بیمار هرگز"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v04",
+   "category": "homograph_sar",
+   "text": "کارگران همیشه سر ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سر این ماجرا خبر ندارد.",
+   "homographs_expected": {
+    "سر#1": "sar",
+    "سر#2": "serr"
+   },
+   "noun_before_adverb": [
+    "کارگران همیشه"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v05",
+   "category": "homograph_mehr",
+   "text": "کارمند فوراً مهر شرکت را روی نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+   "homographs_expected": {
+    "مهر#1": "mohr",
+    "مهر#2": "mehr"
+   },
+   "noun_before_adverb": [
+    "کارمند فوراً"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v06",
+   "category": "homograph_elm",
+   "text": "دانشمندان سال‌ها برای پیشرفت علم پزشکی تلاش کردند و در میان خلق نامشان هنوز با احترام برده می‌شود.",
+   "homographs_expected": {
+    "علم": "?elm",
+    "خلق": "xalq"
+   },
+   "noun_before_adverb": [
+    "نامشان هنوز"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v07",
+   "category": "homograph_par",
+   "text": "بچه‌ها پر از شوق بودند، چون پرنده کوچک ناگهان با یک پر سفید روی شاخه نشست.",
+   "homographs_expected": {
+    "پر#1": "por",
+    "پر#2": "par"
+   },
+   "noun_before_adverb": [
+    "کوچک ناگهان"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v08",
+   "category": "homograph_mosakken",
+   "text": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تن خسته‌اش هنوز درد می‌کند.",
+   "homographs_expected": {
+    "مسکن": "mosakken",
+    "تن": "tan"
+   },
+   "noun_before_adverb": [
+    "خسته‌اش هنوز"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v09",
+   "category": "homograph_maskan",
+   "text": "در این محله، قیمت مسکن معمولاً بالاست و موجودی حساب بسیاری از زوج‌های جوان تقریباً صفر است.",
+   "homographs_expected": {
+    "مسکن": "maskan",
+    "صفر": "sefr"
+   },
+   "noun_before_adverb": [
+    "مسکن معمولاً",
+    "جوان تقریباً"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v10",
+   "category": "homograph_araq",
+   "text": "کودک بیمار دیشب تا صبح تب داشت و مادرش مدام عرق پیشانی او را پاک می‌کرد و از سر دلسوزی کنارش بیدار ماند.",
+   "homographs_expected": {
+    "عرق": "?araq",
+    "سر": "sar"
+   },
+   "noun_before_adverb": [
+    "مادرش مدام"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v11",
+   "category": "homograph_sarf",
+   "text": "در جلسه دیروز، مدیر بخش بازاریابی گفت که این طرح اصلاً ارزش صرف هزینه ندارد و مبلغ پیشنهادی را رد کرد.",
+   "homographs_expected": {
+    "صرف": "sarf",
+    "مبلغ": "mablaq"
+   },
+   "noun_before_adverb": [
+    "طرح اصلاً"
+   ],
+   "note": ""
+  },
+  {
+   "id": "v12",
+   "category": "homograph_sahar",
+   "text": "جوانان امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگام سحر در هوای گرم تابستان برای دویدن به پارک می‌روند.",
+   "homographs_expected": {
+    "سحر": "sahar",
+    "گرم": "garm"
+   },
+   "noun_before_adverb": [
+    "امروز اغلب"
+   ],
+   "note": ""
+  }
+ ]
+}

@@ -1,0 +1,2003 @@
+{
+ "sentences_file": "eval/manifests/frontend_listening_v1.json",
+ "sentences_sha256": "69f33c5a7571804fe17250e2dd7e75dc8183e6d378edc7b03906dd5119812ec3",
+ "tagger": {
+  "repo": "roshan-research/hazm-parsbert-postagger",
+  "revision": "eba1d2b30cc48206c0144b36d2b663652d44faf9"
+ },
+ "kaamel_sha256": "d5f6982ba93d94d8de19bceac2d0c843857a0b2ea751e9e1c3876fc0514d22c9",
+ "marks_sha256": "b2b82370a1e69a04bfe290b4e24c0613734d322c8317d507ab7031e7bd6c8395",
+ "packages": {
+  "hazm": "0.12.1",
+  "spacy": "3.8.16",
+  "spacy-transformers": "1.4.0",
+  "transformers": "4.53.2"
+ },
+ "sentences": [
+  {
+   "id": "n01",
+   "category": "ezafe_chain_silent_h",
+   "text": "پنجره اتاق خواب خانه مادربزرگم رو به باغ باز می‌شود.",
+   "words": [
+    {
+     "word": "پنجره",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "پنجره",
+     "lexicon": [
+      "panjare",
+      "panjere"
+     ],
+     "reading": "panjere"
+    },
+    {
+     "word": "اتاق",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "اتاق",
+     "lexicon": [
+      "?otAq"
+     ],
+     "reading": "?otAq"
+    },
+    {
+     "word": "خواب",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "خواب",
+     "lexicon": [
+      "xAb"
+     ],
+     "reading": "xAb"
+    },
+    {
+     "word": "خانه",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "خانه",
+     "lexicon": [
+      "xAna",
+      "xAne"
+     ],
+     "reading": "xAne"
+    },
+    {
+     "word": "مادربزرگم",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "مادربزرگ",
+     "lexicon": [
+      "mAdarbozorg"
+     ],
+     "reading": "mAdarbozorg"
+    },
+    {
+     "word": "رو",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "رو",
+     "lexicon": [
+      "rav",
+      "ru"
+     ],
+     "reading": null
+    },
+    {
+     "word": "به",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "به",
+     "lexicon": [
+      "ba",
+      "bah",
+      "be",
+      "beh"
+     ],
+     "reading": null
+    },
+    {
+     "word": "باغ",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADJ",
+     "lexicon_key": "باغ",
+     "lexicon": [
+      "bAq"
+     ],
+     "reading": "bAq"
+    },
+    {
+     "word": "باز",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "باز",
+     "lexicon": [
+      "bAz"
+     ],
+     "reading": "bAz"
+    },
+    {
+     "word": "می‌شود",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "می‌شود",
+     "lexicon": [
+      "miSavad"
+     ],
+     "reading": "miSavad"
+    }
+   ],
+   "texts": {
+    "A": "پنجره اتاق خواب خانه مادربزرگم رو به باغ باز می‌شود.",
+    "E": "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگم رو به باغ باز می‌شود.",
+    "EN": "پنجرهٔ اتاقِ خوابِ خانهٔ مادربزرگمْ رو به باغْ بازْ می‌شود.",
+    "ENV": "پَنجرهٔ اُتاقِ خوابِ خانهٔ مادربزرگمْ رو به باغْ بازْ می‌شود."
+   }
+  },
+  {
+   "id": "n02",
+   "category": "no_ezafe_before_verb_and_number",
+   "text": "دانشجو کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند.",
+   "words": [
+    {
+     "word": "دانشجو",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "دانشجو",
+     "lexicon": [
+      "dAneSju"
+     ],
+     "reading": "dAneSju"
+    },
+    {
+     "word": "کتاب",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "کتاب",
+     "lexicon": [
+      "ketAb"
+     ],
+     "reading": "ketAb"
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "را",
+     "lexicon": [
+      "rA"
+     ],
+     "reading": "rA"
+    },
+    {
+     "word": "روی",
+     "tag": "ADP,EZ",
+     "pos": "ADP",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "روی",
+     "lexicon": [
+      "ravi",
+      "raviyy",
+      "ruy",
+      "ruye"
+     ],
+     "reading": null
+    },
+    {
+     "word": "میز",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "میز",
+     "lexicon": [
+      "miz"
+     ],
+     "reading": "miz"
+    },
+    {
+     "word": "گذاشت",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "CCONJ",
+     "lexicon_key": "گذاشت",
+     "lexicon": [
+      "gozASt"
+     ],
+     "reading": "gozASt"
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "pos": "CCONJ",
+     "ezafe": false,
+     "next_pos": "NUM",
+     "lexicon_key": "و",
+     "lexicon": [
+      "?o",
+      "?u",
+      "vAv",
+      "va",
+      "ve"
+     ],
+     "reading": "?o"
+    },
+    {
+     "word": "دو",
+     "tag": "NUM",
+     "pos": "NUM",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "دو",
+     "lexicon": [
+      "dav",
+      "do"
+     ],
+     "reading": null
+    },
+    {
+     "word": "ساعت",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADJ",
+     "lexicon_key": "ساعت",
+     "lexicon": [
+      "sA?at",
+      "sAat"
+     ],
+     "reading": "sAat"
+    },
+    {
+     "word": "منتظر",
+     "tag": "ADJ,EZ",
+     "pos": "ADJ",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "منتظر",
+     "lexicon": [
+      "montazer"
+     ],
+     "reading": "montazer"
+    },
+    {
+     "word": "استاد",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "استاد",
+     "lexicon": [
+      "?ostAd"
+     ],
+     "reading": "?ostAd"
+    },
+    {
+     "word": "ماند",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "ماند",
+     "lexicon": [
+      "mAnad",
+      "mAnd"
+     ],
+     "reading": "mAnad"
+    }
+   ],
+   "texts": {
+    "A": "دانشجو کتاب را روی میز گذاشت و دو ساعت منتظر استاد ماند.",
+    "E": "دانشجو کتاب را رویِ میز گذاشت و دو ساعت منتظرِ استاد ماند.",
+    "EN": "دانشجو کتاب را رویِ میزْ گذاشت و دو ساعتْ منتظرِ استادْ ماند.",
+    "ENV": "دانشجو کِتاب را رویِ میزْ گذاشت و دو ساعتْ مُنتظرِ اُستادْ ماند."
+   }
+  },
+  {
+   "id": "n03",
+   "category": "first_vowels_fatha_kasra",
+   "text": "کشاورز با تبر شاخه‌های خشک درخت را برید و در سبد گذاشت.",
+   "words": [
+    {
+     "word": "کشاورز",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "کشاورز",
+     "lexicon": [
+      "keSAvarz"
+     ],
+     "reading": "keSAvarz"
+    },
+    {
+     "word": "با",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "با",
+     "lexicon": [
+      "bA"
+     ],
+     "reading": "bA"
+    },
+    {
+     "word": "تبر",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "تبر",
+     "lexicon": [
+      "tabar"
+     ],
+     "reading": "tabar"
+    },
+    {
+     "word": "شاخه‌های",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "ADJ",
+     "lexicon_key": "شاخه",
+     "lexicon": [
+      "SAxe"
+     ],
+     "reading": "SAxe"
+    },
+    {
+     "word": "خشک",
+     "tag": "ADJ,EZ",
+     "pos": "ADJ",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "خشک",
+     "lexicon": [
+      "xoSk"
+     ],
+     "reading": "xoSk"
+    },
+    {
+     "word": "درخت",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "درخت",
+     "lexicon": [
+      "daraxt",
+      "deraxt",
+      "mpp"
+     ],
+     "reading": null
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "را",
+     "lexicon": [
+      "rA"
+     ],
+     "reading": "rA"
+    },
+    {
+     "word": "برید",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "CCONJ",
+     "lexicon_key": "برید",
+     "lexicon": [
+      "barid",
+      "borid"
+     ],
+     "reading": null
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "pos": "CCONJ",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "و",
+     "lexicon": [
+      "?o",
+      "?u",
+      "vAv",
+      "va",
+      "ve"
+     ],
+     "reading": "?o"
+    },
+    {
+     "word": "در",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "در",
+     "lexicon": [
+      "dar",
+      "dorr"
+     ],
+     "reading": null
+    },
+    {
+     "word": "سبد",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "سبد",
+     "lexicon": [
+      "sabad"
+     ],
+     "reading": "sabad"
+    },
+    {
+     "word": "گذاشت",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "گذاشت",
+     "lexicon": [
+      "gozASt"
+     ],
+     "reading": "gozASt"
+    }
+   ],
+   "texts": {
+    "A": "کشاورز با تبر شاخه‌های خشک درخت را برید و در سبد گذاشت.",
+    "E": "کشاورز با تبر شاخه‌هایِ خشکِ درخت را برید و در سبد گذاشت.",
+    "EN": "کشاورز با تبرْ شاخه‌هایِ خشکِ درخت را برید و در سبدْ گذاشت.",
+    "ENV": "کِشاورز با تَبرْ شاخه‌هایِ خُشکِ درخت را برید و در سَبدْ گذاشت."
+   }
+  },
+  {
+   "id": "n04",
+   "category": "first_vowels_damma",
+   "text": "دختر کوچک قفل صندوق را با کلید طلایی باز کرد.",
+   "words": [
+    {
+     "word": "دختر",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "ADJ",
+     "lexicon_key": "دختر",
+     "lexicon": [
+      "doxtar"
+     ],
+     "reading": "doxtar"
+    },
+    {
+     "word": "کوچک",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "کوچک",
+     "lexicon": [
+      "kuCak",
+      "kuCek"
+     ],
+     "reading": "kuCak"
+    },
+    {
+     "word": "قفل",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "قفل",
+     "lexicon": [
+      "qofl"
+     ],
+     "reading": "qofl"
+    },
+    {
+     "word": "صندوق",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "صندوق",
+     "lexicon": [
+      "sandoq",
+      "sanduq"
+     ],
+     "reading": "sandoq"
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "را",
+     "lexicon": [
+      "rA"
+     ],
+     "reading": "rA"
+    },
+    {
+     "word": "با",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "با",
+     "lexicon": [
+      "bA"
+     ],
+     "reading": "bA"
+    },
+    {
+     "word": "کلید",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "ADJ",
+     "lexicon_key": "کلید",
+     "lexicon": [
+      "kelid"
+     ],
+     "reading": "kelid"
+    },
+    {
+     "word": "طلایی",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "ADJ",
+     "lexicon_key": "طلایی",
+     "lexicon": [
+      "talAyi"
+     ],
+     "reading": "talAyi"
+    },
+    {
+     "word": "باز",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "باز",
+     "lexicon": [
+      "bAz"
+     ],
+     "reading": "bAz"
+    },
+    {
+     "word": "کرد",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "کرد",
+     "lexicon": [
+      "kard",
+      "kord"
+     ],
+     "reading": null
+    }
+   ],
+   "texts": {
+    "A": "دختر کوچک قفل صندوق را با کلید طلایی باز کرد.",
+    "E": "دخترِ کوچک قفلِ صندوق را با کلیدِ طلایی باز کرد.",
+    "EN": "دخترِ کوچکْ قفلِ صندوق را با کلیدِ طلایی بازْ کرد.",
+    "ENV": "دُخترِ کوچکْ قُفلِ صَندوق را با کِلیدِ طَلایی بازْ کرد."
+   }
+  },
+  {
+   "id": "n05",
+   "category": "ezafe_after_vowels",
+   "text": "صدای خنده بچه‌ها از کوچه باریک پشت مدرسه می‌آمد.",
+   "words": [
+    {
+     "word": "صدای",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "صدای",
+     "lexicon": [],
+     "reading": null
+    },
+    {
+     "word": "خنده",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "خنده",
+     "lexicon": [
+      "xande"
+     ],
+     "reading": "xande"
+    },
+    {
+     "word": "بچه‌ها",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "بچه",
+     "lexicon": [
+      "baCCe"
+     ],
+     "reading": "baCCe"
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "از",
+     "lexicon": [
+      "?az"
+     ],
+     "reading": "?az"
+    },
+    {
+     "word": "کوچه",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "ADJ",
+     "lexicon_key": "کوچه",
+     "lexicon": [
+      "kuCe"
+     ],
+     "reading": "kuCe"
+    },
+    {
+     "word": "باریک",
+     "tag": "ADJ,EZ",
+     "pos": "ADJ",
+     "ezafe": true,
+     "next_pos": "ADP",
+     "lexicon_key": "باریک",
+     "lexicon": [
+      "bArik"
+     ],
+     "reading": "bArik"
+    },
+    {
+     "word": "پشت",
+     "tag": "ADP,EZ",
+     "pos": "ADP",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "پشت",
+     "lexicon": [
+      "poSt"
+     ],
+     "reading": "poSt"
+    },
+    {
+     "word": "مدرسه",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "مدرسه",
+     "lexicon": [
+      "madrese"
+     ],
+     "reading": "madrese"
+    },
+    {
+     "word": "می‌آمد",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "می",
+     "lexicon": [
+      "mey",
+      "mi"
+     ],
+     "reading": null
+    }
+   ],
+   "texts": {
+    "A": "صدای خنده بچه‌ها از کوچه باریک پشت مدرسه می‌آمد.",
+    "E": "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد.",
+    "EN": "صدایِ خندهٔ بچه‌ها از کوچهٔ باریکِ پشتِ مدرسه می‌آمد.",
+    "ENV": "صدایِ خَندهٔ بَچه‌ها از کوچهٔ باریکِ پشتِ مَدرسه می‌آمد."
+   }
+  },
+  {
+   "id": "n06",
+   "category": "indefinite_then_adjective",
+   "text": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+   "words": [
+    {
+     "word": "او",
+     "tag": "PRON",
+     "pos": "PRON",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "او",
+     "lexicon": [
+      "?av",
+      "?o",
+      "?ou",
+      "?u"
+     ],
+     "reading": null
+    },
+    {
+     "word": "مردی",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADJ",
+     "lexicon_key": "مردی",
+     "lexicon": [
+      "mardi",
+      "mordi"
+     ],
+     "reading": null
+    },
+    {
+     "word": "مهربان",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "CCONJ",
+     "lexicon_key": "مهربان",
+     "lexicon": [
+      "meharbAn",
+      "mehrabAn"
+     ],
+     "reading": "meharbAn"
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "pos": "CCONJ",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "و",
+     "lexicon": [
+      "?o",
+      "?u",
+      "vAv",
+      "va",
+      "ve"
+     ],
+     "reading": "?o"
+    },
+    {
+     "word": "دانشمندی",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADJ",
+     "lexicon_key": "دانشمندی",
+     "lexicon": [
+      "dAneSmandi"
+     ],
+     "reading": "dAneSmandi"
+    },
+    {
+     "word": "بزرگ",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "بزرگ",
+     "lexicon": [
+      "bozorg"
+     ],
+     "reading": "bozorg"
+    },
+    {
+     "word": "بود",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "SCONJ",
+     "lexicon_key": "بود",
+     "lexicon": [
+      "bud"
+     ],
+     "reading": "bud"
+    },
+    {
+     "word": "که",
+     "tag": "SCONJ",
+     "pos": "SCONJ",
+     "ezafe": false,
+     "next_pos": "PRON",
+     "lexicon_key": "که",
+     "lexicon": [
+      "kah",
+      "ke",
+      "koh"
+     ],
+     "reading": null
+    },
+    {
+     "word": "همه",
+     "tag": "PRON",
+     "pos": "PRON",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "همه",
+     "lexicon": [
+      "hame"
+     ],
+     "reading": "hame"
+    },
+    {
+     "word": "به",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "به",
+     "lexicon": [
+      "ba",
+      "bah",
+      "be",
+      "beh"
+     ],
+     "reading": null
+    },
+    {
+     "word": "حرفش",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "حرف",
+     "lexicon": [
+      "harf",
+      "heraf"
+     ],
+     "reading": null
+    },
+    {
+     "word": "گوش",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "گوش",
+     "lexicon": [
+      "guS"
+     ],
+     "reading": "guS"
+    },
+    {
+     "word": "می‌دادند",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "می",
+     "lexicon": [
+      "mey",
+      "mi"
+     ],
+     "reading": null
+    }
+   ],
+   "texts": {
+    "A": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+    "E": "او مردی مهربان و دانشمندی بزرگ بود که همه به حرفش گوش می‌دادند.",
+    "EN": "او مردی مهربان و دانشمندی بزرگْ بود که همه به حرفشْ گوشْ می‌دادند.",
+    "ENV": "او مردی مِهربان و دانشمندی بُزرگْ بود که همه به حرفشْ گوشْ می‌دادند."
+   }
+  },
+  {
+   "id": "n07",
+   "category": "time_phrases",
+   "text": "دیروز صبح زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+   "words": [
+    {
+     "word": "دیروز",
+     "tag": "ADV",
+     "pos": "ADV",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "دیروز",
+     "lexicon": [
+      "diruz"
+     ],
+     "reading": "diruz"
+    },
+    {
+     "word": "صبح",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "ADJ",
+     "lexicon_key": "صبح",
+     "lexicon": [
+      "sobh"
+     ],
+     "reading": "sobh"
+    },
+    {
+     "word": "زود",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "زود",
+     "lexicon": [
+      "zud"
+     ],
+     "reading": "zud"
+    },
+    {
+     "word": "باران",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "باران",
+     "lexicon": [
+      "bArAn"
+     ],
+     "reading": "bArAn"
+    },
+    {
+     "word": "شروع",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "شروع",
+     "lexicon": [
+      "Soru?"
+     ],
+     "reading": "Soru?"
+    },
+    {
+     "word": "شد",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "CCONJ",
+     "lexicon_key": "شد",
+     "lexicon": [
+      "Sad",
+      "Sod"
+     ],
+     "reading": null
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "pos": "CCONJ",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "و",
+     "lexicon": [
+      "?o",
+      "?u",
+      "vAv",
+      "va",
+      "ve"
+     ],
+     "reading": "?o"
+    },
+    {
+     "word": "تا",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "تا",
+     "lexicon": [
+      "tA"
+     ],
+     "reading": "tA"
+    },
+    {
+     "word": "غروب",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NUM",
+     "lexicon_key": "غروب",
+     "lexicon": [
+      "qorub"
+     ],
+     "reading": "qorub"
+    },
+    {
+     "word": "یک",
+     "tag": "NUM",
+     "pos": "NUM",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "یک",
+     "lexicon": [
+      "yek"
+     ],
+     "reading": "yek"
+    },
+    {
+     "word": "لحظه",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "CCONJ",
+     "lexicon_key": "لحظه",
+     "lexicon": [
+      "lahze"
+     ],
+     "reading": "lahze"
+    },
+    {
+     "word": "هم",
+     "tag": "CCONJ",
+     "pos": "CCONJ",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "هم",
+     "lexicon": [
+      "ham"
+     ],
+     "reading": "ham"
+    },
+    {
+     "word": "بند",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "بند",
+     "lexicon": [
+      "band"
+     ],
+     "reading": "band"
+    },
+    {
+     "word": "نیامد",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "نیامد",
+     "lexicon": [
+      "nayAmad"
+     ],
+     "reading": "nayAmad"
+    }
+   ],
+   "texts": {
+    "A": "دیروز صبح زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+    "E": "دیروز صبحِ زود باران شروع شد و تا غروب یک لحظه هم بند نیامد.",
+    "EN": "دیروز صبحِ زودْ بارانْ شروعْ شد و تا غروبْ یکْ لحظه هم بندْ نیامد.",
+    "ENV": "دیروز صُبحِ زودْ بارانْ شُروعْ شد و تا غُروبْ یکْ لَحظه هم بَندْ نیامد."
+   }
+  },
+  {
+   "id": "n08",
+   "category": "homograph_and_trap",
+   "text": "کرم این گل‌ها را خورده و باغبان از دیدن برگ‌های سوراخ ناراحت است.",
+   "words": [
+    {
+     "word": "کرم",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "DET",
+     "lexicon_key": "کرم",
+     "lexicon": [
+      "karam",
+      "kerem",
+      "kerm",
+      "korom"
+     ],
+     "reading": null
+    },
+    {
+     "word": "این",
+     "tag": "DET",
+     "pos": "DET",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "این",
+     "lexicon": [
+      "?in"
+     ],
+     "reading": "?in"
+    },
+    {
+     "word": "گل‌ها",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "گل",
+     "lexicon": [
+      "gal",
+      "gel",
+      "gol"
+     ],
+     "reading": null
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "را",
+     "lexicon": [
+      "rA"
+     ],
+     "reading": "rA"
+    },
+    {
+     "word": "خورده",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "CCONJ",
+     "lexicon_key": "خورده",
+     "lexicon": [
+      "xorde"
+     ],
+     "reading": "xorde"
+    },
+    {
+     "word": "و",
+     "tag": "CCONJ",
+     "pos": "CCONJ",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "و",
+     "lexicon": [
+      "?o",
+      "?u",
+      "vAv",
+      "va",
+      "ve"
+     ],
+     "reading": "?o"
+    },
+    {
+     "word": "باغبان",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "باغبان",
+     "lexicon": [
+      "bAqbAn"
+     ],
+     "reading": "bAqbAn"
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "از",
+     "lexicon": [
+      "?az"
+     ],
+     "reading": "?az"
+    },
+    {
+     "word": "دیدن",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "دیدن",
+     "lexicon": [
+      "didan"
+     ],
+     "reading": "didan"
+    },
+    {
+     "word": "برگ‌های",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "برگ",
+     "lexicon": [
+      "barg"
+     ],
+     "reading": "barg"
+    },
+    {
+     "word": "سوراخ",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADJ",
+     "lexicon_key": "سوراخ",
+     "lexicon": [
+      "surAx"
+     ],
+     "reading": "surAx"
+    },
+    {
+     "word": "ناراحت",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "ناراحت",
+     "lexicon": [
+      "nArAhat"
+     ],
+     "reading": "nArAhat"
+    },
+    {
+     "word": "است",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "است",
+     "lexicon": [
+      "?ast",
+      "?est"
+     ],
+     "reading": null
+    }
+   ],
+   "texts": {
+    "A": "کرم این گل‌ها را خورده و باغبان از دیدن برگ‌های سوراخ ناراحت است.",
+    "E": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخ ناراحت است.",
+    "EN": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ برگ‌هایِ سوراخْ ناراحتْ است.",
+    "ENV": "کرمِ این گل‌ها را خورده و باغبان از دیدنِ بَرگ‌هایِ سوراخْ ناراحتْ است."
+   }
+  },
+  {
+   "id": "n09",
+   "category": "glottal_and_chain",
+   "text": "مسئول فروشگاه به خاطر تأخیر در تحویل سفارش از مشتری عذرخواهی کرد.",
+   "words": [
+    {
+     "word": "مسئول",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "مسئول",
+     "lexicon": [
+      "mas?ovl",
+      "mas?ul"
+     ],
+     "reading": "mas?ovl"
+    },
+    {
+     "word": "فروشگاه",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "فروشگاه",
+     "lexicon": [
+      "foruSgAh"
+     ],
+     "reading": "foruSgAh"
+    },
+    {
+     "word": "به",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "به",
+     "lexicon": [
+      "ba",
+      "bah",
+      "be",
+      "beh"
+     ],
+     "reading": null
+    },
+    {
+     "word": "خاطر",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "خاطر",
+     "lexicon": [
+      "xAter"
+     ],
+     "reading": "xAter"
+    },
+    {
+     "word": "تأخیر",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "تأخیر",
+     "lexicon": [],
+     "reading": null
+    },
+    {
+     "word": "در",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "در",
+     "lexicon": [
+      "dar",
+      "dorr"
+     ],
+     "reading": null
+    },
+    {
+     "word": "تحویل",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "تحویل",
+     "lexicon": [
+      "tahvil"
+     ],
+     "reading": "tahvil"
+    },
+    {
+     "word": "سفارش",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "سفارش",
+     "lexicon": [
+      "sefAreS"
+     ],
+     "reading": "sefAreS"
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "از",
+     "lexicon": [
+      "?az"
+     ],
+     "reading": "?az"
+    },
+    {
+     "word": "مشتری",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "مشتری",
+     "lexicon": [
+      "moStari"
+     ],
+     "reading": "moStari"
+    },
+    {
+     "word": "عذرخواهی",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "عذرخواهی",
+     "lexicon": [
+      "?ozrxAhi"
+     ],
+     "reading": "?ozrxAhi"
+    },
+    {
+     "word": "کرد",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "کرد",
+     "lexicon": [
+      "kard",
+      "kord"
+     ],
+     "reading": null
+    }
+   ],
+   "texts": {
+    "A": "مسئول فروشگاه به خاطر تأخیر در تحویل سفارش از مشتری عذرخواهی کرد.",
+    "E": "مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.",
+    "EN": "مسئولِ فروشگاه به خاطرِ تأخیر در تحویلِ سفارش از مشتری عذرخواهی کرد.",
+    "ENV": "مَسئولِ فُروشگاه به خاطرِ تأخیر در تَحویلِ سِفارش از مُشتری عُذرخواهی کرد."
+   }
+  },
+  {
+   "id": "n10",
+   "category": "news",
+   "text": "شورای شهر تصمیم گرفت ساعت کار کتابخانه‌های عمومی را در تابستان افزایش دهد.",
+   "words": [
+    {
+     "word": "شورای",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "شورای",
+     "lexicon": [],
+     "reading": null
+    },
+    {
+     "word": "شهر",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "شهر",
+     "lexicon": [
+      "Sahr"
+     ],
+     "reading": "Sahr"
+    },
+    {
+     "word": "تصمیم",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "تصمیم",
+     "lexicon": [
+      "tasmim"
+     ],
+     "reading": "tasmim"
+    },
+    {
+     "word": "گرفت",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "گرفت",
+     "lexicon": [
+      "gereft"
+     ],
+     "reading": "gereft"
+    },
+    {
+     "word": "ساعت",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "ساعت",
+     "lexicon": [
+      "sA?at",
+      "sAat"
+     ],
+     "reading": "sAat"
+    },
+    {
+     "word": "کار",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "کار",
+     "lexicon": [
+      "kAr"
+     ],
+     "reading": "kAr"
+    },
+    {
+     "word": "کتابخانه‌های",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "ADJ",
+     "lexicon_key": "کتابخانه",
+     "lexicon": [
+      "ketAbxAne"
+     ],
+     "reading": "ketAbxAne"
+    },
+    {
+     "word": "عمومی",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "عمومی",
+     "lexicon": [
+      "?omumi"
+     ],
+     "reading": "?omumi"
+    },
+    {
+     "word": "را",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "را",
+     "lexicon": [
+      "rA"
+     ],
+     "reading": "rA"
+    },
+    {
+     "word": "در",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "در",
+     "lexicon": [
+      "dar",
+      "dorr"
+     ],
+     "reading": null
+    },
+    {
+     "word": "تابستان",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "تابستان",
+     "lexicon": [
+      "tAbestAn"
+     ],
+     "reading": "tAbestAn"
+    },
+    {
+     "word": "افزایش",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "افزایش",
+     "lexicon": [
+      "?afzAyeS",
+      "?afzAyes"
+     ],
+     "reading": "?afzAyeS"
+    },
+    {
+     "word": "دهد",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "دهد",
+     "lexicon": [
+      "dahad"
+     ],
+     "reading": "dahad"
+    }
+   ],
+   "texts": {
+    "A": "شورای شهر تصمیم گرفت ساعت کار کتابخانه‌های عمومی را در تابستان افزایش دهد.",
+    "E": "شورایِ شهر تصمیم گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستان افزایش دهد.",
+    "EN": "شورایِ شهرْ تصمیمْ گرفت ساعتِ کارِ کتابخانه‌هایِ عمومی را در تابستانْ افزایشْ دهد.",
+    "ENV": "شورایِ شَهرْ تَصمیمْ گرفت ساعتِ کارِ کِتابخانه‌هایِ عُمومی را در تابستانْ اَفزایشْ دهد."
+   }
+  },
+  {
+   "id": "n11",
+   "category": "colloquial",
+   "text": "دیشب رفتیم خونه داداشم، ولی هنوز از سفر برنگشته بود.",
+   "words": [
+    {
+     "word": "دیشب",
+     "tag": "ADV",
+     "pos": "ADV",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "دیشب",
+     "lexicon": [
+      "diSab"
+     ],
+     "reading": "diSab"
+    },
+    {
+     "word": "رفتیم",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "رفتیم",
+     "lexicon": [
+      "roftim"
+     ],
+     "reading": "roftim"
+    },
+    {
+     "word": "خونه",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "خونه",
+     "lexicon": [],
+     "reading": null
+    },
+    {
+     "word": "داداشم",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "داداش",
+     "lexicon": [
+      "dAdAS"
+     ],
+     "reading": "dAdAS"
+    },
+    {
+     "word": "ولی",
+     "tag": "CCONJ",
+     "pos": "CCONJ",
+     "ezafe": false,
+     "next_pos": "ADV",
+     "lexicon_key": "ولی",
+     "lexicon": [
+      "vAli",
+      "vali"
+     ],
+     "reading": null
+    },
+    {
+     "word": "هنوز",
+     "tag": "ADV",
+     "pos": "ADV",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "هنوز",
+     "lexicon": [
+      "hanuz"
+     ],
+     "reading": "hanuz"
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "از",
+     "lexicon": [
+      "?az"
+     ],
+     "reading": "?az"
+    },
+    {
+     "word": "سفر",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "سفر",
+     "lexicon": [
+      "safar",
+      "sefr"
+     ],
+     "reading": null
+    },
+    {
+     "word": "برنگشته",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "برنگشته",
+     "lexicon": [],
+     "reading": null
+    },
+    {
+     "word": "بود",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "بود",
+     "lexicon": [
+      "bud"
+     ],
+     "reading": "bud"
+    }
+   ],
+   "texts": {
+    "A": "دیشب رفتیم خونه داداشم، ولی هنوز از سفر برنگشته بود.",
+    "E": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفر برنگشته بود.",
+    "EN": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفرْ برنگشته بود.",
+    "ENV": "دیشب رفتیم خونهٔ داداشم، ولی هنوز از سفرْ برنگشته بود."
+   }
+  },
+  {
+   "id": "n12",
+   "category": "long",
+   "text": "بعد از جلسه طولانی هیئت مدیره، مدیر عامل شرکت گفت که قرارداد جدید تا پایان ماه آینده امضا می‌شود.",
+   "words": [
+    {
+     "word": "بعد",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "بعد",
+     "lexicon": [
+      "ba?d",
+      "ba?de",
+      "bo?d"
+     ],
+     "reading": null
+    },
+    {
+     "word": "از",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "از",
+     "lexicon": [
+      "?az"
+     ],
+     "reading": "?az"
+    },
+    {
+     "word": "جلسه",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "ADJ",
+     "lexicon_key": "جلسه",
+     "lexicon": [
+      "jalase"
+     ],
+     "reading": "jalase"
+    },
+    {
+     "word": "طولانی",
+     "tag": "ADJ,EZ",
+     "pos": "ADJ",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "طولانی",
+     "lexicon": [
+      "tulAni"
+     ],
+     "reading": "tulAni"
+    },
+    {
+     "word": "هیئت",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "ADJ",
+     "lexicon_key": "هیئت",
+     "lexicon": [
+      "hey?at"
+     ],
+     "reading": "hey?at"
+    },
+    {
+     "word": "مدیره",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "مدیره",
+     "lexicon": [
+      "modire",
+      "modireh"
+     ],
+     "reading": null
+    },
+    {
+     "word": "مدیر",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "مدیر",
+     "lexicon": [
+      "modir"
+     ],
+     "reading": "modir"
+    },
+    {
+     "word": "عامل",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "عامل",
+     "lexicon": [
+      "?Amel"
+     ],
+     "reading": "?Amel"
+    },
+    {
+     "word": "شرکت",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "شرکت",
+     "lexicon": [
+      "Serkat"
+     ],
+     "reading": "Serkat"
+    },
+    {
+     "word": "گفت",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "SCONJ",
+     "lexicon_key": "گفت",
+     "lexicon": [
+      "goft"
+     ],
+     "reading": "goft"
+    },
+    {
+     "word": "که",
+     "tag": "SCONJ",
+     "pos": "SCONJ",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "که",
+     "lexicon": [
+      "kah",
+      "ke",
+      "koh"
+     ],
+     "reading": null
+    },
+    {
+     "word": "قرارداد",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "ADJ",
+     "lexicon_key": "قرارداد",
+     "lexicon": [
+      "qarArdAd"
+     ],
+     "reading": "qarArdAd"
+    },
+    {
+     "word": "جدید",
+     "tag": "ADJ",
+     "pos": "ADJ",
+     "ezafe": false,
+     "next_pos": "ADP",
+     "lexicon_key": "جدید",
+     "lexicon": [
+      "jadid"
+     ],
+     "reading": "jadid"
+    },
+    {
+     "word": "تا",
+     "tag": "ADP",
+     "pos": "ADP",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "تا",
+     "lexicon": [
+      "tA"
+     ],
+     "reading": "tA"
+    },
+    {
+     "word": "پایان",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "پایان",
+     "lexicon": [
+      "pAyAn"
+     ],
+     "reading": "pAyAn"
+    },
+    {
+     "word": "ماه",
+     "tag": "NOUN,EZ",
+     "pos": "NOUN",
+     "ezafe": true,
+     "next_pos": "NOUN",
+     "lexicon_key": "ماه",
+     "lexicon": [
+      "mAh"
+     ],
+     "reading": "mAh"
+    },
+    {
+     "word": "آینده",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "NOUN",
+     "lexicon_key": "آینده",
+     "lexicon": [
+      "?Ayande"
+     ],
+     "reading": "?Ayande"
+    },
+    {
+     "word": "امضا",
+     "tag": "NOUN",
+     "pos": "NOUN",
+     "ezafe": false,
+     "next_pos": "VERB",
+     "lexicon_key": "امضا",
+     "lexicon": [
+      "?emzA"
+     ],
+     "reading": "?emzA"
+    },
+    {
+     "word": "می‌شود",
+     "tag": "VERB",
+     "pos": "VERB",
+     "ezafe": false,
+     "next_pos": "PUNCT",
+     "lexicon_key": "می‌شود",
+     "lexicon": [
+      "miSavad"
+     ],
+     "reading": "miSavad"
+    }
+   ],
+   "texts": {
+    "A": "بعد از جلسه طولانی هیئت مدیره، مدیر عامل شرکت گفت که قرارداد جدید تا پایان ماه آینده امضا می‌شود.",
+    "E": "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکت گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود.",
+    "EN": "بعد از جلسهٔ طولانیِ هیئتِ مدیره، مدیرِ عاملِ شرکتْ گفت که قراردادِ جدید تا پایانِ ماهِ آینده امضا می‌شود.",
+    "ENV": "بعد از جَلسهٔ طولانیِ هِیئتِ مدیره، مُدیرِ عاملِ شِرکتْ گفت که قَراردادِ جَدید تا پایانِ ماهِ آینده اِمضا می‌شود."
+   }
+  }
+ ]
+}

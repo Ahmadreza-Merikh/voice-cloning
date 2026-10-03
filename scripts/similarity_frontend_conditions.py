@@ -15,11 +15,19 @@ sentences, seed 20261003). An interval wholly below zero means the marks lower
 similarity on this voice. One voice and 12 sentences: a diagnostic, not a
 claim about voices in general.
 
+Step 3 (eval/runs/persian-voice-frontend-listening-v2.json) registered the
+same measure for its forms, read as two contrasts over its 2 x 2: a fix's two
+forms against the two without it, per sentence.
+
     .venv/bin/python scripts/similarity_frontend_conditions.py
+    .venv/bin/python scripts/similarity_frontend_conditions.py \
+        --manifest eval/runs/frontend-listening-v2/manifest.json \
+        --contrast H=EH+EHS-E-ES --contrast S=ES+EHS-E-EH
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import random
 import sys
@@ -30,8 +38,6 @@ sys.path.insert(0, str(ROOT / "src"))
 
 MANIFEST = ROOT / "eval" / "runs" / "frontend-listening-v1" / "manifest.json"
 CORPUS = ROOT / "eval" / "corpus"
-OUT = ROOT / "eval" / "runs" / "evidence" / "frontend-listening-v1" / "similarity.json"
-CONDITIONS = ("A", "E", "EN", "ENV")
 SEED = 20261003
 RESAMPLES = 10_000
 
@@ -43,11 +49,32 @@ def interval(diffs: list[float]) -> tuple[float, float, float]:
     return sum(diffs) / n, means[int(0.025 * RESAMPLES)], means[int(0.975 * RESAMPLES) - 1]
 
 
-def main() -> int:
+def contrast(spec: str) -> tuple[str, list[str], list[str]]:
+    """'H=EH+EHS-E-ES' -> ('H', ['EH', 'EHS'], ['E', 'ES'])."""
+    name, terms = spec.split("=", 1)
+    plus, minus, sign, word = [], [], "+", ""
+    for ch in terms + "+":
+        if ch in "+-":
+            if word:
+                (plus if sign == "+" else minus).append(word)
+            sign, word = ch, ""
+        else:
+            word += ch
+    return name, plus, minus
+
+
+def main(argv: list[str] | None = None) -> int:
     from voiceclone.audio.io import load_audio
     from voiceclone.evaluation.embedding import CachedEmbedder
 
-    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    parser.add_argument("--manifest", type=Path, default=MANIFEST)
+    parser.add_argument("--out", type=Path, default=None, help="default: similarity.json in the run's evidence folder")
+    parser.add_argument("--contrast", action="append", default=[])
+    args = parser.parse_args(argv)
+    manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+    conditions = tuple(manifest["conditions"])
+    out = args.out or (ROOT / "eval" / "runs" / "evidence" / args.manifest.parent.name / "similarity.json")
     corpus = json.loads((CORPUS / "manifest.json").read_text(encoding="utf-8"))
     mana = [e for e in corpus["entries"] if e["speaker"] == "mana"]
     reference = next(e["file"] for e in mana if e["role"] == "reference")
@@ -66,20 +93,30 @@ def main() -> int:
 
     sentences = sorted(scores)
     summary = {}
-    for c in CONDITIONS:
+    first = conditions[0]
+    for c in conditions:
         held = [scores[s][c]["held_out"] for s in sentences]
         row = {"held_out_mean": round(sum(held) / len(held), 4)}
-        if c != "A":
-            mean, low, high = interval([scores[s][c]["held_out"] - scores[s]["A"]["held_out"] for s in sentences])
-            row["minus_A"] = [round(mean, 4), round(low, 4), round(high, 4)]
+        if c != first:
+            mean, low, high = interval([scores[s][c]["held_out"] - scores[s][first]["held_out"] for s in sentences])
+            row[f"minus_{first}"] = [round(mean, 4), round(low, 4), round(high, 4)]
         summary[c] = row
+    contrasts = {}
+    for spec in args.contrast:
+        name, plus, minus = contrast(spec)
+        diffs = [sum(scores[s][c]["held_out"] for c in plus) / len(plus)
+                 - sum(scores[s][c]["held_out"] for c in minus) / len(minus) for s in sentences]
+        mean, low, high = interval(diffs)
+        contrasts[name] = {"spec": spec, "mean_low_high": [round(mean, 4), round(low, 4), round(high, 4)],
+                           "wholly_below_zero": high < 0}
     floor = [embedder.similarity(clips[a], a, clips[b], b) for i, a in enumerate(held_out) for b in held_out[i + 1:]]
     result = {"measure": "held-out ECAPA similarity, speechbrain via voiceclone.evaluation.embedding.CachedEmbedder",
               "backend": embedder.backend, "reference": reference, "held_out": held_out,
               "speaker_own_clips_mean": round(sum(floor) / len(floor), 4),
-              "summary": summary, "per_sentence": scores}
-    OUT.write_text(json.dumps(result, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print(json.dumps({k: result[k] for k in ("backend", "speaker_own_clips_mean", "summary")}, indent=1))
+              "summary": summary, "contrasts": contrasts, "per_sentence": scores}
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(json.dumps({k: result[k] for k in ("backend", "speaker_own_clips_mean", "summary", "contrasts")}, indent=1))
     return 0
 
 

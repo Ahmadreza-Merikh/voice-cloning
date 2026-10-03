@@ -72,11 +72,14 @@ SCRIPTS = ("benchmark.py", "compare_runs.py", "kernel_gates.py", "omnivoice_work
 
 #: The title each slug is published under.
 TITLES = {DATASET: "Persian Voice Eval Harness", "persian-voice-longcat-probe": "Persian Voice LongCat Probe",
-          "persian-voice-frontend-listening": "Persian Voice Frontend Listening"}
+          "persian-voice-frontend-listening": "Persian Voice Frontend Listening",
+          "persian-voice-frontend-listening-v2": "Persian Voice Frontend Listening V2"}
 
 #: What a dataset of its own carries beyond the shared contents.
 EXTRAS = {"persian-voice-frontend-listening": ("scripts/render_frontend_conditions.py", "scripts/ab_omnivoice_ipa.py",
-                                               "eval/runs/frontend-listening-v1/texts.json")}
+                                               "eval/runs/frontend-listening-v1/texts.json"),
+          "persian-voice-frontend-listening-v2": ("scripts/render_frontend_conditions.py", "scripts/ab_omnivoice_ipa.py",
+                                                  "eval/runs/frontend-listening-v2/texts.json")}
 
 PROVENANCE = """\
 # Provenance

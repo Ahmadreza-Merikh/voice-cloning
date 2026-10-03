@@ -1,0 +1,2104 @@
+{
+ "version": 1,
+ "created": "2026-10-03",
+ "about": "gold readings of the 14 sentences of the pronunciation review (eval/runs/persian-voice-pronunciation-review-v1.json), as plain script: per word, whether an ezafe follows it, and its pronunciation without the ezafe. Written before any front-end component ran on these sentences",
+ "scheme": "SentenceBench's phoneme letters: A a e o i u vowels; S=ش Z=ژ C=چ x=خ q=ق/غ j=ج y=ی(glide) ?=glottal stop; several entries in pron are all acceptable; ezafe null means both readings are acceptable and the word is not scored for it",
+ "sources": {
+  "review": "words whose reading the listener's marks and notes settle (review_confirms says which part: the ezafe after the word, or its pronunciation); the notes are in eval/runs/evidence/pronunciation-review-v1/answers-listener-1.json",
+  "annotation": "Claude's reading, not confirmed by anyone. Where a component disagrees with one of these, the word is put to the user blind before the 14-sentence reading is final",
+  "looked_up_in_kaamel_before_writing": [
+   "طور",
+   "دست‌کم",
+   "تپه",
+   "روبه‌رو",
+   "سالن",
+   "قلعه",
+   "چتر",
+   "ترمینال",
+   "پیرمرد",
+   "امانت",
+   "تاخیر",
+   "گل",
+   "کشتی",
+   "مرد",
+   "مرده",
+   "باران",
+   "کتابش",
+   "چترش",
+   "دانشگاه",
+   "مسئول",
+   "سرسرا",
+   "قرمز"
+  ],
+  "kaamel_note": "KaamelDict gives پیرمرد as piremard, the listener's reading; the review record's line that dictionaries give pirmard was from memory and is wrong for this dictionary"
+ },
+ "heard": "each sentence's heard list is A's 19 errors in the review (plain script): 9 ezafe, 8 vowels, and two the review called other - بود with a vowel after it (scored as an ezafe that should not be there) and کتابش garbled (scored as its vowels)",
+ "sentences": [
+  {
+   "id": "s01",
+   "text": "او گل قرمز را از گل باغچه بیرون کشید.",
+   "words": [
+    {
+     "w": "او",
+     "ezafe": false,
+     "pron": [
+      "?u"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "گل",
+     "ezafe": true,
+     "pron": [
+      "gol"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "قرمز",
+     "ezafe": false,
+     "pron": [
+      "qermez"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "را",
+     "ezafe": false,
+     "pron": [
+      "rA"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "از",
+     "ezafe": false,
+     "pron": [
+      "?az"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "گل",
+     "ezafe": true,
+     "pron": [
+      "gel"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "باغچه",
+     "ezafe": false,
+     "pron": [
+      "bAqCe"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بیرون",
+     "ezafe": false,
+     "pron": [
+      "birun"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "کشید",
+     "ezafe": false,
+     "pron": [
+      "keSid"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 3,
+     "kind": "vowel",
+     "note": "A read را as ra"
+    },
+    {
+     "index": 5,
+     "kind": "vowel",
+     "note": "A read the second گل (mud, gel) as gol"
+    }
+   ]
+  },
+  {
+   "id": "s02",
+   "text": "پیرمرد گفت این مرد هفتهٔ پیش مرده است.",
+   "words": [
+    {
+     "w": "پیرمرد",
+     "ezafe": false,
+     "pron": [
+      "piremard"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "گفت",
+     "ezafe": false,
+     "pron": [
+      "goft"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "این",
+     "ezafe": false,
+     "pron": [
+      "?in"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "مرد",
+     "ezafe": false,
+     "pron": [
+      "mard"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "هفتهٔ",
+     "ezafe": true,
+     "pron": [
+      "hafte"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "پیش",
+     "ezafe": false,
+     "pron": [
+      "piS"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "مرده",
+     "ezafe": false,
+     "pron": [
+      "morde"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "است",
+     "ezafe": false,
+     "pron": [
+      "?ast"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    }
+   ],
+   "heard": [
+    {
+     "index": 3,
+     "kind": "ezafe",
+     "note": "A added an ezafe after مرد"
+    }
+   ]
+  },
+  {
+   "id": "s03",
+   "text": "کتاب خوب برادرم روی میز اتاق است.",
+   "words": [
+    {
+     "w": "کتاب",
+     "ezafe": true,
+     "pron": [
+      "ketAb"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "خوب",
+     "ezafe": true,
+     "pron": [
+      "xub"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "برادرم",
+     "ezafe": false,
+     "pron": [
+      "barAdaram"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "روی",
+     "ezafe": true,
+     "pron": [
+      "ru"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "میز",
+     "ezafe": true,
+     "pron": [
+      "miz"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "اتاق",
+     "ezafe": false,
+     "pron": [
+      "?otAq"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "است",
+     "ezafe": false,
+     "pron": [
+      "?ast"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 1,
+     "kind": "ezafe",
+     "note": "A left out the ezafe after خوب"
+    }
+   ]
+  },
+  {
+   "id": "s04",
+   "text": "لیوان آب را روی میز بگذار و روی صورتت آب بکش.",
+   "words": [
+    {
+     "w": "لیوان",
+     "ezafe": true,
+     "pron": [
+      "livAn"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "آب",
+     "ezafe": false,
+     "pron": [
+      "?Ab"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "را",
+     "ezafe": false,
+     "pron": [
+      "rA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "روی",
+     "ezafe": true,
+     "pron": [
+      "ru"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "میز",
+     "ezafe": false,
+     "pron": [
+      "miz"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بگذار",
+     "ezafe": false,
+     "pron": [
+      "begozAr"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "و",
+     "ezafe": false,
+     "pron": [
+      "va",
+      "o"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "روی",
+     "ezafe": true,
+     "pron": [
+      "ru"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "صورتت",
+     "ezafe": false,
+     "pron": [
+      "suratat"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "آب",
+     "ezafe": false,
+     "pron": [
+      "?Ab"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بکش",
+     "ezafe": false,
+     "pron": [
+      "bekeS"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": []
+  },
+  {
+   "id": "s05",
+   "text": "قلعهٔ قدیمی بالای تپهٔ خاکی، هنگام غروب دیدنی بود.",
+   "words": [
+    {
+     "w": "قلعهٔ",
+     "ezafe": true,
+     "pron": [
+      "qal?e"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "قدیمی",
+     "ezafe": null,
+     "pron": [
+      "qadimi"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بالای",
+     "ezafe": true,
+     "pron": [
+      "bAlA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "تپهٔ",
+     "ezafe": true,
+     "pron": [
+      "tape",
+      "tappe"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "خاکی",
+     "ezafe": false,
+     "pron": [
+      "xAki"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "هنگام",
+     "ezafe": true,
+     "pron": [
+      "hengAm"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "غروب",
+     "ezafe": false,
+     "pron": [
+      "qorub"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "دیدنی",
+     "ezafe": false,
+     "pron": [
+      "didani"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بود",
+     "ezafe": false,
+     "pron": [
+      "bud"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 0,
+     "kind": "vowel",
+     "note": "A read قلعه as ghel'e"
+    },
+    {
+     "index": 6,
+     "kind": "ezafe",
+     "note": "A added an ezafe after غروب"
+    }
+   ]
+  },
+  {
+   "id": "s06",
+   "text": "ژاله زیر چراغ، چترش را در باران شدید بست.",
+   "words": [
+    {
+     "w": "ژاله",
+     "ezafe": false,
+     "pron": [
+      "ZAle"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "زیر",
+     "ezafe": true,
+     "pron": [
+      "zir"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "چراغ",
+     "ezafe": false,
+     "pron": [
+      "CerAq"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "چترش",
+     "ezafe": false,
+     "pron": [
+      "CatraS",
+      "CatreS"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "را",
+     "ezafe": false,
+     "pron": [
+      "rA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "در",
+     "ezafe": false,
+     "pron": [
+      "dar"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "باران",
+     "ezafe": true,
+     "pron": [
+      "bArAn"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "شدید",
+     "ezafe": false,
+     "pron": [
+      "Sadid"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بست",
+     "ezafe": false,
+     "pron": [
+      "bast"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 3,
+     "kind": "vowel",
+     "note": "A read چترش as chetr-"
+    },
+    {
+     "index": 6,
+     "kind": "ezafe",
+     "note": "A left out the ezafe after باران, pausing instead"
+    }
+   ]
+  },
+  {
+   "id": "s07",
+   "text": "مسؤول استقبال استاد از سرسرای دانشگاه ایستاد.",
+   "words": [
+    {
+     "w": "مسؤول",
+     "ezafe": true,
+     "pron": [
+      "mas?ul"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "استقبال",
+     "ezafe": true,
+     "pron": [
+      "?esteqbAl"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "استاد",
+     "ezafe": false,
+     "pron": [
+      "?ostAd"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "از",
+     "ezafe": false,
+     "pron": [
+      "?az"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "سرسرای",
+     "ezafe": true,
+     "pron": [
+      "sarsarA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "دانشگاه",
+     "ezafe": false,
+     "pron": [
+      "dAneSgAh"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "ایستاد",
+     "ezafe": false,
+     "pron": [
+      "?istAd"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 5,
+     "kind": "ezafe",
+     "note": "A added an ezafe after دانشگاه"
+    }
+   ]
+  },
+  {
+   "id": "s08",
+   "text": "برو بابا، این حرفا پیش من خریدار نداره، بشین ببین چی میگم.",
+   "words": [
+    {
+     "w": "برو",
+     "ezafe": false,
+     "pron": [
+      "boro"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بابا",
+     "ezafe": false,
+     "pron": [
+      "bAbA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "این",
+     "ezafe": false,
+     "pron": [
+      "?in"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "حرفا",
+     "ezafe": false,
+     "pron": [
+      "harfA"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "پیش",
+     "ezafe": true,
+     "pron": [
+      "piS"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "من",
+     "ezafe": false,
+     "pron": [
+      "man"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "خریدار",
+     "ezafe": false,
+     "pron": [
+      "xaridAr"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "نداره",
+     "ezafe": false,
+     "pron": [
+      "nadAre"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بشین",
+     "ezafe": false,
+     "pron": [
+      "beSin"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "ببین",
+     "ezafe": false,
+     "pron": [
+      "bebin"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "چی",
+     "ezafe": false,
+     "pron": [
+      "Ci"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "میگم",
+     "ezafe": false,
+     "pron": [
+      "migam"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": []
+  },
+  {
+   "id": "s09",
+   "text": "وقتی مترو از ایستگاه ترمینال جنوب رد شد، خانمی که کنار پنجره نشسته بود کتابش را بست، کیفش را برداشت و به سمت در رفت، بیآنکه متوجه شود ایستگاه بعدی همان مقصدی است که نیم ساعت پیش از آن آمده بود.",
+   "words": [
+    {
+     "w": "وقتی",
+     "ezafe": false,
+     "pron": [
+      "vaqti"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "مترو",
+     "ezafe": false,
+     "pron": [
+      "metro"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "از",
+     "ezafe": false,
+     "pron": [
+      "?az"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "ایستگاه",
+     "ezafe": true,
+     "pron": [
+      "?istgAh"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "ترمینال",
+     "ezafe": true,
+     "pron": [
+      "terminAl"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "جنوب",
+     "ezafe": false,
+     "pron": [
+      "jonub"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "رد",
+     "ezafe": false,
+     "pron": [
+      "rad"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "شد",
+     "ezafe": false,
+     "pron": [
+      "Sod"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "خانمی",
+     "ezafe": false,
+     "pron": [
+      "xAnomi"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "که",
+     "ezafe": false,
+     "pron": [
+      "ke"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "کنار",
+     "ezafe": true,
+     "pron": [
+      "kenAr"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "پنجره",
+     "ezafe": false,
+     "pron": [
+      "panjere"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "نشسته",
+     "ezafe": false,
+     "pron": [
+      "neSaste"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بود",
+     "ezafe": false,
+     "pron": [
+      "bud"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "کتابش",
+     "ezafe": false,
+     "pron": [
+      "ketAbaS"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "را",
+     "ezafe": false,
+     "pron": [
+      "rA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بست",
+     "ezafe": false,
+     "pron": [
+      "bast"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "کیفش",
+     "ezafe": false,
+     "pron": [
+      "kifaS"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "را",
+     "ezafe": false,
+     "pron": [
+      "rA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "برداشت",
+     "ezafe": false,
+     "pron": [
+      "bardASt"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "و",
+     "ezafe": false,
+     "pron": [
+      "va",
+      "o"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "به",
+     "ezafe": false,
+     "pron": [
+      "be"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "سمت",
+     "ezafe": true,
+     "pron": [
+      "samt"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "در",
+     "ezafe": false,
+     "pron": [
+      "dar"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "رفت",
+     "ezafe": false,
+     "pron": [
+      "raft"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بیآنکه",
+     "ezafe": false,
+     "pron": [
+      "bi?Anke"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "متوجه",
+     "ezafe": false,
+     "pron": [
+      "motevajjeh"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "شود",
+     "ezafe": false,
+     "pron": [
+      "Savad"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "ایستگاه",
+     "ezafe": true,
+     "pron": [
+      "?istgAh"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بعدی",
+     "ezafe": false,
+     "pron": [
+      "ba?di"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "همان",
+     "ezafe": false,
+     "pron": [
+      "hamAn"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "مقصدی",
+     "ezafe": false,
+     "pron": [
+      "maqsadi"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "است",
+     "ezafe": false,
+     "pron": [
+      "?ast"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "که",
+     "ezafe": false,
+     "pron": [
+      "ke"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "نیم",
+     "ezafe": false,
+     "pron": [
+      "nim"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "ساعت",
+     "ezafe": false,
+     "pron": [
+      "sA?at"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "پیش",
+     "ezafe": false,
+     "pron": [
+      "piS"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "از",
+     "ezafe": false,
+     "pron": [
+      "?az"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "آن",
+     "ezafe": false,
+     "pron": [
+      "?An"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "آمده",
+     "ezafe": false,
+     "pron": [
+      "?Amade"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بود",
+     "ezafe": false,
+     "pron": [
+      "bud"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 4,
+     "kind": "vowel",
+     "note": "A read ترمینال as tarminal"
+    },
+    {
+     "index": 13,
+     "kind": "ezafe",
+     "note": "A put a vowel after بود"
+    },
+    {
+     "index": 14,
+     "kind": "vowel",
+     "note": "A read کتابش as ketabshash"
+    }
+   ]
+  },
+  {
+   "id": "t09",
+   "text": "پس از پایان مسابقهٔ کشتی، ورزشکاران با کشتی به جزیره برگشتند.",
+   "words": [
+    {
+     "w": "پس",
+     "ezafe": false,
+     "pron": [
+      "pas"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "از",
+     "ezafe": false,
+     "pron": [
+      "?az"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "پایان",
+     "ezafe": true,
+     "pron": [
+      "pAyAn"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "مسابقهٔ",
+     "ezafe": true,
+     "pron": [
+      "mosAbeqe"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "کشتی",
+     "ezafe": false,
+     "pron": [
+      "koSti"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "ورزشکاران",
+     "ezafe": false,
+     "pron": [
+      "varzeSkArAn"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "با",
+     "ezafe": false,
+     "pron": [
+      "bA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "کشتی",
+     "ezafe": false,
+     "pron": [
+      "keSti"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "به",
+     "ezafe": false,
+     "pron": [
+      "be"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "جزیره",
+     "ezafe": false,
+     "pron": [
+      "jazire"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "برگشتند",
+     "ezafe": false,
+     "pron": [
+      "bargaStand"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 2,
+     "kind": "ezafe",
+     "note": "A left out the ezafe after پایان"
+    },
+    {
+     "index": 4,
+     "kind": "vowel",
+     "note": "A read the first کشتی (wrestling, koshti) as keshti"
+    }
+   ]
+  },
+  {
+   "id": "t10",
+   "text": "دختر همسایهٔ روبه‌رویی ما کتاب تازهٔ نویسندهٔ محبوبش را امانت گرفت.",
+   "words": [
+    {
+     "w": "دختر",
+     "ezafe": true,
+     "pron": [
+      "doxtar"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "همسایهٔ",
+     "ezafe": true,
+     "pron": [
+      "hamsAye"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "روبه‌رویی",
+     "ezafe": true,
+     "pron": [
+      "ruberuyi"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "ما",
+     "ezafe": false,
+     "pron": [
+      "mA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "کتاب",
+     "ezafe": true,
+     "pron": [
+      "ketAb"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "تازهٔ",
+     "ezafe": true,
+     "pron": [
+      "tAze"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "نویسندهٔ",
+     "ezafe": true,
+     "pron": [
+      "nevisande"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "محبوبش",
+     "ezafe": false,
+     "pron": [
+      "mahbubaS"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "را",
+     "ezafe": false,
+     "pron": [
+      "rA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "امانت",
+     "ezafe": false,
+     "pron": [
+      "?amAnat"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "گرفت",
+     "ezafe": false,
+     "pron": [
+      "gereft"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 9,
+     "kind": "vowel",
+     "note": "A read امانت as emanat"
+    }
+   ]
+  },
+  {
+   "id": "t11",
+   "text": "باران بند آمد.",
+   "words": [
+    {
+     "w": "باران",
+     "ezafe": false,
+     "pron": [
+      "bArAn"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "بند",
+     "ezafe": false,
+     "pron": [
+      "band"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "آمد",
+     "ezafe": false,
+     "pron": [
+      "?Amad"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": []
+  },
+  {
+   "id": "t12",
+   "text": "وقتی به ایستگاه قطار رسیدیم، دیدیم که قطار شبانه به دلیل برف سنگین و بسته شدن جاده‌های کوهستانی دست‌کم سه ساعت تأخیر دارد و مسافران خسته در سالن انتظار نشسته‌اند و چای می‌نوشند.",
+   "words": [
+    {
+     "w": "وقتی",
+     "ezafe": false,
+     "pron": [
+      "vaqti"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "به",
+     "ezafe": false,
+     "pron": [
+      "be"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "ایستگاه",
+     "ezafe": true,
+     "pron": [
+      "?istgAh"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "قطار",
+     "ezafe": false,
+     "pron": [
+      "qatAr"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "رسیدیم",
+     "ezafe": false,
+     "pron": [
+      "rasidim"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "دیدیم",
+     "ezafe": false,
+     "pron": [
+      "didim"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "که",
+     "ezafe": false,
+     "pron": [
+      "ke"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "قطار",
+     "ezafe": true,
+     "pron": [
+      "qatAr"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "شبانه",
+     "ezafe": false,
+     "pron": [
+      "SabAne"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "به",
+     "ezafe": false,
+     "pron": [
+      "be"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "دلیل",
+     "ezafe": true,
+     "pron": [
+      "dalil"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "برف",
+     "ezafe": true,
+     "pron": [
+      "barf"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "سنگین",
+     "ezafe": false,
+     "pron": [
+      "sangin"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "و",
+     "ezafe": false,
+     "pron": [
+      "va",
+      "o"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بسته",
+     "ezafe": false,
+     "pron": [
+      "baste"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "شدن",
+     "ezafe": true,
+     "pron": [
+      "Sodan"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "جاده‌های",
+     "ezafe": true,
+     "pron": [
+      "jAddehA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "کوهستانی",
+     "ezafe": false,
+     "pron": [
+      "kuhestAni"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "دست‌کم",
+     "ezafe": false,
+     "pron": [
+      "dastekam"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "سه",
+     "ezafe": false,
+     "pron": [
+      "se"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "ساعت",
+     "ezafe": false,
+     "pron": [
+      "sA?at"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "تأخیر",
+     "ezafe": false,
+     "pron": [
+      "ta?xir"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "pron"
+     ]
+    },
+    {
+     "w": "دارد",
+     "ezafe": false,
+     "pron": [
+      "dArad"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "و",
+     "ezafe": false,
+     "pron": [
+      "va",
+      "o"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "مسافران",
+     "ezafe": true,
+     "pron": [
+      "mosAferAn"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "خسته",
+     "ezafe": false,
+     "pron": [
+      "xaste"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "در",
+     "ezafe": false,
+     "pron": [
+      "dar"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "سالن",
+     "ezafe": true,
+     "pron": [
+      "sAlon"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "انتظار",
+     "ezafe": false,
+     "pron": [
+      "?entezAr"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "نشسته‌اند",
+     "ezafe": false,
+     "pron": [
+      "neSaste?and"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "و",
+     "ezafe": false,
+     "pron": [
+      "va",
+      "o"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "چای",
+     "ezafe": false,
+     "pron": [
+      "CAy"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "می‌نوشند",
+     "ezafe": false,
+     "pron": [
+      "minuSand"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 2,
+     "kind": "ezafe",
+     "note": "A left out the ezafe after ایستگاه"
+    },
+    {
+     "index": 20,
+     "kind": "ezafe",
+     "note": "A added an ezafe after ساعت"
+    },
+    {
+     "index": 21,
+     "kind": "vowel",
+     "note": "A read تأخیر as ta'akhir with a long a"
+    }
+   ]
+  },
+  {
+   "id": "r01",
+   "text": "به طور خلاصه این مطالعه به این نتیجه رسیده که آسیب بینایی، عاملی تهدیدکننده برای سلامت روانی افراد به شمار می‌رود. با در نظر گرفتن تعداد زیادی پژوهش،",
+   "words": [
+    {
+     "w": "به",
+     "ezafe": false,
+     "pron": [
+      "be"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "طور",
+     "ezafe": true,
+     "pron": [
+      "tor",
+      "tur",
+      "towr"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "خلاصه",
+     "ezafe": false,
+     "pron": [
+      "xolAse"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "این",
+     "ezafe": false,
+     "pron": [
+      "?in"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "مطالعه",
+     "ezafe": false,
+     "pron": [
+      "motAle?e"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "به",
+     "ezafe": false,
+     "pron": [
+      "be"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "این",
+     "ezafe": false,
+     "pron": [
+      "?in"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "نتیجه",
+     "ezafe": false,
+     "pron": [
+      "natije"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "رسیده",
+     "ezafe": false,
+     "pron": [
+      "reside"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "که",
+     "ezafe": false,
+     "pron": [
+      "ke"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "آسیب",
+     "ezafe": true,
+     "pron": [
+      "?Asib"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "بینایی",
+     "ezafe": false,
+     "pron": [
+      "binAyi"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "عاملی",
+     "ezafe": false,
+     "pron": [
+      "?Ameli"
+     ],
+     "from": "review",
+     "review_confirms": [
+      "ezafe"
+     ]
+    },
+    {
+     "w": "تهدیدکننده",
+     "ezafe": false,
+     "pron": [
+      "tahdidkonande"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "برای",
+     "ezafe": true,
+     "pron": [
+      "barA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "سلامت",
+     "ezafe": true,
+     "pron": [
+      "salAmat"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "روانی",
+     "ezafe": true,
+     "pron": [
+      "ravAni"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "افراد",
+     "ezafe": false,
+     "pron": [
+      "?afrAd"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "به",
+     "ezafe": false,
+     "pron": [
+      "be"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "شمار",
+     "ezafe": false,
+     "pron": [
+      "SomAr"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "می‌رود",
+     "ezafe": false,
+     "pron": [
+      "miravad"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "با",
+     "ezafe": false,
+     "pron": [
+      "bA"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "در",
+     "ezafe": false,
+     "pron": [
+      "dar"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "نظر",
+     "ezafe": false,
+     "pron": [
+      "nazar"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "گرفتن",
+     "ezafe": true,
+     "pron": [
+      "gereftan"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "تعداد",
+     "ezafe": true,
+     "pron": [
+      "te?dAd"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "زیادی",
+     "ezafe": false,
+     "pron": [
+      "ziyAdi"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    },
+    {
+     "w": "پژوهش",
+     "ezafe": false,
+     "pron": [
+      "paZuheS"
+     ],
+     "from": "annotation",
+     "review_confirms": []
+    }
+   ],
+   "heard": [
+    {
+     "index": 12,
+     "kind": "ezafe",
+     "note": "A added an ezafe after عاملی"
+    }
+   ]
+  }
+ ]
+}

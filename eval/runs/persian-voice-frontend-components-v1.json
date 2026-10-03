@@ -1,0 +1,109 @@
+{
+ "run": "a text-only comparison of the components that could write what plain Persian script leaves out - the ezafe and short vowels - before any of them goes into the app",
+ "status": "registered 2026-10-03, before any component ran on either set",
+ "why": "the pronunciation review (eval/runs/persian-voice-pronunciation-review-v1.json): of the 19 errors OmniVoice made on plain script, 9 are ezafe and 8 short vowels, and OmniVoice reads the diacritics it is given whether they are right or wrong. So whatever writes those marks must be accurate. This measures the candidates on text: no audio, no GPU, no OmniVoice",
+ "question": "on plain script, which component places the ezafe best, and how accurately each source gives a word's vowels",
+ "components": {
+  "hazm-crf": {
+   "what": "hazm 0.12.1's CRF part-of-speech tagger; a tag carrying ,EZ marks an ezafe",
+   "source": "roshan-research/hazm-postagger @ 0a50b839a732ae10d600b69de67349079c3268e9, pos_tagger.model (19 MB)",
+   "gives": "ezafe"
+  },
+  "hazm-spacy": {
+   "what": "hazm 0.12.1's ParsBERT tagger through spaCy, asked for full tags (universal_tag=False keeps the ,EZ its universal tags drop)",
+   "source": "roshan-research/hazm-parsbert-postagger @ eba1d2b30cc48206c0144b36d2b663652d44faf9 (655 MB; spaCy 3.6 pipeline loaded in 3.8.16 - the only weight not loaded strictly is BERT's position_ids buffer, checked 2026-10-03)",
+   "gives": "ezafe"
+  },
+  "albert": {
+   "what": "the ezafe model of the LCA phonemizer (arXiv 2512.08006): an ALBERT student of the spaCy tagger; the label on each word's first piece, as its authors' evaluation reads it",
+   "source": "abreza/persian-ezafe-albert @ e6614371c6cd93fca2ad2e192a978613a14d92d6 (PyTorch weights, 44 MB)",
+   "gives": "ezafe"
+  },
+  "homo-ge2pe": {
+   "what": "Homo-GE2PE as the app runs it: voiceclone.text.g2p.PersianG2P().phonemize (normalize_for_g2p, then GE2PE with its rules); its words are aligned to the text by consonant skeletons",
+   "source": "~/Desktop/G2P Research/third_party/Homo-GE2PE-Persian (the weights' sha256 is recorded with the predictions)",
+   "gives": "ezafe and vowels"
+  },
+  "kaamel": {
+   "what": "KaamelDict looked up word by word, exact spelling (diacritics dropped); a word it lists with one vowel skeleton is answered, with more or none it is not",
+   "source": "huggingface.co/datasets/MahtaFetrat/KaamelDict @ ecde21ffaaf2968c616b96ded9451e002f0d9c1c, sha256 d5f6982ba93d94d8de19bceac2d0c843857a0b2ea751e9e1c3876fc0514d22c9",
+   "gives": "vowels"
+  },
+  "never": {
+   "what": "no ezafe anywhere: what plain script tells the model",
+   "gives": "ezafe"
+  },
+  "kaamel-then-homo-ge2pe": {
+   "what": "derived, not run: KaamelDict where it answers, Homo-GE2PE otherwise",
+   "gives": "vowels"
+  }
+ },
+ "looked_up_and_not_run": {
+  "PedramR/canine-fa-diacritizer": "a character diacritizer (card, 2026-07-22: 8.3% diacritic error rate on 359 sentences). Gated: access is approved automatically, but the request is made from the user's Hugging Face account and accepts the author's conditions - the user's decision",
+  "AminMadani/persian-byt5-g2p": "reads a word at a time, so it has no ezafe and no context for homographs; its card reports SentenceBench PER 9.64% and homograph accuracy 41.98%. Its tokenizer files need transformers 5 and its weights are 1.2 GB with 12 GB free on this disk. Not run",
+  "Dadmatech/Kasreh_ezafe and AKA-Abdol/ezafe_detector": "older or without a card; not run"
+ },
+ "prior_evidence": "arXiv 2512.08006 (Dec 2025), on its own ezafe gold from SentenceBench: spaCy tagger F1 97.67%, ALBERT 94.19%. hazm reports EZ detection F1 0.993 on its own test. Neither is this gold. Looked up 2026-10-03",
+ "environments": {
+  "taggers": "~/.cache/persian-voice-cloning/frontend/.venv: Python 3.12, hazm 0.12.1, spaCy 3.8.16, spacy-transformers 1.4.0, transformers 4.53.2, torch 2.14.0 (hazm needs Python 3.12+, spacy-transformers needs transformers < 4.53.3)",
+  "the rest": "the project's .venv: Python 3.11, transformers 5.14.1, torch 2.13.0",
+  "input": "the same for every component: Arabic letter forms to Persian, tatweel dropped, spacing left alone so the words stay the gold's words (the LCA authors ran hazm's Normalizer first; that can join words, so it is not used). Taggers get punctuation as separate tokens; ALBERT gets it attached, as its authors fed it; Homo-GE2PE gets the sentence"
+ },
+ "sets": {
+  "sentencebench": {
+   "source": "huggingface.co/datasets/MahtaFetrat/SentenceBench @ 7662d421ac3ba5b63952c74df70332dfc98095a6 (GPL), sha256 858e42f4e223ae68e9abe9cc79785b5d7fd2e87740ff4e468efb4a3540aabf5e",
+   "sentences": 400,
+   "subsets": {
+    "homograph": {
+     "sentences": 212,
+     "words": 1457,
+     "scorable": 1420,
+     "ezafe_words": 173
+    },
+    "mana-tts": {
+     "sentences": 100,
+     "words": 1110,
+     "scorable": 1103,
+     "ezafe_words": 269
+    },
+    "commonvoice": {
+     "sentences": 88,
+     "words": 589,
+     "scorable": 577,
+     "ezafe_words": 103
+    }
+   },
+   "gold": "per word, from its annotated pronunciation: words and annotation aligned by consonant skeletons (a conjunction و merged as -o is split off; two words annotated as one are left out), and the ezafe read off the ending - a hyphenated -e/-ye, or an attached e/ye judged by the word's last letter (scripts/score_frontend_components.py ezafe_split, tested). Checked by eye on samples 2026-10-03",
+   "scorable_words": 3100,
+   "ezafe_words": 545,
+   "homographs_located": 211,
+   "caveat": "Homo-GE2PE, the ALBERT model and KaamelDict come from the group that made SentenceBench; their training data may overlap it. Before scoring, every SentenceBench sentence is looked for in HomoRich (huggingface.co/datasets/MahtaFetrat/HomoRich-G2P-Persian @ 21b189a76c15e9a899e9606c6a909d30e9dc4596, the training data named for both), and results are given per subset. The ALBERT paper says its student learned from ManaTTS text; the mana-tts subset is where that would show"
+  },
+  "review14": {
+   "file": "eval/manifests/frontend_review14_gold_v1.json",
+   "sha256": "d189691d88760c90afcd51d09c2641187d34fc31c71ce9b2043b9c103c8b70fa",
+   "words": 199,
+   "ezafe_words": 48,
+   "settled_by_the_review": 31,
+   "heard": "A's 19 errors in the review, each listed with its word",
+   "note": "Claude wrote the readings the review does not settle, after looking 22 words up in KaamelDict (listed in the file) - which can flatter KaamelDict here"
+  }
+ },
+ "measures": {
+  "ezafe": "per scorable word: added (an ezafe where none belongs), missed, right; precision, recall, F1, errors per word, and sentences with no ezafe error",
+  "vowels": "per scorable word, the vowels of its reading in order (ezafe left out) against the gold's; for SentenceBench also the 211 located homographs. A component that gives nothing for a word has not answered it: counted in coverage, not accuracy - except Homo-GE2PE, which always answers, so a word it drops counts as wrong",
+  "heard": "on the 14 sentences, each of A's 19 heard errors: right or not in each component's output"
+ },
+ "decision_rules": {
+  "ezafe_source": "the component with the fewest ezafe errors per word on SentenceBench, subsets pooled. The 95% interval of its difference from the runner-up (paired bootstrap over sentences, 10,000 resamples, seed 20261003) decides whether they are separated. Separated: the best is step 2's ezafe source. Not separated: the one that gets more of A's 9 heard ezafe errors right, then the lighter one",
+  "vowels": "not a choice here: the numbers set step 2's marking policy. A read the vowels of 191 of 199 words right in the review, so a source helps a word only where it beats that: if no source reaches 96% on SentenceBench, marking every word is ruled out, and step 2 marks only where needed (homographs and the words OmniVoice is known to misread), registered then",
+  "review14": "reported, not ranked: it decides only a tie on SentenceBench. Where a component disagrees with a reading Claude wrote (not settled by the review), the word goes to the user blind - the readings, no component names - before the 14-sentence reading is final; the numbers are shown before and after"
+ },
+ "not_claimed": "text only: nothing here says how OmniVoice reads the marks - that is step 2, by listening and CER. SentenceBench's ezafe gold is derived by rule from its annotation; vowel skeletons ignore consonants and where in a word a vowel sits; SentenceBench may overlap some components' training data",
+ "cost": "CPU on this Mac, one component at a time; the largest, the spaCy tagger, peaked at 3.3 GB resident in its smoke test. No GPU quota",
+ "code": {
+  "run": "scripts/measure_frontend_components.py",
+  "score": "scripts/score_frontend_components.py (tests/test_frontend_components.py)",
+  "evidence": "eval/runs/evidence/frontend-components-v1/"
+ }
+}

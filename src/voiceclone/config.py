@@ -159,6 +159,18 @@ class EzafeConfig:
 
 
 @dataclass
+class HomographConfig:
+    """The first vowel of a homograph, from Homo-GE2PE in context (FINDINGS section 17)."""
+
+    #: ``auto`` writes it when Homo-GE2PE can run and goes on without it
+    #: otherwise; ``true`` stops instead; ``false`` never writes it.
+    enabled: str | bool = "auto"
+    #: Not loaded with less memory than this available (GB): it peaked at
+    #: 0.66 GB resident reading one sentence (2026-10-04).
+    min_available_gb: float = 1.0
+
+
+@dataclass
 class TextConfig:
     language: str = "auto"
     normalize: bool = True
@@ -171,6 +183,7 @@ class TextConfig:
     #: was heard doing it (FINDINGS sections 13-15).
     marks_engines: list[str] = field(default_factory=lambda: ["omnivoice"])
     ezafe: EzafeConfig = field(default_factory=EzafeConfig)
+    homographs: HomographConfig = field(default_factory=HomographConfig)
 
 
 @dataclass

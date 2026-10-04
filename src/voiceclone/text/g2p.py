@@ -283,6 +283,18 @@ class PersianG2P:
         self.backend = "unavailable"
         return False
 
+    def release(self) -> None:
+        """Drop the loaded model; the next :meth:`phonemize` loads it again.
+
+        The homograph step reads one text and lets go, so the T5 never sits
+        beside a loaded speech model longer than it takes.
+        """
+        self._engine = None
+        self._flat_fn = None
+        self._loaded = False
+        self._load_error = None
+        self.backend = "unavailable"
+
     # -- inference ---------------------------------------------------------
     def phonemize(self, text: str, *, normalize: bool = True) -> G2PResult:
         """Convert Persian text to IPA.

@@ -1,0 +1,141 @@
+{
+ "seed": 20261004,
+ "manifest": "eval/runs/rui-check-v1/manifest.json",
+ "target_lufs": -26.0,
+ "wrong_in_twins": {},
+ "sentences": {
+  "r01": {
+   "category": "rui",
+   "slots": {
+    "1": "R0",
+    "2": "R1"
+   },
+   "gains_db": {
+    "1": -7.49,
+    "2": -7.21
+   },
+   "target_lufs": -26.0
+  },
+  "r02": {
+   "category": "rui",
+   "slots": {
+    "1": "R1",
+    "2": "R0"
+   },
+   "gains_db": {
+    "1": -7.7,
+    "2": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "r03": {
+   "category": "rui",
+   "slots": {
+    "1": "R0",
+    "2": "R1"
+   },
+   "gains_db": {
+    "1": -6.87,
+    "2": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "r04": {
+   "category": "rui",
+   "slots": {
+    "1": "R1",
+    "2": "R0"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -6.2
+   },
+   "target_lufs": -26.0
+  },
+  "r05": {
+   "category": "rui",
+   "slots": {
+    "1": "R1",
+    "2": "R0"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "r06": {
+   "category": "rui",
+   "slots": {
+    "1": "R0",
+    "2": "R1"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "r07": {
+   "category": "rui",
+   "slots": {
+    "1": "R1",
+    "2": "R0"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -7.84
+   },
+   "target_lufs": -26.0
+  },
+  "r08": {
+   "category": "rui",
+   "slots": {
+    "1": "R0",
+    "2": "R1"
+   },
+   "gains_db": {
+    "1": -6.58,
+    "2": -6.28
+   },
+   "target_lufs": -26.0
+  },
+  "r09": {
+   "category": "rui",
+   "slots": {
+    "1": "R1",
+    "2": "R0"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "r10": {
+   "category": "rui",
+   "slots": {
+    "1": "R0",
+    "2": "R1"
+   },
+   "gains_db": {
+    "1": -7.01,
+    "2": -7.85
+   },
+   "target_lufs": -26.0
+  }
+ },
+ "order": [
+  "r09",
+  "r03",
+  "r08",
+  "r05",
+  "r07",
+  "r01",
+  "r02",
+  "r04",
+  "r06",
+  "r10"
+ ],
+ "fingerprint": "41ccd63a2d1f3c45"
+}

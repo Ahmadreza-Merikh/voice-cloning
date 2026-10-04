@@ -1,0 +1,703 @@
+{
+ "version": 1,
+ "purpose": "front-end listening test: OmniVoice on 2 forms of each sentence",
+ "created": "2026-10-04T10:06:02+00:00",
+ "texts": {
+  "file": "eval/runs/rui-check-v1/texts.json",
+  "sentences_sha256": "bf4e0ed995d163aefdf0b2a43dccadaa3d9259c2b1238faa335e45f5b3419af7"
+ },
+ "settings": {
+  "seed": 42,
+  "candidates": 1,
+  "evaluation_enabled": false,
+  "cer_after_unload": true,
+  "omnivoice": {
+   "python": "auto",
+   "language": "fa",
+   "dtype": "float16",
+   "num_step": 32,
+   "guidance_scale": 2.0,
+   "t_shift": 0.1,
+   "denoise": true,
+   "postprocess_output": true,
+   "layer_penalty_factor": 5.0,
+   "position_temperature": 5.0,
+   "class_temperature": 0.0,
+   "timeout_seconds": 900,
+   "memory_guard": true,
+   "min_available_gb": 6.0
+  },
+  "omnivoice_model_id": "/tmp/omnivoice-base",
+  "text": {
+   "ezafe_enabled": false,
+   "marks_engines": [
+    "omnivoice"
+   ]
+  }
+ },
+ "reference": {
+  "speaker": "mana",
+  "file": "mana_000.wav",
+  "transcript": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم."
+ },
+ "conditions": {
+  "R1": "the app today (رویِ)",
+  "R0": "the same without the kasra on روی"
+ },
+ "sentences": [
+  {
+   "id": "r01",
+   "category": "rui",
+   "text": "گربه آرام روی مبل خوابیده بود و به صدای باران گوش می‌داد.",
+   "texts": {
+    "R1": "گربه آرام رویِ مبل خوابیده بود و به صدایِ باران گوش می‌داد.",
+    "R0": "گربه آرام روی مبل خوابیده بود و به صدایِ باران گوش می‌داد."
+   }
+  },
+  {
+   "id": "r02",
+   "category": "rui",
+   "text": "مادرم گلدان کوچک را روی طاقچه گذاشت تا آفتاب به آن برسد.",
+   "texts": {
+    "R1": "مادرم گلدانِ کوچک را رویِ طاقچه گذاشت تا آفتاب به آن برسد.",
+    "R0": "مادرم گلدانِ کوچک را روی طاقچه گذاشت تا آفتاب به آن برسد."
+   }
+  },
+  {
+   "id": "r03",
+   "category": "rui",
+   "text": "بچه‌ها با گچ رنگی روی دیوار حیاط نقاشی کشیده بودند.",
+   "texts": {
+    "R1": "بچه‌ها با گچِ رنگی رویِ دیوارِ حیاط نقاشی کشیده بودند.",
+    "R0": "بچه‌ها با گچِ رنگی روی دیوارِ حیاط نقاشی کشیده بودند."
+   }
+  },
+  {
+   "id": "r04",
+   "category": "rui",
+   "text": "هواپیما ساعت‌ها روی ابرها پرواز کرد و سرانجام در فرودگاه نشست.",
+   "texts": {
+    "R1": "هواپیما ساعت‌ها رویِ ابرها پرواز کَرد و سرانجام در فرودگاه نِشست.",
+    "R0": "هواپیما ساعت‌ها روی ابرها پرواز کَرد و سرانجام در فرودگاه نِشست."
+   }
+  },
+  {
+   "id": "r05",
+   "category": "rui",
+   "text": "اسم هر مهمان را روی یک کارت سفید نوشتیم و کنار بشقابش گذاشتیم.",
+   "texts": {
+    "R1": "اسمِ هر مهمان را رویِ یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم.",
+    "R0": "اسمِ هر مهمان را روی یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم."
+   }
+  },
+  {
+   "id": "r06",
+   "category": "rui",
+   "text": "پیرمرد هر صبح روی نیمکت پارک می‌نشیند و روزنامه می‌خواند.",
+   "texts": {
+    "R1": "پیرمرد هر صبح رویِ نیمکتِ پارک می‌نشیند و روزنامه می‌خواند.",
+    "R0": "پیرمرد هر صبح روی نیمکتِ پارک می‌نشیند و روزنامه می‌خواند."
+   }
+  },
+  {
+   "id": "r07",
+   "category": "rui",
+   "text": "برف سنگین روی سقف خانه‌های روستا نشسته بود.",
+   "texts": {
+    "R1": "برفِ سنگین رویِ سقفِ خانه‌هایِ روستا نَشسته بود.",
+    "R0": "برفِ سنگین روی سقفِ خانه‌هایِ روستا نَشسته بود."
+   }
+  },
+  {
+   "id": "r08",
+   "category": "rui",
+   "text": "کارشناس با ماژیک قرمز روی نقشه شهر چند نقطه را علامت زد.",
+   "texts": {
+    "R1": "کارشناس با ماژیکِ قرمز رویِ نقشهٔ شهر چند نقطه را علامت زد.",
+    "R0": "کارشناس با ماژیکِ قرمز روی نقشهٔ شهر چند نقطه را علامت زد."
+   }
+  },
+  {
+   "id": "r09",
+   "category": "rui",
+   "text": "لیوان چای را روی میز گذاشت و کتابش را روی زانویش باز کرد.",
+   "texts": {
+    "R1": "لیوانِ چای را رویِ میز گذاشت و کتابش را رویِ زانویش باز کَرد.",
+    "R0": "لیوانِ چای را روی میز گذاشت و کتابش را روی زانویش باز کَرد."
+   }
+  },
+  {
+   "id": "r10",
+   "category": "rui",
+   "text": "کودک روی پنجه پا ایستاد تا بتواند از روی دیوار باغ را ببیند.",
+   "texts": {
+    "R1": "کودک رویِ پنجهٔ پا ایستاد تا بتواند از رویِ دیوار باغ را ببیند.",
+    "R0": "کودک روی پنجهٔ پا ایستاد تا بتواند از روی دیوار باغ را ببیند."
+   }
+  }
+ ],
+ "events": [
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 20,
+   "other_changes_by_the_app": []
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true
+  },
+  {
+   "event": "fetched_from_kaggle",
+   "when": "2026-10-04T10:10:20+00:00",
+   "session": "marsmanam/persian-voice-rui-check-run",
+   "wav_paths": "made relative to the repository; kaggle_wav keeps where each was written"
+  }
+ ],
+ "renders": [
+  {
+   "id": "r01",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "گربه آرام رویِ مبل خوابیده بود و به صدایِ باران گوش می‌داد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r01_R1.wav",
+   "skipped": null,
+   "duration_s": 4.492,
+   "used_phonemes": false,
+   "fed_texts": [
+    "گربه آرام رویِ مبل خوابیده بود و به صدایِ باران گوش می‌داد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.964,
+    "text": 0.002,
+    "load": 11.726,
+    "synthesis": 4.293
+   },
+   "asr_text": "گربه آرام روی مبل خوابیده بود و به صدای باران گوش می داد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r01_R1.wav"
+  },
+  {
+   "id": "r01",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "گربه آرام روی مبل خوابیده بود و به صدایِ باران گوش می‌داد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r01_R0.wav",
+   "skipped": null,
+   "duration_s": 4.498,
+   "used_phonemes": false,
+   "fed_texts": [
+    "گربه آرام روی مبل خوابیده بود و به صدایِ باران گوش می‌داد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.47
+   },
+   "asr_text": "گربه آرام روی مبل خابیده بود و به صدای باران گوش می داد.",
+   "cer": 0.022727272727272728,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r01_R0.wav"
+  },
+  {
+   "id": "r02",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "مادرم گلدانِ کوچک را رویِ طاقچه گذاشت تا آفتاب به آن برسد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r02_R1.wav",
+   "skipped": null,
+   "duration_s": 4.398,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مادرم گلدانِ کوچک را رویِ طاقچه گذاشت تا آفتاب به آن برسد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.489
+   },
+   "asr_text": "مادرم گلدانه کچک را روی تاقچه گذاشت تا آفتاب به آن برسد.",
+   "cer": 0.06818181818181818,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r02_R1.wav"
+  },
+  {
+   "id": "r02",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "مادرم گلدانِ کوچک را روی طاقچه گذاشت تا آفتاب به آن برسد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r02_R0.wav",
+   "skipped": null,
+   "duration_s": 4.398,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مادرم گلدانِ کوچک را روی طاقچه گذاشت تا آفتاب به آن برسد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.695
+   },
+   "asr_text": "مادرم گلدانه کوچک را روی تاقچه گذاشت تا آفتاب به آن برسد.",
+   "cer": 0.045454545454545456,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r02_R0.wav"
+  },
+  {
+   "id": "r03",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "بچه‌ها با گچِ رنگی رویِ دیوارِ حیاط نقاشی کشیده بودند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r03_R1.wav",
+   "skipped": null,
+   "duration_s": 4.084,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بچه‌ها با گچِ رنگی رویِ دیوارِ حیاط نقاشی کشیده بودند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 6.62
+   },
+   "asr_text": "بچه ها با گچه رنگی روی دیوار حیات نقاشی کشیده بودند.",
+   "cer": 0.05,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r03_R1.wav"
+  },
+  {
+   "id": "r03",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "بچه‌ها با گچِ رنگی روی دیوارِ حیاط نقاشی کشیده بودند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r03_R0.wav",
+   "skipped": null,
+   "duration_s": 4.107,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بچه‌ها با گچِ رنگی روی دیوارِ حیاط نقاشی کشیده بودند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.464
+   },
+   "asr_text": "بچه ها با گچ رنگی روی دیواره حیات نقاشی کشیده بودند.",
+   "cer": 0.05,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r03_R0.wav"
+  },
+  {
+   "id": "r04",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "هواپیما ساعت‌ها رویِ ابرها پرواز کَرد و سرانجام در فرودگاه نِشست.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r04_R1.wav",
+   "skipped": null,
+   "duration_s": 5.174,
+   "used_phonemes": false,
+   "fed_texts": [
+    "هواپیما ساعت‌ها رویِ ابرها پرواز کَرد و سرانجام در فرودگاه نِشست."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.674
+   },
+   "asr_text": "هواپیما ساعتها روی عبرها پرواز کرد و سرانجام در فرودگاه نشست.",
+   "cer": 0.02,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r04_R1.wav"
+  },
+  {
+   "id": "r04",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "هواپیما ساعت‌ها روی ابرها پرواز کَرد و سرانجام در فرودگاه نِشست.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r04_R0.wav",
+   "skipped": null,
+   "duration_s": 5.09,
+   "used_phonemes": false,
+   "fed_texts": [
+    "هواپیما ساعت‌ها روی ابرها پرواز کَرد و سرانجام در فرودگاه نِشست."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.657
+   },
+   "asr_text": "هواپیما ساعتها روی اپرها پرواز کرد و سرانجام در فرودگاه نشست.",
+   "cer": 0.02,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r04_R0.wav"
+  },
+  {
+   "id": "r05",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "اسمِ هر مهمان را رویِ یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r05_R1.wav",
+   "skipped": null,
+   "duration_s": 4.957,
+   "used_phonemes": false,
+   "fed_texts": [
+    "اسمِ هر مهمان را رویِ یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.681
+   },
+   "asr_text": "اسم هر مهمان را روی یک کارت سفید نوشتیم و کناره بهش قابش گذاشتیم.",
+   "cer": 0.04081632653061224,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r05_R1.wav"
+  },
+  {
+   "id": "r05",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "اسمِ هر مهمان را روی یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r05_R0.wav",
+   "skipped": null,
+   "duration_s": 4.97,
+   "used_phonemes": false,
+   "fed_texts": [
+    "اسمِ هر مهمان را روی یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.675
+   },
+   "asr_text": "اسم هر مهمان را روی یک کارت سفید نوشتیم و کنار بشقابش گذاشتیم.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r05_R0.wav"
+  },
+  {
+   "id": "r06",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "پیرمرد هر صبح رویِ نیمکتِ پارک می‌نشیند و روزنامه می‌خواند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r06_R1.wav",
+   "skipped": null,
+   "duration_s": 4.739,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پیرمرد هر صبح رویِ نیمکتِ پارک می‌نشیند و روزنامه می‌خواند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.682
+   },
+   "asr_text": "پیره مرد هر صبح روی نیمکت پارک می نشیند و روزنامه می خواند.",
+   "cer": 0.022222222222222223,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r06_R1.wav"
+  },
+  {
+   "id": "r06",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "پیرمرد هر صبح روی نیمکتِ پارک می‌نشیند و روزنامه می‌خواند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r06_R0.wav",
+   "skipped": null,
+   "duration_s": 4.728,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پیرمرد هر صبح روی نیمکتِ پارک می‌نشیند و روزنامه می‌خواند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.692
+   },
+   "asr_text": "پیرمرد هر صبح روی نیمکت پارک می نشیند و روزنامه می خوند.",
+   "cer": 0.022222222222222223,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r06_R0.wav"
+  },
+  {
+   "id": "r07",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "برفِ سنگین رویِ سقفِ خانه‌هایِ روستا نَشسته بود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r07_R1.wav",
+   "skipped": null,
+   "duration_s": 3.456,
+   "used_phonemes": false,
+   "fed_texts": [
+    "برفِ سنگین رویِ سقفِ خانه‌هایِ روستا نَشسته بود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.446
+   },
+   "asr_text": "قرف سنگین روی سخف خانه هایی روستا نشسته بود.",
+   "cer": 0.08823529411764706,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r07_R1.wav"
+  },
+  {
+   "id": "r07",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "برفِ سنگین روی سقفِ خانه‌هایِ روستا نَشسته بود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r07_R0.wav",
+   "skipped": null,
+   "duration_s": 3.44,
+   "used_phonemes": false,
+   "fed_texts": [
+    "برفِ سنگین روی سقفِ خانه‌هایِ روستا نَشسته بود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.459
+   },
+   "asr_text": "برف سنگین روی سخف خانه هایی روستا نشسته بود.",
+   "cer": 0.058823529411764705,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r07_R0.wav"
+  },
+  {
+   "id": "r08",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "کارشناس با ماژیکِ قرمز رویِ نقشهٔ شهر چند نقطه را علامت زد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r08_R1.wav",
+   "skipped": null,
+   "duration_s": 4.431,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارشناس با ماژیکِ قرمز رویِ نقشهٔ شهر چند نقطه را علامت زد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.712
+   },
+   "asr_text": "کارشناس با ماجیک قرمز روی نقشه شهر چند نقطه را علامت زد.",
+   "cer": 0.022727272727272728,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r08_R1.wav"
+  },
+  {
+   "id": "r08",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "کارشناس با ماژیکِ قرمز روی نقشهٔ شهر چند نقطه را علامت زد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r08_R0.wav",
+   "skipped": null,
+   "duration_s": 4.397,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارشناس با ماژیکِ قرمز روی نقشهٔ شهر چند نقطه را علامت زد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.725
+   },
+   "asr_text": "کارشناس با ماجیک قرمز روی نقشه شهر چند نقطه را علامت زد.",
+   "cer": 0.022727272727272728,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r08_R0.wav"
+  },
+  {
+   "id": "r09",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "لیوانِ چای را رویِ میز گذاشت و کتابش را رویِ زانویش باز کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r09_R1.wav",
+   "skipped": null,
+   "duration_s": 4.41,
+   "used_phonemes": false,
+   "fed_texts": [
+    "لیوانِ چای را رویِ میز گذاشت و کتابش را رویِ زانویش باز کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.781
+   },
+   "asr_text": "لیوان چایی را روی میز گذاشت و کتابش را روی زانویش باز کرد.",
+   "cer": 0.022727272727272728,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r09_R1.wav"
+  },
+  {
+   "id": "r09",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "لیوانِ چای را روی میز گذاشت و کتابش را روی زانویش باز کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r09_R0.wav",
+   "skipped": null,
+   "duration_s": 4.415,
+   "used_phonemes": false,
+   "fed_texts": [
+    "لیوانِ چای را روی میز گذاشت و کتابش را روی زانویش باز کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.007,
+    "load": 0.0,
+    "synthesis": 3.801
+   },
+   "asr_text": "لیوان چایی را روی میز گذاشت و کتابش را روی زانویش باز کرد.",
+   "cer": 0.022727272727272728,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r09_R0.wav"
+  },
+  {
+   "id": "r10",
+   "condition": "R1",
+   "engine": "omnivoice",
+   "input_text": "کودک رویِ پنجهٔ پا ایستاد تا بتواند از رویِ دیوار باغ را ببیند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r10_R1.wav",
+   "skipped": null,
+   "duration_s": 4.676,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کودک رویِ پنجهٔ پا ایستاد تا بتواند از رویِ دیوار باغ را ببیند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.899
+   },
+   "asr_text": "کودک روی پنج پایستاد تا بتواند از روی دیوار باغ را ببیند.",
+   "cer": 0.0425531914893617,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r10_R1.wav"
+  },
+  {
+   "id": "r10",
+   "condition": "R0",
+   "engine": "omnivoice",
+   "input_text": "کودک روی پنجهٔ پا ایستاد تا بتواند از روی دیوار باغ را ببیند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/rui-check-v1/wavs/r10_R0.wav",
+   "skipped": null,
+   "duration_s": 4.791,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کودک روی پنجهٔ پا ایستاد تا بتواند از روی دیوار باغ را ببیند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.907
+   },
+   "asr_text": "کودک روی پنجه پای استاد تا بتواند از روی دیوار باغ را ببیند.",
+   "cer": 0.0425531914893617,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/rui-check-v1/wavs/r10_R0.wav"
+  }
+ ],
+ "asr_model": "faster-whisper large-v3-turbo"
+}

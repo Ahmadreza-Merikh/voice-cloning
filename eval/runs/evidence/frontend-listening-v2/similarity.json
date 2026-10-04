@@ -1,0 +1,279 @@
+{
+ "measure": "held-out ECAPA similarity, speechbrain via voiceclone.evaluation.embedding.CachedEmbedder",
+ "backend": "speechbrain-ecapa",
+ "reference": "mana_000.wav",
+ "held_out": [
+  "mana_001.wav",
+  "mana_002.wav",
+  "mana_003.wav",
+  "mana_004.wav"
+ ],
+ "speaker_own_clips_mean": 0.753,
+ "summary": {
+  "E": {
+   "held_out_mean": 0.5986
+  },
+  "EH": {
+   "held_out_mean": 0.6075,
+   "minus_E": [
+    0.0089,
+    -0.0061,
+    0.0253
+   ]
+  },
+  "ES": {
+   "held_out_mean": 0.6024,
+   "minus_E": [
+    0.0038,
+    -0.0124,
+    0.0199
+   ]
+  },
+  "EHS": {
+   "held_out_mean": 0.6084,
+   "minus_E": [
+    0.0098,
+    -0.0009,
+    0.0202
+   ]
+  }
+ },
+ "contrasts": {
+  "H": {
+   "spec": "H=EH+EHS-E-ES",
+   "mean_low_high": [
+    0.0074,
+    -0.0026,
+    0.0181
+   ],
+   "wholly_below_zero": false
+  },
+  "S": {
+   "spec": "S=ES+EHS-E-EH",
+   "mean_low_high": [
+    0.0023,
+    -0.0097,
+    0.0127
+   ],
+   "wholly_below_zero": false
+  }
+ },
+ "per_sentence": {
+  "v01": {
+   "E": {
+    "held_out": 0.6015,
+    "prompt": 0.8337
+   },
+   "EH": {
+    "held_out": 0.6051,
+    "prompt": 0.8108
+   },
+   "ES": {
+    "held_out": 0.6485,
+    "prompt": 0.8432
+   },
+   "EHS": {
+    "held_out": 0.6163,
+    "prompt": 0.8182
+   }
+  },
+  "v02": {
+   "E": {
+    "held_out": 0.6253,
+    "prompt": 0.8008
+   },
+   "EH": {
+    "held_out": 0.6129,
+    "prompt": 0.8175
+   },
+   "ES": {
+    "held_out": 0.6319,
+    "prompt": 0.829
+   },
+   "EHS": {
+    "held_out": 0.6509,
+    "prompt": 0.8401
+   }
+  },
+  "v03": {
+   "E": {
+    "held_out": 0.581,
+    "prompt": 0.8373
+   },
+   "EH": {
+    "held_out": 0.6377,
+    "prompt": 0.8613
+   },
+   "ES": {
+    "held_out": 0.602,
+    "prompt": 0.8302
+   },
+   "EHS": {
+    "held_out": 0.6082,
+    "prompt": 0.8378
+   }
+  },
+  "v04": {
+   "E": {
+    "held_out": 0.5644,
+    "prompt": 0.7222
+   },
+   "EH": {
+    "held_out": 0.5636,
+    "prompt": 0.7387
+   },
+   "ES": {
+    "held_out": 0.5799,
+    "prompt": 0.7508
+   },
+   "EHS": {
+    "held_out": 0.5667,
+    "prompt": 0.7484
+   }
+  },
+  "v05": {
+   "E": {
+    "held_out": 0.5715,
+    "prompt": 0.7922
+   },
+   "EH": {
+    "held_out": 0.628,
+    "prompt": 0.8224
+   },
+   "ES": {
+    "held_out": 0.5459,
+    "prompt": 0.7829
+   },
+   "EHS": {
+    "held_out": 0.5556,
+    "prompt": 0.7781
+   }
+  },
+  "v06": {
+   "E": {
+    "held_out": 0.6181,
+    "prompt": 0.8119
+   },
+   "EH": {
+    "held_out": 0.603,
+    "prompt": 0.8333
+   },
+   "ES": {
+    "held_out": 0.6152,
+    "prompt": 0.827
+   },
+   "EHS": {
+    "held_out": 0.5956,
+    "prompt": 0.8326
+   }
+  },
+  "v07": {
+   "E": {
+    "held_out": 0.6222,
+    "prompt": 0.8383
+   },
+   "EH": {
+    "held_out": 0.6187,
+    "prompt": 0.8302
+   },
+   "ES": {
+    "held_out": 0.6406,
+    "prompt": 0.836
+   },
+   "EHS": {
+    "held_out": 0.6186,
+    "prompt": 0.8437
+   }
+  },
+  "v08": {
+   "E": {
+    "held_out": 0.5798,
+    "prompt": 0.7872
+   },
+   "EH": {
+    "held_out": 0.598,
+    "prompt": 0.7943
+   },
+   "ES": {
+    "held_out": 0.6008,
+    "prompt": 0.8151
+   },
+   "EHS": {
+    "held_out": 0.6241,
+    "prompt": 0.8438
+   }
+  },
+  "v09": {
+   "E": {
+    "held_out": 0.5764,
+    "prompt": 0.7812
+   },
+   "EH": {
+    "held_out": 0.5889,
+    "prompt": 0.8044
+   },
+   "ES": {
+    "held_out": 0.5396,
+    "prompt": 0.7358
+   },
+   "EHS": {
+    "held_out": 0.6009,
+    "prompt": 0.8262
+   }
+  },
+  "v10": {
+   "E": {
+    "held_out": 0.5841,
+    "prompt": 0.8429
+   },
+   "EH": {
+    "held_out": 0.6268,
+    "prompt": 0.8485
+   },
+   "ES": {
+    "held_out": 0.6301,
+    "prompt": 0.8609
+   },
+   "EHS": {
+    "held_out": 0.6012,
+    "prompt": 0.8312
+   }
+  },
+  "v11": {
+   "E": {
+    "held_out": 0.626,
+    "prompt": 0.8558
+   },
+   "EH": {
+    "held_out": 0.6017,
+    "prompt": 0.8057
+   },
+   "ES": {
+    "held_out": 0.5911,
+    "prompt": 0.818
+   },
+   "EHS": {
+    "held_out": 0.6376,
+    "prompt": 0.8498
+   }
+  },
+  "v12": {
+   "E": {
+    "held_out": 0.633,
+    "prompt": 0.8027
+   },
+   "EH": {
+    "held_out": 0.6054,
+    "prompt": 0.7934
+   },
+   "ES": {
+    "held_out": 0.6031,
+    "prompt": 0.7957
+   },
+   "EHS": {
+    "held_out": 0.6249,
+    "prompt": 0.7907
+   }
+  }
+ }
+}

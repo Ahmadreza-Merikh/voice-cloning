@@ -1527,3 +1527,8 @@ Other errors were heard the same way in both forms:
   - زانویش as زانوییش
   - می‌نشیند without its last a
   - پنجهٔ پا said panj-e with a pause
+
+**In the app**, the tagger's ezafe is no longer written on روی (`NO_EZAFE_ON`
+in `src/voiceclone/text/ezafe_fa.py`). A kasra the writer puts there stays.
+Through the app at its default settings, with the real tagger and Homo-GE2PE,
+the ten sentences give the R0 that was heard (`scripts/check_rui_in_app.py`).

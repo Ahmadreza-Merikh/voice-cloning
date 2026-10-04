@@ -4,7 +4,39 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-04 13:40 +0330 (2026-10-04 10:10 UTC).
+Last updated: 2026-10-04 14:40 +0330 (2026-10-04 11:10 UTC).
+
+## The روی check heard: the app leaves روی plain (2026-10-04)
+
+The check was registered before any front-end ran
+(`eval/runs/persian-voice-rui-check-v1.json`, result recorded; FINDINGS
+section 18). Ten sentences with 12 روی compared R1 (the app's رویِ) against
+R0 (no kasra on روی). They were heard blind by a listener recorded as پارسا;
+steps 1 to 3 were heard by احمدرضا. Page:
+https://claude.ai/artifact/DnBHQbqRWXLt2innub42uo. Its database kept only an
+empty start, so the answers came as the page's answer code
+(`eval/runs/evidence/rui-review-v1/answers-listener-1.json`).
+
+| | روی wrong (of 12) | words wrong (of 114) | mean CER |
+|---|---|---|---|
+| R1 (رویِ) | 1 | 12 | 3.8% |
+| R0 (روی) | 0 | 11 | 3.1% |
+
+"No difference" was picked for all 10. Similarity R0 − R1 is +0.005
+[−0.021, +0.035]. The registered rule drops the kasra, but on one mark, so to
+this listener the kasra matters little either way.
+
+**In the app:** `NO_EZAFE_ON = {"روی"}` in `src/voiceclone/text/ezafe_fa.py`.
+Through the app the 10 sentences give the R0 that was heard, 10 of 10
+(`scripts/check_rui_in_app.py`). Tests: 626 passed, 1 skipped.
+
+**Also heard, the same in both forms:**
+- An ezafe nobody wrote on four words: باران, پیرمرد, حیاط, and دیوار before
+  باغ را. This is the تعاملات معمولاً kind, which step 3's sukun did not stop.
+- Wrong vowels inside ordinary words: طاقچه, نیمکت, بشقابش, زانویش, می‌نشیند,
+  پنجهٔ.
+
+**Next (the user's call):** nothing is running.
 
 ## Homograph vowels in the app; the روی check rendering (2026-10-04)
 
@@ -23,9 +55,7 @@ reads about 4 in 23 homographs wrong, and the mark is then wrong (نشسته in 
 **The روی check** (registered 24fe06b, `eval/runs/persian-voice-rui-check-v1.json`):
 10 sentences, 12 روی; R1 = the app today (رویِ), R0 = the same without the kasra
 on روی. Kaggle `persian-voice-rui-check-run` (texts written by the notebook,
-step 3's code dataset). Next: fetch, `scripts/similarity_frontend_conditions.py
---manifest eval/runs/rui-check-v1/manifest.json --contrast R0=R0-R1`, the page
-(rotations), the user listens, `scripts/read_rui_check.py`.
+step 3's code dataset). Heard and read: see the section above.
 
 ## Step 3 heard: homograph vowels kept, sukun before adverbs dropped (2026-10-04)
 

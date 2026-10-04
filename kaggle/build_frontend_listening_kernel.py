@@ -73,6 +73,11 @@ STEPS = {
         "name": "frontend-listening-v2", "folder": "frontend-listening-v2",
         # The texts path goes in absolute: the script on the dataset (e1d96e4) stops on a relative one.
         "extra": ["--texts", {"repo": "eval/runs/frontend-listening-v2/texts.json"}, "--app-normaliser"]},
+    # The روی check (eval/runs/persian-voice-rui-check-v1.json) runs on step 3's code dataset with its
+    # texts written by the notebook itself, so nothing has to be uploaded from the Mac but the notebook.
+    4: {"slug": "persian-voice-rui-check-run", "dataset": "persian-voice-frontend-listening-v2",
+        "name": "rui-check-v1", "folder": "rui-check", "expected": 20, "embed": True,
+        "extra": ["--texts", {"repo": "eval/runs/rui-check-v1/texts.json"}, "--app-normaliser"]},
 }
 EXPECTED = 48
 RENDER_MINUTES = 60
@@ -100,7 +105,12 @@ def download(step: dict) -> str:
     texts_sha256 = hashlib.sha256((ROOT / texts).read_bytes()).hexdigest()
     needed = ("scripts/render_frontend_conditions.py", "scripts/ab_omnivoice_ipa.py", "scripts/omnivoice_worker.py",
               "src/voiceclone/text/marks_fa.py", "eval/corpus/manifest.json", "eval/corpus/mana_000.wav", texts)
-    return dev.FETCH + f'''
+    embed = ""
+    if step.get("embed"):
+        content = (ROOT / texts).read_text(encoding="utf-8")
+        embed = (f'\n(REPO / "{texts}").parent.mkdir(parents=True, exist_ok=True)\n'
+                 f'(REPO / "{texts}").write_text({content!r}, encoding="utf-8")')
+    return dev.FETCH + embed + f'''
 os.environ["VOICECLONE_OMNIVOICE_PYTHON"] = sys.executable
 provenance = found[0].parents[2] / "PROVENANCE.md"
 os.environ["VOICECLONE_CODE_COMMIT"] = (provenance.read_text().split("commit ")[-1].strip(" .\\n")
@@ -123,6 +133,7 @@ os.environ["VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID"] = "{BASE_DIR}"
 def render(step: dict) -> str:
     command = ", ".join(f"str(REPO / {json.dumps(a['repo'])})" if isinstance(a, dict) else json.dumps(a)
                         for a in ["scripts/render_frontend_conditions.py", "--cer", *step["extra"]])
+    expected = step.get("expected", EXPECTED)
     return f'''\
 OUT = REPO / "eval/runs/{step['name']}"
 RESULT = {{}}
@@ -144,7 +155,7 @@ if not GATES.skip("renders", ("download",)):
               "worker": [line.strip() for line in text.splitlines() if "OmniVoice ready" in line][:1],
               "mean_cer": {{c: round(sum(v) / len(v), 4) for c, v in sorted(by_condition.items())}},
               "other_changes_by_the_app": checked[0]["other_changes_by_the_app"] if checked else None}}
-    GATES.record("renders", run.ok and len(rendered) == {EXPECTED} and len(scored) == {EXPECTED} and bool(checked),
+    GATES.record("renders", run.ok and len(rendered) == {expected} and len(scored) == {expected} and bool(checked),
                  json.dumps(RESULT, ensure_ascii=False))
 '''
 

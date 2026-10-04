@@ -4,7 +4,28 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-04 13:30 +0330 (2026-10-04 10:00 UTC).
+Last updated: 2026-10-04 13:40 +0330 (2026-10-04 10:10 UTC).
+
+## Homograph vowels in the app; the روی check rendering (2026-10-04)
+
+**In the app** (c73ddf8, the user's go-ahead after step 3): for OmniVoice, after
+the ezafe, the first short vowel of each of HomoRich's 190 homographs that it
+tells apart (`src/voiceclone/text/homographs_data.py`, CC0; not به), read from
+the sentence by Homo-GE2PE (`src/voiceclone/text/homographs_fa.py`, step 1's
+alignment carried over and tested against it; `text.homographs` in the
+config). Loaded per text and released (0.66 GB peak, 5.5 s to load, about 1 s
+a sentence after), not started under 1.0 GB free. Through the app with the real
+tagger and Homo-GE2PE, step 3's 12 sentences give the EH that was heard, به
+unmarked (`scripts/check_homographs_in_app.py`). Known from step 3: Homo-GE2PE
+reads about 4 in 23 homographs wrong, and the mark is then wrong (نشسته in the
+روی check's r07 is one: nashaste for neshaste).
+
+**The روی check** (registered 24fe06b, `eval/runs/persian-voice-rui-check-v1.json`):
+10 sentences, 12 روی; R1 = the app today (رویِ), R0 = the same without the kasra
+on روی. Kaggle `persian-voice-rui-check-run` (texts written by the notebook,
+step 3's code dataset). Next: fetch, `scripts/similarity_frontend_conditions.py
+--manifest eval/runs/rui-check-v1/manifest.json --contrast R0=R0-R1`, the page
+(rotations), the user listens, `scripts/read_rui_check.py`.
 
 ## Step 3 heard: homograph vowels kept, sukun before adverbs dropped (2026-10-04)
 

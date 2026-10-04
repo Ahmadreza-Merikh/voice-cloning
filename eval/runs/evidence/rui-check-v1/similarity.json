@@ -1,0 +1,138 @@
+{
+ "measure": "held-out ECAPA similarity, speechbrain via voiceclone.evaluation.embedding.CachedEmbedder",
+ "backend": "speechbrain-ecapa",
+ "reference": "mana_000.wav",
+ "held_out": [
+  "mana_001.wav",
+  "mana_002.wav",
+  "mana_003.wav",
+  "mana_004.wav"
+ ],
+ "speaker_own_clips_mean": 0.753,
+ "summary": {
+  "R1": {
+   "held_out_mean": 0.574
+  },
+  "R0": {
+   "held_out_mean": 0.5791,
+   "minus_R1": [
+    0.0051,
+    -0.0207,
+    0.0348
+   ]
+  }
+ },
+ "contrasts": {
+  "R0": {
+   "spec": "R0=R0-R1",
+   "mean_low_high": [
+    0.0051,
+    -0.0207,
+    0.0348
+   ],
+   "wholly_below_zero": false
+  }
+ },
+ "per_sentence": {
+  "r01": {
+   "R1": {
+    "held_out": 0.5859,
+    "prompt": 0.7801
+   },
+   "R0": {
+    "held_out": 0.524,
+    "prompt": 0.7722
+   }
+  },
+  "r02": {
+   "R1": {
+    "held_out": 0.5298,
+    "prompt": 0.6889
+   },
+   "R0": {
+    "held_out": 0.5911,
+    "prompt": 0.7637
+   }
+  },
+  "r03": {
+   "R1": {
+    "held_out": 0.5764,
+    "prompt": 0.8417
+   },
+   "R0": {
+    "held_out": 0.5737,
+    "prompt": 0.8325
+   }
+  },
+  "r04": {
+   "R1": {
+    "held_out": 0.5265,
+    "prompt": 0.7667
+   },
+   "R0": {
+    "held_out": 0.6272,
+    "prompt": 0.8187
+   }
+  },
+  "r05": {
+   "R1": {
+    "held_out": 0.5271,
+    "prompt": 0.7443
+   },
+   "R0": {
+    "held_out": 0.5188,
+    "prompt": 0.7421
+   }
+  },
+  "r06": {
+   "R1": {
+    "held_out": 0.5854,
+    "prompt": 0.7668
+   },
+   "R0": {
+    "held_out": 0.5577,
+    "prompt": 0.7759
+   }
+  },
+  "r07": {
+   "R1": {
+    "held_out": 0.6156,
+    "prompt": 0.7361
+   },
+   "R0": {
+    "held_out": 0.5859,
+    "prompt": 0.7391
+   }
+  },
+  "r08": {
+   "R1": {
+    "held_out": 0.6015,
+    "prompt": 0.7616
+   },
+   "R0": {
+    "held_out": 0.5864,
+    "prompt": 0.7205
+   }
+  },
+  "r09": {
+   "R1": {
+    "held_out": 0.5891,
+    "prompt": 0.7836
+   },
+   "R0": {
+    "held_out": 0.6136,
+    "prompt": 0.7619
+   }
+  },
+  "r10": {
+   "R1": {
+    "held_out": 0.6023,
+    "prompt": 0.8227
+   },
+   "R0": {
+    "held_out": 0.6124,
+    "prompt": 0.8141
+   }
+  }
+ }
+}

@@ -1,0 +1,189 @@
+{
+ "listeners": [
+  "پارسا"
+ ],
+ "per_condition": {
+  "R0": {
+   "renders": 10,
+   "clean": 3,
+   "words": 114,
+   "wrong": 11,
+   "best": 0,
+   "clean_share": 0.3,
+   "wrong_word_share": 0.096
+  },
+  "R1": {
+   "renders": 10,
+   "clean": 3,
+   "words": 114,
+   "wrong": 12,
+   "best": 0,
+   "clean_share": 0.3,
+   "wrong_word_share": 0.105
+  }
+ },
+ "by_category": {
+  "rui": {
+   "R1": {
+    "renders": 10,
+    "clean": 3
+   },
+   "R0": {
+    "renders": 10,
+    "clean": 3
+   }
+  }
+ },
+ "marked": [
+  {
+   "listener": "پارسا",
+   "sentence": "r09",
+   "condition": "R1",
+   "words": [
+    "زانویش"
+   ],
+   "note": "زانویش زانوییش گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r09",
+   "condition": "R0",
+   "words": [
+    "زانویش"
+   ],
+   "note": "زانویش زانوییش گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r03",
+   "condition": "R0",
+   "words": [
+    "دیوار",
+    "حیاط"
+   ],
+   "note": "دیوارِی حیاطِ",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r03",
+   "condition": "R1",
+   "words": [
+    "روی",
+    "دیوار",
+    "حیاط"
+   ],
+   "note": "رُی گفت و دیوارِ حیاطِ گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r05",
+   "condition": "R1",
+   "words": [
+    "بشقابش"
+   ],
+   "note": "بِشقابش گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r05",
+   "condition": "R0",
+   "words": [
+    "بشقابش"
+   ],
+   "note": "بِشقابَش گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r01",
+   "condition": "R0",
+   "words": [
+    "باران"
+   ],
+   "note": "بارانِ گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r01",
+   "condition": "R1",
+   "words": [
+    "باران"
+   ],
+   "note": "بارانِ گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r02",
+   "condition": "R1",
+   "words": [
+    "طاقچه"
+   ],
+   "note": "طاقِچه گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r02",
+   "condition": "R0",
+   "words": [
+    "طاقچه"
+   ],
+   "note": "طاقِچه گذاشتد گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r06",
+   "condition": "R0",
+   "words": [
+    "پیرمرد",
+    "نیمکت",
+    "می‌نشیند"
+   ],
+   "note": "پیرمردِ گفت و نیمِکَتِ و مینشینَد بدون َ  گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r06",
+   "condition": "R1",
+   "words": [
+    "پیرمرد",
+    "نیمکت",
+    "می‌نشیند"
+   ],
+   "note": "پیرمردِ گفت و نیمِکَتِ و مینشینَد بدون َ  گفت",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r10",
+   "condition": "R0",
+   "words": [
+    "پنجه",
+    "دیوار"
+   ],
+   "note": "پنجه رو پنجِ تلفظ کرد با کمی مکث و دیوار دیوارِ گفت‌",
+   "twin_note": null
+  },
+  {
+   "listener": "پارسا",
+   "sentence": "r10",
+   "condition": "R1",
+   "words": [
+    "پنجه",
+    "دیوار"
+   ],
+   "note": "پنجه رو پنجِ تلفظ کرد با کمی مکث و دیوار دیوارِ گفت‌",
+   "twin_note": null
+  }
+ ],
+ "label": "diagnostic - fourteen sentences, few listeners; not a claim"
+}

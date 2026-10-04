@@ -79,5 +79,52 @@
    "outcome": "no render: every gate before the renders passed and all 48 texts went through the app's pipeline with no mark lost, then the render script stopped before the engine loaded - it made the texts path relative to the repository and was given one already relative (ValueError). Nothing was heard or scored from it",
    "fix": "scripts/render_frontend_conditions.py resolves its paths first (bfd6405), with tests/test_render_frontend_conditions.py running it on a relative path up to a stubbed engine. Uploading that to the code dataset hung twice from this Mac, so kernel version 2 runs the dataset as it was (e1d96e4) and passes the texts path absolute, which that script handles; texts, rules and settings unchanged"
   }
- ]
+ ],
+ "result": {
+  "when": "2026-10-04; renders from kernel version 2 (every gate passed), the listening on the published page, answers read from its store after the user said it was finished",
+  "listener": "the user, blind; all 12 sentences, two notes (eval/runs/evidence/frontend-review-v2/answers-listener-1.json)",
+  "words_marked_wrong_of_242": {
+   "E": 27,
+   "EH": 25,
+   "ES": 27,
+   "EHS": 25
+  },
+  "picked_best": {
+   "no difference": 1,
+   "EHS": 4,
+   "EH": 3,
+   "E": 1,
+   "ES": 3
+  },
+  "homographs_marked_wrong_of_23": {
+   "E": 14,
+   "EH": 8,
+   "ES": 15,
+   "EHS": 8
+  },
+  "mean_cer": {
+   "E": 0.0238,
+   "EH": 0.0199,
+   "ES": 0.0205,
+   "EHS": 0.0254
+  },
+  "held_out_similarity": {
+   "E": 0.5986,
+   "EH": 0.6075,
+   "ES": 0.6024,
+   "EHS": 0.6084
+  },
+  "decision_by_the_registered_rules": {
+   "H": "EH + EHS 50 against E + ES 54: kept. CER +0.05 points, similarity +0.0074 [-0.0026, +0.0181]: not flagged. Adopted",
+   "S": "ES + EHS 52 against E + EH 52: a tie, dropped. CER +0.11 points, similarity +0.0023 [-0.0097, +0.0127]: not flagged"
+  },
+  "read_beside_it_not_used_for_the_decision": {
+   "H_by_word": "on the words it marked 13 fixed, 4 broke - the four broken are the preposition به, which every one of its four marks (بِه) made wrong and which E never got wrong; on words it left 5 fixed, 10 broke. Fixed: شکر (shokr), سر (sar) in v04 and v10, both مهر, پر (por), تن. Marked right and still heard wrong in every form: محرم (v01), خلق, مسکن (maskan, v09), عرق, سحر. Homo-GE2PE's four wrong readings (both کشتی, سر for serr, مسکن for mosakken) did not fix theirs",
+   "S_by_word": "on the words it marked 7 fixed, 1 broke (مسافران, جوانان and بیمار twice each, کارمند once; خسته‌اش broke); on words it left 2 fixed, 8 broke. With one seed per form every changed text renders anew, so the words it left move by chance; the rule counts them all, as registered",
+   "notes": "v03: the شکر of sugar was said shekr in EH and EHS - the first vowel was right, the second dropped. v07: روی said royi in all four forms",
+   "rui": "روی with its written ezafe (رویِ, the app's E) was marked wrong in 11 of 12 readings across v02, v05 and v07 - in every form, so not from H or S. In step 2 the one رویِ (n02) was heard right in every form, plain script included. Whether the written kasra causes it is not known from this test: no plain form was rendered here",
+   "users_sentence": "v01's تعاملات was heard right in all four forms this time - the ezafe OmniVoice added in the user's own render did not recur on this seed"
+  },
+  "label": "one listener, one voice, one seed, 242 words; homographs outside HomoRich's list are not touched"
+ }
 }

@@ -1,0 +1,764 @@
+{
+ "listeners": [
+  "احمدرضا"
+ ],
+ "per_condition": {
+  "E": {
+   "renders": 12,
+   "clean": 1,
+   "words": 242,
+   "wrong": 27,
+   "best": 1,
+   "clean_share": 0.083,
+   "wrong_word_share": 0.112
+  },
+  "EH": {
+   "renders": 12,
+   "clean": 1,
+   "words": 242,
+   "wrong": 25,
+   "best": 3,
+   "clean_share": 0.083,
+   "wrong_word_share": 0.103
+  },
+  "EHS": {
+   "renders": 12,
+   "clean": 1,
+   "words": 242,
+   "wrong": 25,
+   "best": 4,
+   "clean_share": 0.083,
+   "wrong_word_share": 0.103
+  },
+  "ES": {
+   "renders": 12,
+   "clean": 1,
+   "words": 242,
+   "wrong": 27,
+   "best": 3,
+   "clean_share": 0.083,
+   "wrong_word_share": 0.112
+  }
+ },
+ "by_category": {
+  "homograph_araq": {
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_elm": {
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_kashti": {
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_maskan": {
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_mehr": {
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_mosakken": {
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_par": {
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_sahar": {
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_sar": {
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "homograph_sarf": {
+   "ES": {
+    "renders": 1,
+    "clean": 1
+   },
+   "EHS": {
+    "renders": 1,
+    "clean": 1
+   },
+   "E": {
+    "renders": 1,
+    "clean": 1
+   },
+   "EH": {
+    "renders": 1,
+    "clean": 1
+   }
+  },
+  "homograph_shekar": {
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   },
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   }
+  },
+  "users_sentence": {
+   "E": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EH": {
+    "renders": 1,
+    "clean": 0
+   },
+   "EHS": {
+    "renders": 1,
+    "clean": 0
+   },
+   "ES": {
+    "renders": 1,
+    "clean": 0
+   }
+  }
+ },
+ "marked": [
+  {
+   "listener": "احمدرضا",
+   "sentence": "v01",
+   "condition": "E",
+   "words": [
+    "سلامت",
+    "محرم",
+    "اسرار"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v01",
+   "condition": "EH",
+   "words": [
+    "محرم",
+    "اسرار"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v01",
+   "condition": "EHS",
+   "words": [
+    "محرم",
+    "اسرار"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v01",
+   "condition": "ES",
+   "words": [
+    "سلامت",
+    "محرم",
+    "اسرار"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v02",
+   "condition": "EHS",
+   "words": [
+    "غروب",
+    "روی",
+    "دور"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v02",
+   "condition": "ES",
+   "words": [
+    "سفر",
+    "غروب",
+    "روی",
+    "دور"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v02",
+   "condition": "E",
+   "words": [
+    "مسافران",
+    "روی",
+    "دور"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v02",
+   "condition": "EH",
+   "words": [
+    "مسافران",
+    "غروب",
+    "دور"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v03",
+   "condition": "ES",
+   "words": [
+    "شکر",
+    "شکر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v03",
+   "condition": "E",
+   "words": [
+    "شکر",
+    "شکر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v03",
+   "condition": "EH",
+   "words": [
+    "شکر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v03",
+   "condition": "EHS",
+   "words": [
+    "شکر"
+   ],
+   "note": "این با ۳ در یک حده جفتشون shekar رو shekr میگن ولی چون نمیشه همزمان دو تا رو بعنوان خوانش بهتر انتخاب کرد شانسی ۳ رو زدم چون از ۱ و ۲ بهتر بودن",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v04",
+   "condition": "EH",
+   "words": [
+    "به",
+    "سر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v04",
+   "condition": "EHS",
+   "words": [
+    "ساعت",
+    "به",
+    "هنوز",
+    "سر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v04",
+   "condition": "ES",
+   "words": [
+    "سر",
+    "سر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v04",
+   "condition": "E",
+   "words": [
+    "سر",
+    "سر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v05",
+   "condition": "EHS",
+   "words": [
+    "روی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v05",
+   "condition": "E",
+   "words": [
+    "مهر",
+    "روی",
+    "مهر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v05",
+   "condition": "ES",
+   "words": [
+    "مهر",
+    "روی",
+    "مهر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v05",
+   "condition": "EH",
+   "words": [
+    "کارمند",
+    "روی",
+    "تشکر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v06",
+   "condition": "E",
+   "words": [
+    "دانشمندان",
+    "خلق"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v06",
+   "condition": "ES",
+   "words": [
+    "خلق"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v06",
+   "condition": "EH",
+   "words": [
+    "دانشمندان",
+    "خلق"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v06",
+   "condition": "EHS",
+   "words": [
+    "دانشمندان",
+    "خلق"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v07",
+   "condition": "ES",
+   "words": [
+    "پر",
+    "روی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v07",
+   "condition": "EH",
+   "words": [
+    "روی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v07",
+   "condition": "EHS",
+   "words": [
+    "روی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v07",
+   "condition": "E",
+   "words": [
+    "پر",
+    "روی"
+   ],
+   "note": "کلا ruye رو royi میگه در هر ۴ خوانش",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v08",
+   "condition": "EH",
+   "words": [
+    "مسکن",
+    "بخورد"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v08",
+   "condition": "EHS",
+   "words": [
+    "مسکن",
+    "بخورد",
+    "خسته‌اش"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v08",
+   "condition": "E",
+   "words": [
+    "مسکن",
+    "بخورد"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v08",
+   "condition": "ES",
+   "words": [
+    "مسکن",
+    "بخورد",
+    "تن"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v09",
+   "condition": "E",
+   "words": [
+    "مسکن"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v09",
+   "condition": "EH",
+   "words": [
+    "مسکن"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v09",
+   "condition": "ES",
+   "words": [
+    "مسکن"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v09",
+   "condition": "EHS",
+   "words": [
+    "مسکن"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v10",
+   "condition": "EH",
+   "words": [
+    "بیمار",
+    "عرق",
+    "او",
+    "دلسوزی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v10",
+   "condition": "ES",
+   "words": [
+    "عرق",
+    "او",
+    "سر",
+    "دلسوزی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v10",
+   "condition": "EHS",
+   "words": [
+    "عرق",
+    "او",
+    "دلسوزی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v10",
+   "condition": "E",
+   "words": [
+    "بیمار",
+    "عرق",
+    "سر",
+    "دلسوزی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v12",
+   "condition": "EHS",
+   "words": [
+    "به",
+    "ورزش",
+    "سحر",
+    "دویدن"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v12",
+   "condition": "E",
+   "words": [
+    "جوانان",
+    "ورزش",
+    "سحر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v12",
+   "condition": "EH",
+   "words": [
+    "جوانان",
+    "به",
+    "سحر",
+    "دویدن"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "v12",
+   "condition": "ES",
+   "words": [
+    "ورزش",
+    "سحر"
+   ],
+   "note": "",
+   "twin_note": null
+  }
+ ],
+ "label": "diagnostic - fourteen sentences, few listeners; not a claim"
+}

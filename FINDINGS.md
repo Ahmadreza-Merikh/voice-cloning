@@ -1451,3 +1451,40 @@ and in 33 listed words (توجه, شبیه, گره ...), silent otherwise. No ez
 هٔ. Through the app at its default settings the 12 listening sentences give
 the E text that was heard in 11 and differ in n12 only by that مدیر - a form
 nobody has heard yet. Every other engine gets the text it got before.
+
+## 17. Homograph vowels help; a sukun before adverbs does not pass
+
+Step 3 went back to the errors the user heard in the app: an ezafe OmniVoice
+added on its own before an adverb (تعاملات معمولاً), and homographs read the
+other way (محرم, اسرار). Twelve sentences (the user's and eleven new, none in
+HomoRich, SentenceBench or the adaptation data) with 23 of HomoRich's
+homographs that the first vowel tells apart, in a 2 x 2 on top of the app's
+ezafe: H, the first short vowel of each such homograph from Homo-GE2PE's
+reading of the sentence; S, a sukun on a noun, adjective or number the tagger
+gives no ezafe when an adverb follows. Registered before any front-end ran on
+the sentences (`eval/runs/persian-voice-frontend-listening-v2.json`); rendered
+in one Kaggle session (the first stopped on a path bug before the engine
+loaded); heard blind by the user.
+
+| | words marked wrong (of 242) | homographs wrong (of 23) | picked best | mean CER | held-out similarity |
+|---|---|---|---|---|---|
+| E (the app) | 27 | 14 | 1 | 2.4% | 0.599 |
+| EH | 25 | 8 | 3 | 2.0% | 0.608 |
+| ES | 27 | 15 | 3 | 2.1% | 0.602 |
+| EHS | 25 | 8 | 4 | 2.5% | 0.608 |
+
+**H is kept** (50 words against 54) and nothing flags it: CER +0.05 points,
+similarity +0.007 [-0.003, +0.018]. It halves the homographs heard wrong.
+**S ties** (52 against 52) and is dropped. Read beside it: on the words it
+marked S fixed 7 and broke 1, while words it left moved 2 against 8 - with one
+seed every changed text renders anew, and the registered count takes both.
+
+What the words say. H fixed شکر (shokr), سر (sar) twice, both مهر, پر and
+تن, and broke only the preposition به, all four times it marked it (بِه);
+unmarked, به was never wrong. Five homographs marked right were still heard
+wrong in every form (محرم, خلق, مسکن, عرق, سحر), and Homo-GE2PE's four wrong
+readings (both کشتی, سرّ, the painkiller مسکن) fixed nothing. The listener
+noted the sugar شکر said shekr even with its first vowel marked. And روی with
+the app's written ezafe (رویِ) was heard wrong in 11 of 12 readings - every
+form, so not H or S - where step 2's one رویِ was heard right; no plain form
+was rendered here to say whether the kasra causes it.

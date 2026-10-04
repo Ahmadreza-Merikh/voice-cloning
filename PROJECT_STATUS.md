@@ -4,7 +4,32 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-03 18:20 +0330 (2026-10-03 14:50 UTC).
+Last updated: 2026-10-04 13:30 +0330 (2026-10-04 10:00 UTC).
+
+## Step 3 heard: homograph vowels kept, sukun before adverbs dropped (2026-10-04)
+
+Registered before any front-end ran (`eval/runs/persian-voice-frontend-listening-v2.json`,
+result recorded; FINDINGS section 17). Twelve sentences (the user's and eleven
+new) with 23 HomoRich homographs, 2 x 2 on top of the app's ezafe: H = the
+first short vowel of each homograph from Homo-GE2PE in context, S = a sukun on
+a noun before an adverb. Kaggle `persian-voice-frontend-listening-v2-run`
+version 2 (version 1 rendered nothing: a relative-path bug, fixed in
+bfd6405; the code dataset could not be re-uploaded from this Mac, so v2 passed
+the path absolute). Page: https://claude.ai/artifact/RdNBNBgQ5VZum2PG5N4rfh
+
+Words wrong of 242: E 27, EH 25, ES 27, EHS 25; homographs wrong of 23: E 14,
+EH 8, ES 15, EHS 8. **H kept and unflagged** (CER +0.05 points, similarity
++0.007 [-0.003, +0.018]); **S a tie, dropped**. H broke only the preposition
+به, all four times it marked it. روی with the written ezafe (رویِ) was heard
+wrong in 11 of 12 readings, in every form - not yet known whether the kasra
+causes it (`scripts/read_frontend_listening_v2.py` -> `eval/runs/evidence/frontend-review-v2/reading.json`).
+
+**Next (the user's call):**
+1. H into the app for OmniVoice: Homo-GE2PE's first vowel on HomoRich's 191
+   homographs (`eval/manifests/homorich_homographs_v1.json`, CC0), recommended
+   without به (every mark on it was heard wrong). Homo-GE2PE is 0.7 GB, run
+   before the speech model like the tagger; off with a note where it is absent.
+2. A short blind check of روی with and without the written ezafe.
 
 ## The ezafe is in the app for OmniVoice (2026-10-03 18:20 +0330)
 

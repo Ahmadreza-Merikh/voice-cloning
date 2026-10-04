@@ -1,0 +1,641 @@
+{
+ "words_wrong": {
+  "E": 27,
+  "EH": 25,
+  "ES": 27,
+  "EHS": 25
+ },
+ "of_words": 242,
+ "best": {
+  "no difference": 1,
+  "EHS": 4,
+  "EH": 3,
+  "E": 1,
+  "ES": 3
+ },
+ "homographs": {
+  "count": 23,
+  "marked_wrong": {
+   "E": 14,
+   "EH": 8,
+   "ES": 15,
+   "EHS": 8
+  }
+ },
+ "mean_cer": {
+  "E": 0.0238,
+  "EH": 0.0199,
+  "ES": 0.0205,
+  "EHS": 0.0254
+ },
+ "similarity": {
+  "E": 0.5986,
+  "EH": 0.6075,
+  "ES": 0.6024,
+  "EHS": 0.6084
+ },
+ "decisions": {
+  "H": {
+   "words_wrong_with": 50,
+   "words_wrong_without": 54,
+   "kept": true,
+   "cer_rise_points": 0.05,
+   "similarity_minus": [
+    0.0074,
+    -0.0026,
+    0.0181
+   ],
+   "flagged": false,
+   "adopted": true,
+   "its_own_words": {
+    "fixed": 13,
+    "broke": 4
+   },
+   "words_it_left": {
+    "fixed": 5,
+    "broke": 10
+   },
+   "moved": [
+    {
+     "sentence": "v06",
+     "word": "دانشمندان",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v08",
+     "word": "تن",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v08",
+     "word": "خسته‌اش",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v02",
+     "word": "غروب",
+     "from": "E",
+     "to": "EH",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v02",
+     "word": "روی",
+     "from": "E",
+     "to": "EH",
+     "kind": "a word it left, fixed"
+    },
+    {
+     "sentence": "v02",
+     "word": "سفر",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "a word it left, fixed"
+    },
+    {
+     "sentence": "v01",
+     "word": "سلامت",
+     "from": "E",
+     "to": "EH",
+     "kind": "a word it left, fixed"
+    },
+    {
+     "sentence": "v01",
+     "word": "سلامت",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "a word it left, fixed"
+    },
+    {
+     "sentence": "v12",
+     "word": "به",
+     "from": "E",
+     "to": "EH",
+     "kind": "its own word, broke"
+    },
+    {
+     "sentence": "v12",
+     "word": "ورزش",
+     "from": "E",
+     "to": "EH",
+     "kind": "a word it left, fixed"
+    },
+    {
+     "sentence": "v12",
+     "word": "دویدن",
+     "from": "E",
+     "to": "EH",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v12",
+     "word": "به",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "its own word, broke"
+    },
+    {
+     "sentence": "v12",
+     "word": "دویدن",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v10",
+     "word": "او",
+     "from": "E",
+     "to": "EH",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v10",
+     "word": "سر",
+     "from": "E",
+     "to": "EH",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v10",
+     "word": "سر",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v03",
+     "word": "شکر",
+     "from": "E",
+     "to": "EH",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v03",
+     "word": "شکر",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v04",
+     "word": "سر",
+     "from": "E",
+     "to": "EH",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v04",
+     "word": "به",
+     "from": "E",
+     "to": "EH",
+     "kind": "its own word, broke"
+    },
+    {
+     "sentence": "v04",
+     "word": "سر",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v04",
+     "word": "ساعت",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v04",
+     "word": "به",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "its own word, broke"
+    },
+    {
+     "sentence": "v04",
+     "word": "هنوز",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v05",
+     "word": "کارمند",
+     "from": "E",
+     "to": "EH",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v05",
+     "word": "مهر",
+     "from": "E",
+     "to": "EH",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v05",
+     "word": "مهر",
+     "from": "E",
+     "to": "EH",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v05",
+     "word": "تشکر",
+     "from": "E",
+     "to": "EH",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v05",
+     "word": "مهر",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v05",
+     "word": "مهر",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v07",
+     "word": "پر",
+     "from": "E",
+     "to": "EH",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v07",
+     "word": "پر",
+     "from": "ES",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    }
+   ]
+  },
+  "S": {
+   "words_wrong_with": 52,
+   "words_wrong_without": 52,
+   "kept": false,
+   "cer_rise_points": 0.11,
+   "similarity_minus": [
+    0.0023,
+    -0.0097,
+    0.0127
+   ],
+   "flagged": false,
+   "adopted": false,
+   "its_own_words": {
+    "fixed": 7,
+    "broke": 1
+   },
+   "words_it_left": {
+    "fixed": 2,
+    "broke": 8
+   },
+   "moved": [
+    {
+     "sentence": "v06",
+     "word": "دانشمندان",
+     "from": "E",
+     "to": "ES",
+     "kind": "a word it left, fixed"
+    },
+    {
+     "sentence": "v08",
+     "word": "تن",
+     "from": "E",
+     "to": "ES",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v08",
+     "word": "خسته‌اش",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "its own word, broke"
+    },
+    {
+     "sentence": "v02",
+     "word": "سفر",
+     "from": "E",
+     "to": "ES",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v02",
+     "word": "مسافران",
+     "from": "E",
+     "to": "ES",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v02",
+     "word": "غروب",
+     "from": "E",
+     "to": "ES",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v02",
+     "word": "مسافران",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v02",
+     "word": "روی",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v12",
+     "word": "جوانان",
+     "from": "E",
+     "to": "ES",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v12",
+     "word": "جوانان",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v12",
+     "word": "ورزش",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v10",
+     "word": "بیمار",
+     "from": "E",
+     "to": "ES",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v10",
+     "word": "او",
+     "from": "E",
+     "to": "ES",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v10",
+     "word": "بیمار",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v04",
+     "word": "ساعت",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v04",
+     "word": "هنوز",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "a word it left, broke"
+    },
+    {
+     "sentence": "v05",
+     "word": "کارمند",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "its own word, fixed"
+    },
+    {
+     "sentence": "v05",
+     "word": "تشکر",
+     "from": "EH",
+     "to": "EHS",
+     "kind": "a word it left, fixed"
+    }
+   ]
+  }
+ },
+ "notes": [
+  {
+   "sentence": "v03",
+   "form": "EHS",
+   "note": "این با ۳ در یک حده جفتشون shekar رو shekr میگن ولی چون نمیشه همزمان دو تا رو بعنوان خوانش بهتر انتخاب کرد شانسی ۳ رو زدم چون از ۱ و ۲ بهتر بودن"
+  },
+  {
+   "sentence": "v07",
+   "form": "E",
+   "note": "کلا ruye رو royi میگه در هر ۴ خوانش"
+  }
+ ],
+ "marked": {
+  "v09:E": [
+   "مسکن"
+  ],
+  "v09:EH": [
+   "مسکن"
+  ],
+  "v09:ES": [
+   "مسکن"
+  ],
+  "v09:EHS": [
+   "مسکن"
+  ],
+  "v06:E": [
+   "دانشمندان",
+   "خلق"
+  ],
+  "v06:EH": [
+   "دانشمندان",
+   "خلق"
+  ],
+  "v06:ES": [
+   "خلق"
+  ],
+  "v06:EHS": [
+   "دانشمندان",
+   "خلق"
+  ],
+  "v08:E": [
+   "مسکن",
+   "بخورد"
+  ],
+  "v08:EH": [
+   "مسکن",
+   "بخورد"
+  ],
+  "v08:ES": [
+   "مسکن",
+   "بخورد",
+   "تن"
+  ],
+  "v08:EHS": [
+   "مسکن",
+   "بخورد",
+   "خسته‌اش"
+  ],
+  "v02:E": [
+   "مسافران",
+   "روی",
+   "دور"
+  ],
+  "v02:EH": [
+   "مسافران",
+   "غروب",
+   "دور"
+  ],
+  "v02:ES": [
+   "سفر",
+   "غروب",
+   "روی",
+   "دور"
+  ],
+  "v02:EHS": [
+   "غروب",
+   "روی",
+   "دور"
+  ],
+  "v01:E": [
+   "سلامت",
+   "محرم",
+   "اسرار"
+  ],
+  "v01:EH": [
+   "محرم",
+   "اسرار"
+  ],
+  "v01:ES": [
+   "سلامت",
+   "محرم",
+   "اسرار"
+  ],
+  "v01:EHS": [
+   "محرم",
+   "اسرار"
+  ],
+  "v12:E": [
+   "جوانان",
+   "ورزش",
+   "سحر"
+  ],
+  "v12:EH": [
+   "جوانان",
+   "به",
+   "سحر",
+   "دویدن"
+  ],
+  "v12:ES": [
+   "ورزش",
+   "سحر"
+  ],
+  "v12:EHS": [
+   "به",
+   "ورزش",
+   "سحر",
+   "دویدن"
+  ],
+  "v10:E": [
+   "بیمار",
+   "عرق",
+   "سر",
+   "دلسوزی"
+  ],
+  "v10:EH": [
+   "بیمار",
+   "عرق",
+   "او",
+   "دلسوزی"
+  ],
+  "v10:ES": [
+   "عرق",
+   "او",
+   "سر",
+   "دلسوزی"
+  ],
+  "v10:EHS": [
+   "عرق",
+   "او",
+   "دلسوزی"
+  ],
+  "v03:E": [
+   "شکر",
+   "شکر"
+  ],
+  "v03:EH": [
+   "شکر"
+  ],
+  "v03:ES": [
+   "شکر",
+   "شکر"
+  ],
+  "v03:EHS": [
+   "شکر"
+  ],
+  "v04:E": [
+   "سر",
+   "سر"
+  ],
+  "v04:EH": [
+   "به",
+   "سر"
+  ],
+  "v04:ES": [
+   "سر",
+   "سر"
+  ],
+  "v04:EHS": [
+   "ساعت",
+   "به",
+   "هنوز",
+   "سر"
+  ],
+  "v05:E": [
+   "مهر",
+   "روی",
+   "مهر"
+  ],
+  "v05:EH": [
+   "کارمند",
+   "روی",
+   "تشکر"
+  ],
+  "v05:ES": [
+   "مهر",
+   "روی",
+   "مهر"
+  ],
+  "v05:EHS": [
+   "روی"
+  ],
+  "v07:E": [
+   "پر",
+   "روی"
+  ],
+  "v07:EH": [
+   "روی"
+  ],
+  "v07:ES": [
+   "پر",
+   "روی"
+  ],
+  "v07:EHS": [
+   "روی"
+  ]
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "run": "the روی check: does the kasra the app writes on the preposition روی (رویِ) make OmniVoice say it wrong",
+ "status": "registered 2026-10-04, before any front-end ran on these sentences and before any render",
+ "why": "in step 3 روی with the app's written ezafe was marked wrong in 11 of 12 readings across three sentences, in every form; the listener noted it said royi. In step 2 the one رویِ was heard right. No plain form was rendered in step 3, so whether the kasra causes it is open",
+ "sentences": {
+  "file": "eval/manifests/rui_check_v1.json",
+  "sha256": "bf4e0ed995d163aefdf0b2a43dccadaa3d9259c2b1238faa335e45f5b3419af7",
+  "count": 10,
+  "rui": 12,
+  "words": 114,
+  "written_by": "Claude, 2026-10-04: روی as the preposition 'on' before a noun phrase - it takes the ezafe, ru-ye - in ten everyday contexts, two sentences with it twice",
+  "leakage_check": {
+   "homorich": {
+    "checked": 528875,
+    "hits": 0
+   },
+   "sentencebench": {
+    "checked": 400,
+    "hits": 0
+   },
+   "adaptation_splits": {
+    "checked": 96413,
+    "hits": 0
+   },
+   "earlier_tests": {
+    "checked": 38,
+    "hits": 0
+   }
+  },
+  "leakage_rule": "step 2's"
+ },
+ "forms": {
+  "R1": "what the app sends OmniVoice today, at its default settings: the tagger's ezafe (رویِ) and Homo-GE2PE's homograph first vowels",
+  "R0": "R1 with the kasra taken off every روی that carries one, and nothing else changed"
+ },
+ "rendering": "as step 3: one Kaggle T4 x2 session through the app's render script with its normaliser for OmniVoice and nothing added, seed 42, mana_000.wav, 10 x 2 = 20 renders, CER after the worker is released; held-out similarity after",
+ "review": "as step 3: the plain sentence, two readings in Latin-square slots (each form five times in each slot), loudness matched, the key off the page; words to tap, a note, the better reading",
+ "decision_rule": {
+  "primary": "the times روی itself is marked wrong in each form, of 12",
+  "rule": "the app stops writing the kasra on روی if R0 has روی marked wrong fewer times than R1 and R0's words marked wrong in all (of 114) are not more than R1's; otherwise it keeps writing it. A tie keeps it",
+  "harm": "R0 is flagged and not adopted without the user's say if its mean CER is more than 2 points above R1's, or if its paired held-out similarity difference has a 95% bootstrap interval wholly below zero"
+ },
+ "not_claimed": "one listener, one voice, one seed, 12 روی; other words ending in ی are not tested",
+ "cost": "Kaggle: one session, about 0.2 GPU-hours; listening about 8 minutes"
+}

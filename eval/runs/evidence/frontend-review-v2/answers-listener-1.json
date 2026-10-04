@@ -1,0 +1,457 @@
+{
+  "answered": 12,
+  "answers": {
+    "v01": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            12,
+            28,
+            29
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            28,
+            29
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            28,
+            29
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            12,
+            28,
+            29
+          ]
+        }
+      }
+    },
+    "v02": {
+      "best": "1",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            7,
+            8,
+            15
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            2,
+            7,
+            8,
+            15
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4,
+            8,
+            15
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4,
+            7,
+            15
+          ]
+        }
+      }
+    },
+    "v03": {
+      "best": "3",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            17
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            17
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            17
+          ]
+        },
+        "4": {
+          "note": "این با ۳ در یک حده جفتشون shekar رو shekr میگن ولی چون نمیشه همزمان دو تا رو بعنوان خوانش بهتر انتخاب کرد شانسی ۳ رو زدم چون از ۱ و ۲ بهتر بودن",
+          "ok": false,
+          "words": [
+            17
+          ]
+        }
+      }
+    },
+    "v04": {
+      "best": "4",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4,
+            11
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            3,
+            4,
+            8,
+            11
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            2,
+            11
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            2,
+            11
+          ]
+        }
+      }
+    },
+    "v05": {
+      "best": "1",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            5
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            2,
+            5,
+            11
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            2,
+            5,
+            11
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            5,
+            16
+          ]
+        }
+      }
+    },
+    "v06": {
+      "best": "2",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            11
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            11
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            11
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            11
+          ]
+        }
+      }
+    },
+    "v07": {
+      "best": "2",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            11,
+            13
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            13
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            13
+          ]
+        },
+        "4": {
+          "note": "کلا ruye رو royi میگه در هر ۴ خوانش",
+          "ok": false,
+          "words": [
+            11,
+            13
+          ]
+        }
+      }
+    },
+    "v08": {
+      "best": "1",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            8,
+            9
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            8,
+            9,
+            12
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            8,
+            9
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            8,
+            9,
+            11
+          ]
+        }
+      }
+    },
+    "v09": {
+      "best": "3",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4
+          ]
+        }
+      }
+    },
+    "v10": {
+      "best": "3",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            1,
+            10,
+            12,
+            19
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            10,
+            12,
+            18,
+            19
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            10,
+            12,
+            19
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            1,
+            10,
+            18,
+            19
+          ]
+        }
+      }
+    },
+    "v11": {
+      "best": "2",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "4": {
+          "note": "",
+          "ok": true,
+          "words": []
+        }
+      }
+    },
+    "v12": {
+      "best": "4",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            3,
+            4,
+            11,
+            17
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            4,
+            11
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            3,
+            11,
+            17
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4,
+            11
+          ]
+        }
+      }
+    }
+  },
+  "complete": true,
+  "listener": "احمدرضا",
+  "updated": "2026-10-04T09:36:08.767Z",
+  "version": "frontend-review-v2"
+}

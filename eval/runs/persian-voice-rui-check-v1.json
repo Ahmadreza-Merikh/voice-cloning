@@ -77,5 +77,11 @@
    "other_words": "heard wrong in both forms: زانویش (noted زانوییش), بشقابش (بِشقاب, e for o), طاقچه and نیمکت with a vowel added inside (طاقِچه, نیمِکَت), می‌نشیند without its last a, پنجهٔ پا said panj-e with a pause (the هٔ ezafe of a silent h), and دیوار in r03 (noted دیوارِی in R0)"
   },
   "label": "one listener, one voice, one seed, 12 روی"
+ },
+ "in_the_app": {
+  "when": "2026-10-04, by the registered rule",
+  "what": "the tagger's ezafe is no longer written on روی (NO_EZAFE_ON in src/voiceclone/text/ezafe_fa.py); a kasra the writer put there stays",
+  "checked": "through the app at its default settings, with the real tagger and the real Homo-GE2PE, the 10 sentences give the R0 that was heard, 10 of 10 (scripts/check_rui_in_app.py -> eval/runs/evidence/rui-check-v1/app_vs_heard.json)",
+  "tests": "626 passed, 1 skipped"
  }
 }

@@ -39,11 +39,18 @@ def test_every_punctuation_mark_is_a_token_of_its_own() -> None:
 
 
 def test_the_ezafe_is_written_in_the_form_each_word_asks_for() -> None:
-    tagger = FakeTagger("کتاب", "خانه", "دانشجو", "روی", "توجه", "شبیه")
-    text, written = write_ezafe("کتاب و «خانه» و دانشجو روی میز. توجه و شبیه.", tagger.tag)
-    assert text == ("کتاب" + KASRA + " و «خانه" + HAMZA_ABOVE + "» و دانشجوی روی" + KASRA + " میز. توجه" + KASRA
+    tagger = FakeTagger("کتاب", "خانه", "دانشجو", "پای", "توجه", "شبیه")
+    text, written = write_ezafe("کتاب و «خانه» و دانشجو پای میز. توجه و شبیه.", tagger.tag)
+    assert text == ("کتاب" + KASRA + " و «خانه" + HAMZA_ABOVE + "» و دانشجوی پای" + KASRA + " میز. توجه" + KASRA
                     + " و شبیه" + KASRA + ".")
-    assert written == ["کتاب", "خانه", "دانشجو", "روی", "توجه", "شبیه"]
+    assert written == ["کتاب", "خانه", "دانشجو", "پای", "توجه", "شبیه"]
+
+
+def test_rui_never_gets_the_ezafe_and_a_kasra_the_writer_put_on_it_stays() -> None:
+    tagger = FakeTagger("لیوان", "روی", "رویِ")
+    text, written = write_ezafe("لیوان چای را روی میز گذاشت و کتاب را رویِ زانو باز کرد.", tagger.tag)
+    assert text == "لیوان" + KASRA + " چای را روی میز گذاشت و کتاب را رویِ زانو باز کرد."
+    assert written == ["لیوان"]
 
 
 def test_each_sentence_is_tagged_on_its_own() -> None:

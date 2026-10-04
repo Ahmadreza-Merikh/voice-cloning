@@ -1,0 +1,123 @@
+{
+ "settings": {
+  "ezafe": {
+   "enabled": "auto",
+   "export_dir": "~/.cache/persian-voice-cloning/ezafe-tagger",
+   "download": true,
+   "min_available_gb": 1.5
+  },
+  "homographs": {
+   "enabled": "auto",
+   "min_available_gb": 1.0
+  },
+  "marks_engines": [
+   "omnivoice"
+  ]
+ },
+ "same": 10,
+ "of": 10,
+ "sentences": [
+  {
+   "id": "r01",
+   "heard_R0": "گربه آرام روی مبل خوابیده بود و به صدایِ باران گوش می‌داد.",
+   "app": "گربه آرام روی مبل خوابیده بود و به صدایِ باران گوش می‌داد.",
+   "same": true,
+   "seconds": 6.4,
+   "notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: صدای."
+   ]
+  },
+  {
+   "id": "r02",
+   "heard_R0": "مادرم گلدانِ کوچک را روی طاقچه گذاشت تا آفتاب به آن برسد.",
+   "app": "مادرم گلدانِ کوچک را روی طاقچه گذاشت تا آفتاب به آن برسد.",
+   "same": true,
+   "seconds": 0.8,
+   "notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: گلدان."
+   ]
+  },
+  {
+   "id": "r03",
+   "heard_R0": "بچه‌ها با گچِ رنگی روی دیوارِ حیاط نقاشی کشیده بودند.",
+   "app": "بچه‌ها با گچِ رنگی روی دیوارِ حیاط نقاشی کشیده بودند.",
+   "same": true,
+   "seconds": 0.8,
+   "notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: گچ، دیوار."
+   ]
+  },
+  {
+   "id": "r04",
+   "heard_R0": "هواپیما ساعت‌ها روی ابرها پرواز کَرد و سرانجام در فرودگاه نِشست.",
+   "app": "هواپیما ساعت‌ها روی ابرها پرواز کَرد و سرانجام در فرودگاه نِشست.",
+   "same": true,
+   "seconds": 0.8,
+   "notes": [
+    "First vowel written on 2 homograph(s) from Homo-GE2PE: کرد، نشست."
+   ]
+  },
+  {
+   "id": "r05",
+   "heard_R0": "اسمِ هر مهمان را روی یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم.",
+   "app": "اسمِ هر مهمان را روی یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم.",
+   "same": true,
+   "seconds": 0.9,
+   "notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: اسم، کارت، کنار."
+   ]
+  },
+  {
+   "id": "r06",
+   "heard_R0": "پیرمرد هر صبح روی نیمکتِ پارک می‌نشیند و روزنامه می‌خواند.",
+   "app": "پیرمرد هر صبح روی نیمکتِ پارک می‌نشیند و روزنامه می‌خواند.",
+   "same": true,
+   "seconds": 0.8,
+   "notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: نیمکت."
+   ]
+  },
+  {
+   "id": "r07",
+   "heard_R0": "برفِ سنگین روی سقفِ خانه‌هایِ روستا نَشسته بود.",
+   "app": "برفِ سنگین روی سقفِ خانه‌هایِ روستا نَشسته بود.",
+   "same": true,
+   "seconds": 0.7,
+   "notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: برف، سقف، خانه‌های.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: نشسته."
+   ]
+  },
+  {
+   "id": "r08",
+   "heard_R0": "کارشناس با ماژیکِ قرمز روی نقشهٔ شهر چند نقطه را علامت زد.",
+   "app": "کارشناس با ماژیکِ قرمز روی نقشهٔ شهر چند نقطه را علامت زد.",
+   "same": true,
+   "seconds": 0.8,
+   "notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: ماژیک، نقشه."
+   ]
+  },
+  {
+   "id": "r09",
+   "heard_R0": "لیوانِ چای را روی میز گذاشت و کتابش را روی زانویش باز کَرد.",
+   "app": "لیوانِ چای را روی میز گذاشت و کتابش را روی زانویش باز کَرد.",
+   "same": true,
+   "seconds": 0.8,
+   "notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: لیوان.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: کرد."
+   ]
+  },
+  {
+   "id": "r10",
+   "heard_R0": "کودک روی پنجهٔ پا ایستاد تا بتواند از روی دیوار باغ را ببیند.",
+   "app": "کودک روی پنجهٔ پا ایستاد تا بتواند از روی دیوار باغ را ببیند.",
+   "same": true,
+   "seconds": 0.9,
+   "notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: پنجه."
+   ]
+  }
+ ]
+}

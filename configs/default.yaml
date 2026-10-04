@@ -156,6 +156,19 @@ text:
     # 1.5 GB more.
     min_available_gb: 1.5
 
+  homographs:
+    # The first short vowel of a homograph (مُهر / مِهر, شُکر / شِکر), read
+    # from the whole sentence by Homo-GE2PE (the G2P above) and written for the
+    # same engines, on HomoRich's 190 homographs that it tells apart (CC0,
+    # text/homographs_data.py; not the preposition به, which every mark broke).
+    # Heard blind: homographs wrong 8 of 23 against 14, words 25 of 242
+    # against 27, CER and similarity unharmed (FINDINGS §17).
+    #   auto -> write them when Homo-GE2PE can run;  true -> stop if it
+    #   cannot;  false -> never
+    enabled: auto
+    # Loaded for one text and released: 0.66 GB at its peak, 5.5 s to load.
+    min_available_gb: 1.0
+
   chunk:
     # Long text is split on sentence boundaries and synthesised in pieces so
     # quality never degrades over a long take.

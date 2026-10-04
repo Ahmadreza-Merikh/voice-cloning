@@ -39,6 +39,14 @@ def _no_real_ezafe_tagger(monkeypatch: pytest.MonkeyPatch) -> None:
 
     monkeypatch.setattr(ezafe_fa.EzafeWriter, "_load", refuse)
 
+    from voiceclone.text import g2p
+
+    def no_model(self: g2p.PersianG2P, text: str, *, normalize: bool = True) -> None:
+        raise TextProcessingError("the tests do not load Homo-GE2PE")
+
+    # A test that wants readings gives the pipeline a G2P of its own.
+    monkeypatch.setattr(g2p.PersianG2P, "phonemize", no_model)
+
 
 def _synthetic_speech(
     duration: float = 6.0,

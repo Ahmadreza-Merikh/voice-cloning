@@ -6,8 +6,11 @@ step raised CER. This decides where the ezafe goes - the tagger, one sentence
 at a time, on the tokens it was measured on (each punctuation mark a token of
 its own) - and leaves the writing to :func:`marks_fa.with_ezafe`.
 
-Two things overrule the tagger:
+Three things overrule the tagger:
 
+* ``NO_EZAFE_ON``: words the ezafe is never written on. روی: in the روی check
+  (FINDINGS section 18) it was heard wrong once in 12 with the kasra and never
+  without it, and nothing else got worse
 * ``NO_EZAFE_BEFORE``: pairs written apart and read as one word. The listener
   heard مدیر عامل right only without the ezafe the tagger gave it
 * a word that does not end in an Arabic-script letter (Latin, digits) is left
@@ -34,6 +37,8 @@ from .marks_fa import PUNCT, bare, last_letter, with_ezafe
 log = get_logger("text.ezafe")
 
 SENTENCE_END = ".!؟?"
+#: Words the ezafe is never written on, each heard at least as well without it.
+NO_EZAFE_ON = frozenset({"روی"})
 #: Pairs the ezafe must not join, each heard right only without it.
 NO_EZAFE_BEFORE = frozenset({("مدیر", "عامل")})
 #: The one-time export reads a 655 MB file into memory twice over (2.3 GB at its peak).
@@ -113,7 +118,7 @@ def write_ezafe(text: str, tag: Tagger) -> tuple[str, list[str]]:
             raw = parts[i]
             core = raw.strip(PUNCT)
             following = parts[words[n + 1][0]].strip(PUNCT) if n + 1 < len(words) else ""
-            if (bare(core), bare(following)) in NO_EZAFE_BEFORE or not _persian(core):
+            if bare(core) in NO_EZAFE_ON or (bare(core), bare(following)) in NO_EZAFE_BEFORE or not _persian(core):
                 continue
             marked = with_ezafe(core)
             if marked != core:
@@ -206,4 +211,4 @@ class EzafeWriter:
         return [text for text, _ in done], [w for _, words in done for w in words], None
 
 
-__all__ = ["NO_EZAFE_BEFORE", "EzafeWriter", "plan", "tokens_of", "write_ezafe"]
+__all__ = ["NO_EZAFE_BEFORE", "NO_EZAFE_ON", "EzafeWriter", "plan", "tokens_of", "write_ezafe"]

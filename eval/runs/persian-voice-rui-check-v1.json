@@ -41,5 +41,41 @@
   "harm": "R0 is flagged and not adopted without the user's say if its mean CER is more than 2 points above R1's, or if its paired held-out similarity difference has a 95% bootstrap interval wholly below zero"
  },
  "not_claimed": "one listener, one voice, one seed, 12 روی; other words ending in ی are not tested",
- "cost": "Kaggle: one session, about 0.2 GPU-hours; listening about 8 minutes"
+ "cost": "Kaggle: one session, about 0.2 GPU-hours; listening about 8 minutes",
+ "listening": {
+  "when": "2026-10-04, blind, on the published page https://claude.ai/artifact/DnBHQbqRWXLt2innub42uo; all 10 sentences, every reading answered, a note on 14 of 20",
+  "listener": "recorded as پارسا. Steps 1 to 3 were heard by احمدرضا; the registration says one listener, not which",
+  "answers": "the page's database kept only an empty start (10:28 UTC, under احمدرضا: eval/runs/evidence/rui-review-v1/database-at-reading.json); the answers came as the page's answer code, pasted by the user in chat (answers-listener-1.json, its source field)"
+ },
+ "result": {
+  "when": "2026-10-04; renders from its Kaggle session (every gate passed), read by scripts/read_rui_check.py, written before anyone listened",
+  "rui_marked_wrong_of_12": {
+   "R1": 1,
+   "R0": 0
+  },
+  "words_marked_wrong_of_114": {
+   "R1": 12,
+   "R0": 11
+  },
+  "picked_best": {
+   "no difference": 10
+  },
+  "readings_with_no_word_marked_of_10": {
+   "R1": 3,
+   "R0": 3
+  },
+  "mean_cer": {
+   "R1": 0.0377,
+   "R0": 0.0307
+  },
+  "held_out_similarity_R0_minus_R1": "+0.0051 [-0.0207, +0.0348]",
+  "decision_by_the_registered_rule": "R0 has روی wrong 0 times against R1's 1, and 11 words wrong against 12: the app stops writing the kasra on روی. CER -0.70 points, the similarity interval not wholly below zero: not flagged. Adopted",
+  "read_beside_it_not_used_for_the_decision": {
+   "how_much": "one mark decides it: r03's روی in R1, noted said roy (رُی). Every other word was marked the same in both forms, and no reading was picked over the other: to this listener the kasra on روی made almost no difference, and the rule needed only one mark",
+   "against_step_3": "in step 3 the earlier listener marked the app's رویِ wrong in 11 of 12 readings (noted royi); here this listener marked it wrong in 1 of 12 in R1, on other sentences. A different listener and different sentences, and this check cannot say which made the difference",
+   "ezafe_the_model_added": "four words were heard with an ezafe that neither form had written, the same in both: باران before گوش (r01), پیرمرد before هر (r06), حیاط before نقاشی (r03), and دیوار before باغ را (r10), where the tagger was right to give none. The same kind of error as the user's تعاملات معمولاً, which step 3's sukun did not stop",
+   "other_words": "heard wrong in both forms: زانویش (noted زانوییش), بشقابش (بِشقاب, e for o), طاقچه and نیمکت with a vowel added inside (طاقِچه, نیمِکَت), می‌نشیند without its last a, پنجهٔ پا said panj-e with a pause (the هٔ ezafe of a silent h), and دیوار in r03 (noted دیوارِی in R0)"
+  },
+  "label": "one listener, one voice, one seed, 12 روی"
+ }
 }

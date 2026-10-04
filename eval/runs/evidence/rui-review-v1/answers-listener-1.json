@@ -1,0 +1,196 @@
+{
+  "answered": 10,
+  "answers": {
+    "r09": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": false,
+          "words": [
+            10
+          ],
+          "note": "زانویش زانوییش گفت"
+        },
+        "2": {
+          "ok": false,
+          "words": [
+            10
+          ],
+          "note": "زانویش زانوییش گفت"
+        }
+      }
+    },
+    "r03": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": false,
+          "words": [
+            5,
+            6
+          ],
+          "note": "دیوارِی حیاطِ"
+        },
+        "2": {
+          "ok": false,
+          "words": [
+            4,
+            5,
+            6
+          ],
+          "note": "رُی گفت و دیوارِ حیاطِ گفت"
+        }
+      }
+    },
+    "r08": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": true,
+          "words": [],
+          "note": ""
+        },
+        "2": {
+          "ok": true,
+          "words": [],
+          "note": ""
+        }
+      }
+    },
+    "r05": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": false,
+          "words": [
+            11
+          ],
+          "note": "بِشقابش گفت"
+        },
+        "2": {
+          "ok": false,
+          "words": [
+            11
+          ],
+          "note": "بِشقابَش گفت"
+        }
+      }
+    },
+    "r07": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": true,
+          "words": [],
+          "note": ""
+        },
+        "2": {
+          "ok": true,
+          "words": [],
+          "note": ""
+        }
+      }
+    },
+    "r01": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": false,
+          "words": [
+            9
+          ],
+          "note": "بارانِ گفت"
+        },
+        "2": {
+          "ok": false,
+          "words": [
+            9
+          ],
+          "note": "بارانِ گفت"
+        }
+      }
+    },
+    "r02": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": false,
+          "words": [
+            5
+          ],
+          "note": "طاقِچه گفت"
+        },
+        "2": {
+          "ok": false,
+          "words": [
+            5
+          ],
+          "note": "طاقِچه گذاشتد گفت"
+        }
+      }
+    },
+    "r04": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": true,
+          "words": [],
+          "note": ""
+        },
+        "2": {
+          "ok": true,
+          "words": [],
+          "note": ""
+        }
+      }
+    },
+    "r06": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": false,
+          "words": [
+            0,
+            4,
+            6
+          ],
+          "note": "پیرمردِ گفت و نیمِکَتِ و مینشینَد بدون َ  گفت"
+        },
+        "2": {
+          "ok": false,
+          "words": [
+            0,
+            4,
+            6
+          ],
+          "note": "پیرمردِ گفت و نیمِکَتِ و مینشینَد بدون َ  گفت"
+        }
+      }
+    },
+    "r10": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "ok": false,
+          "words": [
+            2,
+            9
+          ],
+          "note": "پنجه رو پنجِ تلفظ کرد با کمی مکث و دیوار دیوارِ گفت‌"
+        },
+        "2": {
+          "ok": false,
+          "words": [
+            2,
+            9
+          ],
+          "note": "پنجه رو پنجِ تلفظ کرد با کمی مکث و دیوار دیوارِ گفت‌"
+        }
+      }
+    }
+  },
+  "complete": true,
+  "listener": "پارسا",
+  "version": "rui-review-v1",
+  "source": "the page's answer code, pasted in chat on 2026-10-04: the page's database held only one save, an empty start at 10:28 UTC under the name احمدرضا (database-at-reading.json)"
+}

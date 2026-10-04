@@ -1488,3 +1488,42 @@ noted the sugar شکر said shekr even with its first vowel marked. And روی w
 the app's written ezafe (رویِ) was heard wrong in 11 of 12 readings - every
 form, so not H or S - where step 2's one رویِ was heard right; no plain form
 was rendered here to say whether the kasra causes it.
+
+## 18. The kasra on روی: the rule drops it, on one mark
+
+Step 3 heard the app's رویِ wrong in 11 of 12 readings, in every form, and
+could not say whether the written kasra caused it. Ten new sentences with 12
+روی were each rendered twice (seed 42, mana_000): R1, the app's text (رویِ),
+and R0, the same without that kasra. The check was registered before any
+front-end ran on them (`eval/runs/persian-voice-rui-check-v1.json`), rendered
+in one Kaggle session and heard blind, by a listener recorded as پارسا rather
+than the one who heard steps 1 to 3. The page's database kept only an empty
+start; the answers came as its answer code.
+
+| | روی marked wrong (of 12) | words marked wrong (of 114) | picked best | mean CER |
+|---|---|---|---|---|
+| R1 (رویِ, the app) | 1 | 12 | 0 | 3.8% |
+| R0 (روی) | 0 | 11 | 0 | 3.1% |
+
+"No difference" was picked for all ten sentences; held-out similarity R0 − R1
+is +0.005 [−0.021, +0.035].
+
+**The rule drops the kasra.** R0 has fewer روی wrong (0 against 1) and no more
+words wrong (11 against 12), and nothing flags it. One mark decides it: r03's
+روی in R1, noted as said roy. Every other word was marked the same in both
+forms. To this listener the kasra made almost no difference. Step 3's listener
+heard royi in 11 of 12; this one heard the app's رویِ wrong once in 12. The
+listener and the sentences both differ, and this check cannot say which
+mattered.
+
+Other errors were heard the same way in both forms:
+- **An ezafe nobody wrote, on four words:** باران before گوش, پیرمرد before
+  هر, حیاط before نقاشی, and دیوار before باغ را. For دیوار the tagger was
+  right to give none. This is the same kind of error as the user's تعاملات
+  معمولاً, which step 3's sukun did not stop.
+- **Wrong vowels in ordinary words:**
+  - طاقچه and نیمکت with a vowel added inside (طاقِچه, نیمِکَت)
+  - بشقابش with e for o
+  - زانویش as زانوییش
+  - می‌نشیند without its last a
+  - پنجهٔ پا said panj-e with a pause

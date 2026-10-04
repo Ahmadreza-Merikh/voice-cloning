@@ -1,0 +1,29 @@
+{
+  "collection": "reviews",
+  "documents": 1,
+  "read": "2026-10-04, about 10:53 UTC, after the user said the listening was finished",
+  "document": {
+    "answered": 0,
+    "answers": {
+      "r09": {
+        "best": null,
+        "slots": {
+          "1": {
+            "note": "",
+            "ok": null,
+            "words": []
+          },
+          "2": {
+            "note": "",
+            "ok": null,
+            "words": []
+          }
+        }
+      }
+    },
+    "complete": false,
+    "listener": "احمدرضا",
+    "updated": "2026-10-04T10:28:13.412Z",
+    "version": "rui-review-v1"
+  }
+}

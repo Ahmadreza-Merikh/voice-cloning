@@ -1,0 +1,215 @@
+{
+ "seed": 20261004,
+ "manifest": "eval/runs/frontend-listening-v2/manifest.json",
+ "target_lufs": -26.0,
+ "wrong_in_twins": {},
+ "sentences": {
+  "v01": {
+   "category": "users_sentence",
+   "slots": {
+    "1": "E",
+    "2": "EH",
+    "3": "EHS",
+    "4": "ES"
+   },
+   "gains_db": {
+    "1": -6.01,
+    "2": -6.59,
+    "3": -7.76,
+    "4": -7.41
+   },
+   "target_lufs": -26.0
+  },
+  "v02": {
+   "category": "homograph_kashti",
+   "slots": {
+    "1": "EHS",
+    "2": "ES",
+    "3": "E",
+    "4": "EH"
+   },
+   "gains_db": {
+    "1": -7.39,
+    "2": -8.0,
+    "3": -7.77,
+    "4": -6.58
+   },
+   "target_lufs": -26.0
+  },
+  "v03": {
+   "category": "homograph_shekar",
+   "slots": {
+    "1": "ES",
+    "2": "E",
+    "3": "EH",
+    "4": "EHS"
+   },
+   "gains_db": {
+    "1": -4.9,
+    "2": -5.44,
+    "3": -6.13,
+    "4": -5.88
+   },
+   "target_lufs": -26.0
+  },
+  "v04": {
+   "category": "homograph_sar",
+   "slots": {
+    "1": "EH",
+    "2": "EHS",
+    "3": "ES",
+    "4": "E"
+   },
+   "gains_db": {
+    "1": -7.31,
+    "2": -7.15,
+    "3": -7.03,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "v05": {
+   "category": "homograph_mehr",
+   "slots": {
+    "1": "EHS",
+    "2": "E",
+    "3": "ES",
+    "4": "EH"
+   },
+   "gains_db": {
+    "1": -7.42,
+    "2": -6.54,
+    "3": -5.21,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "v06": {
+   "category": "homograph_elm",
+   "slots": {
+    "1": "E",
+    "2": "ES",
+    "3": "EH",
+    "4": "EHS"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -7.64,
+    "3": -5.34,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "v07": {
+   "category": "homograph_par",
+   "slots": {
+    "1": "ES",
+    "2": "EH",
+    "3": "EHS",
+    "4": "E"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "v08": {
+   "category": "homograph_mosakken",
+   "slots": {
+    "1": "EH",
+    "2": "EHS",
+    "3": "E",
+    "4": "ES"
+   },
+   "gains_db": {
+    "1": -6.63,
+    "2": -6.92,
+    "3": -6.11,
+    "4": -5.93
+   },
+   "target_lufs": -26.0
+  },
+  "v09": {
+   "category": "homograph_maskan",
+   "slots": {
+    "1": "E",
+    "2": "EH",
+    "3": "ES",
+    "4": "EHS"
+   },
+   "gains_db": {
+    "1": -7.48,
+    "2": -7.89,
+    "3": -7.87,
+    "4": -7.74
+   },
+   "target_lufs": -26.0
+  },
+  "v10": {
+   "category": "homograph_araq",
+   "slots": {
+    "1": "EH",
+    "2": "ES",
+    "3": "EHS",
+    "4": "E"
+   },
+   "gains_db": {
+    "1": -5.78,
+    "2": -5.87,
+    "3": -6.47,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "v11": {
+   "category": "homograph_sarf",
+   "slots": {
+    "1": "ES",
+    "2": "EHS",
+    "3": "E",
+    "4": "EH"
+   },
+   "gains_db": {
+    "1": -6.99,
+    "2": -7.2,
+    "3": -6.67,
+    "4": -7.5
+   },
+   "target_lufs": -26.0
+  },
+  "v12": {
+   "category": "homograph_sahar",
+   "slots": {
+    "1": "EHS",
+    "2": "E",
+    "3": "EH",
+    "4": "ES"
+   },
+   "gains_db": {
+    "1": -5.77,
+    "2": -6.87,
+    "3": -6.92,
+    "4": -8.0
+   },
+   "target_lufs": -26.0
+  }
+ },
+ "order": [
+  "v09",
+  "v06",
+  "v11",
+  "v08",
+  "v02",
+  "v01",
+  "v12",
+  "v10",
+  "v03",
+  "v04",
+  "v05",
+  "v07"
+ ],
+ "fingerprint": "a09b94e2561f659c"
+}

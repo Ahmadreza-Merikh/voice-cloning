@@ -1,0 +1,18 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.3s; 104592 shown"
+  },
+  "code": {
+    "passed": true,
+    "reason": "the render script, the marks and the registered texts are present; code from e1d96e4"
+  },
+  "download": {
+    "passed": true,
+    "reason": "{\"base\": {\"gib\": 3.043, \"seconds\": 27.6, \"tries\": [{\"attempt\": 1, \"seconds\": 27.6}], \"failed_check\": null}}"
+  },
+  "renders": {
+    "passed": true,
+    "reason": "{\"rendered\": 48, \"scored\": 48, \"worker\": [\"09:05:01 INFO     OmniVoice ready (cuda, float16, 24000 Hz)\"], \"mean_cer\": {\"E\": 0.0238, \"EH\": 0.0199, \"EHS\": 0.0254, \"ES\": 0.0205}, \"other_changes_by_the_app\": []}"
+  }
+}

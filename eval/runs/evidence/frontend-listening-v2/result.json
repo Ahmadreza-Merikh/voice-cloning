@@ -1,0 +1,14 @@
+{
+  "rendered": 48,
+  "scored": 48,
+  "worker": [
+    "09:05:01 INFO     OmniVoice ready (cuda, float16, 24000 Hz)"
+  ],
+  "mean_cer": {
+    "E": 0.0238,
+    "EH": 0.0199,
+    "EHS": 0.0254,
+    "ES": 0.0205
+  },
+  "other_changes_by_the_app": []
+}

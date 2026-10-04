@@ -1,0 +1,1503 @@
+{
+ "version": 1,
+ "purpose": "front-end listening test: OmniVoice on 4 forms of each sentence",
+ "created": "2026-10-04T09:04:44+00:00",
+ "texts": {
+  "file": "eval/runs/frontend-listening-v2/texts.json",
+  "sentences_sha256": "4c95e9c0bfed355559db1025ddea3cb72b6ee41f34528653f4e33c98f00713e4"
+ },
+ "settings": {
+  "seed": 42,
+  "candidates": 1,
+  "evaluation_enabled": false,
+  "cer_after_unload": true,
+  "omnivoice": {
+   "python": "auto",
+   "language": "fa",
+   "dtype": "float16",
+   "num_step": 32,
+   "guidance_scale": 2.0,
+   "t_shift": 0.1,
+   "denoise": true,
+   "postprocess_output": true,
+   "layer_penalty_factor": 5.0,
+   "position_temperature": 5.0,
+   "class_temperature": 0.0,
+   "timeout_seconds": 900,
+   "memory_guard": true,
+   "min_available_gb": 6.0
+  },
+  "omnivoice_model_id": "/tmp/omnivoice-base",
+  "text": {
+   "ezafe_enabled": false,
+   "marks_engines": [
+    "omnivoice"
+   ]
+  }
+ },
+ "reference": {
+  "speaker": "mana",
+  "file": "mana_000.wav",
+  "transcript": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم."
+ },
+ "conditions": {
+  "E": "the app today",
+  "EH": "+ homograph first vowels",
+  "ES": "+ sukun before an adverb",
+  "EHS": "+ both"
+ },
+ "sentences": [
+  {
+   "id": "v01",
+   "category": "users_sentence",
+   "text": "کاربران در جریان این تعاملات معمولاً اطلاعات بسیار خصوصی درباره زندگی و سلامت روان خود را با هوش مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوان محرم اسرار یا حتی درمانگر استفاده می‌کنند.",
+   "texts": {
+    "E": "کاربران در جریانِ این تعاملات معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ محرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+    "EH": "کاربران در جریانِ این تعاملات معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ مَحرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+    "ES": "کاربران در جریانِ این تعاملاتْ معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ محرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+    "EHS": "کاربران در جریانِ این تعاملاتْ معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ مَحرمِ اسرار یا حتی درمانگر استفاده می‌کنند."
+   }
+  },
+  {
+   "id": "v02",
+   "category": "homograph_kashti",
+   "text": "در آن سفر طولانی، مسافران معمولاً هنگام غروب روی عرشه کشتی جمع می‌شدند و از دور قهرمان کشتی را تشویق می‌کردند.",
+   "texts": {
+    "E": "در آن سفرِ طولانی، مسافران معمولاً هنگامِ غروب رویِ عرشهٔ کشتی جمع می‌شدند و از دور قهرمانِ کشتی را تشویق می‌کردند.",
+    "EH": "در آن سفرِ طولانی، مسافران معمولاً هنگامِ غروب رویِ عرشهٔ کِشتی جمع می‌شدند و از دور قهرمانِ کِشتی را تشویق می‌کردند.",
+    "ES": "در آن سفرِ طولانی، مسافرانْ معمولاً هنگامِ غروب رویِ عرشهٔ کشتی جمع می‌شدند و از دور قهرمانِ کشتی را تشویق می‌کردند.",
+    "EHS": "در آن سفرِ طولانی، مسافرانْ معمولاً هنگامِ غروب رویِ عرشهٔ کِشتی جمع می‌شدند و از دور قهرمانِ کِشتی را تشویق می‌کردند."
+   }
+  },
+  {
+   "id": "v03",
+   "category": "homograph_shekar",
+   "text": "شکر خدا حال مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمار هرگز نباید چای را با شکر زیاد بنوشد.",
+   "texts": {
+    "E": "شکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمار هرگز نباید چای را با شکرِ زیاد بنوشد.",
+    "EH": "شُکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کَرد که بیمار هرگز نباید چای را با شِکرِ زیاد بنوشد.",
+    "ES": "شکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمارْ هرگز نباید چای را با شکرِ زیاد بنوشد.",
+    "EHS": "شُکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کَرد که بیمارْ هرگز نباید چای را با شِکرِ زیاد بنوشد."
+   }
+  },
+  {
+   "id": "v04",
+   "category": "homograph_sar",
+   "text": "کارگران همیشه سر ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سر این ماجرا خبر ندارد.",
+   "texts": {
+    "E": "کارگران همیشه سرِ ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سرِ این ماجرا خبر ندارد.",
+    "EH": "کارگران همیشه سَرِ ساعت بِه کارگاه می‌رسند، ولی هنوز هیچ‌کس از سَرِ این ماجرا خبر ندارد.",
+    "ES": "کارگرانْ همیشه سرِ ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سرِ این ماجرا خبر ندارد.",
+    "EHS": "کارگرانْ همیشه سَرِ ساعت بِه کارگاه می‌رسند، ولی هنوز هیچ‌کس از سَرِ این ماجرا خبر ندارد."
+   }
+  },
+  {
+   "id": "v05",
+   "category": "homograph_mehr",
+   "text": "کارمند فوراً مهر شرکت را روی نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+   "texts": {
+    "E": "کارمند فوراً مهرِ شرکت را رویِ نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+    "EH": "کارمند فوراً مُهرِ شرکت را رویِ نامه زد و رئیس با مِهر و محبت از او تشکر کَرد.",
+    "ES": "کارمندْ فوراً مهرِ شرکت را رویِ نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+    "EHS": "کارمندْ فوراً مُهرِ شرکت را رویِ نامه زد و رئیس با مِهر و محبت از او تشکر کَرد."
+   }
+  },
+  {
+   "id": "v06",
+   "category": "homograph_elm",
+   "text": "دانشمندان سال‌ها برای پیشرفت علم پزشکی تلاش کردند و در میان خلق نامشان هنوز با احترام برده می‌شود.",
+   "texts": {
+    "E": "دانشمندان سال‌ها برایِ پیشرفتِ علمِ پزشکی تلاش کردند و در میانِ خلق نامشان هنوز با احترام برده می‌شود.",
+    "EH": "دانشمندان سال‌ها برایِ پیشرفتِ عِلمِ پزشکی تلاش کردند و در میانِ خَلق نامشان هنوز با احترام بُرده می‌شود.",
+    "ES": "دانشمندان سال‌ها برایِ پیشرفتِ علمِ پزشکی تلاش کردند و در میانِ خلق نامشانْ هنوز با احترام برده می‌شود.",
+    "EHS": "دانشمندان سال‌ها برایِ پیشرفتِ عِلمِ پزشکی تلاش کردند و در میانِ خَلق نامشانْ هنوز با احترام بُرده می‌شود."
+   }
+  },
+  {
+   "id": "v07",
+   "category": "homograph_par",
+   "text": "بچه‌ها پر از شوق بودند، چون پرنده کوچک ناگهان با یک پر سفید روی شاخه نشست.",
+   "texts": {
+    "E": "بچه‌ها پر از شوق بودند، چون پرندهٔ کوچک ناگهان با یک پرِ سفید رویِ شاخه نشست.",
+    "EH": "بچه‌ها پُر از شوق بودند، چون پرندهٔ کوچک ناگهان با یک پَرِ سفید رویِ شاخه نِشست.",
+    "ES": "بچه‌ها پر از شوق بودند، چون پرندهٔ کوچکْ ناگهان با یک پرِ سفید رویِ شاخه نشست.",
+    "EHS": "بچه‌ها پُر از شوق بودند، چون پرندهٔ کوچکْ ناگهان با یک پَرِ سفید رویِ شاخه نِشست."
+   }
+  },
+  {
+   "id": "v08",
+   "category": "homograph_mosakken",
+   "text": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تن خسته‌اش هنوز درد می‌کند.",
+   "texts": {
+    "E": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تنِ خسته‌اش هنوز درد می‌کند.",
+    "EH": "پزشک گفت که بیمار تا چند روز باید مَسکن بخورد، چون تَنِ خسته‌اش هنوز درد می‌کند.",
+    "ES": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تنِ خسته‌اشْ هنوز درد می‌کند.",
+    "EHS": "پزشک گفت که بیمار تا چند روز باید مَسکن بخورد، چون تَنِ خسته‌اشْ هنوز درد می‌کند."
+   }
+  },
+  {
+   "id": "v09",
+   "category": "homograph_maskan",
+   "text": "در این محله، قیمت مسکن معمولاً بالاست و موجودی حساب بسیاری از زوج‌های جوان تقریباً صفر است.",
+   "texts": {
+    "E": "در این محله، قیمتِ مسکن معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوان تقریباً صفر است.",
+    "EH": "در این محله، قیمتِ مَسکن معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوان تقریباً صِفر است.",
+    "ES": "در این محله، قیمتِ مسکنْ معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوانْ تقریباً صفر است.",
+    "EHS": "در این محله، قیمتِ مَسکنْ معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوانْ تقریباً صِفر است."
+   }
+  },
+  {
+   "id": "v10",
+   "category": "homograph_araq",
+   "text": "کودک بیمار دیشب تا صبح تب داشت و مادرش مدام عرق پیشانی او را پاک می‌کرد و از سر دلسوزی کنارش بیدار ماند.",
+   "texts": {
+    "E": "کودکِ بیمار دیشب تا صبح تب داشت و مادرش مدام عرقِ پیشانیِ او را پاک می‌کرد و از سرِ دلسوزی کنارش بیدار ماند.",
+    "EH": "کودکِ بیمار دیشب تا صبح تب داشت و مادرش مدام عَرقِ پیشانیِ او را پاک می‌کرد و از سَرِ دلسوزی کنارش بیدار ماند.",
+    "ES": "کودکِ بیمارْ دیشب تا صبح تب داشت و مادرشْ مدام عرقِ پیشانیِ او را پاک می‌کرد و از سرِ دلسوزی کنارش بیدار ماند.",
+    "EHS": "کودکِ بیمارْ دیشب تا صبح تب داشت و مادرشْ مدام عَرقِ پیشانیِ او را پاک می‌کرد و از سَرِ دلسوزی کنارش بیدار ماند."
+   }
+  },
+  {
+   "id": "v11",
+   "category": "homograph_sarf",
+   "text": "در جلسه دیروز، مدیر بخش بازاریابی گفت که این طرح اصلاً ارزش صرف هزینه ندارد و مبلغ پیشنهادی را رد کرد.",
+   "texts": {
+    "E": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرح اصلاً ارزشِ صرفِ هزینه ندارد و مبلغِ پیشنهادی را رد کرد.",
+    "EH": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرح اصلاً ارزشِ صَرفِ هزینه ندارد و مَبلغِ پیشنهادی را رد کَرد.",
+    "ES": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرحْ اصلاً ارزشِ صرفِ هزینه ندارد و مبلغِ پیشنهادی را رد کرد.",
+    "EHS": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرحْ اصلاً ارزشِ صَرفِ هزینه ندارد و مَبلغِ پیشنهادی را رد کَرد."
+   }
+  },
+  {
+   "id": "v12",
+   "category": "homograph_sahar",
+   "text": "جوانان امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگام سحر در هوای گرم تابستان برای دویدن به پارک می‌روند.",
+   "texts": {
+    "E": "جوانان امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگامِ سحر در هوایِ گرمِ تابستان برایِ دویدن به پارک می‌روند.",
+    "EH": "جوانان امروز اغلب بِه ورزش اهمیت می‌دهند و برخی حتی هنگامِ سَحر در هوایِ گَرمِ تابستان برایِ دویدن بِه پارک می‌روند.",
+    "ES": "جوانانْ امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگامِ سحر در هوایِ گرمِ تابستان برایِ دویدن به پارک می‌روند.",
+    "EHS": "جوانانْ امروز اغلب بِه ورزش اهمیت می‌دهند و برخی حتی هنگامِ سَحر در هوایِ گَرمِ تابستان برایِ دویدن بِه پارک می‌روند."
+   }
+  }
+ ],
+ "events": [
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 48,
+   "other_changes_by_the_app": []
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true
+  },
+  {
+   "event": "fetched_from_kaggle",
+   "when": "2026-10-04T09:14:12+00:00",
+   "session": "marsmanam/persian-voice-frontend-listening-v2-run",
+   "wav_paths": "made relative to the repository; kaggle_wav keeps where each was written"
+  }
+ ],
+ "renders": [
+  {
+   "id": "v01",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "کاربران در جریانِ این تعاملات معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ محرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v01_E.wav",
+   "skipped": null,
+   "duration_s": 16.788,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کاربران در جریانِ این تعاملات معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ محرمِ اسرار یا حتی درمانگر استفاده می‌کنند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 2.684,
+    "text": 0.002,
+    "load": 12.203,
+    "synthesis": 7.611
+   },
+   "asr_text": "کاربران در جریان این تعاملات معمولا اطلاعات بسیار خصوصی در باره زندگی و سلامت روان خود را با حوش مصنوعی در میان می گذارند و اغلب از این محصولات به عنوان محرم اصرار یا حتی درمانگر استفاده می کنند.",
+   "cer": 0.01282051282051282,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v01_E.wav"
+  },
+  {
+   "id": "v01",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "کاربران در جریانِ این تعاملات معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ مَحرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v01_EH.wav",
+   "skipped": null,
+   "duration_s": 16.84,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کاربران در جریانِ این تعاملات معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ مَحرمِ اسرار یا حتی درمانگر استفاده می‌کنند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.003,
+    "load": 0.0,
+    "synthesis": 6.726
+   },
+   "asr_text": "کاربران در جریان این تعاملات معمولا اطلاعات بسیار خصوصی در باره زندگی و سلامت روان خود را با حوش مصنوعی در میان می گذارن و اغلب از این محصولات به عنوان محرم اصرار یا حتی درمانگر استفاده می کنن.",
+   "cer": 0.02564102564102564,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v01_EH.wav"
+  },
+  {
+   "id": "v01",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "کاربران در جریانِ این تعاملاتْ معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ محرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v01_ES.wav",
+   "skipped": null,
+   "duration_s": 16.795,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کاربران در جریانِ این تعاملاتْ معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ محرمِ اسرار یا حتی درمانگر استفاده می‌کنند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 9.106
+   },
+   "asr_text": "کاربران در جریان این تعاملات معمولا اطلاعات بسیار خصوصی در باره زندگی ز سلامت روان خود را با حوش مصنوعی در میان می گذارند و اغلب از این محصولات به عنوان محرم اصرار یا حتی درمانگر استفاده می کنند.",
+   "cer": 0.019230769230769232,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v01_ES.wav"
+  },
+  {
+   "id": "v01",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "کاربران در جریانِ این تعاملاتْ معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ مَحرمِ اسرار یا حتی درمانگر استفاده می‌کنند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v01_EHS.wav",
+   "skipped": null,
+   "duration_s": 16.845,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کاربران در جریانِ این تعاملاتْ معمولاً اطلاعاتِ بسیار خصوصی دربارهٔ زندگی و سلامتِ روانِ خود را با هوشِ مصنوعی در میان می‌گذارند و اغلب از این محصولات به‌عنوانِ مَحرمِ اسرار یا حتی درمانگر استفاده می‌کنند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.003,
+    "load": 0.0,
+    "synthesis": 6.929
+   },
+   "asr_text": "کاربران در جریان این تعاملات معمولا اطلاعات بسیار خصوصی در باره زندگی و سلامت روان خود را با حوش مصنوعی در میان می گذارند و اغلب از این محصولات به عنوان محرم اصرار یا حتی درمانگر استفاده می کند.",
+   "cer": 0.019230769230769232,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v01_EHS.wav"
+  },
+  {
+   "id": "v02",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "در آن سفرِ طولانی، مسافران معمولاً هنگامِ غروب رویِ عرشهٔ کشتی جمع می‌شدند و از دور قهرمانِ کشتی را تشویق می‌کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v02_E.wav",
+   "skipped": null,
+   "duration_s": 9.124,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در آن سفرِ طولانی، مسافران معمولاً هنگامِ غروب رویِ عرشهٔ کشتی جمع می‌شدند و از دور قهرمانِ کشتی را تشویق می‌کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.93
+   },
+   "asr_text": "در آن سفر طولانی، مسافران معمولاً هنگام قروب روی عرشه کشتی جمع می شدن و از دور قهرمان کشتی را تشویق می کردن.",
+   "cer": 0.03529411764705882,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v02_E.wav"
+  },
+  {
+   "id": "v02",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "در آن سفرِ طولانی، مسافران معمولاً هنگامِ غروب رویِ عرشهٔ کِشتی جمع می‌شدند و از دور قهرمانِ کِشتی را تشویق می‌کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v02_EH.wav",
+   "skipped": null,
+   "duration_s": 9.126,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در آن سفرِ طولانی، مسافران معمولاً هنگامِ غروب رویِ عرشهٔ کِشتی جمع می‌شدند و از دور قهرمانِ کِشتی را تشویق می‌کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.003
+   },
+   "asr_text": "در آن سفر طولانی، مسافران معمولاً هنگام قروب روی عرشه کشتی جمع می شدند و از دور قهرمان کشتی را تشویق می کردند.",
+   "cer": 0.011764705882352941,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v02_EH.wav"
+  },
+  {
+   "id": "v02",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "در آن سفرِ طولانی، مسافرانْ معمولاً هنگامِ غروب رویِ عرشهٔ کشتی جمع می‌شدند و از دور قهرمانِ کشتی را تشویق می‌کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v02_ES.wav",
+   "skipped": null,
+   "duration_s": 9.126,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در آن سفرِ طولانی، مسافرانْ معمولاً هنگامِ غروب رویِ عرشهٔ کشتی جمع می‌شدند و از دور قهرمانِ کشتی را تشویق می‌کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.019
+   },
+   "asr_text": "در آن سفر طولانی، مسافران معمولاً هنگام قروب روی عرشه کشتی جمع می شدند و از دور قهرمان کشتی را تشفیق می کردند.",
+   "cer": 0.023529411764705882,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v02_ES.wav"
+  },
+  {
+   "id": "v02",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "در آن سفرِ طولانی، مسافرانْ معمولاً هنگامِ غروب رویِ عرشهٔ کِشتی جمع می‌شدند و از دور قهرمانِ کِشتی را تشویق می‌کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v02_EHS.wav",
+   "skipped": null,
+   "duration_s": 9.116,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در آن سفرِ طولانی، مسافرانْ معمولاً هنگامِ غروب رویِ عرشهٔ کِشتی جمع می‌شدند و از دور قهرمانِ کِشتی را تشویق می‌کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.126
+   },
+   "asr_text": "در آن سفر طولانی، مسافران معمولاً هنگام قروب روی عرشه کشتی جمع می شدند و از دور قهرمان کشتی را تشفیق می کردند.",
+   "cer": 0.023529411764705882,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v02_EHS.wav"
+  },
+  {
+   "id": "v03",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "شکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمار هرگز نباید چای را با شکرِ زیاد بنوشد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v03_E.wav",
+   "skipped": null,
+   "duration_s": 7.6,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمار هرگز نباید چای را با شکرِ زیاد بنوشد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.37
+   },
+   "asr_text": "شکر خدا حال مادر بزرگ بهتر شد ولی دکتر تحکید کرد که بیمار هرگز نباید چای را با شکر زیاد بنوشد.",
+   "cer": 0.0136986301369863,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v03_E.wav"
+  },
+  {
+   "id": "v03",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "شُکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کَرد که بیمار هرگز نباید چای را با شِکرِ زیاد بنوشد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v03_EH.wav",
+   "skipped": null,
+   "duration_s": 7.619,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شُکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کَرد که بیمار هرگز نباید چای را با شِکرِ زیاد بنوشد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.435
+   },
+   "asr_text": "شکر خدا حال مادر بزرگ بهتر شد ولی دکتر تحکید کرد که بیمار هرگز نباید چایی را با شکر زیاد بنوشد.",
+   "cer": 0.0273972602739726,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v03_EH.wav"
+  },
+  {
+   "id": "v03",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "شکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمارْ هرگز نباید چای را با شکرِ زیاد بنوشد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v03_ES.wav",
+   "skipped": null,
+   "duration_s": 7.592,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کرد که بیمارْ هرگز نباید چای را با شکرِ زیاد بنوشد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.475
+   },
+   "asr_text": "شکر خدا حال مادر بزرگ بهتر شد ولی دکتر تحکید کرد که بیمار هرگز نباید چای را با شکر زیاد بنوشد.",
+   "cer": 0.0136986301369863,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v03_ES.wav"
+  },
+  {
+   "id": "v03",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "شُکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کَرد که بیمارْ هرگز نباید چای را با شِکرِ زیاد بنوشد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v03_EHS.wav",
+   "skipped": null,
+   "duration_s": 7.617,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شُکرِ خدا حالِ مادربزرگ بهتر شد، ولی دکتر تأکید کَرد که بیمارْ هرگز نباید چای را با شِکرِ زیاد بنوشد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.569
+   },
+   "asr_text": "شکر خدا حال مادر وزرگ بهتر شد ولی دکتر تحکید کرد که بیمار هرگز نباید چایی را با شکر زیاد بنوشد.",
+   "cer": 0.0410958904109589,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v03_EHS.wav"
+  },
+  {
+   "id": "v04",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "کارگران همیشه سرِ ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سرِ این ماجرا خبر ندارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v04_E.wav",
+   "skipped": null,
+   "duration_s": 6.939,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارگران همیشه سرِ ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سرِ این ماجرا خبر ندارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.382
+   },
+   "asr_text": "کارگران همیشه سر ساعت به کارگاه میرسند ولی هنوز هیچ کس از سر این ماجرا خبر ندارد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v04_E.wav"
+  },
+  {
+   "id": "v04",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "کارگران همیشه سَرِ ساعت بِه کارگاه می‌رسند، ولی هنوز هیچ‌کس از سَرِ این ماجرا خبر ندارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v04_EH.wav",
+   "skipped": null,
+   "duration_s": 6.871,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارگران همیشه سَرِ ساعت بِه کارگاه می‌رسند، ولی هنوز هیچ‌کس از سَرِ این ماجرا خبر ندارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.468
+   },
+   "asr_text": "کارگران همیشه سر ساعت به کارگاه میرسند ولی هنوز هیچ کس از سر این ماجرا خبر ندارد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v04_EH.wav"
+  },
+  {
+   "id": "v04",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "کارگرانْ همیشه سرِ ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سرِ این ماجرا خبر ندارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v04_ES.wav",
+   "skipped": null,
+   "duration_s": 6.968,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارگرانْ همیشه سرِ ساعت به کارگاه می‌رسند، ولی هنوز هیچ‌کس از سرِ این ماجرا خبر ندارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.518
+   },
+   "asr_text": "کارگران همیشه سر ساعت به کارگاه می رسند ولی هنوز هیچ کس از سر این ماجرا خبر ندارد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v04_ES.wav"
+  },
+  {
+   "id": "v04",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "کارگرانْ همیشه سَرِ ساعت بِه کارگاه می‌رسند، ولی هنوز هیچ‌کس از سَرِ این ماجرا خبر ندارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v04_EHS.wav",
+   "skipped": null,
+   "duration_s": 6.971,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارگرانْ همیشه سَرِ ساعت بِه کارگاه می‌رسند، ولی هنوز هیچ‌کس از سَرِ این ماجرا خبر ندارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.644
+   },
+   "asr_text": "کارگران همیشه سر ساعت به کارگاه میرسند ولی هنوز هیچ کس از سر این ماجره خبر ندارد.",
+   "cer": 0.015625,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v04_EHS.wav"
+  },
+  {
+   "id": "v05",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "کارمند فوراً مهرِ شرکت را رویِ نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v05_E.wav",
+   "skipped": null,
+   "duration_s": 5.449,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارمند فوراً مهرِ شرکت را رویِ نامه زد و رئیس با مهر و محبت از او تشکر کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.336
+   },
+   "asr_text": "کارمند فوراً مهر شرکت را روی نام زد و رئیس با محر و محبت از او تشکر کرد.",
+   "cer": 0.037037037037037035,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v05_E.wav"
+  },
+  {
+   "id": "v05",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "کارمند فوراً مُهرِ شرکت را رویِ نامه زد و رئیس با مِهر و محبت از او تشکر کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v05_EH.wav",
+   "skipped": null,
+   "duration_s": 5.467,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارمند فوراً مُهرِ شرکت را رویِ نامه زد و رئیس با مِهر و محبت از او تشکر کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.438
+   },
+   "asr_text": "کارمند فوراً محر شرکت را روی نام زد و رئیس با محر و محبت از او تشکر کرد.",
+   "cer": 0.05555555555555555,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v05_EH.wav"
+  },
+  {
+   "id": "v05",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "کارمندْ فوراً مهرِ شرکت را رویِ نامه زد و رئیس با مهر و محبت از او تشکر کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v05_ES.wav",
+   "skipped": null,
+   "duration_s": 5.436,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارمندْ فوراً مهرِ شرکت را رویِ نامه زد و رئیس با مهر و محبت از او تشکر کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.464
+   },
+   "asr_text": "کارمند فوراً مهر شرکت را روی نام زد و رئیس با محر و محبت از او تشکر کرد.",
+   "cer": 0.037037037037037035,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v05_ES.wav"
+  },
+  {
+   "id": "v05",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "کارمندْ فوراً مُهرِ شرکت را رویِ نامه زد و رئیس با مِهر و محبت از او تشکر کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v05_EHS.wav",
+   "skipped": null,
+   "duration_s": 5.491,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کارمندْ فوراً مُهرِ شرکت را رویِ نامه زد و رئیس با مِهر و محبت از او تشکر کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.544
+   },
+   "asr_text": "کارمند فوراً محر شرکت را روی نام زد و رئیس با محر و محبت از او تشکر کرد.",
+   "cer": 0.05555555555555555,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v05_EHS.wav"
+  },
+  {
+   "id": "v06",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "دانشمندان سال‌ها برایِ پیشرفتِ علمِ پزشکی تلاش کردند و در میانِ خلق نامشان هنوز با احترام برده می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v06_E.wav",
+   "skipped": null,
+   "duration_s": 8.321,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشمندان سال‌ها برایِ پیشرفتِ علمِ پزشکی تلاش کردند و در میانِ خلق نامشان هنوز با احترام برده می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.933
+   },
+   "asr_text": "دانشمندان سالها برای پیشرفته علم پزشکی تلاش کردند و در میان خلق نامشان هنوز با احترام برده می شود.",
+   "cer": 0.01282051282051282,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v06_E.wav"
+  },
+  {
+   "id": "v06",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "دانشمندان سال‌ها برایِ پیشرفتِ عِلمِ پزشکی تلاش کردند و در میانِ خَلق نامشان هنوز با احترام بُرده می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v06_EH.wav",
+   "skipped": null,
+   "duration_s": 8.324,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشمندان سال‌ها برایِ پیشرفتِ عِلمِ پزشکی تلاش کردند و در میانِ خَلق نامشان هنوز با احترام بُرده می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.947
+   },
+   "asr_text": "دانشمندان سالها برای پیشرفت علم پزشکی تلاش کردن و در میان خلق نامشان هنوز با احترام برده می شود.",
+   "cer": 0.01282051282051282,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v06_EH.wav"
+  },
+  {
+   "id": "v06",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "دانشمندان سال‌ها برایِ پیشرفتِ علمِ پزشکی تلاش کردند و در میانِ خلق نامشانْ هنوز با احترام برده می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v06_ES.wav",
+   "skipped": null,
+   "duration_s": 8.319,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشمندان سال‌ها برایِ پیشرفتِ علمِ پزشکی تلاش کردند و در میانِ خلق نامشانْ هنوز با احترام برده می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.775
+   },
+   "asr_text": "دانشمندان سالها برای پیشرفته علم پزشکی تلاش کردند و در میان خلق نامشان هنوز با احترام برده می شود.",
+   "cer": 0.01282051282051282,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v06_ES.wav"
+  },
+  {
+   "id": "v06",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "دانشمندان سال‌ها برایِ پیشرفتِ عِلمِ پزشکی تلاش کردند و در میانِ خَلق نامشانْ هنوز با احترام بُرده می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v06_EHS.wav",
+   "skipped": null,
+   "duration_s": 8.323,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشمندان سال‌ها برایِ پیشرفتِ عِلمِ پزشکی تلاش کردند و در میانِ خَلق نامشانْ هنوز با احترام بُرده می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.666
+   },
+   "asr_text": "دانشمندان سالها برای پیشرفت علم پزشکی تلاش کردن و در میان خلق نامشان هنوز با احترام برده می شود.",
+   "cer": 0.01282051282051282,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v06_EHS.wav"
+  },
+  {
+   "id": "v07",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "بچه‌ها پر از شوق بودند، چون پرندهٔ کوچک ناگهان با یک پرِ سفید رویِ شاخه نشست.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v07_E.wav",
+   "skipped": null,
+   "duration_s": 6.089,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بچه‌ها پر از شوق بودند، چون پرندهٔ کوچک ناگهان با یک پرِ سفید رویِ شاخه نشست."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.374
+   },
+   "asr_text": "بچه ها پر از شخ بودن چون پرنده کچک ناگهان با یک پرسفید روی شاخه نشست.",
+   "cer": 0.07142857142857142,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v07_E.wav"
+  },
+  {
+   "id": "v07",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "بچه‌ها پُر از شوق بودند، چون پرندهٔ کوچک ناگهان با یک پَرِ سفید رویِ شاخه نِشست.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v07_EH.wav",
+   "skipped": null,
+   "duration_s": 5.906,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بچه‌ها پُر از شوق بودند، چون پرندهٔ کوچک ناگهان با یک پَرِ سفید رویِ شاخه نِشست."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.483
+   },
+   "asr_text": "بچه ها پر از شوق بودند چون پرنده کوچک ناگهان با یک پر سفید روی شاخه نشست.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v07_EH.wav"
+  },
+  {
+   "id": "v07",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "بچه‌ها پر از شوق بودند، چون پرندهٔ کوچکْ ناگهان با یک پرِ سفید رویِ شاخه نشست.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v07_ES.wav",
+   "skipped": null,
+   "duration_s": 5.946,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بچه‌ها پر از شوق بودند، چون پرندهٔ کوچکْ ناگهان با یک پرِ سفید رویِ شاخه نشست."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.347
+   },
+   "asr_text": "بچه ها پر از شخ بودن چون پرنده کوچک ناگهان با یک پر سفید روی شاخه نشست.",
+   "cer": 0.05357142857142857,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v07_ES.wav"
+  },
+  {
+   "id": "v07",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "بچه‌ها پُر از شوق بودند، چون پرندهٔ کوچکْ ناگهان با یک پَرِ سفید رویِ شاخه نِشست.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v07_EHS.wav",
+   "skipped": null,
+   "duration_s": 5.871,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بچه‌ها پُر از شوق بودند، چون پرندهٔ کوچکْ ناگهان با یک پَرِ سفید رویِ شاخه نِشست."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.407
+   },
+   "asr_text": "بچه ها پور از شوق بودند چون پرنده کچک ناگهان با یک پر سفید روی شاخه نشست.",
+   "cer": 0.03571428571428571,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v07_EHS.wav"
+  },
+  {
+   "id": "v08",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تنِ خسته‌اش هنوز درد می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v08_E.wav",
+   "skipped": null,
+   "duration_s": 6.252,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تنِ خسته‌اش هنوز درد می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.439
+   },
+   "asr_text": "پزش گفت که بیمار تا چند روز باید مسکن بخورد چون تنه خستهش هنوز درد می کند.",
+   "cer": 0.05172413793103448,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v08_E.wav"
+  },
+  {
+   "id": "v08",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "پزشک گفت که بیمار تا چند روز باید مَسکن بخورد، چون تَنِ خسته‌اش هنوز درد می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v08_EH.wav",
+   "skipped": null,
+   "duration_s": 6.263,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پزشک گفت که بیمار تا چند روز باید مَسکن بخورد، چون تَنِ خسته‌اش هنوز درد می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.447
+   },
+   "asr_text": "پزش گفت که بیمار تا چند روز باید مسکون بخورد چون تن خستش هنوز درد می کند.",
+   "cer": 0.06896551724137931,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v08_EH.wav"
+  },
+  {
+   "id": "v08",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تنِ خسته‌اشْ هنوز درد می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v08_ES.wav",
+   "skipped": null,
+   "duration_s": 6.256,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پزشک گفت که بیمار تا چند روز باید مسکن بخورد، چون تنِ خسته‌اشْ هنوز درد می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.489
+   },
+   "asr_text": "پزش گفت که بیمار تا چند روز باید مسکن بخورد چون تنخستاش هنوز درد می کند.",
+   "cer": 0.034482758620689655,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v08_ES.wav"
+  },
+  {
+   "id": "v08",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "پزشک گفت که بیمار تا چند روز باید مَسکن بخورد، چون تَنِ خسته‌اشْ هنوز درد می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v08_EHS.wav",
+   "skipped": null,
+   "duration_s": 6.195,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پزشک گفت که بیمار تا چند روز باید مَسکن بخورد، چون تَنِ خسته‌اشْ هنوز درد می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.492
+   },
+   "asr_text": "پزش گفت که بیمار تا چند روز باید مسکون بخورد چون تن خستاش هنوز درد می کند.",
+   "cer": 0.05172413793103448,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v08_EHS.wav"
+  },
+  {
+   "id": "v09",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "در این محله، قیمتِ مسکن معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوان تقریباً صفر است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v09_E.wav",
+   "skipped": null,
+   "duration_s": 7.333,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در این محله، قیمتِ مسکن معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوان تقریباً صفر است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.731
+   },
+   "asr_text": "در این محل قیمت مسکن معمولا بالاست و موجودی حساب بسیاری از زوجهای جوان تقریبا صفر است.",
+   "cer": 0.014285714285714285,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v09_E.wav"
+  },
+  {
+   "id": "v09",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "در این محله، قیمتِ مَسکن معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوان تقریباً صِفر است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v09_EH.wav",
+   "skipped": null,
+   "duration_s": 7.333,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در این محله، قیمتِ مَسکن معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوان تقریباً صِفر است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.744
+   },
+   "asr_text": "در این محله قیمت مسکن معمولا بالاست و موجودی حساب بسیاری از زوجهای جوان تقریبا صفر است.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v09_EH.wav"
+  },
+  {
+   "id": "v09",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "در این محله، قیمتِ مسکنْ معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوانْ تقریباً صفر است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v09_ES.wav",
+   "skipped": null,
+   "duration_s": 7.346,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در این محله، قیمتِ مسکنْ معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوانْ تقریباً صفر است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.003,
+    "load": 0.0,
+    "synthesis": 4.787
+   },
+   "asr_text": "در این محل قیمت مسکن معمولا بالاست و موجودی حساب بسیاری از زوجهای جوان تقریبا صفر است.",
+   "cer": 0.014285714285714285,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v09_ES.wav"
+  },
+  {
+   "id": "v09",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "در این محله، قیمتِ مَسکنْ معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوانْ تقریباً صِفر است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v09_EHS.wav",
+   "skipped": null,
+   "duration_s": 7.331,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در این محله، قیمتِ مَسکنْ معمولاً بالاست و موجودیِ حسابِ بسیاری از زوج‌هایِ جوانْ تقریباً صِفر است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.832
+   },
+   "asr_text": "در این محله قیمت مسکن معمولا بالاست و موجودی حساب بسیاری از زوجهای جوان تقریبا صفر است.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v09_EHS.wav"
+  },
+  {
+   "id": "v10",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "کودکِ بیمار دیشب تا صبح تب داشت و مادرش مدام عرقِ پیشانیِ او را پاک می‌کرد و از سرِ دلسوزی کنارش بیدار ماند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v10_E.wav",
+   "skipped": null,
+   "duration_s": 8.402,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کودکِ بیمار دیشب تا صبح تب داشت و مادرش مدام عرقِ پیشانیِ او را پاک می‌کرد و از سرِ دلسوزی کنارش بیدار ماند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.708
+   },
+   "asr_text": "کودک بیمار دیشب تا صبح تب داشت و مادرش مدام عرق پیشانی او را پاک می کرد و از سر دلسوزی کنارش بیدار ماند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v10_E.wav"
+  },
+  {
+   "id": "v10",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "کودکِ بیمار دیشب تا صبح تب داشت و مادرش مدام عَرقِ پیشانیِ او را پاک می‌کرد و از سَرِ دلسوزی کنارش بیدار ماند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v10_EH.wav",
+   "skipped": null,
+   "duration_s": 8.429,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کودکِ بیمار دیشب تا صبح تب داشت و مادرش مدام عَرقِ پیشانیِ او را پاک می‌کرد و از سَرِ دلسوزی کنارش بیدار ماند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.726
+   },
+   "asr_text": "کودک بیمار دیشب تا صبح تب داشت و مادرش مدام عرق پیشانی اورا پاک می کرد و از سر دلسوزی کنارش بیدار ماند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v10_EH.wav"
+  },
+  {
+   "id": "v10",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "کودکِ بیمارْ دیشب تا صبح تب داشت و مادرشْ مدام عرقِ پیشانیِ او را پاک می‌کرد و از سرِ دلسوزی کنارش بیدار ماند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v10_ES.wav",
+   "skipped": null,
+   "duration_s": 8.396,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کودکِ بیمارْ دیشب تا صبح تب داشت و مادرشْ مدام عرقِ پیشانیِ او را پاک می‌کرد و از سرِ دلسوزی کنارش بیدار ماند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.703
+   },
+   "asr_text": "کودک بیمار دیشب تا صبح تب داشت و مادرش مدام عرق پیشانی اورا پاک می کرد و از سر دلسوزی کنارش بیدار ماند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v10_ES.wav"
+  },
+  {
+   "id": "v10",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "کودکِ بیمارْ دیشب تا صبح تب داشت و مادرشْ مدام عَرقِ پیشانیِ او را پاک می‌کرد و از سَرِ دلسوزی کنارش بیدار ماند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v10_EHS.wav",
+   "skipped": null,
+   "duration_s": 8.392,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کودکِ بیمارْ دیشب تا صبح تب داشت و مادرشْ مدام عَرقِ پیشانیِ او را پاک می‌کرد و از سَرِ دلسوزی کنارش بیدار ماند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.66
+   },
+   "asr_text": "کودک بیمار دیشب تا صبح تب داشت و مادرش مدام عرق پیشانی او را پاک می کرد و از سر دلسوزی کنارش بیدار ماند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v10_EHS.wav"
+  },
+  {
+   "id": "v11",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرح اصلاً ارزشِ صرفِ هزینه ندارد و مبلغِ پیشنهادی را رد کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v11_E.wav",
+   "skipped": null,
+   "duration_s": 8.221,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرح اصلاً ارزشِ صرفِ هزینه ندارد و مبلغِ پیشنهادی را رد کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.564
+   },
+   "asr_text": "در جلسه ی دیروز مدیر بخش بازاریابی گفت که این طرح اصلا ارزش صرف حزینه ندارد و مبلغ پیشنهادی را رد کرد.",
+   "cer": 0.02531645569620253,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v11_E.wav"
+  },
+  {
+   "id": "v11",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرح اصلاً ارزشِ صَرفِ هزینه ندارد و مَبلغِ پیشنهادی را رد کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v11_EH.wav",
+   "skipped": null,
+   "duration_s": 8.221,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرح اصلاً ارزشِ صَرفِ هزینه ندارد و مَبلغِ پیشنهادی را رد کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.581
+   },
+   "asr_text": "در جلسه دیروز مدیر بخش بازاریابی گفت که این طرح اصلا ارزش صرف حزینه ندارد و مبلغ پیشنهادی را رد کرد.",
+   "cer": 0.012658227848101266,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v11_EH.wav"
+  },
+  {
+   "id": "v11",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرحْ اصلاً ارزشِ صرفِ هزینه ندارد و مبلغِ پیشنهادی را رد کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v11_ES.wav",
+   "skipped": null,
+   "duration_s": 8.232,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرحْ اصلاً ارزشِ صرفِ هزینه ندارد و مبلغِ پیشنهادی را رد کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.544
+   },
+   "asr_text": "در جلسه ی دیروز مدیر بخش بازاریابی گفت که این طرح اصلا ارزش صرف حزینه ندارد و مبلغ پیشنهادی را رد کرد.",
+   "cer": 0.02531645569620253,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v11_ES.wav"
+  },
+  {
+   "id": "v11",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرحْ اصلاً ارزشِ صَرفِ هزینه ندارد و مَبلغِ پیشنهادی را رد کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v11_EHS.wav",
+   "skipped": null,
+   "duration_s": 8.228,
+   "used_phonemes": false,
+   "fed_texts": [
+    "در جلسهٔ دیروز، مدیرِ بخشِ بازاریابی گفت که این طرحْ اصلاً ارزشِ صَرفِ هزینه ندارد و مَبلغِ پیشنهادی را رد کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.529
+   },
+   "asr_text": "در جلسه دیروز مدیر بخش بازاریابی گفت که این تر اصلا ارزش صرف حزینه ندارد و مبلغ پیشنهادی را رد کرد.",
+   "cer": 0.0379746835443038,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v11_EHS.wav"
+  },
+  {
+   "id": "v12",
+   "condition": "E",
+   "engine": "omnivoice",
+   "input_text": "جوانان امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگامِ سحر در هوایِ گرمِ تابستان برایِ دویدن به پارک می‌روند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v12_E.wav",
+   "skipped": null,
+   "duration_s": 9.072,
+   "used_phonemes": false,
+   "fed_texts": [
+    "جوانان امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگامِ سحر در هوایِ گرمِ تابستان برایِ دویدن به پارک می‌روند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.672
+   },
+   "asr_text": "جوانان امروز اغلب به ورزش اهمیت می دهند و برخی حتی هنگام سهر در هوای گرم تابستان برای دویدن به پارک می روند.",
+   "cer": 0.011764705882352941,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v12_E.wav"
+  },
+  {
+   "id": "v12",
+   "condition": "EH",
+   "engine": "omnivoice",
+   "input_text": "جوانان امروز اغلب بِه ورزش اهمیت می‌دهند و برخی حتی هنگامِ سَحر در هوایِ گَرمِ تابستان برایِ دویدن بِه پارک می‌روند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v12_EH.wav",
+   "skipped": null,
+   "duration_s": 9.095,
+   "used_phonemes": false,
+   "fed_texts": [
+    "جوانان امروز اغلب بِه ورزش اهمیت می‌دهند و برخی حتی هنگامِ سَحر در هوایِ گَرمِ تابستان برایِ دویدن بِه پارک می‌روند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.66
+   },
+   "asr_text": "جوانان امروز اغلب به ورزش اهمیت می دهند و برخی حتی هنگام سهر در هوایی گرم تابستان برای دویدن به پارک می روند.",
+   "cer": 0.023529411764705882,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v12_EH.wav"
+  },
+  {
+   "id": "v12",
+   "condition": "ES",
+   "engine": "omnivoice",
+   "input_text": "جوانانْ امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگامِ سحر در هوایِ گرمِ تابستان برایِ دویدن به پارک می‌روند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v12_ES.wav",
+   "skipped": null,
+   "duration_s": 9.057,
+   "used_phonemes": false,
+   "fed_texts": [
+    "جوانانْ امروز اغلب به ورزش اهمیت می‌دهند و برخی حتی هنگامِ سحر در هوایِ گرمِ تابستان برایِ دویدن به پارک می‌روند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.674
+   },
+   "asr_text": "جوانان امروز اغلب به ورزش اهمیت می دهند و برخی حتی هنگام سهر در هوای گرم تابستان برای دویدن به پارک می روند.",
+   "cer": 0.011764705882352941,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v12_ES.wav"
+  },
+  {
+   "id": "v12",
+   "condition": "EHS",
+   "engine": "omnivoice",
+   "input_text": "جوانانْ امروز اغلب بِه ورزش اهمیت می‌دهند و برخی حتی هنگامِ سَحر در هوایِ گَرمِ تابستان برایِ دویدن بِه پارک می‌روند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/frontend-listening-v2/wavs/v12_EHS.wav",
+   "skipped": null,
+   "duration_s": 9.11,
+   "used_phonemes": false,
+   "fed_texts": [
+    "جوانانْ امروز اغلب بِه ورزش اهمیت می‌دهند و برخی حتی هنگامِ سَحر در هوایِ گَرمِ تابستان برایِ دویدن بِه پارک می‌روند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.816
+   },
+   "asr_text": "جوانان امروز اغلب به ورزش اهمیت می دهند و برخی حتی هنگام سهر در هوای گرم تابستان برای دویدن به پارک می روند.",
+   "cer": 0.011764705882352941,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/frontend-listening-v2/wavs/v12_EHS.wav"
+  }
+ ],
+ "asr_model": "faster-whisper large-v3-turbo"
+}

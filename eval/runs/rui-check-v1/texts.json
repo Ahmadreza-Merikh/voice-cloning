@@ -1,0 +1,154 @@
+{
+ "sentences_file": "eval/manifests/rui_check_v1.json",
+ "sentences_sha256": "bf4e0ed995d163aefdf0b2a43dccadaa3d9259c2b1238faa335e45f5b3419af7",
+ "code_commit": "24fe06b",
+ "conditions": {
+  "R1": "the app today (رویِ)",
+  "R0": "the same without the kasra on روی"
+ },
+ "sentences": [
+  {
+   "id": "r01",
+   "category": "rui",
+   "text": "گربه آرام روی مبل خوابیده بود و به صدای باران گوش می‌داد.",
+   "rui": 1,
+   "kasra_taken": 1,
+   "texts": {
+    "R1": "گربه آرام رویِ مبل خوابیده بود و به صدایِ باران گوش می‌داد.",
+    "R0": "گربه آرام روی مبل خوابیده بود و به صدایِ باران گوش می‌داد."
+   },
+   "app_notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: روی، صدای."
+   ]
+  },
+  {
+   "id": "r02",
+   "category": "rui",
+   "text": "مادرم گلدان کوچک را روی طاقچه گذاشت تا آفتاب به آن برسد.",
+   "rui": 1,
+   "kasra_taken": 1,
+   "texts": {
+    "R1": "مادرم گلدانِ کوچک را رویِ طاقچه گذاشت تا آفتاب به آن برسد.",
+    "R0": "مادرم گلدانِ کوچک را روی طاقچه گذاشت تا آفتاب به آن برسد."
+   },
+   "app_notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: گلدان، روی."
+   ]
+  },
+  {
+   "id": "r03",
+   "category": "rui",
+   "text": "بچه‌ها با گچ رنگی روی دیوار حیاط نقاشی کشیده بودند.",
+   "rui": 1,
+   "kasra_taken": 1,
+   "texts": {
+    "R1": "بچه‌ها با گچِ رنگی رویِ دیوارِ حیاط نقاشی کشیده بودند.",
+    "R0": "بچه‌ها با گچِ رنگی روی دیوارِ حیاط نقاشی کشیده بودند."
+   },
+   "app_notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: گچ، روی، دیوار."
+   ]
+  },
+  {
+   "id": "r04",
+   "category": "rui",
+   "text": "هواپیما ساعت‌ها روی ابرها پرواز کرد و سرانجام در فرودگاه نشست.",
+   "rui": 1,
+   "kasra_taken": 1,
+   "texts": {
+    "R1": "هواپیما ساعت‌ها رویِ ابرها پرواز کَرد و سرانجام در فرودگاه نِشست.",
+    "R0": "هواپیما ساعت‌ها روی ابرها پرواز کَرد و سرانجام در فرودگاه نِشست."
+   },
+   "app_notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: روی.",
+    "First vowel written on 2 homograph(s) from Homo-GE2PE: کرد، نشست."
+   ]
+  },
+  {
+   "id": "r05",
+   "category": "rui",
+   "text": "اسم هر مهمان را روی یک کارت سفید نوشتیم و کنار بشقابش گذاشتیم.",
+   "rui": 1,
+   "kasra_taken": 1,
+   "texts": {
+    "R1": "اسمِ هر مهمان را رویِ یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم.",
+    "R0": "اسمِ هر مهمان را روی یک کارتِ سفید نوشتیم و کنارِ بشقابش گذاشتیم."
+   },
+   "app_notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: اسم، روی، کارت، کنار."
+   ]
+  },
+  {
+   "id": "r06",
+   "category": "rui",
+   "text": "پیرمرد هر صبح روی نیمکت پارک می‌نشیند و روزنامه می‌خواند.",
+   "rui": 1,
+   "kasra_taken": 1,
+   "texts": {
+    "R1": "پیرمرد هر صبح رویِ نیمکتِ پارک می‌نشیند و روزنامه می‌خواند.",
+    "R0": "پیرمرد هر صبح روی نیمکتِ پارک می‌نشیند و روزنامه می‌خواند."
+   },
+   "app_notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: روی، نیمکت."
+   ]
+  },
+  {
+   "id": "r07",
+   "category": "rui",
+   "text": "برف سنگین روی سقف خانه‌های روستا نشسته بود.",
+   "rui": 1,
+   "kasra_taken": 1,
+   "texts": {
+    "R1": "برفِ سنگین رویِ سقفِ خانه‌هایِ روستا نَشسته بود.",
+    "R0": "برفِ سنگین روی سقفِ خانه‌هایِ روستا نَشسته بود."
+   },
+   "app_notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: برف، روی، سقف، خانه‌های.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: نشسته."
+   ]
+  },
+  {
+   "id": "r08",
+   "category": "rui",
+   "text": "کارشناس با ماژیک قرمز روی نقشه شهر چند نقطه را علامت زد.",
+   "rui": 1,
+   "kasra_taken": 1,
+   "texts": {
+    "R1": "کارشناس با ماژیکِ قرمز رویِ نقشهٔ شهر چند نقطه را علامت زد.",
+    "R0": "کارشناس با ماژیکِ قرمز روی نقشهٔ شهر چند نقطه را علامت زد."
+   },
+   "app_notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: ماژیک، روی، نقشه."
+   ]
+  },
+  {
+   "id": "r09",
+   "category": "rui",
+   "text": "لیوان چای را روی میز گذاشت و کتابش را روی زانویش باز کرد.",
+   "rui": 2,
+   "kasra_taken": 2,
+   "texts": {
+    "R1": "لیوانِ چای را رویِ میز گذاشت و کتابش را رویِ زانویش باز کَرد.",
+    "R0": "لیوانِ چای را روی میز گذاشت و کتابش را روی زانویش باز کَرد."
+   },
+   "app_notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: لیوان، روی، روی.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: کرد."
+   ]
+  },
+  {
+   "id": "r10",
+   "category": "rui",
+   "text": "کودک روی پنجه پا ایستاد تا بتواند از روی دیوار باغ را ببیند.",
+   "rui": 2,
+   "kasra_taken": 2,
+   "texts": {
+    "R1": "کودک رویِ پنجهٔ پا ایستاد تا بتواند از رویِ دیوار باغ را ببیند.",
+    "R0": "کودک روی پنجهٔ پا ایستاد تا بتواند از روی دیوار باغ را ببیند."
+   },
+   "app_notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: روی، پنجه، روی."
+   ]
+  }
+ ]
+}

@@ -369,11 +369,12 @@ def render_config(config: AppConfig) -> AppConfig:
     after every engine is unloaded.
 
     The text as these runs registered it: each condition's text is written out
-    by the run itself, and the app's ezafe marks and its keeping of أ and ۀ
-    for OmniVoice came after them (FINDINGS section 15), so both stay off.
+    by the run itself, and the app's ezafe marks, homograph vowels and its
+    keeping of أ and ۀ for OmniVoice came after them (FINDINGS sections 15-17),
+    so all stay off.
     """
     return config.copy_with(**{"evaluation.enabled": False, "text.ezafe.enabled": False,
-                               "text.marks_engines": []})
+                               "text.homographs.enabled": False, "text.marks_engines": []})
 
 
 # --------------------------------------------------------------------------

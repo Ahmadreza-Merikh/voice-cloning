@@ -7,6 +7,7 @@
       -> chunking on sentence boundaries
       -> per-chunk G2P to IPA (for engines that accept phonemes)
       -> the ezafe written in (for engines that read marks from the script)
+      -> the first vowel of a homograph, from Homo-GE2PE (the same engines)
       -> PreparedText
 
 Chunking happens *before* G2P on purpose: the G2P model disambiguates
@@ -24,6 +25,7 @@ from ..logging_utils import get_logger
 from .chunker import TextChunk, chunk_text, estimate_duration
 from .ezafe_fa import EzafeWriter
 from .g2p import PersianG2P, get_g2p
+from .homographs_fa import HomographWriter
 from .lang import detect_language, is_mixed_script
 from .normalize_fa import NormalizationOptions, normalize
 from .prosody_fa import break_vocative_clauses
@@ -80,6 +82,7 @@ class TextPipeline:
         self.config = config
         self._g2p: PersianG2P | None = None
         self._ezafe: EzafeWriter | None = None
+        self._homographs: HomographWriter | None = None
 
     # -- G2P ---------------------------------------------------------------
     @property
@@ -121,6 +124,12 @@ class TextPipeline:
         if self._ezafe is None:
             self._ezafe = EzafeWriter(self.config.ezafe)
         return self._ezafe
+
+    @property
+    def homographs(self) -> HomographWriter:
+        if self._homographs is None:
+            self._homographs = HomographWriter(self.config.homographs)
+        return self._homographs
 
     # -- main entry point --------------------------------------------------
     def prepare(
@@ -215,7 +224,9 @@ class TextPipeline:
             backend = "not used by this engine"
 
         # -- ezafe -----------------------------------------------------------
-        if detected == "fa" and reads_marks and not used_phonemes and self.ezafe.enabled:
+        marks_apply = detected == "fa" and reads_marks and not used_phonemes
+        plains = [chunk.text for chunk in chunks]
+        if marks_apply and self.ezafe.enabled:
             texts, written, failed = self.ezafe.write([chunk.text for chunk in chunks])
             for chunk, text in zip(chunks, texts, strict=True):
                 chunk.text = text
@@ -223,6 +234,17 @@ class TextPipeline:
                 notes.append(f"Ezafe not written ({failed}); the engine reads plain script.")
             elif written:
                 notes.append(f"Ezafe written in on {len(written)} word(s) by hazm's ParsBERT tagger: "
+                             + "، ".join(written[:12]) + ("…" if len(written) > 12 else "") + ".")
+
+        # -- homograph vowels ------------------------------------------------
+        if marks_apply and self.homographs.enabled:
+            texts, written, failed = self.homographs.write(plains, [chunk.text for chunk in chunks], self.g2p)
+            for chunk, text in zip(chunks, texts, strict=True):
+                chunk.text = text
+            if failed:
+                notes.append(f"Homograph vowels not written ({failed}).")
+            elif written:
+                notes.append(f"First vowel written on {len(written)} homograph(s) from Homo-GE2PE: "
                              + "، ".join(written[:12]) + ("…" if len(written) > 12 else "") + ".")
 
         prepared = PreparedText(

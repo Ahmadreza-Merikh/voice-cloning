@@ -71,7 +71,8 @@ STEPS = {
         "name": "frontend-listening-v1", "folder": "frontend-listening", "extra": []},
     3: {"slug": "persian-voice-frontend-listening-v2-run", "dataset": "persian-voice-frontend-listening-v2",
         "name": "frontend-listening-v2", "folder": "frontend-listening-v2",
-        "extra": ["--texts", "eval/runs/frontend-listening-v2/texts.json", "--app-normaliser"]},
+        # The texts path goes in absolute: the script on the dataset (e1d96e4) stops on a relative one.
+        "extra": ["--texts", {"repo": "eval/runs/frontend-listening-v2/texts.json"}, "--app-normaliser"]},
 }
 EXPECTED = 48
 RENDER_MINUTES = 60
@@ -120,7 +121,8 @@ os.environ["VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID"] = "{BASE_DIR}"
 '''
 
 def render(step: dict) -> str:
-    command = ", ".join(json.dumps(a) for a in ["scripts/render_frontend_conditions.py", "--cer", *step["extra"]])
+    command = ", ".join(f"str(REPO / {json.dumps(a['repo'])})" if isinstance(a, dict) else json.dumps(a)
+                        for a in ["scripts/render_frontend_conditions.py", "--cer", *step["extra"]])
     return f'''\
 OUT = REPO / "eval/runs/{step['name']}"
 RESULT = {{}}

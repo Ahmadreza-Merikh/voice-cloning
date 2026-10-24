@@ -48,5 +48,12 @@
  },
  "read_beside_it_not_for_the_decision": "per form: the ezafe traps heard with an ezafe, the vowel traps marked wrong, the two silent-h ezafes, the picked readings, and the notes",
  "not_claimed": "one voice (mana), one seed, 114 words, the listeners who answer; similarity on one voice only - A1 was measured on unseen speakers by the sealed test (no difference), A5 only on the development set (+0.015 [-0.003, +0.032])",
- "cost": "Kaggle: one session, about 0.5 GPU-hours; listening about 15 minutes"
+ "cost": "Kaggle: one session, about 0.5 GPU-hours; listening about 15 minutes",
+ "sessions": {
+  "v1": {
+   "kernel": "marsmanam/persian-voice-adapted-reading-run, version 1",
+   "pushed": "2026-10-24 07:39:36 UTC; status read RUNNING right after",
+   "built_from": "dc9fabd; the dataset's code (e1d96e4) checked on this Mac first: all 36 texts reach the model with every mark and nothing else changed"
+  }
+ }
 }

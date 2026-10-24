@@ -53,7 +53,14 @@
   "v1": {
    "kernel": "marsmanam/persian-voice-adapted-reading-run, version 1",
    "pushed": "2026-10-24 07:39:36 UTC; status read RUNNING right after",
-   "built_from": "dc9fabd; the dataset's code (e1d96e4) checked on this Mac first: all 36 texts reach the model with every mark and nothing else changed"
+   "built_from": "dc9fabd; the dataset's code (e1d96e4) checked on this Mac first: all 36 texts reach the model with every mark and nothing else changed",
+   "ended": "COMPLETE, read at 07:50:05 UTC: about ten minutes on the T4 pair",
+   "gates": "runner, code (e1d96e4), download (the base, 3.04 GiB), weights, renders-P, renders-A1, renders-A5 - all passed; 12 renders scored per form, the weights each run reported the ones it was given, no other change to any text by the app",
+   "weights": {
+    "A1": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16, model.safetensors sha256 9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a - the sealed test's",
+    "A5": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-c/run/export-5000-float16, model.safetensors sha256 58fb959bdae7ed4fdd7582e12893a4a6cef690b2d97e46554712e4f1ae8ae90a - recorded here first"
+   },
+   "after": "renders brought in by scripts/collect_adapted_renders.py (eval/runs/adapted-reading-v1/manifest.json); held-out similarity scored on this Mac (eval/runs/evidence/adapted-reading-v1/similarity.json); the blind page built with rotations (each form four times in each slot; key eval/runs/evidence/adapted-review-v1/key.json) - CER and similarity kept from the listener"
   }
  }
 }

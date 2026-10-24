@@ -1,0 +1,223 @@
+{
+ "measure": "held-out ECAPA similarity, speechbrain via voiceclone.evaluation.embedding.CachedEmbedder",
+ "backend": "speechbrain-ecapa",
+ "reference": "mana_000.wav",
+ "held_out": [
+  "mana_001.wav",
+  "mana_002.wav",
+  "mana_003.wav",
+  "mana_004.wav"
+ ],
+ "speaker_own_clips_mean": 0.753,
+ "summary": {
+  "P": {
+   "held_out_mean": 0.5904
+  },
+  "A1": {
+   "held_out_mean": 0.5803,
+   "minus_P": [
+    -0.01,
+    -0.0251,
+    0.0045
+   ]
+  },
+  "A5": {
+   "held_out_mean": 0.5899,
+   "minus_P": [
+    -0.0004,
+    -0.0226,
+    0.0198
+   ]
+  }
+ },
+ "contrasts": {
+  "A1": {
+   "spec": "A1=A1-P",
+   "mean_low_high": [
+    -0.01,
+    -0.0251,
+    0.0045
+   ],
+   "wholly_below_zero": false
+  },
+  "A5": {
+   "spec": "A5=A5-P",
+   "mean_low_high": [
+    -0.0004,
+    -0.0226,
+    0.0198
+   ],
+   "wholly_below_zero": false
+  }
+ },
+ "per_sentence": {
+  "a01": {
+   "P": {
+    "held_out": 0.6081,
+    "prompt": 0.7762
+   },
+   "A1": {
+    "held_out": 0.5899,
+    "prompt": 0.774
+   },
+   "A5": {
+    "held_out": 0.5988,
+    "prompt": 0.7734
+   }
+  },
+  "a02": {
+   "P": {
+    "held_out": 0.5931,
+    "prompt": 0.8097
+   },
+   "A1": {
+    "held_out": 0.5572,
+    "prompt": 0.8029
+   },
+   "A5": {
+    "held_out": 0.6397,
+    "prompt": 0.8539
+   }
+  },
+  "a03": {
+   "P": {
+    "held_out": 0.6127,
+    "prompt": 0.792
+   },
+   "A1": {
+    "held_out": 0.6098,
+    "prompt": 0.7975
+   },
+   "A5": {
+    "held_out": 0.5902,
+    "prompt": 0.8016
+   }
+  },
+  "a04": {
+   "P": {
+    "held_out": 0.506,
+    "prompt": 0.6869
+   },
+   "A1": {
+    "held_out": 0.505,
+    "prompt": 0.667
+   },
+   "A5": {
+    "held_out": 0.4979,
+    "prompt": 0.7044
+   }
+  },
+  "a05": {
+   "P": {
+    "held_out": 0.6359,
+    "prompt": 0.8259
+   },
+   "A1": {
+    "held_out": 0.6276,
+    "prompt": 0.8407
+   },
+   "A5": {
+    "held_out": 0.6576,
+    "prompt": 0.8444
+   }
+  },
+  "a06": {
+   "P": {
+    "held_out": 0.5641,
+    "prompt": 0.802
+   },
+   "A1": {
+    "held_out": 0.5973,
+    "prompt": 0.7658
+   },
+   "A5": {
+    "held_out": 0.5689,
+    "prompt": 0.7867
+   }
+  },
+  "a07": {
+   "P": {
+    "held_out": 0.59,
+    "prompt": 0.7423
+   },
+   "A1": {
+    "held_out": 0.6213,
+    "prompt": 0.7766
+   },
+   "A5": {
+    "held_out": 0.6183,
+    "prompt": 0.7633
+   }
+  },
+  "a08": {
+   "P": {
+    "held_out": 0.6363,
+    "prompt": 0.7666
+   },
+   "A1": {
+    "held_out": 0.5752,
+    "prompt": 0.7278
+   },
+   "A5": {
+    "held_out": 0.5452,
+    "prompt": 0.7201
+   }
+  },
+  "a09": {
+   "P": {
+    "held_out": 0.6004,
+    "prompt": 0.7796
+   },
+   "A1": {
+    "held_out": 0.5908,
+    "prompt": 0.8043
+   },
+   "A5": {
+    "held_out": 0.616,
+    "prompt": 0.8479
+   }
+  },
+  "a10": {
+   "P": {
+    "held_out": 0.5599,
+    "prompt": 0.7459
+   },
+   "A1": {
+    "held_out": 0.5189,
+    "prompt": 0.7124
+   },
+   "A5": {
+    "held_out": 0.5333,
+    "prompt": 0.7839
+   }
+  },
+  "a11": {
+   "P": {
+    "held_out": 0.5999,
+    "prompt": 0.7357
+   },
+   "A1": {
+    "held_out": 0.5882,
+    "prompt": 0.7594
+   },
+   "A5": {
+    "held_out": 0.5803,
+    "prompt": 0.7711
+   }
+  },
+  "a12": {
+   "P": {
+    "held_out": 0.578,
+    "prompt": 0.7818
+   },
+   "A1": {
+    "held_out": 0.5828,
+    "prompt": 0.7976
+   },
+   "A5": {
+    "held_out": 0.6329,
+    "prompt": 0.8271
+   }
+  }
+ }
+}

@@ -4,7 +4,46 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-04 14:40 +0330 (2026-10-04 11:10 UTC).
+Last updated: 2026-10-24 11:35 +0330 (2026-10-24 08:05 UTC).
+
+## The adapted reading check: rendered, waiting for the listener (2026-10-24)
+
+The question: does OmniVoice, trained further on 128 h of Persian, read the
+app's text better than the published model? The errors left after steps 1-4
+are the model's own: an ezafe it adds on its own, and wrong vowels inside
+ordinary words. Its pronunciation was never heard, because CER cannot see
+either error.
+
+The check was registered before any front-end ran on its sentences (f0ffa32,
+`eval/runs/persian-voice-adapted-reading-v1.json`). Twelve new sentences
+(`eval/manifests/adapted_reading_v1.json`) hold 19 ezafe traps, 17 vowel traps
+and two silent-h ezafes, with no leakage into HomoRich, SentenceBench, the
+adaptation splits or earlier tests. Each sentence is read three ways from the
+same app text, so only the weights differ:
+- P: the published model
+- A1: the step-1,000 export, the sealed test's
+- A5: the step-5,000 export
+
+**The rule:** an export replaces the app's weights if it has fewer words marked
+wrong than P and is not flagged. It is flagged if its CER is more than 2 points
+above P's, or its similarity interval is wholly below zero.
+
+**Rendered:** Kaggle `persian-voice-adapted-reading-run` version 1, on step 3's
+code dataset with the exports mounted from train-a and train-c. Every gate
+passed, and A1's sha256 is the sealed test's. CER and similarity are kept from
+the listener. The page is
+https://claude.ai/artifact/QoQz55Cxfb1YLqiQkYGJB2 (12 sentences, 36 readings,
+Latin-square slots).
+
+**Next:**
+1. The user listens and says it is finished.
+2. Read `reviews` (ArtifactData `list`, `out_dir`) or the pasted answer code,
+   and save it as `eval/runs/evidence/adapted-review-v1/answers-listener-N.json`.
+3. Run `scripts/score_pronunciation_review.py eval/runs/evidence/adapted-review-v1/key.json <answers>`,
+   which writes `score.json`.
+4. Run `.venv/bin/python scripts/read_adapted_reading.py` to apply the rule.
+5. If an export wins, download it from its training session's output, check
+   it by sha256, and set it as the app's OmniVoice weights.
 
 ## The روی check heard: the app leaves روی plain (2026-10-04)
 

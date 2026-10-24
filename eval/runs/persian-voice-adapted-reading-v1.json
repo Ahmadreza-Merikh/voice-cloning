@@ -60,7 +60,8 @@
     "A1": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16, model.safetensors sha256 9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a - the sealed test's",
     "A5": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-c/run/export-5000-float16, model.safetensors sha256 58fb959bdae7ed4fdd7582e12893a4a6cef690b2d97e46554712e4f1ae8ae90a - recorded here first"
    },
-   "after": "renders brought in by scripts/collect_adapted_renders.py (eval/runs/adapted-reading-v1/manifest.json); held-out similarity scored on this Mac (eval/runs/evidence/adapted-reading-v1/similarity.json); the blind page built with rotations (each form four times in each slot; key eval/runs/evidence/adapted-review-v1/key.json) - CER and similarity kept from the listener"
+   "after": "renders brought in by scripts/collect_adapted_renders.py (eval/runs/adapted-reading-v1/manifest.json); held-out similarity scored on this Mac (eval/runs/evidence/adapted-reading-v1/similarity.json); the blind page built with rotations (each form four times in each slot; key eval/runs/evidence/adapted-review-v1/key.json) - CER and similarity kept from the listener",
+   "page": "https://claude.ai/artifact/QoQz55Cxfb1YLqiQkYGJB2 (contract 0.2.90, db and user; 36 audio files and the page, the reviews collection empty at publish). The page now tells a listener plainly to send the answer code when its answers did not save - the روی check's page said they were saved when they were not"
   }
  }
 }

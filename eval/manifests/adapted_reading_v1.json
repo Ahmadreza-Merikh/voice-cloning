@@ -1,0 +1,96 @@
+{
+ "version": 1,
+ "purpose": "does OmniVoice trained further on 128 h of Persian read the app's text better than the published model",
+ "written_by": "Claude, 2026-10-24, after the روی check and before any front-end ran on these sentences",
+ "traps": {
+  "ezafe_traps": "words after which no ezafe belongs but another word follows that could take one - the kind OmniVoice added in the روی check (باران, پیرمرد, حیاط, دیوار) and in the user's تعاملات معمولاً",
+  "vowel_traps": "ordinary words, none of HomoRich's homographs, whose short vowels plain script does not show - the kind it misread in the روی check (طاقچه, نیمکت, بشقابش, زانویش, می‌نشیند)",
+  "silent_h_ezafe": "a word ending in a silent h that takes the ezafe, written هٔ by the app - the kind it said wrong in پنجهٔ پا"
+ },
+ "sentences": [
+  {
+   "id": "a01",
+   "text": "همسایه بالایی هر شب ساعت ده چراغ‌های حیاط را خاموش می‌کند.",
+   "ezafe_traps": ["بالایی", "ده"],
+   "vowel_traps": [],
+   "silent_h_ezafe": ["همسایه"]
+  },
+  {
+   "id": "a02",
+   "text": "دانشجوها معمولاً شب امتحان تا صبح بیدار می‌مانند.",
+   "ezafe_traps": ["دانشجوها", "امتحان", "صبح"],
+   "vowel_traps": ["امتحان"],
+   "silent_h_ezafe": []
+  },
+  {
+   "id": "a03",
+   "text": "مادربزرگ هر جمعه برای نوه‌هایش کتلت می‌پزد.",
+   "ezafe_traps": ["مادربزرگ", "نوه‌هایش"],
+   "vowel_traps": ["کتلت", "می‌پزد"],
+   "silent_h_ezafe": []
+  },
+  {
+   "id": "a04",
+   "text": "باغبان پیر درختان سیب را با دقت هرس کرد.",
+   "ezafe_traps": ["دقت"],
+   "vowel_traps": ["دقت", "هرس"],
+   "silent_h_ezafe": []
+  },
+  {
+   "id": "a05",
+   "text": "کودکان در حیاط مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد.",
+   "ezafe_traps": ["مدرسه", "توپ", "پنجره"],
+   "vowel_traps": ["نگاهشان"],
+   "silent_h_ezafe": []
+  },
+  {
+   "id": "a06",
+   "text": "راننده تاکسی آرام از کنار ماشین‌های پارک‌شده گذشت.",
+   "ezafe_traps": ["تاکسی"],
+   "vowel_traps": [],
+   "silent_h_ezafe": ["راننده"]
+  },
+  {
+   "id": "a07",
+   "text": "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند.",
+   "ezafe_traps": ["بچه"],
+   "vowel_traps": ["دستکش‌هایش", "بخاری"],
+   "silent_h_ezafe": []
+  },
+  {
+   "id": "a08",
+   "text": "قندان و کتری را از کابینت آشپزخانه برداشتم.",
+   "ezafe_traps": ["آشپزخانه"],
+   "vowel_traps": ["قندان", "کتری", "کابینت"],
+   "silent_h_ezafe": []
+  },
+  {
+   "id": "a09",
+   "text": "پرستار با دستمال کاغذی پیشانی بیمار را پاک کرد.",
+   "ezafe_traps": ["کاغذی"],
+   "vowel_traps": ["دستمال", "پیشانی"],
+   "silent_h_ezafe": []
+  },
+  {
+   "id": "a10",
+   "text": "نجار با اره و چکش یک صندلی چوبی ساخت.",
+   "ezafe_traps": ["چوبی"],
+   "vowel_traps": ["نجار", "اره", "چکش"],
+   "silent_h_ezafe": []
+  },
+  {
+   "id": "a11",
+   "text": "کلاغ‌ها روی سیم برق صف کشیده بودند و قارقار می‌کردند.",
+   "ezafe_traps": ["برق"],
+   "vowel_traps": ["کلاغ‌ها"],
+   "silent_h_ezafe": []
+  },
+  {
+   "id": "a12",
+   "text": "خواهرم کیف پولش را در مترو جا گذاشت و تا خانه پیاده رفت.",
+   "ezafe_traps": ["مترو", "خانه"],
+   "vowel_traps": [],
+   "silent_h_ezafe": []
+  }
+ ]
+}

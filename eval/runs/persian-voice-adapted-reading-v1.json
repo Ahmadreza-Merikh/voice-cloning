@@ -1,0 +1,52 @@
+{
+ "run": "the adapted reading check: does OmniVoice trained further on 128 h of Persian read the app's text better than the published model",
+ "status": "registered 2026-10-24, before any front-end ran on these sentences and before any render",
+ "why": "the errors left after steps 1-4 are the model's own guesses: an ezafe it adds where the text has none (باران, پیرمرد, حیاط, دیوار in the روی check; the user's تعاملات معمولاً) and short vowels inside ordinary words (طاقچه, نیمکت, بشقابش, زانویش, می‌نشیند, پنجهٔ). The text side has no better source: no vowel source beats the model's own 96% (FINDINGS section 14) and the sukun failed twice (sections 15, 17). The adaptation - the official recipe's 5,000 steps on 128 h of Persian - was measured by similarity and CER only (section 12), and CER cannot see short vowels or the ezafe; nobody has listened to how it reads. On the development set its CER fell with every 1,000 steps (-0.05 points at 1,000 to -1.03 at 5,000)",
+ "sentences": {
+  "file": "eval/manifests/adapted_reading_v1.json",
+  "sha256": "055eaefafebf2b46211222fd181ea610eb5c7114ca194a9444a9b10b79a83098",
+  "count": 12,
+  "words": 114,
+  "written_by": "Claude, 2026-10-24: everyday sentences, each with words after which no ezafe belongs but another word follows (19 in all), ordinary words whose short vowels plain script does not show (17), and two silent-h ezafes (هٔ); listed per sentence in the file. Five of HomoRich's homographs occur in passing (ده, کرد twice, روی twice, اره, کیف) and get the app's marks like any other text",
+  "leakage_check": {
+   "homorich": {
+    "checked": 528875,
+    "hits": 0
+   },
+   "sentencebench": {
+    "checked": 400,
+    "hits": 0
+   },
+   "adaptation_splits": {
+    "checked": 96413,
+    "hits": 0
+   },
+   "earlier_tests": {
+    "checked": 48,
+    "hits": 0
+   },
+   "sealed_test_texts": {
+    "checked": 12,
+    "hits": 0
+   }
+  },
+  "leakage_rule": "letters only, equal or one inside the other with at least 20 letters and half the longer - step 2's rule"
+ },
+ "forms": {
+  "P": "the published OmniVoice: the weights the app uses, at the revision every OmniVoice number was measured on",
+  "A1": "the adapted float16 export at step 1,000 (train-a's output): the candidate the development set chose and the sealed test measured; its model.safetensors sha256 9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a, checked before it renders",
+  "A5": "the adapted float16 export at step 5,000 (train-c's output), the end of the recipe; never measured on the sealed sets; its sha256 is recorded in this run"
+ },
+ "text": "every form reads the same text, written once on this Mac: what the app sends OmniVoice today at its default settings - the tagger's ezafe, none on روی, Homo-GE2PE's first vowels on HomoRich's homographs less به. The weights are the only difference",
+ "rendering": "one Kaggle T4 x2 session on step 3's code dataset (e1d96e4), the texts written by the notebook itself: scripts/render_frontend_conditions.py once per form with --cer --app-normaliser, seed 42, mana_000.wav, the engine's weights set through VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID as in the development and test sessions; 12 x 3 = 36 renders, CER after each form's engine is released. Held-out similarity after, on this Mac, against mana_001-004",
+ "review": "as step 3: the plain sentence, three readings in Latin-square slots (each form four times in each slot), loudness matched, the key off the page; words to tap, a note, the better reading",
+ "decision_rule": {
+  "primary": "the words marked wrong in each form, of 114, summed over every listener who answers all 12 sentences",
+  "rule": "the app's OmniVoice weights become an adapted export if it has fewer words marked wrong than P and is not flagged. If A1 and A5 both qualify, the one with fewer words marked wrong; if they tie, the one with the higher held-out similarity. A tie with P keeps P",
+  "harm": "an export is flagged, and not adopted without the user's say, if its mean CER is more than 2 points above P's, or if its paired held-out similarity difference against P has a 95% bootstrap interval wholly below zero (10,000 resamples, seed 20261003, as before)",
+  "adopting": "the export is downloaded from its training session's output, checked by sha256 and set as the app's OmniVoice weights; nothing else in the app changes"
+ },
+ "read_beside_it_not_for_the_decision": "per form: the ezafe traps heard with an ezafe, the vowel traps marked wrong, the two silent-h ezafes, the picked readings, and the notes",
+ "not_claimed": "one voice (mana), one seed, 114 words, the listeners who answer; similarity on one voice only - A1 was measured on unseen speakers by the sealed test (no difference), A5 only on the development set (+0.015 [-0.003, +0.032])",
+ "cost": "Kaggle: one session, about 0.5 GPU-hours; listening about 15 minutes"
+}

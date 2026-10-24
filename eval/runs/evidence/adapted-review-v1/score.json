@@ -1,0 +1,328 @@
+{
+ "listeners": [
+  "احمدرضا"
+ ],
+ "per_condition": {
+  "A1": {
+   "renders": 12,
+   "clean": 5,
+   "words": 114,
+   "wrong": 12,
+   "best": 4,
+   "clean_share": 0.417,
+   "wrong_word_share": 0.105
+  },
+  "A5": {
+   "renders": 12,
+   "clean": 2,
+   "words": 114,
+   "wrong": 14,
+   "best": 1,
+   "clean_share": 0.167,
+   "wrong_word_share": 0.123
+  },
+  "P": {
+   "renders": 12,
+   "clean": 3,
+   "words": 114,
+   "wrong": 15,
+   "best": 1,
+   "clean_share": 0.25,
+   "wrong_word_share": 0.132
+  }
+ },
+ "by_category": {
+  "adapted": {
+   "A5": {
+    "renders": 12,
+    "clean": 2
+   },
+   "P": {
+    "renders": 12,
+    "clean": 3
+   },
+   "A1": {
+    "renders": 12,
+    "clean": 5
+   }
+  }
+ },
+ "marked": [
+  {
+   "listener": "احمدرضا",
+   "sentence": "a01",
+   "condition": "A5",
+   "words": [
+    "بالایی"
+   ],
+   "note": "wrong additional e at the end",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a01",
+   "condition": "P",
+   "words": [
+    "ده"
+   ],
+   "note": "wrong additional e at the end",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a03",
+   "condition": "P",
+   "words": [
+    "مادربزرگ",
+    "نوه‌هایش",
+    "کتلت",
+    "می‌پزد"
+   ],
+   "note": "maadarbozorge, navehayesh, kotalat and and mipezad are wrong the correct versions are maadarbozorg and navehayash and kotlet and mipazad",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a03",
+   "condition": "A1",
+   "words": [
+    "نوه‌هایش",
+    "کتلت",
+    "می‌پزد"
+   ],
+   "note": "navehayesh, kotlat and and mipezad are wrong the correct versions are navehayash and kotlet and mipazad",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a03",
+   "condition": "A5",
+   "words": [
+    "مادربزرگ",
+    "کتلت",
+    "می‌پزد"
+   ],
+   "note": "maadarbozorge, kotalat and and mipezad are wrong the correct versions are maadarbozorg and kotlet and mipazad",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a04",
+   "condition": "A1",
+   "words": [
+    "پیر"
+   ],
+   "note": "pire is wrong pir is correct",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a04",
+   "condition": "A5",
+   "words": [
+    "پیر"
+   ],
+   "note": "pire is wrong pir is correct",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a04",
+   "condition": "P",
+   "words": [
+    "پیر"
+   ],
+   "note": "pire is wrong pir is correct",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a05",
+   "condition": "P",
+   "words": [
+    "مدرسه"
+   ],
+   "note": "additional wrong e at the end",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a05",
+   "condition": "A1",
+   "words": [
+    "مدرسه",
+    "توپ"
+   ],
+   "note": "additional wrong e at the end",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a05",
+   "condition": "A5",
+   "words": [
+    "مدرسه",
+    "توپ"
+   ],
+   "note": "additional wrong e at the end",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a06",
+   "condition": "A5",
+   "words": [
+    "کنار"
+   ],
+   "note": "kenareye is wrong kenare is correct",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a06",
+   "condition": "P",
+   "words": [
+    "تاکسی",
+    "کنار"
+   ],
+   "note": "kenareye is wrong kenare is correct and taxie is wrong taxi is corrrect",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a06",
+   "condition": "A1",
+   "words": [
+    "کنار"
+   ],
+   "note": "kenareye is wrong kenare is correct",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a07",
+   "condition": "P",
+   "words": [
+    "بچه"
+   ],
+   "note": "bacheye wrong",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a07",
+   "condition": "A5",
+   "words": [
+    "بچه"
+   ],
+   "note": "bacheye wrong",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a09",
+   "condition": "A1",
+   "words": [
+    "کاغذی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a09",
+   "condition": "A5",
+   "words": [
+    "کاغذی"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a09",
+   "condition": "P",
+   "words": [
+    "کاغذی"
+   ],
+   "note": "in all the thee kaghazi has an additional e at the end that is wrong",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a10",
+   "condition": "P",
+   "words": [
+    "اره",
+    "چکش"
+   ],
+   "note": "Aarh and chekesh is wrong",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a10",
+   "condition": "A1",
+   "words": [
+    "اره",
+    "چکش"
+   ],
+   "note": "Arh and chekesh wrong",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a10",
+   "condition": "A5",
+   "words": [
+    "چکش"
+   ],
+   "note": "chekesh wrong",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a11",
+   "condition": "A1",
+   "words": [
+    "کلاغ‌ها",
+    "برق"
+   ],
+   "note": "kelagh no, kalagh correct and barghe wrong, bargh correct",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a11",
+   "condition": "A5",
+   "words": [
+    "کلاغ‌ها",
+    "برق"
+   ],
+   "note": "kelagh no, kalagh correct and barghe wrong, bargh correct",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a11",
+   "condition": "P",
+   "words": [
+    "کلاغ‌ها",
+    "برق"
+   ],
+   "note": "kelagh no, kalagh correct and barghe wrong, bargh correct",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "a12",
+   "condition": "A5",
+   "words": [
+    "کیف"
+   ],
+   "note": "keif is wrong kif is correct",
+   "twin_note": null
+  }
+ ],
+ "label": "diagnostic - fourteen sentences, few listeners; not a claim"
+}

@@ -1,0 +1,322 @@
+{
+ "listeners": [
+  "احمدرضا"
+ ],
+ "left_out_incomplete": [],
+ "words_marked_wrong": {
+  "P": 15,
+  "A1": 12,
+  "A5": 14
+ },
+ "of_words": 114,
+ "mean_cer": {
+  "P": 0.0479,
+  "A1": 0.037,
+  "A5": 0.0513
+ },
+ "held_out_similarity": {
+  "P": 0.5904,
+  "A1": 0.5803,
+  "A5": 0.5899
+ },
+ "exports": {
+  "A1": {
+   "words_marked_wrong": 12,
+   "fewer_than_P": true,
+   "cer_rise_points": -1.09,
+   "similarity_minus_P": [
+    -0.01,
+    -0.0251,
+    0.0045
+   ],
+   "flagged": false,
+   "qualifies": true,
+   "fewer_but_flagged": false
+  },
+  "A5": {
+   "words_marked_wrong": 14,
+   "fewer_than_P": true,
+   "cer_rise_points": 0.34,
+   "similarity_minus_P": [
+    -0.0004,
+    -0.0226,
+    0.0198
+   ],
+   "flagged": false,
+   "qualifies": true,
+   "fewer_but_flagged": false
+  }
+ },
+ "choice": "A1",
+ "read_beside_it": {
+  "trap_words_marked": {
+   "P": {
+    "ezafe_traps": 8,
+    "vowel_traps": 5,
+    "silent_h_ezafe": 0
+   },
+   "A1": {
+    "ezafe_traps": 5,
+    "vowel_traps": 5,
+    "silent_h_ezafe": 0
+   },
+   "A5": {
+    "ezafe_traps": 7,
+    "vowel_traps": 4,
+    "silent_h_ezafe": 0
+   }
+  },
+  "of_trap_words": {
+   "ezafe_traps": 19,
+   "vowel_traps": 17,
+   "silent_h_ezafe": 2
+  },
+  "best": {
+   "A1": 4,
+   "no difference": 6,
+   "P": 1,
+   "A5": 1
+  },
+  "notes": [
+   {
+    "listener": "احمدرضا",
+    "sentence": "a01",
+    "form": "A5",
+    "note": "wrong additional e at the end"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a01",
+    "form": "P",
+    "note": "wrong additional e at the end"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a03",
+    "form": "P",
+    "note": "maadarbozorge, navehayesh, kotalat and and mipezad are wrong the correct versions are maadarbozorg and navehayash and kotlet and mipazad"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a03",
+    "form": "A1",
+    "note": "navehayesh, kotlat and and mipezad are wrong the correct versions are navehayash and kotlet and mipazad"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a03",
+    "form": "A5",
+    "note": "maadarbozorge, kotalat and and mipezad are wrong the correct versions are maadarbozorg and kotlet and mipazad"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a04",
+    "form": "A1",
+    "note": "pire is wrong pir is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a04",
+    "form": "A5",
+    "note": "pire is wrong pir is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a04",
+    "form": "P",
+    "note": "pire is wrong pir is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a05",
+    "form": "P",
+    "note": "additional wrong e at the end"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a05",
+    "form": "A1",
+    "note": "additional wrong e at the end"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a05",
+    "form": "A5",
+    "note": "additional wrong e at the end"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a06",
+    "form": "A5",
+    "note": "kenareye is wrong kenare is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a06",
+    "form": "P",
+    "note": "kenareye is wrong kenare is correct and taxie is wrong taxi is corrrect"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a06",
+    "form": "A1",
+    "note": "kenareye is wrong kenare is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a07",
+    "form": "P",
+    "note": "bacheye wrong"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a07",
+    "form": "A5",
+    "note": "bacheye wrong"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a09",
+    "form": "P",
+    "note": "in all the thee kaghazi has an additional e at the end that is wrong"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a10",
+    "form": "P",
+    "note": "Aarh and chekesh is wrong"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a10",
+    "form": "A1",
+    "note": "Arh and chekesh wrong"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a10",
+    "form": "A5",
+    "note": "chekesh wrong"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a11",
+    "form": "A1",
+    "note": "kelagh no, kalagh correct and barghe wrong, bargh correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a11",
+    "form": "A5",
+    "note": "kelagh no, kalagh correct and barghe wrong, bargh correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a11",
+    "form": "P",
+    "note": "kelagh no, kalagh correct and barghe wrong, bargh correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "a12",
+    "form": "A5",
+    "note": "keif is wrong kif is correct"
+   }
+  ],
+  "marked": {
+   "answers-listener-1.json:a12:A5": [
+    "کیف"
+   ],
+   "answers-listener-1.json:a09:P": [
+    "کاغذی"
+   ],
+   "answers-listener-1.json:a09:A1": [
+    "کاغذی"
+   ],
+   "answers-listener-1.json:a09:A5": [
+    "کاغذی"
+   ],
+   "answers-listener-1.json:a01:P": [
+    "ده"
+   ],
+   "answers-listener-1.json:a01:A5": [
+    "بالایی"
+   ],
+   "answers-listener-1.json:a10:P": [
+    "اره",
+    "چکش"
+   ],
+   "answers-listener-1.json:a10:A1": [
+    "اره",
+    "چکش"
+   ],
+   "answers-listener-1.json:a10:A5": [
+    "چکش"
+   ],
+   "answers-listener-1.json:a06:P": [
+    "تاکسی",
+    "کنار"
+   ],
+   "answers-listener-1.json:a06:A1": [
+    "کنار"
+   ],
+   "answers-listener-1.json:a06:A5": [
+    "کنار"
+   ],
+   "answers-listener-1.json:a04:P": [
+    "پیر"
+   ],
+   "answers-listener-1.json:a04:A1": [
+    "پیر"
+   ],
+   "answers-listener-1.json:a04:A5": [
+    "پیر"
+   ],
+   "answers-listener-1.json:a11:P": [
+    "کلاغ‌ها",
+    "برق"
+   ],
+   "answers-listener-1.json:a11:A1": [
+    "کلاغ‌ها",
+    "برق"
+   ],
+   "answers-listener-1.json:a11:A5": [
+    "کلاغ‌ها",
+    "برق"
+   ],
+   "answers-listener-1.json:a07:P": [
+    "بچه"
+   ],
+   "answers-listener-1.json:a07:A5": [
+    "بچه"
+   ],
+   "answers-listener-1.json:a05:P": [
+    "مدرسه"
+   ],
+   "answers-listener-1.json:a05:A1": [
+    "مدرسه",
+    "توپ"
+   ],
+   "answers-listener-1.json:a05:A5": [
+    "مدرسه",
+    "توپ"
+   ],
+   "answers-listener-1.json:a03:P": [
+    "مادربزرگ",
+    "نوه‌هایش",
+    "کتلت",
+    "می‌پزد"
+   ],
+   "answers-listener-1.json:a03:A1": [
+    "نوه‌هایش",
+    "کتلت",
+    "می‌پزد"
+   ],
+   "answers-listener-1.json:a03:A5": [
+    "مادربزرگ",
+    "کتلت",
+    "می‌پزد"
+   ]
+  }
+ }
+}

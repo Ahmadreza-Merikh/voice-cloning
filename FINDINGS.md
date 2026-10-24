@@ -1532,3 +1532,57 @@ Other errors were heard the same way in both forms:
 in `src/voiceclone/text/ezafe_fa.py`). A kasra the writer puts there stays.
 Through the app at its default settings, with the real tagger and Homo-GE2PE,
 the ten sentences give the R0 that was heard (`scripts/check_rui_in_app.py`).
+
+## 19. The model trained on Persian reads better, and the app now uses it
+
+Four rounds on the text left the model's own errors:
+- an ezafe it adds where none is written
+- wrong vowels inside ordinary words
+
+The Persian adaptation (section 12) had been measured only by similarity and
+CER, and CER cannot see either error. Twelve new sentences were written to
+hold both: 19 words after which no ezafe belongs, and 17 ordinary words whose
+short vowels plain script does not show. The check was registered before any
+front-end ran on them (`eval/runs/persian-voice-adapted-reading-v1.json`).
+Three sets of weights read each sentence from the same app text:
+- P: the published model
+- A1: the adaptation's export at step 1,000, the one the sealed test measured
+- A5: the export at step 5,000
+
+One Kaggle session rendered them in about ten minutes. The user heard them
+blind, with each form four times in each slot.
+
+| | words marked wrong (of 114) | readings with none wrong | picked best | mean CER | held-out similarity |
+|---|---|---|---|---|---|
+| P, published | 15 | 3 of 12 | 1 | 4.8% | 0.590 |
+| A1, step 1,000 | **12** | **5** | **4** | **3.7%** | 0.580 |
+| A5, step 5,000 | 14 | 2 | 1 | 5.1% | 0.590 |
+
+"No difference" was picked for the other six sentences.
+
+**By the registered rule the app now reads with A1.** Both exports have fewer
+words marked wrong than P and neither is flagged; A1 has fewer. Its similarity
+on this voice is 0.010 lower, but the interval crosses zero (−0.025 to +0.005).
+On the sealed test's 27 unseen speakers it matched the published model
+(+0.001 [−0.004, +0.007]). Three words in 114, from one listener, one voice and
+one seed, is a small difference. More training did not read better either: A5,
+at five times the steps, sits between the two.
+
+**Where the difference is: the ezafe the model adds.** By the notes, it was
+heard on 8 words in P, 5 in A1 and 8 in A5. Four came in every form:
+- پیر before درختان
+- مدرسه before توپ
+- کاغذی before پیشانی
+- برق before صف
+
+Every form also said the written کنارِ as kenareye. The vowels did not move:
+کتلت, می‌پزد, چکش and کلاغ were wrong in all three. Both silent-h ezafes
+(همسایهٔ, رانندهٔ) were right in all three.
+
+**In the app.** OmniVoice reads with A1 (`engines.omnivoice.weights: auto`)
+once `scripts/fetch_adapted_weights.py` has fetched it from the training
+session's output (about 2 GB) and its sha256 matches the one the sealed test
+and this check heard. On a machine without it, the app reads with the
+published model and says so in the output's warnings. `weights: published`
+keeps the old weights; `weights: adapted` refuses to start without the new
+ones.

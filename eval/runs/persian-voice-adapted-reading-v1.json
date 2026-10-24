@@ -125,5 +125,12 @@
    "how_firm": "three words in 114, one listener, one voice, one seed. A1's similarity on this voice is 0.010 lower with an interval that crosses zero; on the sealed test's 27 unseen speakers it was +0.0014 [-0.0042, +0.0069] against the published model. More training did not read better: A5, at five times the steps, is between the two"
   },
   "label": "one listener, one voice (mana), one seed, 114 words"
+ },
+ "in_the_app": {
+  "when": "2026-10-24, by the registered rule",
+  "what": "engines.omnivoice.weights: auto reads with A1 from adapted_dir when its SOURCE.json names the sha256 the check heard and the weights are that size, and the configured model_id is the published one; otherwise the published model, with a warning in the output naming the fetch script. weights: adapted refuses to start without A1; weights: published keeps the old weights. The worker loads the folder as it loads any local weights, and the output's metadata names the weights it read with",
+  "fetched": "scripts/fetch_adapted_weights.py on this Mac: run/export-1000-float16/ from marsmanam/persian-voice-omnivoice-train-a, streamed and retried; model.safetensors 1,225,189,240 bytes, sha256 9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a, the audio tokenizer the base's (fe7c5e87...)",
+  "not_run_here": "no render on this Mac yet: the memory guard asks 6 GB free to start OmniVoice and 5.5 GB were. The same folder loaded and rendered through the same worker on Kaggle in the development, test and this session",
+  "tests": "637 passed, 1 skipped"
  }
 }

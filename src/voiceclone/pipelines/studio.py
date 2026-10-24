@@ -446,6 +446,9 @@ class Studio:
                 # Keep the seed stable across chunks so timbre does not drift.
                 if used is None:
                     used = result.seed
+                note = result.metadata.get("weights_note")
+                if note and note not in warnings:
+                    warnings.append(note)
 
                 rendered.append(strip_reference_leakage(result.audio))
                 gaps.append(chunk.gap_before_ms)

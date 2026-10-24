@@ -4,46 +4,52 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-24 11:35 +0330 (2026-10-24 08:05 UTC).
+Last updated: 2026-10-24 12:10 +0330 (2026-10-24 08:40 UTC).
 
-## The adapted reading check: rendered, waiting for the listener (2026-10-24)
+## The adapted reading check heard: the app reads with the step-1,000 export (2026-10-24)
 
 The question: does OmniVoice, trained further on 128 h of Persian, read the
-app's text better than the published model? The errors left after steps 1-4
-are the model's own: an ezafe it adds on its own, and wrong vowels inside
-ordinary words. Its pronunciation was never heard, because CER cannot see
-either error.
+app's text better than the published model? Its pronunciation had never been
+heard, and CER cannot see the errors that were left: an ezafe the model adds
+on its own, and wrong vowels inside ordinary words.
 
-The check was registered before any front-end ran on its sentences (f0ffa32,
-`eval/runs/persian-voice-adapted-reading-v1.json`). Twelve new sentences
-(`eval/manifests/adapted_reading_v1.json`) hold 19 ezafe traps, 17 vowel traps
-and two silent-h ezafes, with no leakage into HomoRich, SentenceBench, the
-adaptation splits or earlier tests. Each sentence is read three ways from the
-same app text, so only the weights differ:
-- P: the published model
-- A1: the step-1,000 export, the sealed test's
-- A5: the step-5,000 export
+The check was registered before any front-end ran (f0ffa32,
+`eval/runs/persian-voice-adapted-reading-v1.json`, result recorded; FINDINGS
+section 19). Twelve new sentences, with 19 ezafe traps and 17 vowel traps,
+were read from the same app text by three sets of weights. Kaggle
+`persian-voice-adapted-reading-run` v1 rendered them; every gate passed. The
+user heard them blind on https://claude.ai/artifact/QoQz55Cxfb1YLqiQkYGJB2,
+and the page saved the answers itself.
 
-**The rule:** an export replaces the app's weights if it has fewer words marked
-wrong than P and is not flagged. It is flagged if its CER is more than 2 points
-above P's, or its similarity interval is wholly below zero.
+| | words wrong (of 114) | none wrong | picked best | CER | similarity |
+|---|---|---|---|---|---|
+| P, published | 15 | 3 | 1 | 4.8% | 0.590 |
+| A1, step 1,000 | 12 | 5 | 4 | 3.7% | 0.580 |
+| A5, step 5,000 | 14 | 2 | 1 | 5.1% | 0.590 |
 
-**Rendered:** Kaggle `persian-voice-adapted-reading-run` version 1, on step 3's
-code dataset with the exports mounted from train-a and train-c. Every gate
-passed, and A1's sha256 is the sealed test's. CER and similarity are kept from
-the listener. The page is
-https://claude.ai/artifact/QoQz55Cxfb1YLqiQkYGJB2 (12 sentences, 36 readings,
-Latin-square slots).
+By the registered rule the app's weights become A1. Neither export was
+flagged. A1's similarity on this voice is −0.010 [−0.025, +0.005]; on the
+sealed test's unseen speakers it was the same as P's. The gain is in the
+ezafes the model adds (8 words in P, 5 in A1); the vowels did not move. It is
+three words, one listener, one voice and one seed.
 
-**Next:**
-1. The user listens and says it is finished.
-2. Read `reviews` (ArtifactData `list`, `out_dir`) or the pasted answer code,
-   and save it as `eval/runs/evidence/adapted-review-v1/answers-listener-N.json`.
-3. Run `scripts/score_pronunciation_review.py eval/runs/evidence/adapted-review-v1/key.json <answers>`,
-   which writes `score.json`.
-4. Run `.venv/bin/python scripts/read_adapted_reading.py` to apply the rule.
-5. If an export wins, download it from its training session's output, check
-   it by sha256, and set it as the app's OmniVoice weights.
+**In the app:** `engines.omnivoice.weights: auto` reads with A1 from
+`~/.cache/persian-voice-cloning/omnivoice/adapted/omnivoice-fa-1000-float16`,
+which `scripts/fetch_adapted_weights.py` fetches from train-a's output and
+verifies by sha256 (fetched on this Mac). Without A1, the app reads with the
+published model and puts a warning in the output. `weights: published` keeps
+the old weights.
+
+**Still wrong in every form:**
+- ezafes nobody wrote: پیر, مدرسه, کاغذی, برق before the next word
+- کنارِ said as kenareye
+- the vowels of کتلت, می‌پزد, چکش and کلاغ
+
+**Next (the user's call):** nothing is running. The open lever is a model that
+does not guess the ezafe: training with the tagger's ezafe written into the
+transcripts, so that an unwritten kasra means none. That is a full training
+run, about 24 GPU-hours as for the adaptation, and needs its own decision.
+Listening to the app on real texts with A1 is the cheap step before it.
 
 ## The روی check heard: the app leaves روی plain (2026-10-04)
 

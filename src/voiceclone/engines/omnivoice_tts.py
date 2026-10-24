@@ -115,6 +115,31 @@ def cached_revision(model_id: str) -> str | None:
         return None
 
 
+PUBLISHED_MODEL_ID = "k2-fsa/OmniVoice"
+FETCH_HINT = "Fetch them with: .venv/bin/python scripts/fetch_adapted_weights.py (about 2 GB)."
+
+
+def adapted_weights(settings: OmniVoiceConfig) -> Path | None:
+    """The adapted export the app reads with, when it is on this machine and verified.
+
+    ``scripts/fetch_adapted_weights.py`` writes it with a ``SOURCE.json`` that
+    names the sha256 and size of its ``model.safetensors`` once both were
+    checked; a folder whose record does not name the configured hash, or whose
+    weights are missing or another size, is never loaded.
+    """
+    folder = Path(os.path.expandvars(str(settings.adapted_dir))).expanduser()
+    try:
+        record = json.loads((folder / "SOURCE.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    weights = folder / "model.safetensors"
+    if record.get("verified") is not True or record.get("model_sha256") != settings.adapted_sha256:
+        return None
+    if not weights.is_file() or weights.stat().st_size != record.get("model_bytes"):
+        return None
+    return folder
+
+
 def float16_copy(model_id: str, root: Path, revision: str | None = None) -> tuple[Path, dict[str, Any]] | None:
     """A verified float16 copy of the cached ``model_id``, made for exactly its cached revision.
 
@@ -190,6 +215,20 @@ class OmniVoiceEngine(TTSEngine):
 
     def _model_source(self, settings: OmniVoiceConfig) -> str:
         """What the worker loads: a hub id, or a local directory of weights."""
+        choice = str(settings.weights).lower()
+        self._weights_note = None
+        self._adapted = False
+        if choice == "published" or (choice == "auto" and str(settings.model_id) != PUBLISHED_MODEL_ID):
+            return str(settings.model_id)
+        folder = adapted_weights(settings)
+        if folder is not None:
+            self._adapted = True
+            return str(folder)
+        if choice == "adapted":
+            raise EngineNotAvailableError("The adapted OmniVoice weights are not on this machine.", hint=FETCH_HINT)
+        self._weights_note = ("OmniVoice read with the published weights: the adapted ones it reads with "
+                              f"by default are not on this machine. {FETCH_HINT}")
+        log.warning(self._weights_note)
         return str(settings.model_id)
 
     # -- loading -----------------------------------------------------------
@@ -249,6 +288,9 @@ class OmniVoiceEngine(TTSEngine):
             # The worker sees a local path; the weights are this model at this revision.
             self._loaded_model = {"model": model, "revision": copy[1]["revision"],
                                   "weights": f"verified float16 copy, {copy[0]}"}
+        if getattr(self, "_adapted", False):
+            self._loaded_model = {"model": model, "revision": None,
+                                  "weights": f"the Persian adaptation's step-1,000 export, sha256 {settings.adapted_sha256}"}
         self._tempdir = tempfile.TemporaryDirectory(prefix="voiceclone_omnivoice_")
         if self._loaded_device != str(self.device.device) or self._loaded_dtype != settings.dtype:
             log.warning(
@@ -437,6 +479,7 @@ class OmniVoiceEngine(TTSEngine):
             seed=used_seed,
             metadata={
                 **getattr(self, "_loaded_model", {}),
+                **({"weights_note": self._weights_note} if getattr(self, "_weights_note", None) else {}),
                 "device": self._loaded_device,
                 "dtype": self._loaded_dtype,
                 "language": job["language"],

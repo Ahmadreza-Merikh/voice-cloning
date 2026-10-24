@@ -330,6 +330,19 @@ engines:
     #   VIRTUAL_ENV=~/.cache/.../omnivoice/.venv uv pip install omnivoice
     python: auto
     model_id: k2-fsa/OmniVoice
+    # Which weights OmniVoice reads with. The adapted reading check
+    # (eval/runs/persian-voice-adapted-reading-v1.json) heard the Persian
+    # adaptation's step-1,000 export read the app's text with fewer words wrong
+    # than the published model, 12 against 15 of 114, and nothing flagged it.
+    #   auto       the export when adapted_dir holds it, verified by sha256, and
+    #              model_id is the published one; else model_id, with a warning
+    #              in the output when the export is missing
+    #   adapted    refuse to start without the export
+    #   published  always model_id
+    # Fetch it with: .venv/bin/python scripts/fetch_adapted_weights.py (about 2 GB)
+    weights: auto
+    adapted_dir: ~/.cache/persian-voice-cloning/omnivoice/adapted/omnivoice-fa-1000-float16
+    adapted_sha256: 9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a
     language: fa
     # Upstream's inference dtype. It loads straight onto Metal: what aborted the
     # process was transformers' threaded weight loading, and the worker switches

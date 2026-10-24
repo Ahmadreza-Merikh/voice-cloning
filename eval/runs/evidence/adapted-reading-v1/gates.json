@@ -1,0 +1,30 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.3s; 104588 shown"
+  },
+  "code": {
+    "passed": true,
+    "reason": "the render script, the marks and the registered texts are present; code from e1d96e4"
+  },
+  "download": {
+    "passed": true,
+    "reason": "{\"base\": {\"gib\": 3.043, \"seconds\": 16.9, \"tries\": [{\"attempt\": 1, \"seconds\": 16.9}], \"failed_check\": null}}"
+  },
+  "weights": {
+    "passed": true,
+    "reason": "{\"weights\": {\"P\": {\"path\": \"/tmp/omnivoice-base\"}, \"A1\": {\"path\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16\", \"found\": [\"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16\"], \"model_sha256\": \"9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a\"}, \"A5\": {\"path\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-c/run/export-5000-float16\", \"found\": [\"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-c/run/export-5000-float16\"], \"model_sha256\": \"58fb959bdae7ed4fdd7582e12893a4a6cef690b2d97e46554712e4f1ae8ae90a\"}}, \"problems\": []}"
+  },
+  "renders-P": {
+    "passed": true,
+    "reason": "{\"rendered\": 12, \"scored\": 12, \"weights\": \"/tmp/omnivoice-base\", \"worker\": [\"07:45:16 INFO     OmniVoice ready (cuda, float16, 24000 Hz)\"], \"mean_cer\": 0.0479, \"other_changes_by_the_app\": []}"
+  },
+  "renders-A1": {
+    "passed": true,
+    "reason": "{\"rendered\": 12, \"scored\": 12, \"weights\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16\", \"worker\": [\"07:46:45 INFO     OmniVoice ready (cuda, float16, 24000 Hz)\"], \"mean_cer\": 0.037, \"other_changes_by_the_app\": []}"
+  },
+  "renders-A5": {
+    "passed": true,
+    "reason": "{\"rendered\": 12, \"scored\": 12, \"weights\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-c/run/export-5000-float16\", \"worker\": [\"07:48:05 INFO     OmniVoice ready (cuda, float16, 24000 Hz)\"], \"mean_cer\": 0.0513, \"other_changes_by_the_app\": []}"
+  }
+}

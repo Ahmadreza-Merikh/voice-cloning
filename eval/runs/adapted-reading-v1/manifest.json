@@ -1,0 +1,1258 @@
+{
+ "version": 1,
+ "purpose": "the adapted reading check: the same text read by three sets of OmniVoice weights",
+ "texts": {
+  "file": "eval/runs/adapted-reading-v1/texts.json",
+  "sentences_sha256": "055eaefafebf2b46211222fd181ea610eb5c7114ca194a9444a9b10b79a83098"
+ },
+ "settings": {
+  "P": {
+   "seed": 42,
+   "candidates": 1,
+   "evaluation_enabled": false,
+   "cer_after_unload": true,
+   "omnivoice": {
+    "python": "auto",
+    "language": "fa",
+    "dtype": "float16",
+    "num_step": 32,
+    "guidance_scale": 2.0,
+    "t_shift": 0.1,
+    "denoise": true,
+    "postprocess_output": true,
+    "layer_penalty_factor": 5.0,
+    "position_temperature": 5.0,
+    "class_temperature": 0.0,
+    "timeout_seconds": 900,
+    "memory_guard": true,
+    "min_available_gb": 6.0
+   },
+   "omnivoice_model_id": "/tmp/omnivoice-base",
+   "text": {
+    "ezafe_enabled": false,
+    "marks_engines": [
+     "omnivoice"
+    ]
+   }
+  },
+  "A1": {
+   "seed": 42,
+   "candidates": 1,
+   "evaluation_enabled": false,
+   "cer_after_unload": true,
+   "omnivoice": {
+    "python": "auto",
+    "language": "fa",
+    "dtype": "float16",
+    "num_step": 32,
+    "guidance_scale": 2.0,
+    "t_shift": 0.1,
+    "denoise": true,
+    "postprocess_output": true,
+    "layer_penalty_factor": 5.0,
+    "position_temperature": 5.0,
+    "class_temperature": 0.0,
+    "timeout_seconds": 900,
+    "memory_guard": true,
+    "min_available_gb": 6.0
+   },
+   "omnivoice_model_id": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+   "text": {
+    "ezafe_enabled": false,
+    "marks_engines": [
+     "omnivoice"
+    ]
+   }
+  },
+  "A5": {
+   "seed": 42,
+   "candidates": 1,
+   "evaluation_enabled": false,
+   "cer_after_unload": true,
+   "omnivoice": {
+    "python": "auto",
+    "language": "fa",
+    "dtype": "float16",
+    "num_step": 32,
+    "guidance_scale": 2.0,
+    "t_shift": 0.1,
+    "denoise": true,
+    "postprocess_output": true,
+    "layer_penalty_factor": 5.0,
+    "position_temperature": 5.0,
+    "class_temperature": 0.0,
+    "timeout_seconds": 900,
+    "memory_guard": true,
+    "min_available_gb": 6.0
+   },
+   "omnivoice_model_id": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-c/run/export-5000-float16",
+   "text": {
+    "ezafe_enabled": false,
+    "marks_engines": [
+     "omnivoice"
+    ]
+   }
+  }
+ },
+ "reference": {
+  "speaker": "mana",
+  "file": "mana_000.wav",
+  "transcript": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم."
+ },
+ "conditions": {
+  "P": "the published OmniVoice",
+  "A1": "the adapted export at step 1,000",
+  "A5": "the adapted export at step 5,000"
+ },
+ "sentences": [
+  {
+   "id": "a01",
+   "category": "adapted",
+   "text": "همسایه بالایی هر شب ساعت ده چراغ‌های حیاط را خاموش می‌کند.",
+   "texts": {
+    "P": "همسایهٔ بالایی هر شب ساعتِ دَه چراغ‌هایِ حیاط را خاموش می‌کند.",
+    "A1": "همسایهٔ بالایی هر شب ساعتِ دَه چراغ‌هایِ حیاط را خاموش می‌کند.",
+    "A5": "همسایهٔ بالایی هر شب ساعتِ دَه چراغ‌هایِ حیاط را خاموش می‌کند."
+   }
+  },
+  {
+   "id": "a02",
+   "category": "adapted",
+   "text": "دانشجوها معمولاً شب امتحان تا صبح بیدار می‌مانند.",
+   "texts": {
+    "P": "دانشجوها معمولاً شبِ امتحان تا صبح بیدار می‌مانند.",
+    "A1": "دانشجوها معمولاً شبِ امتحان تا صبح بیدار می‌مانند.",
+    "A5": "دانشجوها معمولاً شبِ امتحان تا صبح بیدار می‌مانند."
+   }
+  },
+  {
+   "id": "a03",
+   "category": "adapted",
+   "text": "مادربزرگ هر جمعه برای نوه‌هایش کتلت می‌پزد.",
+   "texts": {
+    "P": "مادربزرگ هر جمعه برایِ نوه‌هایش کتلت می‌پزد.",
+    "A1": "مادربزرگ هر جمعه برایِ نوه‌هایش کتلت می‌پزد.",
+    "A5": "مادربزرگ هر جمعه برایِ نوه‌هایش کتلت می‌پزد."
+   }
+  },
+  {
+   "id": "a04",
+   "category": "adapted",
+   "text": "باغبان پیر درختان سیب را با دقت هرس کرد.",
+   "texts": {
+    "P": "باغبانِ پیر درختانِ سیب را با دقت هرس کَرد.",
+    "A1": "باغبانِ پیر درختانِ سیب را با دقت هرس کَرد.",
+    "A5": "باغبانِ پیر درختانِ سیب را با دقت هرس کَرد."
+   }
+  },
+  {
+   "id": "a05",
+   "category": "adapted",
+   "text": "کودکان در حیاط مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد.",
+   "texts": {
+    "P": "کودکان در حیاطِ مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد.",
+    "A1": "کودکان در حیاطِ مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد.",
+    "A5": "کودکان در حیاطِ مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد."
+   }
+  },
+  {
+   "id": "a06",
+   "category": "adapted",
+   "text": "راننده تاکسی آرام از کنار ماشین‌های پارک‌شده گذشت.",
+   "texts": {
+    "P": "رانندهٔ تاکسی آرام از کنارِ ماشین‌هایِ پارک‌شده گذشت.",
+    "A1": "رانندهٔ تاکسی آرام از کنارِ ماشین‌هایِ پارک‌شده گذشت.",
+    "A5": "رانندهٔ تاکسی آرام از کنارِ ماشین‌هایِ پارک‌شده گذشت."
+   }
+  },
+  {
+   "id": "a07",
+   "category": "adapted",
+   "text": "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند.",
+   "texts": {
+    "P": "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند.",
+    "A1": "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند.",
+    "A5": "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند."
+   }
+  },
+  {
+   "id": "a08",
+   "category": "adapted",
+   "text": "قندان و کتری را از کابینت آشپزخانه برداشتم.",
+   "texts": {
+    "P": "قندان و کتری را از کابینتِ آشپزخانه برداشتم.",
+    "A1": "قندان و کتری را از کابینتِ آشپزخانه برداشتم.",
+    "A5": "قندان و کتری را از کابینتِ آشپزخانه برداشتم."
+   }
+  },
+  {
+   "id": "a09",
+   "category": "adapted",
+   "text": "پرستار با دستمال کاغذی پیشانی بیمار را پاک کرد.",
+   "texts": {
+    "P": "پرستار با دستمالِ کاغذی پیشانیِ بیمار را پاک کَرد.",
+    "A1": "پرستار با دستمالِ کاغذی پیشانیِ بیمار را پاک کَرد.",
+    "A5": "پرستار با دستمالِ کاغذی پیشانیِ بیمار را پاک کَرد."
+   }
+  },
+  {
+   "id": "a10",
+   "category": "adapted",
+   "text": "نجار با اره و چکش یک صندلی چوبی ساخت.",
+   "texts": {
+    "P": "نجار با اَره و چکش یک صندلیِ چوبی ساخت.",
+    "A1": "نجار با اَره و چکش یک صندلیِ چوبی ساخت.",
+    "A5": "نجار با اَره و چکش یک صندلیِ چوبی ساخت."
+   }
+  },
+  {
+   "id": "a11",
+   "category": "adapted",
+   "text": "کلاغ‌ها روی سیم برق صف کشیده بودند و قارقار می‌کردند.",
+   "texts": {
+    "P": "کلاغ‌ها روی سیمِ برق صف کشیده بودند و قارقار می‌کردند.",
+    "A1": "کلاغ‌ها روی سیمِ برق صف کشیده بودند و قارقار می‌کردند.",
+    "A5": "کلاغ‌ها روی سیمِ برق صف کشیده بودند و قارقار می‌کردند."
+   }
+  },
+  {
+   "id": "a12",
+   "category": "adapted",
+   "text": "خواهرم کیف پولش را در مترو جا گذاشت و تا خانه پیاده رفت.",
+   "texts": {
+    "P": "خواهرم کیفِ پولش را در مترو جا گذاشت و تا خانه پیاده رفت.",
+    "A1": "خواهرم کیفِ پولش را در مترو جا گذاشت و تا خانه پیاده رفت.",
+    "A5": "خواهرم کیفِ پولش را در مترو جا گذاشت و تا خانه پیاده رفت."
+   }
+  }
+ ],
+ "events": [
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 12,
+   "other_changes_by_the_app": [],
+   "form": "P"
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice",
+   "form": "P"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true,
+   "form": "P"
+  },
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 12,
+   "other_changes_by_the_app": [],
+   "form": "A1"
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice",
+   "form": "A1"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true,
+   "form": "A1"
+  },
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 12,
+   "other_changes_by_the_app": [],
+   "form": "A5"
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice",
+   "form": "A5"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true,
+   "form": "A5"
+  },
+  {
+   "event": "fetched_from_kaggle",
+   "session": "marsmanam/persian-voice-adapted-reading-run",
+   "collected": "2026-10-24T07:56:56+00:00"
+  }
+ ],
+ "renders": [
+  {
+   "id": "a01",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "همسایهٔ بالایی هر شب ساعتِ دَه چراغ‌هایِ حیاط را خاموش می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a01_P.wav",
+   "skipped": null,
+   "duration_s": 4.862,
+   "used_phonemes": false,
+   "fed_texts": [
+    "همسایهٔ بالایی هر شب ساعتِ دَه چراغ‌هایِ حیاط را خاموش می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.992,
+    "text": 0.002,
+    "load": 17.068,
+    "synthesis": 4.531
+   },
+   "asr_text": "همسایه بالایی هر شب ساعت ده چراهای حیات را خاموش می کند.",
+   "cer": 0.044444444444444446,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a01_P.wav"
+  },
+  {
+   "id": "a02",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "دانشجوها معمولاً شبِ امتحان تا صبح بیدار می‌مانند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a02_P.wav",
+   "skipped": null,
+   "duration_s": 3.946,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشجوها معمولاً شبِ امتحان تا صبح بیدار می‌مانند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.397
+   },
+   "asr_text": "دانشجوها معمولا شب امتحان تا صبح بیدار می مانند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a02_P.wav"
+  },
+  {
+   "id": "a03",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "مادربزرگ هر جمعه برایِ نوه‌هایش کتلت می‌پزد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a03_P.wav",
+   "skipped": null,
+   "duration_s": 3.884,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مادربزرگ هر جمعه برایِ نوه‌هایش کتلت می‌پزد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.395
+   },
+   "asr_text": "مادر بزرگ هر جمعه برای نوه هایش کتلت می پزن.",
+   "cer": 0.029411764705882353,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a03_P.wav"
+  },
+  {
+   "id": "a04",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "باغبانِ پیر درختانِ سیب را با دقت هرس کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a04_P.wav",
+   "skipped": null,
+   "duration_s": 2.978,
+   "used_phonemes": false,
+   "fed_texts": [
+    "باغبانِ پیر درختانِ سیب را با دقت هرس کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.316
+   },
+   "asr_text": "باقبان پیر درختان سیب را با دقت حرص کرد.",
+   "cer": 0.0967741935483871,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a04_P.wav"
+  },
+  {
+   "id": "a05",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "کودکان در حیاطِ مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a05_P.wav",
+   "skipped": null,
+   "duration_s": 5.808,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کودکان در حیاطِ مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.937
+   },
+   "asr_text": "کودکان در حیات مدرسه توب بازی می کردن و معلم از پنجر نگاهشان می کرد.",
+   "cer": 0.07272727272727272,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a05_P.wav"
+  },
+  {
+   "id": "a06",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "رانندهٔ تاکسی آرام از کنارِ ماشین‌هایِ پارک‌شده گذشت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a06_P.wav",
+   "skipped": null,
+   "duration_s": 4.247,
+   "used_phonemes": false,
+   "fed_texts": [
+    "رانندهٔ تاکسی آرام از کنارِ ماشین‌هایِ پارک‌شده گذشت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.612
+   },
+   "asr_text": "راننده ی تاکسی آرام از کناره ماشین های پارک شده گذشت.",
+   "cer": 0.05,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a06_P.wav"
+  },
+  {
+   "id": "a07",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a07_P.wav",
+   "skipped": null,
+   "duration_s": 3.692,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.478
+   },
+   "asr_text": "بچه دستکش هایش را روی بخاری گذاشت تا خشک شوند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a07_P.wav"
+  },
+  {
+   "id": "a08",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "قندان و کتری را از کابینتِ آشپزخانه برداشتم.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a08_P.wav",
+   "skipped": null,
+   "duration_s": 3.443,
+   "used_phonemes": false,
+   "fed_texts": [
+    "قندان و کتری را از کابینتِ آشپزخانه برداشتم."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.456
+   },
+   "asr_text": "قندان و کتری را از کابینت آشپسخانه برداشتم.",
+   "cer": 0.02857142857142857,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a08_P.wav"
+  },
+  {
+   "id": "a09",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "پرستار با دستمالِ کاغذی پیشانیِ بیمار را پاک کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a09_P.wav",
+   "skipped": null,
+   "duration_s": 3.819,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پرستار با دستمالِ کاغذی پیشانیِ بیمار را پاک کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.567
+   },
+   "asr_text": "پرستار با دستمال کاغذی پیشانی بیمار را پاک کرد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a09_P.wav"
+  },
+  {
+   "id": "a10",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "نجار با اَره و چکش یک صندلیِ چوبی ساخت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a10_P.wav",
+   "skipped": null,
+   "duration_s": 2.683,
+   "used_phonemes": false,
+   "fed_texts": [
+    "نجار با اَره و چکش یک صندلیِ چوبی ساخت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.394
+   },
+   "asr_text": "نجار با آرهوچه کش یک سندلی چوبی ساخت.",
+   "cer": 0.10714285714285714,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a10_P.wav"
+  },
+  {
+   "id": "a11",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "کلاغ‌ها روی سیمِ برق صف کشیده بودند و قارقار می‌کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a11_P.wav",
+   "skipped": null,
+   "duration_s": 4.4,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کلاغ‌ها روی سیمِ برق صف کشیده بودند و قارقار می‌کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.003,
+    "load": 0.0,
+    "synthesis": 3.781
+   },
+   "asr_text": "کیلاها روی سیمه برق صف کشیده بودند و گارگار می کردند.",
+   "cer": 0.12195121951219512,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a11_P.wav"
+  },
+  {
+   "id": "a12",
+   "condition": "P",
+   "engine": "omnivoice",
+   "input_text": "خواهرم کیفِ پولش را در مترو جا گذاشت و تا خانه پیاده رفت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a12_P.wav",
+   "skipped": null,
+   "duration_s": 4.308,
+   "used_phonemes": false,
+   "fed_texts": [
+    "خواهرم کیفِ پولش را در مترو جا گذاشت و تا خانه پیاده رفت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.784
+   },
+   "asr_text": "خوهرم کیف پولش را در مترو جا گذاشت و تا خانه پیاده رفت.",
+   "cer": 0.023255813953488372,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/P/wavs/a12_P.wav"
+  },
+  {
+   "id": "a01",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "همسایهٔ بالایی هر شب ساعتِ دَه چراغ‌هایِ حیاط را خاموش می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a01_A1.wav",
+   "skipped": null,
+   "duration_s": 5.016,
+   "used_phonemes": false,
+   "fed_texts": [
+    "همسایهٔ بالایی هر شب ساعتِ دَه چراغ‌هایِ حیاط را خاموش می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.516,
+    "text": 0.003,
+    "load": 18.642,
+    "synthesis": 5.115
+   },
+   "asr_text": "همسایه بالایی هر شب ساعت ده چراخهای حیات را خاموش می کند.",
+   "cer": 0.044444444444444446,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a01_A1.wav"
+  },
+  {
+   "id": "a02",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "دانشجوها معمولاً شبِ امتحان تا صبح بیدار می‌مانند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a02_A1.wav",
+   "skipped": null,
+   "duration_s": 4.219,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشجوها معمولاً شبِ امتحان تا صبح بیدار می‌مانند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.003,
+    "load": 0.0,
+    "synthesis": 3.694
+   },
+   "asr_text": "دانشجوها معمولا شب امتحان تا صبح بیدار می مانند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a02_A1.wav"
+  },
+  {
+   "id": "a03",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "مادربزرگ هر جمعه برایِ نوه‌هایش کتلت می‌پزد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a03_A1.wav",
+   "skipped": null,
+   "duration_s": 3.586,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مادربزرگ هر جمعه برایِ نوه‌هایش کتلت می‌پزد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.703
+   },
+   "asr_text": "مادر بزرگ هر جمعه برای نوه هایش کتلت میپزد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a03_A1.wav"
+  },
+  {
+   "id": "a04",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "باغبانِ پیر درختانِ سیب را با دقت هرس کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a04_A1.wav",
+   "skipped": null,
+   "duration_s": 3.065,
+   "used_phonemes": false,
+   "fed_texts": [
+    "باغبانِ پیر درختانِ سیب را با دقت هرس کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.625
+   },
+   "asr_text": "باغبان پیر درختان سیب را با دقت هر از کرد.",
+   "cer": 0.06451612903225806,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a04_A1.wav"
+  },
+  {
+   "id": "a05",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "کودکان در حیاطِ مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a05_A1.wav",
+   "skipped": null,
+   "duration_s": 5.82,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کودکان در حیاطِ مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.302
+   },
+   "asr_text": "کودکان در حیات مدرسه توپ بازی می کردن و معلم از پنجره نگاهشان می کرد.",
+   "cer": 0.03636363636363636,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a05_A1.wav"
+  },
+  {
+   "id": "a06",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "رانندهٔ تاکسی آرام از کنارِ ماشین‌هایِ پارک‌شده گذشت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a06_A1.wav",
+   "skipped": null,
+   "duration_s": 4.296,
+   "used_phonemes": false,
+   "fed_texts": [
+    "رانندهٔ تاکسی آرام از کنارِ ماشین‌هایِ پارک‌شده گذشت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.94
+   },
+   "asr_text": "راننده تاکسی آرام از کناره ماشین های پارک شده گذشت.",
+   "cer": 0.025,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a06_A1.wav"
+  },
+  {
+   "id": "a07",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a07_A1.wav",
+   "skipped": null,
+   "duration_s": 3.698,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.775
+   },
+   "asr_text": "بچه دستکش هایش را روی بخاری گذاشت تا خشک شوند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a07_A1.wav"
+  },
+  {
+   "id": "a08",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "قندان و کتری را از کابینتِ آشپزخانه برداشتم.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a08_A1.wav",
+   "skipped": null,
+   "duration_s": 3.514,
+   "used_phonemes": false,
+   "fed_texts": [
+    "قندان و کتری را از کابینتِ آشپزخانه برداشتم."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.659
+   },
+   "asr_text": "قندان و کتری را از کابینت آشپسخانه برداشتم.",
+   "cer": 0.02857142857142857,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a08_A1.wav"
+  },
+  {
+   "id": "a09",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "پرستار با دستمالِ کاغذی پیشانیِ بیمار را پاک کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a09_A1.wav",
+   "skipped": null,
+   "duration_s": 3.916,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پرستار با دستمالِ کاغذی پیشانیِ بیمار را پاک کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.717
+   },
+   "asr_text": "پرستار و دستمال کاغذی پیشانی بیمار را پاک کرد.",
+   "cer": 0.05263157894736842,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a09_A1.wav"
+  },
+  {
+   "id": "a10",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "نجار با اَره و چکش یک صندلیِ چوبی ساخت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a10_A1.wav",
+   "skipped": null,
+   "duration_s": 2.985,
+   "used_phonemes": false,
+   "fed_texts": [
+    "نجار با اَره و چکش یک صندلیِ چوبی ساخت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.51
+   },
+   "asr_text": "نجار با ارهاچکش یک سندلی چوبی ساخت",
+   "cer": 0.07142857142857142,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a10_A1.wav"
+  },
+  {
+   "id": "a11",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "کلاغ‌ها روی سیمِ برق صف کشیده بودند و قارقار می‌کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a11_A1.wav",
+   "skipped": null,
+   "duration_s": 4.396,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کلاغ‌ها روی سیمِ برق صف کشیده بودند و قارقار می‌کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.856
+   },
+   "asr_text": "کلاها روی سیمه برق صف کشیده بودند و گارگار می کردند.",
+   "cer": 0.0975609756097561,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a11_A1.wav"
+  },
+  {
+   "id": "a12",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "خواهرم کیفِ پولش را در مترو جا گذاشت و تا خانه پیاده رفت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a12_A1.wav",
+   "skipped": null,
+   "duration_s": 4.253,
+   "used_phonemes": false,
+   "fed_texts": [
+    "خواهرم کیفِ پولش را در مترو جا گذاشت و تا خانه پیاده رفت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.803
+   },
+   "asr_text": "خوهرم کیف پولش را در مترو جا گذاشت و تا خانه پیاده رفت.",
+   "cer": 0.023255813953488372,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A1/wavs/a12_A1.wav"
+  },
+  {
+   "id": "a01",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "همسایهٔ بالایی هر شب ساعتِ دَه چراغ‌هایِ حیاط را خاموش می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a01_A5.wav",
+   "skipped": null,
+   "duration_s": 5.029,
+   "used_phonemes": false,
+   "fed_texts": [
+    "همسایهٔ بالایی هر شب ساعتِ دَه چراغ‌هایِ حیاط را خاموش می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.52,
+    "text": 0.002,
+    "load": 18.721,
+    "synthesis": 4.495
+   },
+   "asr_text": "همسایه بالایی هر شب ساعت ده چراخ های حیات را خاموش می کند.",
+   "cer": 0.044444444444444446,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a01_A5.wav"
+  },
+  {
+   "id": "a02",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "دانشجوها معمولاً شبِ امتحان تا صبح بیدار می‌مانند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a02_A5.wav",
+   "skipped": null,
+   "duration_s": 4.312,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دانشجوها معمولاً شبِ امتحان تا صبح بیدار می‌مانند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.582
+   },
+   "asr_text": "دانشجوها معمولا شب امتحان تا صبح بیدار می مانند",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a02_A5.wav"
+  },
+  {
+   "id": "a03",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "مادربزرگ هر جمعه برایِ نوه‌هایش کتلت می‌پزد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a03_A5.wav",
+   "skipped": null,
+   "duration_s": 3.875,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مادربزرگ هر جمعه برایِ نوه‌هایش کتلت می‌پزد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.568
+   },
+   "asr_text": "مادر بزرگ هر جمعه برای نوه هایش کتلت میپذد.",
+   "cer": 0.029411764705882353,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a03_A5.wav"
+  },
+  {
+   "id": "a04",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "باغبانِ پیر درختانِ سیب را با دقت هرس کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a04_A5.wav",
+   "skipped": null,
+   "duration_s": 3.037,
+   "used_phonemes": false,
+   "fed_texts": [
+    "باغبانِ پیر درختانِ سیب را با دقت هرس کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.505
+   },
+   "asr_text": "باقوان پیر درختان سیب را با دقت حرست کرد.",
+   "cer": 0.12903225806451613,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a04_A5.wav"
+  },
+  {
+   "id": "a05",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "کودکان در حیاطِ مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a05_A5.wav",
+   "skipped": null,
+   "duration_s": 5.899,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کودکان در حیاطِ مدرسه توپ بازی می‌کردند و معلم از پنجره نگاهشان می‌کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.177
+   },
+   "asr_text": "کودکان در حیات مدرسه توپ بازی می کردن و معلم از پنجره نگاهشان می کرد.",
+   "cer": 0.03636363636363636,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a05_A5.wav"
+  },
+  {
+   "id": "a06",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "رانندهٔ تاکسی آرام از کنارِ ماشین‌هایِ پارک‌شده گذشت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a06_A5.wav",
+   "skipped": null,
+   "duration_s": 4.201,
+   "used_phonemes": false,
+   "fed_texts": [
+    "رانندهٔ تاکسی آرام از کنارِ ماشین‌هایِ پارک‌شده گذشت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.842
+   },
+   "asr_text": "راننده ی تاکسی آرام از کناره ماشین های پارک شده گذشت.",
+   "cer": 0.05,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a06_A5.wav"
+  },
+  {
+   "id": "a07",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a07_A5.wav",
+   "skipped": null,
+   "duration_s": 3.693,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بچه دستکش‌هایش را روی بخاری گذاشت تا خشک شوند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.764
+   },
+   "asr_text": "بچه دستکش هایش را روی بخاری گذاشت تا خشک شوند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a07_A5.wav"
+  },
+  {
+   "id": "a08",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "قندان و کتری را از کابینتِ آشپزخانه برداشتم.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a08_A5.wav",
+   "skipped": null,
+   "duration_s": 3.693,
+   "used_phonemes": false,
+   "fed_texts": [
+    "قندان و کتری را از کابینتِ آشپزخانه برداشتم."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.695
+   },
+   "asr_text": "قندان و کتری را از کابینت آشپسخانه برداشتم.",
+   "cer": 0.02857142857142857,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a08_A5.wav"
+  },
+  {
+   "id": "a09",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "پرستار با دستمالِ کاغذی پیشانیِ بیمار را پاک کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a09_A5.wav",
+   "skipped": null,
+   "duration_s": 3.977,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پرستار با دستمالِ کاغذی پیشانیِ بیمار را پاک کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.79
+   },
+   "asr_text": "پرستار با دست مال کاغذی پیشانی بیمار را پاک کرد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a09_A5.wav"
+  },
+  {
+   "id": "a10",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "نجار با اَره و چکش یک صندلیِ چوبی ساخت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a10_A5.wav",
+   "skipped": null,
+   "duration_s": 3.009,
+   "used_phonemes": false,
+   "fed_texts": [
+    "نجار با اَره و چکش یک صندلیِ چوبی ساخت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.602
+   },
+   "asr_text": "نجار با عره و چکش یک سندلیه چوبی ساخت.",
+   "cer": 0.10714285714285714,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a10_A5.wav"
+  },
+  {
+   "id": "a11",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "کلاغ‌ها روی سیمِ برق صف کشیده بودند و قارقار می‌کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a11_A5.wav",
+   "skipped": null,
+   "duration_s": 4.286,
+   "used_phonemes": false,
+   "fed_texts": [
+    "کلاغ‌ها روی سیمِ برق صف کشیده بودند و قارقار می‌کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.959
+   },
+   "asr_text": "کلاها روی سیمه برق صف کشیده بودند و غارغار می کردند.",
+   "cer": 0.0975609756097561,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a11_A5.wav"
+  },
+  {
+   "id": "a12",
+   "condition": "A5",
+   "engine": "omnivoice",
+   "input_text": "خواهرم کیفِ پولش را در مترو جا گذاشت و تا خانه پیاده رفت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/adapted-reading-v1/wavs/a12_A5.wav",
+   "skipped": null,
+   "duration_s": 4.304,
+   "used_phonemes": false,
+   "fed_texts": [
+    "خواهرم کیفِ پولش را در مترو جا گذاشت و تا خانه پیاده رفت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.916
+   },
+   "asr_text": "خوهرم کیف پولش را در مترو جا گذاشت و تا خانه پیادره.",
+   "cer": 0.09302325581395349,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/adapted-reading-v1/A5/wavs/a12_A5.wav"
+  }
+ ]
+}

@@ -63,5 +63,67 @@
    "after": "renders brought in by scripts/collect_adapted_renders.py (eval/runs/adapted-reading-v1/manifest.json); held-out similarity scored on this Mac (eval/runs/evidence/adapted-reading-v1/similarity.json); the blind page built with rotations (each form four times in each slot; key eval/runs/evidence/adapted-review-v1/key.json) - CER and similarity kept from the listener",
    "page": "https://claude.ai/artifact/QoQz55Cxfb1YLqiQkYGJB2 (contract 0.2.90, db and user; 36 audio files and the page, the reviews collection empty at publish). The page now tells a listener plainly to send the answer code when its answers did not save - the روی check's page said they were saved when they were not"
   }
+ },
+ "listening": {
+  "when": "2026-10-24, blind, on https://claude.ai/artifact/QoQz55Cxfb1YLqiQkYGJB2; all 12 sentences, every reading answered, a note on 24 of 36",
+  "listener": "احمدرضا, who heard steps 1 to 3",
+  "answers": "saved by the page itself (reviews, one document at version 185), read after the user said it was finished (eval/runs/evidence/adapted-review-v1/answers-listener-1.json)"
+ },
+ "result": {
+  "when": "2026-10-24; read by scripts/read_adapted_reading.py (eabcc6b), written before anyone listened",
+  "words_marked_wrong_of_114": {
+   "P": 15,
+   "A1": 12,
+   "A5": 14
+  },
+  "readings_with_no_word_marked_of_12": {
+   "P": 3,
+   "A1": 5,
+   "A5": 2
+  },
+  "picked_best": {
+   "A1": 4,
+   "no difference": 6,
+   "P": 1,
+   "A5": 1
+  },
+  "mean_cer": {
+   "P": 0.0479,
+   "A1": 0.037,
+   "A5": 0.0513
+  },
+  "held_out_similarity": {
+   "P": 0.5904,
+   "A1": 0.5803,
+   "A5": 0.5899
+  },
+  "held_out_similarity_minus_P": {
+   "A1": "-0.0100 [-0.0251, +0.0045]",
+   "A5": "-0.0004 [-0.0226, +0.0198]"
+  },
+  "decision_by_the_registered_rule": "A1 (12) and A5 (14) both have fewer words marked wrong than P (15), and neither is flagged: CER A1 -1.09 points, A5 +0.34; neither similarity interval lies wholly below zero. A1 has fewer, so the app's OmniVoice weights become A1",
+  "read_beside_it_not_used_for_the_decision": {
+   "where_the_difference_is": "the ezafe the model adds where none is written. By the notes it was heard on 8 words in P (ده, مادربزرگ, پیر, مدرسه, تاکسی, بچه, کاغذی, برق), 5 in A1 (پیر, مدرسه, توپ, کاغذی, برق) and 8 in A5 (بالایی, مادربزرگ, پیر, مدرسه, توپ, بچه, کاغذی, برق). Four came in every form: پیر before درختان (not one of the listed traps), مدرسه before توپ, کاغذی before پیشانی, برق before صف; and every form said the written کنارِ as kenareye",
+   "trap_words_marked": {
+    "P": {
+     "ezafe_traps": 8,
+     "vowel_traps": 5,
+     "silent_h_ezafe": 0
+    },
+    "A1": {
+     "ezafe_traps": 5,
+     "vowel_traps": 5,
+     "silent_h_ezafe": 0
+    },
+    "A5": {
+     "ezafe_traps": 7,
+     "vowel_traps": 4,
+     "silent_h_ezafe": 0
+    }
+   },
+   "vowels": "no different: کتلت (kotalat), می‌پزد (mipezad), چکش (chekesh) and کلاغ‌ها (kelagh) wrong in all three; اره said arh in P and A1, نوه‌هایش navehayesh in P and A1, کیف keif in A5 only. Both silent-h ezafes (همسایهٔ, رانندهٔ) right in all three",
+   "how_firm": "three words in 114, one listener, one voice, one seed. A1's similarity on this voice is 0.010 lower with an interval that crosses zero; on the sealed test's 27 unseen speakers it was +0.0014 [-0.0042, +0.0069] against the published model. More training did not read better: A5, at five times the steps, is between the two"
+  },
+  "label": "one listener, one voice (mana), one seed, 114 words"
  }
 }

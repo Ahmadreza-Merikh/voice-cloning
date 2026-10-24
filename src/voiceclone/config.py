@@ -274,6 +274,19 @@ class OmniVoiceConfig:
 
     python: str | None = "auto"
     model_id: str = "k2-fsa/OmniVoice"
+    #: Which weights it reads with. The adapted reading check
+    #: (eval/runs/persian-voice-adapted-reading-v1.json) heard the Persian
+    #: adaptation's float16 export at step 1,000 read the app's text with fewer
+    #: words wrong than the published weights - 12 against 15 of 114 - and
+    #: nothing flagged it; the sealed test had found its similarity on unseen
+    #: speakers the same. "auto" reads with it when ``adapted_dir`` holds it,
+    #: verified, and ``model_id`` is the published one - otherwise with
+    #: ``model_id``, saying so in the output's warnings when the export is
+    #: missing; "adapted" refuses to start without it; "published" always reads
+    #: with ``model_id``. ``scripts/fetch_adapted_weights.py`` fetches it.
+    weights: str = "auto"
+    adapted_dir: str = "~/.cache/persian-voice-cloning/omnivoice/adapted/omnivoice-fa-1000-float16"
+    adapted_sha256: str = "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"
     #: Upstream: performance is slightly better when the language is named.
     language: str = "fa"
     #: Upstream's own inference dtype, which the paper measured with. It loads

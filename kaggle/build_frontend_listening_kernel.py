@@ -78,6 +78,15 @@ STEPS = {
     4: {"slug": "persian-voice-rui-check-run", "dataset": "persian-voice-frontend-listening-v2",
         "name": "rui-check-v1", "folder": "rui-check", "expected": 20, "embed": True,
         "extra": ["--texts", {"repo": "eval/runs/rui-check-v1/texts.json"}, "--app-normaliser"]},
+    # The adapted reading check (eval/runs/persian-voice-adapted-reading-v1.json): the same text read by
+    # three sets of weights, one render run each, the exports mounted from their training sessions.
+    5: {"slug": "persian-voice-adapted-reading-run", "dataset": "persian-voice-frontend-listening-v2",
+        "name": "adapted-reading-v1", "folder": "adapted-reading", "expected": 12, "embed": True,
+        "texts": [f"eval/runs/adapted-reading-v1/{form}/texts.json" for form in ("P", "A1", "A5")],
+        "models": {"P": None, "A1": "export-1000-float16", "A5": "export-5000-float16"},
+        "known_sha256": {"A1": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"},
+        "kernel_sources": [f"{probe.USER}/persian-voice-omnivoice-train-a",
+                           f"{probe.USER}/persian-voice-omnivoice-train-c"]},
 }
 EXPECTED = 48
 RENDER_MINUTES = 60
@@ -100,16 +109,60 @@ def environment(step: dict) -> str:
     return source
 
 
+def texts_files(step: dict) -> list[str]:
+    return step.get("texts") or [texts_of(step)]
+
+
+def registered_check(files: list[str]) -> str:
+    if len(files) == 1:
+        texts_sha256 = hashlib.sha256((ROOT / files[0]).read_bytes()).hexdigest()
+        return f'''texts = REPO / "{files[0]}"
+if texts.is_file() and hashlib.sha256(texts.read_bytes()).hexdigest() != "{texts_sha256}":
+    missing.append("texts.json is not the registered one")'''
+    registered = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in files}
+    return f'''REGISTERED = {registered!r}
+for name, digest in REGISTERED.items():
+    if (REPO / name).is_file() and hashlib.sha256((REPO / name).read_bytes()).hexdigest() != digest:
+        missing.append(f"{{name}} is not the registered one")'''
+
+
+def weights(step: dict) -> str:
+    """Each form's weights: the base as fetched, each export found once under the mounted sessions and hashed."""
+    return f'''
+MODELS = {step["models"]!r}
+KNOWN_SHA256 = {step["known_sha256"]!r}
+WEIGHTS = {{}}
+if not GATES.skip("weights", ("download",)):
+    problems = []
+    for form, name in MODELS.items():
+        if name is None:
+            WEIGHTS[form] = {{"path": "{BASE_DIR}"}}
+            continue
+        hits = sorted(p for p in INPUT.rglob(name) if p.is_dir() and (p / "model.safetensors").is_file())
+        if not hits:
+            problems.append(f"{{form}}: no {{name}} with a model.safetensors under /kaggle/input")
+            continue
+        digest = hashlib.sha256()
+        with open(hits[0] / "model.safetensors", "rb") as handle:
+            for block in iter(lambda: handle.read(1 << 24), b""):
+                digest.update(block)
+        WEIGHTS[form] = {{"path": str(hits[0]), "found": [str(p) for p in hits], "model_sha256": digest.hexdigest()}}
+        if form in KNOWN_SHA256 and digest.hexdigest() != KNOWN_SHA256[form]:
+            problems.append(f"{{form}}: model.safetensors is not the one recorded before")
+    GATES.record("weights", not problems, json.dumps({{"weights": WEIGHTS, "problems": problems}}))
+'''
+
+
 def download(step: dict) -> str:
-    texts = texts_of(step)
-    texts_sha256 = hashlib.sha256((ROOT / texts).read_bytes()).hexdigest()
+    files = texts_files(step)
     needed = ("scripts/render_frontend_conditions.py", "scripts/ab_omnivoice_ipa.py", "scripts/omnivoice_worker.py",
-              "src/voiceclone/text/marks_fa.py", "eval/corpus/manifest.json", "eval/corpus/mana_000.wav", texts)
+              "src/voiceclone/text/marks_fa.py", "eval/corpus/manifest.json", "eval/corpus/mana_000.wav", *files)
     embed = ""
     if step.get("embed"):
-        content = (ROOT / texts).read_text(encoding="utf-8")
-        embed = (f'\n(REPO / "{texts}").parent.mkdir(parents=True, exist_ok=True)\n'
-                 f'(REPO / "{texts}").write_text({content!r}, encoding="utf-8")')
+        for texts in files:
+            content = (ROOT / texts).read_text(encoding="utf-8")
+            embed += (f'\n(REPO / "{texts}").parent.mkdir(parents=True, exist_ok=True)\n'
+                      f'(REPO / "{texts}").write_text({content!r}, encoding="utf-8")')
     return dev.FETCH + embed + f'''
 os.environ["VOICECLONE_OMNIVOICE_PYTHON"] = sys.executable
 provenance = found[0].parents[2] / "PROVENANCE.md"
@@ -117,9 +170,7 @@ os.environ["VOICECLONE_CODE_COMMIT"] = (provenance.read_text().split("commit ")[
                                         if provenance.is_file() else "the dataset's PROVENANCE.md was not found")
 NEEDED = {list(needed)!r}
 missing = [name for name in NEEDED if not (REPO / name).is_file()]
-texts = REPO / "{texts}"
-if texts.is_file() and hashlib.sha256(texts.read_bytes()).hexdigest() != "{texts_sha256}":
-    missing.append("texts.json is not the registered one")
+{registered_check(files)}
 GATES.record("code", not missing, f"missing or changed: {{missing}}" if missing else
              "the render script, the marks and the registered texts are present; code from " +
              os.environ["VOICECLONE_CODE_COMMIT"])
@@ -128,9 +179,44 @@ if not GATES.skip("download", ("runner", "code")):
     GATES.record("download", fetched_ok, json.dumps(fetched))
 # The engine reads its weights from this override; nothing else differs from the Mac's settings.
 os.environ["VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID"] = "{BASE_DIR}"
+''' + (weights(step) if step.get("models") else "")
+
+def render_models(step: dict) -> str:
+    """One render run per form with its own weights; each gate checks the weights it rendered with."""
+    expected = step["expected"]
+    return f'''\
+OUT = REPO / "eval/runs/{step['name']}"
+RESULT = {{}}
+for form in MODELS:
+    gate = f"renders-{{form}}"
+    if GATES.skip(gate, ("weights",)):
+        continue
+    os.environ["VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID"] = WEIGHTS[form]["path"]
+    run = run_bounded([sys.executable, str(REPO / "scripts/render_frontend_conditions.py"), "--cer", "--texts",
+                       str(OUT / form / "texts.json"), "--app-normaliser"], cwd=REPO,
+                      timeout={RENDER_MINUTES} * 60, log=LOGS / f"render-{{form}}.log", monitor_every=300)
+    RUNS[gate] = run.record()
+    print(run.summary())
+    manifest_path = OUT / form / "manifest.json"
+    manifest = json.loads(manifest_path.read_text()) if manifest_path.is_file() else {{"renders": [], "events": []}}
+    rendered = [r for r in manifest["renders"] if r.get("wav") and Path(r["wav"]).is_file()]
+    scored = [r for r in rendered if r.get("cer") is not None]
+    text = run.log.read_text(errors="replace") if run.log.is_file() else ""
+    checked = [e for e in manifest["events"] if e.get("event") == "marks_checked_through_the_text_pipeline"]
+    used = manifest.get("settings", {{}}).get("omnivoice_model_id")
+    RESULT[form] = {{"rendered": len(rendered), "scored": len(scored), "weights": used,
+                    "worker": [line.strip() for line in text.splitlines() if "OmniVoice ready" in line][:1],
+                    "mean_cer": round(sum(r["cer"] for r in scored) / len(scored), 4) if scored else None,
+                    "other_changes_by_the_app": checked[0]["other_changes_by_the_app"] if checked else None}}
+    GATES.record(gate, run.ok and len(rendered) == {expected} and len(scored) == {expected} and bool(checked)
+                 and used == WEIGHTS[form]["path"], json.dumps(RESULT[form], ensure_ascii=False))
+os.environ["VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID"] = "{BASE_DIR}"
 '''
 
+
 def render(step: dict) -> str:
+    if step.get("models"):
+        return render_models(step)
     command = ", ".join(f"str(REPO / {json.dumps(a['repo'])})" if isinstance(a, dict) else json.dumps(a)
                         for a in ["scripts/render_frontend_conditions.py", "--cer", *step["extra"]])
     expected = step.get("expected", EXPECTED)
@@ -159,7 +245,29 @@ if not GATES.skip("renders", ("download",)):
                  json.dumps(RESULT, ensure_ascii=False))
 '''
 
+def collect_models(step: dict) -> str:
+    return '''\
+destination = Path("/kaggle/working/__NAME__")
+destination.mkdir(exist_ok=True)
+for form in MODELS:
+    (destination / form).mkdir(exist_ok=True)
+    for name in ("manifest.json", "texts.json"):
+        if (OUT / form / name).is_file():
+            shutil.copy2(OUT / form / name, destination / form / name)
+    if (OUT / form / "wavs").is_dir():
+        shutil.copytree(OUT / form / "wavs", destination / form / "wavs", dirs_exist_ok=True)
+(destination / "gates.json").write_text(json.dumps(GATES.summary(), indent=2))
+(destination / "runs.json").write_text(json.dumps(RUNS, indent=2))
+(destination / "result.json").write_text(json.dumps({"renders": RESULT, "weights": WEIGHTS}, indent=2,
+                                                    ensure_ascii=False))
+shutil.copy2("/kaggle/working/environment.json", destination / "environment.json")
+print("gates:", json.dumps(GATES.summary(), indent=1))
+'''.replace("__NAME__", step["name"])
+
+
 def collect(step: dict) -> str:
+    if step.get("models"):
+        return collect_models(step)
     return '''\
 destination = Path("/kaggle/working/__NAME__")
 destination.mkdir(exist_ok=True)
@@ -196,9 +304,9 @@ def main(argv: list[str] | None = None) -> int:
                 "kernel_type": "notebook", "is_private": True, "enable_gpu": True,
                 "machine_shape": probe.MACHINE_SHAPE, "enable_internet": True,
                 "dataset_sources": [f"{probe.USER}/{step['dataset']}"], "competition_sources": [],
-                "kernel_sources": [], "model_sources": []}
+                "kernel_sources": step.get("kernel_sources", []), "model_sources": []}
     (out / "kernel-metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {path} ({len(cells)} cells, all compile); texts {texts_of(step)}")
+    print(f"wrote {path} ({len(cells)} cells, all compile); texts {', '.join(texts_files(step))}")
     return 0
 
 

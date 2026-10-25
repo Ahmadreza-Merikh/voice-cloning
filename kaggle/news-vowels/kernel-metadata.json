@@ -1,0 +1,19 @@
+{
+  "id": "marsmanam/persian-voice-news-vowels-run",
+  "title": "persian-voice-news-vowels-run",
+  "code_file": "persian-voice-news-vowels-run.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "enable_internet": true,
+  "dataset_sources": [
+    "marsmanam/persian-voice-frontend-listening-v2"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [
+    "marsmanam/persian-voice-omnivoice-train-a"
+  ],
+  "model_sources": []
+}

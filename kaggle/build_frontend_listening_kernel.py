@@ -87,6 +87,14 @@ STEPS = {
         "known_sha256": {"A1": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"},
         "kernel_sources": [f"{probe.USER}/persian-voice-omnivoice-train-a",
                            f"{probe.USER}/persian-voice-omnivoice-train-c"]},
+    # The news vowels check (eval/runs/persian-voice-news-vowels-v1.json): two texts under each of two sets
+    # of weights, one render run per set.
+    6: {"slug": "persian-voice-news-vowels-run", "dataset": "persian-voice-frontend-listening-v2",
+        "name": "news-vowels-v1", "folder": "news-vowels", "expected": 16, "embed": True,
+        "texts": [f"eval/runs/news-vowels-v1/{model}/texts.json" for model in ("P", "A")],
+        "models": {"P": None, "A": "export-1000-float16"},
+        "known_sha256": {"A": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"},
+        "kernel_sources": [f"{probe.USER}/persian-voice-omnivoice-train-a"]},
 }
 EXPECTED = 48
 RENDER_MINUTES = 60

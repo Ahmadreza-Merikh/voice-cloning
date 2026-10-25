@@ -95,6 +95,13 @@ STEPS = {
         "models": {"P": None, "A": "export-1000-float16"},
         "known_sha256": {"A": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"},
         "kernel_sources": [f"{probe.USER}/persian-voice-omnivoice-train-a"]},
+    # The XTTS check (eval/runs/persian-voice-xtts-check-v1.json): the app's form only; XTTS renders on the Mac.
+    7: {"slug": "persian-voice-xtts-check-run", "dataset": "persian-voice-frontend-listening-v2",
+        "name": "xtts-check-v1", "folder": "xtts-check", "expected": 10, "embed": True,
+        "texts": ["eval/runs/xtts-check-v1/A/texts.json"],
+        "models": {"A": "export-1000-float16"},
+        "known_sha256": {"A": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"},
+        "kernel_sources": [f"{probe.USER}/persian-voice-omnivoice-train-a"]},
 }
 EXPECTED = 48
 RENDER_MINUTES = 60

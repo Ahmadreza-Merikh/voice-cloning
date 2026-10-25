@@ -46,9 +46,9 @@ def test_step_3s_heard_marks_come_back_from_its_readings_except_on_be() -> None:
 
 
 def test_the_list_holds_the_homographs_step_3_marked_and_not_be() -> None:
-    assert "به" not in FIRST_VOWEL_HOMOGRAPHS
+    assert not {"به", "اپل", "کند"} & FIRST_VOWEL_HOMOGRAPHS
     assert {"محرم", "مهر", "شکر", "سر", "کشتی", "مسکن"} <= FIRST_VOWEL_HOMOGRAPHS
-    assert len(FIRST_VOWEL_HOMOGRAPHS) == 190
+    assert len(FIRST_VOWEL_HOMOGRAPHS) == 188
 
 
 class FakeG2P:

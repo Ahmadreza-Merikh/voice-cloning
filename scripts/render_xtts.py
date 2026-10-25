@@ -9,8 +9,8 @@ alone once. Everything else is the model's own notebook: the XTTS fork it was
 trained with (8e59ec37), the reference prepared as 24 kHz mono at -20 dBFS
 RMS, Persian punctuation mapped, the sentence split on . ! ?, and its
 inference settings. On CPU, seed 42 before every piece. It will not start with
-less than 4.5 GB available, and it stops if available memory falls under
-3.4 GB or pressure reaches warning.
+less than 6 GB available - the 2.1 GB model has to fit above the floor - and
+it stops if available memory falls under 3.4 GB or pressure reaches warning.
 
     ~/.cache/persian-voice-cloning/xtts/.venv/bin/python scripts/render_xtts.py
 """
@@ -39,7 +39,7 @@ TEXTS = ROOT / "eval" / "runs" / "xtts-check-v1" / "texts.json"
 OUT = ROOT / "eval" / "runs" / "xtts-check-v1" / "X"
 REFERENCE = ROOT / "eval" / "corpus" / "mana_000.wav"
 SEED = 42
-START_GB, STOP_GB = 4.5, 3.4
+START_GB, STOP_GB = 6.0, 3.4
 SETTINGS = {"temperature": 0.1, "length_penalty": 1.0, "repetition_penalty": 10.0, "top_k": 10, "top_p": 0.3}
 PUNCTUATION = {"؟": "?", "،": ",", "؛": ";", "«": '"', "»": '"', "٬": ",", "ـ": "-", "…": "..."}
 

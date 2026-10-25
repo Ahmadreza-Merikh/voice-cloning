@@ -46,5 +46,18 @@
  },
  "read_beside_it_not_for_the_decision": "the words each form got wrong, the picked readings, the notes",
  "not_claimed": "one voice (mana), one seed, 169 words of news, the listeners who answer; XTTS-v2's licence (CPML) is non-commercial",
- "cost": "Kaggle: one session, about 0.2 GPU-hours; this Mac: about 6 GB of disk for the XTTS environment and weights; listening about 10 minutes"
+ "cost": "Kaggle: one session, about 0.2 GPU-hours; this Mac: about 6 GB of disk for the XTTS environment and weights; listening about 10 minutes",
+ "sessions": {
+  "O": {
+   "kernel": "marsmanam/persian-voice-xtts-check-run, version 1",
+   "pushed": "2026-10-25 19:23:57 UTC",
+   "ended": "COMPLETE, read at 19:31:42 UTC",
+   "gates": "runner, code (e1d96e4), download, weights (A1's sha256 the sealed test's), renders-A - all passed; 10 renders"
+  },
+  "X": {
+   "where": "this Mac",
+   "environment": "~/.cache/persian-voice-cloning/xtts/.venv: Python 3.11, torch 2.5.1, transformers 4.45.2, tokenizers 0.20.1, spacy 3.8.16, the fork at 8e59ec37",
+   "weights": "downloading MohammadJRanjbar/ParsVoice-XTTS@05784cc4 with the user's token (about 1 MB/s here)"
+  }
+ }
 }

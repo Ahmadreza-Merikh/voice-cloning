@@ -1,0 +1,36 @@
+{
+  "renders": {
+    "P": {
+      "rendered": 16,
+      "scored": 16,
+      "weights": "/tmp/omnivoice-base",
+      "worker": [
+        "15:38:07 INFO     OmniVoice ready (cuda, float16, 24000 Hz)"
+      ],
+      "mean_cer": 0.0553,
+      "other_changes_by_the_app": []
+    },
+    "A": {
+      "rendered": 16,
+      "scored": 16,
+      "weights": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+      "worker": [
+        "15:40:08 INFO     OmniVoice ready (cuda, float16, 24000 Hz)"
+      ],
+      "mean_cer": 0.0551,
+      "other_changes_by_the_app": []
+    }
+  },
+  "weights": {
+    "P": {
+      "path": "/tmp/omnivoice-base"
+    },
+    "A": {
+      "path": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+      "found": [
+        "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16"
+      ],
+      "model_sha256": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"
+    }
+  }
+}

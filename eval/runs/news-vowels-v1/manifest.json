@@ -1,0 +1,1074 @@
+{
+ "version": 1,
+ "purpose": "news-vowels-v1: its texts read by each set of OmniVoice weights",
+ "texts": {
+  "file": "eval/runs/news-vowels-v1/texts.json",
+  "sentences_sha256": "5b3fe83fd6f943d0b5319f2a2bb164a754497ece40fa30af665f9bb134566c69"
+ },
+ "settings": {
+  "P": {
+   "seed": 42,
+   "candidates": 1,
+   "evaluation_enabled": false,
+   "cer_after_unload": true,
+   "omnivoice": {
+    "python": "auto",
+    "language": "fa",
+    "dtype": "float16",
+    "num_step": 32,
+    "guidance_scale": 2.0,
+    "t_shift": 0.1,
+    "denoise": true,
+    "postprocess_output": true,
+    "layer_penalty_factor": 5.0,
+    "position_temperature": 5.0,
+    "class_temperature": 0.0,
+    "timeout_seconds": 900,
+    "memory_guard": true,
+    "min_available_gb": 6.0
+   },
+   "omnivoice_model_id": "/tmp/omnivoice-base",
+   "text": {
+    "ezafe_enabled": false,
+    "marks_engines": [
+     "omnivoice"
+    ]
+   }
+  },
+  "A": {
+   "seed": 42,
+   "candidates": 1,
+   "evaluation_enabled": false,
+   "cer_after_unload": true,
+   "omnivoice": {
+    "python": "auto",
+    "language": "fa",
+    "dtype": "float16",
+    "num_step": 32,
+    "guidance_scale": 2.0,
+    "t_shift": 0.1,
+    "denoise": true,
+    "postprocess_output": true,
+    "layer_penalty_factor": 5.0,
+    "position_temperature": 5.0,
+    "class_temperature": 0.0,
+    "timeout_seconds": 900,
+    "memory_guard": true,
+    "min_available_gb": 6.0
+   },
+   "omnivoice_model_id": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+   "text": {
+    "ezafe_enabled": false,
+    "marks_engines": [
+     "omnivoice"
+    ]
+   }
+  }
+ },
+ "reference": {
+  "speaker": "mana",
+  "file": "mana_000.wav",
+  "transcript": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم."
+ },
+ "conditions": {
+  "PB": "the published weights reading the app's text",
+  "PV": "the published weights, every first vowel",
+  "AB": "the adapted weights reading the app's text",
+  "AV": "the adapted weights, every first vowel"
+ },
+ "sentences": [
+  {
+   "id": "n01",
+   "category": "news",
+   "text": "شرکت سامسونگ اعلام کرد گوشی‌های تاشوی جدیدش را از دوشنبه دوازدهم اکتبر در فروشگاه‌های اروپا عرضه می‌کند.",
+   "texts": {
+    "PB": "شرکتِ سامسونگ اعلام کَرد گوشی‌هایِ تاشویِ جدیدش را از دوشنبه دوازدهمِ اکتبر در فروشگاه‌هایِ اروپا عَرضه می‌کند.",
+    "PV": "شِرکتِ سامسونگ اِعلام کَرد گوشی‌هایِ تاشویِ جَدیدش را از دوشنبه دَوازدهمِ اُکتبر در فُروشگاه‌هایِ اُروپا عَرضه می‌کند.",
+    "AB": "شرکتِ سامسونگ اعلام کَرد گوشی‌هایِ تاشویِ جدیدش را از دوشنبه دوازدهمِ اکتبر در فروشگاه‌هایِ اروپا عَرضه می‌کند.",
+    "AV": "شِرکتِ سامسونگ اِعلام کَرد گوشی‌هایِ تاشویِ جَدیدش را از دوشنبه دَوازدهمِ اُکتبر در فُروشگاه‌هایِ اُروپا عَرضه می‌کند."
+   }
+  },
+  {
+   "id": "n02",
+   "category": "news",
+   "text": "به گفته مدیرعامل این کمپانی، کارخانه تازه مجهز به ربات‌های صنعتی است و تا پایان نوامبر راه‌اندازی می‌شود.",
+   "texts": {
+    "PB": "به گفتهٔ مدیرعاملِ این کمپانی، کارخانهٔ تازه مجهز به ربات‌هایِ صنعتی است و تا پایانِ نوامبر راه‌اندازی می‌شود.",
+    "PV": "به گُفتهٔ مُدیرعاملِ این کُمپانی، کارخانهٔ تازه مُجهز به رُبات‌هایِ صَنعتی اَست و تا پایانِ نُوامبر راه‌اندازی می‌شود.",
+    "AB": "به گفتهٔ مدیرعاملِ این کمپانی، کارخانهٔ تازه مجهز به ربات‌هایِ صنعتی است و تا پایانِ نوامبر راه‌اندازی می‌شود.",
+    "AV": "به گُفتهٔ مُدیرعاملِ این کُمپانی، کارخانهٔ تازه مُجهز به رُبات‌هایِ صَنعتی اَست و تا پایانِ نُوامبر راه‌اندازی می‌شود."
+   }
+  },
+  {
+   "id": "n03",
+   "category": "news",
+   "text": "تیم ملی فوتبال جمعه شب در ورزشگاه آزادی با نتیجه دو بر یک به حریف عراقی خود باخت.",
+   "texts": {
+    "PB": "تیمِ ملیِ فوتبال جمعه شب در ورزشگاهِ آزادی با نتیجهٔ دو بَر یک به حریفِ عراقیِ خود باخت.",
+    "PV": "تیمِ مِلیِ فوتبال جمعه شب در وَرزشگاهِ آزادی با نَتیجهٔ دو بَر یک به حَریفِ عِراقیِ خود باخت.",
+    "AB": "تیمِ ملیِ فوتبال جمعه شب در ورزشگاهِ آزادی با نتیجهٔ دو بَر یک به حریفِ عراقیِ خود باخت.",
+    "AV": "تیمِ مِلیِ فوتبال جمعه شب در وَرزشگاهِ آزادی با نَتیجهٔ دو بَر یک به حَریفِ عِراقیِ خود باخت."
+   }
+  },
+  {
+   "id": "n04",
+   "category": "news",
+   "text": "سازمان هواشناسی پیش‌بینی کرده است که از سه‌شنبه هفته آینده دمای هوا در استان‌های شمالی کاهش می‌یابد.",
+   "texts": {
+    "PB": "سازمانِ هواشناسی پیش‌بینی کرده است که از سه‌شنبهٔ هفتهٔ آینده دمایِ هوا در استان‌هایِ شمالی کاهش می‌یابد.",
+    "PV": "سازمانِ هَواشناسی پیش‌بینی کَرده اَست که از سِه‌شنبهٔ هَفتهٔ آینده دَمایِ هَوا در اُستان‌هایِ شُمالی کاهش می‌یابد.",
+    "AB": "سازمانِ هواشناسی پیش‌بینی کرده است که از سه‌شنبهٔ هفتهٔ آینده دمایِ هوا در استان‌هایِ شمالی کاهش می‌یابد.",
+    "AV": "سازمانِ هَواشناسی پیش‌بینی کَرده اَست که از سِه‌شنبهٔ هَفتهٔ آینده دَمایِ هَوا در اُستان‌هایِ شُمالی کاهش می‌یابد."
+   }
+  },
+  {
+   "id": "n05",
+   "category": "news",
+   "text": "پژوهشگران دانشگاه تهران موفق شدند دارویی برای درمان سرطان خون بسازند که هزینه کمتری دارد.",
+   "texts": {
+    "PB": "پژوهشگرانِ دانشگاهِ تهران موفق شدند دارویی برایِ درمانِ سرطانِ خون بسازند که هزینهٔ کمتری دارد.",
+    "PV": "پَژوهشگرانِ دانشگاهِ تِهران مُوفق شُدند دارویی بَرایِ دَرمانِ سَرطانِ خون بِسازند که هَزینهٔ کَمتری دارد.",
+    "AB": "پژوهشگرانِ دانشگاهِ تهران موفق شدند دارویی برایِ درمانِ سرطانِ خون بسازند که هزینهٔ کمتری دارد.",
+    "AV": "پَژوهشگرانِ دانشگاهِ تِهران مُوفق شُدند دارویی بَرایِ دَرمانِ سَرطانِ خون بِسازند که هَزینهٔ کَمتری دارد."
+   }
+  },
+  {
+   "id": "n06",
+   "category": "news",
+   "text": "قیمت دلار در بازار آزاد روز یکشنبه پایین آمد و معامله‌گران منتظر تصمیم بانک مرکزی هستند.",
+   "texts": {
+    "PB": "قیمتِ دلار در بازارِ آزاد روزِ یکشنبه پایین آمد و معامله‌گران منتظرِ تصمیمِ بانکِ مرکزی هستند.",
+    "PV": "قِیمتِ دُلار در بازارِ آزاد روزِ یِکشنبه پایین آمد و مُعامله‌گران مُنتظرِ تَصمیمِ بانکِ مَرکزی هَستند.",
+    "AB": "قیمتِ دلار در بازارِ آزاد روزِ یکشنبه پایین آمد و معامله‌گران منتظرِ تصمیمِ بانکِ مرکزی هستند.",
+    "AV": "قِیمتِ دُلار در بازارِ آزاد روزِ یِکشنبه پایین آمد و مُعامله‌گران مُنتظرِ تَصمیمِ بانکِ مَرکزی هَستند."
+   }
+  },
+  {
+   "id": "n07",
+   "category": "news",
+   "text": "جشنواره فیلم فجر امسال در بهمن ماه برگزار می‌شود و هشتاد فیلم کوتاه و بلند در آن حضور دارند.",
+   "texts": {
+    "PB": "جشنوارهٔ فیلمِ فجرِ امسال در بهمن ماه برگزار می‌شود و هشتاد فیلمِ کوتاه و بلند در آن حضور دارند.",
+    "PV": "جَشنوارهٔ فیلمِ فَجرِ اِمسال در بهمن ماه بَرگزار می‌شود و هَشتاد فیلمِ کوتاه و بُلند در آن حُضور دارند.",
+    "AB": "جشنوارهٔ فیلمِ فجرِ امسال در بهمن ماه برگزار می‌شود و هشتاد فیلمِ کوتاه و بلند در آن حضور دارند.",
+    "AV": "جَشنوارهٔ فیلمِ فَجرِ اِمسال در بهمن ماه بَرگزار می‌شود و هَشتاد فیلمِ کوتاه و بُلند در آن حُضور دارند."
+   }
+  },
+  {
+   "id": "n08",
+   "category": "news",
+   "text": "وزارت نیرو از مردم خواست در ساعت‌های اوج مصرف، از روشن کردن کولرها و وسایل پرمصرف خودداری کنند.",
+   "texts": {
+    "PB": "وزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مصرف، از روشن کردنِ کولرها و وسایلِ پرمصرف خودداری کنند.",
+    "PV": "وِزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مَصرف، از روشن کَردنِ کولرها و وَسایلِ پُرمصرف خودداری کُنند.",
+    "AB": "وزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مصرف، از روشن کردنِ کولرها و وسایلِ پرمصرف خودداری کنند.",
+    "AV": "وِزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مَصرف، از روشن کَردنِ کولرها و وَسایلِ پُرمصرف خودداری کُنند."
+   }
+  }
+ ],
+ "events": [
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 16,
+   "other_changes_by_the_app": [],
+   "form": "P"
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice",
+   "form": "P"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true,
+   "form": "P"
+  },
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 16,
+   "other_changes_by_the_app": [],
+   "form": "A"
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice",
+   "form": "A"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true,
+   "form": "A"
+  },
+  {
+   "event": "fetched_from_kaggle",
+   "session": "marsmanam/persian-voice-news-vowels-run",
+   "collected": "2026-10-25T15:44:42+00:00"
+  }
+ ],
+ "renders": [
+  {
+   "id": "n01",
+   "condition": "PB",
+   "engine": "omnivoice",
+   "input_text": "شرکتِ سامسونگ اعلام کَرد گوشی‌هایِ تاشویِ جدیدش را از دوشنبه دوازدهمِ اکتبر در فروشگاه‌هایِ اروپا عَرضه می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n01_PB.wav",
+   "skipped": null,
+   "duration_s": 9.015,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شرکتِ سامسونگ اعلام کَرد گوشی‌هایِ تاشویِ جدیدش را از دوشنبه دوازدهمِ اکتبر در فروشگاه‌هایِ اروپا عَرضه می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 2.272,
+    "text": 0.002,
+    "load": 13.37,
+    "synthesis": 7.18
+   },
+   "asr_text": "شرکت سامسونگ اعلام کرد گوشی های تاشوی جدیدش را از دوشنبه دوازدهم اکتر در فروشگاه های اروپا عرضه می کند.",
+   "cer": 0.011904761904761904,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n01_PB.wav"
+  },
+  {
+   "id": "n01",
+   "condition": "PV",
+   "engine": "omnivoice",
+   "input_text": "شِرکتِ سامسونگ اِعلام کَرد گوشی‌هایِ تاشویِ جَدیدش را از دوشنبه دَوازدهمِ اُکتبر در فُروشگاه‌هایِ اُروپا عَرضه می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n01_PV.wav",
+   "skipped": null,
+   "duration_s": 9.131,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شِرکتِ سامسونگ اِعلام کَرد گوشی‌هایِ تاشویِ جَدیدش را از دوشنبه دَوازدهمِ اُکتبر در فُروشگاه‌هایِ اُروپا عَرضه می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.703
+   },
+   "asr_text": "شرکت سامسونگ اعلام کرد گوشی های تاشوی جدیدش را از دوشنب دوازدهم اکتبر در فروشگاه های اروپا عرض می کند.",
+   "cer": 0.023809523809523808,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n01_PV.wav"
+  },
+  {
+   "id": "n02",
+   "condition": "PB",
+   "engine": "omnivoice",
+   "input_text": "به گفتهٔ مدیرعاملِ این کمپانی، کارخانهٔ تازه مجهز به ربات‌هایِ صنعتی است و تا پایانِ نوامبر راه‌اندازی می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n02_PB.wav",
+   "skipped": null,
+   "duration_s": 9.057,
+   "used_phonemes": false,
+   "fed_texts": [
+    "به گفتهٔ مدیرعاملِ این کمپانی، کارخانهٔ تازه مجهز به ربات‌هایِ صنعتی است و تا پایانِ نوامبر راه‌اندازی می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.653
+   },
+   "asr_text": "به گفته مدیر آمل این کمپانی، کارخانه تازه مجهاز به روباتهای سنعتیست و تا پایان نوان به راهندازی می شود.",
+   "cer": 0.10843373493975904,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n02_PB.wav"
+  },
+  {
+   "id": "n02",
+   "condition": "PV",
+   "engine": "omnivoice",
+   "input_text": "به گُفتهٔ مُدیرعاملِ این کُمپانی، کارخانهٔ تازه مُجهز به رُبات‌هایِ صَنعتی اَست و تا پایانِ نُوامبر راه‌اندازی می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n02_PV.wav",
+   "skipped": null,
+   "duration_s": 8.993,
+   "used_phonemes": false,
+   "fed_texts": [
+    "به گُفتهٔ مُدیرعاملِ این کُمپانی، کارخانهٔ تازه مُجهز به رُبات‌هایِ صَنعتی اَست و تا پایانِ نُوامبر راه‌اندازی می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.738
+   },
+   "asr_text": "به گفته مدیر آمل این کمپانی، کارخانه تازه مجه هست به روبات های سنتی است و تا پایانه نوام راه اندازی می شود.",
+   "cer": 0.13253012048192772,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n02_PV.wav"
+  },
+  {
+   "id": "n03",
+   "condition": "PB",
+   "engine": "omnivoice",
+   "input_text": "تیمِ ملیِ فوتبال جمعه شب در ورزشگاهِ آزادی با نتیجهٔ دو بَر یک به حریفِ عراقیِ خود باخت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n03_PB.wav",
+   "skipped": null,
+   "duration_s": 6.686,
+   "used_phonemes": false,
+   "fed_texts": [
+    "تیمِ ملیِ فوتبال جمعه شب در ورزشگاهِ آزادی با نتیجهٔ دو بَر یک به حریفِ عراقیِ خود باخت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.867
+   },
+   "asr_text": "تیم ملی فوتبال جمعه شب در ورزشگاه آزادی با نتیجه دو بر یک به حریف اراقی خود باخت.",
+   "cer": 0.015873015873015872,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n03_PB.wav"
+  },
+  {
+   "id": "n03",
+   "condition": "PV",
+   "engine": "omnivoice",
+   "input_text": "تیمِ مِلیِ فوتبال جمعه شب در وَرزشگاهِ آزادی با نَتیجهٔ دو بَر یک به حَریفِ عِراقیِ خود باخت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n03_PV.wav",
+   "skipped": null,
+   "duration_s": 6.491,
+   "used_phonemes": false,
+   "fed_texts": [
+    "تیمِ مِلیِ فوتبال جمعه شب در وَرزشگاهِ آزادی با نَتیجهٔ دو بَر یک به حَریفِ عِراقیِ خود باخت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.909
+   },
+   "asr_text": "تیمه میلی فوتبال جمه شب در وارزشگاه آزادی با نتیجه دوبر یک به حریف اراقی خود باخت.",
+   "cer": 0.07936507936507936,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n03_PV.wav"
+  },
+  {
+   "id": "n04",
+   "condition": "PB",
+   "engine": "omnivoice",
+   "input_text": "سازمانِ هواشناسی پیش‌بینی کرده است که از سه‌شنبهٔ هفتهٔ آینده دمایِ هوا در استان‌هایِ شمالی کاهش می‌یابد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n04_PB.wav",
+   "skipped": null,
+   "duration_s": 8.682,
+   "used_phonemes": false,
+   "fed_texts": [
+    "سازمانِ هواشناسی پیش‌بینی کرده است که از سه‌شنبهٔ هفتهٔ آینده دمایِ هوا در استان‌هایِ شمالی کاهش می‌یابد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.708
+   },
+   "asr_text": "سازمانه هواشناسی پیشبینی کرده است که از سشنبه هفته آینده دمایی هوا در استانهای شمالی کاهش می آود.",
+   "cer": 0.0759493670886076,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n04_PB.wav"
+  },
+  {
+   "id": "n04",
+   "condition": "PV",
+   "engine": "omnivoice",
+   "input_text": "سازمانِ هَواشناسی پیش‌بینی کَرده اَست که از سِه‌شنبهٔ هَفتهٔ آینده دَمایِ هَوا در اُستان‌هایِ شُمالی کاهش می‌یابد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n04_PV.wav",
+   "skipped": null,
+   "duration_s": 8.596,
+   "used_phonemes": false,
+   "fed_texts": [
+    "سازمانِ هَواشناسی پیش‌بینی کَرده اَست که از سِه‌شنبهٔ هَفتهٔ آینده دَمایِ هَوا در اُستان‌هایِ شُمالی کاهش می‌یابد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.748
+   },
+   "asr_text": "سازمان هواشناسی پیشبینی کرده است که از شنبه هفته آینده دمای هوا در استانهای شمالی کاهش میابد.",
+   "cer": 0.0379746835443038,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n04_PV.wav"
+  },
+  {
+   "id": "n05",
+   "condition": "PB",
+   "engine": "omnivoice",
+   "input_text": "پژوهشگرانِ دانشگاهِ تهران موفق شدند دارویی برایِ درمانِ سرطانِ خون بسازند که هزینهٔ کمتری دارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n05_PB.wav",
+   "skipped": null,
+   "duration_s": 7.513,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پژوهشگرانِ دانشگاهِ تهران موفق شدند دارویی برایِ درمانِ سرطانِ خون بسازند که هزینهٔ کمتری دارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.109
+   },
+   "asr_text": "پجوهشکران دانشگاه تهران موفق شدن داروی برای درمان سرطان خون بسازن که حزینه کمتری دارد.",
+   "cer": 0.08108108108108109,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n05_PB.wav"
+  },
+  {
+   "id": "n05",
+   "condition": "PV",
+   "engine": "omnivoice",
+   "input_text": "پَژوهشگرانِ دانشگاهِ تِهران مُوفق شُدند دارویی بَرایِ دَرمانِ سَرطانِ خون بِسازند که هَزینهٔ کَمتری دارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n05_PV.wav",
+   "skipped": null,
+   "duration_s": 7.561,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پَژوهشگرانِ دانشگاهِ تِهران مُوفق شُدند دارویی بَرایِ دَرمانِ سَرطانِ خون بِسازند که هَزینهٔ کَمتری دارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.188
+   },
+   "asr_text": "پجوهشگران دانشگاه تهران موفق شدن داروی برای درمان سرطان خون بسازن که حزینه کمتری دارد.",
+   "cer": 0.06756756756756757,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n05_PV.wav"
+  },
+  {
+   "id": "n06",
+   "condition": "PB",
+   "engine": "omnivoice",
+   "input_text": "قیمتِ دلار در بازارِ آزاد روزِ یکشنبه پایین آمد و معامله‌گران منتظرِ تصمیمِ بانکِ مرکزی هستند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n06_PB.wav",
+   "skipped": null,
+   "duration_s": 7.402,
+   "used_phonemes": false,
+   "fed_texts": [
+    "قیمتِ دلار در بازارِ آزاد روزِ یکشنبه پایین آمد و معامله‌گران منتظرِ تصمیمِ بانکِ مرکزی هستند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.131
+   },
+   "asr_text": "قیمت دولار در بازار آزاد روز یک شمب پایین آمد و معاملگران منتظر تصمیم بانک مرکزی هستند.",
+   "cer": 0.056338028169014086,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n06_PB.wav"
+  },
+  {
+   "id": "n06",
+   "condition": "PV",
+   "engine": "omnivoice",
+   "input_text": "قِیمتِ دُلار در بازارِ آزاد روزِ یِکشنبه پایین آمد و مُعامله‌گران مُنتظرِ تَصمیمِ بانکِ مَرکزی هَستند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n06_PV.wav",
+   "skipped": null,
+   "duration_s": 7.429,
+   "used_phonemes": false,
+   "fed_texts": [
+    "قِیمتِ دُلار در بازارِ آزاد روزِ یِکشنبه پایین آمد و مُعامله‌گران مُنتظرِ تَصمیمِ بانکِ مَرکزی هَستند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.193
+   },
+   "asr_text": "قیمت دولار در بازار آزاد روز یک شمب پایین آمد و محاملگران منتظر تصمیم بانک مرکزی هستند.",
+   "cer": 0.07042253521126761,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n06_PV.wav"
+  },
+  {
+   "id": "n07",
+   "condition": "PB",
+   "engine": "omnivoice",
+   "input_text": "جشنوارهٔ فیلمِ فجرِ امسال در بهمن ماه برگزار می‌شود و هشتاد فیلمِ کوتاه و بلند در آن حضور دارند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n07_PB.wav",
+   "skipped": null,
+   "duration_s": 7.532,
+   "used_phonemes": false,
+   "fed_texts": [
+    "جشنوارهٔ فیلمِ فجرِ امسال در بهمن ماه برگزار می‌شود و هشتاد فیلمِ کوتاه و بلند در آن حضور دارند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.191
+   },
+   "asr_text": "جشنواره فیلم فجره امسال در به من ماه برگزار می شود و هشتاد فیلم کتاه و بلند در آن حضور دارند.",
+   "cer": 0.027777777777777776,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n07_PB.wav"
+  },
+  {
+   "id": "n07",
+   "condition": "PV",
+   "engine": "omnivoice",
+   "input_text": "جَشنوارهٔ فیلمِ فَجرِ اِمسال در بهمن ماه بَرگزار می‌شود و هَشتاد فیلمِ کوتاه و بُلند در آن حُضور دارند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n07_PV.wav",
+   "skipped": null,
+   "duration_s": 7.585,
+   "used_phonemes": false,
+   "fed_texts": [
+    "جَشنوارهٔ فیلمِ فَجرِ اِمسال در بهمن ماه بَرگزار می‌شود و هَشتاد فیلمِ کوتاه و بُلند در آن حُضور دارند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.233
+   },
+   "asr_text": "جشنواره ی فیلم فجر امسال در بهمن ماه برگزار می شود و هشتاد فیلم کتاه و بولند در آن حضور دارند.",
+   "cer": 0.041666666666666664,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n07_PV.wav"
+  },
+  {
+   "id": "n08",
+   "condition": "PB",
+   "engine": "omnivoice",
+   "input_text": "وزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مصرف، از روشن کردنِ کولرها و وسایلِ پرمصرف خودداری کنند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n08_PB.wav",
+   "skipped": null,
+   "duration_s": 7.938,
+   "used_phonemes": false,
+   "fed_texts": [
+    "وزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مصرف، از روشن کردنِ کولرها و وسایلِ پرمصرف خودداری کنند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.303
+   },
+   "asr_text": "وزارت نیرو از مردم خاص در ساعتهای اوج مصرف از روشن کردن کولرها و وسایل پرمصرف خودداری کنند.",
+   "cer": 0.04,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n08_PB.wav"
+  },
+  {
+   "id": "n08",
+   "condition": "PV",
+   "engine": "omnivoice",
+   "input_text": "وِزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مَصرف، از روشن کَردنِ کولرها و وَسایلِ پُرمصرف خودداری کُنند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n08_PV.wav",
+   "skipped": null,
+   "duration_s": 7.87,
+   "used_phonemes": false,
+   "fed_texts": [
+    "وِزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مَصرف، از روشن کَردنِ کولرها و وَسایلِ پُرمصرف خودداری کُنند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.334
+   },
+   "asr_text": "ویزارت نیرو از مردم خواست در ساعتهای اوج مصرف از روشن کردن کولرها و وسایل پرمصرف خودداری کنند.",
+   "cer": 0.013333333333333334,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/P/wavs/n08_PV.wav"
+  },
+  {
+   "id": "n01",
+   "condition": "AB",
+   "engine": "omnivoice",
+   "input_text": "شرکتِ سامسونگ اعلام کَرد گوشی‌هایِ تاشویِ جدیدش را از دوشنبه دوازدهمِ اکتبر در فروشگاه‌هایِ اروپا عَرضه می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n01_AB.wav",
+   "skipped": null,
+   "duration_s": 9.15,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شرکتِ سامسونگ اعلام کَرد گوشی‌هایِ تاشویِ جدیدش را از دوشنبه دوازدهمِ اکتبر در فروشگاه‌هایِ اروپا عَرضه می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.524,
+    "text": 0.002,
+    "load": 19.692,
+    "synthesis": 5.778
+   },
+   "asr_text": "شرکت سامسونگ اعلام کرد گوشی های تاشایی جدیدش رو از دوشنبه دوازدهم اکتبر در فروشگاه های اروپا عرض می کند.",
+   "cer": 0.047619047619047616,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n01_AB.wav"
+  },
+  {
+   "id": "n01",
+   "condition": "AV",
+   "engine": "omnivoice",
+   "input_text": "شِرکتِ سامسونگ اِعلام کَرد گوشی‌هایِ تاشویِ جَدیدش را از دوشنبه دَوازدهمِ اُکتبر در فُروشگاه‌هایِ اُروپا عَرضه می‌کند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n01_AV.wav",
+   "skipped": null,
+   "duration_s": 9.176,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شِرکتِ سامسونگ اِعلام کَرد گوشی‌هایِ تاشویِ جَدیدش را از دوشنبه دَوازدهمِ اُکتبر در فُروشگاه‌هایِ اُروپا عَرضه می‌کند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.003,
+    "load": 0.0,
+    "synthesis": 5.142
+   },
+   "asr_text": "شرکت سامسونگ اعلام کرد گوشی های تاشوی جدیدش را از دوشنبه دوازدهم اکتبر در فروشگاه های اروپا ارزه می کند.",
+   "cer": 0.023809523809523808,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n01_AV.wav"
+  },
+  {
+   "id": "n02",
+   "condition": "AB",
+   "engine": "omnivoice",
+   "input_text": "به گفتهٔ مدیرعاملِ این کمپانی، کارخانهٔ تازه مجهز به ربات‌هایِ صنعتی است و تا پایانِ نوامبر راه‌اندازی می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n02_AB.wav",
+   "skipped": null,
+   "duration_s": 9.1,
+   "used_phonemes": false,
+   "fed_texts": [
+    "به گفتهٔ مدیرعاملِ این کمپانی، کارخانهٔ تازه مجهز به ربات‌هایِ صنعتی است و تا پایانِ نوامبر راه‌اندازی می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.072
+   },
+   "asr_text": "به گفته مدیر آمل این کمپانی کارخانه تازه مجهز به روباتهای سنتی است و تا پایانه نوام به راه اندازی می شود.",
+   "cer": 0.08433734939759036,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n02_AB.wav"
+  },
+  {
+   "id": "n02",
+   "condition": "AV",
+   "engine": "omnivoice",
+   "input_text": "به گُفتهٔ مُدیرعاملِ این کُمپانی، کارخانهٔ تازه مُجهز به رُبات‌هایِ صَنعتی اَست و تا پایانِ نُوامبر راه‌اندازی می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n02_AV.wav",
+   "skipped": null,
+   "duration_s": 9.071,
+   "used_phonemes": false,
+   "fed_texts": [
+    "به گُفتهٔ مُدیرعاملِ این کُمپانی، کارخانهٔ تازه مُجهز به رُبات‌هایِ صَنعتی اَست و تا پایانِ نُوامبر راه‌اندازی می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.177
+   },
+   "asr_text": "به گفته مدیرامل این کمپانی، کارخانه تازه مجهاز به روباتهای سنتی اس و تا پایانه نوام به راهندازی می شود.",
+   "cer": 0.10843373493975904,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n02_AV.wav"
+  },
+  {
+   "id": "n03",
+   "condition": "AB",
+   "engine": "omnivoice",
+   "input_text": "تیمِ ملیِ فوتبال جمعه شب در ورزشگاهِ آزادی با نتیجهٔ دو بَر یک به حریفِ عراقیِ خود باخت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n03_AB.wav",
+   "skipped": null,
+   "duration_s": 6.818,
+   "used_phonemes": false,
+   "fed_texts": [
+    "تیمِ ملیِ فوتبال جمعه شب در ورزشگاهِ آزادی با نتیجهٔ دو بَر یک به حریفِ عراقیِ خود باخت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.208
+   },
+   "asr_text": "تیم ملی فوتبال جمعه شب در ورزشگاه آزادی با نتیجه دو بر یک به حریف عراقی خود باخت.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n03_AB.wav"
+  },
+  {
+   "id": "n03",
+   "condition": "AV",
+   "engine": "omnivoice",
+   "input_text": "تیمِ مِلیِ فوتبال جمعه شب در وَرزشگاهِ آزادی با نَتیجهٔ دو بَر یک به حَریفِ عِراقیِ خود باخت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n03_AV.wav",
+   "skipped": null,
+   "duration_s": 6.521,
+   "used_phonemes": false,
+   "fed_texts": [
+    "تیمِ مِلیِ فوتبال جمعه شب در وَرزشگاهِ آزادی با نَتیجهٔ دو بَر یک به حَریفِ عِراقیِ خود باخت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.237
+   },
+   "asr_text": "تیم میلی فوتبال جمع شب در ورزشگاه آزادی با نتیجه دو بر یک به حریفه اراقی خود باخت.",
+   "cer": 0.06349206349206349,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n03_AV.wav"
+  },
+  {
+   "id": "n04",
+   "condition": "AB",
+   "engine": "omnivoice",
+   "input_text": "سازمانِ هواشناسی پیش‌بینی کرده است که از سه‌شنبهٔ هفتهٔ آینده دمایِ هوا در استان‌هایِ شمالی کاهش می‌یابد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n04_AB.wav",
+   "skipped": null,
+   "duration_s": 8.525,
+   "used_phonemes": false,
+   "fed_texts": [
+    "سازمانِ هواشناسی پیش‌بینی کرده است که از سه‌شنبهٔ هفتهٔ آینده دمایِ هوا در استان‌هایِ شمالی کاهش می‌یابد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.051
+   },
+   "asr_text": "سازمانه هواشناسی پیشبینی کرده است که از شنبه یه هفته آینده دمای هوا در استانهای شمالی کاهش میابد.",
+   "cer": 0.0759493670886076,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n04_AB.wav"
+  },
+  {
+   "id": "n04",
+   "condition": "AV",
+   "engine": "omnivoice",
+   "input_text": "سازمانِ هَواشناسی پیش‌بینی کَرده اَست که از سِه‌شنبهٔ هَفتهٔ آینده دَمایِ هَوا در اُستان‌هایِ شُمالی کاهش می‌یابد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n04_AV.wav",
+   "skipped": null,
+   "duration_s": 8.581,
+   "used_phonemes": false,
+   "fed_texts": [
+    "سازمانِ هَواشناسی پیش‌بینی کَرده اَست که از سِه‌شنبهٔ هَفتهٔ آینده دَمایِ هَوا در اُستان‌هایِ شُمالی کاهش می‌یابد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.051
+   },
+   "asr_text": "سازمان هواشناسی پیشبینی کرده است که از سه شنبه هفته آینده دمای هوا در استانهای شمالی کاهش می آود.",
+   "cer": 0.0379746835443038,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n04_AV.wav"
+  },
+  {
+   "id": "n05",
+   "condition": "AB",
+   "engine": "omnivoice",
+   "input_text": "پژوهشگرانِ دانشگاهِ تهران موفق شدند دارویی برایِ درمانِ سرطانِ خون بسازند که هزینهٔ کمتری دارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n05_AB.wav",
+   "skipped": null,
+   "duration_s": 7.801,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پژوهشگرانِ دانشگاهِ تهران موفق شدند دارویی برایِ درمانِ سرطانِ خون بسازند که هزینهٔ کمتری دارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.307
+   },
+   "asr_text": "پجوهشگران دانشگاه تهران موفق شدن داروی برای درمان سرطان خون بسازن که حزینه کمتری دارد.",
+   "cer": 0.06756756756756757,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n05_AB.wav"
+  },
+  {
+   "id": "n05",
+   "condition": "AV",
+   "engine": "omnivoice",
+   "input_text": "پَژوهشگرانِ دانشگاهِ تِهران مُوفق شُدند دارویی بَرایِ دَرمانِ سَرطانِ خون بِسازند که هَزینهٔ کَمتری دارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n05_AV.wav",
+   "skipped": null,
+   "duration_s": 7.58,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پَژوهشگرانِ دانشگاهِ تِهران مُوفق شُدند دارویی بَرایِ دَرمانِ سَرطانِ خون بِسازند که هَزینهٔ کَمتری دارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.352
+   },
+   "asr_text": "پجوهشگران دانشگاه تهران موفق شدن داروی برای درمان سرتان خون بسازند که حزینه کمتری دارد.",
+   "cer": 0.06756756756756757,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n05_AV.wav"
+  },
+  {
+   "id": "n06",
+   "condition": "AB",
+   "engine": "omnivoice",
+   "input_text": "قیمتِ دلار در بازارِ آزاد روزِ یکشنبه پایین آمد و معامله‌گران منتظرِ تصمیمِ بانکِ مرکزی هستند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n06_AB.wav",
+   "skipped": null,
+   "duration_s": 7.477,
+   "used_phonemes": false,
+   "fed_texts": [
+    "قیمتِ دلار در بازارِ آزاد روزِ یکشنبه پایین آمد و معامله‌گران منتظرِ تصمیمِ بانکِ مرکزی هستند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.25
+   },
+   "asr_text": "قیمت دولار در بازار آزاد روز یک شمب پایین آمد و معاملگران منتظر تصمیم بانک مرکزی هست.",
+   "cer": 0.08450704225352113,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n06_AB.wav"
+  },
+  {
+   "id": "n06",
+   "condition": "AV",
+   "engine": "omnivoice",
+   "input_text": "قِیمتِ دُلار در بازارِ آزاد روزِ یِکشنبه پایین آمد و مُعامله‌گران مُنتظرِ تَصمیمِ بانکِ مَرکزی هَستند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n06_AV.wav",
+   "skipped": null,
+   "duration_s": 7.495,
+   "used_phonemes": false,
+   "fed_texts": [
+    "قِیمتِ دُلار در بازارِ آزاد روزِ یِکشنبه پایین آمد و مُعامله‌گران مُنتظرِ تَصمیمِ بانکِ مَرکزی هَستند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.269
+   },
+   "asr_text": "قیمت دولار در بازار آزاد روز یک شمب پایین آمد و معاملگران منتظر تصمیم بانک مرکزی هست.",
+   "cer": 0.08450704225352113,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n06_AV.wav"
+  },
+  {
+   "id": "n07",
+   "condition": "AB",
+   "engine": "omnivoice",
+   "input_text": "جشنوارهٔ فیلمِ فجرِ امسال در بهمن ماه برگزار می‌شود و هشتاد فیلمِ کوتاه و بلند در آن حضور دارند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n07_AB.wav",
+   "skipped": null,
+   "duration_s": 7.576,
+   "used_phonemes": false,
+   "fed_texts": [
+    "جشنوارهٔ فیلمِ فجرِ امسال در بهمن ماه برگزار می‌شود و هشتاد فیلمِ کوتاه و بلند در آن حضور دارند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.24
+   },
+   "asr_text": "جشنواره فیلم فجری امسال در بهمن ماه برگزار می شود و هشتاد فیلم کتاه و بلند در آن حضور دارند.",
+   "cer": 0.027777777777777776,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n07_AB.wav"
+  },
+  {
+   "id": "n07",
+   "condition": "AV",
+   "engine": "omnivoice",
+   "input_text": "جَشنوارهٔ فیلمِ فَجرِ اِمسال در بهمن ماه بَرگزار می‌شود و هَشتاد فیلمِ کوتاه و بُلند در آن حُضور دارند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n07_AV.wav",
+   "skipped": null,
+   "duration_s": 7.506,
+   "used_phonemes": false,
+   "fed_texts": [
+    "جَشنوارهٔ فیلمِ فَجرِ اِمسال در بهمن ماه بَرگزار می‌شود و هَشتاد فیلمِ کوتاه و بُلند در آن حُضور دارند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.283
+   },
+   "asr_text": "جشنواره فیلم فجر امسال در بهمن ماه برگزار می شود و هشتاد فیلم کتاه و بلند در آن حضور دارن.",
+   "cer": 0.027777777777777776,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n07_AV.wav"
+  },
+  {
+   "id": "n08",
+   "condition": "AB",
+   "engine": "omnivoice",
+   "input_text": "وزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مصرف، از روشن کردنِ کولرها و وسایلِ پرمصرف خودداری کنند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n08_AB.wav",
+   "skipped": null,
+   "duration_s": 7.992,
+   "used_phonemes": false,
+   "fed_texts": [
+    "وزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مصرف، از روشن کردنِ کولرها و وسایلِ پرمصرف خودداری کنند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.315
+   },
+   "asr_text": "وزارت نیرو از مردم خواست در ساعتهای اوج مصرف از روشن کردن کولرها و وسایل پرم خصرف خودداری کنند.",
+   "cer": 0.013333333333333334,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n08_AB.wav"
+  },
+  {
+   "id": "n08",
+   "condition": "AV",
+   "engine": "omnivoice",
+   "input_text": "وِزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مَصرف، از روشن کَردنِ کولرها و وَسایلِ پُرمصرف خودداری کُنند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/news-vowels-v1/wavs/n08_AV.wav",
+   "skipped": null,
+   "duration_s": 8.12,
+   "used_phonemes": false,
+   "fed_texts": [
+    "وِزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مَصرف، از روشن کَردنِ کولرها و وَسایلِ پُرمصرف خودداری کُنند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.337
+   },
+   "asr_text": "ویزارت نیرو از مردم خاص در ساعتهای اوج مصرف از روشنه کردن کولرها و وسایل پرمصرف خودداری کنند.",
+   "cer": 0.06666666666666667,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/news-vowels-v1/A/wavs/n08_AV.wav"
+  }
+ ]
+}

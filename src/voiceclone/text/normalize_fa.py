@@ -255,6 +255,8 @@ def normalize(text: str, options: NormalizationOptions | None = None) -> str:
         text = expand_abbreviations(text)
     if options.expand_numbers:
         text = expand_numbers(text)
+        if options.remove_diacritics:
+            text = remove_diacritics(text)
     elif options.ascii_digits:
         text = to_ascii_digits(text)
     if options.normalize_punctuation:

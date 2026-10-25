@@ -1,0 +1,26 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.3s; 104590 shown"
+  },
+  "code": {
+    "passed": true,
+    "reason": "the render script, the marks and the registered texts are present; code from e1d96e4"
+  },
+  "download": {
+    "passed": true,
+    "reason": "{\"base\": {\"gib\": 3.043, \"seconds\": 16.4, \"tries\": [{\"attempt\": 1, \"seconds\": 16.4}], \"failed_check\": null}}"
+  },
+  "weights": {
+    "passed": true,
+    "reason": "{\"weights\": {\"P\": {\"path\": \"/tmp/omnivoice-base\"}, \"A\": {\"path\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16\", \"found\": [\"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16\"], \"model_sha256\": \"9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a\"}}, \"problems\": []}"
+  },
+  "renders-P": {
+    "passed": true,
+    "reason": "{\"rendered\": 16, \"scored\": 16, \"weights\": \"/tmp/omnivoice-base\", \"worker\": [\"15:38:07 INFO     OmniVoice ready (cuda, float16, 24000 Hz)\"], \"mean_cer\": 0.0553, \"other_changes_by_the_app\": []}"
+  },
+  "renders-A": {
+    "passed": true,
+    "reason": "{\"rendered\": 16, \"scored\": 16, \"weights\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16\", \"worker\": [\"15:40:08 INFO     OmniVoice ready (cuda, float16, 24000 Hz)\"], \"mean_cer\": 0.0551, \"other_changes_by_the_app\": []}"
+  }
+}

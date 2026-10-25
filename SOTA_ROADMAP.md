@@ -303,6 +303,34 @@ Exact revisions measured so far: `k2-fsa/OmniVoice` `c5fdb5cc`,
 `1de9996b`, the Higgs port `30f01593`, `SWivid/F5-TTS` `84e5a410`,
 `Lumos675/F5_TTS_Persian` `cc322511`. Only Higgs pins its revision in config.
 
+**[source] Persian bases, checked live on 2026-10-25** after the news vowels
+check (FINDINGS section 21) left the model's own reading as the lever. Hugging
+Face models tagged Persian text-to-speech, newest first, and web searches:
+
+* **Fish Audio Drama 3** (`fishaudio/drama-3` @ `b2b5ee99`): new this month
+  (API preview 2026-09-23, general release 2026-10-13); 83 languages with
+  Persian among them (self-reported; no Persian evaluation published). It is a
+  35B-parameter MoE (3B active, FP8 experts) and 41.5 GB, under the Fish Audio
+  research licence, served by SGLang-Omni or vLLM-Omni on data-centre GPUs. It
+  fits neither this Mac nor Kaggle's T4 pair (32 GB, no FP8). Community GGUF
+  files exist, but no runtime that serves them was found. Not runnable here as
+  published.
+* **ParsVoice-XTTS** (`MohammadJRanjbar/ParsVoice-XTTS`, gated; 5.7 GB):
+  XTTS-v2 adapted to about 2,000 h of Persian audiobooks from 1,800+ speakers,
+  with zero-shot cloning. Listeners in its paper gave naturalness about 3.6,
+  similarity 4.0 and intelligibility about 4.0 of 5 (arXiv 2510.10774). It is
+  the most Persian-trained cloning model found, and it fits a T4. The gate is
+  the user's to accept; XTTS-v2's own licence is non-commercial.
+* **Audio8-TTS-Persian** (`ArminRahimi/Audio8-TTS-Persian`, v0.2, 2026-10-22,
+  Apache-2.0, 2.6 GB): a 0.6B DualAR model adapted to Persian, with cloning;
+  no measured numbers.
+* Smaller or weaker leads: MOSS-TTS-Nano Persian (117M, Common Voice);
+  Gooya-Koochik v2.0-exp (OmniVoice through a phonemiser, trained mostly on
+  synthetic clips, no licence); MOSS-TTS v1.5 (17 GB, Persian listed; its
+  Local-Transformer sibling scored 0.507 here).
+* **No Persian:** Qwen3-TTS (ten languages), Qwen-Audio-3.0-TTS (sixteen),
+  VoxCPM2 (thirty). Still no public benchmark has Persian.
+
 ## 5. Data
 
 **[source]** Public Persian speech, surveyed on the Hugging Face Hub on

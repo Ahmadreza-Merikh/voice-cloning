@@ -20,6 +20,17 @@ from voiceclone.audio.io import Audio  # noqa: E402
 from voiceclone.config import AppConfig  # noqa: E402
 
 
+@pytest.fixture(scope="session", autouse=True)
+def _no_fetched_adapted_weights(tmp_path_factory: pytest.TempPathFactory):
+    """OmniVoice reads with the adapted export wherever it has been fetched; no test does.
+
+    A test that wants it gives the engine a folder of its own.
+    """
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setenv("VOICECLONE__ENGINES__OMNIVOICE__ADAPTED_DIR", str(tmp_path_factory.mktemp("no-adapted-weights")))
+        yield
+
+
 @pytest.fixture(scope="session")
 def config() -> AppConfig:
     return AppConfig.load()

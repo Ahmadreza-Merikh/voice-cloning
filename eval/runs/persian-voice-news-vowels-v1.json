@@ -58,5 +58,12 @@
  },
  "read_beside_it_not_for_the_decision": "the first-vowel marks V wrote checked against the hand-written gold (right, wrong, missing); per word, what V fixed and broke under each set of weights; whether V helps under one set of weights and not the other; the picked readings and the notes",
  "not_claimed": "one voice (mana), one seed, 138 words of news, the listeners who answer",
- "cost": "Kaggle: one session, about 0.3 GPU-hours; listening about 15 minutes"
+ "cost": "Kaggle: one session, about 0.3 GPU-hours; listening about 15 minutes",
+ "sessions": {
+  "v1": {
+   "kernel": "marsmanam/persian-voice-news-vowels-run, version 1",
+   "pushed": "2026-10-25 15:31:03 UTC; status read RUNNING right after",
+   "built_from": "8d0beff; the dataset's code (e1d96e4) checked on this Mac first: all 32 texts reach the model with every mark and nothing else changed"
+  }
+ }
 }

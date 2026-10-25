@@ -6,29 +6,28 @@ anything. No credentials.
 
 Last updated: 2026-10-25 +0330.
 
-## The news vowels check: rendered, waiting for the listener (2026-10-25)
+## The news vowels check heard: no vowels on every word; weights tie on news (2026-10-25)
 
-The check was registered before any front-end ran (fe7aae9,
-`eval/runs/persian-voice-news-vowels-v1.json`). Eight news-style sentences
-(138 words) are read in a 2 x 2:
-- text: B is the app's text; V adds the first short vowel of every word of
-  three or more letters from Homo-GE2PE, except به, اپل and کند. V's 60 marks
-  all match the hand-written gold; 7 words are left unmarked.
-- weights: P (published) or A (A1)
+FINDINGS section 21; `eval/runs/persian-voice-news-vowels-v1.json`, result
+recorded. Eight news sentences in a 2 x 2. Words wrong (of 138):
 
-**The rules:**
-- V goes into the app if PV + AV have fewer words wrong than PB + AB and V is
-  not flagged.
-- The app goes back to P only if PB + PV have fewer words wrong than AB + AV.
+| | P | A |
+|---|---|---|
+| B | 13 | 14 |
+| V | 21 | 19 |
 
-**Rendered:** Kaggle `persian-voice-news-vowels-run` v1, every gate passed.
-The page is https://claude.ai/artifact/Ebecvju3u2GJMXemKVbx4z.
+- **V (the first vowel on every word) is not adopted:** 40 against 27. Its
+  marks were all right, and the model read some of them long or wrong.
+- **The weights tie (34 against 33):** the app keeps A1.
+- **Left in every form:** loanwords and months (اکتبر, نوامبر, فوتبال),
+  دوازدهم, and some common words. That is about one word in ten on news.
 
-**Next:**
-1. The user listens.
-2. Read `reviews` into `eval/runs/evidence/news-review-v1/answers-listener-1.json`.
-3. Run `scripts/score_pronunciation_review.py`, which writes `score.json`.
-4. Run `.venv/bin/python scripts/read_news_vowels.py`.
+**Next (the user's call):** nothing is running. Writing marks has reached its
+limit: the ezafe and the homograph vowels help, more marks hurt. What is left
+is the model's own reading. Two levers:
+- look for a base that reads Persian news better, checked live first, and test
+  it by ear on these sentences
+- train OmniVoice to read marks as written
 
 ## The user's news text: three app errors fixed (2026-10-25)
 

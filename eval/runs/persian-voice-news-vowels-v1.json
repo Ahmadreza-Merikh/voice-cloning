@@ -69,5 +69,72 @@
    "after": "renders brought in by scripts/collect_adapted_renders.py --run news-vowels-v1 (eval/runs/news-vowels-v1/manifest.json); held-out similarity scored on this Mac with the contrasts V = PV + AV - PB - AB and A = AB + AV - PB - PV (eval/runs/evidence/news-vowels-v1/similarity.json); the blind page built with rotations (each form twice in each slot; key eval/runs/evidence/news-review-v1/key.json) - CER and similarity kept from the listener",
    "page": "https://claude.ai/artifact/Ebecvju3u2GJMXemKVbx4z (contract 0.2.90, db and user; 32 audio files and the page, the reviews collection empty at publish)"
   }
+ },
+ "listening": {
+  "when": "2026-10-25, blind, on https://claude.ai/artifact/Ebecvju3u2GJMXemKVbx4z; all 8 sentences, every reading answered, a note on 5 of 32",
+  "listener": "احمدرضا",
+  "answers": "saved by the page itself (reviews, one document at version 150; eval/runs/evidence/news-review-v1/answers-listener-1.json)"
+ },
+ "result": {
+  "when": "2026-10-25; read by scripts/read_news_vowels.py (b11e301), written before anyone listened",
+  "words_marked_wrong_of_138": {
+   "PB": 13,
+   "PV": 21,
+   "AB": 14,
+   "AV": 19
+  },
+  "readings_with_no_word_marked_of_8": {
+   "PB": 2,
+   "PV": 1,
+   "AB": 2,
+   "AV": 1
+  },
+  "picked_best": {
+   "no difference": 3,
+   "AB": 1,
+   "PB": 2,
+   "PV": 2
+  },
+  "mean_cer": {
+   "PB": 0.0522,
+   "PV": 0.0583,
+   "AB": 0.0501,
+   "AV": 0.06
+  },
+  "held_out_similarity": {
+   "PB": 0.6059,
+   "PV": 0.6179,
+   "AB": 0.6237,
+   "AV": 0.6134
+  },
+  "contrasts": {
+   "V": "+0.0008 [-0.0046, +0.0060]",
+   "A": "+0.0066 [-0.0091, +0.0240]"
+  },
+  "decision_by_the_registered_rules": {
+   "V": "PV + AV 40 against PB + AB 27: more words wrong with every first vowel written, so it is not adopted",
+   "weights": "PB + PV 34 against AB + AV 33: the published weights do not have fewer, so the app keeps A1"
+  },
+  "read_beside_it_not_used_for_the_decision": {
+   "V_hurt_under_both_weights": "8 more words wrong under P, 5 more under A",
+   "per_word": {
+    "P": {
+     "fixed_marked": 4,
+     "broke_marked": 10,
+     "fixed_unmarked": 0,
+     "broke_unmarked": 2
+    },
+    "A": {
+     "fixed_marked": 2,
+     "broke_marked": 8,
+     "fixed_unmarked": 2,
+     "broke_unmarked": 1
+    }
+   },
+   "why": "V's 60 marks all matched the hand-written first vowels, and still broke 18 marked words while fixing 6. The notes say how: the model lengthened or changed marked vowels - اَست said est, مِلی mili for melli, وَرزشگاه vorzeshgah, نُوامبر noovambr. Section 13 had heard a damma come out as a long u; here it happens on common words",
+   "left_in_every_form": "دوازدهم and اکتبر (n01), نوامبر (n02), فوتبال said with an ezafe (footbale), جشنواره and بهمن (n07), مردم, کولرها and پرمصرف (n08)",
+   "weights": "on news text the two sets of weights tie, 34 against 33; A1's edge on everyday narrative (section 19) does not show here"
+  },
+  "label": "one listener, one voice (mana), one seed, 138 words of news"
  }
 }

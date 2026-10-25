@@ -1614,3 +1614,49 @@ number are named (8GB as هشت گیگابایت). اپل and کند are no long
 ordinary and borrowed words (جمعه, اکتبر, نوامبر, مجهز) and a Latin word
 (OLED). News text with loanwords, names and numbers was never in a listening
 test. The sentences of sections 15 to 19 are everyday narrative.
+
+## 21. Vowels written on every word make news worse, even when every mark is right
+
+The errors left in the user's news text were the model's own short vowels, so
+the next check wrote them in. Eight new news-style sentences (138 words) were
+read in a 2 x 2 (`eval/runs/persian-voice-news-vowels-v1.json`, registered
+before any front-end ran):
+- **text:** B, the app's text; or V, which adds the first short vowel of every
+  word of three or more letters as Homo-GE2PE reads the sentence
+- **weights:** P (published) or A (A1)
+
+The sentences hold Western months, borrowed names and formal words. V's 60
+marks all matched the first vowels written by hand before any front-end ran;
+7 words were left unmarked. Heard blind by the user:
+
+| | words marked wrong (of 138) | readings with none wrong | mean CER |
+|---|---|---|---|
+| PB | 13 | 2 of 8 | 5.2% |
+| PV | 21 | 1 | 5.8% |
+| AB | 14 | 2 | 5.0% |
+| AV | 19 | 1 | 6.0% |
+
+**V is not adopted.** It added 13 words wrong (40 against 27): 8 under P and 5
+under A. Per word it broke 18 of the words it marked and fixed 6, with marks
+that were all right. The notes say how: the model reads some marked vowels
+long or otherwise wrong, for example:
+- اَست said as est
+- مِلی said as mili for melli
+- وَرزشگاه said with vor-
+- نُوامبر said as noovambr
+
+Section 13 heard a damma come out as a long u; here it happens on common
+words. Marks help where the model would otherwise choose wrongly between two
+words (the homographs, section 17). On words it already reads, they are a
+risk.
+
+**The weights tie on news, 34 against 33,** so the app keeps A1 as the rule
+says. Its edge on everyday narrative (section 19) does not show here. Left in
+every form:
+- دوازدهم and اکتبر
+- نوامبر
+- فوتبال said with an ezafe
+- جشنواره and بهمن
+- مردم, کولرها and پرمصرف
+
+These are about one word in ten on news text.

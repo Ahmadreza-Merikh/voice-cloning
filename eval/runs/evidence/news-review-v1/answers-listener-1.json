@@ -1,0 +1,303 @@
+{
+  "answered": 8,
+  "answers": {
+    "n01": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            10,
+            11
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            10,
+            11
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            10,
+            11
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            10,
+            11
+          ]
+        }
+      }
+    },
+    "n02": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4,
+            15
+          ]
+        },
+        "2": {
+          "note": "est F , ast T Noovambr F, Novambr T",
+          "ok": false,
+          "words": [
+            11,
+            14,
+            15
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            6,
+            14,
+            15
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            11,
+            14,
+            15
+          ]
+        }
+      }
+    },
+    "n03": {
+      "best": "2",
+      "slots": {
+        "1": {
+          "note": "mili False, melli Right Footbale F, Footbal R Jomhe F, Jome R Vorzeshgah F, Varzeshgah R",
+          "ok": false,
+          "words": [
+            1,
+            2,
+            3,
+            6
+          ]
+        },
+        "2": {
+          "note": "Footbale F, Footbal R",
+          "ok": false,
+          "words": [
+            2
+          ]
+        },
+        "3": {
+          "note": "mili False, melli Right Footbale F, Footbal R ",
+          "ok": false,
+          "words": [
+            1,
+            2
+          ]
+        },
+        "4": {
+          "note": "Footbale F, Footbal R",
+          "ok": false,
+          "words": [
+            2
+          ]
+        }
+      }
+    },
+    "n04": {
+      "best": "2",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            1,
+            4
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            4,
+            7
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": true,
+          "words": []
+        }
+      }
+    },
+    "n05": {
+      "best": "3",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            8
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            8
+          ]
+        }
+      }
+    },
+    "n06": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "4": {
+          "note": "",
+          "ok": true,
+          "words": []
+        }
+      }
+    },
+    "n07": {
+      "best": "1",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            5,
+            14
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            5,
+            10,
+            14
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            2,
+            5,
+            10
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            2,
+            5,
+            10
+          ]
+        }
+      }
+    },
+    "n08": {
+      "best": "2",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": false,
+          "words": [
+            3,
+            8,
+            10,
+            15,
+            17
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": false,
+          "words": [
+            3,
+            12,
+            15
+          ]
+        },
+        "3": {
+          "note": "",
+          "ok": false,
+          "words": [
+            3,
+            12,
+            15
+          ]
+        },
+        "4": {
+          "note": "",
+          "ok": false,
+          "words": [
+            0,
+            3,
+            8,
+            12,
+            15,
+            17
+          ]
+        }
+      }
+    }
+  },
+  "complete": true,
+  "listener": "احمدرضا",
+  "source": "the page's database (reviews, one document at version 150), read 2026-10-25 18:16 UTC after the user said the listening was finished",
+  "updated": "2026-10-25T18:16:13.067Z",
+  "version": "news-review-v1"
+}

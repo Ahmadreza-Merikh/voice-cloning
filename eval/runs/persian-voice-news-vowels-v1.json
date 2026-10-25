@@ -63,7 +63,10 @@
   "v1": {
    "kernel": "marsmanam/persian-voice-news-vowels-run, version 1",
    "pushed": "2026-10-25 15:31:03 UTC; status read RUNNING right after",
-   "built_from": "8d0beff; the dataset's code (e1d96e4) checked on this Mac first: all 32 texts reach the model with every mark and nothing else changed"
+   "built_from": "8d0beff; the dataset's code (e1d96e4) checked on this Mac first: all 32 texts reach the model with every mark and nothing else changed",
+   "ended": "COMPLETE, read at 15:42:29 UTC: about eleven minutes on the T4 pair",
+   "gates": "runner, code (e1d96e4), download (the base, 3.04 GiB), weights (A's sha256 the sealed test's), renders-P and renders-A - all passed; 16 renders scored per set of weights, the weights each run reported the ones it was given, no other change to any text by the app",
+   "after": "renders brought in by scripts/collect_adapted_renders.py --run news-vowels-v1 (eval/runs/news-vowels-v1/manifest.json); held-out similarity scored on this Mac with the contrasts V = PV + AV - PB - AB and A = AB + AV - PB - PV (eval/runs/evidence/news-vowels-v1/similarity.json); the blind page built with rotations (each form twice in each slot; key eval/runs/evidence/news-review-v1/key.json) - CER and similarity kept from the listener"
   }
  }
 }

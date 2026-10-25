@@ -6,6 +6,30 @@ anything. No credentials.
 
 Last updated: 2026-10-25 +0330.
 
+## The news vowels check: rendered, waiting for the listener (2026-10-25)
+
+The check was registered before any front-end ran (fe7aae9,
+`eval/runs/persian-voice-news-vowels-v1.json`). Eight news-style sentences
+(138 words) are read in a 2 x 2:
+- text: B is the app's text; V adds the first short vowel of every word of
+  three or more letters from Homo-GE2PE, except به, اپل and کند. V's 60 marks
+  all match the hand-written gold; 7 words are left unmarked.
+- weights: P (published) or A (A1)
+
+**The rules:**
+- V goes into the app if PV + AV have fewer words wrong than PB + AB and V is
+  not flagged.
+- The app goes back to P only if PB + PV have fewer words wrong than AB + AV.
+
+**Rendered:** Kaggle `persian-voice-news-vowels-run` v1, every gate passed.
+The page is https://claude.ai/artifact/Ebecvju3u2GJMXemKVbx4z.
+
+**Next:**
+1. The user listens.
+2. Read `reviews` into `eval/runs/evidence/news-review-v1/answers-listener-1.json`.
+3. Run `scripts/score_pronunciation_review.py`, which writes `score.json`.
+4. Run `.venv/bin/python scripts/read_news_vowels.py`.
+
 ## The user's news text: three app errors fixed (2026-10-25)
 
 The user rendered a tech news paragraph with A1 and with the published model,

@@ -66,7 +66,8 @@
    "built_from": "8d0beff; the dataset's code (e1d96e4) checked on this Mac first: all 32 texts reach the model with every mark and nothing else changed",
    "ended": "COMPLETE, read at 15:42:29 UTC: about eleven minutes on the T4 pair",
    "gates": "runner, code (e1d96e4), download (the base, 3.04 GiB), weights (A's sha256 the sealed test's), renders-P and renders-A - all passed; 16 renders scored per set of weights, the weights each run reported the ones it was given, no other change to any text by the app",
-   "after": "renders brought in by scripts/collect_adapted_renders.py --run news-vowels-v1 (eval/runs/news-vowels-v1/manifest.json); held-out similarity scored on this Mac with the contrasts V = PV + AV - PB - AB and A = AB + AV - PB - PV (eval/runs/evidence/news-vowels-v1/similarity.json); the blind page built with rotations (each form twice in each slot; key eval/runs/evidence/news-review-v1/key.json) - CER and similarity kept from the listener"
+   "after": "renders brought in by scripts/collect_adapted_renders.py --run news-vowels-v1 (eval/runs/news-vowels-v1/manifest.json); held-out similarity scored on this Mac with the contrasts V = PV + AV - PB - AB and A = AB + AV - PB - PV (eval/runs/evidence/news-vowels-v1/similarity.json); the blind page built with rotations (each form twice in each slot; key eval/runs/evidence/news-review-v1/key.json) - CER and similarity kept from the listener",
+   "page": "https://claude.ai/artifact/Ebecvju3u2GJMXemKVbx4z (contract 0.2.90, db and user; 32 audio files and the page, the reviews collection empty at publish)"
   }
  }
 }

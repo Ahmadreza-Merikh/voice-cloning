@@ -1,0 +1,50 @@
+{
+ "run": "the XTTS check: does ParsVoice-XTTS, the most Persian-trained cloning model found, read news better than the app",
+ "status": "registered 2026-10-25, before any front-end ran on these sentences and before any render",
+ "why": "the news vowels check (FINDINGS section 21) left about one word in ten wrong on news text in every form, and showed that more marks make OmniVoice worse; what is left is the model's own reading. Bases checked live the same day (SOTA_ROADMAP section 4): Fish Audio Drama 3 lists Persian but fits neither this Mac nor Kaggle's T4s; ParsVoice-XTTS (XTTS-v2 adapted on about 2,000 h of Persian audiobooks, 1,800+ speakers; arXiv 2510.10774) is the most Persian-trained cloning model found and fits; Audio8-TTS-Persian is left out because it was trained on Mana-TTS, the voice every listening test here clones, and its card calls its cloning of unseen voices weak",
+ "sentences": {
+  "file": "eval/manifests/xtts_news_v1.json",
+  "sha256": "38ad5ec51fd3615ca9f4fc78e2030f17b4bf04566462b03df45b0255d5fe7d75",
+  "count": 10,
+  "words": 169,
+  "written_by": "Claude, 2026-10-25: news in ten fields (inflation, a software release, football, flu, a fast train, traffic, a book fair, a Mars launch, gold, schools), with Western months, borrowed names and two numbers; none of the user's own sentences",
+  "leakage_check": {
+   "homorich": {
+    "checked": 528875,
+    "hits": 0
+   },
+   "sentencebench": {
+    "checked": 400,
+    "hits": 0
+   },
+   "adaptation_splits": {
+    "checked": 96413,
+    "hits": 0
+   },
+   "earlier_tests": {
+    "checked": 68,
+    "hits": 0
+   },
+   "sealed_test_texts": {
+    "checked": 12,
+    "hits": 0
+   }
+  },
+  "leakage_rule": "letters only, equal or one inside the other with at least 20 letters and half the longer - step 2's rule"
+ },
+ "forms": {
+  "O": "the app today: OmniVoice with the adaptation's step-1,000 weights (A1) reading the app's text - the tagger's ezafe, the homograph first vowels, the number fixes",
+  "X": "ParsVoice-XTTS (MohammadJRanjbar/ParsVoice-XTTS, gated, accepted by the user) reading the app's normalised text with no marks - numbers already words, since its tokenizer only lowercases Persian - with Persian punctuation mapped and its inference settings as in its own notebook (temperature 0.1, top_k 10, top_p 0.3, repetition_penalty 10, length_penalty 1), through the XTTS fork it was trained with"
+ },
+ "voice": "mana_000.wav for both, each prepared as its own code prepares a reference (the app's reference pipeline for O; 24 kHz mono at -20 dBFS RMS for X, as its notebook does)",
+ "rendering": "O on Kaggle T4 x2 as the adapted reading check (render_frontend_conditions.py with the A1 export, seed 42); X on this Mac on CPU, because the gated weights are fetched here with the user's token and are not re-hosted: the training checkpoint (5.7 GB with its optimizer) is read memory-mapped and its model weights saved alone, and the render stops if available memory falls under 3.4 GB or pressure reaches warning; seed 42. CER for both on this Mac with faster-whisper large-v3-turbo (int8) after both are collected, so one recogniser scores both; held-out similarity on this Mac as before",
+ "review": "as before: the plain sentence, two readings in Latin-square slots (each form five times in each slot), loudness matched, the key off the page; words to tap, a note, the better reading",
+ "decision_rule": {
+  "primary": "words marked wrong per form, of 169 per listener who answers all 10 sentences",
+  "rule": "X replaces OmniVoice as the app's Persian engine if it has fewer words marked wrong than O and is not flagged. A tie keeps O",
+  "harm": "X is flagged, and not adopted without the user's say, if its mean CER is more than 2 points above O's, or if its paired held-out similarity difference against O has a 95% bootstrap interval wholly below zero (10,000 resamples, seed 20261003). If X has fewer words wrong but is flagged, both numbers go to the user, who decides"
+ },
+ "read_beside_it_not_for_the_decision": "the words each form got wrong, the picked readings, the notes",
+ "not_claimed": "one voice (mana), one seed, 169 words of news, the listeners who answer; XTTS-v2's licence (CPML) is non-commercial",
+ "cost": "Kaggle: one session, about 0.2 GPU-hours; this Mac: about 6 GB of disk for the XTTS environment and weights; listening about 10 minutes"
+}

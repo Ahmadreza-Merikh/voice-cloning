@@ -1586,3 +1586,31 @@ and this check heard. On a machine without it, the app reads with the
 published model and says so in the output's warnings. `weights: published`
 keeps the old weights; `weights: adapted` refuses to start without the new
 ones.
+
+## 20. The user's news text: three of eight errors were the app's
+
+On 25 October the user rendered a tech news paragraph, first with A1 and then
+with the published model. It covered Apple's launch dates, Mark Gurman,
+MacBook Pro, OLED, M6 and iPad mini 8. The user named eight words said wrong:
+- اپل as epel
+- جمعه as jam'e
+- اکتبر as ektabar
+- نوامبر as navambr
+- OLED as olad
+- مجهز as majahaz
+- M6 as me shesh
+- کند as kond
+
+**Three came from the text the app wrote, and are fixed:**
+- **اپل:** Homo-GE2PE read it as the epaulette (epol), and the app wrote اِپل.
+- **M6:** the number was verbalised glued to its letter, as Mشش.
+- **کند:** the first-vowel mark the app wrote, کُند, is how the adjective is spelled.
+
+Now letters touching a number are parted from it. One to three letters before
+a number are spelled as Persian letter names (اِم شش). Known units after a
+number are named (8GB as هشت گیگابایت). اپل and کند are no longer marked.
+
+**The other five are the model's, in both models:** the short vowels of
+ordinary and borrowed words (جمعه, اکتبر, نوامبر, مجهز) and a Latin word
+(OLED). News text with loanwords, names and numbers was never in a listening
+test. The sentences of sections 15 to 19 are everyday narrative.

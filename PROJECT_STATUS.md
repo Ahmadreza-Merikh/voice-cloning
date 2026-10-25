@@ -4,7 +4,24 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-24 12:10 +0330 (2026-10-24 08:40 UTC).
+Last updated: 2026-10-25 +0330.
+
+## The user's news text: three app errors fixed (2026-10-25)
+
+The user rendered a tech news paragraph with A1 and with the published model,
+was unhappy with both, and named eight words said wrong (FINDINGS section 20).
+
+**Fixed (three were the app's own):**
+- اپل was marked اِپل from Homo-GE2PE's wrong reading.
+- M6 was verbalised glued, as Mشش.
+- کند was marked کُند, the adjective's spelling.
+
+Letters touching numbers are now parted and spelled (`numbers_fa.py`), and
+اپل and کند are off the homograph list.
+
+**Still open, the model's own:** short vowels of ordinary and borrowed words
+(جمعه, اکتبر, نوامبر, مجهز) and Latin words (OLED). Waiting on the user's word
+on which model read the paragraph better (outputs 17:10 A1, 17:19 published).
 
 ## The adapted reading check heard: the app reads with the step-1,000 export (2026-10-24)
 

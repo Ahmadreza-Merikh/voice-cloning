@@ -191,6 +191,39 @@ _CURRENCY_RE = re.compile(
 )
 #: Long digit runs (phone numbers, IDs, card numbers) read one digit at a time.
 _DIGIT_RUN_RE = re.compile(r"(?<!\d)(\d{7,})(?!\d)")
+#: Latin letters as a Persian reader names them, for model names like M6 or A17.
+#: Marked where the plain spelling reads another way (ام is also om).
+LATIN_LETTER_NAMES = {
+    "a": "اِی", "b": "بی", "c": "سی", "d": "دی", "e": "ای", "f": "اِف", "g": "جی", "h": "اِچ", "i": "آی",
+    "j": "جِی", "k": "کِی", "l": "اِل", "m": "اِم", "n": "اِن", "o": "اُ", "p": "پی", "q": "کیو", "r": "آر",
+    "s": "اِس", "t": "تی", "u": "یو", "v": "وی", "w": "دابلیو", "x": "اِکس", "y": "وای", "z": "زِد",
+}
+#: Units written straight after a number, as in 8GB or 120Hz.
+LATIN_UNITS = {
+    "kb": "کیلوبایت", "mb": "مگابایت", "gb": "گیگابایت", "tb": "ترابایت", "hz": "هرتز", "khz": "کیلوهرتز",
+    "mhz": "مگاهرتز", "ghz": "گیگاهرتز", "mp": "مگاپیکسل", "mah": "میلی‌آمپر ساعت", "w": "وات", "kw": "کیلووات",
+    "g": "جی", "k": "کِی",
+}
+_LETTERS_THEN_DIGITS_RE = re.compile(r"(?<![A-Za-z])([A-Za-z]{1,3})(?=\d)")
+_DIGITS_THEN_UNIT_RE = re.compile(r"(?<=\d)([A-Za-z]{1,3})(?![A-Za-z])")
+_LATIN_DIGIT_SEAM_RE = re.compile(r"(?<=[A-Za-z])(?=\d)|(?<=\d)(?=[A-Za-z])")
+
+
+def spell_latin(letters: str) -> str:
+    return " ".join(LATIN_LETTER_NAMES[c] for c in letters.lower())
+
+
+def _part_latin_from_digits(text: str) -> str:
+    """M6 as اِم 6 and 8GB as 8 گیگابایت, so the number is read apart from the letters it touches.
+
+    A run of one to three letters before a number is a model name and is
+    spelled out; a known unit after one is named; any other letters touching a
+    number are only parted from it.
+    """
+    text = _LETTERS_THEN_DIGITS_RE.sub(lambda m: spell_latin(m.group(1)) + " ", text)
+    text = _DIGITS_THEN_UNIT_RE.sub(
+        lambda m: " " + LATIN_UNITS[m.group(1).lower()] if m.group(1).lower() in LATIN_UNITS else m.group(1), text)
+    return _LATIN_DIGIT_SEAM_RE.sub(" ", text)
 
 
 def _expand_time(match: re.Match[str]) -> str:
@@ -245,6 +278,7 @@ def expand_numbers(text: str) -> str:
 
     try:
         result = _THOUSANDS_RE.sub("", result)
+        result = _part_latin_from_digits(result)
         result = _CURRENCY_RE.sub(_expand_currency, result)
         result = _DATE_RE.sub(_expand_date, result)
         result = _TIME_RE.sub(_expand_time, result)

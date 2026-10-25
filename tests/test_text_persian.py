@@ -131,6 +131,18 @@ class TestNumberExpansionInContext:
         original = "سلام دنیا"
         assert expand_numbers(original) == original
 
+    def test_a_model_name_is_spelled_and_its_number_read_apart(self) -> None:
+        # The user's news text: «تراشه M6» reached OmniVoice as «Mشش» and was said "me shesh".
+        assert expand_numbers("تراشه M6 و A17") == "تراشه اِم شش و اِی هفده"
+        assert expand_numbers("پردازنده i7") == "پردازنده آی هفت"
+
+    def test_a_unit_after_a_number_is_named(self) -> None:
+        assert expand_numbers("حافظه 8GB و نمایشگر 120Hz و شبکه 5G") == (
+            "حافظه هشت گیگابایت و نمایشگر صد و بیست هرتز و شبکه پنج جی")
+
+    def test_other_latin_words_are_only_parted_from_their_number(self) -> None:
+        assert expand_numbers("گوشی iPhone15 و 15Pro") == "گوشی iPhone پانزده و پانزده Pro"
+
 
 class TestNormalizePipeline:
     def test_whitespace_collapses(self) -> None:
@@ -148,6 +160,10 @@ class TestNormalizePipeline:
     def test_number_expansion_can_be_disabled(self) -> None:
         options = NormalizationOptions(expand_numbers=False)
         assert "۱۴۰۳" in normalize("سال ۱۴۰۳", options)
+
+    def test_a_spelled_letter_keeps_its_mark_only_where_marks_are_kept(self) -> None:
+        assert normalize("تراشه M6", NormalizationOptions(remove_diacritics=False)) == "تراشه اِم شش"
+        assert normalize("تراشه M6", NormalizationOptions(remove_diacritics=True)) == "تراشه ام شش"
 
     def test_stray_thousands_separator_becomes_a_comma(self) -> None:
         assert "،" in normalize("سلام ٬ ایران")

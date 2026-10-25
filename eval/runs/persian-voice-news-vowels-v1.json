@@ -1,0 +1,62 @@
+{
+ "run": "the news vowels check: on news-style text, does writing the first short vowel of every word help OmniVoice, and which weights read it better",
+ "status": "registered 2026-10-25, before any front-end ran on these sentences and before any render",
+ "why": "on 2026-10-25 the user rendered a tech news paragraph with A1 and with the published weights and named eight words said wrong (FINDINGS section 20). Three were the app's and are fixed; five are the model's: the short vowels of ordinary and borrowed words (jom'e said jam'e, mojahhaz majahaz, oktobr ektabar, novambr navambr) and a Latin word. No listening test had news text: sections 15 to 19 used everyday narrative. The vowels go wrong in every direction (o to a, o to e, a to e, e to a in the earlier rounds), so the mark tested is every first short vowel, not one kind. The user also has not said which weights read the paragraph better, so both are rendered",
+ "sentences": {
+  "file": "eval/manifests/news_vowels_v1.json",
+  "sha256": "5b3fe83fd6f943d0b5319f2a2bb164a754497ece40fa30af665f9bb134566c69",
+  "count": 8,
+  "words": 138,
+  "written_by": "Claude, 2026-10-25: news in eight fields (a phone launch, a factory, football, the weather, medicine, the dollar, a film festival, electricity), with Western months, borrowed names and formal words like the ones the user heard misread; none of the user's own sentences. Each word's first short vowel written by hand before any front-end ran (67), to check the marks against",
+  "leakage_check": {
+   "homorich": {
+    "checked": 528875,
+    "hits": 0
+   },
+   "sentencebench": {
+    "checked": 400,
+    "hits": 0
+   },
+   "adaptation_splits": {
+    "checked": 96413,
+    "hits": 0
+   },
+   "earlier_tests": {
+    "checked": 60,
+    "hits": 0
+   },
+   "sealed_test_texts": {
+    "checked": 12,
+    "hits": 0
+   }
+  },
+  "leakage_rule": "letters only, equal or one inside the other with at least 20 letters and half the longer - step 2's rule"
+ },
+ "factors": {
+  "text": {
+   "B": "what the app sends OmniVoice today: the tagger's ezafe, the homograph first vowels (not به, اپل, کند), the number fixes of d9fe48e",
+   "V": "B with the first short vowel of every word of three or more letters written in, as Homo-GE2PE reads the sentence (homographs_fa.write_first_vowels over every such word), except به, اپل and کند, whose marks are known to hurt; a word already marked keeps its mark"
+  },
+  "weights": {
+   "P": "the published OmniVoice",
+   "A": "the adaptation's step-1,000 export (A1), the app's weights since 2a2ee04"
+  }
+ },
+ "forms": {
+  "PB": "P reading B",
+  "PV": "P reading V",
+  "AB": "A reading B",
+  "AV": "A reading V"
+ },
+ "rendering": "one Kaggle T4 x2 session on step 3's code dataset (e1d96e4), the texts written by the notebook itself, as the adapted reading check: scripts/render_frontend_conditions.py once per set of weights with --cer --app-normaliser, seed 42, mana_000.wav; 8 x 4 = 32 renders. Held-out similarity after, on this Mac",
+ "review": "as step 3: the plain sentence, four readings in Latin-square slots (each form twice in each slot), loudness matched, the key off the page; words to tap, a note, the better reading",
+ "decision_rules": {
+  "primary": "words marked wrong per form, of 138, summed over every listener who answers all 8 sentences",
+  "V": "the app writes the first short vowel of every word (as V) if PV + AV have fewer words marked wrong than PB + AB and V is not flagged; a tie does not adopt it",
+  "V_harm": "V is flagged, and not adopted without the user's say, if the mean CER of PV and AV is more than 2 points above that of PB and AB, or if the held-out similarity contrast V = PV + AV - PB - AB has a 95% bootstrap interval wholly below zero",
+  "weights": "the app goes back to the published weights if PB + PV have fewer words marked wrong than AB + AV; otherwise it keeps A1, the weights it uses now"
+ },
+ "read_beside_it_not_for_the_decision": "the first-vowel marks V wrote checked against the hand-written gold (right, wrong, missing); per word, what V fixed and broke under each set of weights; whether V helps under one set of weights and not the other; the picked readings and the notes",
+ "not_claimed": "one voice (mana), one seed, 138 words of news, the listeners who answer",
+ "cost": "Kaggle: one session, about 0.3 GPU-hours; listening about 15 minutes"
+}

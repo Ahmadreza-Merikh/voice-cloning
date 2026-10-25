@@ -1,0 +1,222 @@
+{
+ "listeners": [
+  "احمدرضا"
+ ],
+ "left_out_incomplete": [],
+ "words_marked_wrong": {
+  "PB": 13,
+  "PV": 21,
+  "AB": 14,
+  "AV": 19
+ },
+ "of_words": 138,
+ "mean_cer": {
+  "PB": 0.0522,
+  "PV": 0.0583,
+  "AB": 0.0501,
+  "AV": 0.06
+ },
+ "V": {
+  "with_V": 40,
+  "without_V": 27,
+  "fewer": false,
+  "cer_rise_points": 0.8,
+  "similarity_V": [
+   0.0008,
+   -0.0046,
+   0.006
+  ],
+  "flagged": false,
+  "adopt": false,
+  "fewer_but_flagged": false
+ },
+ "weights": {
+  "published": 34,
+  "adapted": 33,
+  "choice": "adapted (A1, kept)"
+ },
+ "read_beside_it": {
+  "V_under_each_weights": {
+   "P": -8,
+   "A": -5
+  },
+  "per_word": {
+   "P": {
+    "fixed_marked": 4,
+    "broke_marked": 10,
+    "fixed_unmarked": 0,
+    "broke_unmarked": 2
+   },
+   "A": {
+    "fixed_marked": 2,
+    "broke_marked": 8,
+    "fixed_unmarked": 2,
+    "broke_unmarked": 1
+   }
+  },
+  "V_marks_against_gold": {
+   "right": 60,
+   "wrong": 0,
+   "missing": 7
+  },
+  "best": {
+   "no difference": 3,
+   "AB": 1,
+   "PB": 2,
+   "PV": 2
+  },
+  "notes": [
+   {
+    "listener": "احمدرضا",
+    "sentence": "n02",
+    "form": "PV",
+    "note": "est F , ast T Noovambr F, Novambr T"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "n03",
+    "form": "PV",
+    "note": "mili False, melli Right Footbale F, Footbal R Jomhe F, Jome R Vorzeshgah F, Varzeshgah R"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "n03",
+    "form": "AB",
+    "note": "Footbale F, Footbal R"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "n03",
+    "form": "AV",
+    "note": "mili False, melli Right Footbale F, Footbal R"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "n03",
+    "form": "PB",
+    "note": "Footbale F, Footbal R"
+   }
+  ],
+  "marked": {
+   "answers-listener-1.json:n03:PB": [
+    "فوتبال"
+   ],
+   "answers-listener-1.json:n03:PV": [
+    "ملی",
+    "فوتبال",
+    "جمعه",
+    "ورزشگاه"
+   ],
+   "answers-listener-1.json:n03:AB": [
+    "فوتبال"
+   ],
+   "answers-listener-1.json:n03:AV": [
+    "ملی",
+    "فوتبال"
+   ],
+   "answers-listener-1.json:n08:PB": [
+    "مردم",
+    "کولرها",
+    "پرمصرف"
+   ],
+   "answers-listener-1.json:n08:PV": [
+    "وزارت",
+    "مردم",
+    "مصرف",
+    "کولرها",
+    "پرمصرف",
+    "کنند"
+   ],
+   "answers-listener-1.json:n08:AB": [
+    "مردم",
+    "کولرها",
+    "پرمصرف"
+   ],
+   "answers-listener-1.json:n08:AV": [
+    "مردم",
+    "مصرف",
+    "روشن",
+    "پرمصرف",
+    "کنند"
+   ],
+   "answers-listener-1.json:n05:PB": [
+    "پژوهشگران"
+   ],
+   "answers-listener-1.json:n05:PV": [
+    "سرطان"
+   ],
+   "answers-listener-1.json:n05:AB": [
+    "پژوهشگران"
+   ],
+   "answers-listener-1.json:n05:AV": [
+    "سرطان"
+   ],
+   "answers-listener-1.json:n07:PB": [
+    "جشنواره",
+    "فجر",
+    "بهمن",
+    "هشتاد"
+   ],
+   "answers-listener-1.json:n07:PV": [
+    "جشنواره",
+    "بهمن",
+    "بلند"
+   ],
+   "answers-listener-1.json:n07:AB": [
+    "جشنواره",
+    "فجر",
+    "بهمن",
+    "هشتاد"
+   ],
+   "answers-listener-1.json:n07:AV": [
+    "جشنواره",
+    "بهمن",
+    "هشتاد",
+    "بلند"
+   ],
+   "answers-listener-1.json:n01:PB": [
+    "دوازدهم",
+    "اکتبر"
+   ],
+   "answers-listener-1.json:n01:PV": [
+    "دوازدهم",
+    "اکتبر"
+   ],
+   "answers-listener-1.json:n01:AB": [
+    "دوازدهم",
+    "اکتبر"
+   ],
+   "answers-listener-1.json:n01:AV": [
+    "دوازدهم",
+    "اکتبر"
+   ],
+   "answers-listener-1.json:n02:PB": [
+    "کمپانی",
+    "نوامبر"
+   ],
+   "answers-listener-1.json:n02:PV": [
+    "است",
+    "پایان",
+    "نوامبر"
+   ],
+   "answers-listener-1.json:n02:AB": [
+    "تازه",
+    "پایان",
+    "نوامبر"
+   ],
+   "answers-listener-1.json:n02:AV": [
+    "است",
+    "پایان",
+    "نوامبر"
+   ],
+   "answers-listener-1.json:n04:PV": [
+    "است",
+    "سه‌شنبه"
+   ],
+   "answers-listener-1.json:n04:AV": [
+    "هواشناسی",
+    "است"
+   ]
+  }
+ }
+}

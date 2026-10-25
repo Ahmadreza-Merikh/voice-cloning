@@ -1,0 +1,367 @@
+{
+ "listeners": [
+  "احمدرضا"
+ ],
+ "per_condition": {
+  "AB": {
+   "renders": 8,
+   "clean": 2,
+   "words": 138,
+   "wrong": 14,
+   "best": 1,
+   "clean_share": 0.25,
+   "wrong_word_share": 0.101
+  },
+  "AV": {
+   "renders": 8,
+   "clean": 1,
+   "words": 138,
+   "wrong": 19,
+   "best": 0,
+   "clean_share": 0.125,
+   "wrong_word_share": 0.138
+  },
+  "PB": {
+   "renders": 8,
+   "clean": 2,
+   "words": 138,
+   "wrong": 13,
+   "best": 2,
+   "clean_share": 0.25,
+   "wrong_word_share": 0.094
+  },
+  "PV": {
+   "renders": 8,
+   "clean": 1,
+   "words": 138,
+   "wrong": 21,
+   "best": 2,
+   "clean_share": 0.125,
+   "wrong_word_share": 0.152
+  }
+ },
+ "by_category": {
+  "news": {
+   "AB": {
+    "renders": 8,
+    "clean": 2
+   },
+   "AV": {
+    "renders": 8,
+    "clean": 1
+   },
+   "PB": {
+    "renders": 8,
+    "clean": 2
+   },
+   "PV": {
+    "renders": 8,
+    "clean": 1
+   }
+  }
+ },
+ "marked": [
+  {
+   "listener": "احمدرضا",
+   "sentence": "n01",
+   "condition": "AB",
+   "words": [
+    "دوازدهم",
+    "اکتبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n01",
+   "condition": "AV",
+   "words": [
+    "دوازدهم",
+    "اکتبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n01",
+   "condition": "PB",
+   "words": [
+    "دوازدهم",
+    "اکتبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n01",
+   "condition": "PV",
+   "words": [
+    "دوازدهم",
+    "اکتبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n02",
+   "condition": "PB",
+   "words": [
+    "کمپانی",
+    "نوامبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n02",
+   "condition": "PV",
+   "words": [
+    "است",
+    "پایان",
+    "نوامبر"
+   ],
+   "note": "est F , ast T Noovambr F, Novambr T",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n02",
+   "condition": "AB",
+   "words": [
+    "تازه",
+    "پایان",
+    "نوامبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n02",
+   "condition": "AV",
+   "words": [
+    "است",
+    "پایان",
+    "نوامبر"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n03",
+   "condition": "PV",
+   "words": [
+    "ملی",
+    "فوتبال",
+    "جمعه",
+    "ورزشگاه"
+   ],
+   "note": "mili False, melli Right Footbale F, Footbal R Jomhe F, Jome R Vorzeshgah F, Varzeshgah R",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n03",
+   "condition": "AB",
+   "words": [
+    "فوتبال"
+   ],
+   "note": "Footbale F, Footbal R",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n03",
+   "condition": "AV",
+   "words": [
+    "ملی",
+    "فوتبال"
+   ],
+   "note": "mili False, melli Right Footbale F, Footbal R ",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n03",
+   "condition": "PB",
+   "words": [
+    "فوتبال"
+   ],
+   "note": "Footbale F, Footbal R",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n04",
+   "condition": "AV",
+   "words": [
+    "هواشناسی",
+    "است"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n04",
+   "condition": "PV",
+   "words": [
+    "است",
+    "سه‌شنبه"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n05",
+   "condition": "PB",
+   "words": [
+    "پژوهشگران"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n05",
+   "condition": "AB",
+   "words": [
+    "پژوهشگران"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n05",
+   "condition": "PV",
+   "words": [
+    "سرطان"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n05",
+   "condition": "AV",
+   "words": [
+    "سرطان"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n07",
+   "condition": "PV",
+   "words": [
+    "جشنواره",
+    "بهمن",
+    "بلند"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n07",
+   "condition": "AV",
+   "words": [
+    "جشنواره",
+    "بهمن",
+    "هشتاد",
+    "بلند"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n07",
+   "condition": "PB",
+   "words": [
+    "جشنواره",
+    "فجر",
+    "بهمن",
+    "هشتاد"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n07",
+   "condition": "AB",
+   "words": [
+    "جشنواره",
+    "فجر",
+    "بهمن",
+    "هشتاد"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n08",
+   "condition": "AV",
+   "words": [
+    "مردم",
+    "مصرف",
+    "روشن",
+    "پرمصرف",
+    "کنند"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n08",
+   "condition": "PB",
+   "words": [
+    "مردم",
+    "کولرها",
+    "پرمصرف"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n08",
+   "condition": "AB",
+   "words": [
+    "مردم",
+    "کولرها",
+    "پرمصرف"
+   ],
+   "note": "",
+   "twin_note": null
+  },
+  {
+   "listener": "احمدرضا",
+   "sentence": "n08",
+   "condition": "PV",
+   "words": [
+    "وزارت",
+    "مردم",
+    "مصرف",
+    "کولرها",
+    "پرمصرف",
+    "کنند"
+   ],
+   "note": "",
+   "twin_note": null
+  }
+ ],
+ "label": "diagnostic - fourteen sentences, few listeners; not a claim"
+}

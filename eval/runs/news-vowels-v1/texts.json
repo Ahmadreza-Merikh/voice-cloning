@@ -1,0 +1,682 @@
+{
+ "sentences_file": "eval/manifests/news_vowels_v1.json",
+ "sentences_sha256": "5b3fe83fd6f943d0b5319f2a2bb164a754497ece40fa30af665f9bb134566c69",
+ "code_commit": "fe7aae9",
+ "conditions": {
+  "PB": "the published weights reading the app's text",
+  "PV": "the published weights, every first vowel",
+  "AB": "the adapted weights reading the app's text",
+  "AV": "the adapted weights, every first vowel"
+ },
+ "sentences": [
+  {
+   "id": "n01",
+   "category": "news",
+   "text": "شرکت سامسونگ اعلام کرد گوشی‌های تاشوی جدیدش را از دوشنبه دوازدهم اکتبر در فروشگاه‌های اروپا عرضه می‌کند.",
+   "marked_in_V": [
+    "شرکت",
+    "اعلام",
+    "جدیدش",
+    "دوازدهم",
+    "اکتبر",
+    "فروشگاه‌های",
+    "اروپا"
+   ],
+   "app_notes": [
+    "Ezafe written in on 5 word(s) by hazm's ParsBERT tagger: شرکت، گوشی‌های، تاشوی، دوازدهم، فروشگاه‌های.",
+    "First vowel written on 2 homograph(s) from Homo-GE2PE: کرد، عرضه."
+   ],
+   "texts": {
+    "PB": "شرکتِ سامسونگ اعلام کَرد گوشی‌هایِ تاشویِ جدیدش را از دوشنبه دوازدهمِ اکتبر در فروشگاه‌هایِ اروپا عَرضه می‌کند.",
+    "PV": "شِرکتِ سامسونگ اِعلام کَرد گوشی‌هایِ تاشویِ جَدیدش را از دوشنبه دَوازدهمِ اُکتبر در فُروشگاه‌هایِ اُروپا عَرضه می‌کند.",
+    "AB": "شرکتِ سامسونگ اعلام کَرد گوشی‌هایِ تاشویِ جدیدش را از دوشنبه دوازدهمِ اکتبر در فروشگاه‌هایِ اروپا عَرضه می‌کند.",
+    "AV": "شِرکتِ سامسونگ اِعلام کَرد گوشی‌هایِ تاشویِ جَدیدش را از دوشنبه دَوازدهمِ اُکتبر در فُروشگاه‌هایِ اُروپا عَرضه می‌کند."
+   }
+  },
+  {
+   "id": "n02",
+   "category": "news",
+   "text": "به گفته مدیرعامل این کمپانی، کارخانه تازه مجهز به ربات‌های صنعتی است و تا پایان نوامبر راه‌اندازی می‌شود.",
+   "marked_in_V": [
+    "گفته",
+    "مدیرعامل",
+    "کمپانی",
+    "مجهز",
+    "ربات‌های",
+    "صنعتی",
+    "است",
+    "نوامبر"
+   ],
+   "app_notes": [
+    "Ezafe written in on 5 word(s) by hazm's ParsBERT tagger: گفته، مدیرعامل، کارخانه، ربات‌های، پایان."
+   ],
+   "texts": {
+    "PB": "به گفتهٔ مدیرعاملِ این کمپانی، کارخانهٔ تازه مجهز به ربات‌هایِ صنعتی است و تا پایانِ نوامبر راه‌اندازی می‌شود.",
+    "PV": "به گُفتهٔ مُدیرعاملِ این کُمپانی، کارخانهٔ تازه مُجهز به رُبات‌هایِ صَنعتی اَست و تا پایانِ نُوامبر راه‌اندازی می‌شود.",
+    "AB": "به گفتهٔ مدیرعاملِ این کمپانی، کارخانهٔ تازه مجهز به ربات‌هایِ صنعتی است و تا پایانِ نوامبر راه‌اندازی می‌شود.",
+    "AV": "به گُفتهٔ مُدیرعاملِ این کُمپانی، کارخانهٔ تازه مُجهز به رُبات‌هایِ صَنعتی اَست و تا پایانِ نُوامبر راه‌اندازی می‌شود."
+   }
+  },
+  {
+   "id": "n03",
+   "category": "news",
+   "text": "تیم ملی فوتبال جمعه شب در ورزشگاه آزادی با نتیجه دو بر یک به حریف عراقی خود باخت.",
+   "marked_in_V": [
+    "ملی",
+    "ورزشگاه",
+    "نتیجه",
+    "حریف",
+    "عراقی"
+   ],
+   "app_notes": [
+    "Ezafe written in on 6 word(s) by hazm's ParsBERT tagger: تیم، ملی، ورزشگاه، نتیجه، حریف، عراقی.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: بر."
+   ],
+   "texts": {
+    "PB": "تیمِ ملیِ فوتبال جمعه شب در ورزشگاهِ آزادی با نتیجهٔ دو بَر یک به حریفِ عراقیِ خود باخت.",
+    "PV": "تیمِ مِلیِ فوتبال جمعه شب در وَرزشگاهِ آزادی با نَتیجهٔ دو بَر یک به حَریفِ عِراقیِ خود باخت.",
+    "AB": "تیمِ ملیِ فوتبال جمعه شب در ورزشگاهِ آزادی با نتیجهٔ دو بَر یک به حریفِ عراقیِ خود باخت.",
+    "AV": "تیمِ مِلیِ فوتبال جمعه شب در وَرزشگاهِ آزادی با نَتیجهٔ دو بَر یک به حَریفِ عِراقیِ خود باخت."
+   }
+  },
+  {
+   "id": "n04",
+   "category": "news",
+   "text": "سازمان هواشناسی پیش‌بینی کرده است که از سه‌شنبه هفته آینده دمای هوا در استان‌های شمالی کاهش می‌یابد.",
+   "marked_in_V": [
+    "هواشناسی",
+    "کرده",
+    "است",
+    "سه‌شنبه",
+    "هفته",
+    "دمای",
+    "هوا",
+    "استان‌های",
+    "شمالی"
+   ],
+   "app_notes": [
+    "Ezafe written in on 5 word(s) by hazm's ParsBERT tagger: سازمان، سه‌شنبه، هفته، دمای، استان‌های."
+   ],
+   "texts": {
+    "PB": "سازمانِ هواشناسی پیش‌بینی کرده است که از سه‌شنبهٔ هفتهٔ آینده دمایِ هوا در استان‌هایِ شمالی کاهش می‌یابد.",
+    "PV": "سازمانِ هَواشناسی پیش‌بینی کَرده اَست که از سِه‌شنبهٔ هَفتهٔ آینده دَمایِ هَوا در اُستان‌هایِ شُمالی کاهش می‌یابد.",
+    "AB": "سازمانِ هواشناسی پیش‌بینی کرده است که از سه‌شنبهٔ هفتهٔ آینده دمایِ هوا در استان‌هایِ شمالی کاهش می‌یابد.",
+    "AV": "سازمانِ هَواشناسی پیش‌بینی کَرده اَست که از سِه‌شنبهٔ هَفتهٔ آینده دَمایِ هَوا در اُستان‌هایِ شُمالی کاهش می‌یابد."
+   }
+  },
+  {
+   "id": "n05",
+   "category": "news",
+   "text": "پژوهشگران دانشگاه تهران موفق شدند دارویی برای درمان سرطان خون بسازند که هزینه کمتری دارد.",
+   "marked_in_V": [
+    "پژوهشگران",
+    "تهران",
+    "موفق",
+    "شدند",
+    "برای",
+    "درمان",
+    "سرطان",
+    "بسازند",
+    "هزینه",
+    "کمتری"
+   ],
+   "app_notes": [
+    "Ezafe written in on 6 word(s) by hazm's ParsBERT tagger: پژوهشگران، دانشگاه، برای، درمان، سرطان، هزینه."
+   ],
+   "texts": {
+    "PB": "پژوهشگرانِ دانشگاهِ تهران موفق شدند دارویی برایِ درمانِ سرطانِ خون بسازند که هزینهٔ کمتری دارد.",
+    "PV": "پَژوهشگرانِ دانشگاهِ تِهران مُوفق شُدند دارویی بَرایِ دَرمانِ سَرطانِ خون بِسازند که هَزینهٔ کَمتری دارد.",
+    "AB": "پژوهشگرانِ دانشگاهِ تهران موفق شدند دارویی برایِ درمانِ سرطانِ خون بسازند که هزینهٔ کمتری دارد.",
+    "AV": "پَژوهشگرانِ دانشگاهِ تِهران مُوفق شُدند دارویی بَرایِ دَرمانِ سَرطانِ خون بِسازند که هَزینهٔ کَمتری دارد."
+   }
+  },
+  {
+   "id": "n06",
+   "category": "news",
+   "text": "قیمت دلار در بازار آزاد روز یکشنبه پایین آمد و معامله‌گران منتظر تصمیم بانک مرکزی هستند.",
+   "marked_in_V": [
+    "قیمت",
+    "دلار",
+    "یکشنبه",
+    "معامله‌گران",
+    "منتظر",
+    "تصمیم",
+    "مرکزی",
+    "هستند"
+   ],
+   "app_notes": [
+    "Ezafe written in on 6 word(s) by hazm's ParsBERT tagger: قیمت، بازار، روز، منتظر، تصمیم، بانک."
+   ],
+   "texts": {
+    "PB": "قیمتِ دلار در بازارِ آزاد روزِ یکشنبه پایین آمد و معامله‌گران منتظرِ تصمیمِ بانکِ مرکزی هستند.",
+    "PV": "قِیمتِ دُلار در بازارِ آزاد روزِ یِکشنبه پایین آمد و مُعامله‌گران مُنتظرِ تَصمیمِ بانکِ مَرکزی هَستند.",
+    "AB": "قیمتِ دلار در بازارِ آزاد روزِ یکشنبه پایین آمد و معامله‌گران منتظرِ تصمیمِ بانکِ مرکزی هستند.",
+    "AV": "قِیمتِ دُلار در بازارِ آزاد روزِ یِکشنبه پایین آمد و مُعامله‌گران مُنتظرِ تَصمیمِ بانکِ مَرکزی هَستند."
+   }
+  },
+  {
+   "id": "n07",
+   "category": "news",
+   "text": "جشنواره فیلم فجر امسال در بهمن ماه برگزار می‌شود و هشتاد فیلم کوتاه و بلند در آن حضور دارند.",
+   "marked_in_V": [
+    "جشنواره",
+    "فجر",
+    "امسال",
+    "برگزار",
+    "هشتاد",
+    "بلند",
+    "حضور"
+   ],
+   "app_notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: جشنواره، فیلم، فجر، فیلم."
+   ],
+   "texts": {
+    "PB": "جشنوارهٔ فیلمِ فجرِ امسال در بهمن ماه برگزار می‌شود و هشتاد فیلمِ کوتاه و بلند در آن حضور دارند.",
+    "PV": "جَشنوارهٔ فیلمِ فَجرِ اِمسال در بهمن ماه بَرگزار می‌شود و هَشتاد فیلمِ کوتاه و بُلند در آن حُضور دارند.",
+    "AB": "جشنوارهٔ فیلمِ فجرِ امسال در بهمن ماه برگزار می‌شود و هشتاد فیلمِ کوتاه و بلند در آن حضور دارند.",
+    "AV": "جَشنوارهٔ فیلمِ فَجرِ اِمسال در بهمن ماه بَرگزار می‌شود و هَشتاد فیلمِ کوتاه و بُلند در آن حُضور دارند."
+   }
+  },
+  {
+   "id": "n08",
+   "category": "news",
+   "text": "وزارت نیرو از مردم خواست در ساعت‌های اوج مصرف، از روشن کردن کولرها و وسایل پرمصرف خودداری کنند.",
+   "marked_in_V": [
+    "وزارت",
+    "مصرف",
+    "کردن",
+    "وسایل",
+    "پرمصرف",
+    "کنند"
+   ],
+   "app_notes": [
+    "Ezafe written in on 5 word(s) by hazm's ParsBERT tagger: وزارت، ساعت‌های، اوج، کردن، وسایل.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: مردم."
+   ],
+   "texts": {
+    "PB": "وزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مصرف، از روشن کردنِ کولرها و وسایلِ پرمصرف خودداری کنند.",
+    "PV": "وِزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مَصرف، از روشن کَردنِ کولرها و وَسایلِ پُرمصرف خودداری کُنند.",
+    "AB": "وزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مصرف، از روشن کردنِ کولرها و وسایلِ پرمصرف خودداری کنند.",
+    "AV": "وِزارتِ نیرو از مَردم خواست در ساعت‌هایِ اوجِ مَصرف، از روشن کَردنِ کولرها و وَسایلِ پُرمصرف خودداری کُنند."
+   }
+  }
+ ],
+ "first_vowels_against_gold": {
+  "tally": {
+   "right": 60,
+   "wrong": 0,
+   "missing": 7
+  },
+  "words": [
+   {
+    "sentence": "n01",
+    "word": "شرکت",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n01",
+    "word": "اعلام",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n01",
+    "word": "کرد",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n01",
+    "word": "جدیدش",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n01",
+    "word": "دوشنبه",
+    "gold": "o",
+    "marked": null,
+    "verdict": "missing"
+   },
+   {
+    "sentence": "n01",
+    "word": "دوازدهم",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n01",
+    "word": "اکتبر",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n01",
+    "word": "فروشگاه‌های",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n01",
+    "word": "اروپا",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n01",
+    "word": "عرضه",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n02",
+    "word": "گفته",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n02",
+    "word": "مدیرعامل",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n02",
+    "word": "کمپانی",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n02",
+    "word": "مجهز",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n02",
+    "word": "ربات‌های",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n02",
+    "word": "صنعتی",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n02",
+    "word": "نوامبر",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n03",
+    "word": "ملی",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n03",
+    "word": "جمعه",
+    "gold": "o",
+    "marked": null,
+    "verdict": "missing"
+   },
+   {
+    "sentence": "n03",
+    "word": "ورزشگاه",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n03",
+    "word": "نتیجه",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n03",
+    "word": "حریف",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n03",
+    "word": "عراقی",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n03",
+    "word": "خود",
+    "gold": "o",
+    "marked": null,
+    "verdict": "missing"
+   },
+   {
+    "sentence": "n04",
+    "word": "هواشناسی",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n04",
+    "word": "کرده",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n04",
+    "word": "سه‌شنبه",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n04",
+    "word": "هفته",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n04",
+    "word": "دمای",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n04",
+    "word": "استان‌های",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n04",
+    "word": "شمالی",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "پژوهشگران",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "تهران",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "موفق",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "شدند",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "برای",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "درمان",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "سرطان",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "بسازند",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "هزینه",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n05",
+    "word": "کمتری",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n06",
+    "word": "قیمت",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n06",
+    "word": "دلار",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n06",
+    "word": "یکشنبه",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n06",
+    "word": "معامله‌گران",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n06",
+    "word": "منتظر",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n06",
+    "word": "تصمیم",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n06",
+    "word": "مرکزی",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n06",
+    "word": "هستند",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n07",
+    "word": "جشنواره",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n07",
+    "word": "فجر",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n07",
+    "word": "امسال",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n07",
+    "word": "بهمن",
+    "gold": "a",
+    "marked": null,
+    "verdict": "missing"
+   },
+   {
+    "sentence": "n07",
+    "word": "برگزار",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n07",
+    "word": "هشتاد",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n07",
+    "word": "بلند",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n07",
+    "word": "حضور",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n08",
+    "word": "وزارت",
+    "gold": "e",
+    "marked": "e",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n08",
+    "word": "مردم",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n08",
+    "word": "اوج",
+    "gold": "o",
+    "marked": null,
+    "verdict": "missing"
+   },
+   {
+    "sentence": "n08",
+    "word": "مصرف",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n08",
+    "word": "روشن",
+    "gold": "o",
+    "marked": null,
+    "verdict": "missing"
+   },
+   {
+    "sentence": "n08",
+    "word": "کردن",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n08",
+    "word": "وسایل",
+    "gold": "a",
+    "marked": "a",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n08",
+    "word": "پرمصرف",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   },
+   {
+    "sentence": "n08",
+    "word": "خودداری",
+    "gold": "o",
+    "marked": null,
+    "verdict": "missing"
+   },
+   {
+    "sentence": "n08",
+    "word": "کنند",
+    "gold": "o",
+    "marked": "o",
+    "verdict": "right"
+   }
+  ]
+ }
+}

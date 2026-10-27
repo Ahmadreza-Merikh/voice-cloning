@@ -1,0 +1,9 @@
+{
+ "texts": 66023,
+ "texts_changed_by_the_normaliser": 4812,
+ "texts_with_an_ezafe": 45907,
+ "ezafes_written": 102062,
+ "clips_covered": 89750,
+ "writer": "voiceclone.text.ezafe_fa.EzafeWriter at 43febfc",
+ "minutes": 35.7
+}

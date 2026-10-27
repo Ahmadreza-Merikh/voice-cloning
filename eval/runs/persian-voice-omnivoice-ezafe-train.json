@@ -28,5 +28,24 @@
   "what": "each transcript is first normalised as the app normalises text for OmniVoice (its normaliser with the options for an engine that reads marks - numbers to words, letters unified, ZWNJ and verb prefixes joined - and the comma after a greeting), then the app's ezafe is written. The map holds original text, normalised text and marked text; the session replaces each row's text with the marked one. The training text is then what the app sends OmniVoice, less the homograph first vowels",
   "why": "the first marking run stopped on its own check at 'آنها برای سه هفته می مانند.': the raw transcripts split verb prefixes off with a space, and the tagger read مانند as the preposition and gave it an ezafe (می مانندِ). The app never tags such text - its normaliser joins the prefix first (می‌مانند) - so marks written on raw text would teach the model ezafes the app never writes. The check itself is also made to compare words without their punctuation (an ezafe goes before a final full stop)",
   "consequence": "the text now differs from the adaptation run's in its normalisation as well as its ezafe; the comparison with A1 is of the app's own text, marked, against raw text, unmarked"
+ },
+ "transcripts_written": {
+  "texts": 66023,
+  "texts_changed_by_the_normaliser": 4812,
+  "texts_with_an_ezafe": 45907,
+  "ezafes_written": 102062,
+  "clips_covered": 89750,
+  "writer": "voiceclone.text.ezafe_fa.EzafeWriter at 43febfc",
+  "minutes": 35.7,
+  "map": "eval/manifests/adaptation_ezafe_texts_v1.jsonl.gz (2cba117); unzipped content sha256 ab2a25f940f209e0484647f4aa4797a736d47235d4d5677b778027b99931d37a, 19,322,631 bytes",
+  "dataset": "marsmanam/persian-voice-ezafe-texts, created 2026-10-27 16:27 UTC; Kaggle stores the map unzipped, at the same size",
+  "sample": "eight random marked texts read on this Mac: every ezafe right (for example با وجودِ این پیروزیِ حقوقی، تحریم‌هایِ اقتصادی و محاصرهٔ نفتی موجبِ بحرانِ اقتصادی)"
+ },
+ "sessions_run": {
+  "a_v1": {
+   "kernel": "marsmanam/persian-voice-omnivoice-ezafe-a, version 1",
+   "pushed": "2026-10-27 16:28:30 UTC; QUEUED right after",
+   "built_from": "278a055"
+  }
  }
 }

@@ -1,0 +1,26 @@
+{
+ "run": "the ezafe-marked adaptation: OmniVoice trained on transcripts with the app's ezafe written in",
+ "status": "registered 2026-10-27, before any transcript was marked and before any session",
+ "why": "the largest error left is an ezafe the model adds where none is written (FINDINGS sections 19, 21, 22): pirʔe, madrese-ye, kaghazi-ye, bargh-e in every form of every recent check. Text-side fixes cannot stop it: a sukun failed twice (sections 15, 17) and marks on every word made reading worse (section 21). The model learned from transcripts where the ezafe is never written, so it guesses it. If every ezafe in its training text is written, an unmarked word should mean no ezafe - which is the convention the app's text already follows",
+ "design": {
+  "only_difference": "the transcripts. Everything else is the adaptation run's (eval/runs/persian-voice-omnivoice-adapt.json): the same train and valid clips (87,499 and 2,251; adaptation_splits_v1), the same audio tokens - session train-a's shards, mounted and read unchanged - the same official recipe and code (SDPA config at k2-fsa/OmniVoice 08be0b4c, 5,000 steps at 8,192 tokens per GPU on two T4s, lr 1e-5, the persian-voice-eval code dataset, checkpointing and DDP bucket views), started from the published weights, a float16 export every 1,000 steps",
+  "transcripts": "each of the 66,023 distinct train and valid transcripts with the ezafe written by the app's own writer (voiceclone.text.ezafe_fa.EzafeWriter at the commit that writes them: hazm's ParsBERT tagger, no ezafe on روی, none joining مدیر to عامل), and nothing else changed - not normalised, the original spacing kept. Written on this Mac before any session, committed as eval/manifests/adaptation_ezafe_texts_v1.jsonl.gz (original text to marked text); a session replaces the text of every shard row through that map and stops if any row's text is missing from it",
+  "not_marked": "the homograph first vowels the app also writes: Homo-GE2PE over 66,023 transcripts was not run; the model meets them at inference as the A run's export did"
+ },
+ "sessions": "ea: mounts train-a's tokens, rewrites the transcripts, trains from the published weights until 11.25 h into the session, stopping after an official checkpoint; eb: mounts ea's checkpoint and the same tokens and resumes to step 5,000 (eb's own budget, and ec only if eb cannot finish). About 19.4 h of training at the probe's 13.98 s a step, about 21 GPU-hours in all",
+ "evaluation_fixed_now": {
+  "forms": {
+   "A1": "the app now: the adaptation's step-1,000 export",
+   "E1": "this run's step-1,000 export, matched to A1",
+   "E5": "this run's step-5,000 export"
+  },
+  "text": "every form reads what the app sends OmniVoice (the tagger's ezafe, the homograph first vowels, the number fixes) - the same text for all three",
+  "sentences": "new ones, written after training and before any render: news and everyday narrative, with words after which no ezafe belongs (the traps that caught every form so far), leakage-checked as before",
+  "rendering_and_review": "one Kaggle session, seed 42, mana_000.wav; a blind page with the three readings in Latin-square slots, loudness matched, the key off the page",
+  "rule": "the app's OmniVoice weights become an E export if it has fewer words marked wrong than A1 and is not flagged; if E1 and E5 both qualify, the one with fewer words wrong, and on a tie the one with the higher held-out similarity. A tie with A1 keeps A1",
+  "harm": "an E export is flagged, and not adopted without the user's say, if its mean CER is more than 2 points above A1's, or if its paired held-out similarity difference against A1 has a 95% bootstrap interval wholly below zero (10,000 resamples, seed 20261003)",
+  "read_beside_it": "per form, the trap words heard with an ezafe nobody wrote; the training and validation loss against the A run's"
+ },
+ "not_claimed": "one listener, one voice, one seed. About 2% of the written ezafes are wrong (the tagger's rate on unseen text, FINDINGS section 14), and Neyshekar's informal sentences (24%) are tagged by a tagger trained on formal text",
+ "cost": "about 21 GPU-hours of Kaggle's weekly quota; about an hour of this Mac's CPU to write the transcripts (0.9 GB)"
+}

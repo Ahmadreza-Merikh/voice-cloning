@@ -6,6 +6,28 @@ anything. No credentials.
 
 Last updated: 2026-10-25 +0330.
 
+## The XTTS check: rendered, waiting for the listener (2026-10-27)
+
+Bases checked live on 2026-10-25 (SOTA_ROADMAP section 4); the check was
+registered before any front-end ran (a05570d,
+`eval/runs/persian-voice-xtts-check-v1.json`). Ten new news sentences (169
+words) were read two ways:
+- O: the app (OmniVoice A1 and the app's text), rendered on Kaggle
+- X: ParsVoice-XTTS (gated; accepted by the user), rendered on this Mac's CPU
+  from its weights alone (2.1 GB, extracted memory-mapped from the 5.7 GB
+  training checkpoint, the Hub's hash checked)
+
+The XTTS environment is in `~/.cache/persian-voice-cloning/xtts` (the fork at
+8e59ec37). CER for both comes from one recogniser on this Mac. X is more than
+2 points above O, so X is flagged by the registered rule and cannot be adopted
+without the user's say. The page is
+https://claude.ai/artifact/FzTiBtV6A848TwGQkN5Zmj.
+
+**Next:** the user listens; then read `reviews` into
+`eval/runs/evidence/xtts-review-v1/answers-listener-1.json`, run
+`score_pronunciation_review.py`, then `.venv/bin/python
+scripts/read_xtts_check.py`.
+
 ## The news vowels check heard: no vowels on every word; weights tie on news (2026-10-25)
 
 FINDINGS section 21; `eval/runs/persian-voice-news-vowels-v1.json`, result

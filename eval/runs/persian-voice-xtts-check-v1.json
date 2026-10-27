@@ -73,6 +73,7 @@
     "x10": 7.52
    },
    "after": "both forms brought together and scored for CER on this Mac by the app's recogniser (scripts/collect_xtts_check.py; eval/runs/xtts-check-v1/manifest.json); held-out similarity with the contrast X = X - O (eval/runs/evidence/xtts-check-v1/similarity.json); the blind page built with rotations (each form five times in each slot; key eval/runs/evidence/xtts-review-v1/key.json) - CER and similarity kept from the listener"
-  }
+  },
+  "page": "https://claude.ai/artifact/FzTiBtV6A848TwGQkN5Zmj (contract 0.2.91, db and user; 20 audio files and the page, the reviews collection empty at publish)"
  }
 }

@@ -1,0 +1,211 @@
+{
+ "version": 1,
+ "purpose": "the XTTS check's X form: ParsVoice-XTTS on this Mac",
+ "created": "2026-10-27T14:32:19+00:00",
+ "texts": {
+  "file": "eval/runs/xtts-check-v1/texts.json",
+  "sentences_sha256": "38ad5ec51fd3615ca9f4fc78e2030f17b4bf04566462b03df45b0255d5fe7d75"
+ },
+ "settings": {
+  "model": "MohammadJRanjbar/ParsVoice-XTTS",
+  "revision": "05784cc45b83c2d1cd70bd51e779454e2787af6e",
+  "weights": {
+   "from": "MohammadJRanjbar/ParsVoice-XTTS@05784cc45b83c2d1cd70bd51e779454e2787af6e model.pth",
+   "checkpoint_keys": [
+    "config",
+    "date",
+    "epoch",
+    "model",
+    "model_loss",
+    "optimizer",
+    "scaler",
+    "step"
+   ],
+   "model_pth_sha256": "eb7900e19dc264c9e8de2a01e5100c6938fa2da0206f76c50a91b86bea0b4ca1",
+   "weights_sha256": "195820f71ba7033f06fc160271856f88b048c74adce40c9d186f8746095a3811",
+   "weights_bytes": 2098411884
+  },
+  "fork": "nguyenhoanganh2002/XTTSv2-Finetuning-for-New-Languages@8e59ec37e8c9cf9343503ca7430f5b23729f6389",
+  "device": "cpu",
+  "seed": 42,
+  "language": "fa",
+  "temperature": 0.1,
+  "length_penalty": 1.0,
+  "repetition_penalty": 10.0,
+  "top_k": 10,
+  "top_p": 0.3,
+  "torch": "2.5.1",
+  "load_seconds": 21.5
+ },
+ "reference": {
+  "speaker": "mana",
+  "file": "mana_000.wav",
+  "transcript": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم.",
+  "prepared": "24 kHz mono, -20 dBFS RMS, as the model's notebook"
+ },
+ "conditions": {
+  "X": "ParsVoice-XTTS reading the app's normalised text with no marks"
+ },
+ "renders": [
+  {
+   "id": "x01",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "بانک مرکزی اعلام کرد نرخ تورم ماهانه در مهرماه به سه درصد رسیده و انتظار می‌رود تا پایان سال کاهش یابد.",
+   "fed_texts": [
+    "بانک مرکزی اعلام کرد نرخ تورم ماهانه در مهرماه به سه درصد رسیده و انتظار می‌رود تا پایان سال کاهش یابد."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x01_X.wav",
+   "duration_s": 14.485,
+   "timings": {
+    "synthesis": 18.2
+   }
+  },
+  {
+   "id": "x02",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "شرکت مایکروسافت روز سه‌شنبه نسخه تازه سیستم‌عامل ویندوز را برای کاربران سراسر جهان منتشر کرد.",
+   "fed_texts": [
+    "شرکت مایکروسافت روز سه‌شنبه نسخه تازه سیستم‌عامل ویندوز را برای کاربران سراسر جهان منتشر کرد."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x02_X.wav",
+   "duration_s": 22.059,
+   "timings": {
+    "synthesis": 28.3
+   }
+  },
+  {
+   "id": "x03",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "باشگاه پرسپولیس در دیدار هفته هشتم لیگ برتر با دو گل مقابل میزبان خود به پیروزی رسید.",
+   "fed_texts": [
+    "باشگاه پرسپولیس در دیدار هفته هشتم لیگ برتر با دو گل مقابل میزبان خود به پیروزی رسید."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x03_X.wav",
+   "duration_s": 16.757,
+   "timings": {
+    "synthesis": 20.8
+   }
+  },
+  {
+   "id": "x04",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "طبق گزارش سازمان بهداشت جهانی، شمار مبتلایان به آنفلوانزا در اروپا نسبت به سال گذشته افزایش یافته است.",
+   "fed_texts": [
+    "طبق گزارش سازمان بهداشت جهانی, شمار مبتلایان به آنفلوانزا در اروپا نسبت به سال گذشته افزایش یافته است."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x04_X.wav",
+   "duration_s": 8.768,
+   "timings": {
+    "synthesis": 10.9
+   }
+  },
+  {
+   "id": "x05",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "قطار سریع‌السیر تهران به مشهد از ابتدای آذر با سرعت دویست کیلومتر در ساعت حرکت خواهد کرد.",
+   "fed_texts": [
+    "قطار سریع‌السیر تهران به مشهد از ابتدای آذر با سرعت دویست کیلومتر در ساعت حرکت خواهد کرد."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x05_X.wav",
+   "duration_s": 7.147,
+   "timings": {
+    "synthesis": 8.8
+   }
+  },
+  {
+   "id": "x06",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "پلیس راهور از رانندگان خواست در روزهای بارانی سرعت خود را کاهش دهند و فاصله ایمنی را رعایت کنند.",
+   "fed_texts": [
+    "پلیس راهور از رانندگان خواست در روزهای بارانی سرعت خود را کاهش دهند و فاصله ایمنی را رعایت کنند."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x06_X.wav",
+   "duration_s": 6.731,
+   "timings": {
+    "synthesis": 8.4
+   }
+  },
+  {
+   "id": "x07",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "نمایشگاه بین‌المللی کتاب امسال در اردیبهشت برگزار می‌شود و ناشران خارجی هم در آن حضور دارند.",
+   "fed_texts": [
+    "نمایشگاه بین‌المللی کتاب امسال در اردیبهشت برگزار می‌شود و ناشران خارجی هم در آن حضور دارند."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x07_X.wav",
+   "duration_s": 7.424,
+   "timings": {
+    "synthesis": 9.3
+   }
+  },
+  {
+   "id": "x08",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "ناسا اعلام کرد فضاپیمای جدیدش در ماه دسامبر به سمت مریخ پرتاب می‌شود.",
+   "fed_texts": [
+    "ناسا اعلام کرد فضاپیمای جدیدش در ماه دسامبر به سمت مریخ پرتاب می‌شود."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x08_X.wav",
+   "duration_s": 5.803,
+   "timings": {
+    "synthesis": 7.6
+   }
+  },
+  {
+   "id": "x09",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "قیمت طلا در بازار جهانی پس از اعلام تصمیم بانک مرکزی آمریکا به بالاترین سطح خود رسید.",
+   "fed_texts": [
+    "قیمت طلا در بازار جهانی پس از اعلام تصمیم بانک مرکزی آمریکا به بالاترین سطح خود رسید."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x09_X.wav",
+   "duration_s": 7.936,
+   "timings": {
+    "synthesis": 9.9
+   }
+  },
+  {
+   "id": "x10",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "وزیر آموزش و پرورش گفت مدارس استان تهران از شنبه آینده به صورت حضوری بازگشایی می‌شوند.",
+   "fed_texts": [
+    "وزیر آموزش و پرورش گفت مدارس استان تهران از شنبه آینده به صورت حضوری بازگشایی می‌شوند."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/X/wavs/x10_X.wav",
+   "duration_s": 7.52,
+   "timings": {
+    "synthesis": 9.4
+   }
+  }
+ ]
+}

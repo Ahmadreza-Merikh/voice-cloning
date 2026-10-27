@@ -1,0 +1,656 @@
+{
+ "version": 1,
+ "purpose": "the XTTS check: the app (O, Kaggle) and ParsVoice-XTTS (X, this Mac)",
+ "texts": {
+  "file": "eval/runs/xtts-check-v1/texts.json",
+  "sentences_sha256": "38ad5ec51fd3615ca9f4fc78e2030f17b4bf04566462b03df45b0255d5fe7d75"
+ },
+ "settings": {
+  "O": {
+   "seed": 42,
+   "candidates": 1,
+   "evaluation_enabled": false,
+   "cer_after_unload": true,
+   "omnivoice": {
+    "python": "auto",
+    "language": "fa",
+    "dtype": "float16",
+    "num_step": 32,
+    "guidance_scale": 2.0,
+    "t_shift": 0.1,
+    "denoise": true,
+    "postprocess_output": true,
+    "layer_penalty_factor": 5.0,
+    "position_temperature": 5.0,
+    "class_temperature": 0.0,
+    "timeout_seconds": 900,
+    "memory_guard": true,
+    "min_available_gb": 6.0
+   },
+   "omnivoice_model_id": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+   "text": {
+    "ezafe_enabled": false,
+    "marks_engines": [
+     "omnivoice"
+    ]
+   }
+  },
+  "X": {
+   "model": "MohammadJRanjbar/ParsVoice-XTTS",
+   "revision": "05784cc45b83c2d1cd70bd51e779454e2787af6e",
+   "weights": {
+    "from": "MohammadJRanjbar/ParsVoice-XTTS@05784cc45b83c2d1cd70bd51e779454e2787af6e model.pth",
+    "checkpoint_keys": [
+     "config",
+     "date",
+     "epoch",
+     "model",
+     "model_loss",
+     "optimizer",
+     "scaler",
+     "step"
+    ],
+    "model_pth_sha256": "eb7900e19dc264c9e8de2a01e5100c6938fa2da0206f76c50a91b86bea0b4ca1",
+    "weights_sha256": "195820f71ba7033f06fc160271856f88b048c74adce40c9d186f8746095a3811",
+    "weights_bytes": 2098411884
+   },
+   "fork": "nguyenhoanganh2002/XTTSv2-Finetuning-for-New-Languages@8e59ec37e8c9cf9343503ca7430f5b23729f6389",
+   "device": "cpu",
+   "seed": 42,
+   "language": "fa",
+   "temperature": 0.1,
+   "length_penalty": 1.0,
+   "repetition_penalty": 10.0,
+   "top_k": 10,
+   "top_p": 0.3,
+   "torch": "2.5.1",
+   "load_seconds": 21.5
+  }
+ },
+ "reference": {
+  "speaker": "mana",
+  "file": "mana_000.wav",
+  "transcript": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم."
+ },
+ "conditions": {
+  "O": "the app today: OmniVoice with A1 reading the app's text",
+  "X": "ParsVoice-XTTS reading the app's normalised text with no marks"
+ },
+ "sentences": [
+  {
+   "id": "x01",
+   "category": "news",
+   "text": "بانک مرکزی اعلام کرد نرخ تورم ماهانه در مهرماه به ۳ درصد رسیده و انتظار می‌رود تا پایان سال کاهش یابد.",
+   "texts": {
+    "O": "بانکِ مرکزی اعلام کَرد نرخِ تورمِ ماهانه در مهرماه به سه درصد رسیده و انتظار می‌رود تا پایانِ سال کاهش یابد.",
+    "X": "بانک مرکزی اعلام کرد نرخ تورم ماهانه در مهرماه به سه درصد رسیده و انتظار می‌رود تا پایان سال کاهش یابد."
+   }
+  },
+  {
+   "id": "x02",
+   "category": "news",
+   "text": "شرکت مایکروسافت روز سه‌شنبه نسخه تازه سیستم‌عامل ویندوز را برای کاربران سراسر جهان منتشر کرد.",
+   "texts": {
+    "O": "شرکتِ مایکروسافت روزِ سه‌شنبه نسخهٔ تازهٔ سیستم‌عاملِ ویندوز را برایِ کاربرانِ سراسرِ جهان منتشر کَرد.",
+    "X": "شرکت مایکروسافت روز سه‌شنبه نسخه تازه سیستم‌عامل ویندوز را برای کاربران سراسر جهان منتشر کرد."
+   }
+  },
+  {
+   "id": "x03",
+   "category": "news",
+   "text": "باشگاه پرسپولیس در دیدار هفته هشتم لیگ برتر با دو گل مقابل میزبان خود به پیروزی رسید.",
+   "texts": {
+    "O": "باشگاهِ پرسپولیس در دیدارِ هفتهٔ هشتمِ لیگِ برتر با دو گُل مقابلِ میزبانِ خود به پیروزی رسید.",
+    "X": "باشگاه پرسپولیس در دیدار هفته هشتم لیگ برتر با دو گل مقابل میزبان خود به پیروزی رسید."
+   }
+  },
+  {
+   "id": "x04",
+   "category": "news",
+   "text": "طبق گزارش سازمان بهداشت جهانی، شمار مبتلایان به آنفلوانزا در اروپا نسبت به سال گذشته افزایش یافته است.",
+   "texts": {
+    "O": "طِبقِ گزارشِ سازمانِ بهداشتِ جهانی، شمارِ مبتلایان به آنفلوانزا در اروپا نسبت به سالِ گذشته افزایش یافته است.",
+    "X": "طبق گزارش سازمان بهداشت جهانی، شمار مبتلایان به آنفلوانزا در اروپا نسبت به سال گذشته افزایش یافته است."
+   }
+  },
+  {
+   "id": "x05",
+   "category": "news",
+   "text": "قطار سریع‌السیر تهران به مشهد از ابتدای آذر با سرعت ۲۰۰ کیلومتر در ساعت حرکت خواهد کرد.",
+   "texts": {
+    "O": "قطارِ سریع‌السیرِ تهران به مشهد از ابتدایِ آذر با سرعتِ دویست کیلومتر در ساعت حرکت خواهد کَرد.",
+    "X": "قطار سریع‌السیر تهران به مشهد از ابتدای آذر با سرعت دویست کیلومتر در ساعت حرکت خواهد کرد."
+   }
+  },
+  {
+   "id": "x06",
+   "category": "news",
+   "text": "پلیس راهور از رانندگان خواست در روزهای بارانی سرعت خود را کاهش دهند و فاصله ایمنی را رعایت کنند.",
+   "texts": {
+    "O": "پلیسِ راهور از رانندگان خواست در روزهایِ بارانی سرعتِ خود را کاهش دهند و فاصلهٔ ایمنی را رعایت کنند.",
+    "X": "پلیس راهور از رانندگان خواست در روزهای بارانی سرعت خود را کاهش دهند و فاصله ایمنی را رعایت کنند."
+   }
+  },
+  {
+   "id": "x07",
+   "category": "news",
+   "text": "نمایشگاه بین‌المللی کتاب امسال در اردیبهشت برگزار می‌شود و ناشران خارجی هم در آن حضور دارند.",
+   "texts": {
+    "O": "نمایشگاهِ بین‌المللیِ کتاب امسال در اردیبهشت برگزار می‌شود و ناشرانِ خارجی هم در آن حضور دارند.",
+    "X": "نمایشگاه بین‌المللی کتاب امسال در اردیبهشت برگزار می‌شود و ناشران خارجی هم در آن حضور دارند."
+   }
+  },
+  {
+   "id": "x08",
+   "category": "news",
+   "text": "ناسا اعلام کرد فضاپیمای جدیدش در ماه دسامبر به سمت مریخ پرتاب می‌شود.",
+   "texts": {
+    "O": "ناسا اعلام کَرد فضاپیمایِ جدیدش در ماهِ دسامبر به سَمتِ مریخ پرتاب می‌شود.",
+    "X": "ناسا اعلام کرد فضاپیمای جدیدش در ماه دسامبر به سمت مریخ پرتاب می‌شود."
+   }
+  },
+  {
+   "id": "x09",
+   "category": "news",
+   "text": "قیمت طلا در بازار جهانی پس از اعلام تصمیم بانک مرکزی آمریکا به بالاترین سطح خود رسید.",
+   "texts": {
+    "O": "قیمتِ طلا در بازارِ جهانی پس از اعلامِ تصمیمِ بانکِ مرکزیِ آمریکا به بالاترین سطحِ خود رسید.",
+    "X": "قیمت طلا در بازار جهانی پس از اعلام تصمیم بانک مرکزی آمریکا به بالاترین سطح خود رسید."
+   }
+  },
+  {
+   "id": "x10",
+   "category": "news",
+   "text": "وزیر آموزش و پرورش گفت مدارس استان تهران از شنبه آینده به صورت حضوری بازگشایی می‌شوند.",
+   "texts": {
+    "O": "وزیرِ آموزش و پرورش گفت مدارسِ استانِ تهران از شنبهٔ آینده به صورتِ حضوری بازگشایی می‌شوند.",
+    "X": "وزیر آموزش و پرورش گفت مدارس استان تهران از شنبه آینده به صورت حضوری بازگشایی می‌شوند."
+   }
+  }
+ ],
+ "cer": "both forms on this Mac by the app's recogniser (faster-whisper large-v3-turbo); O's Kaggle CER kept as cer_kaggle",
+ "events": [
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 10,
+   "other_changes_by_the_app": [],
+   "form": "O"
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice",
+   "form": "O"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true,
+   "form": "O"
+  },
+  {
+   "event": "collected",
+   "at": "2026-10-27T14:33:47+00:00"
+  }
+ ],
+ "renders": [
+  {
+   "id": "x01",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "بانکِ مرکزی اعلام کَرد نرخِ تورمِ ماهانه در مهرماه به سه درصد رسیده و انتظار می‌رود تا پایانِ سال کاهش یابد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x01_O.wav",
+   "skipped": null,
+   "duration_s": 8.59,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بانکِ مرکزی اعلام کَرد نرخِ تورمِ ماهانه در مهرماه به سه درصد رسیده و انتظار می‌رود تا پایانِ سال کاهش یابد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.955,
+    "text": 0.002,
+    "load": 20.865,
+    "synthesis": 5.616
+   },
+   "asr_text": "بانک مرکزی اعلام کرد نرخ تورم ماهانه در محرمه به 3 درسن رسیده و انتظار می رود تا پایان سال کاهش یابد.",
+   "cer": 0.0625,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x01_O.wav",
+   "cer_kaggle": 0.0375
+  },
+  {
+   "id": "x02",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "شرکتِ مایکروسافت روزِ سه‌شنبه نسخهٔ تازهٔ سیستم‌عاملِ ویندوز را برایِ کاربرانِ سراسرِ جهان منتشر کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x02_O.wav",
+   "skipped": null,
+   "duration_s": 8.136,
+   "used_phonemes": false,
+   "fed_texts": [
+    "شرکتِ مایکروسافت روزِ سه‌شنبه نسخهٔ تازهٔ سیستم‌عاملِ ویندوز را برایِ کاربرانِ سراسرِ جهان منتشر کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.634
+   },
+   "asr_text": "شرکت مایکروسافت روز سشنبه نسخه تازه سیستم آمل ویندوز را برای کاربران سراسر جهان منتشر کرد.",
+   "cer": 0.039473684210526314,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x02_O.wav",
+   "cer_kaggle": 0.039473684210526314
+  },
+  {
+   "id": "x03",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "باشگاهِ پرسپولیس در دیدارِ هفتهٔ هشتمِ لیگِ برتر با دو گُل مقابلِ میزبانِ خود به پیروزی رسید.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x03_O.wav",
+   "skipped": null,
+   "duration_s": 6.97,
+   "used_phonemes": false,
+   "fed_texts": [
+    "باشگاهِ پرسپولیس در دیدارِ هفتهٔ هشتمِ لیگِ برتر با دو گُل مقابلِ میزبانِ خود به پیروزی رسید."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.014
+   },
+   "asr_text": "باشگاه پرس پولیس در دیداره هفته هشتمه لیگ برتر با دو گول مقابل میزبانه خود به پیروزی رسید.",
+   "cer": 0.058823529411764705,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x03_O.wav",
+   "cer_kaggle": 0.029411764705882353
+  },
+  {
+   "id": "x04",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "طِبقِ گزارشِ سازمانِ بهداشتِ جهانی، شمارِ مبتلایان به آنفلوانزا در اروپا نسبت به سالِ گذشته افزایش یافته است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x04_O.wav",
+   "skipped": null,
+   "duration_s": 8.601,
+   "used_phonemes": false,
+   "fed_texts": [
+    "طِبقِ گزارشِ سازمانِ بهداشتِ جهانی، شمارِ مبتلایان به آنفلوانزا در اروپا نسبت به سالِ گذشته افزایش یافته است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.762
+   },
+   "asr_text": "طبق گزارش سازمان بهداشت جهانی شمار مبتلایان به آنفلوانزا در اروپا نسبت به سال گذشته افضایش یافته است.",
+   "cer": 0.012048192771084338,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x04_O.wav",
+   "cer_kaggle": 0.012048192771084338
+  },
+  {
+   "id": "x05",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "قطارِ سریع‌السیرِ تهران به مشهد از ابتدایِ آذر با سرعتِ دویست کیلومتر در ساعت حرکت خواهد کَرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x05_O.wav",
+   "skipped": null,
+   "duration_s": 7.423,
+   "used_phonemes": false,
+   "fed_texts": [
+    "قطارِ سریع‌السیرِ تهران به مشهد از ابتدایِ آذر با سرعتِ دویست کیلومتر در ساعت حرکت خواهد کَرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.13
+   },
+   "asr_text": "قطار سریل سیر تهران به مشهد از ابتدای آزر با سرعت دویست کلومتر در ساعت حرکت خواهد کرد.",
+   "cer": 0.13043478260869565,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x05_O.wav",
+   "cer_kaggle": 0.13043478260869565
+  },
+  {
+   "id": "x06",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "پلیسِ راهور از رانندگان خواست در روزهایِ بارانی سرعتِ خود را کاهش دهند و فاصلهٔ ایمنی را رعایت کنند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x06_O.wav",
+   "skipped": null,
+   "duration_s": 7.911,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پلیسِ راهور از رانندگان خواست در روزهایِ بارانی سرعتِ خود را کاهش دهند و فاصلهٔ ایمنی را رعایت کنند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.278
+   },
+   "asr_text": "پلیس راهور از رانندگان خواست در روزهای بارانی سرعت خود را کاهش دهند و فاصله ایمنی را رعایت کنند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x06_O.wav",
+   "cer_kaggle": 0.0
+  },
+  {
+   "id": "x07",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "نمایشگاهِ بین‌المللیِ کتاب امسال در اردیبهشت برگزار می‌شود و ناشرانِ خارجی هم در آن حضور دارند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x07_O.wav",
+   "skipped": null,
+   "duration_s": 7.866,
+   "used_phonemes": false,
+   "fed_texts": [
+    "نمایشگاهِ بین‌المللیِ کتاب امسال در اردیبهشت برگزار می‌شود و ناشرانِ خارجی هم در آن حضور دارند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.29
+   },
+   "asr_text": "نمایشگاه بین المللی کتاب امسال در اردی بهشت برگزار می شود و ناشران خارجی هم در آن حضور دارند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x07_O.wav",
+   "cer_kaggle": 0.0
+  },
+  {
+   "id": "x08",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "ناسا اعلام کَرد فضاپیمایِ جدیدش در ماهِ دسامبر به سَمتِ مریخ پرتاب می‌شود.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x08_O.wav",
+   "skipped": null,
+   "duration_s": 5.66,
+   "used_phonemes": false,
+   "fed_texts": [
+    "ناسا اعلام کَرد فضاپیمایِ جدیدش در ماهِ دسامبر به سَمتِ مریخ پرتاب می‌شود."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.849
+   },
+   "asr_text": "ناسا اعلام کرد فضا پیمای جدیدش در ماه دسام به سمت مریخ پرتاب می شود.",
+   "cer": 0.03636363636363636,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x08_O.wav",
+   "cer_kaggle": 0.03636363636363636
+  },
+  {
+   "id": "x09",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "قیمتِ طلا در بازارِ جهانی پس از اعلامِ تصمیمِ بانکِ مرکزیِ آمریکا به بالاترین سطحِ خود رسید.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x09_O.wav",
+   "skipped": null,
+   "duration_s": 6.938,
+   "used_phonemes": false,
+   "fed_texts": [
+    "قیمتِ طلا در بازارِ جهانی پس از اعلامِ تصمیمِ بانکِ مرکزیِ آمریکا به بالاترین سطحِ خود رسید."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.24
+   },
+   "asr_text": "قیمت تلا در بازاره جهانی پس از اعلام تصمیمی بانکه مرکزی امریکا به بالاترین سطح خود رسید.",
+   "cer": 0.07352941176470588,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x09_O.wav",
+   "cer_kaggle": 0.058823529411764705
+  },
+  {
+   "id": "x10",
+   "condition": "O",
+   "engine": "omnivoice",
+   "input_text": "وزیرِ آموزش و پرورش گفت مدارسِ استانِ تهران از شنبهٔ آینده به صورتِ حضوری بازگشایی می‌شوند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x10_O.wav",
+   "skipped": null,
+   "duration_s": 7.201,
+   "used_phonemes": false,
+   "fed_texts": [
+    "وزیرِ آموزش و پرورش گفت مدارسِ استانِ تهران از شنبهٔ آینده به صورتِ حضوری بازگشایی می‌شوند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.286
+   },
+   "asr_text": "وزیر آموزش و پرورش گفت مدارس استان تهران از شمبه آینده به صورت حضوری بازگشایی می شوند.",
+   "cer": 0.014492753623188406,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/xtts-check-v1/A/wavs/x10_O.wav",
+   "cer_kaggle": 0.0
+  },
+  {
+   "id": "x01",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "بانک مرکزی اعلام کرد نرخ تورم ماهانه در مهرماه به سه درصد رسیده و انتظار می‌رود تا پایان سال کاهش یابد.",
+   "fed_texts": [
+    "بانک مرکزی اعلام کرد نرخ تورم ماهانه در مهرماه به سه درصد رسیده و انتظار می‌رود تا پایان سال کاهش یابد."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x01_X.wav",
+   "duration_s": 14.485,
+   "timings": {
+    "synthesis": 18.2
+   },
+   "asr_text": "اون که مرکزی اعلام کرد، نرخ طورم ماهانه در مهنه به سه درصد رسیده و انتظار می روید تا پایان سال کاهش یابد.",
+   "cer": 0.125
+  },
+  {
+   "id": "x02",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "شرکت مایکروسافت روز سه‌شنبه نسخه تازه سیستم‌عامل ویندوز را برای کاربران سراسر جهان منتشر کرد.",
+   "fed_texts": [
+    "شرکت مایکروسافت روز سه‌شنبه نسخه تازه سیستم‌عامل ویندوز را برای کاربران سراسر جهان منتشر کرد."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x02_X.wav",
+   "duration_s": 22.059,
+   "timings": {
+    "synthesis": 28.3
+   },
+   "asr_text": "کلکت مایکرسافت روز سشنبه نسخه تازه سیستم عامل ویندوز رو برای کاربران سر و سر جهان منتشر کرد.",
+   "cer": 0.07894736842105263
+  },
+  {
+   "id": "x03",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "باشگاه پرسپولیس در دیدار هفته هشتم لیگ برتر با دو گل مقابل میزبان خود به پیروزی رسید.",
+   "fed_texts": [
+    "باشگاه پرسپولیس در دیدار هفته هشتم لیگ برتر با دو گل مقابل میزبان خود به پیروزی رسید."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x03_X.wav",
+   "duration_s": 16.757,
+   "timings": {
+    "synthesis": 20.8
+   },
+   "asr_text": "باشه که پرس پولیس در دیداره هفته هشتا ملیک برتر با دو گل مقابل میزبان خود به پیروزی رسید.",
+   "cer": 0.07352941176470588
+  },
+  {
+   "id": "x04",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "طبق گزارش سازمان بهداشت جهانی، شمار مبتلایان به آنفلوانزا در اروپا نسبت به سال گذشته افزایش یافته است.",
+   "fed_texts": [
+    "طبق گزارش سازمان بهداشت جهانی, شمار مبتلایان به آنفلوانزا در اروپا نسبت به سال گذشته افزایش یافته است."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x04_X.wav",
+   "duration_s": 8.768,
+   "timings": {
+    "synthesis": 10.9
+   },
+   "asr_text": "و گذارش سازمان بهداشته حانی شمار مبتلایان به آن فلاوانزا در اروپا نسبت به سال گذشته افضایش یافته از طب طب",
+   "cer": 0.1566265060240964
+  },
+  {
+   "id": "x05",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "قطار سریع‌السیر تهران به مشهد از ابتدای آذر با سرعت دویست کیلومتر در ساعت حرکت خواهد کرد.",
+   "fed_texts": [
+    "قطار سریع‌السیر تهران به مشهد از ابتدای آذر با سرعت دویست کیلومتر در ساعت حرکت خواهد کرد."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x05_X.wav",
+   "duration_s": 7.147,
+   "timings": {
+    "synthesis": 8.8
+   },
+   "asr_text": "اتاوی سریع سیرد تهران به مشهد از ابتدای آزر با سرعت دویست کلومت در ساعت حرکت خواهد کرد.",
+   "cer": 0.21739130434782608
+  },
+  {
+   "id": "x06",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "پلیس راهور از رانندگان خواست در روزهای بارانی سرعت خود را کاهش دهند و فاصله ایمنی را رعایت کنند.",
+   "fed_texts": [
+    "پلیس راهور از رانندگان خواست در روزهای بارانی سرعت خود را کاهش دهند و فاصله ایمنی را رعایت کنند."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x06_X.wav",
+   "duration_s": 6.731,
+   "timings": {
+    "synthesis": 8.4
+   },
+   "asr_text": "پولیس روح و از رانندگان خواست در روزهای بارانی سرعت خود رو کاهش دهند و فاصله ایمنی را رعایت کنند.",
+   "cer": 0.06493506493506493
+  },
+  {
+   "id": "x07",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "نمایشگاه بین‌المللی کتاب امسال در اردیبهشت برگزار می‌شود و ناشران خارجی هم در آن حضور دارند.",
+   "fed_texts": [
+    "نمایشگاه بین‌المللی کتاب امسال در اردیبهشت برگزار می‌شود و ناشران خارجی هم در آن حضور دارند."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x07_X.wav",
+   "duration_s": 7.424,
+   "timings": {
+    "synthesis": 9.3
+   },
+   "asr_text": "مویشگاه بین المللی کتاب امسال در اردی بهش برگزار می شود و نهاشاران خارجی هم در آن حضور دارن.",
+   "cer": 0.08108108108108109
+  },
+  {
+   "id": "x08",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "ناسا اعلام کرد فضاپیمای جدیدش در ماه دسامبر به سمت مریخ پرتاب می‌شود.",
+   "fed_texts": [
+    "ناسا اعلام کرد فضاپیمای جدیدش در ماه دسامبر به سمت مریخ پرتاب می‌شود."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x08_X.wav",
+   "duration_s": 5.803,
+   "timings": {
+    "synthesis": 7.6
+   },
+   "asr_text": "ناسا اعلام کرد فضا پیمایی جدیدش در ماه دسانگ رو به سمت مریخ پرتاب می شود بانتوار.",
+   "cer": 0.2
+  },
+  {
+   "id": "x09",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "قیمت طلا در بازار جهانی پس از اعلام تصمیم بانک مرکزی آمریکا به بالاترین سطح خود رسید.",
+   "fed_texts": [
+    "قیمت طلا در بازار جهانی پس از اعلام تصمیم بانک مرکزی آمریکا به بالاترین سطح خود رسید."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x09_X.wav",
+   "duration_s": 7.936,
+   "timings": {
+    "synthesis": 9.9
+   },
+   "asr_text": "قیمتی طلاق در بازار جهانی پس از اعلام تصمیم بانک مرکزی آنبیکا به بالاترین سطح خود رسید.",
+   "cer": 0.058823529411764705
+  },
+  {
+   "id": "x10",
+   "condition": "X",
+   "engine": "parsvoice-xtts",
+   "input_text": "وزیر آموزش و پرورش گفت مدارس استان تهران از شنبه آینده به صورت حضوری بازگشایی می‌شوند.",
+   "fed_texts": [
+    "وزیر آموزش و پرورش گفت مدارس استان تهران از شنبه آینده به صورت حضوری بازگشایی می‌شوند."
+   ],
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/xtts-check-v1/wavs/x10_X.wav",
+   "duration_s": 7.52,
+   "timings": {
+    "synthesis": 9.4
+   },
+   "asr_text": "زیر آموزش و پرورش گفت مداره هستان تهران از شنبه ی آینده به صورت حضوری بازگشای می شوندم تانته",
+   "cer": 0.15942028985507245
+  }
+ ]
+}

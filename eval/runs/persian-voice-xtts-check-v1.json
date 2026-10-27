@@ -58,7 +58,21 @@
    "where": "this Mac",
    "environment": "~/.cache/persian-voice-cloning/xtts/.venv: Python 3.11, torch 2.5.1, transformers 4.45.2, tokenizers 0.20.1, spacy 3.8.16, the fork at 8e59ec37",
    "weights": "MohammadJRanjbar/ParsVoice-XTTS@05784cc4 fetched with the user's token: model.pth 5,664,954,394 bytes, sha256 eb7900e19dc264c9e8de2a01e5100c6938fa2da0206f76c50a91b86bea0b4ca1 (the hash the Hub lists); its pickle names only OrderedDict, tensors and their storages, so it was read memory-mapped with weights_only; keys ['config', 'date', 'epoch', 'model', 'model_loss', 'optimizer', 'scaler', 'step']; the model saved alone, 2,098,411,884 bytes, sha256 195820f71ba7033f06fc160271856f88b048c74adce40c9d186f8746095a3811; the original deleted after, to free disk",
-   "memory": "the render waits for 6 GB available (the 2.1 GB model above the 3.4 GB floor); 4.3 GB were at the time"
+   "memory": "the render waits for 6 GB available (the 2.1 GB model above the 3.4 GB floor); 4.3 GB were at the time",
+   "rendered": "2026-10-27 on this Mac's CPU after the user closed the app (7.1 GB available; never under 5.4 during the run): 10 renders, model loaded in 21.5 s; the fork needed mutagen, pandas and matplotlib added to import",
+   "durations_s": {
+    "x01": 14.485,
+    "x02": 22.059,
+    "x03": 16.757,
+    "x04": 8.768,
+    "x05": 7.147,
+    "x06": 6.731,
+    "x07": 7.424,
+    "x08": 5.803,
+    "x09": 7.936,
+    "x10": 7.52
+   },
+   "after": "both forms brought together and scored for CER on this Mac by the app's recogniser (scripts/collect_xtts_check.py; eval/runs/xtts-check-v1/manifest.json); held-out similarity with the contrast X = X - O (eval/runs/evidence/xtts-check-v1/similarity.json); the blind page built with rotations (each form five times in each slot; key eval/runs/evidence/xtts-review-v1/key.json) - CER and similarity kept from the listener"
   }
  }
 }

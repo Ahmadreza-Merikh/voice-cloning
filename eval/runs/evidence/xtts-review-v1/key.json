@@ -1,0 +1,141 @@
+{
+ "seed": 20261004,
+ "manifest": "eval/runs/xtts-check-v1/manifest.json",
+ "target_lufs": -26.0,
+ "wrong_in_twins": {},
+ "sentences": {
+  "x01": {
+   "category": "news",
+   "slots": {
+    "1": "O",
+    "2": "X"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -6.33
+   },
+   "target_lufs": -26.0
+  },
+  "x02": {
+   "category": "news",
+   "slots": {
+    "1": "X",
+    "2": "O"
+   },
+   "gains_db": {
+    "1": -4.98,
+    "2": -4.31
+   },
+   "target_lufs": -26.0
+  },
+  "x03": {
+   "category": "news",
+   "slots": {
+    "1": "O",
+    "2": "X"
+   },
+   "gains_db": {
+    "1": -7.56,
+    "2": -7.65
+   },
+   "target_lufs": -26.0
+  },
+  "x04": {
+   "category": "news",
+   "slots": {
+    "1": "X",
+    "2": "O"
+   },
+   "gains_db": {
+    "1": -5.65,
+    "2": -6.97
+   },
+   "target_lufs": -26.0
+  },
+  "x05": {
+   "category": "news",
+   "slots": {
+    "1": "X",
+    "2": "O"
+   },
+   "gains_db": {
+    "1": -5.96,
+    "2": -6.97
+   },
+   "target_lufs": -26.0
+  },
+  "x06": {
+   "category": "news",
+   "slots": {
+    "1": "O",
+    "2": "X"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -5.19
+   },
+   "target_lufs": -26.0
+  },
+  "x07": {
+   "category": "news",
+   "slots": {
+    "1": "X",
+    "2": "O"
+   },
+   "gains_db": {
+    "1": -5.92,
+    "2": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "x08": {
+   "category": "news",
+   "slots": {
+    "1": "O",
+    "2": "X"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -5.05
+   },
+   "target_lufs": -26.0
+  },
+  "x09": {
+   "category": "news",
+   "slots": {
+    "1": "X",
+    "2": "O"
+   },
+   "gains_db": {
+    "1": -4.59,
+    "2": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "x10": {
+   "category": "news",
+   "slots": {
+    "1": "O",
+    "2": "X"
+   },
+   "gains_db": {
+    "1": -7.97,
+    "2": -5.16
+   },
+   "target_lufs": -26.0
+  }
+ },
+ "order": [
+  "x09",
+  "x03",
+  "x08",
+  "x05",
+  "x07",
+  "x01",
+  "x02",
+  "x04",
+  "x06",
+  "x10"
+ ],
+ "fingerprint": "eb12c073d3589df7"
+}

@@ -22,5 +22,11 @@
   "read_beside_it": "per form, the trap words heard with an ezafe nobody wrote; the training and validation loss against the A run's"
  },
  "not_claimed": "one listener, one voice, one seed. About 2% of the written ezafes are wrong (the tagger's rate on unseen text, FINDINGS section 14), and Neyshekar's informal sentences (24%) are tagged by a tagger trained on formal text",
- "cost": "about 21 GPU-hours of Kaggle's weekly quota; about an hour of this Mac's CPU to write the transcripts (0.9 GB)"
+ "cost": "about 21 GPU-hours of Kaggle's weekly quota; about an hour of this Mac's CPU to write the transcripts (0.9 GB)",
+ "amendment_2026_10_27_normalise": {
+  "when": "2026-10-27, before any session and before the map was written",
+  "what": "each transcript is first normalised as the app normalises text for OmniVoice (its normaliser with the options for an engine that reads marks - numbers to words, letters unified, ZWNJ and verb prefixes joined - and the comma after a greeting), then the app's ezafe is written. The map holds original text, normalised text and marked text; the session replaces each row's text with the marked one. The training text is then what the app sends OmniVoice, less the homograph first vowels",
+  "why": "the first marking run stopped on its own check at 'آنها برای سه هفته می مانند.': the raw transcripts split verb prefixes off with a space, and the tagger read مانند as the preposition and gave it an ezafe (می مانندِ). The app never tags such text - its normaliser joins the prefix first (می‌مانند) - so marks written on raw text would teach the model ezafes the app never writes. The check itself is also made to compare words without their punctuation (an ezafe goes before a final full stop)",
+  "consequence": "the text now differs from the adaptation run's in its normalisation as well as its ezafe; the comparison with A1 is of the app's own text, marked, against raw text, unmarked"
+ }
 }

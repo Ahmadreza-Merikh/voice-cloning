@@ -75,5 +75,46 @@
    "after": "both forms brought together and scored for CER on this Mac by the app's recogniser (scripts/collect_xtts_check.py; eval/runs/xtts-check-v1/manifest.json); held-out similarity with the contrast X = X - O (eval/runs/evidence/xtts-check-v1/similarity.json); the blind page built with rotations (each form five times in each slot; key eval/runs/evidence/xtts-review-v1/key.json) - CER and similarity kept from the listener"
   },
   "page": "https://claude.ai/artifact/FzTiBtV6A848TwGQkN5Zmj (contract 0.2.91, db and user; 20 audio files and the page, the reviews collection empty at publish)"
+ },
+ "result": {
+  "when": "2026-10-27",
+  "listening": "stopped by the user after three of ten sentences, with the verdict that ParsVoice-XTTS's quality is very poor and its readings easy to tell apart, though it may say some words more correctly. So the review was not blind for X, and the registered primary measure (all ten sentences) was not reached",
+  "partial_three_sentences": {
+   "words_marked_wrong": {
+    "O": 4,
+    "X": 2
+   },
+   "picked_best": {
+    "O": 2,
+    "X": 1
+   },
+   "O_wrong": [
+    "هشتم",
+    "مریخ",
+    "بازار",
+    "تصمیم"
+   ],
+   "X_wrong": [
+    "لیگ",
+    "دسامبر"
+   ]
+  },
+  "mean_cer_this_mac": {
+   "O": 0.0428,
+   "X": 0.1216
+  },
+  "cer_rise_points": 7.88,
+  "held_out_similarity": {
+   "O": 0.5871,
+   "X": 0.5437
+  },
+  "similarity_X_minus_O": [
+   -0.0433,
+   -0.0825,
+   -0.0102
+  ],
+  "decision": "X is not adopted. It is flagged twice by the registered harm rule - CER 7.9 points above O's against a 2-point line, and held-out similarity -0.043 [-0.083, -0.010] below O's, an interval wholly below zero - and the user judged its quality unacceptable. Its three-sentence edge on words wrong (2 against 4) is too small to weigh against any of these",
+  "durations": "three of X's renders ran long for their text (14.5, 22.1 and 16.8 s against 6-8 s for the rest)",
+  "label": "one listener, three of ten sentences heard; one voice (mana), one seed"
  }
 }

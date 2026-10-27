@@ -1660,3 +1660,29 @@ every form:
 - مردم, کولرها and پرمصرف
 
 These are about one word in ten on news text.
+
+## 22. ParsVoice-XTTS: some words right, the voice and the rest worse
+
+**The model.** ParsVoice-XTTS is the most Persian-trained cloning model found
+on 2026-10-25 (SOTA_ROADMAP section 4). It is XTTS-v2 adapted on about
+2,000 h of Persian audiobooks. It was set against the app (OmniVoice A1 with
+the app's text) on ten new news sentences, registered before any front-end
+ran (`eval/runs/persian-voice-xtts-check-v1.json`). It was rendered on this
+Mac's CPU from its weights alone: the published file is a 5.7 GB training
+checkpoint, read memory-mapped once its pickle was seen to hold only tensors.
+It used the fork it was trained with and its own notebook's settings.
+
+**Scored on this Mac by one recogniser:**
+- CER is 12.2% against the app's 4.3%.
+- Held-out similarity is 0.544 against 0.587: -0.043 [-0.083, -0.010].
+
+Both clear the registered harm lines, so it is flagged twice. Three of its ten
+readings ran far past their text's length.
+
+**Heard.** The user stopped after three sentences: its quality is very poor,
+and its readings are easy to pick out, though it may say some words more
+correctly. On those three it had 2 words wrong against the app's 4, and the
+app was picked as the better reading twice of three.
+
+**Decision.** It is not adopted. A model trained on twenty times this
+project's Persian hours reads some words better and everything else worse.

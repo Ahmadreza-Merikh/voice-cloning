@@ -1,0 +1,23 @@
+{
+  "renders": {
+    "A": {
+      "rendered": 10,
+      "scored": 10,
+      "weights": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+      "worker": [
+        "19:29:41 INFO     OmniVoice ready (cuda, float16, 24000 Hz)"
+      ],
+      "mean_cer": 0.0344,
+      "other_changes_by_the_app": []
+    }
+  },
+  "weights": {
+    "A": {
+      "path": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+      "found": [
+        "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16"
+      ],
+      "model_sha256": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"
+    }
+  }
+}

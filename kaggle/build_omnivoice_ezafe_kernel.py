@@ -7,8 +7,9 @@ changed: the text of every training and validation row. The audio tokens are
 session train-a's, mounted and read as they are; each shard's transcript file
 is rewritten through the registered map of original transcript to transcript
 with the app's ezafe written in (eval/manifests/adaptation_ezafe_texts_v1.jsonl.gz,
-uploaded as the dataset persian-voice-ezafe-texts), and the session stops if
-any row's text is missing from the map or the map is not the registered one.
+uploaded as the dataset persian-voice-ezafe-texts, which Kaggle stores
+unzipped), and the session stops if any row's text is missing from the map or
+the map's content is not the registered one.
 The recipe, code dataset, memory mode, budget, checkpoints and exports are the
 adaptation's own cells.
 
@@ -66,11 +67,12 @@ RESUME = None
 if not GATES.skip("mounted", ("download",)):
     try:
         import gzip
-        maps = sorted(INPUT.rglob("adaptation_ezafe_texts_v1.jsonl.gz"))
-        assert maps, "no adaptation_ezafe_texts_v1.jsonl.gz under /kaggle/input"
-        assert hashlib.sha256(maps[0].read_bytes()).hexdigest() == "{map_sha256}", "the transcript map is not the registered one"
-        with gzip.open(maps[0], "rt", encoding="utf-8") as handle:
-            EZAFE = {{row["text"]: row["ezafe"] for row in map(json.loads, handle)}}
+        maps = sorted(INPUT.rglob("adaptation_ezafe_texts_v1.jsonl*"))
+        assert maps, "no adaptation_ezafe_texts_v1.jsonl under /kaggle/input"
+        content = maps[0].read_bytes()
+        content = gzip.decompress(content) if maps[0].suffix == ".gz" else content
+        assert hashlib.sha256(content).hexdigest() == "{map_sha256}", "the transcript map is not the registered one"
+        EZAFE = {{row["text"]: row["ezafe"] for row in map(json.loads, content.decode("utf-8").splitlines())}}
         sources = {{}}
         for split in ("train", "valid"):
             found = sorted(p for p in INPUT.rglob(f"tokens/{{split}}/data.lst") if "{TOKENS_FROM}" in str(p))
@@ -110,10 +112,11 @@ def train_cell(session: str, hours: float) -> str:
 
 
 def build(session: str, hours: float = train.SESSION_BUDGET_HOURS) -> Path:
+    import gzip
     import hashlib
 
     slug = SLUG.format(session)
-    map_sha256 = hashlib.sha256(TEXTS_MAP.read_bytes()).hexdigest()
+    map_sha256 = hashlib.sha256(gzip.decompress(TEXTS_MAP.read_bytes())).hexdigest()
     environment = probe.ENVIRONMENT.replace(probe.SESSION, f"kaggle:{slug}-v1")
     assert environment.count(dev.FIND_REPO) == 1, "the probe's repository lookup changed"
     environment = environment.replace(dev.FIND_REPO, dev.FIND_REPO_IN_DATASET)

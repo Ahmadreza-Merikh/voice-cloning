@@ -16,11 +16,16 @@ three sentences: very poor quality, easy to pick out, some words more correct
 XTTS environment and weights stay in `~/.cache/persian-voice-cloning/xtts`
 (2.1 GB plus 1 GB environment) until the user wants them removed.
 
-**Next (the user's call):** Fish Audio Drama 3 has an official demo Space,
-`fishaudio/Drama-3`, running on ZeroGPU. The same news sentences could be
-rendered through it without a GPU of this project's own, but that sends the
-text and a reference clip to a third-party service, so it needs the user's
-yes.
+**Drama 3, by ear (the user, on its demo Space):** it reads Persian much better
+than XTTS but behind the app; voice similarity unjudged. Not pursued, since it
+cannot run here (SOTA_ROADMAP section 4).
+
+**Where it stands:** of everything tried, the app (OmniVoice A1 with the
+ezafe, homograph vowels, روی, and number and Latin fixes) reads Persian best.
+
+**Next (the user's call):** the largest error left is the ezafe the model adds
+on its own. Training OmniVoice on transcripts with the tagger's ezafe written
+in is the lever, about 24 GPU-hours as for the adaptation.
 
 ## The news vowels check heard: no vowels on every word; weights tie on news (2026-10-25)
 

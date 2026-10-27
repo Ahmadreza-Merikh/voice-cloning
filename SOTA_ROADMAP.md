@@ -330,6 +330,16 @@ Face models tagged Persian text-to-speech, newest first, and web searches:
   Local-Transformer sibling scored 0.507 here).
 * **No Persian:** Qwen3-TTS (ten languages), Qwen-Audio-3.0-TTS (sixteen),
   VoxCPM2 (thirty). Still no public benchmark has Persian.
+* **Heard, 2026-10-27.**
+  * ParsVoice-XTTS was tested blind against the app and not adopted (FINDINGS
+    section 22).
+  * The user tried Drama 3 on its official demo Space (`fishaudio/Drama-3`,
+    ZeroGPU) with their own text. By ear its Persian reading was much better
+    than ParsVoice-XTTS's but still behind the app's; its voice similarity
+    was left unjudged.
+  * Drama 3 is not pursued further: it cannot run on this project's hardware,
+    so in the app it could only be a third-party online service, and by ear
+    it does not read better.
 
 ## 5. Data
 

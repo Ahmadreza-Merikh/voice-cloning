@@ -1,0 +1,146 @@
+{
+ "sentences_file": "eval/manifests/ezafe_check_v1.json",
+ "sentences_sha256": "52b966c1cee970680215f48e6962180ca7154de06b6188517c187bafa66cc480",
+ "code_commit": "861248e",
+ "conditions": {
+  "A1": "the app's weights: the adapted export at step 1,000"
+ },
+ "sentences": [
+  {
+   "id": "e01",
+   "category": "news",
+   "text": "وزارت نیرو اعلام کرد مصرف برق خانگی در تابستان امسال هشت درصد کمتر از پارسال بوده است.",
+   "app_notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: وزارت، مصرف، برق، تابستان.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: کرد."
+   ],
+   "texts": {
+    "A1": "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است."
+   }
+  },
+  {
+   "id": "e02",
+   "category": "news",
+   "text": "مأموران گمرک بندرعباس هفته گذشته محموله بزرگی از لوازم خانگی قاچاق را کشف کردند.",
+   "app_notes": [
+    "Ezafe written in on 6 word(s) by hazm's ParsBERT tagger: مأموران، گمرک، هفته، محموله، لوازم، خانگی."
+   ],
+   "texts": {
+    "A1": "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند."
+   }
+  },
+  {
+   "id": "e03",
+   "category": "news",
+   "text": "تیم ملی والیبال ایران شب گذشته در دیداری نفس‌گیر حریف ژاپنی خود را شکست داد.",
+   "app_notes": [
+    "Ezafe written in on 6 word(s) by hazm's ParsBERT tagger: تیم، ملی، والیبال، شب، حریف، ژاپنی."
+   ],
+   "texts": {
+    "A1": "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد."
+   }
+  },
+  {
+   "id": "e04",
+   "category": "news",
+   "text": "هفته پیش قیمت خودروهای داخلی در بازار تهران دوباره بالا رفت.",
+   "app_notes": [
+    "Ezafe written in on 4 word(s) by hazm's ParsBERT tagger: هفته، قیمت، خودروهای، بازار."
+   ],
+   "texts": {
+    "A1": "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت."
+   }
+  },
+  {
+   "id": "e05",
+   "category": "news",
+   "text": "سازمان هواشناسی برای روزهای پایانی هفته در استان‌های شمالی باران شدید پیش‌بینی کرده است.",
+   "app_notes": [
+    "Ezafe written in on 6 word(s) by hazm's ParsBERT tagger: سازمان، برای، روزهای، پایانی، استان‌های، باران.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: شدید."
+   ],
+   "texts": {
+    "A1": "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است."
+   }
+  },
+  {
+   "id": "e06",
+   "category": "news",
+   "text": "پزشکان بیمارستان کودکان شیراز دیروز نخستین عمل پیوند قلب این استان را با موفقیت انجام دادند.",
+   "app_notes": [
+    "Ezafe written in on 6 word(s) by hazm's ParsBERT tagger: پزشکان، بیمارستان، کودکان، عمل، پیوند، قلب."
+   ],
+   "texts": {
+    "A1": "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند."
+   }
+  },
+  {
+   "id": "e07",
+   "category": "narrative",
+   "text": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌های بالکن را آب می‌دهد.",
+   "app_notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: گلدان‌های."
+   ],
+   "texts": {
+    "A1": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد."
+   }
+  },
+  {
+   "id": "e08",
+   "category": "narrative",
+   "text": "پسر همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد.",
+   "app_notes": [
+    "Ezafe written in on 1 word(s) by hazm's ParsBERT tagger: پسر."
+   ],
+   "texts": {
+    "A1": "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد."
+   }
+  },
+  {
+   "id": "e09",
+   "category": "narrative",
+   "text": "بعد از شام پدربزرگ برای همه چای ریخت و از خاطره‌های جوانی‌اش گفت.",
+   "app_notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: برای، خاطره‌های.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: بعد."
+   ],
+   "texts": {
+    "A1": "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت."
+   }
+  },
+  {
+   "id": "e10",
+   "category": "narrative",
+   "text": "امروز عصر خواهر کوچکم نقاشی تازه‌اش را با ذوق به همه نشان داد.",
+   "app_notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: خواهر، نقاشی."
+   ],
+   "texts": {
+    "A1": "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد."
+   }
+  },
+  {
+   "id": "e11",
+   "category": "narrative",
+   "text": "راننده اتوبوس وسط راه ایستاد و از مسافران خواست کمربندهایشان را ببندند.",
+   "app_notes": [
+    "Ezafe written in on 2 word(s) by hazm's ParsBERT tagger: راننده، وسط."
+   ],
+   "texts": {
+    "A1": "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند."
+   }
+  },
+  {
+   "id": "e12",
+   "category": "narrative",
+   "text": "دوستم سال گذشته مغازه کوچکی در بازار باز کرد و حالا مشتری‌های زیادی دارد.",
+   "app_notes": [
+    "Ezafe written in on 3 word(s) by hazm's ParsBERT tagger: سال، مغازه، مشتری‌های.",
+    "First vowel written on 1 homograph(s) from Homo-GE2PE: کرد."
+   ],
+   "texts": {
+    "A1": "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد."
+   }
+  }
+ ]
+}

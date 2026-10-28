@@ -113,5 +113,46 @@
    "cost": "[measured, kaggle quota after it] 22.54 GPU-hours used this week, 7.46 h left until 2026-10-31 00:00 UTC; the session took about 4.09 h",
    "evidence": "eval/runs/evidence/omnivoice-ezafe-c-v1/"
   }
+ },
+ "check_v1": {
+  "sentences": {
+   "file": "eval/manifests/ezafe_check_v1.json",
+   "sha256": "52b966c1cee970680215f48e6962180ca7154de06b6188517c187bafa66cc480",
+   "count": 12,
+   "words": 165,
+   "ezafe_traps": 33,
+   "written_by": "Claude, 2026-10-28 after session c ended (22:59 UTC) and before any render: six news sentences and six of everyday narrative, each with words after which no ezafe belongs but another word follows - a noun or an adjective closing its phrase before the next phrase starts, the kind every form has read with an ezafe so far; listed per sentence in the file",
+   "changed_before_any_render": "e10 first read 'خواهر کوچکم امروز عصر نقاشی تازه‌اش را با ذوق به همه نشان داد.' and the app's tagger wrote an ezafe on its trap عصر - the front-end's error, which would have tested the tagger instead of the weights - so 'امروز عصر' was moved to the front; the leakage check and the texts were run again on the file as it stands",
+   "leakage_check": {
+    "homorich": {
+     "checked": 528875,
+     "hits": 0
+    },
+    "sentencebench": {
+     "checked": 400,
+     "hits": 0
+    },
+    "adaptation_splits": {
+     "checked": 96413,
+     "hits": 0
+    },
+    "earlier_tests": {
+     "checked": 78,
+     "hits": 0
+    },
+    "sealed_test_texts": {
+     "checked": 12,
+     "hits": 0
+    }
+   },
+   "leakage_rule": "letters only, equal or one inside the other with at least 20 letters and half the longer - step 2's rule (scripts/check_sentence_leakage.py)"
+  },
+  "texts": {
+   "file": "eval/runs/ezafe-check-v1/texts.json",
+   "sha256": "14b79becbc2a91c128bdf12eec335e75c8b59fcff33f5f8868afef7373ca69a4",
+   "written": "once on this Mac by scripts/build_adapted_texts.py --run ezafe-check-v1 at 861248e: what the app sends OmniVoice at its default settings, one chunk per sentence, the same text for A1, E1 and E5",
+   "traps_in_the_app_text": "none of the 33 trap words has an ezafe written by the app",
+   "checked_with_the_dataset_code": "the code dataset's scripts (e1d96e4), run on this Mac on the three forms' texts: all 36 reach the model with every mark and nothing else changed"
+  }
  }
 }

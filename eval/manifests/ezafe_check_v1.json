@@ -1,0 +1,22 @@
+{
+ "version": 1,
+ "purpose": "does OmniVoice trained on transcripts with every ezafe written stop adding one where none is written, and read the app's text better than the weights the app uses now",
+ "written_by": "Claude, 2026-10-28 after 23:00 UTC: after the ezafe-marked run's session c ended and before any render. Six news sentences and six of everyday narrative, none of them the user's. One change after the app first wrote them, before any render: e10 read 'خواهر کوچکم امروز عصر نقاشی تازه‌اش را...' and the app's tagger wrote an ezafe on its trap عصر, an error of the front-end that would have tested the tagger, not the weights, so its first two words were moved to the front; the app writes it without a fault",
+ "traps": {
+  "ezafe_traps": "words after which no ezafe belongs but another word follows that could take one: a noun or an adjective closing its phrase before the next phrase starts - the kind every form has read with an ezafe so far (پیر, مدرسه, کاغذی, برق in the adapted check; باران, پیرمرد, حیاط, دیوار in the روی check)"
+ },
+ "sentences": [
+  {"id": "e01", "category": "news", "text": "وزارت نیرو اعلام کرد مصرف برق خانگی در تابستان امسال هشت درصد کمتر از پارسال بوده است.", "ezafe_traps": ["نیرو", "امسال", "درصد"]},
+  {"id": "e02", "category": "news", "text": "مأموران گمرک بندرعباس هفته گذشته محموله بزرگی از لوازم خانگی قاچاق را کشف کردند.", "ezafe_traps": ["بندرعباس", "گذشته"]},
+  {"id": "e03", "category": "news", "text": "تیم ملی والیبال ایران شب گذشته در دیداری نفس‌گیر حریف ژاپنی خود را شکست داد.", "ezafe_traps": ["ایران", "گذشته", "دیداری", "نفس‌گیر"]},
+  {"id": "e04", "category": "news", "text": "هفته پیش قیمت خودروهای داخلی در بازار تهران دوباره بالا رفت.", "ezafe_traps": ["پیش", "تهران"]},
+  {"id": "e05", "category": "news", "text": "سازمان هواشناسی برای روزهای پایانی هفته در استان‌های شمالی باران شدید پیش‌بینی کرده است.", "ezafe_traps": ["شمالی", "شدید"]},
+  {"id": "e06", "category": "news", "text": "پزشکان بیمارستان کودکان شیراز دیروز نخستین عمل پیوند قلب این استان را با موفقیت انجام دادند.", "ezafe_traps": ["شیراز", "دیروز"]},
+  {"id": "e07", "category": "narrative", "text": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌های بالکن را آب می‌دهد.", "ezafe_traps": ["روز", "صبح", "اداره"]},
+  {"id": "e08", "category": "narrative", "text": "پسر همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد.", "ezafe_traps": ["همسایه", "کوچه", "فوتبال"]},
+  {"id": "e09", "category": "narrative", "text": "بعد از شام پدربزرگ برای همه چای ریخت و از خاطره‌های جوانی‌اش گفت.", "ezafe_traps": ["شام", "همه", "چای"]},
+  {"id": "e10", "category": "narrative", "text": "امروز عصر خواهر کوچکم نقاشی تازه‌اش را با ذوق به همه نشان داد.", "ezafe_traps": ["امروز", "عصر", "همه"]},
+  {"id": "e11", "category": "narrative", "text": "راننده اتوبوس وسط راه ایستاد و از مسافران خواست کمربندهایشان را ببندند.", "ezafe_traps": ["اتوبوس", "راه", "مسافران"]},
+  {"id": "e12", "category": "narrative", "text": "دوستم سال گذشته مغازه کوچکی در بازار باز کرد و حالا مشتری‌های زیادی دارد.", "ezafe_traps": ["گذشته", "بازار", "حالا"]}
+ ]
+}

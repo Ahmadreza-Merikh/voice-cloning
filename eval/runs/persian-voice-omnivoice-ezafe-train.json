@@ -1,6 +1,6 @@
 {
  "run": "the ezafe-marked adaptation: OmniVoice trained on transcripts with the app's ezafe written in",
- "status": "registered 2026-10-27, before any transcript was marked and before any session; sessions a and b complete at steps 2,000 and 4,000, session c running since 2026-10-28 18:15 UTC",
+ "status": "registered 2026-10-27, before any transcript was marked and before any session; sessions a, b and c complete at steps 2,000, 4,000 and 5,000 - the recipe's end, reached 2026-10-28 22:50 UTC",
  "why": "the largest error left is an ezafe the model adds where none is written (FINDINGS sections 19, 21, 22): pirʔe, madrese-ye, kaghazi-ye, bargh-e in every form of every recent check. Text-side fixes cannot stop it: a sukun failed twice (sections 15, 17) and marks on every word made reading worse (section 21). The model learned from transcripts where the ezafe is never written, so it guesses it. If every ezafe in its training text is written, an unmarked word should mean no ezafe - which is the convention the app's text already follows",
  "design": {
   "only_difference": "the transcripts. Everything else is the adaptation run's (eval/runs/persian-voice-omnivoice-adapt.json): the same train and valid clips (87,499 and 2,251; adaptation_splits_v1), the same audio tokens - session train-a's shards, mounted and read unchanged - the same official recipe and code (SDPA config at k2-fsa/OmniVoice 08be0b4c, 5,000 steps at 8,192 tokens per GPU on two T4s, lr 1e-5, the persian-voice-eval code dataset, checkpointing and DDP bucket views), started from the published weights, a float16 export every 1,000 steps",
@@ -94,7 +94,24 @@
    "built_from": "13f2a39 (the notebook committed as 9567da1)",
    "mounts": "train-a's tokens with the same rewrite through the same map, and ezafe-b's checkpoint-4000 through the official resume_from_checkpoint",
    "expected": "1,000 steps at session b's 15.7 s, with about 11 min to load the checkpoint, two evaluations and two saves: about 4.8 h, ending near 23:00 UTC with checkpoint-5000 and export-5000-float16. The steps stop at the recipe's 5,000 well inside the 11.25 h",
-   "quota_before": "11.55 h left this week; c about 4.8 h leaves about 6.7 h for the evaluation session"
+   "quota_before": "11.55 h left this week; c about 4.8 h leaves about 6.7 h for the evaluation session",
+   "ended": "COMPLETE, read at 22:59:05 UTC. The notebook started about 18:47 UTC, some 31 minutes after the push, and its log ends 14,738 s later; training ran 18:50:20 to 22:51:39 UTC (14,501 s) and finished the recipe at step 5,000. Loading ezafe-b's checkpoint-4000 took 1 min 31 s (session b's load: 10 min 43 s)",
+   "gates": "runner, download, mounted, train - all passed",
+   "mounted": "the same 88 train and 33 valid token shards with session a's counts exactly: train 87,499 rows, 62,815 changed; valid 2,251 rows, 1,684 changed. Resumed from /kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-b/run/checkpoint-4000, 'Resumed from step 4000'",
+   "training": {
+    "steps": "4,001 to 5,000, from session b's checkpoint-4000 with its optimizer, scheduler and random states; mean 14.168 s a step on a T4 pair (the A run's session c: 16.736)",
+    "peak_reserved_gib": [
+     13.396,
+     13.465
+    ],
+    "kept": "checkpoint-5000 with optimizer state, export-5000-float16 (E5)",
+    "data_order": "as recorded for session b: the session starts at epoch 0 again, so steps 4,001-5,000 are epoch 0's first 1,000 batches - the batches of steps 1-1,000 and 2,001-3,000",
+    "train_loss_beside_A": "[measured] per-step losses in logs/train.log. Steps 4,001-5,000: E 4.2193, A 4.2219; 4,001-4,100 4.2224 and 4.2411, 4,901-5,000 4.2078 and 4.1915. The A run was then on epoch 0's batches 1,001-1,135 and epoch 1, so the pair is not like for like; on the same batches, epoch 0's first 1,000 (A's steps 3,001-4,000, earlier in the schedule), A had 4.2345. The runs' losses differ at all 1,000 steps",
+    "eval_loss_beside_A": "[measured] E 4.2728 and 4.2358 at 4,500 and 5,000; A 4.2902 and 4.2412. Different validation texts, as in sessions a and b",
+    "reading": "the E run ends where the A run ended, within the step-to-step noise of either. As registered, loss is read beside the listening result, never as one"
+   },
+   "cost": "[measured, kaggle quota after it] 22.54 GPU-hours used this week, 7.46 h left until 2026-10-31 00:00 UTC; the session took about 4.09 h",
+   "evidence": "eval/runs/evidence/omnivoice-ezafe-c-v1/"
   }
  }
 }

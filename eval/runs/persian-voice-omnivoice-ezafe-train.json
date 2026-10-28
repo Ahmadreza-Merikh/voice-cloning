@@ -1,6 +1,6 @@
 {
  "run": "the ezafe-marked adaptation: OmniVoice trained on transcripts with the app's ezafe written in",
- "status": "registered 2026-10-27, before any transcript was marked and before any session",
+ "status": "registered 2026-10-27, before any transcript was marked and before any session; session a complete at step 2,000, session b running since 2026-10-28 09:06 UTC",
  "why": "the largest error left is an ezafe the model adds where none is written (FINDINGS sections 19, 21, 22): pirʔe, madrese-ye, kaghazi-ye, bargh-e in every form of every recent check. Text-side fixes cannot stop it: a sukun failed twice (sections 15, 17) and marks on every word made reading worse (section 21). The model learned from transcripts where the ezafe is never written, so it guesses it. If every ezafe in its training text is written, an unmarked word should mean no ezafe - which is the convention the app's text already follows",
  "design": {
   "only_difference": "the transcripts. Everything else is the adaptation run's (eval/runs/persian-voice-omnivoice-adapt.json): the same train and valid clips (87,499 and 2,251; adaptation_splits_v1), the same audio tokens - session train-a's shards, mounted and read unchanged - the same official recipe and code (SDPA config at k2-fsa/OmniVoice 08be0b4c, 5,000 steps at 8,192 tokens per GPU on two T4s, lr 1e-5, the persian-voice-eval code dataset, checkpointing and DDP bucket views), started from the published weights, a float16 export every 1,000 steps",
@@ -45,7 +45,31 @@
   "a_v1": {
    "kernel": "marsmanam/persian-voice-omnivoice-ezafe-a, version 1",
    "pushed": "2026-10-27 16:28:30 UTC; QUEUED right after",
-   "built_from": "278a055"
+   "built_from": "278a055",
+   "ended": "COMPLETE. Training ran 2026-10-27 16:40:24 to 2026-10-28 01:31:47 UTC (31,883 s) and stopped itself at checkpoint-2000, 'the next save would not fit the session'; the notebook's log ends 32,185 s after its start. This Mac's status reads were refused from 00:21 UTC (the Kaggle login had expired and could not be renewed); the user logged in again and COMPLETE was read at 09:02 UTC",
+   "gates": "runner, download, mounted, train - all passed",
+   "mounted": "train-a's 88 train and 33 valid token shards, read unchanged, every row's text replaced through the registered map (its unzipped content checked against ab2a25f9...); no text was missing from it. Train 87,499 rows, 62,815 changed (60,494 with an ezafe written, 2,321 by the normaliser alone); valid 2,251 rows, 1,684 changed (1,641 with an ezafe, 43 by the normaliser alone). The gate counts every changed row as 'rows_with_an_ezafe'; the split is computed on this Mac from the map and adaptation_splits_v1, which give the gate's totals exactly",
+   "training": {
+    "steps": "2,000 of the recipe's 5,000, from the published weights; mean 15.828 s a step on a T4 pair (the A run's session a: 15.547)",
+    "peak_reserved_gib": [
+     13.389,
+     13.521
+    ],
+    "kept": "checkpoint-2000 with optimizer state, export-1000-float16, export-2000-float16",
+    "train_loss_beside_A": "[measured] the per-step losses in both runs' logs/train.log, steps 1-2,000: E 4.2844, A 4.2892; steps 1-100 4.3666 and 4.3671, 901-1,000 4.2866 and 4.2942, 1,901-2,000 4.2136 and 4.2148. The two runs' losses differ at every one of the 2,000 steps, so the marked text did reach the model",
+    "eval_loss_beside_A": "[measured] the official validation pass every 500 steps: E 4.2284, 4.2184, 4.3176, 4.2437 at 500, 1,000, 1,500, 2,000; A 4.2288, 4.2617, 4.3455, 4.2351. The validation texts differ too (E's carry the ezafe), so this is not one measurement on one set",
+    "reading": "the two runs' losses agree within their step-to-step noise. As registered, loss is read beside the listening result, never as one"
+   },
+   "cost": "[measured, kaggle quota after it] 9.39 GPU-hours used this week, 20.61 h left until 2026-10-31 00:00 UTC",
+   "evidence": "eval/runs/evidence/omnivoice-ezafe-a-v1/"
+  },
+  "b_v1": {
+   "kernel": "marsmanam/persian-voice-omnivoice-ezafe-b, version 1",
+   "pushed": "2026-10-28 09:06:27 UTC; RUNNING 20 s later",
+   "built_from": "4fcd282",
+   "mounts": "train-a's tokens with the same rewrite through the same map, and ezafe-a's checkpoint-2000 through the official resume_from_checkpoint",
+   "expected": "at session a's 15.8 s a step, 4,000 is the last checkpoint that fits the 11.25 h (4,500 would need about 11.4 h), so about 9 h, ending near 18:10 UTC; session c then trains 4,000 to 5,000 in about 4.5 h, as the registration allows",
+   "quota_before": "20.61 h left this week; b about 9 h and c about 5 h leave about 6.5 h for the evaluation session"
   }
  }
 }

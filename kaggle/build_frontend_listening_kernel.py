@@ -102,6 +102,19 @@ STEPS = {
         "models": {"A": "export-1000-float16"},
         "known_sha256": {"A": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"},
         "kernel_sources": [f"{probe.USER}/persian-voice-omnivoice-train-a"]},
+    # The ezafe check (eval/runs/persian-voice-omnivoice-ezafe-train.json): the same text read by the app's weights
+    # and two exports of the ezafe-marked run. A1 and E1 share an export's name, so each is looked for only
+    # under the session that made it.
+    8: {"slug": "persian-voice-ezafe-check-run", "dataset": "persian-voice-frontend-listening-v2",
+        "name": "ezafe-check-v1", "folder": "ezafe-check", "expected": 12, "embed": True,
+        "texts": [f"eval/runs/ezafe-check-v1/{form}/texts.json" for form in ("A1", "E1", "E5")],
+        "models": {"A1": "export-1000-float16", "E1": "export-1000-float16", "E5": "export-5000-float16"},
+        "sessions": {"A1": "persian-voice-omnivoice-train-a", "E1": "persian-voice-omnivoice-ezafe-a",
+                     "E5": "persian-voice-omnivoice-ezafe-c"},
+        "known_sha256": {"A1": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"},
+        "kernel_sources": [f"{probe.USER}/persian-voice-omnivoice-train-a",
+                           f"{probe.USER}/persian-voice-omnivoice-ezafe-a",
+                           f"{probe.USER}/persian-voice-omnivoice-ezafe-c"]},
 }
 EXPECTED = 48
 RENDER_MINUTES = 60
@@ -143,8 +156,12 @@ for name, digest in REGISTERED.items():
 
 def weights(step: dict) -> str:
     """Each form's weights: the base as fetched, each export found once under the mounted sessions and hashed."""
+    sessions, within = "", ""
+    if step.get("sessions"):
+        sessions = f'\nSESSIONS = {step["sessions"]!r}'
+        within = " and SESSIONS[form] in p.parts"
     return f'''
-MODELS = {step["models"]!r}
+MODELS = {step["models"]!r}{sessions}
 KNOWN_SHA256 = {step["known_sha256"]!r}
 WEIGHTS = {{}}
 if not GATES.skip("weights", ("download",)):
@@ -153,7 +170,7 @@ if not GATES.skip("weights", ("download",)):
         if name is None:
             WEIGHTS[form] = {{"path": "{BASE_DIR}"}}
             continue
-        hits = sorted(p for p in INPUT.rglob(name) if p.is_dir() and (p / "model.safetensors").is_file())
+        hits = sorted(p for p in INPUT.rglob(name) if p.is_dir() and (p / "model.safetensors").is_file(){within})
         if not hits:
             problems.append(f"{{form}}: no {{name}} with a model.safetensors under /kaggle/input")
             continue

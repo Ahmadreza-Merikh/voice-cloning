@@ -153,6 +153,12 @@
    "written": "once on this Mac by scripts/build_adapted_texts.py --run ezafe-check-v1 at 861248e: what the app sends OmniVoice at its default settings, one chunk per sentence, the same text for A1, E1 and E5",
    "traps_in_the_app_text": "none of the 33 trap words has an ezafe written by the app",
    "checked_with_the_dataset_code": "the code dataset's scripts (e1d96e4), run on this Mac on the three forms' texts: all 36 reach the model with every mark and nothing else changed"
+  },
+  "session": {
+   "kernel": "marsmanam/persian-voice-ezafe-check-run, version 1",
+   "pushed": "2026-10-28 23:04:40 UTC; RUNNING at 23:05:05",
+   "built_from": "f5a26d9: step 3's code dataset (e1d96e4), the notebook writing the registered texts itself; A1 from train-a's run/export-1000-float16 (its sha256 checked against the app's), E1 from ezafe-a's run/export-1000-float16, E5 from ezafe-c's run/export-5000-float16; scripts/render_frontend_conditions.py once per form with --cer --app-normaliser, seed 42, mana_000.wav",
+   "quota_before": "7.46 GPU-hours left this week"
   }
  }
 }

@@ -1,0 +1,18 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.3s; 104590 shown"
+  },
+  "download": {
+    "passed": true,
+    "reason": "0.3 min; {\"base\": \"/tmp/omnivoice-base\", \"config\": \"/tmp/adapt/official/train_config_finetune_sdpa.json\", \"fetched\": {\"train_config_finetune_sdpa.json\": {\"gib\": null, \"seconds\": null, \"tries\": [{\"attempt\": 1, \"seconds\": 0.1}], \"failed_check\": null}, \"base\": {\"gib\": 3.043, \"seconds\": 16.6, \"tries\": [{\"attempt\": 1, \"seconds\": 16.6}], \"failed_check\": null}}}"
+  },
+  "mounted": {
+    "passed": true,
+    "reason": "{\"train\": {\"shards\": 88, \"rows\": 87499, \"rows_with_an_ezafe\": 62815, \"tokens_from\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/tokens/train\"}, \"valid\": {\"shards\": 33, \"rows\": 2251, \"rows_with_an_ezafe\": 1684, \"tokens_from\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/tokens/valid\"}, \"resume_from\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/checkpoint-2000\"}"
+  },
+  "train": {
+    "passed": true,
+    "reason": "{\"outcome\": [\"stopped at checkpoint-4000: the next save would not fit the session\", \"stopped at checkpoint-4000: the next save would not fit the session\"], \"global_step\": [4000, 4000], \"checkpoints\": [\"checkpoint-4000\"], \"exports\": [\"export-3000-float16\", \"export-4000-float16\"], \"mean_step_seconds\": [15.714, 15.714], \"peak_reserved_gib\": [13.447, 13.551]}"
+  }
+}

@@ -1,0 +1,360 @@
+<title>دور هشتم بررسی تلفظ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: a proofreading desk - one sentence set large, each reading below it with the sentence's words as tappable marks. */
+:root {
+  --bg: #f4f5f2;
+  --surface: #ffffff;
+  --ink: #1b2120;
+  --muted: #5d6764;
+  --line: #d8ded9;
+  --accent: #2c5e4f;
+  --accent-ink: #ffffff;
+  --mark: #b4321f;
+  --mark-soft: #fbe6e1;
+  --ok: #2c6e3f;
+  --ok-soft: #e2f1e5;
+  --font-body: "Vazirmatn", "Tahoma", "Segoe UI", system-ui, sans-serif;
+  --step: clamp(15px, 1.1vw + 11px, 17px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111513; --surface: #1a201e; --ink: #e6ebe8; --muted: #9eaaa5; --line: #2b3431;
+    --accent: #7cc0a8; --accent-ink: #0e1a16; --mark: #f08a74; --mark-soft: #3a211b; --ok: #84c995; --ok-soft: #1c3022;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111513; --surface: #1a201e; --ink: #e6ebe8; --muted: #9eaaa5; --line: #2b3431;
+  --accent: #7cc0a8; --accent-ink: #0e1a16; --mark: #f08a74; --mark-soft: #3a211b; --ok: #84c995; --ok-soft: #1c3022;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step);
+  line-height: 1.75; direction: rtl; padding-inline: 16px; padding-block: 0 48px; }
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); height: 4px; background: var(--line); margin-inline: -16px; z-index: 2; }
+.rail > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s ease; }
+main { max-width: 700px; margin-inline: auto; display: grid; gap: 20px; padding-block: 28px 0; }
+h1 { font-size: 1.6em; font-weight: 800; margin: 0; text-wrap: balance; }
+h2 { font-size: 1.05em; font-weight: 700; margin: 0; }
+p { margin: 0; }
+.lede { color: var(--muted); max-width: 62ch; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 18px; min-width: 0; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: .92em; }
+.facts b { color: var(--ink); }
+label.field { display: grid; gap: 6px; font-weight: 500; }
+input[type=text] { font: inherit; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); width: 100%; }
+button { font: inherit; font-weight: 700; border-radius: 10px; padding: 9px 18px; cursor: pointer; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); }
+button.quiet { background: transparent; color: var(--accent); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button:focus-visible, input:focus-visible, .word:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.counter { font-weight: 700; color: var(--muted); }
+.sentence { font-size: 1.35em; font-weight: 700; line-height: 1.9; text-wrap: balance; }
+.reading { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; min-width: 0; }
+.reading.done { border-color: var(--accent); }
+.reading .tag { font-weight: 700; }
+audio { width: 100%; height: 40px; }
+.words { display: flex; flex-wrap: wrap; gap: 6px; }
+.word { font: inherit; font-weight: 500; padding: 4px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
+.word[aria-pressed="true"] { background: var(--mark-soft); border-color: var(--mark); color: var(--mark); text-decoration: line-through; }
+.allright { font-weight: 700; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+.allright[aria-pressed="true"] { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.hint { color: var(--muted); font-size: .88em; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; min-width: 0; }
+legend { font-weight: 700; padding: 0; margin-bottom: 8px; }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice { position: relative; }
+.choice input { position: absolute; opacity: 0; inset: 0; }
+.choice span { display: inline-block; padding: 7px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); cursor: pointer; min-width: 3.2em; text-align: center; }
+.choice input:checked + span { background: var(--ok-soft); border-color: var(--accent); font-weight: 700; }
+.choice input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.status { font-size: .88em; color: var(--muted); }
+.status.bad { color: var(--mark); }
+textarea { width: 100%; min-height: 8em; font: .8em/1.5 ui-monospace, "SFMono-Regular", Menlo, monospace; direction: ltr; text-align: left; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .rail > i { transition: none; } }
+</style>
+
+<div class="rail" aria-hidden="true"><i id="rail"></i></div>
+<main>
+  <header style="display:grid;gap:10px">
+    <h1>دور هشتم بررسی تلفظ</h1>
+    <p class="lede">برای هر جمله سه خوانش ساختگی می‌شنوید. هر خوانش را جدا گوش کنید و کلمه‌هایی را که اشتباه یا نامفهوم گفته شده بزنید، و اگر می‌توانید در یادداشت بنویسید چه شنیدید (مثلاً «گُل را گِل خواند»). ترتیب خوانش‌ها جابه‌جا شده و نمی‌دانید کدام از کدام روش است.</p>
+  </header>
+
+  <section class="card" id="start">
+    <div class="facts"><span><b>۱۲</b> جمله</span><span><b>۳۶</b> خوانش</span><span>حدود <b>۱۵</b> دقیقه</span><span>با <b>هدفون</b></span></div>
+    <label class="field" for="listener">یک نام یا کد کوتاه برای خودتان
+      <input type="text" id="listener" autocomplete="off" maxlength="40" placeholder="مثلاً: سارا یا L3">
+    </label>
+    <p class="hint">به تلفظ دقت کنید، نه به صدای گوینده: مصوت‌های کوتاه، کسرهٔ اضافه، کلمه‌های چندمعنا (مثل گُل و گِل)، عددها و حرف‌های جاافتاده.</p>
+    <p class="status" id="mode-note">در حال آماده‌سازی…</p>
+    <div class="row"><span></span><button id="begin" disabled>شروع</button></div>
+  </section>
+
+  <section class="card" id="item" hidden>
+    <div class="row"><h2 class="counter" id="counter"></h2><span class="status" id="save-status"></span></div>
+    <p class="sentence" id="sentence"></p>
+    <div id="readings" style="display:grid;gap:14px"></div>
+    <fieldset id="best-set">
+      <legend>کدام خوانش بهتر خواند؟</legend>
+      <div class="choices" id="best"></div>
+    </fieldset>
+    <div class="row">
+      <button class="quiet" id="prev">قبلی</button>
+      <button id="next" disabled>بعدی</button>
+    </div>
+  </section>
+
+  <section class="card" id="done" hidden>
+    <h2>تمام شد. ممنون!</h2>
+    <p id="done-note"></p>
+    <label class="field" for="code">کد پاسخ‌های شما
+      <textarea id="code" readonly></textarea>
+    </label>
+    <div class="row"><button class="quiet" id="review">برگشت به جمله‌ها</button><button id="copy">کپی کد</button></div>
+    <p class="status" id="copy-status"></p>
+  </section>
+
+  <p class="hint">بخشی از یک پروژهٔ پژوهشی دربارهٔ صدای فارسی. همهٔ خوانش‌ها ساختگی‌اند.</p>
+</main>
+
+<script type="application/json" id="items">[{"id": "e12", "text": "دوستم سال گذشته مغازه کوچکی در بازار باز کرد و حالا مشتری‌های زیادی دارد.", "words": ["دوستم", "سال", "گذشته", "مغازه", "کوچکی", "در", "بازار", "باز", "کرد", "و", "حالا", "مشتری‌های", "زیادی", "دارد"], "slots": [{"slot": 1, "audio": "audio/72e7cf4a20c5.wav"}, {"slot": 2, "audio": "audio/5307573d1f11.wav"}, {"slot": 3, "audio": "audio/7d72a577510c.wav"}]}, {"id": "e09", "text": "بعد از شام پدربزرگ برای همه چای ریخت و از خاطره‌های جوانی‌اش گفت.", "words": ["بعد", "از", "شام", "پدربزرگ", "برای", "همه", "چای", "ریخت", "و", "از", "خاطره‌های", "جوانی‌اش", "گفت"], "slots": [{"slot": 1, "audio": "audio/da1636d1b824.wav"}, {"slot": 2, "audio": "audio/d806f1a914cd.wav"}, {"slot": 3, "audio": "audio/af9cd6252cb2.wav"}]}, {"id": "e08", "text": "پسر همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد.", "words": ["پسر", "همسایه", "دیشب", "تا", "دیروقت", "در", "کوچه", "با", "دوستانش", "فوتبال", "بازی", "می‌کرد"], "slots": [{"slot": 1, "audio": "audio/1128d436a4cc.wav"}, {"slot": 2, "audio": "audio/16f76f739d87.wav"}, {"slot": 3, "audio": "audio/a311a8466598.wav"}]}, {"id": "e01", "text": "وزارت نیرو اعلام کرد مصرف برق خانگی در تابستان امسال هشت درصد کمتر از پارسال بوده است.", "words": ["وزارت", "نیرو", "اعلام", "کرد", "مصرف", "برق", "خانگی", "در", "تابستان", "امسال", "هشت", "درصد", "کمتر", "از", "پارسال", "بوده", "است"], "slots": [{"slot": 1, "audio": "audio/72dbd8813289.wav"}, {"slot": 2, "audio": "audio/bade21b867d3.wav"}, {"slot": 3, "audio": "audio/7c5f87e819d8.wav"}]}, {"id": "e10", "text": "امروز عصر خواهر کوچکم نقاشی تازه‌اش را با ذوق به همه نشان داد.", "words": ["امروز", "عصر", "خواهر", "کوچکم", "نقاشی", "تازه‌اش", "را", "با", "ذوق", "به", "همه", "نشان", "داد"], "slots": [{"slot": 1, "audio": "audio/4546c1cf7159.wav"}, {"slot": 2, "audio": "audio/02b44ae4a36e.wav"}, {"slot": 3, "audio": "audio/e0297f1c8c8e.wav"}]}, {"id": "e06", "text": "پزشکان بیمارستان کودکان شیراز دیروز نخستین عمل پیوند قلب این استان را با موفقیت انجام دادند.", "words": ["پزشکان", "بیمارستان", "کودکان", "شیراز", "دیروز", "نخستین", "عمل", "پیوند", "قلب", "این", "استان", "را", "با", "موفقیت", "انجام", "دادند"], "slots": [{"slot": 1, "audio": "audio/ef742b2dd397.wav"}, {"slot": 2, "audio": "audio/318a0f562b43.wav"}, {"slot": 3, "audio": "audio/5891207065df.wav"}]}, {"id": "e02", "text": "مأموران گمرک بندرعباس هفته گذشته محموله بزرگی از لوازم خانگی قاچاق را کشف کردند.", "words": ["مأموران", "گمرک", "بندرعباس", "هفته", "گذشته", "محموله", "بزرگی", "از", "لوازم", "خانگی", "قاچاق", "را", "کشف", "کردند"], "slots": [{"slot": 1, "audio": "audio/b0974c3d32f0.wav"}, {"slot": 2, "audio": "audio/de7719c0b663.wav"}, {"slot": 3, "audio": "audio/dab0451df4fd.wav"}]}, {"id": "e04", "text": "هفته پیش قیمت خودروهای داخلی در بازار تهران دوباره بالا رفت.", "words": ["هفته", "پیش", "قیمت", "خودروهای", "داخلی", "در", "بازار", "تهران", "دوباره", "بالا", "رفت"], "slots": [{"slot": 1, "audio": "audio/1ea24e92a230.wav"}, {"slot": 2, "audio": "audio/0d04ab706a86.wav"}, {"slot": 3, "audio": "audio/12b7bebac6d5.wav"}]}, {"id": "e11", "text": "راننده اتوبوس وسط راه ایستاد و از مسافران خواست کمربندهایشان را ببندند.", "words": ["راننده", "اتوبوس", "وسط", "راه", "ایستاد", "و", "از", "مسافران", "خواست", "کمربندهایشان", "را", "ببندند"], "slots": [{"slot": 1, "audio": "audio/b343e078c319.wav"}, {"slot": 2, "audio": "audio/9b20c38670ec.wav"}, {"slot": 3, "audio": "audio/480059765117.wav"}]}, {"id": "e07", "text": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌های بالکن را آب می‌دهد.", "words": ["مادرم", "هر", "روز", "صبح", "قبل", "از", "رفتن", "به", "اداره", "گلدان‌های", "بالکن", "را", "آب", "می‌دهد"], "slots": [{"slot": 1, "audio": "audio/5a26acf0cfee.wav"}, {"slot": 2, "audio": "audio/5b3abf3b92c3.wav"}, {"slot": 3, "audio": "audio/2a99a7e25fe4.wav"}]}, {"id": "e05", "text": "سازمان هواشناسی برای روزهای پایانی هفته در استان‌های شمالی باران شدید پیش‌بینی کرده است.", "words": ["سازمان", "هواشناسی", "برای", "روزهای", "پایانی", "هفته", "در", "استان‌های", "شمالی", "باران", "شدید", "پیش‌بینی", "کرده", "است"], "slots": [{"slot": 1, "audio": "audio/6e62b2c4513b.wav"}, {"slot": 2, "audio": "audio/59af6f173670.wav"}, {"slot": 3, "audio": "audio/9842b35bde78.wav"}]}, {"id": "e03", "text": "تیم ملی والیبال ایران شب گذشته در دیداری نفس‌گیر حریف ژاپنی خود را شکست داد.", "words": ["تیم", "ملی", "والیبال", "ایران", "شب", "گذشته", "در", "دیداری", "نفس‌گیر", "حریف", "ژاپنی", "خود", "را", "شکست", "داد"], "slots": [{"slot": 1, "audio": "audio/338414b29f4a.wav"}, {"slot": 2, "audio": "audio/17ff5fd4d85e.wav"}, {"slot": 3, "audio": "audio/2f5418284733.wav"}]}]</script>
+<script>
+(() => {
+  const ITEMS = JSON.parse(document.getElementById("items").textContent);
+  const VERSION = "ezafe-review-v1";
+  const LOCAL = "ezafe-review-v1:answers";
+  const fa = n => Number(n).toLocaleString("fa-IR");
+  const $ = id => document.getElementById(id);
+
+  let state = { listener: "", answers: {}, at: 0 };
+  try { const saved = JSON.parse(localStorage.getItem(LOCAL) || "null"); if (saved && saved.answers) state = saved; } catch (e) {}
+  let mode = "pending", docRef = null, saving = false, again = false, timer = null, retry = 0, edits = 0, savedAt = -1;
+
+  const slotDone = s => !!s && (s.ok === true || (Array.isArray(s.words) && s.words.length > 0));
+  const complete = item => {
+    const a = state.answers[item.id];
+    return !!a && !!a.best && item.slots.every(s => slotDone((a.slots || {})[String(s.slot)]));
+  };
+  const answered = () => ITEMS.filter(complete).length;
+  const answerOf = item => {
+    const a = state.answers[item.id] || (state.answers[item.id] = { best: null, slots: {} });
+    a.slots = a.slots || {};
+    return a;
+  };
+
+  function keepLocal() { try { localStorage.setItem(LOCAL, JSON.stringify(state)); } catch (e) {} }
+
+  function setMode(next) {
+    mode = next;
+    $("mode-note").textContent = next === "db"
+      ? "پاسخ‌ها همین‌طور که جلو می‌روید خودکار ذخیره می‌شوند."
+      : "پاسخ‌ها روی همین مرورگر نگه داشته می‌شوند. در پایان یک کد می‌گیرید که باید برای برگزارکننده بفرستید.";
+    $("begin").disabled = !$("listener").value.trim();
+  }
+
+  async function connect() {
+    try {
+      if (!window.claude || !window.claude.use) return setMode("code");
+      const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+      if (!db || !user) return setMode("code");
+      const id = await user.id();
+      if (!id) return setMode("code");
+      docRef = db.doc("reviews/" + id);
+      const snap = await docRef.get();
+      if (snap.exists) {
+        const remote = snap.data() || {};
+        state.answers = Object.assign({}, remote.answers || {}, state.answers);
+        if (!state.listener && remote.listener) state.listener = String(remote.listener);
+        $("listener").value = state.listener;
+      }
+      setMode("db");
+    } catch (e) { docRef = null; setMode("code"); }
+  }
+
+  async function flush() {
+    if (mode !== "db" || !docRef) return;
+    if (saving) { again = true; return; }
+    saving = true;
+    $("save-status").textContent = "در حال ذخیره…";
+    $("save-status").classList.remove("bad");
+    const at = edits;
+    try {
+      await Promise.race([
+        docRef.set({ version: VERSION, listener: state.listener, answers: state.answers,
+                     answered: answered(), complete: answered() === ITEMS.length, updated: new Date().toISOString() }),
+        new Promise((_, reject) => setTimeout(() => reject({ code: "timeout" }), 20000))]);
+      savedAt = at;
+      $("save-status").textContent = "ذخیره شد";
+      retry = 0;
+    } catch (e) {
+      if (e && e.code === "unavailable" && retry < 1) { retry += 1; again = true; }
+      else if (e && (e.code === "invalid_argument" || e.code === "not_granted" || e.code === "revoked")) {
+        setMode("code");
+        $("save-status").textContent = "ذخیرهٔ خودکار در دسترس نیست؛ در پایان کد را بفرستید.";
+        $("save-status").classList.add("bad");
+      } else {
+        $("save-status").textContent = "ذخیره نشد؛ پاسخ‌ها روی همین مرورگر هست.";
+        $("save-status").classList.add("bad");
+      }
+    } finally {
+      saving = false;
+      if (again) { again = false; setTimeout(flush, 600 + Math.random() * 600); }
+    }
+  }
+
+  function changed() { edits += 1; retry = 0; keepLocal(); clearTimeout(timer); timer = setTimeout(flush, 700); }
+
+  function show(view) {
+    ["start", "item", "done"].forEach(v => { $(v).hidden = v !== view; });
+    $("rail").style.width = (100 * answered() / ITEMS.length) + "%";
+  }
+
+  function refreshControls(item) {
+    $("next").disabled = !complete(item);
+    $("next").textContent = state.at === ITEMS.length - 1 ? "پایان" : "بعدی";
+    $("prev").disabled = state.at === 0;
+    $("rail").style.width = (100 * answered() / ITEMS.length) + "%";
+  }
+
+  function renderItem() {
+    state.at = Math.max(0, Math.min(state.at, ITEMS.length - 1));
+    const item = ITEMS[state.at];
+    const answer = answerOf(item);
+    $("counter").textContent = "جملهٔ " + fa(state.at + 1) + " از " + fa(ITEMS.length);
+    $("sentence").textContent = item.text;
+    const box = $("readings");
+    box.replaceChildren();
+    const players = [];
+    item.slots.forEach(s => {
+      const key = String(s.slot);
+      const given = answer.slots[key] || (answer.slots[key] = { ok: null, words: [], note: "" });
+      const card = document.createElement("div");
+      card.className = "reading" + (slotDone(given) ? " done" : "");
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = "خوانش " + fa(s.slot);
+      const audio = document.createElement("audio");
+      audio.controls = true; audio.preload = "none"; audio.src = s.audio;
+      players.push(audio);
+      const words = document.createElement("div");
+      words.className = "words";
+      const allRight = document.createElement("button");
+      allRight.type = "button"; allRight.className = "allright";
+      allRight.textContent = "همهٔ کلمه‌ها درست بود";
+      allRight.setAttribute("aria-pressed", String(given.ok === true));
+      const chips = item.words.map((w, i) => {
+        const chip = document.createElement("button");
+        chip.type = "button"; chip.className = "word"; chip.textContent = w;
+        chip.setAttribute("aria-pressed", String(given.words.includes(i)));
+        chip.setAttribute("aria-label", w + " (اشتباه گفته شد؟)");
+        chip.addEventListener("click", () => {
+          const at = given.words.indexOf(i);
+          if (at === -1) given.words.push(i); else given.words.splice(at, 1);
+          given.words.sort((x, y) => x - y);
+          given.ok = given.words.length ? false : null;
+          chip.setAttribute("aria-pressed", String(given.words.includes(i)));
+          allRight.setAttribute("aria-pressed", String(given.ok === true));
+          card.className = "reading" + (slotDone(given) ? " done" : "");
+          refreshControls(item); changed();
+        });
+        words.appendChild(chip);
+        return chip;
+      });
+      allRight.addEventListener("click", () => {
+        given.ok = given.ok === true ? null : true;
+        if (given.ok) { given.words = []; chips.forEach(c => c.setAttribute("aria-pressed", "false")); }
+        allRight.setAttribute("aria-pressed", String(given.ok === true));
+        card.className = "reading" + (slotDone(given) ? " done" : "");
+        refreshControls(item); changed();
+      });
+      const hint = document.createElement("p");
+      hint.className = "hint";
+      hint.textContent = "کلمه‌ای را که اشتباه یا نامفهوم گفته شد بزنید؛ اگر همه درست بود، دکمهٔ سبز را.";
+      const note = document.createElement("input");
+      note.type = "text"; note.maxLength = 200; note.id = "note-" + item.id + "-" + key;
+      note.placeholder = "توضیح اختیاری، مثلاً: «گل» را گِل خواند";
+      note.value = given.note || "";
+      note.addEventListener("input", () => { given.note = note.value; changed(); });
+      card.append(tag, audio, hint, words, allRight, note);
+      box.appendChild(card);
+    });
+    players.forEach(p => p.addEventListener("play", () => players.forEach(o => { if (o !== p) o.pause(); })));
+    const best = $("best");
+    best.replaceChildren();
+    [...item.slots.map(s => String(s.slot)), "0"].forEach(v => {
+      const label = document.createElement("label");
+      label.className = "choice";
+      const input = document.createElement("input");
+      input.type = "radio"; input.name = "best"; input.value = v; input.id = "best-" + v;
+      input.checked = answer.best === v;
+      input.addEventListener("change", () => { answer.best = v; refreshControls(item); changed(); });
+      const span = document.createElement("span");
+      span.textContent = v === "0" ? "فرقی ندارد" : fa(v);
+      label.append(input, span);
+      best.appendChild(label);
+    });
+    refreshControls(item);
+    show("item");
+  }
+
+  const pause = ms => new Promise(r => setTimeout(r, ms));
+  async function settle() {
+    clearTimeout(timer);
+    for (let i = 0; i < 150 && (saving || again); i++) await pause(200);
+    if (mode === "db" && savedAt !== edits) await flush();
+    for (let i = 0; i < 150 && (saving || again); i++) await pause(200);
+    return mode === "db" && savedAt === edits;
+  }
+
+  async function finish() {
+    const n = answered();
+    $("code").value = JSON.stringify({ v: VERSION, listener: state.listener, answers: state.answers });
+    $("copy-status").textContent = "";
+    $("done-note").textContent = "در حال ذخیره…";
+    show("done");
+    const saved = await settle();
+    $("done-note").textContent = (saved
+      ? "پاسخ‌هایتان ذخیره شد. کد زیر نسخهٔ پشتیبان است."
+      : "پاسخ‌ها خودکار ذخیره نشدند. لطفاً کد زیر را کپی کنید و برای برگزارکننده بفرستید؛ بدون این کد پاسخ‌ها به دست او نمی‌رسد.")
+      + (n < ITEMS.length ? " (" + fa(ITEMS.length - n) + " جمله کامل نشده است.)" : "");
+  }
+
+  $("listener").value = state.listener || "";
+  $("listener").addEventListener("input", () => {
+    state.listener = $("listener").value.trim();
+    $("begin").disabled = !state.listener || mode === "pending";
+    keepLocal();
+  });
+  $("begin").addEventListener("click", () => {
+    state.listener = $("listener").value.trim();
+    if (!state.listener) return;
+    changed();
+    const open = ITEMS.findIndex(item => !complete(item));
+    state.at = open === -1 ? ITEMS.length - 1 : open;
+    renderItem();
+  });
+  $("prev").addEventListener("click", () => { if (state.at > 0) { state.at -= 1; keepLocal(); renderItem(); } });
+  $("next").addEventListener("click", () => {
+    if (!complete(ITEMS[state.at])) return;
+    if (state.at === ITEMS.length - 1) return finish();
+    state.at += 1; keepLocal(); renderItem();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  $("review").addEventListener("click", () => { state.at = 0; renderItem(); });
+  $("copy").addEventListener("click", () => {
+    const text = $("code").value;
+    const done = ok => { $("copy-status").textContent = ok ? "کپی شد." : "کپی خودکار نشد؛ متن انتخاب شد، با Ctrl+C یا نگه‌داشتن انگشت کپی کنید."; };
+    try { navigator.clipboard.writeText(text).then(() => done(true), () => { $("code").select(); done(false); }); }
+    catch (e) { $("code").select(); done(false); }
+  });
+
+  show("start");
+  if (state.listener && answered() > 0) $("begin").textContent = "ادامه (" + fa(answered()) + " از " + fa(ITEMS.length) + ")";
+  connect();
+})();
+</script>

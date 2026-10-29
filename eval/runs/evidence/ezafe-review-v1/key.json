@@ -1,0 +1,191 @@
+{
+ "seed": 20261004,
+ "manifest": "eval/runs/ezafe-check-v1/manifest.json",
+ "target_lufs": -26.0,
+ "wrong_in_twins": {},
+ "sentences": {
+  "e01": {
+   "category": "news",
+   "slots": {
+    "1": "E1",
+    "2": "E5",
+    "3": "A1"
+   },
+   "gains_db": {
+    "1": -5.36,
+    "2": -8.0,
+    "3": -7.68
+   },
+   "target_lufs": -26.0
+  },
+  "e02": {
+   "category": "news",
+   "slots": {
+    "1": "A1",
+    "2": "E1",
+    "3": "E5"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "e03": {
+   "category": "news",
+   "slots": {
+    "1": "E5",
+    "2": "A1",
+    "3": "E1"
+   },
+   "gains_db": {
+    "1": -7.86,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "e04": {
+   "category": "news",
+   "slots": {
+    "1": "A1",
+    "2": "E1",
+    "3": "E5"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "e05": {
+   "category": "news",
+   "slots": {
+    "1": "E5",
+    "2": "A1",
+    "3": "E1"
+   },
+   "gains_db": {
+    "1": -7.17,
+    "2": -8.0,
+    "3": -6.69
+   },
+   "target_lufs": -26.0
+  },
+  "e06": {
+   "category": "news",
+   "slots": {
+    "1": "E1",
+    "2": "E5",
+    "3": "A1"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -7.24,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "e07": {
+   "category": "narrative",
+   "slots": {
+    "1": "E5",
+    "2": "A1",
+    "3": "E1"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -7.18,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "e08": {
+   "category": "narrative",
+   "slots": {
+    "1": "E1",
+    "2": "E5",
+    "3": "A1"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -7.39,
+    "3": -7.43
+   },
+   "target_lufs": -26.0
+  },
+  "e09": {
+   "category": "narrative",
+   "slots": {
+    "1": "A1",
+    "2": "E1",
+    "3": "E5"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -7.39,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "e10": {
+   "category": "narrative",
+   "slots": {
+    "1": "E5",
+    "2": "A1",
+    "3": "E1"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "e11": {
+   "category": "narrative",
+   "slots": {
+    "1": "A1",
+    "2": "E1",
+    "3": "E5"
+   },
+   "gains_db": {
+    "1": -4.9,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  },
+  "e12": {
+   "category": "narrative",
+   "slots": {
+    "1": "E1",
+    "2": "E5",
+    "3": "A1"
+   },
+   "gains_db": {
+    "1": -8.0,
+    "2": -8.0,
+    "3": -8.0
+   },
+   "target_lufs": -26.0
+  }
+ },
+ "order": [
+  "e12",
+  "e09",
+  "e08",
+  "e01",
+  "e10",
+  "e06",
+  "e02",
+  "e04",
+  "e11",
+  "e07",
+  "e05",
+  "e03"
+ ],
+ "fingerprint": "f6cab9463122924e"
+}

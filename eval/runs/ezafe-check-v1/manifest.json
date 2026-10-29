@@ -1,0 +1,1258 @@
+{
+ "version": 1,
+ "purpose": "ezafe-check-v1: its texts read by each set of OmniVoice weights",
+ "texts": {
+  "file": "eval/runs/ezafe-check-v1/texts.json",
+  "sentences_sha256": "52b966c1cee970680215f48e6962180ca7154de06b6188517c187bafa66cc480"
+ },
+ "settings": {
+  "A1": {
+   "seed": 42,
+   "candidates": 1,
+   "evaluation_enabled": false,
+   "cer_after_unload": true,
+   "omnivoice": {
+    "python": "auto",
+    "language": "fa",
+    "dtype": "float16",
+    "num_step": 32,
+    "guidance_scale": 2.0,
+    "t_shift": 0.1,
+    "denoise": true,
+    "postprocess_output": true,
+    "layer_penalty_factor": 5.0,
+    "position_temperature": 5.0,
+    "class_temperature": 0.0,
+    "timeout_seconds": 900,
+    "memory_guard": true,
+    "min_available_gb": 6.0
+   },
+   "omnivoice_model_id": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+   "text": {
+    "ezafe_enabled": false,
+    "marks_engines": [
+     "omnivoice"
+    ]
+   }
+  },
+  "E1": {
+   "seed": 42,
+   "candidates": 1,
+   "evaluation_enabled": false,
+   "cer_after_unload": true,
+   "omnivoice": {
+    "python": "auto",
+    "language": "fa",
+    "dtype": "float16",
+    "num_step": 32,
+    "guidance_scale": 2.0,
+    "t_shift": 0.1,
+    "denoise": true,
+    "postprocess_output": true,
+    "layer_penalty_factor": 5.0,
+    "position_temperature": 5.0,
+    "class_temperature": 0.0,
+    "timeout_seconds": 900,
+    "memory_guard": true,
+    "min_available_gb": 6.0
+   },
+   "omnivoice_model_id": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16",
+   "text": {
+    "ezafe_enabled": false,
+    "marks_engines": [
+     "omnivoice"
+    ]
+   }
+  },
+  "E5": {
+   "seed": 42,
+   "candidates": 1,
+   "evaluation_enabled": false,
+   "cer_after_unload": true,
+   "omnivoice": {
+    "python": "auto",
+    "language": "fa",
+    "dtype": "float16",
+    "num_step": 32,
+    "guidance_scale": 2.0,
+    "t_shift": 0.1,
+    "denoise": true,
+    "postprocess_output": true,
+    "layer_penalty_factor": 5.0,
+    "position_temperature": 5.0,
+    "class_temperature": 0.0,
+    "timeout_seconds": 900,
+    "memory_guard": true,
+    "min_available_gb": 6.0
+   },
+   "omnivoice_model_id": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16",
+   "text": {
+    "ezafe_enabled": false,
+    "marks_engines": [
+     "omnivoice"
+    ]
+   }
+  }
+ },
+ "reference": {
+  "speaker": "mana",
+  "file": "mana_000.wav",
+  "transcript": "عملکرد مدیریت شهری دوره پنجم را در پاسخگویی به این سؤال کلیدی بررسی کرده و در تحلیلی کوتاه به عملکرد شورای پنجم شهر تهران بپردازیم."
+ },
+ "conditions": {
+  "A1": "the app's weights: the adapted export at step 1,000",
+  "E1": "the ezafe-marked run's export at step 1,000",
+  "E5": "the ezafe-marked run's export at step 5,000"
+ },
+ "sentences": [
+  {
+   "id": "e01",
+   "category": "news",
+   "text": "وزارت نیرو اعلام کرد مصرف برق خانگی در تابستان امسال هشت درصد کمتر از پارسال بوده است.",
+   "texts": {
+    "A1": "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است.",
+    "E1": "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است.",
+    "E5": "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است."
+   }
+  },
+  {
+   "id": "e02",
+   "category": "news",
+   "text": "مأموران گمرک بندرعباس هفته گذشته محموله بزرگی از لوازم خانگی قاچاق را کشف کردند.",
+   "texts": {
+    "A1": "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند.",
+    "E1": "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند.",
+    "E5": "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند."
+   }
+  },
+  {
+   "id": "e03",
+   "category": "news",
+   "text": "تیم ملی والیبال ایران شب گذشته در دیداری نفس‌گیر حریف ژاپنی خود را شکست داد.",
+   "texts": {
+    "A1": "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد.",
+    "E1": "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد.",
+    "E5": "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد."
+   }
+  },
+  {
+   "id": "e04",
+   "category": "news",
+   "text": "هفته پیش قیمت خودروهای داخلی در بازار تهران دوباره بالا رفت.",
+   "texts": {
+    "A1": "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت.",
+    "E1": "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت.",
+    "E5": "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت."
+   }
+  },
+  {
+   "id": "e05",
+   "category": "news",
+   "text": "سازمان هواشناسی برای روزهای پایانی هفته در استان‌های شمالی باران شدید پیش‌بینی کرده است.",
+   "texts": {
+    "A1": "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است.",
+    "E1": "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است.",
+    "E5": "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است."
+   }
+  },
+  {
+   "id": "e06",
+   "category": "news",
+   "text": "پزشکان بیمارستان کودکان شیراز دیروز نخستین عمل پیوند قلب این استان را با موفقیت انجام دادند.",
+   "texts": {
+    "A1": "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند.",
+    "E1": "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند.",
+    "E5": "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند."
+   }
+  },
+  {
+   "id": "e07",
+   "category": "narrative",
+   "text": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌های بالکن را آب می‌دهد.",
+   "texts": {
+    "A1": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد.",
+    "E1": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد.",
+    "E5": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد."
+   }
+  },
+  {
+   "id": "e08",
+   "category": "narrative",
+   "text": "پسر همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد.",
+   "texts": {
+    "A1": "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد.",
+    "E1": "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد.",
+    "E5": "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد."
+   }
+  },
+  {
+   "id": "e09",
+   "category": "narrative",
+   "text": "بعد از شام پدربزرگ برای همه چای ریخت و از خاطره‌های جوانی‌اش گفت.",
+   "texts": {
+    "A1": "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت.",
+    "E1": "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت.",
+    "E5": "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت."
+   }
+  },
+  {
+   "id": "e10",
+   "category": "narrative",
+   "text": "امروز عصر خواهر کوچکم نقاشی تازه‌اش را با ذوق به همه نشان داد.",
+   "texts": {
+    "A1": "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد.",
+    "E1": "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد.",
+    "E5": "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد."
+   }
+  },
+  {
+   "id": "e11",
+   "category": "narrative",
+   "text": "راننده اتوبوس وسط راه ایستاد و از مسافران خواست کمربندهایشان را ببندند.",
+   "texts": {
+    "A1": "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند.",
+    "E1": "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند.",
+    "E5": "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند."
+   }
+  },
+  {
+   "id": "e12",
+   "category": "narrative",
+   "text": "دوستم سال گذشته مغازه کوچکی در بازار باز کرد و حالا مشتری‌های زیادی دارد.",
+   "texts": {
+    "A1": "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد.",
+    "E1": "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد.",
+    "E5": "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد."
+   }
+  }
+ ],
+ "events": [
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 12,
+   "other_changes_by_the_app": [],
+   "form": "A1"
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice",
+   "form": "A1"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true,
+   "form": "A1"
+  },
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 12,
+   "other_changes_by_the_app": [],
+   "form": "E1"
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice",
+   "form": "E1"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true,
+   "form": "E1"
+  },
+  {
+   "event": "marks_checked_through_the_text_pipeline",
+   "inputs": 12,
+   "other_changes_by_the_app": [],
+   "form": "E5"
+  },
+  {
+   "event": "released",
+   "engine": "omnivoice",
+   "form": "E5"
+  },
+  {
+   "event": "cer_started",
+   "engines_unloaded": true,
+   "form": "E5"
+  },
+  {
+   "event": "fetched_from_kaggle",
+   "session": "marsmanam/persian-voice-ezafe-check-run",
+   "collected": "2026-10-29T08:20:26+00:00"
+  }
+ ],
+ "renders": [
+  {
+   "id": "e01",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e01_A1.wav",
+   "skipped": null,
+   "duration_s": 7.318,
+   "used_phonemes": false,
+   "fed_texts": [
+    "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.948,
+    "text": 0.002,
+    "load": 19.199,
+    "synthesis": 5.025
+   },
+   "asr_text": "وزارت نیرو اعلام کرده مصرف برق خانگی در تابستان امسال 8 درصد کم تر از پار سال بوده است.",
+   "cer": 0.057971014492753624,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e01_A1.wav"
+  },
+  {
+   "id": "e02",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e02_A1.wav",
+   "skipped": null,
+   "duration_s": 6.732,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.067
+   },
+   "asr_text": "معموران گمرک بندر عباس هفته گذشته محموله بزرگی از لوازم خانگی قاچاخ را کشف کردن.",
+   "cer": 0.045454545454545456,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e02_A1.wav"
+  },
+  {
+   "id": "e03",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e03_A1.wav",
+   "skipped": null,
+   "duration_s": 6.298,
+   "used_phonemes": false,
+   "fed_texts": [
+    "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.055
+   },
+   "asr_text": "تیم ملی والی بال ایران شب گذشته دردیداری نفسگیر حریف جاپنی خود را شکست داد.",
+   "cer": 0.016666666666666666,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e03_A1.wav"
+  },
+  {
+   "id": "e04",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e04_A1.wav",
+   "skipped": null,
+   "duration_s": 5.062,
+   "used_phonemes": false,
+   "fed_texts": [
+    "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.723
+   },
+   "asr_text": "هفته پیش قیمت خدروهای داخلی در بازار تهران دوباره بالا رفت.",
+   "cer": 0.02040816326530612,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e04_A1.wav"
+  },
+  {
+   "id": "e05",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e05_A1.wav",
+   "skipped": null,
+   "duration_s": 7.699,
+   "used_phonemes": false,
+   "fed_texts": [
+    "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.359
+   },
+   "asr_text": "سازمان هواشناسی برای روزهای پایانی هفته در استانهای شمالی باران شدید پیشبینی کرده است.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e05_A1.wav"
+  },
+  {
+   "id": "e06",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e06_A1.wav",
+   "skipped": null,
+   "duration_s": 7.77,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.359
+   },
+   "asr_text": "پزشکان بیمارستان کودکان شیراز دیروز نخستین عمل پیوند قلب این استان را با موفقیت انجام دادن.",
+   "cer": 0.013157894736842105,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e06_A1.wav"
+  },
+  {
+   "id": "e07",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e07_A1.wav",
+   "skipped": null,
+   "duration_s": 5.462,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.916
+   },
+   "asr_text": "مادرم هر روز صبح قبل از رفتن به اداره گلدانهای بولکون را آب می دهد.",
+   "cer": 0.0392156862745098,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e07_A1.wav"
+  },
+  {
+   "id": "e08",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e08_A1.wav",
+   "skipped": null,
+   "duration_s": 5.34,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.975
+   },
+   "asr_text": "پسر همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می کرد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e08_A1.wav"
+  },
+  {
+   "id": "e09",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e09_A1.wav",
+   "skipped": null,
+   "duration_s": 5.302,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.024
+   },
+   "asr_text": "بعد از شام پدر بزرگ برای همه چای ریخت و از خاطره های جوانیش گفت.",
+   "cer": 0.02,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e09_A1.wav"
+  },
+  {
+   "id": "e10",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e10_A1.wav",
+   "skipped": null,
+   "duration_s": 5.036,
+   "used_phonemes": false,
+   "fed_texts": [
+    "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 3.926
+   },
+   "asr_text": "امروز عصر خوهر کوچکم نقاشی تازه اش را با زوق به همه نشان داد.",
+   "cer": 0.041666666666666664,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e10_A1.wav"
+  },
+  {
+   "id": "e11",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e11_A1.wav",
+   "skipped": null,
+   "duration_s": 6.002,
+   "used_phonemes": false,
+   "fed_texts": [
+    "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.197
+   },
+   "asr_text": "راننده اوتوبوس وسط راه ایستاد و از مسافران خاست کمربندهایشان را ببندند.",
+   "cer": 0.03389830508474576,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e11_A1.wav"
+  },
+  {
+   "id": "e12",
+   "condition": "A1",
+   "engine": "omnivoice",
+   "input_text": "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e12_A1.wav",
+   "skipped": null,
+   "duration_s": 6.113,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.232
+   },
+   "asr_text": "دوستم سال گذشته مغازه کچکی در بازار باز کرد و حالا مشتری های زیادی دارد.",
+   "cer": 0.017241379310344827,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/A1/wavs/e12_A1.wav"
+  },
+  {
+   "id": "e01",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e01_E1.wav",
+   "skipped": null,
+   "duration_s": 6.917,
+   "used_phonemes": false,
+   "fed_texts": [
+    "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.514,
+    "text": 0.002,
+    "load": 19.303,
+    "synthesis": 5.921
+   },
+   "asr_text": "وزارت نیرو اعلام کرد مصرف برق خانگی در تابستان امسال 8 درصد کمتر از پار سال بوده است.",
+   "cer": 0.043478260869565216,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e01_E1.wav"
+  },
+  {
+   "id": "e02",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e02_E1.wav",
+   "skipped": null,
+   "duration_s": 6.704,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.003,
+    "load": 0.0,
+    "synthesis": 4.423
+   },
+   "asr_text": "مهموران گمروک بندر عباس هفته گذشته محموله بزرگی از لوازم خانگی قاچاق را کشف کردن.",
+   "cer": 0.045454545454545456,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e02_E1.wav"
+  },
+  {
+   "id": "e03",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e03_E1.wav",
+   "skipped": null,
+   "duration_s": 6.469,
+   "used_phonemes": false,
+   "fed_texts": [
+    "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.389
+   },
+   "asr_text": "تیم ملی والی بال ایران شب گذشته در دیداری نفسگیر حریف جاپنی خود را شکست داد.",
+   "cer": 0.016666666666666666,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e03_E1.wav"
+  },
+  {
+   "id": "e04",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e04_E1.wav",
+   "skipped": null,
+   "duration_s": 4.98,
+   "used_phonemes": false,
+   "fed_texts": [
+    "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.053
+   },
+   "asr_text": "هفته پیش قیمت خدروهای داخلی در بازار تهران دوباره بالا رفت.",
+   "cer": 0.02040816326530612,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e04_E1.wav"
+  },
+  {
+   "id": "e05",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e05_E1.wav",
+   "skipped": null,
+   "duration_s": 7.682,
+   "used_phonemes": false,
+   "fed_texts": [
+    "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.832
+   },
+   "asr_text": "سازمان هواشناسی برای روزهای پایانی هفته در استانهای شمالی باران شدید پیشبینی کرده است.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e05_E1.wav"
+  },
+  {
+   "id": "e06",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e06_E1.wav",
+   "skipped": null,
+   "duration_s": 7.879,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.858
+   },
+   "asr_text": "پزشکان بیمارستان کودکان شیراز دیروز نخستین عمل پیوند قلب این استان را با موفقیت انجام دادند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e06_E1.wav"
+  },
+  {
+   "id": "e07",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e07_E1.wav",
+   "skipped": null,
+   "duration_s": 5.373,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.396
+   },
+   "asr_text": "مادرم هر روز صبح قبل از رفتن به اداره گلدانهای بالکون را آب می دهد.",
+   "cer": 0.0196078431372549,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e07_E1.wav"
+  },
+  {
+   "id": "e08",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e08_E1.wav",
+   "skipped": null,
+   "duration_s": 5.272,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.453
+   },
+   "asr_text": "پسر همسایی دیشب تا دیروه قطع در کوچه با دوستانش فوتبال بازی می کرد.",
+   "cer": 0.0784313725490196,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e08_E1.wav"
+  },
+  {
+   "id": "e09",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e09_E1.wav",
+   "skipped": null,
+   "duration_s": 5.312,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.582
+   },
+   "asr_text": "بعد از شام پدر بزرگ برای همه چای ریخت و از خاطره های جوانیش گفت.",
+   "cer": 0.02,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e09_E1.wav"
+  },
+  {
+   "id": "e10",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e10_E1.wav",
+   "skipped": null,
+   "duration_s": 4.881,
+   "used_phonemes": false,
+   "fed_texts": [
+    "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.549
+   },
+   "asr_text": "امروز اصر خوهر کوچکم نقاشی تازه اش را با زوق به همه نشان داد.",
+   "cer": 0.0625,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e10_E1.wav"
+  },
+  {
+   "id": "e11",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e11_E1.wav",
+   "skipped": null,
+   "duration_s": 6.003,
+   "used_phonemes": false,
+   "fed_texts": [
+    "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.736
+   },
+   "asr_text": "راننده اوتوبوس وسط راه ایستاد و از مسافران خواست کمرربندهایشان را ببندند.",
+   "cer": 0.03389830508474576,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e11_E1.wav"
+  },
+  {
+   "id": "e12",
+   "condition": "E1",
+   "engine": "omnivoice",
+   "input_text": "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e12_E1.wav",
+   "skipped": null,
+   "duration_s": 6.107,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.688
+   },
+   "asr_text": "دوستم سال گذشته مغازه کوچکی در بازار باز کرد و حالا مشتری های زیادی دارد.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E1/wavs/e12_E1.wav"
+  },
+  {
+   "id": "e01",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e01_E5.wav",
+   "skipped": null,
+   "duration_s": 7.105,
+   "used_phonemes": false,
+   "fed_texts": [
+    "وزارتِ نیرو اعلام کَرد مصرفِ برقِ خانگی در تابستانِ امسال هشت درصد کمتر از پارسال بوده است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 1.431,
+    "text": 0.002,
+    "load": 17.855,
+    "synthesis": 5.13
+   },
+   "asr_text": "وزارت نیرو اعلام کرد مصرف برق خانگی در تابستان امسال 8 درصد کمتر از پار سال بوده است.",
+   "cer": 0.043478260869565216,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e01_E5.wav"
+  },
+  {
+   "id": "e02",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e02_E5.wav",
+   "skipped": null,
+   "duration_s": 6.703,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مأمورانِ گمرکِ بندرعباس هفتهٔ گذشته محمولهٔ بزرگی از لوازمِ خانگیِ قاچاق را کشف کردند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.537
+   },
+   "asr_text": "معموران گمرک بندر عباس هفته گذشته محموله بزرگی از لوازم خانگی قاچاق را کشف کردن.",
+   "cer": 0.030303030303030304,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e02_E5.wav"
+  },
+  {
+   "id": "e03",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e03_E5.wav",
+   "skipped": null,
+   "duration_s": 6.307,
+   "used_phonemes": false,
+   "fed_texts": [
+    "تیمِ ملیِ والیبالِ ایران شبِ گذشته در دیداری نفس‌گیر حریفِ ژاپنیِ خود را شکست داد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.532
+   },
+   "asr_text": "تیم ملی والی بال ایران شب گذشته در دیداری نفسگیر حریف جاپونی خود را شکست داد.",
+   "cer": 0.03333333333333333,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e03_E5.wav"
+  },
+  {
+   "id": "e04",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e04_E5.wav",
+   "skipped": null,
+   "duration_s": 4.992,
+   "used_phonemes": false,
+   "fed_texts": [
+    "هفتهٔ پیش قیمتِ خودروهایِ داخلی در بازارِ تهران دوباره بالا رفت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.214
+   },
+   "asr_text": "هفته پیش قیمت خدروهای داخلی در بازار تهران دوباره بالا رفت.",
+   "cer": 0.02040816326530612,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e04_E5.wav"
+  },
+  {
+   "id": "e05",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e05_E5.wav",
+   "skipped": null,
+   "duration_s": 7.594,
+   "used_phonemes": false,
+   "fed_texts": [
+    "سازمانِ هواشناسی برایِ روزهایِ پایانیِ هفته در استان‌هایِ شمالی بارانِ شَدید پیش‌بینی کرده است."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.068
+   },
+   "asr_text": "سازمان هواشناسی برای روزهای پایانی هفته در استانهای شمالی باران شدید پیشبینی کرده است.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e05_E5.wav"
+  },
+  {
+   "id": "e06",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e06_E5.wav",
+   "skipped": null,
+   "duration_s": 7.869,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پزشکانِ بیمارستانِ کودکانِ شیراز دیروز نخستین عملِ پیوندِ قلبِ این استان را با موفقیت انجام دادند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 5.071
+   },
+   "asr_text": "پزشکان بیمارستان کودکان شیراز دیروز نخستین عمل پیوند قلب این استان را با موفقیت انجام دادند.",
+   "cer": 0.0,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e06_E5.wav"
+  },
+  {
+   "id": "e07",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e07_E5.wav",
+   "skipped": null,
+   "duration_s": 5.157,
+   "used_phonemes": false,
+   "fed_texts": [
+    "مادرم هر روز صبح قبل از رفتن به اداره گلدان‌هایِ بالکن را آب می‌دهد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.579
+   },
+   "asr_text": "مادرم هر روز صبح قبل از رفتن به اداره گلدانهای بولکون را آب می دهد.",
+   "cer": 0.0392156862745098,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e07_E5.wav"
+  },
+  {
+   "id": "e08",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e08_E5.wav",
+   "skipped": null,
+   "duration_s": 5.469,
+   "used_phonemes": false,
+   "fed_texts": [
+    "پسرِ همسایه دیشب تا دیروقت در کوچه با دوستانش فوتبال بازی می‌کرد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.663
+   },
+   "asr_text": "پسر همسای دیشب تا دیروه قط در کوچه با دوستانش فوتبال بازی می کرد.",
+   "cer": 0.058823529411764705,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e08_E5.wav"
+  },
+  {
+   "id": "e09",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e09_E5.wav",
+   "skipped": null,
+   "duration_s": 5.16,
+   "used_phonemes": false,
+   "fed_texts": [
+    "بَعد از شام پدربزرگ برایِ همه چای ریخت و از خاطره‌هایِ جوانی‌اش گفت."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.632
+   },
+   "asr_text": "بعد از شام پدر بزرگ برای همه چای ریخت و از خاطره های جوانیش گفت.",
+   "cer": 0.02,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e09_E5.wav"
+  },
+  {
+   "id": "e10",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e10_E5.wav",
+   "skipped": null,
+   "duration_s": 4.868,
+   "used_phonemes": false,
+   "fed_texts": [
+    "امروز عصر خواهرِ کوچکم نقاشیِ تازه‌اش را با ذوق به همه نشان داد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.404
+   },
+   "asr_text": "امروز اصر خوهر کوچکم نقاشی تازه اش را با زوغ به همه نشان داد.",
+   "cer": 0.08333333333333333,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e10_E5.wav"
+  },
+  {
+   "id": "e11",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e11_E5.wav",
+   "skipped": null,
+   "duration_s": 5.934,
+   "used_phonemes": false,
+   "fed_texts": [
+    "رانندهٔ اتوبوس وسطِ راه ایستاد و از مسافران خواست کمربندهایشان را ببندند."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.556
+   },
+   "asr_text": "راننده اوتوبوس و سطح راه استاد و از مسافران خواست کمره بندهایشان را ببندند.",
+   "cer": 0.06779661016949153,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e11_E5.wav"
+  },
+  {
+   "id": "e12",
+   "condition": "E5",
+   "engine": "omnivoice",
+   "input_text": "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد.",
+   "use_phonemes_requested": false,
+   "seed": 42,
+   "reference": "mana_000.wav",
+   "wav": "eval/runs/ezafe-check-v1/wavs/e12_E5.wav",
+   "skipped": null,
+   "duration_s": 6.116,
+   "used_phonemes": false,
+   "fed_texts": [
+    "دوستم سالِ گذشته مغازهٔ کوچکی در بازار باز کَرد و حالا مشتری‌هایِ زیادی دارد."
+   ],
+   "notes": [],
+   "warnings": [],
+   "timings": {
+    "reference": 0.0,
+    "text": 0.002,
+    "load": 0.0,
+    "synthesis": 4.484
+   },
+   "asr_text": "دوست هم سال گذشته مغازه کوچکی در بازار باز کرد و حالا مشتری های زیادی دارد.",
+   "cer": 0.017241379310344827,
+   "kaggle_wav": "/kaggle/working/repo/eval/runs/ezafe-check-v1/E5/wavs/e12_E5.wav"
+  }
+ ]
+}

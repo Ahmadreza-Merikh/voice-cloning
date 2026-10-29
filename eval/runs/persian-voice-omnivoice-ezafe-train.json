@@ -158,7 +158,15 @@
    "kernel": "marsmanam/persian-voice-ezafe-check-run, version 1",
    "pushed": "2026-10-28 23:04:40 UTC; RUNNING at 23:05:05",
    "built_from": "f5a26d9: step 3's code dataset (e1d96e4), the notebook writing the registered texts itself; A1 from train-a's run/export-1000-float16 (its sha256 checked against the app's), E1 from ezafe-a's run/export-1000-float16, E5 from ezafe-c's run/export-5000-float16; scripts/render_frontend_conditions.py once per form with --cer --app-normaliser, seed 42, mana_000.wav",
-   "quota_before": "7.46 GPU-hours left this week"
+   "quota_before": "7.46 GPU-hours left this week",
+   "ended": "COMPLETE: the renders ran 23:10 to 23:15 UTC (A1 102 s, E1 91 s, E5 88 s); this Mac's watcher lost the network at 23:28 and read COMPLETE at 08:08:43 UTC on 2026-10-29",
+   "gates": "runner, code (e1d96e4), download (the base, 3.04 GiB), weights, renders-A1, renders-E1, renders-E5 - all passed; 12 renders scored per form, each run reading with the weights it was given, no other change to any text by the app",
+   "weights": {
+    "A1": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16, model.safetensors sha256 9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a",
+    "E1": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16, model.safetensors sha256 136aac641d2e04c24c8c081bcefd8ceccf310969b065ef510a5fc2903d720e2b",
+    "E5": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16, model.safetensors sha256 1ecbaa58e2cf3efb753714818c974f1027b61c1564e54b489fc5f23af3595a4e"
+   },
+   "after": "renders brought in by scripts/collect_adapted_renders.py (eval/runs/ezafe-check-v1/manifest.json); held-out similarity scored on this Mac (eval/runs/evidence/ezafe-check-v1/similarity.json); the blind page built with rotations (each form four times in each slot; key eval/runs/evidence/ezafe-review-v1/key.json) - CER and similarity kept from the listener"
   }
  }
 }

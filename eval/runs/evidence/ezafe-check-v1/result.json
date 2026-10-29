@@ -1,0 +1,57 @@
+{
+  "renders": {
+    "A1": {
+      "rendered": 12,
+      "scored": 12,
+      "weights": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+      "worker": [
+        "23:10:42 INFO     OmniVoice ready (cuda, float16, 24000 Hz)"
+      ],
+      "mean_cer": 0.0255,
+      "other_changes_by_the_app": []
+    },
+    "E1": {
+      "rendered": 12,
+      "scored": 12,
+      "weights": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16",
+      "worker": [
+        "23:12:23 INFO     OmniVoice ready (cuda, float16, 24000 Hz)"
+      ],
+      "mean_cer": 0.0284,
+      "other_changes_by_the_app": []
+    },
+    "E5": {
+      "rendered": 12,
+      "scored": 12,
+      "weights": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16",
+      "worker": [
+        "23:13:52 INFO     OmniVoice ready (cuda, float16, 24000 Hz)"
+      ],
+      "mean_cer": 0.0345,
+      "other_changes_by_the_app": []
+    }
+  },
+  "weights": {
+    "A1": {
+      "path": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+      "found": [
+        "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16"
+      ],
+      "model_sha256": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"
+    },
+    "E1": {
+      "path": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16",
+      "found": [
+        "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16"
+      ],
+      "model_sha256": "136aac641d2e04c24c8c081bcefd8ceccf310969b065ef510a5fc2903d720e2b"
+    },
+    "E5": {
+      "path": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16",
+      "found": [
+        "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16"
+      ],
+      "model_sha256": "1ecbaa58e2cf3efb753714818c974f1027b61c1564e54b489fc5f23af3595a4e"
+    }
+  }
+}

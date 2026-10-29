@@ -1,0 +1,223 @@
+{
+ "measure": "held-out ECAPA similarity, speechbrain via voiceclone.evaluation.embedding.CachedEmbedder",
+ "backend": "speechbrain-ecapa",
+ "reference": "mana_000.wav",
+ "held_out": [
+  "mana_001.wav",
+  "mana_002.wav",
+  "mana_003.wav",
+  "mana_004.wav"
+ ],
+ "speaker_own_clips_mean": 0.753,
+ "summary": {
+  "A1": {
+   "held_out_mean": 0.6314
+  },
+  "E1": {
+   "held_out_mean": 0.6229,
+   "minus_A1": [
+    -0.0085,
+    -0.0216,
+    0.0049
+   ]
+  },
+  "E5": {
+   "held_out_mean": 0.6086,
+   "minus_A1": [
+    -0.0229,
+    -0.0404,
+    -0.0045
+   ]
+  }
+ },
+ "contrasts": {
+  "E1": {
+   "spec": "E1=E1-A1",
+   "mean_low_high": [
+    -0.0085,
+    -0.0216,
+    0.0049
+   ],
+   "wholly_below_zero": false
+  },
+  "E5": {
+   "spec": "E5=E5-A1",
+   "mean_low_high": [
+    -0.0229,
+    -0.0404,
+    -0.0045
+   ],
+   "wholly_below_zero": true
+  }
+ },
+ "per_sentence": {
+  "e01": {
+   "A1": {
+    "held_out": 0.5937,
+    "prompt": 0.8046
+   },
+   "E1": {
+    "held_out": 0.5693,
+    "prompt": 0.7698
+   },
+   "E5": {
+    "held_out": 0.5758,
+    "prompt": 0.8032
+   }
+  },
+  "e02": {
+   "A1": {
+    "held_out": 0.6179,
+    "prompt": 0.8302
+   },
+   "E1": {
+    "held_out": 0.6364,
+    "prompt": 0.847
+   },
+   "E5": {
+    "held_out": 0.6509,
+    "prompt": 0.8502
+   }
+  },
+  "e03": {
+   "A1": {
+    "held_out": 0.6295,
+    "prompt": 0.819
+   },
+   "E1": {
+    "held_out": 0.6413,
+    "prompt": 0.8311
+   },
+   "E5": {
+    "held_out": 0.6279,
+    "prompt": 0.8342
+   }
+  },
+  "e04": {
+   "A1": {
+    "held_out": 0.5922,
+    "prompt": 0.7736
+   },
+   "E1": {
+    "held_out": 0.5937,
+    "prompt": 0.7979
+   },
+   "E5": {
+    "held_out": 0.5426,
+    "prompt": 0.8251
+   }
+  },
+  "e05": {
+   "A1": {
+    "held_out": 0.6589,
+    "prompt": 0.8388
+   },
+   "E1": {
+    "held_out": 0.6716,
+    "prompt": 0.8423
+   },
+   "E5": {
+    "held_out": 0.6728,
+    "prompt": 0.85
+   }
+  },
+  "e06": {
+   "A1": {
+    "held_out": 0.6478,
+    "prompt": 0.8337
+   },
+   "E1": {
+    "held_out": 0.6212,
+    "prompt": 0.8088
+   },
+   "E5": {
+    "held_out": 0.602,
+    "prompt": 0.8373
+   }
+  },
+  "e07": {
+   "A1": {
+    "held_out": 0.608,
+    "prompt": 0.7917
+   },
+   "E1": {
+    "held_out": 0.6397,
+    "prompt": 0.8152
+   },
+   "E5": {
+    "held_out": 0.621,
+    "prompt": 0.8028
+   }
+  },
+  "e08": {
+   "A1": {
+    "held_out": 0.6258,
+    "prompt": 0.8397
+   },
+   "E1": {
+    "held_out": 0.6111,
+    "prompt": 0.854
+   },
+   "E5": {
+    "held_out": 0.5617,
+    "prompt": 0.8343
+   }
+  },
+  "e09": {
+   "A1": {
+    "held_out": 0.637,
+    "prompt": 0.8513
+   },
+   "E1": {
+    "held_out": 0.631,
+    "prompt": 0.8163
+   },
+   "E5": {
+    "held_out": 0.5887,
+    "prompt": 0.8274
+   }
+  },
+  "e10": {
+   "A1": {
+    "held_out": 0.6228,
+    "prompt": 0.8047
+   },
+   "E1": {
+    "held_out": 0.5853,
+    "prompt": 0.7957
+   },
+   "E5": {
+    "held_out": 0.5884,
+    "prompt": 0.8197
+   }
+  },
+  "e11": {
+   "A1": {
+    "held_out": 0.6559,
+    "prompt": 0.8396
+   },
+   "E1": {
+    "held_out": 0.607,
+    "prompt": 0.8118
+   },
+   "E5": {
+    "held_out": 0.5896,
+    "prompt": 0.7968
+   }
+  },
+  "e12": {
+   "A1": {
+    "held_out": 0.6874,
+    "prompt": 0.8479
+   },
+   "E1": {
+    "held_out": 0.6675,
+    "prompt": 0.8303
+   },
+   "E5": {
+    "held_out": 0.6813,
+    "prompt": 0.862
+   }
+  }
+ }
+}

@@ -1,6 +1,6 @@
 {
  "run": "the ezafe-marked adaptation: OmniVoice trained on transcripts with the app's ezafe written in",
- "status": "registered 2026-10-27, before any transcript was marked and before any session; sessions a, b and c complete at steps 2,000, 4,000 and 5,000 - the recipe's end, reached 2026-10-28 22:50 UTC",
+ "status": "registered 2026-10-27, before any transcript was marked and before any session; sessions a, b and c complete at steps 2,000, 4,000 and 5,000; the check's 36 renders made and its blind page published 2026-10-29, waiting for the listener",
  "why": "the largest error left is an ezafe the model adds where none is written (FINDINGS sections 19, 21, 22): pirʔe, madrese-ye, kaghazi-ye, bargh-e in every form of every recent check. Text-side fixes cannot stop it: a sukun failed twice (sections 15, 17) and marks on every word made reading worse (section 21). The model learned from transcripts where the ezafe is never written, so it guesses it. If every ezafe in its training text is written, an unmarked word should mean no ezafe - which is the convention the app's text already follows",
  "design": {
   "only_difference": "the transcripts. Everything else is the adaptation run's (eval/runs/persian-voice-omnivoice-adapt.json): the same train and valid clips (87,499 and 2,251; adaptation_splits_v1), the same audio tokens - session train-a's shards, mounted and read unchanged - the same official recipe and code (SDPA config at k2-fsa/OmniVoice 08be0b4c, 5,000 steps at 8,192 tokens per GPU on two T4s, lr 1e-5, the persian-voice-eval code dataset, checkpointing and DDP bucket views), started from the published weights, a float16 export every 1,000 steps",
@@ -167,6 +167,7 @@
     "E5": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16, model.safetensors sha256 1ecbaa58e2cf3efb753714818c974f1027b61c1564e54b489fc5f23af3595a4e"
    },
    "after": "renders brought in by scripts/collect_adapted_renders.py (eval/runs/ezafe-check-v1/manifest.json); held-out similarity scored on this Mac (eval/runs/evidence/ezafe-check-v1/similarity.json); the blind page built with rotations (each form four times in each slot; key eval/runs/evidence/ezafe-review-v1/key.json) - CER and similarity kept from the listener"
-  }
+  },
+  "page": "https://claude.ai/artifact/CtJ82BXsAyWn7rhir5Wjsa (contract 0.2.92, db and user; published 2026-10-29 08:22 UTC from listening/ezafe-review-v1/index.html, a copy in eval/runs/evidence/ezafe-review-v1/page.html; 36 wavs and the page, checked by listing the published files)"
  }
 }

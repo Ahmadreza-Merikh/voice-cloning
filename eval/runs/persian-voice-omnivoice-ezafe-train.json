@@ -216,7 +216,13 @@
     "where_the_difference_is": "by the listener's notes, the ezafe nobody wrote: A1 said one on 10 words - nine traps (درصد darsade, ایران irane, پیش pishe, شیراز shiraze, شام shame, عصر asre, اتوبوس otooboose, راه raahe, مسافران mosaaferane) and the verb کرد (karde) - and E1 and E5 on none. An e inside a compound: A1 on نفس‌گیر (nafsegir), E1 on نفس‌گیر (nafasegir) and دیروقت (direveghat), E5 on دیروقت. The other marks are short vowels inside words: بندرعباس in all three forms (bender ebas, bender abas), ژاپنی and کوچکم in A1 and E1, گمرک and دیروقت (diroghat) in A1, کمربندهایشان in E1 and E5. The trap counts take بندرعباس, a vowel error, as a trap marked in every form",
     "the_losses": "train and validation losses of the E run stayed beside the A run's throughout, as recorded per session; the listening shows what the losses could not"
    },
-   "not_claimed": "one listener, one voice (mana), one seed, 165 words; similarity measured on that voice only"
+   "not_claimed": "one listener, one voice (mana), one seed, 165 words; similarity measured on that voice only",
+   "read_after_the_decision": {
+    "asked": "2026-11-01: the user asked why E5's similarity is lower than E1's",
+    "measured": "the same renders scored again on this Mac with E5 against E1 (eval/runs/evidence/ezafe-check-v1/similarity-e5-e1.json; the registered similarity.json untouched): held-out E5-E1 -0.0144 [-0.0270, -0.0022], wholly below zero on this voice; E5 below E1 on 7 of 12 sentences, most of the gap from e04, e08 and e09. Against the prompt clip itself (mana_000) the order turns round: A1 0.823, E1 0.818, E5 0.829, E5 above E1 on 9 of 12",
+    "read_in_the_code": "the official sample processor (omnivoice/data/processor.py at 08be0b4) takes the prompt as the first part of the same clip and the loss on the rest, so training rewards continuing the prompt's recording - its microphone and room as well as the voice",
+    "reading": "a guess, not shown: the longer the E run trains, the closer it copies the prompt clip and the further it sits from the speaker's other recordings, which is what held-out similarity measures. The A run did not show it on its check (A5 0.590, A1 0.580), so one voice and one seed may be part of it; only many voices would tell"
+   }
   }
  }
 }

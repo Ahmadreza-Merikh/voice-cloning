@@ -22,7 +22,7 @@ from voiceclone.engines.omnivoice_tts import PUBLISHED_MODEL_ID, OmniVoiceEngine
 from voiceclone.errors import EngineNotAvailableError
 from voiceclone.pipelines.studio import Studio
 
-SHA = "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"
+SHA = "136aac641d2e04c24c8c081bcefd8ceccf310969b065ef510a5fc2903d720e2b"
 
 
 def export(folder: Path, sha: str = SHA, verified: bool = True, size: int = 7) -> Path:

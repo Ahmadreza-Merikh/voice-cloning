@@ -4,8 +4,11 @@
 What goes in is the app's runtime and nothing of the research around it:
 ``app.py``, ``src/voiceclone`` without the experimental engines and the
 benchmark recipe, the OmniVoice worker, a configuration without their
-sections, a Persian README, the requirements, and the E5 weights under
-``models/omnivoice-fa``. Every Python file loses its comments and docstrings,
+sections, a Persian README, the requirements, the E5 weights under
+``models/omnivoice-fa``, and under ``g2p`` the homograph reader from
+``~/Desktop/G2P Research``: only the files it opens at runtime, with the few
+rules it took from that project's dataset.py. Every Python file of ours loses
+its comments and docstrings,
 and the build stops unless each file's syntax tree, docstrings aside, is the
 same before and after.
 

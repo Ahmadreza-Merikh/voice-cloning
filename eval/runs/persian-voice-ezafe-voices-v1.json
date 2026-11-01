@@ -23,5 +23,11 @@
  "read_beside_it_not_for_the_decision": "E1 and E5 against A1 the same way: if either lies wholly below zero it is said, and whether to go back to A1 is the user's call (the listening check heard A1 say 16 words wrong to E1's 6); every pair's CER; each interval beside compare_runs.py's practical reference of 0.0205",
  "reading_code": "scripts/read_ezafe_voices.py, with tests/test_read_ezafe_voices.py, written before any render",
  "not_claimed": "one seed; Neyshekar's read speech; similarity as ECAPA measures it; nobody listens in this check",
- "cost": "Kaggle: one session, about 3 h on the T4 pair (900 renders and their scoring) of this week's 30 h"
+ "cost": "Kaggle: one session, about 3 h on the T4 pair (900 renders and their scoring) of this week's 30 h",
+ "session": {
+  "kernel": "marsmanam/persian-voice-ezafe-voices-run, version 1",
+  "pushed": "2026-11-01 14:38:47 UTC; RUNNING at 14:39:11",
+  "built_from": "8f2f7f5",
+  "quota_before": "30 GPU-hours this week (refreshed 2026-10-31), none used"
+ }
 }

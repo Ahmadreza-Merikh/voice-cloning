@@ -1,6 +1,6 @@
 {
  "run": "the ezafe-marked adaptation: OmniVoice trained on transcripts with the app's ezafe written in",
- "status": "registered 2026-10-27, before any transcript was marked and before any session; sessions a, b and c complete; the check heard 2026-11-01 and the app reads with E1; E5, flagged on similarity, is being checked on many voices at the user's request (eval/runs/persian-voice-ezafe-voices-v1.json)",
+ "status": "registered 2026-10-27, before any transcript was marked and before any session; sessions a, b and c complete; the check heard 2026-11-01 and the app read with E1; E5, flagged on similarity, was checked on 25 voices the same day at the user's request and the app reads with E5 since (eval/runs/persian-voice-ezafe-voices-v1.json)",
  "why": "the largest error left is an ezafe the model adds where none is written (FINDINGS sections 19, 21, 22): pirʔe, madrese-ye, kaghazi-ye, bargh-e in every form of every recent check. Text-side fixes cannot stop it: a sukun failed twice (sections 15, 17) and marks on every word made reading worse (section 21). The model learned from transcripts where the ezafe is never written, so it guesses it. If every ezafe in its training text is written, an unmarked word should mean no ezafe - which is the convention the app's text already follows",
  "design": {
   "only_difference": "the transcripts. Everything else is the adaptation run's (eval/runs/persian-voice-omnivoice-adapt.json): the same train and valid clips (87,499 and 2,251; adaptation_splits_v1), the same audio tokens - session train-a's shards, mounted and read unchanged - the same official recipe and code (SDPA config at k2-fsa/OmniVoice 08be0b4c, 5,000 steps at 8,192 tokens per GPU on two T4s, lr 1e-5, the persian-voice-eval code dataset, checkpointing and DDP bucket views), started from the published weights, a float16 export every 1,000 steps",
@@ -228,7 +228,8 @@
    "when": "2026-11-01, by the registered rule",
    "what": "engines.omnivoice.adapted_dir and adapted_sha256 name E1 (configs/default.yaml, src/voiceclone/config.py); weights: auto reads with it once fetched and verified, otherwise the published model with a warning naming the fetch script. A1's folder stays on disk",
    "fetched": "scripts/fetch_adapted_weights.py on this Mac: run/export-1000-float16/ from marsmanam/persian-voice-omnivoice-ezafe-a; model.safetensors 1,225,189,240 bytes, sha256 136aac641d2e04c24c8c081bcefd8ceccf310969b065ef510a5fc2903d720e2b - the one the check heard; the audio tokenizer the base's (fe7c5e87...); written 2026-11-01 14:34 UTC",
-   "tests": "653 passed, 1 skipped"
+   "tests": "653 passed, 1 skipped",
+   "since": "2026-11-01: the ezafe voices check moved the app to E5 (eval/runs/persian-voice-ezafe-voices-v1.json, FINDINGS section 24)"
   }
  }
 }

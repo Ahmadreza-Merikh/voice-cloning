@@ -290,7 +290,7 @@ class OmniVoiceEngine(TTSEngine):
                                   "weights": f"verified float16 copy, {copy[0]}"}
         if getattr(self, "_adapted", False):
             self._loaded_model = {"model": model, "revision": None,
-                                  "weights": f"the ezafe-marked adaptation's step-1,000 export, sha256 {settings.adapted_sha256}"}
+                                  "weights": f"the ezafe-marked adaptation's step-5,000 export, sha256 {settings.adapted_sha256}"}
         self._tempdir = tempfile.TemporaryDirectory(prefix="voiceclone_omnivoice_")
         if self._loaded_device != str(self.device.device) or self._loaded_dtype != settings.dtype:
             log.warning(

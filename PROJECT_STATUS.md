@@ -6,7 +6,31 @@ anything. No credentials.
 
 Last updated: 2026-11-01 +0330.
 
-## The ezafe check heard: the app reads with E1 (2026-11-01)
+## The voices check: the app reads with E5 (2026-11-01)
+
+FINDINGS section 24; `eval/runs/persian-voice-ezafe-voices-v1.json`, result
+recorded. A1, E1 and E5 each read the ezafe check's 12 sentences in 25 unseen
+voices, Neyshekar's validation speakers (900 renders, one Kaggle session of 95
+minutes):
+- held-out similarity: A1 0.6065, E1 0.6090, E5 0.6072
+- E5 - E1: -0.0018 [-0.0065, +0.0029]; neither E form below A1
+- mean CER: 4.61%, 4.09%, 3.81%
+
+By the registered rule the app reads with E5: the drop on the check's one voice
+does not show across voices. The session's gate on the weights could not pass
+(it read row metadata the benchmark never writes); the renders show instead that
+each run loaded its own weights (`scripts/same_renders.py`).
+
+**In the app:** `engines.omnivoice.weights: auto` reads with E5 from
+`~/.cache/persian-voice-cloning/omnivoice/adapted/omnivoice-fa-ezafe-5000-float16`,
+which `scripts/fetch_adapted_weights.py` fetches from ezafe-c's output and
+verifies by sha256 (`1ecbaa58...`). E1's and A1's folders stay on disk beside
+it, about 1.9 GB each.
+
+**Kaggle:** nothing running; about 28.4 GPU-hours left this week (refresh
+2026-11-07), by the sessions' lengths.
+
+## The ezafe check heard: the app read with E1 (2026-11-01)
 
 FINDINGS section 23; `eval/runs/persian-voice-omnivoice-ezafe-train.json`,
 result recorded. OmniVoice trained 5,000 steps on transcripts with the tagger's
@@ -20,18 +44,14 @@ By the registered rule the app reads with E1. E5 is flagged: its similarity on
 this voice is 0.023 below A1's, interval wholly below zero. It is not adopted
 without the user's say.
 
-**In the app:** `engines.omnivoice.weights: auto` reads with E1 from
-`~/.cache/persian-voice-cloning/omnivoice/adapted/omnivoice-fa-ezafe-1000-float16`,
-which `scripts/fetch_adapted_weights.py` fetches from ezafe-a's output and
-verifies by sha256 (`136aac64...`). A1's folder stays on disk beside it.
+**In the app:** E1 until the voices check above moved it to E5 the same day.
 
 **Listening pages from now on:** the "which reading was better" question takes
 more than one pick. The user asked on 2026-11-01: two readings were often
 equally right.
 
-**Next (the user's call):** E5 instead of E1. It has fewer errors (3 against
-6) and was picked best 8 times of 12, but its voice similarity is measurably
-lower; E1's is not.
+**Then:** the user asked for E5 to be tested on many voices; that is the voices
+check above.
 
 ## The XTTS check: ParsVoice-XTTS not adopted (2026-10-27)
 

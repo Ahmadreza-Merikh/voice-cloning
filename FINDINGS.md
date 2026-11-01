@@ -1740,4 +1740,57 @@ words against 2 and 1, is the largest difference any check has heard.
 once `scripts/fetch_adapted_weights.py` has fetched it from the E run's first
 session (`persian-voice-omnivoice-ezafe-a`, about 2 GB) and its sha256 matches
 the one this check heard. The app's text already writes the tagger's ezafe,
-the convention E was trained on.
+the convention E was trained on. Section 24 moved it to E5 the same day.
+
+## 24. Over 25 voices E5 keeps the voice as E1 does, and the app reads with it
+
+**The question.** Section 23 heard E5 read best but flagged it: on the check's
+one voice its held-out similarity was 0.023 below A1's and 0.014 below E1's,
+both intervals wholly below zero. That was one voice and one seed. Registered
+before any render (`eval/runs/persian-voice-ezafe-voices-v1.json`): the app
+takes E5 if, over many voices, the interval of E5's similarity minus E1's does
+not lie wholly below zero and its CER is not more than 2 points above E1's.
+
+**The voices.** Neyshekar's validation speakers: in no training split, not on
+OmniVoice's list of training data, never used to choose anything. 25 of its 26
+have a reference clip and four held-out clips by the test sets' rule
+(`scripts/prepare_valid_corpus.py`). The sealed test sets stay unused. Each form
+read the check's twelve sentences, as the app writes them, in each voice: 900
+renders in one Kaggle session of 95 minutes.
+
+| | held-out similarity | mean CER |
+|---|---|---|
+| A1, the first adaptation | 0.6065 | 4.61% |
+| E1, step 1,000, the app until now | **0.6090** | 4.09% |
+| E5, step 5,000 | 0.6072 | **3.81%** |
+
+**By the rule the app now reads with E5.**
+- Against E1, similarity: −0.0018 [−0.0065, +0.0029] over 25 speakers, E5
+  higher for 10.
+- Against E1, CER: 0.28 points lower [−0.54, −0.02].
+- Against A1, neither E form is lower: E1 +0.0024 [−0.0018, +0.0067], E5 +0.0007
+  [−0.0058, +0.0071].
+
+Every interval sits well inside the 0.0205 reference line. The drop heard on
+one voice does not show across 25. Nor does E5 sit nearer the prompt clip
+across voices (0.757 against E1's 0.761), so the guess that it copies the
+prompt recording more closely is not borne out.
+
+**One gate failed, and was replaced.** The session's gate on the weights read
+each row's `metadata.model`, which `scripts/benchmark.py` never writes. So it
+could not pass for any weights. It was not tried on a real result file before
+the push. What shows instead that each form ran its own weights:
+- Seed 42 renders bit-identically on the GPU (section 15), so runs on the same
+  weights agree on every row.
+- E1 and E5, whose runs differ only in the variable that names the weights,
+  agree on none of 300 rows (`scripts/same_renders.py`).
+- Each export's sha256 was checked in the session.
+
+**What it does not say.** One seed, read speech, and similarity as ECAPA
+measures it. CER strips the marks, so it does not hear the ezafe: that was
+judged by ear in section 23, where E5 said 3 words wrong of 165 against E1's 6.
+
+**In the app.** OmniVoice reads with E5 (`engines.omnivoice.weights: auto`)
+once `scripts/fetch_adapted_weights.py` has fetched it from the E run's last
+session (`persian-voice-omnivoice-ezafe-c`, about 2 GB) and its sha256 matches
+the one both checks rendered. E1's and A1's folders stay on disk.

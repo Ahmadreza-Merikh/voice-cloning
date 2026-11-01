@@ -55,12 +55,14 @@ This project fixes each of them **before** the model sees the text:
    against 12 without (FINDINGS §15). The tagger runs without spaCy, in about
    0.9 GB, loaded for one text at a time (`text.ezafe` in the config).
 5. The engine synthesises from normalised Persian script. OmniVoice reads it with
-   weights adapted on Persian transcripts with every ezafe written, at step 1,000,
+   weights adapted on Persian transcripts with every ezafe written, at step 5,000,
    once they are on the machine (`.venv/bin/python scripts/fetch_adapted_weights.py`,
-   about 2 GB): heard blind, they said 6 words of 165 wrong against 16 for the first
-   Persian adaptation, and no ezafe nobody wrote against 10 (FINDINGS §23); that one
-   had beaten the published weights 12 to 15 of 114 (§19). Without them the app uses
-   the published weights and says so (`engines.omnivoice.weights` in the config).
+   about 2 GB): heard blind, they said 3 words of 165 wrong against 16 for the first
+   Persian adaptation, and no ezafe nobody wrote against 10 (FINDINGS §23), and over
+   25 unseen voices they keep the voice as well as the step-1,000 export (§24). The
+   first adaptation had beaten the published weights 12 to 15 of 114 (§19). Without
+   them the app uses the published weights and says so (`engines.omnivoice.weights`
+   in the config).
 
 Step 3 uses a [Homo-GE2PE](https://huggingface.co/MahtaFetrat/Homo-GE2PE-Persian) based
 Persian G2P system (3.98% PER, 76.9% homograph accuracy). It is optional — without it

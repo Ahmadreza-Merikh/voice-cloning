@@ -1,0 +1,20 @@
+{
+ "ezafe-voices-A1 vs ezafe-voices-E1": {
+  "rows_in_both": 300,
+  "same_held_out_similarity": 0,
+  "same_reference_similarity": 0,
+  "same_transcription": 69
+ },
+ "ezafe-voices-A1 vs ezafe-voices-E5": {
+  "rows_in_both": 300,
+  "same_held_out_similarity": 0,
+  "same_reference_similarity": 0,
+  "same_transcription": 72
+ },
+ "ezafe-voices-E1 vs ezafe-voices-E5": {
+  "rows_in_both": 300,
+  "same_held_out_similarity": 0,
+  "same_reference_similarity": 0,
+  "same_transcription": 129
+ }
+}

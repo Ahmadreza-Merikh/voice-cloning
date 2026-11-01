@@ -1,0 +1,39 @@
+{
+  "started": "2026-11-01 14:43:32 +0000",
+  "steps": [
+    {
+      "name": "base",
+      "kind": "snapshot",
+      "repo": "k2-fsa/OmniVoice",
+      "revision": "c5fdb5ccb189668d56333f77ba2629f4cd7535f4",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 18.7
+        }
+      ],
+      "bytes": 3267471642,
+      "gib": 3.043,
+      "seconds": 18.7,
+      "mib_per_second": 166.9
+    },
+    {
+      "name": "neyshekar validation",
+      "kind": "snapshot",
+      "repo": "shekar-ai/neyshekar",
+      "revision": "30696ada746a66bb3047c984744b5ecfd60fe4e9",
+      "tries": [
+        {
+          "attempt": 1,
+          "seconds": 3.9
+        }
+      ],
+      "bytes": 362660451,
+      "gib": 0.338,
+      "seconds": 3.9,
+      "mib_per_second": 87.6
+    }
+  ],
+  "ok": true,
+  "finished": "2026-11-01 14:43:57 +0000"
+}

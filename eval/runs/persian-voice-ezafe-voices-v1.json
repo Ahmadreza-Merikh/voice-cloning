@@ -59,5 +59,11 @@
   "the_one_voice": "on the ezafe check's voice (mana) E5 was 0.014 below E1, [-0.027, -0.002]. Over these 25 voices the mean difference is -0.002 and the interval reaches +0.003: the drop does not show across voices",
   "read_after_the_decision": "the prompt clip itself: A1 0.7575, E1 0.7608, E5 0.7574, E5 - E1 -0.0034, E5 above for 10 speakers. On mana E5 sat nearer the prompt clip (0.829 against 0.818); across voices it does not, so that guess for why E5 scored lower there is not borne out"
  },
- "evidence": "eval/runs/evidence/ezafe-voices-v1/: the three result files, gates, runs, result, environment, the corpus manifest and roster, the fetch records, the run's logs and the kernel log, reading.json and same-renders.json. The reading reproduces from the committed results: read_ezafe_voices.main with that folder gives the same reading.json"
+ "evidence": "eval/runs/evidence/ezafe-voices-v1/: the three result files, gates, runs, result, environment, the corpus manifest and roster, the fetch records, the run's logs and the kernel log, reading.json and same-renders.json. The reading reproduces from the committed results: read_ezafe_voices.main with that folder gives the same reading.json",
+ "in_the_app": {
+  "when": "2026-11-01, by the registered rule",
+  "what": "engines.omnivoice.adapted_dir and adapted_sha256 name E5 (configs/default.yaml, src/voiceclone/config.py); weights: auto reads with it once fetched and verified, otherwise the published model with a warning naming the fetch script. E1's and A1's folders stay on disk",
+  "fetched": "scripts/fetch_adapted_weights.py on this Mac: run/export-5000-float16/ from marsmanam/persian-voice-omnivoice-ezafe-c; model.safetensors 1,225,189,240 bytes, sha256 1ecbaa58e2cf3efb753714818c974f1027b61c1564e54b489fc5f23af3595a4e - the one both checks rendered; the audio tokenizer the base's (fe7c5e87...); written 2026-11-01 16:47:33 UTC",
+  "tests": "661 passed, 1 skipped"
+ }
 }

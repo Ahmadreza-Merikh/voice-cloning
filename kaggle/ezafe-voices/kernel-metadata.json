@@ -1,0 +1,21 @@
+{
+  "id": "marsmanam/persian-voice-ezafe-voices-run",
+  "title": "persian-voice-ezafe-voices-run",
+  "code_file": "persian-voice-ezafe-voices-run.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "enable_internet": true,
+  "dataset_sources": [
+    "marsmanam/persian-voice-frontend-listening-v2"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [
+    "marsmanam/persian-voice-omnivoice-train-a",
+    "marsmanam/persian-voice-omnivoice-ezafe-a",
+    "marsmanam/persian-voice-omnivoice-ezafe-c"
+  ],
+  "model_sources": []
+}

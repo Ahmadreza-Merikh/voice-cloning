@@ -1,0 +1,27 @@
+{
+ "run": "the ezafe voices check: over many unseen voices, does E5 keep the voice as well as E1",
+ "status": "registered 2026-11-01, before any render of these voices",
+ "why": "the ezafe check (eval/runs/persian-voice-omnivoice-ezafe-train.json, check_v1) heard E5 read best: 3 words wrong of 165 against E1's 6 and A1's 16, and picked best 8 times of 12. But on its one voice (mana) E5's held-out similarity was 0.023 below A1's with the interval wholly below zero, so it was flagged and not adopted, and 0.014 below E1's, [-0.027, -0.002]; it sat nearer the prompt clip itself (0.829 against E1's 0.818) and further from the speaker's other recordings. One voice and one seed, and the A run's step-5,000 export showed no such drop on its own check. On 2026-11-01 the user asked for it to be tested on many voices",
+ "voices": {
+  "source": "Neyshekar v6 (shekar-ai/neyshekar at 30696ada), its validation split: 26 speakers",
+  "why_these": "in no training split of the adaptation (their clips gave only its validation loss), not on OmniVoice's published list of training data, and never used to choose anything. The sealed test sets are not used: they are scored once per final candidate and never used to choose (SOTA_ROADMAP section 3)",
+  "roles": "the test sets' rule, decided on durations alone: the reference is the speaker's longest clip of 6.5-11.4 s, the four longest of the rest of at least 3.5 s are held out. 25 speakers have them; ney-70652 (10 clips) does not and is left out",
+  "written": "by scripts/prepare_valid_corpus.py (5dfd9dd), first on this Mac from the same four validation shards (363 MB, kept outside the repository): 25 speakers, 125 clips, all mono 16 kHz and within 50 ms of the split's durations; manifest sha256 47b8b569d8b130fce7e89b3ae230bac003dd25d13ac46aee939922456101c944, file digests 9131dc933ea66d4853160d1e7187d9c4f9414227be2040a73b055d50e58ffcc5. The session writes it again and stops unless both match"
+ },
+ "forms": {
+  "A1": "the first adaptation's export at step 1,000 (train-a), the app's weights until 2026-11-01; model.safetensors sha256 9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a",
+  "E1": "the ezafe-marked run's export at step 1,000 (ezafe-a), the app's weights now; sha256 136aac641d2e04c24c8c081bcefd8ceccf310969b065ef510a5fc2903d720e2b",
+  "E5": "the ezafe-marked run's export at step 5,000 (ezafe-c); sha256 1ecbaa58e2cf3efb753714818c974f1027b61c1564e54b489fc5f23af3595a4e"
+ },
+ "texts": {
+  "file": "eval/runs/ezafe-voices-v1/texts.json",
+  "sha256_of_texts": "e47a3c3c3771e27b873210290f1cbd26cde70bcfeaf989269fa42301c1caf78c",
+  "what": "the ezafe check's twelve sentences as the app writes them - the tagger's ezafe, the homograph vowels, the number fixes - one text per sentence for every form. The dataset's tagger is switched off (VOICECLONE__TEXT__EZAFE__ENABLED=false) so its older code adds nothing: checked on this Mac, e1d96e4's text path passes all twelve unchanged, one chunk each"
+ },
+ "rendering": "one Kaggle T4 x2 session on step 3's code dataset (e1d96e4), built by kaggle/build_ezafe_voices_kernel.py: scripts/benchmark.py once per form with --sentences-file, seed 42, each speaker's reference clip and its transcript; 25 x 12 = 300 renders per form, 900 in all. Held-out similarity (ECAPA against the four held-out clips) and CER are scored in the same session, the recogniser's floor by the first run. Every render's metadata must name the weights its form was given",
+ "rule": "the app's OmniVoice weights become E5 if the 95% interval of E5's held-out similarity minus E1's - the mean of each speaker's paired differences, a t interval over speakers (scripts/compare_runs.py) - does not lie wholly below zero, and E5's mean CER is not more than 2 points above E1's. Otherwise they stay E1. An interval that cannot be given keeps E1",
+ "read_beside_it_not_for_the_decision": "E1 and E5 against A1 the same way: if either lies wholly below zero it is said, and whether to go back to A1 is the user's call (the listening check heard A1 say 16 words wrong to E1's 6); every pair's CER; each interval beside compare_runs.py's practical reference of 0.0205",
+ "reading_code": "scripts/read_ezafe_voices.py, with tests/test_read_ezafe_voices.py, written before any render",
+ "not_claimed": "one seed; Neyshekar's read speech; similarity as ECAPA measures it; nobody listens in this check",
+ "cost": "Kaggle: one session, about 3 h on the T4 pair (900 renders and their scoring) of this week's 30 h"
+}

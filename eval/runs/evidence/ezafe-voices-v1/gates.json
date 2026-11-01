@@ -1,0 +1,34 @@
+{
+  "runner": {
+    "passed": true,
+    "reason": "1853785 bytes through the protocol path in 0.3s; 104592 shown"
+  },
+  "code": {
+    "passed": true,
+    "reason": "the benchmark, the corpus code and the registered texts are present; code from e1d96e4"
+  },
+  "download": {
+    "passed": true,
+    "reason": "{\"base\": {\"gib\": 3.043, \"seconds\": 18.7, \"tries\": [{\"attempt\": 1, \"seconds\": 18.7}], \"failed_check\": null}, \"neyshekar validation\": {\"gib\": 0.338, \"seconds\": 3.9, \"tries\": [{\"attempt\": 1, \"seconds\": 3.9}], \"failed_check\": null}}"
+  },
+  "weights": {
+    "passed": true,
+    "reason": "{\"weights\": {\"A1\": {\"path\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16\", \"found\": [\"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16\"], \"model_sha256\": \"9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a\"}, \"E1\": {\"path\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16\", \"found\": [\"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16\"], \"model_sha256\": \"136aac641d2e04c24c8c081bcefd8ceccf310969b065ef510a5fc2903d720e2b\"}, \"E5\": {\"path\": \"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16\", \"found\": [\"/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16\"], \"model_sha256\": \"1ecbaa58e2cf3efb753714818c974f1027b61c1564e54b489fc5f23af3595a4e\"}}, \"problems\": []}"
+  },
+  "corpus": {
+    "passed": true,
+    "reason": "{\"speakers\": 25, \"left_out\": [{\"speaker\": \"ney-70652\", \"reason\": \"no clip of 6.5-11.4 s with 4 more to hold out\"}], \"manifest_sha256\": \"47b8b569d8b130fce7e89b3ae230bac003dd25d13ac46aee939922456101c944\", \"files_sha256\": \"9131dc933ea66d4853160d1e7187d9c4f9414227be2040a73b055d50e58ffcc5\"}"
+  },
+  "bench-A1": {
+    "passed": false,
+    "reason": "{\"renders\": 300, \"failures\": 0, \"held_out_mean\": 0.6065386666666667, \"cer_mean\": 0.046085557798170876, \"models_in_the_renders\": [\"None\"]}"
+  },
+  "bench-E1": {
+    "passed": false,
+    "reason": "{\"renders\": 300, \"failures\": 0, \"held_out_mean\": 0.6089716666666667, \"cer_mean\": 0.04094203079590789, \"models_in_the_renders\": [\"None\"]}"
+  },
+  "bench-E5": {
+    "passed": false,
+    "reason": "{\"renders\": 300, \"failures\": 0, \"held_out_mean\": 0.6072023333333333, \"cer_mean\": 0.038133515858475936, \"models_in_the_renders\": [\"None\"]}"
+  }
+}

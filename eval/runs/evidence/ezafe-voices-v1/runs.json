@@ -1,0 +1,80 @@
+{
+  "runner_check": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 120,
+    "seconds": 0.3,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/runner_check/runner_check.log",
+    "output_bytes": 1853785,
+    "shown_bytes": 104592,
+    "display_blocked": false,
+    "problems": []
+  },
+  "fetch": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 1800,
+    "seconds": 25.4,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/fetch.log",
+    "output_bytes": 859,
+    "shown_bytes": 623,
+    "display_blocked": false,
+    "problems": []
+  },
+  "corpus": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 1800,
+    "seconds": 2.0,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/corpus.log",
+    "output_bytes": 152,
+    "shown_bytes": 152,
+    "display_blocked": false,
+    "problems": []
+  },
+  "bench-A1": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 9000.0,
+    "seconds": 1838.1,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/ezafe-voices-A1.log",
+    "output_bytes": 338803,
+    "shown_bytes": 102189,
+    "display_blocked": false,
+    "problems": []
+  },
+  "bench-E1": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 9000.0,
+    "seconds": 1768.4,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/ezafe-voices-E1.log",
+    "output_bytes": 337068,
+    "shown_bytes": 102208,
+    "display_blocked": false,
+    "problems": []
+  },
+  "bench-E5": {
+    "outcome": "exited 0",
+    "exit_code": 0,
+    "timed_out": false,
+    "timeout": 9000.0,
+    "seconds": 1752.8,
+    "process_group": "ended with the command",
+    "log": "/kaggle/working/logs/ezafe-voices-E5.log",
+    "output_bytes": 337627,
+    "shown_bytes": 102200,
+    "display_blocked": false,
+    "problems": []
+  }
+}

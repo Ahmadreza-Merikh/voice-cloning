@@ -168,6 +168,55 @@
    },
    "after": "renders brought in by scripts/collect_adapted_renders.py (eval/runs/ezafe-check-v1/manifest.json); held-out similarity scored on this Mac (eval/runs/evidence/ezafe-check-v1/similarity.json); the blind page built with rotations (each form four times in each slot; key eval/runs/evidence/ezafe-review-v1/key.json) - CER and similarity kept from the listener"
   },
-  "page": "https://claude.ai/artifact/CtJ82BXsAyWn7rhir5Wjsa (contract 0.2.92, db and user; published 2026-10-29 08:22 UTC from listening/ezafe-review-v1/index.html, a copy in eval/runs/evidence/ezafe-review-v1/page.html; 36 wavs and the page, checked by listing the published files)"
+  "page": "https://claude.ai/artifact/CtJ82BXsAyWn7rhir5Wjsa (contract 0.2.92, db and user; published 2026-10-29 08:22 UTC from listening/ezafe-review-v1/index.html, a copy in eval/runs/evidence/ezafe-review-v1/page.html; 36 wavs and the page, checked by listing the published files)",
+  "listening": {
+   "when": "2026-11-01, blind, on https://claude.ai/artifact/CtJ82BXsAyWn7rhir5Wjsa; all 12 sentences, every reading answered, a note on 17 of 36",
+   "listener": "احمدرضا, who heard every earlier round",
+   "answers": "saved by the page itself (reviews, one document at version 203), read after the user said it was finished (eval/runs/evidence/ezafe-review-v1/answers-listener-1.json)",
+   "listener_said": "the better-reading question should let two readings be picked together: some sentences had two readings equally right and only one could be chosen"
+  },
+  "result": {
+   "when": "2026-11-01; read by scripts/read_ezafe_check.py (685976b), written before the sentences or any render",
+   "words_marked_wrong_of_165": {
+    "A1": 16,
+    "E1": 6,
+    "E5": 3
+   },
+   "readings_with_no_word_marked_of_12": {
+    "A1": 3,
+    "E1": 7,
+    "E5": 9
+   },
+   "picked_best": {
+    "E5": 8,
+    "no difference": 3,
+    "E1": 1
+   },
+   "mean_cer": {
+    "A1": 0.0255,
+    "E1": 0.0284,
+    "E5": 0.0345
+   },
+   "held_out_similarity": {
+    "A1": 0.6314,
+    "E1": 0.6229,
+    "E5": 0.6086
+   },
+   "held_out_similarity_minus_A1": {
+    "E1": "-0.0085 [-0.0216, +0.0049]",
+    "E5": "-0.0229 [-0.0404, -0.0045]"
+   },
+   "decision_by_the_registered_rule": "E1 (6) and E5 (3) both have fewer words marked wrong than A1 (16). E5 is flagged: its held-out similarity against A1, -0.0229 [-0.0404, -0.0045], lies wholly below zero (its CER rose +0.90 points, under the 2-point line). E1 is not flagged: CER +0.29 points, similarity -0.0085 [-0.0216, +0.0049]. So the app's OmniVoice weights become E1; E5 is not adopted without the user's say",
+   "read_beside_it_not_used_for_the_decision": {
+    "trap_words_heard_with_an_ezafe_of_33": {
+     "A1": 11,
+     "E1": 2,
+     "E5": 1
+    },
+    "where_the_difference_is": "the ezafe nobody wrote. A1 was marked on 11 of the 33 trap words, with the listener's notes naming the ezafe on each (karde, darsade, bender ebase, irane, pishe, shiraze, shame, asre, otooboose, raahe, mosaaferane); E1 on 2 (بندرعباس said bender ebas, نفس‌گیر said nafasegir) and E5 on 1 (بندرعباس, bender abas). Every other mark on E1 and E5 is a short vowel inside a word: دیروقت in all three forms, کوچکم and ژاپنی in E1, کمربندهایشان in both E forms",
+    "the_losses": "train and validation losses of the E run stayed beside the A run's throughout, as recorded per session; the listening shows what the losses could not"
+   },
+   "not_claimed": "one listener, one voice (mana), one seed, 165 words; similarity measured on that voice only"
+  }
  }
 }

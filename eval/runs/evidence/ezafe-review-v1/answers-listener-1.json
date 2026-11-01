@@ -1,0 +1,292 @@
+{
+  "answered": 12,
+  "answers": {
+    "e01": {
+      "best": "2",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "karde and darsade are incorrect kard and darsad are correct",
+          "ok": false,
+          "words": [
+            3,
+            11
+          ]
+        }
+      }
+    },
+    "e02": {
+      "best": "3",
+      "slots": {
+        "1": {
+          "note": "gomreke and bender ebas are incorrect gomroke and bandar abas are correct",
+          "ok": false,
+          "words": [
+            1,
+            2
+          ]
+        },
+        "2": {
+          "note": "bender ebas is incorrect bandar abas is correct",
+          "ok": false,
+          "words": [
+            2
+          ]
+        },
+        "3": {
+          "note": "bender abas is incorrect bandar abas is correct",
+          "ok": false,
+          "words": [
+            2
+          ]
+        }
+      }
+    },
+    "e03": {
+      "best": "1",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "2": {
+          "note": "irane and nafsegir and japanie are incorrect iran and nafasgir and japonie are correct",
+          "ok": false,
+          "words": [
+            3,
+            8,
+            10
+          ]
+        },
+        "3": {
+          "note": "nafasegir and japanie are incorrect nafasgir and japonie are correct",
+          "ok": false,
+          "words": [
+            8,
+            10
+          ]
+        }
+      }
+    },
+    "e04": {
+      "best": "3",
+      "slots": {
+        "1": {
+          "note": "pishe is incorrect pish is correct",
+          "ok": false,
+          "words": [
+            1
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "",
+          "ok": true,
+          "words": []
+        }
+      }
+    },
+    "e05": {
+      "best": "1",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "",
+          "ok": true,
+          "words": []
+        }
+      }
+    },
+    "e06": {
+      "best": "2",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "shiraze and paivande are incorrect shiraz and peivande are correct",
+          "ok": false,
+          "words": [
+            3
+          ]
+        }
+      }
+    },
+    "e07": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "",
+          "ok": true,
+          "words": []
+        }
+      }
+    },
+    "e08": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "note": "direveghat is incorrect dirvaght is correct",
+          "ok": false,
+          "words": [
+            4
+          ]
+        },
+        "2": {
+          "note": "direveghat is incorrect dirvaght is correct",
+          "ok": false,
+          "words": [
+            4
+          ]
+        },
+        "3": {
+          "note": "diroghat is incorrect dirvaght is correct",
+          "ok": false,
+          "words": [
+            4
+          ]
+        }
+      }
+    },
+    "e09": {
+      "best": "3",
+      "slots": {
+        "1": {
+          "note": "shame is wrong sham is correct",
+          "ok": false,
+          "words": [
+            2
+          ]
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "",
+          "ok": true,
+          "words": []
+        }
+      }
+    },
+    "e10": {
+      "best": "1",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "2": {
+          "note": "asre and koochekam are incorrect asr and koochakam are correct",
+          "ok": false,
+          "words": [
+            1,
+            3
+          ]
+        },
+        "3": {
+          "note": "koochekam is incorrect koochakam is correct",
+          "ok": false,
+          "words": [
+            3
+          ]
+        }
+      }
+    },
+    "e11": {
+      "best": "2",
+      "slots": {
+        "1": {
+          "note": " otooboose and raahe and mosaaferane are incorrect otooboos and raah and mosaaferan are correct",
+          "ok": false,
+          "words": [
+            1,
+            3,
+            7
+          ]
+        },
+        "2": {
+          "note": "kamrabandhaayeshan is incorrect kamarbandhaayeshan is correct",
+          "ok": false,
+          "words": [
+            9
+          ]
+        },
+        "3": {
+          "note": "kamrabandhaayeshan is incorrect kamarbandhaayeshan is correct",
+          "ok": false,
+          "words": [
+            9
+          ]
+        }
+      }
+    },
+    "e12": {
+      "best": "0",
+      "slots": {
+        "1": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "2": {
+          "note": "",
+          "ok": true,
+          "words": []
+        },
+        "3": {
+          "note": "",
+          "ok": true,
+          "words": []
+        }
+      }
+    }
+  },
+  "complete": true,
+  "listener": "احمدرضا",
+  "source": "the page's database (reviews, one document at version 203), read 2026-11-01 13:59 UTC after the user said the listening was finished",
+  "updated": "2026-11-01T13:57:06.708Z",
+  "version": "ezafe-review-v1"
+}

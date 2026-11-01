@@ -1,0 +1,237 @@
+{
+ "listeners": [
+  "احمدرضا"
+ ],
+ "left_out_incomplete": [],
+ "words_marked_wrong": {
+  "A1": 16,
+  "E1": 6,
+  "E5": 3
+ },
+ "of_words": 165,
+ "mean_cer": {
+  "A1": 0.0255,
+  "E1": 0.0284,
+  "E5": 0.0345
+ },
+ "held_out_similarity": {
+  "A1": 0.6314,
+  "E1": 0.6229,
+  "E5": 0.6086
+ },
+ "exports": {
+  "E1": {
+   "words_marked_wrong": 6,
+   "fewer_than_A1": true,
+   "cer_rise_points": 0.29,
+   "similarity_minus_A1": [
+    -0.0085,
+    -0.0216,
+    0.0049
+   ],
+   "flagged": false,
+   "qualifies": true,
+   "fewer_but_flagged": false
+  },
+  "E5": {
+   "words_marked_wrong": 3,
+   "fewer_than_A1": true,
+   "cer_rise_points": 0.9,
+   "similarity_minus_A1": [
+    -0.0229,
+    -0.0404,
+    -0.0045
+   ],
+   "flagged": true,
+   "qualifies": false,
+   "fewer_but_flagged": true
+  }
+ },
+ "choice": "E1",
+ "read_beside_it": {
+  "trap_words_marked": {
+   "A1": {
+    "ezafe_traps": 11
+   },
+   "E1": {
+    "ezafe_traps": 2
+   },
+   "E5": {
+    "ezafe_traps": 1
+   }
+  },
+  "of_trap_words": {
+   "ezafe_traps": 33
+  },
+  "best": {
+   "E5": 8,
+   "no difference": 3,
+   "E1": 1
+  },
+  "notes": [
+   {
+    "listener": "احمدرضا",
+    "sentence": "e01",
+    "form": "A1",
+    "note": "karde and darsade are incorrect kard and darsad are correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e02",
+    "form": "A1",
+    "note": "gomreke and bender ebas are incorrect gomroke and bandar abas are correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e02",
+    "form": "E1",
+    "note": "bender ebas is incorrect bandar abas is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e02",
+    "form": "E5",
+    "note": "bender abas is incorrect bandar abas is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e03",
+    "form": "A1",
+    "note": "irane and nafsegir and japanie are incorrect iran and nafasgir and japonie are correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e03",
+    "form": "E1",
+    "note": "nafasegir and japanie are incorrect nafasgir and japonie are correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e04",
+    "form": "A1",
+    "note": "pishe is incorrect pish is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e06",
+    "form": "A1",
+    "note": "shiraze and paivande are incorrect shiraz and peivande are correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e08",
+    "form": "E1",
+    "note": "direveghat is incorrect dirvaght is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e08",
+    "form": "E5",
+    "note": "direveghat is incorrect dirvaght is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e08",
+    "form": "A1",
+    "note": "diroghat is incorrect dirvaght is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e09",
+    "form": "A1",
+    "note": "shame is wrong sham is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e10",
+    "form": "A1",
+    "note": "asre and koochekam are incorrect asr and koochakam are correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e10",
+    "form": "E1",
+    "note": "koochekam is incorrect koochakam is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e11",
+    "form": "A1",
+    "note": "otooboose and raahe and mosaaferane are incorrect otooboos and raah and mosaaferan are correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e11",
+    "form": "E1",
+    "note": "kamrabandhaayeshan is incorrect kamarbandhaayeshan is correct"
+   },
+   {
+    "listener": "احمدرضا",
+    "sentence": "e11",
+    "form": "E5",
+    "note": "kamrabandhaayeshan is incorrect kamarbandhaayeshan is correct"
+   }
+  ],
+  "marked": {
+   "answers-listener-1.json:e09:A1": [
+    "شام"
+   ],
+   "answers-listener-1.json:e08:A1": [
+    "دیروقت"
+   ],
+   "answers-listener-1.json:e08:E1": [
+    "دیروقت"
+   ],
+   "answers-listener-1.json:e08:E5": [
+    "دیروقت"
+   ],
+   "answers-listener-1.json:e01:A1": [
+    "کرد",
+    "درصد"
+   ],
+   "answers-listener-1.json:e10:A1": [
+    "عصر",
+    "کوچکم"
+   ],
+   "answers-listener-1.json:e10:E1": [
+    "کوچکم"
+   ],
+   "answers-listener-1.json:e06:A1": [
+    "شیراز"
+   ],
+   "answers-listener-1.json:e02:A1": [
+    "گمرک",
+    "بندرعباس"
+   ],
+   "answers-listener-1.json:e02:E1": [
+    "بندرعباس"
+   ],
+   "answers-listener-1.json:e02:E5": [
+    "بندرعباس"
+   ],
+   "answers-listener-1.json:e04:A1": [
+    "پیش"
+   ],
+   "answers-listener-1.json:e11:A1": [
+    "اتوبوس",
+    "راه",
+    "مسافران"
+   ],
+   "answers-listener-1.json:e11:E1": [
+    "کمربندهایشان"
+   ],
+   "answers-listener-1.json:e11:E5": [
+    "کمربندهایشان"
+   ],
+   "answers-listener-1.json:e03:A1": [
+    "ایران",
+    "نفس‌گیر",
+    "ژاپنی"
+   ],
+   "answers-listener-1.json:e03:E1": [
+    "نفس‌گیر",
+    "ژاپنی"
+   ]
+  }
+ }
+}

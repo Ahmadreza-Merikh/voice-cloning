@@ -14,7 +14,8 @@ every sentence.
 
 Beside the rule, not deciding anything: per form, the marks on the words after
 which no ezafe belongs (the traps every form has fallen into so far), the
-picked readings and the notes.
+picked readings and the notes. A page saves one picked slot, or from
+scripts/review_page.html on a list of them; each counts.
 
     .venv/bin/python scripts/read_ezafe_check.py
 """
@@ -71,8 +72,10 @@ def main() -> int:
                 if (given.get("note") or "").strip():
                     notes.append({"listener": record.get("listener"), "sentence": sid, "form": form,
                                   "note": given["note"].strip()})
-            picked = key["sentences"][sid]["slots"].get(answer.get("best"), "no difference")
-            best[picked] = best.get(picked, 0) + 1
+            picks = answer.get("best")
+            for pick in picks if isinstance(picks, list) else [picks]:
+                picked = key["sentences"][sid]["slots"].get(pick, "no difference")
+                best[picked] = best.get(picked, 0) + 1
 
     words_wrong = {f: sum(len(wrong[(n, s, f)]) for n, _ in listeners for s in items) for f in FORMS}
     cer: dict[str, list[float]] = {}

@@ -4,7 +4,34 @@ A handover file: where the work is, what is already answered, what is running
 elsewhere, and the next concrete step - enough to resume without re-deriving
 anything. No credentials.
 
-Last updated: 2026-10-25 +0330.
+Last updated: 2026-11-01 +0330.
+
+## The ezafe check heard: the app reads with E1 (2026-11-01)
+
+FINDINGS section 23; `eval/runs/persian-voice-omnivoice-ezafe-train.json`,
+result recorded. OmniVoice trained 5,000 steps on transcripts with the tagger's
+ezafe written in (three Kaggle sessions, about 22.5 GPU-hours), then heard
+blind on 12 new sentences:
+- words marked wrong, of 165: A1 (the app until now) 16, E1 6, E5 3
+- trap words heard wrong, of 33: 11, 2 and 1
+- picked best: E5 8, E1 1, no difference 3
+
+By the registered rule the app reads with E1. E5 is flagged: its similarity on
+this voice is 0.023 below A1's, interval wholly below zero. It is not adopted
+without the user's say.
+
+**In the app:** `engines.omnivoice.weights: auto` reads with E1 from
+`~/.cache/persian-voice-cloning/omnivoice/adapted/omnivoice-fa-ezafe-1000-float16`,
+which `scripts/fetch_adapted_weights.py` fetches from ezafe-a's output and
+verifies by sha256 (`136aac64...`). A1's folder stays on disk beside it.
+
+**Listening pages from now on:** the "which reading was better" question takes
+more than one pick. The user asked on 2026-11-01: two readings were often
+equally right.
+
+**Next (the user's call):** E5 instead of E1. It has fewer errors (3 against
+6) and was picked best 8 times of 12, but its voice similarity is measurably
+lower; E1's is not.
 
 ## The XTTS check: ParsVoice-XTTS not adopted (2026-10-27)
 

@@ -1686,3 +1686,58 @@ app was picked as the better reading twice of three.
 
 **Decision.** It is not adopted. A model trained on twenty times this
 project's Persian hours reads some words better and everything else worse.
+
+## 23. Training on transcripts with the ezafe written stops the model adding one
+
+**The lever.** The largest error left after section 22 was an ezafe the model
+adds where none is written. Text-side marks could not stop it (sections 15, 17
+and 21). The model learned from transcripts where the ezafe is never written,
+so it guesses one. The E run repeats the adaptation (section 12) with one
+change: every transcript rewritten through the app's ezafe tagger, 102,062
+ezafes written into 45,907 of 66,023 texts. Same 128 h, same official recipe of
+5,000 steps, registered before any transcript was marked
+(`eval/runs/persian-voice-omnivoice-ezafe-train.json`). It took three Kaggle
+sessions, about 22.5 GPU-hours. Its training and validation losses stayed
+beside the first run's throughout: the loss cannot tell the two apart.
+
+**The check.** Twelve new sentences were written after training: six news and
+six everyday narrative, with 33 words after which no ezafe belongs. One
+sentence was reordered before any render because the app's tagger wrote an
+ezafe on one of its traps. Three sets of weights read the same app text:
+- A1: the first adaptation at step 1,000, the app's weights until now
+- E1: the E run at step 1,000
+- E5: the E run at step 5,000
+
+One Kaggle session rendered them. The user heard them blind, each form four
+times in each slot.
+
+| | words marked wrong (of 165) | readings with none wrong | picked best | trap words marked (of 33) | mean CER | held-out similarity |
+|---|---|---|---|---|---|---|
+| A1, the app until now | 16 | 3 of 12 | 0 | 11 | **2.6%** | **0.631** |
+| E1, step 1,000 | 6 | 7 | 1 | 2 | 2.8% | 0.623 |
+| E5, step 5,000 | **3** | **9** | **8** | **1** | 3.5% | 0.609 |
+
+"No difference" was picked for the other three sentences.
+
+**By the registered rule the app now reads with E1.** Both E exports have far
+fewer words marked wrong than A1. E5 has the fewest, but its similarity on this
+voice is 0.023 below A1's with the interval wholly below zero (−0.040 to
+−0.005), so it is flagged and waits for the user's say. E1 is not flagged: CER
++0.3 points, similarity −0.009 [−0.022, +0.005].
+
+**Where the difference is: the ezafe nobody wrote.** By the notes, A1 said one
+on 10 words: nine traps (درصد, ایران, پیش, شیراز, شام, عصر, اتوبوس, راه,
+مسافران) and the verb کرد (karde). E1 and E5 said none. What is left in the E
+forms:
+- short vowels inside words: بندرعباس in every form, ژاپنی and کوچکم in E1,
+  کمربندهایشان in both
+- an e inside a compound: نفس‌گیر (nafasegir) in E1, دیروقت (direveghat) in both
+
+One listener, one voice and one seed, but 16 against 6 and 3, and 11 trap
+words against 2 and 1, is the largest difference any check has heard.
+
+**In the app.** OmniVoice reads with E1 (`engines.omnivoice.weights: auto`)
+once `scripts/fetch_adapted_weights.py` has fetched it from the E run's first
+session (`persian-voice-omnivoice-ezafe-a`, about 2 GB) and its sha256 matches
+the one this check heard. The app's text already writes the tagger's ezafe,
+the convention E was trained on.

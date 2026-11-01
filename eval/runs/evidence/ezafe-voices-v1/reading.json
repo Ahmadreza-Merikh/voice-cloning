@@ -1,0 +1,87 @@
+{
+ "summary": {
+  "A1": {
+   "held_out_mean": 0.6065386666666667,
+   "cer_mean": 0.046085557798170876,
+   "renders": 300,
+   "failures": 0
+  },
+  "E1": {
+   "held_out_mean": 0.6089716666666667,
+   "cer_mean": 0.04094203079590789,
+   "renders": 300,
+   "failures": 0
+  },
+  "E5": {
+   "held_out_mean": 0.6072023333333333,
+   "cer_mean": 0.038133515858475936,
+   "renders": 300,
+   "failures": 0
+  }
+ },
+ "held_out_similarity": {
+  "E5-E1": {
+   "mean": -0.001769333333333334,
+   "low": -0.006484755003531639,
+   "high": 0.002946088336864972,
+   "speakers": 25,
+   "of": 25,
+   "left_out": {},
+   "wholly_below_zero": false
+  },
+  "E1-A1": {
+   "mean": 0.002433000000000001,
+   "low": -0.0018431134634251988,
+   "high": 0.006709113463425201,
+   "speakers": 25,
+   "of": 25,
+   "left_out": {},
+   "wholly_below_zero": false
+  },
+  "E5-A1": {
+   "mean": 0.0006636666666666674,
+   "low": -0.005802758958359988,
+   "high": 0.0071300922916933225,
+   "speakers": 25,
+   "of": 25,
+   "left_out": {},
+   "wholly_below_zero": false
+  }
+ },
+ "character_error_rate": {
+  "E5-E1": {
+   "mean": -0.0028085149374319617,
+   "low": -0.005417903746768966,
+   "high": -0.00019912612809495694,
+   "speakers": 25,
+   "of": 25,
+   "left_out": {},
+   "wholly_below_zero": true
+  },
+  "E1-A1": {
+   "mean": -0.00514352700226298,
+   "low": -0.007967935756502315,
+   "high": -0.002319118248023645,
+   "speakers": 25,
+   "of": 25,
+   "left_out": {},
+   "wholly_below_zero": true
+  },
+  "E5-A1": {
+   "mean": -0.007952041939694942,
+   "low": -0.01079288218171007,
+   "high": -0.0051112016976798125,
+   "speakers": 25,
+   "of": 25,
+   "left_out": {},
+   "wholly_below_zero": true
+  }
+ },
+ "e5_cer_rise_points": -0.28,
+ "choice": "E5",
+ "why": "E5's similarity against E1 does not lie wholly below zero and its CER is within 2 points",
+ "read_beside_it": {
+  "below_A1": [],
+  "practical_reference": 0.0205
+ }
+}

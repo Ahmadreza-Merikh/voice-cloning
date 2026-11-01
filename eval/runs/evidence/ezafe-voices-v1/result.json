@@ -1,0 +1,54 @@
+{
+  "bench": {
+    "A1": {
+      "renders": 300,
+      "failures": 0,
+      "held_out_mean": 0.6065386666666667,
+      "cer_mean": 0.046085557798170876,
+      "models_in_the_renders": [
+        "None"
+      ]
+    },
+    "E1": {
+      "renders": 300,
+      "failures": 0,
+      "held_out_mean": 0.6089716666666667,
+      "cer_mean": 0.04094203079590789,
+      "models_in_the_renders": [
+        "None"
+      ]
+    },
+    "E5": {
+      "renders": 300,
+      "failures": 0,
+      "held_out_mean": 0.6072023333333333,
+      "cer_mean": 0.038133515858475936,
+      "models_in_the_renders": [
+        "None"
+      ]
+    }
+  },
+  "weights": {
+    "A1": {
+      "path": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16",
+      "found": [
+        "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16"
+      ],
+      "model_sha256": "9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a"
+    },
+    "E1": {
+      "path": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16",
+      "found": [
+        "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16"
+      ],
+      "model_sha256": "136aac641d2e04c24c8c081bcefd8ceccf310969b065ef510a5fc2903d720e2b"
+    },
+    "E5": {
+      "path": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16",
+      "found": [
+        "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-c/run/export-5000-float16"
+      ],
+      "model_sha256": "1ecbaa58e2cf3efb753714818c974f1027b61c1564e54b489fc5f23af3595a4e"
+    }
+  }
+}

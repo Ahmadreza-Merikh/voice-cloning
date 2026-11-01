@@ -1,6 +1,6 @@
 {
  "run": "the ezafe voices check: over many unseen voices, does E5 keep the voice as well as E1",
- "status": "registered 2026-11-01, before any render of these voices",
+ "status": "registered 2026-11-01, before any render of these voices; rendered and read the same day. By its rule the app's OmniVoice weights became E5",
  "why": "the ezafe check (eval/runs/persian-voice-omnivoice-ezafe-train.json, check_v1) heard E5 read best: 3 words wrong of 165 against E1's 6 and A1's 16, and picked best 8 times of 12. But on its one voice (mana) E5's held-out similarity was 0.023 below A1's with the interval wholly below zero, so it was flagged and not adopted, and 0.014 below E1's, [-0.027, -0.002]; it sat nearer the prompt clip itself (0.829 against E1's 0.818) and further from the speaker's other recordings. One voice and one seed, and the A run's step-5,000 export showed no such drop on its own check. On 2026-11-01 the user asked for it to be tested on many voices",
  "voices": {
   "source": "Neyshekar v6 (shekar-ai/neyshekar at 30696ada), its validation split: 26 speakers",
@@ -28,6 +28,36 @@
   "kernel": "marsmanam/persian-voice-ezafe-voices-run, version 1",
   "pushed": "2026-11-01 14:38:47 UTC; RUNNING at 14:39:11",
   "built_from": "8f2f7f5",
-  "quota_before": "30 GPU-hours this week (refreshed 2026-10-31), none used"
- }
+  "quota_before": "30 GPU-hours this week (refreshed 2026-10-31), none used",
+  "ended": "COMPLETE, seen at 16:15:09 UTC; the notebook ran 95 minutes (5,727 s): 31, 29 and 29 minutes of benchmark for A1, E1 and E5",
+  "quota_after": "about 28.4 GPU-hours this week, by the session's length; Kaggle's own figure was not read"
+ },
+ "gates": "runner, code, download, weights and corpus passed: each form's model.safetensors matched its registered sha256, and the corpus came out with both registered digests, 25 speakers, ney-70652 left out. bench-A1, bench-E1 and bench-E5 failed on one condition only, models_in_the_renders: the gate read each row's metadata.model, and scripts/benchmark.py at e1d96e4 writes no metadata into its rows, so every row read None and the gate could not pass whatever weights ran. The mistake was in writing the gate (by Claude): it was never tried on a real result file before the push. Its other conditions held for every form: exit 0, 300 renders, 0 failures",
+ "weights_established_after_the_run": {
+  "what": "how each form's renders are known to come from its own weights, in place of the failed condition. Written after the run, not registered",
+  "the_path": "the notebook set VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID to the form's export before each benchmark; kernel_gates.run_bounded starts the benchmark with no environment of its own, so it inherits the variable; e1d96e4's config reads VOICECLONE__A__B variables into engines.omnivoice.model_id; the engine starts the worker with --model set to it (float16_copy returns None for a directory)",
+  "the_renders": "seed 42 renders bit-identically on the GPU (FINDINGS section 15), in another session too (persian-voice-omnivoice-dev.json, reproduced), so runs on the same weights agree on every row. E1 and E5, whose runs differ only in that variable, agree on 0 of 300 held-out similarities; A1 and E1 on 0, A1 and E5 on 0 (scripts/same_renders.py, same-renders.json). Each run loaded weights the others did not, which only the variable could change, so each loaded the export it was given, and the weights gate had checked those exports' sha256"
+ },
+ "result": {
+  "held_out_similarity": {
+   "A1": 0.6065,
+   "E1": 0.609,
+   "E5": 0.6072
+  },
+  "mean_cer": {
+   "A1": "4.61%",
+   "E1": "4.09%",
+   "E5": "3.81%"
+  },
+  "E5_minus_E1_similarity": "-0.0018 [-0.0065, +0.0029] over 25 of 25 speakers: not wholly below zero; E5 above E1 for 10 speakers",
+  "E5_minus_E1_cer": "-0.28 points (3.81% against 4.09%): within 2 points",
+  "choice": "E5, by the registered rule (scripts/read_ezafe_voices.py, reading.json)"
+ },
+ "read_beside_it": {
+  "against_A1": "E1 - A1 +0.0024 [-0.0018, +0.0067]; E5 - A1 +0.0007 [-0.0058, +0.0071]: neither below A1. Every interval lies inside the practical reference of 0.0205",
+  "cer_pairs": "E5 - E1 -0.28 [-0.54, -0.02], E1 - A1 -0.51 [-0.80, -0.23], E5 - A1 -0.80 [-1.08, -0.51] points. The CER normaliser strips the marks, so it does not hear the ezafe; the ezafe was judged by ear in the check",
+  "the_one_voice": "on the ezafe check's voice (mana) E5 was 0.014 below E1, [-0.027, -0.002]. Over these 25 voices the mean difference is -0.002 and the interval reaches +0.003: the drop does not show across voices",
+  "read_after_the_decision": "the prompt clip itself: A1 0.7575, E1 0.7608, E5 0.7574, E5 - E1 -0.0034, E5 above for 10 speakers. On mana E5 sat nearer the prompt clip (0.829 against 0.818); across voices it does not, so that guess for why E5 scored lower there is not borne out"
+ },
+ "evidence": "eval/runs/evidence/ezafe-voices-v1/: the three result files, gates, runs, result, environment, the corpus manifest and roster, the fetch records, the run's logs and the kernel log, reading.json and same-renders.json. The reading reproduces from the committed results: read_ezafe_voices.main with that folder gives the same reading.json"
 }

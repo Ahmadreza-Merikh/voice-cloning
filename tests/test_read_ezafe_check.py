@@ -22,14 +22,14 @@ def write(folder: Path, name: str, data) -> None:
     (folder / name).write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
 
 
-def answers(marks: dict[str, dict[str, list[int]]], skip: str | None = None) -> dict:
+def answers(marks: dict[str, dict[str, list[int]]], skip: str | None = None, best=None) -> dict:
     out = {}
     for sid, slots in SLOTS.items():
         if sid == skip:
             continue
         given = {slot: ({"ok": False, "words": marks[sid][form], "note": ""} if marks[sid][form]
                         else {"ok": True, "words": [], "note": ""}) for slot, form in slots.items()}
-        out[sid] = {"best": "0", "slots": given}
+        out[sid] = {"best": (best or {}).get(sid, "0"), "slots": given}
     return {"listener": "test", "answers": out}
 
 
@@ -45,8 +45,8 @@ def check(tmp_path: Path, monkeypatch):
     write(review, "key.json", {"sentences": {sid: {"slots": slots} for sid, slots in SLOTS.items()}})
     write(review, "items.json", [{"id": sid, "words": words} for sid, words in WORDS.items()])
 
-    def run_it(marks, cer=None, below=(), held=None, extra=None):
-        write(review, "answers-listener-1.json", answers(marks))
+    def run_it(marks, cer=None, below=(), held=None, extra=None, best=None):
+        write(review, "answers-listener-1.json", answers(marks, best=best))
         if extra:
             write(review, "answers-listener-2.json", extra)
         cer = cer or {"A1": 0.03, "E1": 0.03, "E5": 0.03}
@@ -99,3 +99,10 @@ def test_listeners_are_summed_and_an_incomplete_one_is_left_out(check) -> None:
     got = check(marks, extra={**answers(marks, skip="e02"), "listener": "partial"})
     assert got["left_out_incomplete"] == ["partial"]
     assert got["words_marked_wrong"] == {"A1": 1, "E1": 0, "E5": 1}
+
+
+def test_two_readings_picked_together_each_count_and_a_list_completes_a_sentence(check) -> None:
+    marks = {"e01": {"A1": [], "E1": [], "E5": []}, "e02": {"A1": [], "E1": [], "E5": []}}
+    got = check(marks, best={"e01": ["1", "3"], "e02": ["0"]})
+    assert got["listeners"] == ["test"]
+    assert got["read_beside_it"]["best"] == {"A1": 1, "E5": 1, "no difference": 1}

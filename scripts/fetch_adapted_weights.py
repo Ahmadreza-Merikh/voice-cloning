@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Fetch the adapted OmniVoice weights the app reads with, and verify them.
 
-The adapted reading check (eval/runs/persian-voice-adapted-reading-v1.json)
-chose the Persian adaptation's float16 export at step 1,000. It lives in the
-output of the Kaggle session that trained it,
-``marsmanam/persian-voice-omnivoice-train-a``, under ``run/export-1000-float16/``.
+The ezafe check (eval/runs/persian-voice-omnivoice-ezafe-train.json) chose the
+float16 export at step 1,000 of the adaptation trained on transcripts with every
+ezafe written. It lives in the output of the Kaggle session that trained it,
+``marsmanam/persian-voice-omnivoice-ezafe-a``, under ``run/export-1000-float16/``.
 This downloads that folder into ``engines.omnivoice.adapted_dir`` - about 2 GB,
 each file streamed to disk and retried, because the connection from here drops
-- checks ``model.safetensors`` against the sha256 the sealed test and the check
+- checks ``model.safetensors`` against the sha256 the check's render session
 recorded and the audio tokenizer against the base's, and only then writes
 ``SOURCE.json``, the record the OmniVoice engine looks for before it loads them.
 
@@ -36,7 +36,7 @@ spec = importlib.util.spec_from_file_location("probe", ROOT / "kaggle" / "build_
 probe = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(probe)
 
-KERNEL = "persian-voice-omnivoice-train-a"
+KERNEL = "persian-voice-omnivoice-ezafe-a"
 PREFIX = "run/export-1000-float16/"
 NEEDED_GB = 3.0
 TRIES = 6
@@ -115,7 +115,7 @@ def main() -> int:
     if hashes.get("audio_tokenizer/model.safetensors") != probe.TOKENIZER_SHA256:
         raise SystemExit("the audio tokenizer is not the base's; nothing was marked verified")
     record = {"from": f"kaggle:{probe.USER}/{KERNEL}, {PREFIX}", "step": 1000,
-              "chosen_by": "eval/runs/persian-voice-adapted-reading-v1.json",
+              "chosen_by": "eval/runs/persian-voice-omnivoice-ezafe-train.json",
               "model_sha256": hashes["model.safetensors"],
               "model_bytes": (target / "model.safetensors").stat().st_size,
               "audio_tokenizer_sha256": hashes["audio_tokenizer/model.safetensors"],

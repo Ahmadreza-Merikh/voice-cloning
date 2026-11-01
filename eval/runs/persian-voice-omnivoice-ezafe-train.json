@@ -213,7 +213,7 @@
      "E1": 2,
      "E5": 1
     },
-    "where_the_difference_is": "the ezafe nobody wrote. A1 was marked on 11 of the 33 trap words, with the listener's notes naming the ezafe on each (karde, darsade, bender ebase, irane, pishe, shiraze, shame, asre, otooboose, raahe, mosaaferane); E1 on 2 (بندرعباس said bender ebas, نفس‌گیر said nafasegir) and E5 on 1 (بندرعباس, bender abas). Every other mark on E1 and E5 is a short vowel inside a word: دیروقت in all three forms, کوچکم and ژاپنی in E1, کمربندهایشان in both E forms",
+    "where_the_difference_is": "by the listener's notes, the ezafe nobody wrote: A1 said one on 10 words - nine traps (درصد darsade, ایران irane, پیش pishe, شیراز shiraze, شام shame, عصر asre, اتوبوس otooboose, راه raahe, مسافران mosaaferane) and the verb کرد (karde) - and E1 and E5 on none. An e inside a compound: A1 on نفس‌گیر (nafsegir), E1 on نفس‌گیر (nafasegir) and دیروقت (direveghat), E5 on دیروقت. The other marks are short vowels inside words: بندرعباس in all three forms (bender ebas, bender abas), ژاپنی and کوچکم in A1 and E1, گمرک and دیروقت (diroghat) in A1, کمربندهایشان in E1 and E5. The trap counts take بندرعباس, a vowel error, as a trap marked in every form",
     "the_losses": "train and validation losses of the E run stayed beside the A run's throughout, as recorded per session; the listening shows what the losses could not"
    },
    "not_claimed": "one listener, one voice (mana), one seed, 165 words; similarity measured on that voice only"

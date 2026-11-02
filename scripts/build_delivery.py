@@ -13,6 +13,11 @@ and the build stops unless each file's syntax tree, docstrings aside, is the
 same before and after.
 
     .venv/bin/python scripts/build_delivery.py --out ~/Desktop/persian-voice-cloning.zip
+
+With ``--no-weights`` the weights stay out, about 37 MB instead of 2 GB, and
+the README says where the folder goes once it arrives separately:
+
+    .venv/bin/python scripts/build_delivery.py --no-weights --out ~/Desktop/persian-voice-cloning-no-weights.zip
 """
 
 from __future__ import annotations
@@ -432,6 +437,29 @@ voiceclone tts "سلام، حال شما چطور است؟" -r ref.wav --referen
 - داده‌های آموزش فارسی: Common Voice و نی‌شکر، هر دو با CC0.
 """
 
+README_WITHOUT_WEIGHTS = [
+    ("وزن‌هایش در پوشه‌ی `models/omnivoice-fa` است.",
+     "وزن‌هایش (حدود ۲ گیگابایت) در این بسته نیستند و جدا داده می‌شوند؛ بخش «وزن‌های مدل» را ببینید."),
+    ("## اجرا\n", """\
+## وزن‌های مدل
+
+وزن‌های آموزش‌دیده یک پوشه به اسم `omnivoice-fa` هستند. کنار `app.py` پوشه‌ای به اسم `models` بسازید و \
+`omnivoice-fa` را داخلش بگذارید، طوری که این فایل‌ها سر جایشان باشند:
+
+```
+models/omnivoice-fa/SOURCE.json
+models/omnivoice-fa/model.safetensors
+models/omnivoice-fa/audio_tokenizer/model.safetensors
+```
+
+برنامه از روی `SOURCE.json` می‌فهمد که وزن‌ها درست‌اند، پس این فایل هم باید باشد. تا وقتی این پوشه سر جایش نباشد، \
+OmniVoice با وزن‌های اصلی خودش می‌خواند که بار اول دانلود می‌شوند و فارسی را به خوبیِ نسخه‌ی آموزش‌دیده تلفظ نمی‌کنند.
+
+## اجرا
+"""),
+    ("پوشه‌ی `models/omnivoice-fa` ناقص است.", "پوشه‌ی `models/omnivoice-fa` پیدا نشده یا ناقص است."),
+]
+
 
 def docstring_targets(tree: ast.AST) -> list[tuple[ast.AST, ast.Expr]]:
     found = []
@@ -525,6 +553,14 @@ def drop_classes(source: str, names: tuple[str, ...]) -> str:
     return text
 
 
+def swap(name: str, text: str, pairs: list[tuple[str, str]]) -> str:
+    for old, new in pairs:
+        if text.count(old) != 1:
+            raise SystemExit(f"{name}: expected one match of {old[:70]!r}, found {text.count(old)}")
+        text = text.replace(old, new)
+    return text
+
+
 def edit(stage: Path) -> None:
     for name in DROPPED:
         (stage / name).unlink()
@@ -533,12 +569,7 @@ def edit(stage: Path) -> None:
     config.write_text(drop_classes(config.read_text(encoding="utf-8"), DROPPED_CONFIGS), encoding="utf-8")
     for name, pairs in EDITS.items():
         path = stage / name
-        text = path.read_text(encoding="utf-8")
-        for old, new in pairs:
-            if text.count(old) != 1:
-                raise SystemExit(f"{name}: expected one match of {old[:70]!r}, found {text.count(old)}")
-            text = text.replace(old, new)
-        path.write_text(text, encoding="utf-8")
+        path.write_text(swap(name, path.read_text(encoding="utf-8"), pairs), encoding="utf-8")
 
 
 def settings(stage: Path) -> None:
@@ -661,7 +692,9 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build the customer delivery zip.")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--keep", type=Path, help="also leave the unpacked tree here")
+    parser.add_argument("--no-weights", action="store_true", help="leave the weights out of the zip")
     args = parser.parse_args(argv)
+    readme = swap("README.md", README, README_WITHOUT_WEIGHTS) if args.no_weights else README
     with tempfile.TemporaryDirectory(prefix="delivery-") as temp:
         stage = Path(temp) / NAME
         stage.mkdir()
@@ -672,14 +705,15 @@ def main(argv: list[str] | None = None) -> int:
         settings(stage)
         vendor_g2p(stage)
         count = strip_python(stage)
-        (stage / "README.md").write_text(README, encoding="utf-8")
+        (stage / "README.md").write_text(readme, encoding="utf-8")
         (stage / "requirements.txt").write_text(REQUIREMENTS, encoding="utf-8")
         (stage / "pyproject.toml").write_text(PYPROJECT, encoding="utf-8")
         (stage / ".gitignore").write_text(GITIGNORE, encoding="utf-8")
         hits = scan(stage)
         if hits:
             raise SystemExit("left in the delivery:\n" + "\n".join(hits))
-        weights(stage)
+        if not args.no_weights:
+            weights(stage)
         files = pack(stage, args.out.expanduser())
         if args.keep:
             shutil.copytree(stage, args.keep.expanduser() / NAME)

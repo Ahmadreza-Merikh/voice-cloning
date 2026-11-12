@@ -9,7 +9,7 @@ description = "High-fidelity zero-shot voice cloning with first-class Persian pr
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
 license = { text = "MIT" }
-authors = [{ name = "Ahmadreza" }]
+authors = [{ name = "Ahmadreza Merikh" }]
 keywords = ["tts", "voice-cloning", "persian", "farsi", "speech-synthesis", "voice-conversion"]
 
 # Runtime dependencies are tracked in requirements.txt so that the pip

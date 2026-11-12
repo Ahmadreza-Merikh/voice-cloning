@@ -58,9 +58,11 @@ The front-end fixes each of these before the model sees the text.
 
 ```mermaid
 flowchart LR
-    T["Persian text"] --> N["Normalise"] --> V["Numbers to words"] --> Z["Write the ezafe"] --> H["Mark homograph vowels"] --> M["OmniVoice, adapted to Persian"]
-    R["Reference clip"] --> P["Clean it, pick the best 8-12 s"] --> M
-    S["Source speech"] --> W["Whisper"] --> N
+    T["Persian text"] --> F["Text front-end<br/>normalise, numbers to words,<br/>ezafe, homograph vowels"]
+    S["Source speech"] -- "Whisper" --> F
+    R["Reference clip"] --> P["Clean it and pick<br/>the best 8-12 s"]
+    F --> M["OmniVoice<br/>adapted to Persian"]
+    P --> M
     M --> O["Cloned speech"]
 ```
 

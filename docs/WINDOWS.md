@@ -4,7 +4,7 @@ The Mac is not needed. Every GPU hour runs on Kaggle; the machine you sit at
 only builds notebooks, pushes them, downloads what they wrote, records it and
 commits. Any machine with Git, Python and the Kaggle CLI does that.
 
-The code lives in the private repository
+The code lives in the repository
 `https://github.com/Ahmadreza-Merikh/voice-cloning`. `PROJECT_STATUS.md` is
 the handover: where the work is and the next concrete step. Read it first,
 every time.

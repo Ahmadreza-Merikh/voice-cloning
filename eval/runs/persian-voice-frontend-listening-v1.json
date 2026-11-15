@@ -5,7 +5,7 @@
  "question": "does each kind of mark - the ezafe, a sukun where no ezafe belongs, first short vowels - lower the words a native listener hears said wrong",
  "sentences": {
   "file": "eval/manifests/frontend_listening_v1.json",
-  "sha256": "69f33c5a7571804fe17250e2dd7e75dc8183e6d378edc7b03906dd5119812ec3",
+  "sha256": "8681959379c87906e29040351a951d6acaaab6fa647a86061d16c19b9d1e58ce",
   "count": 12,
   "words": 147,
   "written": "2026-10-03, before the front-end ran on them: ezafe chains (heads ending in a consonant, a silent h, a vowel), nouns right before a verb, number or adjective that take no ezafe (the review's traps), first syllables with short vowels (fatha, kasra, damma), a homograph, colloquial, news and a long sentence",
@@ -57,7 +57,7 @@
   "when": "after the Mac run was refused by the memory guard (it stopped while the engine was loading: no render was made, and the partial manifest was deleted) and before anything was sent to Kaggle",
   "why": "the Mac had 5.1 GB available and OmniVoice's guard needs 6 (the registered setting); Kaggle was chosen over closing apps (2026-10-03). The guard is not overridden",
   "what_changes": "the machine only: one Kaggle T4 x2 session (marsmanam/persian-voice-frontend-listening-run), the OmniVoice worker on CUDA instead of Metal, in float16 as on the Mac (the configured dtype, which the worker loads on both)",
-  "what_stays": "the app code (the code dataset marsmanam/persian-voice-frontend-listening is staged from the commit that adds this amendment; against the copy the sealed test ran, src/voiceclone differs only by text/marks_fa.py), the texts (texts.json sha256 06fd5f36cc1f2cb41a57c105b808dc3dc4dc836f3f01a574925b82f6598e197b, checked in the notebook before anything renders), the voice (mana_000.wav), seed 42, one take, evaluation off while rendering, the generation settings from the app config, and the weights: k2-fsa/OmniVoice @ c5fdb5ccb189668d56333f77ba2629f4cd7535f4 - the revision in the Mac's cache - fetched with its audio tokenizer's sha256 checked",
+  "what_stays": "the app code (the code dataset marsmanam/persian-voice-frontend-listening is staged from the commit that adds this amendment; against the copy the sealed test ran, src/voiceclone differs only by text/marks_fa.py), the texts (texts.json sha256 4ae879ee1a849d8a9b092e6f8efd5f280932901273ca3826547a575b5dd01abe, checked in the notebook before anything renders), the voice (mana_000.wav), seed 42, one take, evaluation off while rendering, the generation settings from the app config, and the weights: k2-fsa/OmniVoice @ c5fdb5ccb189668d56333f77ba2629f4cd7535f4 - the revision in the Mac's cache - fetched with its audio tokenizer's sha256 checked",
   "comparison": "all 48 render in one session on one GPU, so the four forms of a sentence still differ only in their text. Nothing is compared with a Mac render: a T4 render is not sample-identical to one on Metal",
   "environment": "OmniVoice's pinned stack (torch 2.8.0+cu128, transformers 5.3.0, omnivoice @ 08be0b4c) and the scoring packages, through the environment cell every OmniVoice session used (kaggle/build_frontend_listening_kernel.py)",
   "memory_guard": "acts on macOS only (src/voiceclone/memory.py); on Kaggle nothing loads beside the worker while it renders, as on the Mac",

@@ -3,7 +3,7 @@
  "purpose": "news-vowels-v1: its texts read by each set of OmniVoice weights",
  "texts": {
   "file": "eval/runs/news-vowels-v1/texts.json",
-  "sentences_sha256": "5b3fe83fd6f943d0b5319f2a2bb164a754497ece40fa30af665f9bb134566c69"
+  "sentences_sha256": "80b2519c00bb14b20607310ff6d52604c5625501a4a539581424b4a5db47d024"
  },
  "settings": {
   "P": {

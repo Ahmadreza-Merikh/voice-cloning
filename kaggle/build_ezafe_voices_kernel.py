@@ -7,7 +7,7 @@ was below E1's and A1's. This asks the same of 25 voices: Neyshekar's
 validation speakers, written as a corpus here by
 ``scripts/prepare_valid_corpus.py`` - the corpus this Mac wrote, file for file.
 
-One T4 x2 session on step 3's code dataset (e1d96e4), as the listening checks:
+One T4 x2 session on step 3's code dataset (dbdb782), as the listening checks:
 
 1. OmniVoice's pinned stack and the scoring packages, the environment cell
 2. the runner check; the code, the registered texts and the corpus script

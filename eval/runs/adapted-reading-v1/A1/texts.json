@@ -1,7 +1,7 @@
 {
  "sentences_file": "eval/manifests/adapted_reading_v1.json",
- "sentences_sha256": "055eaefafebf2b46211222fd181ea610eb5c7114ca194a9444a9b10b79a83098",
- "code_commit": "f0ffa32",
+ "sentences_sha256": "481c11ccaca638fe74811b0a31fabea83a195a77f916ccaf769feaee40ea7c97",
+ "code_commit": "101720f",
  "conditions": {
   "A1": "the adapted export at step 1,000"
  },

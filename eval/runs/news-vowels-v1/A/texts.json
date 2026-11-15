@@ -1,7 +1,7 @@
 {
  "sentences_file": "eval/manifests/news_vowels_v1.json",
- "sentences_sha256": "5b3fe83fd6f943d0b5319f2a2bb164a754497ece40fa30af665f9bb134566c69",
- "code_commit": "fe7aae9",
+ "sentences_sha256": "80b2519c00bb14b20607310ff6d52604c5625501a4a539581424b4a5db47d024",
+ "code_commit": "d55f6b3",
  "conditions": {
   "AB": "the adapted weights reading the app's text",
   "AV": "the adapted weights, every first vowel"

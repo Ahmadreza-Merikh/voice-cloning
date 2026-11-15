@@ -71,7 +71,7 @@ STEPS = {
         "name": "frontend-listening-v1", "folder": "frontend-listening", "extra": []},
     3: {"slug": "persian-voice-frontend-listening-v2-run", "dataset": "persian-voice-frontend-listening-v2",
         "name": "frontend-listening-v2", "folder": "frontend-listening-v2",
-        # The texts path goes in absolute: the script on the dataset (e1d96e4) stops on a relative one.
+        # The texts path goes in absolute: the script on the dataset (dbdb782) stops on a relative one.
         "extra": ["--texts", {"repo": "eval/runs/frontend-listening-v2/texts.json"}, "--app-normaliser"]},
     # The روی check (eval/runs/persian-voice-rui-check-v1.json) runs on step 3's code dataset with its
     # texts written by the notebook itself, so nothing has to be uploaded from the Mac but the notebook.

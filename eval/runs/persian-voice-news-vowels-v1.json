@@ -4,7 +4,7 @@
  "why": "on 2026-10-25 a tech news paragraph rendered with A1 and with the published weights had eight words said wrong (FINDINGS section 20). Three were the app's and are fixed; five are the model's: the short vowels of ordinary and borrowed words (jom'e said jam'e, mojahhaz majahaz, oktobr ektabar, novambr navambr) and a Latin word. No listening test had news text: sections 15 to 19 used everyday narrative. The vowels go wrong in every direction (o to a, o to e, a to e, e to a in the earlier rounds), so the mark tested is every first short vowel, not one kind. Which weights read the paragraph better was not settled either, so both are rendered",
  "sentences": {
   "file": "eval/manifests/news_vowels_v1.json",
-  "sha256": "5b3fe83fd6f943d0b5319f2a2bb164a754497ece40fa30af665f9bb134566c69",
+  "sha256": "80b2519c00bb14b20607310ff6d52604c5625501a4a539581424b4a5db47d024",
   "count": 8,
   "words": 138,
   "written": "2026-10-25: news in eight fields (a phone launch, a factory, football, the weather, medicine, the dollar, a film festival, electricity), with Western months, borrowed names and formal words like the ones heard misread; all of them new. Each word's first short vowel written by hand before any front-end ran (67), to check the marks against",
@@ -34,12 +34,12 @@
  },
  "factors": {
   "text": {
-   "B": "what the app sends OmniVoice today: the tagger's ezafe, the homograph first vowels (not به, اپل, کند), the number fixes of d9fe48e",
+   "B": "what the app sends OmniVoice today: the tagger's ezafe, the homograph first vowels (not به, اپل, کند), the number fixes of 96e1282",
    "V": "B with the first short vowel of every word of three or more letters written in, as Homo-GE2PE reads the sentence (homographs_fa.write_first_vowels over every such word), except به, اپل and کند, whose marks are known to hurt; a word already marked keeps its mark"
   },
   "weights": {
    "P": "the published OmniVoice",
-   "A": "the adaptation's step-1,000 export (A1), the app's weights since 2a2ee04"
+   "A": "the adaptation's step-1,000 export (A1), the app's weights since 88317e1"
   }
  },
  "forms": {
@@ -48,7 +48,7 @@
   "AB": "A reading B",
   "AV": "A reading V"
  },
- "rendering": "one Kaggle T4 x2 session on step 3's code dataset (e1d96e4), the texts written by the notebook itself, as the adapted reading check: scripts/render_frontend_conditions.py once per set of weights with --cer --app-normaliser, seed 42, mana_000.wav; 8 x 4 = 32 renders. Held-out similarity after, on this Mac",
+ "rendering": "one Kaggle T4 x2 session on step 3's code dataset (dbdb782), the texts written by the notebook itself, as the adapted reading check: scripts/render_frontend_conditions.py once per set of weights with --cer --app-normaliser, seed 42, mana_000.wav; 8 x 4 = 32 renders. Held-out similarity after, on this Mac",
  "review": "as step 3: the plain sentence, four readings in Latin-square slots (each form twice in each slot), loudness matched, the key off the page; words to tap, a note, the better reading",
  "decision_rules": {
   "primary": "words marked wrong per form, of 138, summed over every listener who answers all 8 sentences",
@@ -63,9 +63,9 @@
   "v1": {
    "kernel": "marsmanam/persian-voice-news-vowels-run, version 1",
    "pushed": "2026-10-25 15:31:03 UTC; status read RUNNING right after",
-   "built_from": "8d0beff; the dataset's code (e1d96e4) checked on this Mac first: all 32 texts reach the model with every mark and nothing else changed",
+   "built_from": "8c3199f; the dataset's code (dbdb782) checked on this Mac first: all 32 texts reach the model with every mark and nothing else changed",
    "ended": "COMPLETE, read at 15:42:29 UTC: about eleven minutes on the T4 pair",
-   "gates": "runner, code (e1d96e4), download (the base, 3.04 GiB), weights (A's sha256 the sealed test's), renders-P and renders-A - all passed; 16 renders scored per set of weights, the weights each run reported the ones it was given, no other change to any text by the app",
+   "gates": "runner, code (dbdb782), download (the base, 3.04 GiB), weights (A's sha256 the sealed test's), renders-P and renders-A - all passed; 16 renders scored per set of weights, the weights each run reported the ones it was given, no other change to any text by the app",
    "after": "renders brought in by scripts/collect_adapted_renders.py --run news-vowels-v1 (eval/runs/news-vowels-v1/manifest.json); held-out similarity scored on this Mac with the contrasts V = PV + AV - PB - AB and A = AB + AV - PB - PV (eval/runs/evidence/news-vowels-v1/similarity.json); the blind page built with rotations (each form twice in each slot; key eval/runs/evidence/news-review-v1/key.json) - CER and similarity kept from the listener",
    "page": "a private web page, a copy in eval/runs/evidence/news-review-v1/page.html (answers saved in its own database; 32 audio files and the page, the reviews collection empty at publish)"
   }
@@ -76,7 +76,7 @@
   "answers": "saved by the page itself (reviews, one document at version 150; eval/runs/evidence/news-review-v1/answers-listener-1.json)"
  },
  "result": {
-  "when": "2026-10-25; read by scripts/read_news_vowels.py (b11e301), written before anyone listened",
+  "when": "2026-10-25; read by scripts/read_news_vowels.py (6077df8), written before anyone listened",
   "words_marked_wrong_of_138": {
    "PB": 13,
    "PV": 21,

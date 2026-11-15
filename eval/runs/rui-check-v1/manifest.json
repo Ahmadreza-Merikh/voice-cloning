@@ -4,7 +4,7 @@
  "created": "2026-10-04T10:06:02+00:00",
  "texts": {
   "file": "eval/runs/rui-check-v1/texts.json",
-  "sentences_sha256": "bf4e0ed995d163aefdf0b2a43dccadaa3d9259c2b1238faa335e45f5b3419af7"
+  "sentences_sha256": "b18a9df92069ce2029a1b6e2e54d4c837fcf5871d0ff1e6f4277041e9337f7c1"
  },
  "settings": {
   "seed": 42,

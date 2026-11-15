@@ -35,9 +35,9 @@
   "texts_with_an_ezafe": 45907,
   "ezafes_written": 102062,
   "clips_covered": 89750,
-  "writer": "voiceclone.text.ezafe_fa.EzafeWriter at 43febfc",
+  "writer": "voiceclone.text.ezafe_fa.EzafeWriter at 0046fca",
   "minutes": 35.7,
-  "map": "eval/manifests/adaptation_ezafe_texts_v1.jsonl.gz (2cba117); unzipped content sha256 ab2a25f940f209e0484647f4aa4797a736d47235d4d5677b778027b99931d37a, 19,322,631 bytes",
+  "map": "eval/manifests/adaptation_ezafe_texts_v1.jsonl.gz (2a80939); unzipped content sha256 ab2a25f940f209e0484647f4aa4797a736d47235d4d5677b778027b99931d37a, 19,322,631 bytes",
   "dataset": "marsmanam/persian-voice-ezafe-texts, created 2026-10-27 16:27 UTC; Kaggle stores the map unzipped, at the same size",
   "sample": "eight random marked texts read on this Mac: every ezafe right (for example با وجودِ این پیروزیِ حقوقی، تحریم‌هایِ اقتصادی و محاصرهٔ نفتی موجبِ بحرانِ اقتصادی)"
  },
@@ -45,7 +45,7 @@
   "a_v1": {
    "kernel": "marsmanam/persian-voice-omnivoice-ezafe-a, version 1",
    "pushed": "2026-10-27 16:28:30 UTC; QUEUED right after",
-   "built_from": "278a055",
+   "built_from": "0177df5",
    "ended": "COMPLETE. Training ran 2026-10-27 16:40:24 to 2026-10-28 01:31:47 UTC (31,883 s) and stopped itself at checkpoint-2000, 'the next save would not fit the session'; the notebook's log ends 32,185 s after its start. This Mac's status reads were refused from 00:21 UTC (the Kaggle login had expired and could not be renewed); after logging in again, COMPLETE was read at 09:02 UTC",
    "gates": "runner, download, mounted, train - all passed",
    "mounted": "train-a's 88 train and 33 valid token shards, read unchanged, every row's text replaced through the registered map (its unzipped content checked against ab2a25f9...); no text was missing from it. Train 87,499 rows, 62,815 changed (60,494 with an ezafe written, 2,321 by the normaliser alone); valid 2,251 rows, 1,684 changed (1,641 with an ezafe, 43 by the normaliser alone). The gate counts every changed row as 'rows_with_an_ezafe'; the split is computed on this Mac from the map and adaptation_splits_v1, which give the gate's totals exactly",
@@ -66,7 +66,7 @@
   "b_v1": {
    "kernel": "marsmanam/persian-voice-omnivoice-ezafe-b, version 1",
    "pushed": "2026-10-28 09:06:27 UTC; RUNNING 20 s later",
-   "built_from": "4fcd282",
+   "built_from": "050da7c",
    "mounts": "train-a's tokens with the same rewrite through the same map, and ezafe-a's checkpoint-2000 through the official resume_from_checkpoint",
    "expected": "at session a's 15.8 s a step, 4,000 is the last checkpoint that fits the 11.25 h (4,500 would need about 11.4 h), so about 9 h, ending near 18:10 UTC; session c then trains 4,000 to 5,000 in about 4.5 h, as the registration allows",
    "quota_before": "20.61 h left this week; b about 9 h and c about 5 h leave about 6.5 h for the evaluation session",
@@ -91,7 +91,7 @@
   "c_v1": {
    "kernel": "marsmanam/persian-voice-omnivoice-ezafe-c, version 1",
    "pushed": "2026-10-28 18:15:38 UTC; RUNNING at 18:16:06",
-   "built_from": "13f2a39 (the notebook committed as 9567da1)",
+   "built_from": "f890dd2 (the notebook committed as 0016d2d)",
    "mounts": "train-a's tokens with the same rewrite through the same map, and ezafe-b's checkpoint-4000 through the official resume_from_checkpoint",
    "expected": "1,000 steps at session b's 15.7 s, with about 11 min to load the checkpoint, two evaluations and two saves: about 4.8 h, ending near 23:00 UTC with checkpoint-5000 and export-5000-float16. The steps stop at the recipe's 5,000 well inside the 11.25 h",
    "quota_before": "11.55 h left this week; c about 4.8 h leaves about 6.7 h for the evaluation session",
@@ -117,7 +117,7 @@
  "check_v1": {
   "sentences": {
    "file": "eval/manifests/ezafe_check_v1.json",
-   "sha256": "52b966c1cee970680215f48e6962180ca7154de06b6188517c187bafa66cc480",
+   "sha256": "626c12c4c444f9e89a4d63479985e57230ec8875c87b1816feea370f0869f5f8",
    "count": 12,
    "words": 165,
    "ezafe_traps": 33,
@@ -149,18 +149,18 @@
   },
   "texts": {
    "file": "eval/runs/ezafe-check-v1/texts.json",
-   "sha256": "14b79becbc2a91c128bdf12eec335e75c8b59fcff33f5f8868afef7373ca69a4",
-   "written": "once on this Mac by scripts/build_adapted_texts.py --run ezafe-check-v1 at 861248e: what the app sends OmniVoice at its default settings, one chunk per sentence, the same text for A1, E1 and E5",
+   "sha256": "b0208297af4cfbce66e759b30b7a452e0a75115bd8675519f315724e53a4ecf0",
+   "written": "once on this Mac by scripts/build_adapted_texts.py --run ezafe-check-v1 at 415501e: what the app sends OmniVoice at its default settings, one chunk per sentence, the same text for A1, E1 and E5",
    "traps_in_the_app_text": "none of the 33 trap words has an ezafe written by the app",
-   "checked_with_the_dataset_code": "the code dataset's scripts (e1d96e4), run on this Mac on the three forms' texts: all 36 reach the model with every mark and nothing else changed"
+   "checked_with_the_dataset_code": "the code dataset's scripts (dbdb782), run on this Mac on the three forms' texts: all 36 reach the model with every mark and nothing else changed"
   },
   "session": {
    "kernel": "marsmanam/persian-voice-ezafe-check-run, version 1",
    "pushed": "2026-10-28 23:04:40 UTC; RUNNING at 23:05:05",
-   "built_from": "f5a26d9: step 3's code dataset (e1d96e4), the notebook writing the registered texts itself; A1 from train-a's run/export-1000-float16 (its sha256 checked against the app's), E1 from ezafe-a's run/export-1000-float16, E5 from ezafe-c's run/export-5000-float16; scripts/render_frontend_conditions.py once per form with --cer --app-normaliser, seed 42, mana_000.wav",
+   "built_from": "7d67519: step 3's code dataset (dbdb782), the notebook writing the registered texts itself; A1 from train-a's run/export-1000-float16 (its sha256 checked against the app's), E1 from ezafe-a's run/export-1000-float16, E5 from ezafe-c's run/export-5000-float16; scripts/render_frontend_conditions.py once per form with --cer --app-normaliser, seed 42, mana_000.wav",
    "quota_before": "7.46 GPU-hours left this week",
    "ended": "COMPLETE: the renders ran 23:10 to 23:15 UTC (A1 102 s, E1 91 s, E5 88 s); this Mac's watcher lost the network at 23:28 and read COMPLETE at 08:08:43 UTC on 2026-10-29",
-   "gates": "runner, code (e1d96e4), download (the base, 3.04 GiB), weights, renders-A1, renders-E1, renders-E5 - all passed; 12 renders scored per form, each run reading with the weights it was given, no other change to any text by the app",
+   "gates": "runner, code (dbdb782), download (the base, 3.04 GiB), weights, renders-A1, renders-E1, renders-E5 - all passed; 12 renders scored per form, each run reading with the weights it was given, no other change to any text by the app",
    "weights": {
     "A1": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16, model.safetensors sha256 9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a",
     "E1": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-ezafe-a/run/export-1000-float16, model.safetensors sha256 136aac641d2e04c24c8c081bcefd8ceccf310969b065ef510a5fc2903d720e2b",
@@ -176,7 +176,7 @@
    "listener_said": "the better-reading question should let two readings be picked together: some sentences had two readings equally right and only one could be chosen"
   },
   "result": {
-   "when": "2026-11-01; read by scripts/read_ezafe_check.py (685976b), written before the sentences or any render",
+   "when": "2026-11-01; read by scripts/read_ezafe_check.py (d6d54e4), written before the sentences or any render",
    "words_marked_wrong_of_165": {
     "A1": 16,
     "E1": 6,

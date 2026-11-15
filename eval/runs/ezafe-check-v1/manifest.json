@@ -3,7 +3,7 @@
  "purpose": "ezafe-check-v1: its texts read by each set of OmniVoice weights",
  "texts": {
   "file": "eval/runs/ezafe-check-v1/texts.json",
-  "sentences_sha256": "52b966c1cee970680215f48e6962180ca7154de06b6188517c187bafa66cc480"
+  "sentences_sha256": "626c12c4c444f9e89a4d63479985e57230ec8875c87b1816feea370f0869f5f8"
  },
  "settings": {
   "A1": {

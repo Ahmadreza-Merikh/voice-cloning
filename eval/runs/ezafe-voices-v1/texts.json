@@ -1,7 +1,7 @@
 {
  "version": 1,
  "purpose": "the ezafe voices check: the ezafe check's twelve sentences as the app writes them, read by every form for every voice",
- "from": "eval/runs/ezafe-check-v1/texts.json (14b79becbc2a91c1...), each sentence's one text for A1, E1 and E5",
+ "from": "eval/runs/ezafe-check-v1/texts.json (b0208297af4cfbce...), each sentence's one text for A1, E1 and E5",
  "texts": [
   {
    "key": "e01",

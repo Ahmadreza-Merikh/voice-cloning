@@ -258,7 +258,7 @@ selected for diversity, evaluation speakers excluded, 78 epochs on 2×T4:
 | **finetuned + best-of-4** | **0.546** | **2.2%** | **+0.0266, 4.6 SE** |
 
 The full stack is the first configuration to clear the 0.0205 reference line
-(fixed before the benchmark existed, commit `dee1ace`; per-speaker intervals in
+(fixed before the benchmark existed, commit `1299240`; per-speaker intervals in
 FINDINGS section 8 put this difference at [+0.015, +0.038], clear of 0 but overlapping
 that line), and CER does not pay for it. The CER column moves in the
 right direction, but re-scoring identical audio shifts it on its own, so these

@@ -29,7 +29,7 @@ of thing:
 * **+/-0.0205** - a practical reference, not an instrument floor and not a
   perceptual threshold. It is the largest change in ECAPA score measured
   across identity-preserving perturbations of *one* render - 85-95% crops,
-  +/-1 dB, dither at -60 dBFS - on 2026-07-30 (commit dee1ace, sd 0.0055),
+  +/-1 dB, dither at -60 dBFS - on 2026-07-30 (commit 1299240, sd 0.0055),
   four days before the benchmark produced its first result. It measures the
   encoder's sensitivity to edits that should not matter. It does not measure
   re-scoring repeatability (re-scoring identical audio reproduces every cell

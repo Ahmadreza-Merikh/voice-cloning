@@ -1,7 +1,7 @@
 {
  "sentences_file": "eval/manifests/rui_check_v1.json",
- "sentences_sha256": "bf4e0ed995d163aefdf0b2a43dccadaa3d9259c2b1238faa335e45f5b3419af7",
- "code_commit": "24fe06b",
+ "sentences_sha256": "b18a9df92069ce2029a1b6e2e54d4c837fcf5871d0ff1e6f4277041e9337f7c1",
+ "code_commit": "16dfd72",
  "conditions": {
   "R1": "the app today (رویِ)",
   "R0": "the same without the kasra on روی"

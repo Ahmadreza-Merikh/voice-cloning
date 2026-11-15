@@ -1,8 +1,8 @@
 {
  "sentences_file": "eval/manifests/frontend_listening_v2.json",
- "sentences_sha256": "4c95e9c0bfed355559db1025ddea3cb72b6ee41f34528653f4e33c98f00713e4",
+ "sentences_sha256": "337e04c9cd9e635a38856b5657b496957719d786ac380baa818631f9671923c8",
  "homographs_sha256": "f35b98076eee75dacbd3a13c95cf3faab8fae8ed135742490ee5b222d8405061",
- "code_commit": "dc6dc1b",
+ "code_commit": "18a51d6",
  "tagger": {
   "repo": "roshan-research/hazm-parsbert-postagger",
   "revision": "eba1d2b30cc48206c0144b36d2b663652d44faf9"

@@ -4,7 +4,7 @@
  "why": "the news vowels check (FINDINGS section 21) left about one word in ten wrong on news text in every form, and showed that more marks make OmniVoice worse; what is left is the model's own reading. Bases checked the same day (SOTA_ROADMAP section 4): Fish Audio Drama 3 lists Persian but fits neither this Mac nor Kaggle's T4s; ParsVoice-XTTS (XTTS-v2 adapted on about 2,000 h of Persian audiobooks, 1,800+ speakers; arXiv 2510.10774) is the most Persian-trained cloning model found and fits; Audio8-TTS-Persian is left out because it was trained on Mana-TTS, the voice every listening test here clones, and its card calls its cloning of unseen voices weak",
  "sentences": {
   "file": "eval/manifests/xtts_news_v1.json",
-  "sha256": "38ad5ec51fd3615ca9f4fc78e2030f17b4bf04566462b03df45b0255d5fe7d75",
+  "sha256": "c065124a2f919ea43e7531958c0e3963734575b53aff191c7afeb84a8fa0917c",
   "count": 10,
   "words": 169,
   "written": "2026-10-25: news in ten fields (inflation, a software release, football, flu, a fast train, traffic, a book fair, a Mars launch, gold, schools), with Western months, borrowed names and two numbers; all of them new",
@@ -52,7 +52,7 @@
    "kernel": "marsmanam/persian-voice-xtts-check-run, version 1",
    "pushed": "2026-10-25 19:23:57 UTC",
    "ended": "COMPLETE, read at 19:31:42 UTC",
-   "gates": "runner, code (e1d96e4), download, weights (A1's sha256 the sealed test's), renders-A - all passed; 10 renders"
+   "gates": "runner, code (5f1cc6e), download, weights (A1's sha256 the sealed test's), renders-A - all passed; 10 renders"
   },
   "X": {
    "where": "this Mac",

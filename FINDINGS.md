@@ -263,7 +263,7 @@ Paired over the same 27 cells - same speakers, sentences and seed:
 | worse | 4 - mean -0.021, worst -0.030 |
 | unchanged | 0 |
 
-**On the threshold fixed before the benchmark existed (commit `dee1ace`, 2026-07-30): the aggregate misses it, by 0.0006.** The
+**On the threshold fixed before the benchmark existed (commit `1299240`, 2026-07-30): the aggregate misses it, by 0.0006.** The
 rule was a move larger than 0.0205, and +0.0199 is not that. What
 that figure bounds, though, is a *single* render comparison; the paired mean over
 27 cells has a standard error of 0.0045, and the effect sits 4.4 of them from
@@ -966,7 +966,7 @@ What 0.0205 is matters here, because earlier versions of this document called
 it "the encoder's noise". It is the largest change in ECAPA score measured
 across identity-preserving perturbations of **one** render - 85-95% crops,
 +/-1 dB of gain, dither at -60 dBFS - with sd 0.0055, recorded on 2026-07-30 in
-commit `dee1ace`, four days before the benchmark produced its first result.
+commit `1299240`, four days before the benchmark produced its first result.
 So its value was not chosen by looking at benchmark results. But it is a
 sensitivity figure from a single render: it is not re-scoring repeatability
 (re-scoring identical audio reproduces every cell), not seed-to-seed

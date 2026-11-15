@@ -1,7 +1,7 @@
 {
  "sentences_file": "eval/manifests/ezafe_check_v1.json",
- "sentences_sha256": "52b966c1cee970680215f48e6962180ca7154de06b6188517c187bafa66cc480",
- "code_commit": "861248e",
+ "sentences_sha256": "626c12c4c444f9e89a4d63479985e57230ec8875c87b1816feea370f0869f5f8",
+ "code_commit": "3b7aa79",
  "conditions": {
   "A1": "the app's weights: the adapted export at step 1,000",
   "E1": "the ezafe-marked run's export at step 1,000",

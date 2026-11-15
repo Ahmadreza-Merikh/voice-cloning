@@ -87,7 +87,7 @@
  "before_the_push_2026_09_30": {
   "runs_after_met": "the development session (persian-voice-omnivoice-dev v2) chose the export at step 1,000 by the fixed rule (eval/runs/persian-voice-omnivoice-dev.json), and persian-voice-eval was re-staged from 542b2a5 and verified by download",
   "what_it_mounts": "the development session's output (exactly one choice.json, step 1,000) and sessions a, b and c (exactly one export-1000-float16, in session a's output); both counted from the output listings before the push",
-  "notebook": "kaggle/omnivoice-test, built at d667c6b and rebuilt byte-identical from 903c351 before the push",
+  "notebook": "kaggle/omnivoice-test, built at d667c6b and rebuilt byte-identical from 51d062a before the push",
   "quota": "[measured, kaggle quota, 2026-09-30 10:32 UTC] 20.07 GPU-hours left until 2026-10-03 00:00 UTC; this session is budgeted at about 6 h (each render run stops at 3 h, the session at 11.25 h), and the arms session's 2 to 2.5 h follows it",
   "runs_once": "it reads the sealed test clips for the first time; a mechanical failure before any render is re-run, anything after a render is read as the pre-registration says",
   "pushed": "2026-09-30 10:33:56 UTC, version 1; QUEUED, then RUNNING at 10:34:19 UTC"
@@ -96,10 +96,10 @@
   "registered": "2026-09-30, after version 1 ended and before any primary score existed",
   "what_happened": "version 1 (pushed 10:33:56 UTC, about 3 h, 2.90 GPU-hours) wrote both corpora (Neyshekar 28 speakers, Common Voice 30, none replaced), found the candidate (step 1,000; export-1000-float16, model.safetensors sha256 9c453a74...) and completed both secondary runs, 720 renders each. Both primary runs stopped at their sixth speaker with KeyError: 'window' in scripts/benchmark.py: the Studio refused ney06's reference (a 7.44 s clip with 2.7 s of speech left after the configured trimming, under its 3 s minimum), prepared_window recorded the refusal as it should, and the note printed after it read a window that was not there. Neither primary run wrote a results file. Their logs print a line per cell for the 120 cells each made before stopping (ney01-ney05); nobody has read those lines or listened to those renders, only the error at the end of each log was read, and the rerun renders the same cells again",
   "what_was_seen": "the secondary set's reading, which the gate printed beside the failure. The decision below follows from the failure alone: without it the primary comparison does not exist",
-  "fix": "130a649: the note comes from window_note, which reports a refused reference; each render of that speaker then fails and says why, as prepared_window's docstring always said. Tested",
+  "fix": "7b63c86: the note comes from window_note, which reports a refused reference; each render of that speaker then fails and says why, as prepared_window's docstring always said. Tested",
   "checked_before_the_rerun": "all 28 primary references through the same preparation on this Mac: only ney06 is refused (2.7 s); the other 27 prepare to 4.56-10.46 s. Where the Kaggle log shows a value it agrees (ney05: 4.7 s)",
-  "the_rerun": "the primary set only, both models in one new session: marsmanam/persian-voice-omnivoice-test-primary, built by --primary-rerun (5137590) - the same corpus rule, texts, seeds, candidate and reading, with a scoring environment of its own, and the code from persian-voice-eval re-staged with the fix",
-  "code_for_the_rerun": "persian-voice-eval staged from d9f7f76 and uploaded 2026-09-30 14:41 UTC; verified by download: 279 files byte-identical and the split file unpacked with identical content",
+  "the_rerun": "the primary set only, both models in one new session: marsmanam/persian-voice-omnivoice-test-primary, built by --primary-rerun (c2ed7d0) - the same corpus rule, texts, seeds, candidate and reading, with a scoring environment of its own, and the code from persian-voice-eval re-staged with the fix",
+  "code_for_the_rerun": "persian-voice-eval staged from e4c737f and uploaded 2026-09-30 14:41 UTC; verified by download: 279 files byte-identical and the split file unpacked with identical content",
   "rerun_pushed": "marsmanam/persian-voice-omnivoice-test-primary version 1, pushed 2026-09-30 14:42:39 UTC and read RUNNING at once",
   "ney06": "left out of the primary comparison by the pre-registered rule for a speaker with failed cells: every render of it fails, for both models. 27 of the 28 planned speakers remain",
   "secondary_stands": "the secondary comparison was scored in one session, version 1, and is read from there. It is not run again",
@@ -171,8 +171,8 @@
  },
  "arms_before_the_push_2026_09_30": {
   "order_kept": "the primary comparison ran first and was read first (result above); the arms are read beside it only",
-  "notebook": "kaggle/omnivoice-arms, F5 pinned to its registered settings (amendment_2026_09_25_f5_settings_pinned), rebuilt byte-identical from a58e3bf before the push",
-  "code": "persian-voice-eval as staged from d9f7f76 and verified by download, with the harness fix: a reference the Studio refuses is noted and its renders fail, so ney06 drops out here as it did in the primary rerun",
+  "notebook": "kaggle/omnivoice-arms, F5 pinned to its registered settings (amendment_2026_09_25_f5_settings_pinned), rebuilt byte-identical from fedabe9 before the push",
+  "code": "persian-voice-eval as staged from e4c737f and verified by download, with the harness fix: a reference the Studio refuses is noted and its renders fail, so ney06 drops out here as it did in the primary rerun",
   "packages": "installed unpinned as registered: f5-tts from PyPI, whose latest release (1.1.22, 2026-07-23) is the one F5 was measured with; pocket-tts from its GitHub main, whose last commit (3807c204, 2026-09-20 00:17 UTC, a README link) predates the Pocket measurement. The session records the versions it got",
   "pairing": "held-out similarity, candidate minus arm, paired per speaker over the speakers complete in both - the candidate's cells from the primary rerun (Neyshekar) and from version 1 (Common Voice); similarity reproduced across sessions in every check here, CER did not, so CER is compared between the two arms only",
   "budget": "about 2 to 2.5 GPU-hours as registered: 2 x (672 + 720) renders, F5 at 48 steps and Pocket on the same machine, plus about 13 GiB of downloads; each render run stops at 3 h and the session at 11.25 h. [measured, kaggle quota, 2026-09-30 17:05 UTC] 15.01 GPU-hours left until 2026-10-03 00:00 UTC",
@@ -181,7 +181,7 @@
   "version_2_pushed": "2026-09-30 17:36:36 UTC; RUNNING at 17:39:59 (a status read between failed on the network)"
  },
  "arms_result": {
-  "recorded": "2026-10-03, read by scripts/read_arms.py (290a415), the registration of 2026-09-20 as code",
+  "recorded": "2026-10-03, read by scripts/read_arms.py (c324f5f), the registration of 2026-09-20 as code",
   "session": "persian-voice-omnivoice-arms version 2, pushed 2026-09-30 17:36:36 UTC, COMPLETE; its log spans 6.3 h - two and a half times the 2 to 2.5 h estimated (each render run took 92-94 min), inside its bounds (3 h a run, 11.25 h a session). Read 2026-10-03: this Mac's Kaggle calls were refused from 19:11 UTC on 2026-09-30 and worked again on 2026-10-03 without a new login",
   "gates": "runner, code, download, corpora, configure, renders - all passed. F5 at its registered settings (nfe_step 48), recorded in the configure gate",
   "packages": "f5-tts 1.1.22, pocket-tts 3.1.0, vocos 0.1.0, torch 2.10.0+cu128, transformers 5.0.0, speechbrain 1.1.1, faster-whisper 1.2.1, ctranslate2 4.8.2",

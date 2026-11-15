@@ -81,7 +81,7 @@
   },
   "review14": {
    "file": "eval/manifests/frontend_review14_gold_v1.json",
-   "sha256": "d189691d88760c90afcd51d09c2641187d34fc31c71ce9b2043b9c103c8b70fa",
+   "sha256": "65e8d2b6d71d8ab6320063ba59d0b8641c44d40a06fc4c35a3e0ad3730734944",
    "words": 199,
    "ezafe_words": 48,
    "settled_by_the_review": 31,

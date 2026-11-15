@@ -10,7 +10,7 @@
     "references_basis": "now: hashed on 2026-09-19; the clips are not tracked in git, the manifest is and has not changed since 2026-08-03",
     "run_created_utc": "2026-08-02T23:47:49+00:00",
     "settings_basis": "git: approximate - the last commit before the run; the run's own commit was not recorded",
-    "settings_from_commit": "ba18bdf",
+    "settings_from_commit": "d10e32f",
     "unknown": [
       "code commit",
       "per-render engine reports"

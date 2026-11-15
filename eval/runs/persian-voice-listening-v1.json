@@ -44,7 +44,7 @@
   ],
   "not_claimed": "a handful of listeners from the author's circle is a first check, not a population; nothing is claimed beyond what the intervals say"
  },
- "built_by": "scripts/build_listening_test.py (36ebe46) with --corpus-dir, --texts eval/manifests/test_texts_v1.json, the results files of the runs, --files and --bit-depth 16, seed 20261003",
+ "built_by": "scripts/build_listening_test.py (26a871c) with --corpus-dir, --texts eval/manifests/test_texts_v1.json, the results files of the runs, --files and --bit-depth 16, seed 20261003",
  "answers_are_kept": "one record per listener: in the page's database as responses/<listener id> for anyone who can write there (the owner, and people invited by email as editors), each seeing only their own and the owner reading all; for anyone else, an answer code the page shows at the end, which they copy and send. Both turn into the scorer's files with scripts/export_listening_answers.py and the two keys",
  "checked_before_listeners": "2026-10-03: all 63 audio files and the page are published; a probe record written as the owner was readable by the owner and hidden at a listener's level, then deleted. The author opened the page first, which saved an empty record",
  "context_at_deferral": "[measured] on the sealed Neyshekar set the recogniser reads the speakers' own recordings at CER 6.4% (its floor) and OmniVoice's renders at 9.9%, F5's at 14.8%: OmniVoice carries about 3.5 points of error the recogniser alone does not explain"

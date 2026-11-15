@@ -5,7 +5,7 @@
  "question": "does each narrowed fix lower the words a native listener hears said wrong, without lowering how much the voice resembles the speaker",
  "sentences": {
   "file": "eval/manifests/frontend_listening_v2.json",
-  "sha256": "4c95e9c0bfed355559db1025ddea3cb72b6ee41f34528653f4e33c98f00713e4",
+  "sha256": "337e04c9cd9e635a38856b5657b496957719d786ac380baa818631f9671923c8",
   "count": 12,
   "words": 242,
   "written": "2026-10-03, before any front-end ran on them; v01 is the sentence the errors were heard on. Each holds one or two of HomoRich's homographs - 23 in all, every one told apart by its first vowel - and a noun or adjective right before an adverb",
@@ -77,7 +77,7 @@
    "kernel_version": 1,
    "when": "2026-10-03 20:12-20:29 UTC",
    "outcome": "no render: every gate before the renders passed and all 48 texts went through the app's pipeline with no mark lost, then the render script stopped before the engine loaded - it made the texts path relative to the repository and was given one already relative (ValueError). Nothing was heard or scored from it",
-   "fix": "scripts/render_frontend_conditions.py resolves its paths first (bfd6405), with tests/test_render_frontend_conditions.py running it on a relative path up to a stubbed engine. Uploading that to the code dataset hung twice from this Mac, so kernel version 2 runs the dataset as it was (e1d96e4) and passes the texts path absolute, which that script handles; texts, rules and settings unchanged"
+   "fix": "scripts/render_frontend_conditions.py resolves its paths first (5ae785d), with tests/test_render_frontend_conditions.py running it on a relative path up to a stubbed engine. Uploading that to the code dataset hung twice from this Mac, so kernel version 2 runs the dataset as it was (5f1cc6e) and passes the texts path absolute, which that script handles; texts, rules and settings unchanged"
   }
  ],
  "result": {

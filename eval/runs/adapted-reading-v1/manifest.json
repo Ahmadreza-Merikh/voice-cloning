@@ -3,7 +3,7 @@
  "purpose": "the adapted reading check: the same text read by three sets of OmniVoice weights",
  "texts": {
   "file": "eval/runs/adapted-reading-v1/texts.json",
-  "sentences_sha256": "055eaefafebf2b46211222fd181ea610eb5c7114ca194a9444a9b10b79a83098"
+  "sentences_sha256": "481c11ccaca638fe74811b0a31fabea83a195a77f916ccaf769feaee40ea7c97"
  },
  "settings": {
   "P": {

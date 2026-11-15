@@ -4,7 +4,7 @@
  "why": "the errors left after steps 1-4 are the model's own guesses: an ezafe it adds where the text has none (باران, پیرمرد, حیاط, دیوار in the روی check; the earlier تعاملات معمولاً) and short vowels inside ordinary words (طاقچه, نیمکت, بشقابش, زانویش, می‌نشیند, پنجهٔ). The text side has no better source: no vowel source beats the model's own 96% (FINDINGS section 14) and the sukun failed twice (sections 15, 17). The adaptation - the official recipe's 5,000 steps on 128 h of Persian - was measured by similarity and CER only (section 12), and CER cannot see short vowels or the ezafe; nobody has listened to how it reads. On the development set its CER fell with every 1,000 steps (-0.05 points at 1,000 to -1.03 at 5,000)",
  "sentences": {
   "file": "eval/manifests/adapted_reading_v1.json",
-  "sha256": "055eaefafebf2b46211222fd181ea610eb5c7114ca194a9444a9b10b79a83098",
+  "sha256": "481c11ccaca638fe74811b0a31fabea83a195a77f916ccaf769feaee40ea7c97",
   "count": 12,
   "words": 114,
   "written": "2026-10-24: everyday sentences, each with words after which no ezafe belongs but another word follows (19 in all), ordinary words whose short vowels plain script does not show (17), and two silent-h ezafes (هٔ); listed per sentence in the file. Five of HomoRich's homographs occur in passing (ده, کرد twice, روی twice, اره, کیف) and get the app's marks like any other text",
@@ -38,7 +38,7 @@
   "A5": "the adapted float16 export at step 5,000 (train-c's output), the end of the recipe; never measured on the sealed sets; its sha256 is recorded in this run"
  },
  "text": "every form reads the same text, written once on this Mac: what the app sends OmniVoice today at its default settings - the tagger's ezafe, none on روی, Homo-GE2PE's first vowels on HomoRich's homographs less به. The weights are the only difference",
- "rendering": "one Kaggle T4 x2 session on step 3's code dataset (e1d96e4), the texts written by the notebook itself: scripts/render_frontend_conditions.py once per form with --cer --app-normaliser, seed 42, mana_000.wav, the engine's weights set through VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID as in the development and test sessions; 12 x 3 = 36 renders, CER after each form's engine is released. Held-out similarity after, on this Mac, against mana_001-004",
+ "rendering": "one Kaggle T4 x2 session on step 3's code dataset (5f1cc6e), the texts written by the notebook itself: scripts/render_frontend_conditions.py once per form with --cer --app-normaliser, seed 42, mana_000.wav, the engine's weights set through VOICECLONE__ENGINES__OMNIVOICE__MODEL_ID as in the development and test sessions; 12 x 3 = 36 renders, CER after each form's engine is released. Held-out similarity after, on this Mac, against mana_001-004",
  "review": "as step 3: the plain sentence, three readings in Latin-square slots (each form four times in each slot), loudness matched, the key off the page; words to tap, a note, the better reading",
  "decision_rule": {
   "primary": "the words marked wrong in each form, of 114, summed over every listener who answers all 12 sentences",
@@ -53,9 +53,9 @@
   "v1": {
    "kernel": "marsmanam/persian-voice-adapted-reading-run, version 1",
    "pushed": "2026-10-24 07:39:36 UTC; status read RUNNING right after",
-   "built_from": "dc9fabd; the dataset's code (e1d96e4) checked on this Mac first: all 36 texts reach the model with every mark and nothing else changed",
+   "built_from": "1f2d9da; the dataset's code (5f1cc6e) checked on this Mac first: all 36 texts reach the model with every mark and nothing else changed",
    "ended": "COMPLETE, read at 07:50:05 UTC: about ten minutes on the T4 pair",
-   "gates": "runner, code (e1d96e4), download (the base, 3.04 GiB), weights, renders-P, renders-A1, renders-A5 - all passed; 12 renders scored per form, the weights each run reported the ones it was given, no other change to any text by the app",
+   "gates": "runner, code (5f1cc6e), download (the base, 3.04 GiB), weights, renders-P, renders-A1, renders-A5 - all passed; 12 renders scored per form, the weights each run reported the ones it was given, no other change to any text by the app",
    "weights": {
     "A1": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-a/run/export-1000-float16, model.safetensors sha256 9c453a74e9eab8324c27e039b9bdc052cd8d6721cecbb20df53c919a0e6ba39a - the sealed test's",
     "A5": "/kaggle/input/notebooks/marsmanam/persian-voice-omnivoice-train-c/run/export-5000-float16, model.safetensors sha256 58fb959bdae7ed4fdd7582e12893a4a6cef690b2d97e46554712e4f1ae8ae90a - recorded here first"
@@ -70,7 +70,7 @@
   "answers": "saved by the page itself (reviews, one document at version 185), read after the listening was finished (eval/runs/evidence/adapted-review-v1/answers-listener-1.json)"
  },
  "result": {
-  "when": "2026-10-24; read by scripts/read_adapted_reading.py (eabcc6b), written before anyone listened",
+  "when": "2026-10-24; read by scripts/read_adapted_reading.py (b4a825b), written before anyone listened",
   "words_marked_wrong_of_114": {
    "P": 15,
    "A1": 12,

@@ -4,7 +4,7 @@
  "created": "2026-10-04T09:04:44+00:00",
  "texts": {
   "file": "eval/runs/frontend-listening-v2/texts.json",
-  "sentences_sha256": "4c95e9c0bfed355559db1025ddea3cb72b6ee41f34528653f4e33c98f00713e4"
+  "sentences_sha256": "337e04c9cd9e635a38856b5657b496957719d786ac380baa818631f9671923c8"
  },
  "settings": {
   "seed": 42,

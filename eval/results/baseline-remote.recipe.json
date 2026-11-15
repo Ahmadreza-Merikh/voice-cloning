@@ -96,7 +96,7 @@
       "label": "baseline",
       "note": "the renders were produced by that run; this one only re-scored them",
       "recipe": "baseline.recipe.json",
-      "recipe_sha256": "3bd2c9e921509f47d72c0a75812a5d2f15d990836b751cc532e2fd3606af3d30"
+      "recipe_sha256": "5ee75e53c34d3053fd0c6f9cabad7193bcea83f609924a08032c1c50387208f7"
     },
     "reported_by_every_render": {},
     "reported_per_cell": [],

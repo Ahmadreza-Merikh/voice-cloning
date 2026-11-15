@@ -4,7 +4,7 @@
  "why": "in step 3 روی with the app's written ezafe was marked wrong in 11 of 12 readings across three sentences, in every form; the listener noted it said royi. In step 2 the one رویِ was heard right. No plain form was rendered in step 3, so whether the kasra causes it is open",
  "sentences": {
   "file": "eval/manifests/rui_check_v1.json",
-  "sha256": "bf4e0ed995d163aefdf0b2a43dccadaa3d9259c2b1238faa335e45f5b3419af7",
+  "sha256": "b18a9df92069ce2029a1b6e2e54d4c837fcf5871d0ff1e6f4277041e9337f7c1",
   "count": 10,
   "rui": 12,
   "words": 114,

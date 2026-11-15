@@ -1,7 +1,7 @@
 {
  "sentences_file": "eval/manifests/xtts_news_v1.json",
- "sentences_sha256": "38ad5ec51fd3615ca9f4fc78e2030f17b4bf04566462b03df45b0255d5fe7d75",
- "code_commit": "a05570d",
+ "sentences_sha256": "c065124a2f919ea43e7531958c0e3963734575b53aff191c7afeb84a8fa0917c",
+ "code_commit": "69e0365",
  "conditions": {
   "O": "the app today: OmniVoice with A1 reading the app's text"
  },

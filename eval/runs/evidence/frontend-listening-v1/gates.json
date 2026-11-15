@@ -5,7 +5,7 @@
   },
   "code": {
     "passed": true,
-    "reason": "the render script, the marks and the registered texts are present; code from d6eedfc"
+    "reason": "the render script, the marks and the registered texts are present; code from 390c98d"
   },
   "download": {
     "passed": true,
